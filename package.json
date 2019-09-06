@@ -1,0 +1,85 @@
+{
+  "private": true,
+  "scripts": {
+    "docs:import": "markdown-source-import \"{,!(node_modules)/**/}*.md\"",
+    "package:build": "npm run docs:import && zeroconfig-package-scripts build",
+    "package:publish": "zeroconfig-package-scripts publish",
+    "package:validate": "zeroconfig-package-scripts list && zeroconfig-package-scripts validate",
+    "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
+    "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
+    "start": "npm run storybook:start",
+    "test": "jest --colors",
+    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\" && tslint \"src/**/*.{ts,tsx}\""
+  },
+  "jest": {
+    "preset": "react-zeroconfig"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "markdown-source-import \"{,!(node_modules)/**/}*.md\" --git-add && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,mjs}": [
+      "eslint",
+      "jest --colors --findRelatedTests"
+    ],
+    "src/**/*.{ts,tsx}": [
+      "eslint",
+      "tslint",
+      "jest --colors --findRelatedTests"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "eslintIgnore": [
+    "src/**/public/*",
+    "src/**/*.d.ts"
+  ],
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "cornerstone-core": "^2.3.0",
+    "cornerstone-wado-image-loader": "^2.2.3",
+    "dicom-parser": "^1.8.3",
+    "rxjs": "^6.5.2",
+    "point-in-polygon": "^1.0.1",
+    "polylabel": "^1.0.2",
+    "styled-components": "^4.3.2",
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
+    "use-resize-observer": "^4.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-knobs": "^5.1.11",
+    "@storybook/addon-storysource": "^5.1.11",
+    "@storybook/react": "^5.1.11",
+    "@storybook/theming": "^5.1.11",
+    "@types/eslint": "^6.1.1",
+    "@types/jest": "^24.0.18",
+    "@types/point-in-polygon": "^1.0.0",
+    "@types/polylabel": "^1.0.5",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/storybook__react": "^4.0.2",
+    "@types/styled-components": "^4.1.18",
+    "eslint": "^6.2.2",
+    "eslint-config-react-app": "^5.0.1",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
+    "markdown-source-import": "^1.2.0",
+    "node-fetch": "^2.6.0",
+    "react-zeroconfig": "^3.15.0",
+    "tslint": "^5.19.0",
+    "tslint-ssen-rules": "^1.3.0"
+  }
+}

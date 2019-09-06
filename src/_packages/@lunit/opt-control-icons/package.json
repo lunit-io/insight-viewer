@@ -1,0 +1,20 @@
+{
+  "name": "@lunit/opt-control-icons",
+  "version": "1.0.0",
+  "description": "OPT Icons",
+  "author": {
+    "name": "Seoyeon Lee",
+    "email": "seoyeon.lee@lunit.io"
+  },
+  "repository": "lunit-io/opt-tool-frontend",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "react": ">=16.8.0",
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1"
+  }
+}

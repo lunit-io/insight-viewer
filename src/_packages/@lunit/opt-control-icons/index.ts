@@ -1,0 +1,22 @@
+import { SvgIcon } from '@material-ui/core';
+import createSvgIcon from '@material-ui/icons/utils/createSvgIcon';
+import { ComponentType, createElement } from 'react';
+import { ReactComponent as Adjust } from './assets/ico-adjust.svg';
+import { ReactComponent as Flip } from './assets/ico-flip.svg';
+import { ReactComponent as Invert } from './assets/ico-invert.svg';
+import { ReactComponent as Magnify } from './assets/ico-magnify.svg';
+import { ReactComponent as Pan } from './assets/ico-pan.svg';
+import { ReactComponent as Pen } from './assets/ico-pen.svg';
+import { ReactComponent as Reset } from './assets/ico-reset.svg';
+
+function toMaterialIcon(Icon: ComponentType): typeof SvgIcon {
+  return createSvgIcon(createElement(Icon), Icon.displayName || 'OPTControlIcon');
+}
+
+export const AdjustIcon = toMaterialIcon(Adjust);
+export const FlipIcon = toMaterialIcon(Flip);
+export const InvertIcon = toMaterialIcon(Invert);
+export const MagnifyIcon = toMaterialIcon(Magnify);
+export const PanIcon = toMaterialIcon(Pan);
+export const PenIcon = toMaterialIcon(Pen);
+export const ResetIcon = toMaterialIcon(Reset);

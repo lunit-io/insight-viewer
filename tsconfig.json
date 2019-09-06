@@ -1,0 +1,18 @@
+{
+  "extends": "react-zeroconfig/tsconfig",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "*": [
+        "_packages/*",
+        "*"
+      ]
+    }
+  },
+  "exclude": [
+    ".dev",
+    "dist",
+    "node_modules",
+    "*.js"
+  ]
+}

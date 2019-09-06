@@ -1,0 +1,12 @@
+{
+  "extends": "tslint-ssen-rules",
+  "rules": {
+    "typedef": [
+      true,
+      "parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ],
+    "no-bitwise": false
+  }
+}

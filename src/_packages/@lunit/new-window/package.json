@@ -1,0 +1,18 @@
+{
+  "name": "@lunit/new-window",
+  "version": "1.0.1",
+  "description": "New Window Component",
+  "author": {
+    "name": "Seoyeon Lee",
+    "email": "seoyeon.lee@lunit.io"
+  },
+  "repository": "lunit-io/opt-tool-frontend",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "react": ">=16.8.0"
+  }
+}
