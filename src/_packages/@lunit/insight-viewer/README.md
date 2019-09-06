@@ -278,7 +278,6 @@ import {
   unloadWADOImage,
   useInsightViewerSync,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -323,7 +322,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -354,7 +352,6 @@ import {
   UserContourViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -445,7 +442,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -476,7 +472,6 @@ import {
   useInsightViewerSync,
   useProgressViewersActivity,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { CSSProperties } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -557,7 +552,6 @@ function Component({image}: {image: CornerstoneImage}) {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [300, 200, 500],
     height: [400, 300, 600],
@@ -588,7 +582,6 @@ import {
   UserContourViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { useState } from 'react';
 import { withSeriesImageController } from './decorators/withSeriesImageController';
@@ -677,7 +670,6 @@ function Component() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -708,7 +700,6 @@ import {
   UserContourViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -796,7 +787,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -826,7 +816,6 @@ import {
   UserContourCanvasViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -919,7 +908,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -949,7 +937,6 @@ import {
   UserContourViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -1061,7 +1048,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1087,7 +1073,6 @@ import {
   unloadWADOImage,
   useInsightViewerSync,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import useResizeObserver from 'use-resize-observer';
@@ -1128,7 +1113,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .add('useResizeObserver', () => <Sample/>);
 ```
 
@@ -1153,7 +1137,6 @@ import {
   useUserContour,
   useViewportMirroring,
 } from '@lunit/insight-viewer';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { RefObject, useRef, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1291,7 +1274,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
-  .addDecorator(withOptTheme)
   .addDecorator(withTestController({
     width: [300, 200, 500],
     height: [400, 300, 600],

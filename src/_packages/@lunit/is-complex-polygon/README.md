@@ -32,7 +32,6 @@ import {
   UserContourDrawer,
 } from '@lunit/insight-viewer';
 import { isComplexPolygon } from '@lunit/is-complex-polygon';
-import { withOptTheme } from '@lunit/opt-theme';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, useCallback, useState } from 'react';
 
@@ -103,7 +102,6 @@ function Sample() {
 }
 
 storiesOf('in-complex-polygon', module)
-  .addDecorator(withOptTheme)
   .add('isComplexPolygon()', () => <Sample/>);
 ```
 

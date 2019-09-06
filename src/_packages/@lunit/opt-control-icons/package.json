@@ -1,12 +1,12 @@
 {
   "name": "@lunit/opt-control-icons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OPT Icons",
   "author": {
     "name": "Seoyeon Lee",
     "email": "seoyeon.lee@lunit.io"
   },
-  "repository": "lunit-io/opt-tool-frontend",
+  "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

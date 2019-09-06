@@ -1,12 +1,12 @@
 {
   "name": "@lunit/new-window",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "New Window Component",
   "author": {
     "name": "Seoyeon Lee",
     "email": "seoyeon.lee@lunit.io"
   },
-  "repository": "lunit-io/opt-tool-frontend",
+  "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

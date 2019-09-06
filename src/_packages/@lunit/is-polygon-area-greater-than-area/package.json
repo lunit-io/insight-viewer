@@ -1,12 +1,12 @@
 {
   "name": "@lunit/is-polygon-area-greater-than-area",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Test is polygon area greater than area",
   "author": {
     "name": "Seoyeon Lee",
     "email": "seoyeon.lee@lunit.io"
   },
-  "repository": "lunit-io/opt-tool-frontend",
+  "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

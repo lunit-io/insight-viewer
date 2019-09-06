@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "dcm viewer component library",
   "keywords": [
     "dicom",
@@ -12,7 +12,7 @@
     "name": "Seoyeon Lee",
     "email": "seoyeon.lee@lunit.io"
   },
-  "repository": "lunit-io/opt-tool-frontend",
+  "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

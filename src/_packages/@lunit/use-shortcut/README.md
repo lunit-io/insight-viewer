@@ -36,7 +36,6 @@ useShortcut({
 
 
 ```tsx
-import { withOptTheme } from '@lunit/opt-theme';
 import { useShortcut } from '@lunit/use-shortcut';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, useState } from 'react';
@@ -68,7 +67,6 @@ function Sample() {
 }
 
 storiesOf('use-shortcut', module)
-  .addDecorator(withOptTheme)
   .add('useShortcut()', () => <Sample/>);
 
 ```
