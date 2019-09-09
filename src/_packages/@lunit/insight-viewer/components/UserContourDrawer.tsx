@@ -29,8 +29,8 @@ function toLocal(element: HTMLElement, polygon: Point[]): string {
 }
 
 export class UserContourDrawer extends Component<UserContourDrawerProps, UserContourDrawerState> {
-  private svg!: SVGSVGElement;
-  private element!: HTMLElement;
+  private svg: SVGSVGElement | null = null;
+  private element: HTMLElement | null = null;
   private focused: Contour | null = null;
   private preventClickEvent: boolean = false;
   private startX: number = 0;
@@ -126,12 +126,14 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
   // initial events
   // ---------------------------------------------
   activateInitialEvents = () => {
+    if (!this.element) return;
     this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
     this.element.addEventListener('click', this.onMouseClickToRemove);
   };
   
   deactivateInitialEvents = () => {
+    if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.removeEventListener('mousedown', this.onMouseDownToStartDraw);
     this.element.removeEventListener('click', this.onMouseClickToRemove);
@@ -191,12 +193,14 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
   };
   
   activateDrawEvents = () => {
+    if (!this.element) return;
     this.element.addEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.addEventListener('mouseup', this.onMouseUpToEndDraw);
     this.element.addEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
   };
   
   deactivateDrawEvents = () => {
+    if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.removeEventListener('mouseup', this.onMouseUpToEndDraw);
     this.element.removeEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
@@ -226,15 +230,15 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
   onMouseUpToEndDraw = (event: MouseEvent) => {
     event.stopPropagation();
     
+    this.deactivateDrawEvents();
+    this.activateInitialEvents();
+    
     this.props.onAdd(this.state.polygon, event);
     
     this.setState(prevState => ({
       ...prevState,
       polygon: [],
     }));
-    
-    this.deactivateDrawEvents();
-    this.activateInitialEvents();
   };
   
   onMouseLeaveToCancelDraw = (event: MouseEvent) => {
@@ -244,13 +248,13 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
   };
   
   cancelDraw = () => {
+    this.deactivateDrawEvents();
+    this.activateInitialEvents();
+    
     this.setState(prevState => ({
       ...prevState,
       polygon: [],
     }));
-    
-    this.deactivateDrawEvents();
-    this.activateInitialEvents();
   };
 }
 

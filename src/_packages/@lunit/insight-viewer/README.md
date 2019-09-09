@@ -1294,6 +1294,11 @@ storiesOf('insight-viewer', module)
 
 # Changelog
 
+## 2.1.7
+### Fixed
+- `UserContourDrawer`의 `componentWillUnmount()`에 의한 Event deactivation이 `mouseup` Event에 의해 취소되는 Event 순서 문제 해결
+- `UserContourDrawer`에서 `null` 가능성 배제 코드 제거
+
 ## 2.1.4
 ### Fixed
 - `CornerstoneSeriesImage`의 이미지 순서가 뒤섞이는 문제 해결

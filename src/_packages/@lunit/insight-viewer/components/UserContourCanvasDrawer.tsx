@@ -29,8 +29,8 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
     canvasFillStyle: 'rgba(255,224,0, 0.2)',
   };
   
-  private canvas!: HTMLCanvasElement;
-  private element!: HTMLElement;
+  private canvas: HTMLCanvasElement | null = null;
+  private element: HTMLElement | null = null;
   private ctx!: CanvasRenderingContext2D;
   private polygon: Point[] = [];
   private focused: Contour | null = null;
@@ -105,8 +105,10 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
     }
   }
   
-  getElement = ({draw}: Readonly<UserContourCanvasDrawerProps>): HTMLElement => {
-    return draw instanceof HTMLElement ? draw : this.canvas;
+  getElement = ({draw}: Readonly<UserContourCanvasDrawerProps>): HTMLElement | null => {
+    if (draw instanceof HTMLElement) return draw;
+    if (this.canvas) return this.canvas;
+    return null;
   };
   
   canActivate = ({draw}: Readonly<UserContourCanvasDrawerProps>) => {
@@ -117,12 +119,14 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
   // initial events
   // ---------------------------------------------
   activateInitialEvents = () => {
+    if (!this.element) return;
     this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
     this.element.addEventListener('click', this.onMouseClickToRemove);
   };
   
   deactivateInitialEvents = () => {
+    if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.removeEventListener('mousedown', this.onMouseDownToStartDraw);
     this.element.removeEventListener('click', this.onMouseClickToRemove);
@@ -178,12 +182,14 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
   };
   
   activateDrawEvents = () => {
+    if (!this.element) return;
     this.element.addEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.addEventListener('mouseup', this.onMouseUpToEndDraw);
     this.element.addEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
   };
   
   deactivateDrawEvents = () => {
+    if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.removeEventListener('mouseup', this.onMouseUpToEndDraw);
     this.element.removeEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
@@ -212,13 +218,13 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
   onMouseUpToEndDraw = (event: MouseEvent) => {
     event.stopPropagation();
     
+    this.deactivateDrawEvents();
+    this.activateInitialEvents();
+    
     cleanCanvas(this.ctx!, this.props.width, this.props.height);
     
     this.props.onAdd(this.polygon, event);
     this.polygon = [];
-    
-    this.deactivateDrawEvents();
-    this.activateInitialEvents();
   };
   
   onMouseLeaveToCancelDraw = (event: MouseEvent) => {
