@@ -66,6 +66,7 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
     if (this.options && typeof this.options.unload === 'function') {
       this.options.unload(this.imageIds);
     }
+    this._imageSubject.unsubscribe();
   };
   
   get image(): Observable<Image | null> {
@@ -108,6 +109,7 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
     // 해당 image가 load 되었으면 보여준다
     if (this._images[index]) {
       this._imageSubject.next(this._images[index]);
+      return;
     }
     
     // load되지 않은 image를 보려하는 경우 가까운 index의 이미지를 먼저 보여준다

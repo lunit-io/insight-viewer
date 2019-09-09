@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "2.1.3",
+  "version": "2.1.6",
   "description": "dcm viewer component library",
   "keywords": [
     "dicom",

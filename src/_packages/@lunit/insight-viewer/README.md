@@ -1294,6 +1294,10 @@ storiesOf('insight-viewer', module)
 
 # Changelog
 
+## 2.1.4
+### Fixed
+- `CornerstoneSeriesImage`의 이미지 순서가 뒤섞이는 문제 해결
+
 ## 2.1.2
 ### Added
 - `useUserContour({ nextId?: number | RefObject<number> })` 옵션 추가
