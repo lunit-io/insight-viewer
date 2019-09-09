@@ -6,7 +6,8 @@ import { Contour, Point } from '../types';
 export interface ContourDrawingState {
   contours: Contour[];
   focusedContour: Contour | null;
-  addContour: (polygon: Point[], confidenceLevel: number) => Contour | null;
+  addContour: (polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string) => Contour | null;
+  addContours: (contours: Omit<Contour, 'id'>[]) => void;
   focusContour: (contour: Contour | null) => void;
   updateContour: (contour: Contour, patch: Partial<Contour>) => void;
   removeContour: (contour: Contour) => void;
@@ -14,13 +15,29 @@ export interface ContourDrawingState {
 }
 
 // <UserContourDrawer>, <UserContourViewer>를 사용하기 위한 helper
-export function useUserContour({nextId}: {nextId?: number | RefObject<number>} = {}): ContourDrawingState {
+export function useUserContour({nextId, initialContours}: {nextId?: number | RefObject<number>, initialContours?: Omit<Contour, 'id'>[]} = {}): ContourDrawingState {
   // 사용자가 그린 contour list
-  const [contours, setContours] = useState<Contour[]>([]);
+  const [contours, setContours] = useState<Contour[]>(() => {
+    if (initialContours) {
+      const startId: number = typeof nextId === 'number'
+        ? nextId
+        : nextId && typeof nextId.current === 'number'
+          ? nextId.current
+          : 1;
+      
+      return initialContours.map((addedContour, i) => {
+        return {
+          ...addedContour,
+          id: startId + i,
+        };
+      });
+    }
+    return [];
+  });
   // mouse hover에 의해서 focus된 contour
   const [focusedContour, setFocusedContour] = useState<Contour | null>(null);
   
-  const addContour = useCallback((polygon: Point[], confidenceLevel: number): Contour | null => {
+  const addContour = useCallback((polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string): Contour | null => {
     if (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon)) return null;
     
     const contour: Contour = {
@@ -31,6 +48,7 @@ export function useUserContour({nextId}: {nextId?: number | RefObject<number>} =
           : Math.max(...contours.map(({id}) => id), 0) + 1,
       polygon,
       confidenceLevel,
+      label,
     };
     
     setContours(prevContours => {
@@ -41,6 +59,26 @@ export function useUserContour({nextId}: {nextId?: number | RefObject<number>} =
     });
     
     return contour;
+  }, [contours, nextId]);
+  
+  const addContours = useCallback((added: Omit<Contour, 'id'>[]) => {
+    const startId: number = typeof nextId === 'number'
+      ? nextId
+      : nextId && typeof nextId.current === 'number'
+        ? nextId.current
+        : Math.max(...contours.map(({id}) => id), 0) + 1;
+    
+    setContours(prevContours => {
+      return [
+        ...prevContours,
+        ...added.map((addedContour, i) => {
+          return {
+            ...addedContour,
+            id: startId + i,
+          };
+        }),
+      ];
+    });
   }, [contours, nextId]);
   
   const updateContour = useCallback((contour: Contour, patch: Partial<Omit<Contour, 'id'>>) => {
@@ -101,6 +139,7 @@ export function useUserContour({nextId}: {nextId?: number | RefObject<number>} =
   return {
     contours,
     addContour,
+    addContours,
     updateContour,
     removeContour,
     removeAllContours,

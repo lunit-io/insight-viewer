@@ -106,7 +106,7 @@ storiesOf('insight-viewer', module)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
-    control: ['pan', ['none', 'pen', 'pan', 'adjust']],
+    control: ['pen', ['none', 'pen', 'pan', 'adjust']],
     wheel: ['zoom', ['none', 'zoom']],
     flip: false,
     invert: false,

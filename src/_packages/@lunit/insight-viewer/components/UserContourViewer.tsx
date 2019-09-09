@@ -42,13 +42,21 @@ export class UserContourViewer extends Component<UserContourViewerProps, {}> {
             
             return (
               <Fragment key={'polygon' + contour.id}>
-                <polygon data-focused={focused || undefined}
+                <polygon data-id={contour.id}
+                         data-focused={focused || undefined}
                          points={polygon.map(([x, y]) => `${x},${y}`).join(' ')}/>
-                <text data-focused={focused || undefined}
+                <text data-id={contour.id}
+                      data-focused={focused || undefined}
                       fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
                       x={labelCenter[0]}
                       y={labelCenter[1]}>
-                  {contour.id}
+                  {
+                    contour.label
+                      ? typeof contour.label === 'function'
+                      ? contour.label(contour)
+                      : contour.label
+                      : contour.id
+                  }
                 </text>
               </Fragment>
             );

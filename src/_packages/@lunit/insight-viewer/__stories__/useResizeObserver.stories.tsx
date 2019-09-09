@@ -26,8 +26,6 @@ function Sample() {
   // <InsightViewer width={width} height={height}> 로 넘길 수 있다
   const [resizeRef, width, height] = useResizeObserver();
   
-  console.log('useResizeObserver.stories.tsx..Sample()', width, height);
-  
   return (
     <div ref={resizeRef} style={{width: '50vw', height: '80vh'}}>
       <InsightViewerContainer width={width} height={height}>
