@@ -1508,6 +1508,10 @@ storiesOf('insight-viewer', module)
 
 # Changelog
 
+## 2.1.9
+### Fixed
+- `useViewportMirroring`에서 오작동이 일어날 수 있는 `<InsightViewer>.updateViewport()`를 분할
+
 ## 2.1.8
 ### Added
 - `Contour.label` 추가 (입력된 경우 `Contour.id` 대신 출력됨)

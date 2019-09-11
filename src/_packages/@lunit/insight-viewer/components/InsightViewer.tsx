@@ -167,7 +167,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     if (defaultViewport) {
       if (prevProps.resetTime !== resetTime) {
         // resetTime이 새로 갱신되면 viewport를 defaultViewport를 사용해서 초기화 해준다
-        this.updateViewport({
+        this.updateCurrentViewport({
           ...defaultViewport,
           //...this.defaultViewport,
           hflip: flip,
@@ -177,7 +177,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
         // flip, invert는 resetTime의 부분 집합이기 때문에
         // resetTime에 의한 갱신이 없는 경우에만 적용한다
         if (prevProps.flip !== flip || prevProps.invert !== invert) {
-          this.updateViewport({
+          this.updateCurrentViewport({
             hflip: flip,
             invert: defaultViewport.invert ? !invert : invert,
           });
@@ -259,7 +259,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.teardownPanInteraction = startPanInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
-        onMove: (translation: Vec2) => this.updateViewport({translation}),
+        onMove: (translation: Vec2) => this.updateCurrentViewport({translation}),
         onEnd: () => {
           // DO NOTHING
         },
@@ -282,7 +282,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.teardownAdjustInteraction = startAdjustInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
-        onMove: (voi: VOI) => this.updateViewport({voi}),
+        onMove: (voi: VOI) => this.updateCurrentViewport({voi}),
         onEnd: () => {
           // DO NOTHING
         },
@@ -306,7 +306,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
         element,
         getMinMaxScale: () => [this.getMinScale(), this.getMaxScale()],
         getCurrentViewport: () => this.currentViewport!,
-        onZoom: patch => this.updateViewport(patch),
+        onZoom: patch => this.updateCurrentViewport(patch),
       });
     }
   };
@@ -336,7 +336,13 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
   // ---------------------------------------------
   // setters
   // ---------------------------------------------
-  setCornerstoneImage = (image: CornerstoneImage) => {
+  updateViewport = (patch: Partial<Viewport>) => {
+    if (this.currentViewport) {
+      this.updateCurrentViewport(patch);
+    }
+  };
+  
+  private setCornerstoneImage = (image: CornerstoneImage) => {
     this.needImageInitialize = true;
     
     this.setImage(null);
@@ -349,25 +355,25 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     this.imageSubscription = image.image.subscribe(this.subscribeImage);
   };
   
-  setImage = (image: Image | null) => {
+  private setImage = (image: Image | null) => {
     this.currentImage = image;
   };
   
-  setViewport = (viewport: Viewport) => {
+  private setViewport = (viewport: Viewport) => {
     this.currentViewport = viewport;
     setViewport(this.element, this.currentViewport);
   };
   
-  updateViewport = (patch: Partial<Viewport>) => {
+  private updateCurrentViewport = (patch: Partial<Viewport>) => {
     if (!this.currentViewport) {
       throw new Error('viewport가 없는 상태에서 실행되면 안된다');
     }
-    
+  
     this.currentViewport = {
       ...this.currentViewport,
       ...patch,
     };
-    
+  
     setViewport(this.element, this.currentViewport);
   };
 }
