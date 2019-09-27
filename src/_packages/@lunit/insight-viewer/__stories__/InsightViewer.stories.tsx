@@ -7,20 +7,20 @@ import {
   useInsightViewerSync,
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
 
 // cornerstoneWADOImageLoader 초기화
 installWADOImageLoader();
 
-// <InsightViewer resetTime={}>을 변경하면 Viewport 등 cornerstone-core 관련 속성들이 초기화 된다
-const resetTime: number = Date.now();
-
-// unload 옵션은 위에 선언된 installWADOImageLoader()와 함께 동작한다
-// CornerstoneImage 객체를 unload 할때 wado image loader의 unload 동작을 하게 된다
-const image: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage});
-
 function Sample() {
+  // <InsightViewer resetTime={}>을 변경하면 Viewport 등 cornerstone-core 관련 속성들이 초기화 된다
+  const resetTime: number = Date.now();
+  
+  // unload 옵션은 위에 선언된 installWADOImageLoader()와 함께 동작한다
+  // CornerstoneImage 객체를 unload 할때 wado image loader의 unload 동작을 하게 된다
+  const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+  
   // addDecorator(withTestController())의 값을 받는다
   const {
     width,

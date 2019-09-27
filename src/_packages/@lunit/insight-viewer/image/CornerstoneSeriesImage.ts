@@ -2,6 +2,7 @@ import { events, Image, loadImage } from 'cornerstone-core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CornerstoneBulkImage, getProgressEventDetail, ProgressEventDetail } from './types';
+import { wadoImageLoaderXHRLoader } from './wadoImageLoaderXHRLoader';
 
 function isImage(image: Image | null): image is Image {
   return image !== null;
@@ -10,6 +11,7 @@ function isImage(image: Image | null): image is Image {
 interface Options {
   unload?: (imageIds: string[]) => void;
   initialIndex?: number;
+  cancelTokenName?: string;
 }
 
 export class CornerstoneSeriesImage implements CornerstoneBulkImage {
@@ -17,6 +19,7 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
   private readonly _imageSubject: BehaviorSubject<Image | null>;
   private readonly _progressSubject: BehaviorSubject<number[]>;
   private readonly _indexSubject: BehaviorSubject<number>;
+  private readonly _cancel: (() => void)[] = [];
   
   constructor(private readonly imageIds: string[], private readonly options: Options = {}) {
     this._images = imageIds.map(() => null);
@@ -66,7 +69,10 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
     if (this.options && typeof this.options.unload === 'function') {
       this.options.unload(this.imageIds);
     }
+    
     this._imageSubject.unsubscribe();
+    
+    this._cancel.forEach(cancel => cancel());
   };
   
   get image(): Observable<Image | null> {
@@ -132,7 +138,8 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
   };
   
   private loadImage = async (imageId: string, index: number) => {
-    this._images[index] = await loadImage(imageId);
+    const promise = loadImage(imageId, {loader: wadoImageLoaderXHRLoader(cancel => this._cancel.push(cancel))});
+    this._images[index] = await promise;
     
     const nextProgress: number[] = [...this._progressSubject.getValue()];
     nextProgress[index] = 1;

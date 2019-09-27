@@ -39,13 +39,16 @@ export class UserContourViewer extends Component<UserContourViewerProps, {}> {
             const polygon: number[][] = toLocal(cornerstoneRenderData.element, contour.polygon);
             const labelCenter: number[] = polylabel([polygon], 1);
             const focused: boolean = contour === focusedContour;
+            const dataAttrs: {[attr: string]: string} = contour.dataAttrs || {};
             
             return (
               <Fragment key={'polygon' + contour.id}>
-                <polygon data-id={contour.id}
+                <polygon {...dataAttrs}
+                         data-id={contour.id}
                          data-focused={focused || undefined}
                          points={polygon.map(([x, y]) => `${x},${y}`).join(' ')}/>
-                <text data-id={contour.id}
+                <text {...dataAttrs}
+                      data-id={contour.id}
                       data-focused={focused || undefined}
                       fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
                       x={labelCenter[0]}

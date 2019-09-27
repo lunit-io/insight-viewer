@@ -15,4 +15,5 @@ export interface Contour extends ContourInfo {
   polygon: Point[];
   // 존재하는 경우 id 대신 출력된다
   label?: ((contour: Contour) => string) | string;
+  dataAttrs?: {[attr: string]: string};
 }

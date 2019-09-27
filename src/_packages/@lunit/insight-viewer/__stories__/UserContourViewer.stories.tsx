@@ -12,15 +12,15 @@ import {
   useUserContour,
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
 
 installWADOImageLoader();
 
-const resetTime: number = Date.now();
-const image: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage});
-
 function Sample() {
+  const resetTime: number = Date.now();
+  const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+  
   const {
     width,
     height,

@@ -13,17 +13,11 @@ import {
   useProgressViewersActivity,
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
 import series from './series.json';
 
 installWADOImageLoader();
-
-const resetTime: number = Date.now();
-const image1: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage});
-const image2: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000020.dcm`, {unload: unloadWADOImage});
-const image3: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000030.dcm`, {unload: unloadWADOImage});
-const image4: CornerstoneImage = new CornerstoneSeriesImage(series.map(p => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`), {unload: unloadWADOImage});
 
 function Sample() {
   // <ProgressCollector>는 하위의 <ProgressViewer>들의 상태를 수집한다
@@ -35,6 +29,11 @@ function Sample() {
 }
 
 function Container() {
+  const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+  const image2: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000020.dcm`, {unload: unloadWADOImage}), []);
+  const image3: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000030.dcm`, {unload: unloadWADOImage}), []);
+  const image4: CornerstoneImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
+  
   // <ProgressCollector>에서 수집한 정보를 얻을 수 있다
   const progressActivity: boolean = useProgressViewersActivity();
   // 혹은 <ProgressViewer>가 동작중일때 비활성을 처리할 Style을 만들 수 있다
@@ -60,6 +59,8 @@ function Container() {
 }
 
 function Component({image}: {image: CornerstoneImage}) {
+  const resetTime: number = Date.now();
+  
   const {
     width,
     height,

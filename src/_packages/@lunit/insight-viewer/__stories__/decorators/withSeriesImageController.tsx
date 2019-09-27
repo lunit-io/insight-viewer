@@ -1,5 +1,5 @@
 import { Box, Slider, Typography } from '@material-ui/core';
-import { StoryDecorator } from '@storybook/react';
+import { DecoratorFunction } from '@storybook/addons';
 import React, { createElement, isValidElement, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { CornerstoneBulkImage } from '../../image/types';
@@ -35,7 +35,8 @@ function Controller({image}: ControllerProps) {
   );
 }
 
-export const withSeriesImageController: (image: CornerstoneBulkImage) => StoryDecorator = image => storyFn => {
+//tslint:disable-next-line:no-any
+export const withSeriesImageController: (image: CornerstoneBulkImage) => DecoratorFunction<any> = image => storyFn => {
   const story = storyFn();
   
   return (

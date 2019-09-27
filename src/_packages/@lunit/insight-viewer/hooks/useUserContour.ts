@@ -6,7 +6,7 @@ import { Contour, Point } from '../types';
 export interface ContourDrawingState {
   contours: Contour[];
   focusedContour: Contour | null;
-  addContour: (polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string) => Contour | null;
+  addContour: (polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string, attrs?: {[attr: string]: string}) => Contour | null;
   addContours: (contours: Omit<Contour, 'id'>[]) => void;
   focusContour: (contour: Contour | null) => void;
   updateContour: (contour: Contour, patch: Partial<Contour>) => void;
@@ -37,8 +37,12 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
   // mouse hover에 의해서 focus된 contour
   const [focusedContour, setFocusedContour] = useState<Contour | null>(null);
   
-  const addContour = useCallback((polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string): Contour | null => {
+  const addContour = useCallback((polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string, dataAttrs?: {[attr: string]: string}): Contour | null => {
     if (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon)) return null;
+    
+    if (dataAttrs) {
+      validateDataAttrs(dataAttrs);
+    }
     
     const contour: Contour = {
       id: typeof nextId === 'number'
@@ -49,6 +53,7 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
       polygon,
       confidenceLevel,
       label,
+      dataAttrs,
     };
     
     setContours(prevContours => {
@@ -62,6 +67,12 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
   }, [contours, nextId]);
   
   const addContours = useCallback((added: Omit<Contour, 'id'>[]) => {
+    for (const contour of added) {
+      if (contour.dataAttrs) {
+        validateDataAttrs(contour.dataAttrs);
+      }
+    }
+    
     const startId: number = typeof nextId === 'number'
       ? nextId
       : nextId && typeof nextId.current === 'number'
@@ -83,6 +94,10 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
   
   const updateContour = useCallback((contour: Contour, patch: Partial<Omit<Contour, 'id'>>) => {
     if (patch.polygon && (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))) return;
+    
+    if (patch.dataAttrs) {
+      validateDataAttrs(patch.dataAttrs);
+    }
     
     const nextContour: Contour = {
       ...contour,
@@ -146,4 +161,14 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
     focusContour,
     focusedContour,
   };
+}
+
+function validateDataAttrs(dataAttrs?: {[attr: string]: string}) {
+  if (!dataAttrs) return;
+  
+  Object.keys(dataAttrs).forEach(attr => {
+    if (!/^data-/.test(attr)) {
+      throw new Error(`Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`);
+    }
+  });
 }

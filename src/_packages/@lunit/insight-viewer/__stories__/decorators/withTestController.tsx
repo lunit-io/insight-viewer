@@ -1,6 +1,6 @@
 import { Control } from '@lunit/use-opt-control';
 import { Box, FormControlLabel, Radio, RadioGroup, Slider, Switch, Typography } from '@material-ui/core';
-import { RenderFunction, StoryDecorator } from '@storybook/react';
+import { DecoratorFunction, StoryFn } from '@storybook/addons';
 import React, { Context, createContext, createElement, isValidElement, useContext, useState } from 'react';
 import styled from 'styled-components';
 
@@ -16,7 +16,8 @@ export interface ControllerOptions {
 }
 
 export interface ControllerProviderProps {
-  storyFn: RenderFunction;
+  //tslint:disable-next-line:no-any
+  storyFn: StoryFn<any>;
   options: ControllerOptions;
 }
 
@@ -173,7 +174,8 @@ function Controller() {
   );
 }
 
-export const withTestController: (options: ControllerOptions) => StoryDecorator = (options: ControllerOptions) => storyFn => {
+//tslint:disable-next-line:no-any
+export const withTestController: (options: ControllerOptions) => DecoratorFunction<any> = (options: ControllerOptions) => storyFn => {
   return (
     <ControllerProvider options={options} storyFn={storyFn}/>
   );
