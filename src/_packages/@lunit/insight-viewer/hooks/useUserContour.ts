@@ -15,7 +15,7 @@ export interface ContourDrawingState {
 }
 
 // <UserContourDrawer>, <UserContourViewer>를 사용하기 위한 helper
-export function useUserContour({nextId, initialContours}: {nextId?: number | RefObject<number>, initialContours?: Omit<Contour, 'id'>[]} = {}): ContourDrawingState {
+export function useUserContour({nextId, initialContours, mode = 'contour'}: {nextId?: number | RefObject<number>, initialContours?: Omit<Contour, 'id'>[], mode?: 'contour' | 'point' | 'circle'} = {}): ContourDrawingState {
   // 사용자가 그린 contour list
   const [contours, setContours] = useState<Contour[]>(() => {
     if (initialContours) {
@@ -38,7 +38,7 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
   const [focusedContour, setFocusedContour] = useState<Contour | null>(null);
   
   const addContour = useCallback((polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string, dataAttrs?: {[attr: string]: string}): Contour | null => {
-    if (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon)) return null;
+    if (mode === 'contour' && (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon))) return null;
     
     if (dataAttrs) {
       validateDataAttrs(dataAttrs);
@@ -93,7 +93,7 @@ export function useUserContour({nextId, initialContours}: {nextId?: number | Ref
   }, [contours, nextId]);
   
   const updateContour = useCallback((contour: Contour, patch: Partial<Omit<Contour, 'id'>>) => {
-    if (patch.polygon && (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))) return;
+    if (patch.polygon && mode === 'contour' && (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))) return;
     
     if (patch.dataAttrs) {
       validateDataAttrs(patch.dataAttrs);

@@ -8,6 +8,7 @@ export * from './components/UserContourDrawer';
 export * from './components/MachineHeatmapViewer';
 export * from './components/InsightViewerContainer';
 export * from './components/ProgressViewer';
+export * from './components/UserPointViewer';
 export * from './hooks/useBulkImageScroll';
 export * from './hooks/useImageProgress';
 export * from './hooks/useInsightViewerSync';

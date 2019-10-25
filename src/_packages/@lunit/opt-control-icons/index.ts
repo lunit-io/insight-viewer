@@ -9,6 +9,8 @@ import { ReactComponent as Magnify } from './assets/ico-magnify.svg';
 import { ReactComponent as Pan } from './assets/ico-pan.svg';
 import { ReactComponent as Pen } from './assets/ico-pen.svg';
 import { ReactComponent as Reset } from './assets/ico-reset.svg';
+import { ReactComponent as Contour } from './assets/ico-contour.svg';
+import { ReactComponent as Heatmap } from './assets/ico-heatmap.svg';
 
 function toMaterialIcon(Icon: ComponentType): typeof SvgIcon {
   return createSvgIcon(createElement(Icon), Icon.displayName || 'OPTControlIcon');
@@ -22,3 +24,5 @@ export const PanIcon = toMaterialIcon(Pan);
 export const PenIcon = toMaterialIcon(Pen);
 export const ResetIcon = toMaterialIcon(Reset);
 export const CircleIcon = toMaterialIcon(Circle);
+export const ContourIcon = toMaterialIcon(Contour);
+export const HeatmapIcon = toMaterialIcon(Heatmap);
