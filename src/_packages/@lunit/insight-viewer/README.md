@@ -269,6 +269,42 @@ unloadWADOImage(imageId: string | string[] | null)
 
 <!-- import **/*.stories.{ts,tsx} --title-tag h3 -->
 
+### \_\_stories\_\_/DCMViewer.stories.tsx
+
+
+```tsx
+import {
+  CornerstoneImage,
+  CornerstoneSingleImage,
+  installWADOImageLoader,
+  unloadWADOImage,
+} from '@lunit/insight-viewer';
+import { DCMImage } from '@lunit/insight-viewer/components/DCMImage';
+import { storiesOf } from '@storybook/react';
+import React from 'react';
+
+installWADOImageLoader();
+
+const image1: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage});
+const image2: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000011.dcm`, {unload: unloadWADOImage});
+const image3: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000012.dcm`, {unload: unloadWADOImage});
+const image4: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000013.dcm`, {unload: unloadWADOImage});
+
+storiesOf('insight-viewer', module)
+  .add('<DCMImage>', () => (
+    <ul>
+      {
+        [image1, image2, image3, image4].map((image, i) => (
+          <li key={'image' + i}>
+            <DCMImage cornerstoneImage={image} width={120} height={150}/>
+          </li>
+        ))
+      }
+    </ul>
+  ));
+```
+
+
 ### \_\_stories\_\_/InsightViewer.stories.tsx
 
 
@@ -290,7 +326,7 @@ installWADOImageLoader();
 
 function Sample() {
   // <InsightViewer resetTime={}>을 변경하면 Viewport 등 cornerstone-core 관련 속성들이 초기화 된다
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   
   // unload 옵션은 위에 선언된 installWADOImageLoader()와 함께 동작한다
   // CornerstoneImage 객체를 unload 할때 wado image loader의 unload 동작을 하게 된다
@@ -365,7 +401,7 @@ const {engine_result: {engine_result: {pos_map: posMap}}} = data;
 installWADOImageLoader();
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -522,7 +558,7 @@ function Container() {
 }
 
 function Component({image}: {image: CornerstoneImage}) {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   
   const {
     width,
@@ -580,7 +616,8 @@ import {
   installWADOImageLoader,
   ProgressViewer,
   unloadWADOImage,
-  useBulkImageScroll, useImageProgress,
+  useBulkImageScroll,
+  useImageProgress,
   useInsightViewerSync,
   UserContourDrawer,
   UserContourViewer,
@@ -588,15 +625,13 @@ import {
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
-import { withSeriesImageController } from './decorators/withSeriesImageController';
 import { useController, withTestController } from './decorators/withTestController';
 import series from './series.json';
 
 installWADOImageLoader();
 
-const resetTime: number = Date.now();
-
 function Component() {
+  const resetTime: number = useMemo(() => Date.now(), []);
   // CornerstoneSeriesImage는 여러장의 dcm 이미지를 받는다
   const image: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
   
@@ -698,6 +733,124 @@ storiesOf('insight-viewer', module)
 ```
 
 
+### \_\_stories\_\_/UserCircleViewer.stories.tsx
+
+
+```tsx
+import {
+  CornerstoneImage,
+  CornerstoneSingleImage,
+  InsightViewer,
+  InsightViewerContainer,
+  installWADOImageLoader,
+  ProgressViewer,
+  unloadWADOImage,
+  useInsightViewerSync,
+  UserCircleDrawer,
+  UserCircleViewer,
+  useUserContour,
+} from '@lunit/insight-viewer';
+import { storiesOf } from '@storybook/react';
+import React, { useMemo, useState } from 'react';
+import { useController, withTestController } from './decorators/withTestController';
+
+installWADOImageLoader();
+
+function Sample() {
+  const resetTime: number = useMemo(() => Date.now(), []);
+  const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+  
+  const {
+    width,
+    height,
+    control,
+    wheel,
+    invert,
+    flip,
+  } = useController();
+  
+  // pan, adjust, zoom은
+  // pan={true}로 설정하면 내부 Element를 사용해서 MouseEvent를 처리하게 되고,
+  // pan={HTMLElement}로 설정하면 해당 Element를 사용해서 MouseEvent를 처리하게 된다.
+  // MouseEvent를 처리하는 Layer가 여러개 중첩될 때, 하위 Layer의 MouseEvent가 막히는 현상을 해결해준다.
+  const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
+  
+  // <InsightViewer> 내부의 Canvas Render를 외부의 다른 Component들에 동기화 시키기 위한 Hook
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
+  
+  // Annotation (사용자 Contour)를 다루기 위한 Hook
+  const {
+    contours,
+    focusedContour,
+    addContour,
+    removeContour,
+    focusContour,
+  } = useUserContour({
+    mode: 'circle',
+  });
+  
+  return (
+    <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
+      <InsightViewer width={width}
+                     height={height}
+                     invert={invert}
+                     flip={flip}
+                     pan={control === 'pan' && interactionElement}
+                     adjust={control === 'adjust' && interactionElement}
+                     zoom={wheel === 'zoom' && interactionElement}
+                     resetTime={resetTime}
+                     image={image}
+                     updateCornerstoneRenderData={updateCornerstoneRenderData}/>
+      {
+        // 사용자가 그린 Annotation을 보여준다
+        // contours가 있는 경우에만 출력
+        contours &&
+        contours.length > 0 &&
+        cornerstoneRenderData &&
+        <UserCircleViewer width={width}
+                          height={height}
+                          contours={contours}
+                          focusedContour={focusedContour}
+                          cornerstoneRenderData={cornerstoneRenderData}/>
+      }
+      {
+        // Annotation을 그리고, 지우게 해준다
+        // control === 'pen' 인 경우에만 출력
+        contours &&
+        cornerstoneRenderData &&
+        control === 'pen' &&
+        <UserCircleDrawer width={width}
+                          height={height}
+                          contours={contours}
+                          draw={control === 'pen' && interactionElement}
+                          onFocus={focusContour}
+                          onAdd={contour => addContour(contour, 0)}
+                          onRemove={removeContour}
+                          cornerstoneRenderData={cornerstoneRenderData}/>
+      }
+      <ProgressViewer image={image}
+                      width={width}
+                      height={height}/>
+    </InsightViewerContainer>
+  );
+}
+
+storiesOf('insight-viewer', module)
+  .addDecorator(withTestController({
+    width: [600, 400, 1000],
+    height: [700, 400, 1000],
+    control: ['pen', ['none', 'pen', 'pan', 'adjust']],
+    wheel: ['zoom', ['none', 'zoom']],
+    flip: false,
+    invert: false,
+  }))
+  .add('<UserCircleViewer>', () => <Sample/>);
+```
+
+
 ### \_\_stories\_\_/UserContourViewer.stories.tsx
 
 
@@ -722,7 +875,7 @@ import { useController, withTestController } from './decorators/withTestControll
 installWADOImageLoader();
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -838,7 +991,7 @@ import { useController, withTestController } from './decorators/withTestControll
 installWADOImageLoader();
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -1065,7 +1218,7 @@ const Drawer = styled(UserContourDrawer)`
 `;
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -1288,7 +1441,7 @@ const Drawer = styled(UserContourDrawer)`
 `;
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -1428,7 +1581,7 @@ const Drawer = styled(UserContourDrawer)`
 `;
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -1532,7 +1685,7 @@ import useResizeObserver from 'use-resize-observer';
 installWADOImageLoader();
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -1609,9 +1762,8 @@ const initialContours: Omit<Contour, 'id'>[] = [
   },
 ];
 
-const resetTime: number = Date.now();
-
 function Sample() {
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {
@@ -1733,7 +1885,7 @@ import series from './series.json';
 installWADOImageLoader();
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   const image2: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000020.dcm`, {unload: unloadWADOImage}), []);
   const image3: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000030.dcm`, {unload: unloadWADOImage}), []);
@@ -1881,6 +2033,19 @@ storiesOf('insight-viewer', module)
 <!-- importend -->
 
 # Changelog
+
+## 2.6.0
+### Added
+- `<DCMImage>` 추가
+
+## 2.5.0
+### Added
+- `<UserCircleViewer>` 추가
+
+## 2.4.1
+### Fixed
+- Fix ESLint warnings
+- `<UserPointViewer>` 의 기본 label 표시를 `contour.id` 사용
 
 ## 2.4.0
 ### Added

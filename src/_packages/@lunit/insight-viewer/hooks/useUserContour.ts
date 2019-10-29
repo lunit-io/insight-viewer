@@ -64,7 +64,7 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
     });
     
     return contour;
-  }, [contours, nextId]);
+  }, [contours, nextId, mode]);
   
   const addContours = useCallback((added: Omit<Contour, 'id'>[]) => {
     for (const contour of added) {
@@ -123,7 +123,7 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
     });
     
     return nextContour;
-  }, []);
+  }, [mode]);
   
   const focusContour = useCallback((contour: Contour | null) => {
     if (contour !== focusedContour) {

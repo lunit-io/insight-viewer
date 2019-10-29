@@ -14,7 +14,7 @@ import useResizeObserver from 'use-resize-observer';
 installWADOImageLoader();
 
 function Sample() {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   const {

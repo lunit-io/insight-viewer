@@ -6,7 +6,8 @@ import {
   installWADOImageLoader,
   ProgressViewer,
   unloadWADOImage,
-  useBulkImageScroll, useImageProgress,
+  useBulkImageScroll,
+  useImageProgress,
   useInsightViewerSync,
   UserContourDrawer,
   UserContourViewer,
@@ -14,15 +15,13 @@ import {
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
-import { withSeriesImageController } from './decorators/withSeriesImageController';
 import { useController, withTestController } from './decorators/withTestController';
 import series from './series.json';
 
 installWADOImageLoader();
 
-const resetTime: number = Date.now();
-
 function Component() {
+  const resetTime: number = useMemo(() => Date.now(), []);
   // CornerstoneSeriesImage는 여러장의 dcm 이미지를 받는다
   const image: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
   

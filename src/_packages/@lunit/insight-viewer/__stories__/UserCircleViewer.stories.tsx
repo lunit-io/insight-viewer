@@ -4,20 +4,16 @@ import {
   InsightViewer,
   InsightViewerContainer,
   installWADOImageLoader,
-  MachineHeatmapViewer,
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  UserContourDrawer,
-  UserContourViewer,
+  UserCircleDrawer,
+  UserCircleViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
-import data from './posMap.sample.json';
-
-const {engine_result: {engine_result: {pos_map: posMap}}} = data;
 
 installWADOImageLoader();
 
@@ -34,20 +30,28 @@ function Sample() {
     flip,
   } = useController();
   
+  // pan, adjust, zoom은
+  // pan={true}로 설정하면 내부 Element를 사용해서 MouseEvent를 처리하게 되고,
+  // pan={HTMLElement}로 설정하면 해당 Element를 사용해서 MouseEvent를 처리하게 된다.
+  // MouseEvent를 처리하는 Layer가 여러개 중첩될 때, 하위 Layer의 MouseEvent가 막히는 현상을 해결해준다.
   const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
   
+  // <InsightViewer> 내부의 Canvas Render를 외부의 다른 Component들에 동기화 시키기 위한 Hook
   const {
     cornerstoneRenderData,
     updateCornerstoneRenderData,
   } = useInsightViewerSync();
   
+  // Annotation (사용자 Contour)를 다루기 위한 Hook
   const {
     contours,
     focusedContour,
     addContour,
     removeContour,
     focusContour,
-  } = useUserContour();
+  } = useUserContour({
+    mode: 'circle',
+  });
   
   return (
     <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
@@ -61,38 +65,32 @@ function Sample() {
                      resetTime={resetTime}
                      image={image}
                      updateCornerstoneRenderData={updateCornerstoneRenderData}/>
-      {/*
-      engineResult.posMap을 그리는 Layer
-      현재 Heatmap Spec (number[][])에 맞춰서 개발되었기 때문에
-      Spec이 다르다면 새로운 Viewer를 만들어야 한다
-      */}
-      <MachineHeatmapViewer width={width}
-                            height={height}
-                            posMap={posMap}
-                            threshold={0.1}
-                            cornerstoneRenderData={cornerstoneRenderData}/>
       {
+        // 사용자가 그린 Annotation을 보여준다
+        // contours가 있는 경우에만 출력
         contours &&
         contours.length > 0 &&
         cornerstoneRenderData &&
-        <UserContourViewer width={width}
-                           height={height}
-                           contours={contours}
-                           focusedContour={focusedContour}
-                           cornerstoneRenderData={cornerstoneRenderData}/>
+        <UserCircleViewer width={width}
+                          height={height}
+                          contours={contours}
+                          focusedContour={focusedContour}
+                          cornerstoneRenderData={cornerstoneRenderData}/>
       }
       {
+        // Annotation을 그리고, 지우게 해준다
+        // control === 'pen' 인 경우에만 출력
         contours &&
         cornerstoneRenderData &&
         control === 'pen' &&
-        <UserContourDrawer width={width}
-                           height={height}
-                           contours={contours}
-                           draw={control === 'pen' && interactionElement}
-                           onFocus={focusContour}
-                           onAdd={contour => addContour(contour, 0)}
-                           onRemove={removeContour}
-                           cornerstoneRenderData={cornerstoneRenderData}/>
+        <UserCircleDrawer width={width}
+                          height={height}
+                          contours={contours}
+                          draw={control === 'pen' && interactionElement}
+                          onFocus={focusContour}
+                          onAdd={contour => addContour(contour, 0)}
+                          onRemove={removeContour}
+                          cornerstoneRenderData={cornerstoneRenderData}/>
       }
       <ProgressViewer image={image}
                       width={width}
@@ -105,9 +103,9 @@ storiesOf('insight-viewer', module)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
-    control: ['pan', ['none', 'pen', 'pan', 'adjust']],
+    control: ['pen', ['none', 'pen', 'pan', 'adjust']],
     wheel: ['zoom', ['none', 'zoom']],
     flip: false,
     invert: false,
   }))
-  .add('<MachineHeatmapViewer>', () => <Sample/>);
+  .add('<UserCircleViewer>', () => <Sample/>);

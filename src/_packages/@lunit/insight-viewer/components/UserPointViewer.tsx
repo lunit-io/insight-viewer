@@ -47,11 +47,11 @@ export class UserPointViewer extends Component<UserPointDrawerProps, UserPointDr
           this.props.contours.map(contour => {
             const {id, polygon, dataAttrs = {}, label} = contour;
             
-            const text: string | null = typeof label === 'function'
+            const text: string = typeof label === 'function'
               ? label(contour)
               : typeof label === 'string'
                 ? label
-                : null;
+                : id.toString();
             
             return (
               <PointPin key={id}

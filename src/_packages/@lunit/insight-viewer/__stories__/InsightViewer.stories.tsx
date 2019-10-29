@@ -15,7 +15,7 @@ installWADOImageLoader();
 
 function Sample() {
   // <InsightViewer resetTime={}>을 변경하면 Viewport 등 cornerstone-core 관련 속성들이 초기화 된다
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   
   // unload 옵션은 위에 선언된 installWADOImageLoader()와 함께 동작한다
   // CornerstoneImage 객체를 unload 할때 wado image loader의 unload 동작을 하게 된다

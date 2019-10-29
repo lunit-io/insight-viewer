@@ -59,7 +59,7 @@ function Container() {
 }
 
 function Component({image}: {image: CornerstoneImage}) {
-  const resetTime: number = Date.now();
+  const resetTime: number = useMemo(() => Date.now(), []);
   
   const {
     width,
