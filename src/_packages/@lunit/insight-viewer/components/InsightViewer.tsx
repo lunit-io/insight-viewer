@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 import { Unsubscribable } from 'rxjs';
 import { InsightViewerHostProps } from '../hooks/useInsightViewerSync';
 import { CornerstoneImage } from '../image/types';
-import { CornerstoneRenderData } from '../types';
+import { CornerstoneRenderData, ViewportTransformParams } from '../types';
 import { startAdjustInteraction } from './interactions/startAdjustInteraction';
 import { startPanInteraction } from './interactions/startPanInteraction';
 import { startZoomInteraction } from './interactions/startZoomInteraction';
@@ -342,6 +342,15 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     }
   };
   
+  getViewportTransformParams = (): ViewportTransformParams => {
+    return {
+      element: this.element,
+      minScale: this.getMinScale(),
+      maxScale: this.getMaxScale(),
+      currentViewport: this.currentViewport,
+    };
+  };
+  
   private setCornerstoneImage = (image: CornerstoneImage) => {
     this.needImageInitialize = true;
     
@@ -364,16 +373,20 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     setViewport(this.element, this.currentViewport);
   };
   
-  private updateCurrentViewport = (patch: Partial<Viewport>) => {
+  private updateCurrentViewport = (update: Partial<Viewport> | ((viewport: Viewport) => Partial<Viewport>)) => {
     if (!this.currentViewport) {
       throw new Error('viewport가 없는 상태에서 실행되면 안된다');
     }
-  
+    
+    const patch: Partial<Viewport> = typeof update === 'function'
+      ? update(this.currentViewport)
+      : update;
+    
     this.currentViewport = {
       ...this.currentViewport,
       ...patch,
     };
-  
+    
     setViewport(this.element, this.currentViewport);
   };
 }

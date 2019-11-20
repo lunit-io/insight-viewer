@@ -5,14 +5,14 @@ import { hitTestCircles } from '../geom/hitTestCircles';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 
-export interface UserCircleDrawerProps extends InsightViewerGuestProps {
+export interface UserCircleDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
-  contours: Contour[];
+  contours: T[];
   draw: boolean | HTMLElement | null;
-  onFocus: (contour: Contour | null) => void;
+  onFocus: (contour: T | null) => void;
   onAdd: (polygon: Point[], event: MouseEvent) => void;
-  onRemove: (contour: Contour) => void;
+  onRemove: (contour: T) => void;
   className?: string;
 }
 
@@ -21,15 +21,15 @@ interface UserCircleDrawerState {
   p2: Point | null;
 }
 
-export class UserCircleDrawer extends Component<UserCircleDrawerProps, UserCircleDrawerState> {
+export class UserCircleDrawer<T extends Contour> extends Component<UserCircleDrawerProps<T>, UserCircleDrawerState> {
   private svg: SVGSVGElement | null = null;
   private element: HTMLElement | null = null;
-  private focused: Contour | null = null;
+  private focused: T | null = null;
   private preventClickEvent: boolean = false;
   private startX: number = 0;
   private startY: number = 0;
   
-  constructor(props: UserCircleDrawerProps) {
+  constructor(props: UserCircleDrawerProps<T>) {
     super(props);
     
     this.state = {
@@ -105,7 +105,7 @@ export class UserCircleDrawer extends Component<UserCircleDrawerProps, UserCircl
     }
   }
   
-  componentDidUpdate(prevProps: Readonly<UserCircleDrawerProps>) {
+  componentDidUpdate(prevProps: Readonly<UserCircleDrawerProps<T>>) {
     if (prevProps.draw !== this.props.draw) {
       if (this.element) {
         this.deactivateInitialEvents();
@@ -126,12 +126,12 @@ export class UserCircleDrawer extends Component<UserCircleDrawerProps, UserCircl
     }
   }
   
-  getElement = ({draw}: Readonly<UserCircleDrawerProps>): HTMLElement => {
+  getElement = ({draw}: Readonly<UserCircleDrawerProps<T>>): HTMLElement => {
     //@ts-ignore
     return draw instanceof HTMLElement ? draw : this.svg as HTMLElement;
   };
   
-  canActivate = ({draw}: Readonly<UserCircleDrawerProps>) => {
+  canActivate = ({draw}: Readonly<UserCircleDrawerProps<T>>) => {
     return draw instanceof HTMLElement || draw === true;
   };
   

@@ -127,7 +127,7 @@ function Sample() {
                              contours={contours}
                              draw={interactionElement3}
                              onFocus={focusContour}
-                             onAdd={contour => addContour(contour, 0)}
+                             onAdd={contour => addContour(contour)}
                              onRemove={removeContour}
                              cornerstoneRenderData={cornerstoneRenderData}/>
         }

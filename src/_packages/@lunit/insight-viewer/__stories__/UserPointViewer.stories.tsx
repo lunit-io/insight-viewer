@@ -5,7 +5,6 @@ import {
   InsightViewer,
   InsightViewerContainer,
   installWADOImageLoader,
-  Point,
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
@@ -13,7 +12,7 @@ import {
   useUserContour,
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useController, withTestController } from './decorators/withTestController';
 
@@ -25,12 +24,10 @@ function labelFunction({id}: Contour): string {
 
 const initialContours: Omit<Contour, 'id'>[] = [
   {
-    confidenceLevel: 1,
     label: labelFunction,
     polygon: [[100, 200]],
   },
   {
-    confidenceLevel: 1,
     label: labelFunction,
     polygon: [[200, 200]],
   },
@@ -61,17 +58,13 @@ function Sample() {
   const {
     contours,
     focusedContour,
-    addContour: _addContour,
+    addContour,
     removeContour,
     focusContour,
   } = useUserContour({
     mode: 'point',
     initialContours,
   });
-  
-  const addContour = useCallback((polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string, attrs?: {[attr: string]: string}): Contour | null => {
-    return _addContour(polygon, confidenceLevel, labelFunction, attrs);
-  }, [_addContour]);
   
   return (
     <Div>
@@ -95,7 +88,7 @@ function Sample() {
                            interact={control === 'pen'}
                            focusedContour={focusedContour}
                            onFocus={focusContour}
-                           onAdd={polygon => addContour(polygon, 0)}
+                           onAdd={polygon => addContour(polygon, {label: labelFunction})}
                            onRemove={removeContour}
                            cornerstoneRenderData={cornerstoneRenderData}/>
         }

@@ -1,7 +1,7 @@
 import { Contour, Point } from '../types';
 
-export function hitTestCircles(contours: Contour[], cursor: Point): Contour | null {
-  const result: Contour | undefined = contours.find(contour => {
+export function hitTestCircles<T extends Contour>(contours: T[], cursor: Point): T | null {
+  const result: T | undefined = contours.find(contour => {
     const [[cx, cy], [x1, y1]] = contour.polygon;
     const [x2, y2] = cursor;
     

@@ -16,7 +16,7 @@ export function DCMImage({cornerstoneImage, width, height}: DCMImageProps) {
       if (!element.current) return;
       
       disable(element.current);
-      enable(element.current, {renderer: 'webgl'});
+      enable(element.current);
       
       if (image) {
         const defaultViewport = getDefaultViewportForImage(element.current, image);

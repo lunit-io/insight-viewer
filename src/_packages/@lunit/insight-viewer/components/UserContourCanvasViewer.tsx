@@ -16,14 +16,14 @@ export interface UserContourCanvasViewerStyleProps {
   canvasFocusedFontStyle: string;
 }
 
-export interface UserContourCanvasViewerProps extends InsightViewerGuestProps, Partial<UserContourCanvasViewerStyleProps> {
+export interface UserContourCanvasViewerProps<T extends Contour> extends InsightViewerGuestProps, Partial<UserContourCanvasViewerStyleProps> {
   width: number;
   height: number;
-  contours: Contour[];
-  focusedContour: Contour | null;
+  contours: T[];
+  focusedContour: T | null;
 }
 
-export class UserContourCanvasViewer extends Component<UserContourCanvasViewerProps, {}> {
+export class UserContourCanvasViewer<T extends Contour> extends Component<UserContourCanvasViewerProps<T>, {}> {
   static defaultProps: UserContourCanvasViewerStyleProps = {
     canvasFocusedStrokeLineWidth: 6,
     canvasFocusedStrokeStyle: 'rgb(255,86,60)',
@@ -60,7 +60,7 @@ export class UserContourCanvasViewer extends Component<UserContourCanvasViewerPr
     this.drawContours(this.props);
   }
   
-  componentDidUpdate(prevProps: Readonly<UserContourCanvasViewerProps>) {
+  componentDidUpdate(prevProps: Readonly<UserContourCanvasViewerProps<T>>) {
     const {width, height, contours, cornerstoneRenderData, focusedContour} = this.props;
     
     if (prevProps.contours !== contours
@@ -72,7 +72,7 @@ export class UserContourCanvasViewer extends Component<UserContourCanvasViewerPr
     }
   }
   
-  drawContours = ({contours, cornerstoneRenderData, focusedContour, canvasStrokeLineWidth, canvasFocusedStrokeLineWidth, canvasFocusedStrokeStyle, canvasFocusedFillStyle, canvasFocusedFontStyle, canvasFillStyle, canvasFontStyle, canvasStrokeStyle}: Readonly<UserContourCanvasViewerProps>) => {
+  drawContours = ({contours, cornerstoneRenderData, focusedContour, canvasStrokeLineWidth, canvasFocusedStrokeLineWidth, canvasFocusedStrokeStyle, canvasFocusedFillStyle, canvasFocusedFontStyle, canvasFillStyle, canvasFontStyle, canvasStrokeStyle}: Readonly<UserContourCanvasViewerProps<T>>) => {
     if (contours.length > 0) {
       for (const contour of contours) {
         // FIXME https://github.com/babel/babel/issues/9530

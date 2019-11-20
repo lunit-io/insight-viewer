@@ -3,21 +3,21 @@ import { isPolygonAreaGreaterThanArea } from '@lunit/is-polygon-area-greater-tha
 import { RefObject, useCallback, useState } from 'react';
 import { Contour, Point } from '../types';
 
-export interface ContourDrawingState {
-  contours: Contour[];
-  focusedContour: Contour | null;
-  addContour: (polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string, attrs?: {[attr: string]: string}) => Contour | null;
-  addContours: (contours: Omit<Contour, 'id'>[]) => void;
-  focusContour: (contour: Contour | null) => void;
-  updateContour: (contour: Contour, patch: Partial<Contour>) => void;
-  removeContour: (contour: Contour) => void;
+export interface ContourDrawingState<T extends Contour> {
+  contours: T[];
+  focusedContour: T | null;
+  addContour: (polygon: Point[], contourInfo?: Omit<T, 'id' | 'polygon'>) => T | null;
+  addContours: (contours: Omit<T, 'id'>[]) => void;
+  focusContour: (contour: T | null) => void;
+  updateContour: (contour: T, patch: Partial<T>) => void;
+  removeContour: (contour: T) => void;
   removeAllContours: () => void;
 }
 
 // <UserContourDrawer>, <UserContourViewer>를 사용하기 위한 helper
-export function useUserContour({nextId, initialContours, mode = 'contour'}: {nextId?: number | RefObject<number>, initialContours?: Omit<Contour, 'id'>[], mode?: 'contour' | 'point' | 'circle'} = {}): ContourDrawingState {
+export function useUserContour<T extends Contour>({nextId, initialContours, mode = 'contour'}: {nextId?: number | RefObject<number>, initialContours?: Omit<T, 'id'>[], mode?: 'contour' | 'point' | 'circle'} = {}): ContourDrawingState<T> {
   // 사용자가 그린 contour list
-  const [contours, setContours] = useState<Contour[]>(() => {
+  const [contours, setContours] = useState<T[]>(() => {
     if (initialContours) {
       const startId: number = typeof nextId === 'number'
         ? nextId
@@ -25,36 +25,37 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
           ? nextId.current
           : 1;
       
-      return initialContours.map((addedContour, i) => {
+      return initialContours.map<T>((addedContour, i) => {
         return {
           ...addedContour,
           id: startId + i,
-        };
+        } as T;
       });
     }
     return [];
   });
   // mouse hover에 의해서 focus된 contour
-  const [focusedContour, setFocusedContour] = useState<Contour | null>(null);
+  const [focusedContour, setFocusedContour] = useState<T | null>(null);
   
-  const addContour = useCallback((polygon: Point[], confidenceLevel: number, label?: ((contour: Contour) => string) | string, dataAttrs?: {[attr: string]: string}): Contour | null => {
+  const addContour = useCallback((polygon: Point[], contourInfo: Partial<Omit<T, 'id' | 'polygon'>> = {}): T | null => {
     if (mode === 'contour' && (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon))) return null;
+    
+    const {dataAttrs} = contourInfo;
     
     if (dataAttrs) {
       validateDataAttrs(dataAttrs);
     }
     
-    const contour: Contour = {
+    const contour: T = {
+      ...contourInfo,
       id: typeof nextId === 'number'
         ? nextId
         : nextId && typeof nextId.current === 'number'
           ? nextId.current
           : Math.max(...contours.map(({id}) => id), 0) + 1,
       polygon,
-      confidenceLevel,
-      label,
       dataAttrs,
-    };
+    } as T;
     
     setContours(prevContours => {
       return [
@@ -66,7 +67,7 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
     return contour;
   }, [contours, nextId, mode]);
   
-  const addContours = useCallback((added: Omit<Contour, 'id'>[]) => {
+  const addContours = useCallback((added: Omit<T, 'id'>[]) => {
     for (const contour of added) {
       if (contour.dataAttrs) {
         validateDataAttrs(contour.dataAttrs);
@@ -86,20 +87,20 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
           return {
             ...addedContour,
             id: startId + i,
-          };
+          } as T;
         }),
       ];
     });
   }, [contours, nextId]);
   
-  const updateContour = useCallback((contour: Contour, patch: Partial<Omit<Contour, 'id'>>) => {
+  const updateContour = useCallback((contour: T, patch: Partial<Omit<T, 'id'>>) => {
     if (patch.polygon && mode === 'contour' && (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))) return;
     
     if (patch.dataAttrs) {
       validateDataAttrs(patch.dataAttrs);
     }
     
-    const nextContour: Contour = {
+    const nextContour: T = {
       ...contour,
       ...patch,
       id: contour.id,
@@ -125,7 +126,7 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
     return nextContour;
   }, [mode]);
   
-  const focusContour = useCallback((contour: Contour | null) => {
+  const focusContour = useCallback((contour: T | null) => {
     if (contour !== focusedContour) {
       setFocusedContour(contour);
     }
@@ -136,7 +137,7 @@ export function useUserContour({nextId, initialContours, mode = 'contour'}: {nex
     setFocusedContour(null);
   }, []);
   
-  const removeContour = useCallback((contour: Contour) => {
+  const removeContour = useCallback((contour: T) => {
     setContours(prevContours => {
       const index = prevContours.findIndex(({id}) => id === contour.id);
       

@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 
-export interface UserCircleViewerProps extends InsightViewerGuestProps {
+export interface UserCircleViewerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
-  contours: Contour[];
-  focusedContour: Contour | null;
+  contours: T[];
+  focusedContour: T | null;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ function toLocal(element: HTMLElement, polygon: Point[]): {cx: number, cy: numbe
   };
 }
 
-export class UserCircleViewer extends Component<UserCircleViewerProps, {}> {
+export class UserCircleViewer<T extends Contour> extends Component<UserCircleViewerProps<T>, {}> {
   private svgRef: RefObject<SVGSVGElement> = createRef();
   
   render() {

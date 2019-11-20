@@ -13,7 +13,7 @@
 import { Typography } from '@material-ui/core';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
-import { AdjustIcon, CircleIcon, FlipIcon, InvertIcon, MagnifyIcon, PanIcon, PenIcon, ResetIcon } from '../';
+import { AdjustIcon, CircleIcon, FlipIcon, InvertIcon, MagnifyIcon, PanIcon, PenIcon, ResetIcon, LunitIcon } from '../';
 
 storiesOf('opt-contol-icons', module)
   .add('Icons', () => (
@@ -26,6 +26,7 @@ storiesOf('opt-contol-icons', module)
       <PenIcon/>
       <ResetIcon/>
       <CircleIcon/>
+      <LunitIcon/>
     </Typography>
   ));
 ```

@@ -5,14 +5,14 @@ import { hitTestContours } from '../geom/hitTestContours';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 
-export interface UserContourDrawerProps extends InsightViewerGuestProps {
+export interface UserContourDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
-  contours: Contour[];
+  contours: T[];
   draw: boolean | HTMLElement | null;
-  onFocus: (contour: Contour | null) => void;
+  onFocus: (contour: T | null) => void;
   onAdd: (polygon: Point[], event: MouseEvent) => void;
-  onRemove: (contour: Contour) => void;
+  onRemove: (contour: T) => void;
   className?: string;
 }
 
@@ -28,15 +28,15 @@ function toLocal(element: HTMLElement, polygon: Point[]): string {
     .join(' ');
 }
 
-export class UserContourDrawer extends Component<UserContourDrawerProps, UserContourDrawerState> {
+export class UserContourDrawer<T extends Contour> extends Component<UserContourDrawerProps<T>, UserContourDrawerState> {
   private svg: SVGSVGElement | null = null;
   private element: HTMLElement | null = null;
-  private focused: Contour | null = null;
+  private focused: T | null = null;
   private preventClickEvent: boolean = false;
   private startX: number = 0;
   private startY: number = 0;
   
-  constructor(props: UserContourDrawerProps) {
+  constructor(props: UserContourDrawerProps<T>) {
     super(props);
     
     this.state = {
@@ -92,7 +92,7 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
     }
   }
   
-  componentDidUpdate(prevProps: Readonly<UserContourDrawerProps>) {
+  componentDidUpdate(prevProps: Readonly<UserContourDrawerProps<T>>) {
     if (prevProps.draw !== this.props.draw) {
       if (this.element) {
         this.deactivateInitialEvents();
@@ -113,12 +113,12 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
     }
   }
   
-  getElement = ({draw}: Readonly<UserContourDrawerProps>): HTMLElement => {
+  getElement = ({draw}: Readonly<UserContourDrawerProps<T>>): HTMLElement => {
     //@ts-ignore
     return draw instanceof HTMLElement ? draw : this.svg as HTMLElement;
   };
   
-  canActivate = ({draw}: Readonly<UserContourDrawerProps>) => {
+  canActivate = ({draw}: Readonly<UserContourDrawerProps<T>>) => {
     return draw instanceof HTMLElement || draw === true;
   };
   
@@ -152,7 +152,7 @@ export class UserContourDrawer extends Component<UserContourDrawerProps, UserCon
     
     const {x, y} = pageToPixel(element, pageX, pageY);
     
-    this.focused = hitTestContours(this.props.contours, [x, y]);
+    this.focused = hitTestContours<T>(this.props.contours, [x, y]);
     
     this.props.onFocus(this.focused);
   };

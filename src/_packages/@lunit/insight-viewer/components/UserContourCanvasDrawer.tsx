@@ -12,17 +12,17 @@ export interface UserContourCanvasDrawerStyleProps {
   canvasFillStyle: string;
 }
 
-export interface UserContourCanvasDrawerProps extends InsightViewerGuestProps, Partial<UserContourCanvasDrawerStyleProps> {
+export interface UserContourCanvasDrawerProps<T extends Contour> extends InsightViewerGuestProps, Partial<UserContourCanvasDrawerStyleProps> {
   width: number;
   height: number;
-  contours: Contour[];
+  contours: T[];
   draw: boolean | HTMLElement | null;
-  onFocus: (contour: Contour | null) => void;
+  onFocus: (contour: T | null) => void;
   onAdd: (polygon: Point[], event: MouseEvent) => void;
-  onRemove: (contour: Contour) => void;
+  onRemove: (contour: T) => void;
 }
 
-export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerProps, {}> {
+export class UserContourCanvasDrawer<T extends Contour> extends Component<UserContourCanvasDrawerProps<T>, {}> {
   static defaultProps: UserContourCanvasDrawerStyleProps = {
     canvasStokeLineWidth: 3,
     canvasStokeStyle: 'rgb(255,224,0)',
@@ -33,7 +33,7 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
   private element: HTMLElement | null = null;
   private ctx!: CanvasRenderingContext2D;
   private polygon: Point[] = [];
-  private focused: Contour | null = null;
+  private focused: T | null = null;
   private preventClickEvent: boolean = false;
   private startX: number = 0;
   private startY: number = 0;
@@ -84,7 +84,7 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
     }
   }
   
-  componentDidUpdate(prevProps: Readonly<UserContourCanvasDrawerProps>) {
+  componentDidUpdate(prevProps: Readonly<UserContourCanvasDrawerProps<T>>) {
     if (prevProps.draw !== this.props.draw) {
       if (this.element) {
         this.deactivateInitialEvents();
@@ -105,13 +105,13 @@ export class UserContourCanvasDrawer extends Component<UserContourCanvasDrawerPr
     }
   }
   
-  getElement = ({draw}: Readonly<UserContourCanvasDrawerProps>): HTMLElement | null => {
+  getElement = ({draw}: Readonly<UserContourCanvasDrawerProps<T>>): HTMLElement | null => {
     if (draw instanceof HTMLElement) return draw;
     if (this.canvas) return this.canvas;
     return null;
   };
   
-  canActivate = ({draw}: Readonly<UserContourCanvasDrawerProps>) => {
+  canActivate = ({draw}: Readonly<UserContourCanvasDrawerProps<T>>) => {
     return draw instanceof HTMLElement || draw === true;
   };
   

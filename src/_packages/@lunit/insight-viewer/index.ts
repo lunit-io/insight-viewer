@@ -20,3 +20,4 @@ export * from './hooks/useViewportMirroring';
 export * from './image/types';
 export * from './image/CornerstoneSingleImage';
 export * from './image/CornerstoneSeriesImage';
+export * from './behaviors/updateViewport';

@@ -17,11 +17,13 @@ export function startZoomInteraction({element, getMinMaxScale, getCurrentViewpor
     // deltaY는 scroll up의 경우 negative 수치로 오고,
     // scroll down의 경우 positive 수치로 온다
     // scale의 변환을 정상적인 방향으로 연산하기 위해서는 (scale - delta)로 방향을 전환해줘야 한다
+    const delta: number = event.deltaY > 0 ? 1 : -1;
+    
     const nextScale: number = Math.max(
       minScale, // 최소 scale 미만으로 떨어지지 않도록 방지
       Math.min(
         maxScale, // 최대 scale 이상으로 올라가지 않도록 방지
-        currentViewport.scale - (event.deltaY * 0.03), // scale을 delta 수치로 보정
+        currentViewport.scale - (delta * 0.03), // scale을 delta 수치로 보정
       ),
     );
     

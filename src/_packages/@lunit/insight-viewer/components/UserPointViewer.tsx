@@ -5,15 +5,15 @@ import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 import { PointPin } from './PointPin';
 
-export interface UserPointDrawerProps extends InsightViewerGuestProps {
+export interface UserPointDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
-  contours: Contour[];
-  focusedContour: Contour | null;
+  contours: T[];
+  focusedContour: T | null;
   interact?: boolean;
-  onFocus?: (contour: Contour | null) => void;
+  onFocus?: (contour: T | null) => void;
   onAdd?: (polygon: Point[], event: MouseEvent) => void;
-  onRemove?: (contour: Contour) => void;
+  onRemove?: (contour: T) => void;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ function toLocal(element: HTMLElement, point: Point): {x: number, y: number} {
   return pixelToCanvas(element, {x: point[0], y: point[1]});
 }
 
-export class UserPointViewer extends Component<UserPointDrawerProps, UserPointDrawerState> {
+export class UserPointViewer<T extends Contour> extends Component<UserPointDrawerProps<T>, UserPointDrawerState> {
   render() {
     return (
       <Svg role="figure"
@@ -78,7 +78,7 @@ export class UserPointViewer extends Component<UserPointDrawerProps, UserPointDr
     }
   };
   
-  private onPointEnter = (contour: Contour) => {
+  private onPointEnter = (contour: T) => {
     if (typeof this.props.onFocus === 'function') {
       this.props.onFocus(contour);
     }
@@ -90,7 +90,7 @@ export class UserPointViewer extends Component<UserPointDrawerProps, UserPointDr
     }
   };
   
-  private onPointRemove = (contour: Contour) => {
+  private onPointRemove = (contour: T) => {
     if (typeof this.props.onRemove === 'function') {
       this.props.onRemove(contour);
     }
