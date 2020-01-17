@@ -17,6 +17,7 @@ script:
 deploy:
   - provider: script
     script: npm run package:publish:ci
+    skip_cleanup: true
     on:
       branch: master
   - provider: pages
