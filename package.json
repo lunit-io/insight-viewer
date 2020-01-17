@@ -84,10 +84,10 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-knobs": "^5.3.5",
-    "@storybook/addon-storysource": "^5.3.5",
-    "@storybook/react": "^5.3.5",
-    "@storybook/theming": "^5.3.5",
+    "@storybook/addon-knobs": "^5.3.6",
+    "@storybook/addon-storysource": "^5.3.6",
+    "@storybook/react": "^5.3.6",
+    "@storybook/theming": "^5.3.6",
     "@testing-library/react-hooks": "^3.2.1",
     "@types/eslint": "^6.1.3",
     "@types/jest": "^24.9.0",
@@ -106,7 +106,7 @@
     "markdown-source-import": "^1.3.0",
     "node-fetch": "^2.6.0",
     "react-test-renderer": "^16.12.0",
-    "react-zeroconfig": "^3.23.0-alpha.12",
+    "react-zeroconfig": "^3.23.0-alpha.15",
     "tslint": "^5.20.1",
     "tslint-ssen-rules": "^1.3.0"
   }
