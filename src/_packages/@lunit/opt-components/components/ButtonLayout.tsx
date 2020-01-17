@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { ComponentType, CSSProperties, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 export interface ButtonLayoutProps {
@@ -40,6 +40,6 @@ const horizontalLayout = ({gap = 2}: ButtonLayoutProps) => css`
   }
 `;
 
-export const ButtonLayout = styled(ButtonLayoutBase)`
+export const ButtonLayout: ComponentType<ButtonLayoutProps> = styled(ButtonLayoutBase)`
   ${({direction}) => direction === 'horizontal' ? horizontalLayout : verticalLayout};
 `;

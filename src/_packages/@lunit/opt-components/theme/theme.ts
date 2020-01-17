@@ -1,5 +1,4 @@
 import { createMuiTheme, Theme as MuiTheme } from '@material-ui/core/styles';
-import { ColorProperty } from 'csstype';
 
 const muiTheme: MuiTheme = createMuiTheme({
   palette: {
@@ -30,28 +29,3 @@ export const theme = {
 };
 
 export type Theme = typeof theme;
-
-export interface OPTComponentsCSSProperties {
-  '--button-background-color'?: ColorProperty;
-  '--button-label-color'?: ColorProperty;
-  '--button-background-color-hover'?: ColorProperty;
-  '--button-label-color-hover'?: ColorProperty;
-  '--button-background-color-selected'?: ColorProperty;
-  '--button-label-color-selected'?: ColorProperty;
-  '--button-background-color-disabled'?: ColorProperty;
-  '--button-label-color-disabled'?: ColorProperty;
-  
-  '--panel-background-color'?: ColorProperty;
-  '--panel-header-background-color'?: ColorProperty;
-  '--panel-icon-color'?: ColorProperty;
-  '--panel-icon-color-hover'?: ColorProperty;
-  '--panel-title-color'?: ColorProperty;
-  
-  '--slider-rail-color'?: ColorProperty;
-  '--slider-thumb-color'?: ColorProperty;
-  '--slider-track-color'?: ColorProperty;
-  '--slider-value-label-color'?: ColorProperty;
-  
-  '--tooltip-background-color'?: ColorProperty;
-  '--tooltip-color'?: ColorProperty;
-}

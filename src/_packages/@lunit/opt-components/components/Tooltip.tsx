@@ -41,7 +41,7 @@ export const useTooltipStyle = makeStyles<DefaultTheme, TooltipProps>({
   tooltip: {
     position: 'relative',
     borderRadius: 0,
-    color: 'var(--tooltip-color)',
+    color: 'var(--tooltip-label-color)',
     backgroundColor: 'var(--tooltip-background-color)',
   },
   arrow: {
@@ -103,13 +103,22 @@ export const useTooltipStyle = makeStyles<DefaultTheme, TooltipProps>({
   },
 });
 
-export const InfoTooltip = styled(Tooltip).attrs({
+export const NormalTooltip = styled(Tooltip).attrs({
   children: (
-    <Help style={{color: '#8AAD7B'}}/>
+    <Help style={{color: 'rgba(255, 255, 255, 0.6)'}}/>
   ),
 })`
-  --tooltip-background-color: #8AAD7B;
-  --tooltip-color: #ffffff;
+  --tooltip-background-color: rgba(255, 255, 255, 0.6);
+  --tooltip-label-color: #030a18;
+`;
+
+export const InfoTooltip = styled(Tooltip).attrs({
+  children: (
+    <Help style={{color: '#00a4c8'}}/>
+  ),
+})`
+  --tooltip-background-color: #00a4c8;
+  --tooltip-label-color: #ffffff;
 `;
 
 const blinkAnimation = keyframes`
@@ -132,9 +141,18 @@ const ErrorIcon = styled(Error)`
 
 export const WarningTooltip = styled(Tooltip).attrs({
   children: (
-    <ErrorIcon style={{color: '#ff0e00'}}/>
+    <ErrorIcon style={{color: '#d6ae41'}}/>
   ),
 })`
-  --tooltip-background-color: #ff0e00;
-  --tooltip-color: #ffffff;
+  --tooltip-background-color: #d6ae41;
+  --tooltip-label-color: #ffffff;
+`;
+
+export const ErrorTooltip = styled(Tooltip).attrs({
+  children: (
+    <ErrorIcon style={{color: '#c9434b'}}/>
+  ),
+})`
+  --tooltip-background-color: #c9434b;
+  --tooltip-label-color: #ffffff;
 `;

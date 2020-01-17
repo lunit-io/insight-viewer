@@ -1,8 +1,8 @@
 import { ButtonBase as MuiButtonBase } from '@material-ui/core';
 import { ButtonBaseProps as MuiButtonBaseProps } from '@material-ui/core/ButtonBase';
 import CheckIcon from '@material-ui/icons/Done';
-import React, { MouseEvent, ReactElement, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { ComponentType, MouseEvent, ReactElement, useCallback } from 'react';
+import styled, { css } from 'styled-components';
 
 export interface ButtonProps extends Omit<MuiButtonBaseProps, 'onChange'> {
   label?: ReactElement | string;
@@ -69,20 +69,21 @@ export function ButtonBase({
   );
 }
 
-export const IconAndLabelButton = styled(ButtonBase).attrs(({label, icon, layout, hideCheck}) => {
-  if (!label || !icon) {
+export const IconAndLabelButton: ComponentType<ButtonProps> = styled(ButtonBase).attrs((props) => {
+  if (!props.label || !props.icon) {
     throw new Error(`the props label and icon are required to <IconAndLabelButton>`);
   }
   
-  if (layout === 'left') {
+  if (props.layout === 'left') {
     console.warn(`<IconAndLabelButton> layout prop is only support 'center'`);
   }
   
-  if (hideCheck === false) {
+  if (props.hideCheck === false) {
     console.warn(`<IconAndLabelButton> hideCheck prop is only support 'true'`);
   }
   
   return {
+    ...props,
     hideCheck: true,
     layout: 'center',
   };
@@ -131,7 +132,7 @@ export const IconAndLabelButton = styled(ButtonBase).attrs(({label, icon, layout
   }
 `;
 
-export const Button = styled(ButtonBase)`
+export const Button: ComponentType<ButtonProps> = styled(ButtonBase)`
   && {
     justify-content: ${({layout}) => layout};
     padding-left: ${({layout}) => layout === 'left' ? '13px' : 0};
@@ -180,3 +181,24 @@ export const Button = styled(ButtonBase)`
     }
   }
 `;
+
+export const buttonStyle = css`
+  font-size: 13px;
+  color: var(--button-label-color);
+  background-color: var(--button-background-color);
+  
+  &:hover {
+    background-color: var(--button-background-color-hover);
+    color: var(--button-label-color-hover);
+  }
+  
+  &[aria-selected="true"] {
+    background-color: var(--button-background-color-selected);
+    color: var(--button-label-color-selected);
+  }
+  
+  &:disabled {
+    background-color: var(--button-background-color-disabled);
+    color: var(--button-label-color-disabled);
+  }
+`
