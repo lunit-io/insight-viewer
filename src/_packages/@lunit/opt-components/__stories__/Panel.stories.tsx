@@ -1,5 +1,11 @@
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import { Button, ButtonLayout, Panel, SessionPanel, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import {
+  Button,
+  ButtonLayout,
+  Panel,
+  SessionPanel,
+  withOPTComponentsStorybookGlobalStyle,
+} from '@lunit/opt-components';
 import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, SVGProps } from 'react';

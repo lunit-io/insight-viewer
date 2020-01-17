@@ -1,6 +1,6 @@
 {
   "name": "@lunit/opt-components",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "Component library for annotation / opt apps",
   "author": {
     "name": "Seoyeon Lee",
@@ -22,6 +22,10 @@
     "react-router-dom": "^5.1.2",
     "resize-observer-polyfill": "^1.5.1",
     "csstype": "^2.6.7",
-    "@storybook/addons": "^5.2.6"
+    "@storybook/addons": "^5.2.6",
+    "@lunit/use-dialog": "^1.0.2",
+    "use-resize-observer": "^5.0.0",
+    "@lunit/insight-viewer": "^3.0.0-alpha.6",
+    "@ssen/snackbar": "^0.1.0"
   }
 }

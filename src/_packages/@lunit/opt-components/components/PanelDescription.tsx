@@ -1,6 +1,7 @@
+import { ComponentType, DetailedHTMLProps, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const PanelDescription = styled.p`
+export const PanelDescription: ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>> = styled.p`
   font-size: 12px;
   margin-top: 0;
   color: #ffffff;
@@ -12,7 +13,7 @@ export const PanelDescription = styled.p`
   }
 `;
 
-export const PanelDescriptionTitle = styled.h3`
+export const PanelDescriptionTitle: ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>> = styled.h3`
   font-size: 12px;
   font-weight: normal;
   margin: 5px 0 4px 0;

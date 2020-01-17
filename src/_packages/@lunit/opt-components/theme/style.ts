@@ -1,10 +1,33 @@
+import { ColorProperty } from 'csstype';
 import { createGlobalStyle, css } from 'styled-components';
+
+export interface OPTComponentsCSSProperties {
+  '--button-background-color'?: ColorProperty;
+  '--button-label-color'?: ColorProperty;
+  '--button-background-color-hover'?: ColorProperty;
+  '--button-label-color-hover'?: ColorProperty;
+  '--button-background-color-selected'?: ColorProperty;
+  '--button-label-color-selected'?: ColorProperty;
+  '--button-background-color-disabled'?: ColorProperty;
+  '--button-label-color-disabled'?: ColorProperty;
+  
+  '--panel-background-color'?: ColorProperty;
+  '--panel-header-background-color'?: ColorProperty;
+  '--panel-icon-color'?: ColorProperty;
+  '--panel-icon-color-hover'?: ColorProperty;
+  '--panel-title-color'?: ColorProperty;
+  
+  '--slider-rail-color'?: ColorProperty;
+  '--slider-thumb-color'?: ColorProperty;
+  '--slider-track-color'?: ColorProperty;
+  '--slider-value-label-color'?: ColorProperty;
+  
+  '--tooltip-background-color'?: ColorProperty;
+  '--tooltip-color'?: ColorProperty;
+}
 
 export const globalStyle = css`
   :root {
-    --background-color: #222232;
-    --font-color: white;
-    
     --button-background-color: rgba(255, 255, 255, 0.2);
     --button-label-color: rgba(255, 255, 255, 0.7);
     --button-background-color-hover: rgba(255, 255, 255, 0.35);
@@ -26,7 +49,10 @@ export const globalStyle = css`
     --slider-value-label-color: rgba(0, 0, 0, 0.4);
     
     --tooltip-background-color: rgba(0, 0, 0, 0.7);
-    --tooltip-color: #ffffff;
+    --tooltip-label-color: #ffffff;
+    
+    --snackbar-background-color: rgba(0, 0, 0, 0.7);
+    --snackbar-label-color: #ffffff;
     
     --switch-color: #eeeeee;
     --switch-track-color: rgba(255, 255, 255, 0.2);
@@ -35,11 +61,11 @@ export const globalStyle = css`
   }
   
   body {
-    color: var(--font-color);
-    background-color: var(--background-color);
+    color: white;
+    background-color: #222232;
   }
   
-  body, button, input, optgroup, select, textarea {
+  body, button, input, optgroup, select, textarea, pre {
     font-family: proximanova,noto_sanslight,sans-serif;
     font-weight: 400;
     font-size: 14px;

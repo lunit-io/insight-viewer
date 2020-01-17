@@ -1,5 +1,5 @@
 import { KeyboardArrowDown } from '@material-ui/icons';
-import React, { CSSProperties, ReactNode, useCallback, useMemo, useState } from 'react';
+import React, { ComponentType, CSSProperties, ReactNode, useCallback, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 export interface PanelProps {
@@ -88,7 +88,12 @@ export function PanelBase({
   );
 }
 
-export function SessionPanelBase({sessionId, defaultExpanded = true, onChange, ...props}: Omit<PanelProps, 'expanded'> & {sessionId: string, defaultExpanded?: boolean}) {
+export interface SessionPanelProps extends Omit<PanelProps, 'expanded'> {
+  sessionId: string;
+  defaultExpanded?: boolean;
+}
+
+export function SessionPanelBase({sessionId, defaultExpanded = true, onChange, ...props}: SessionPanelProps) {
   const id: string = useMemo(() => {
     return `__sidebar_panel_${sessionId}__`;
   }, [sessionId]);
@@ -120,7 +125,7 @@ const Arrow = styled(KeyboardArrowDown)`
 
 export const PANEL_HEADER_HEIGHT: number = 25;
 
-const panelStyle = ({useHoverStyle}: {useHoverStyle: boolean}) => css`
+const panelStyle = css`
   background-color: var(--panel-background-color);
   position: relative;
   
@@ -141,14 +146,6 @@ const panelStyle = ({useHoverStyle}: {useHoverStyle: boolean}) => css`
       margin-left: -8px;
       margin-right: 6px;
       transform: translateY(2px);
-      
-      ${useHoverStyle ? css`
-        cursor: pointer;
-        
-        &:hover {
-          color: var(--panel-icon-color-hover);
-        }
-      ` : ''}
     }
     
     .${panelClasses.title} {
@@ -162,6 +159,18 @@ const panelStyle = ({useHoverStyle}: {useHoverStyle: boolean}) => css`
   }
 `;
 
+const panelIconHoverStyle = css`
+  .${panelClasses.header} {
+    .${panelClasses.icon} {
+      cursor: pointer;
+      
+      &:hover {
+        color: var(--panel-icon-color-hover);
+      }
+    }
+  }
+`;
+
 export const panelDisabled = ({disabled}: PanelProps) => disabled
   ? css`
     opacity: 0.4;
@@ -172,12 +181,14 @@ export const panelDisabled = ({disabled}: PanelProps) => disabled
     opacity: 1;
   `;
 
-export const Panel = styled(PanelBase)`
+export const Panel: ComponentType<PanelProps> = styled(PanelBase)`
   ${panelDisabled}
-  ${({onChange}) => panelStyle({useHoverStyle: typeof onChange === 'function'})}
+  ${panelStyle}
+  ${({onChange}) => typeof onChange === 'function' ? panelIconHoverStyle : ''}
 `;
 
-export const SessionPanel = styled(SessionPanelBase)`
+export const SessionPanel: ComponentType<SessionPanelProps> = styled(SessionPanelBase)`
   opacity: ${({disabled}) => disabled ? 0.4 : 1};
-  ${panelStyle({useHoverStyle: true})}
+  ${panelStyle}
+  ${panelIconHoverStyle}s
 `;
