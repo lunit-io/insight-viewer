@@ -7,9 +7,10 @@ import {
   installWADOImageLoader,
   Point,
   unloadWADOImage,
-  useInsightViewerSync,
+  useInsightViewerSync, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
 import { isPolygonAreaGreaterThanArea } from '@lunit/is-polygon-area-greater-than-area';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, useCallback, useState } from 'react';
 
@@ -81,4 +82,6 @@ function Sample() {
 }
 
 storiesOf('in-polygon-area-greater-than-area', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('isPolygonAreaGreaterThanArea()', () => <Sample/>);

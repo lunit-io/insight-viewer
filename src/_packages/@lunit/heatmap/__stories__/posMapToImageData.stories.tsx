@@ -1,4 +1,6 @@
 import { posMapToImageData } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import data from './posMap.sample.json';
@@ -36,4 +38,6 @@ function Sample() {
 }
 
 storiesOf('heatmap', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('posMapToImageData()', () => <Sample/>);

@@ -1,3 +1,5 @@
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { DialogTemplate, useDialog } from '@lunit/use-dialog';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { storiesOf } from '@storybook/react';
@@ -62,4 +64,6 @@ function Sample() {
 }
 
 storiesOf('use-dialog', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('useDialog()', () => <Sample/>);

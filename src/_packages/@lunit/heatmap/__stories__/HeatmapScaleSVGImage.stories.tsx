@@ -1,4 +1,6 @@
 import { HeatmapScaleSVGImage } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
@@ -8,6 +10,8 @@ import React from 'react';
  * <svg>를 사용해서 별도의 디자인을 구현하려고 할때 사용할 수 있다
  */
 storiesOf('heatmap', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withKnobs)
   .add('<HeatmapScaleSVGImage>', () => {
     const width: number = number('Width', 300, {range: true, step: 10, min: 100, max: 600});

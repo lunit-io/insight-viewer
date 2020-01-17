@@ -1,6 +1,6 @@
 export * from './theme/style';
 export * from './theme/context';
-export * from './theme/withStorybookGlobalStyle';
+export * from './theme/withOPTComponentsStorybookGlobalStyle';
 export * from './theme/theme';
 export * from './components/Button';
 export * from './components/Panel';

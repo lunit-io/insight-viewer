@@ -1,10 +1,12 @@
-import { Slider, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Slider, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Slider', () => (
     <div style={{width: 300, margin: 20}}>
       <div style={{backgroundColor: 'rgba(255, 255, 255, 0.2)', padding: '10px 30px'}}>

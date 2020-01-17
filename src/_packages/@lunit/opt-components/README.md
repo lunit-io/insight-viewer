@@ -62,7 +62,8 @@ storiesOf('Theme', module)
 
 
 ```tsx
-import { Button, ButtonLayout, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Button, ButtonLayout, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { Fragment } from 'react';
@@ -71,7 +72,8 @@ import styled from 'styled-components';
 const directions = ['vertical', 'horizontal'] as const;
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Button', () => (
     <Container>
       {
@@ -197,14 +199,16 @@ const BlueButtonDiv = styled.div`
 
 
 ```tsx
-import { Button, ButtonLayout, Panel, SessionPanel, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Button, ButtonLayout, Panel, SessionPanel, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, SVGProps } from 'react';
 import styled from 'styled-components';
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Panel', () => (
     <Container>
       {
@@ -318,13 +322,15 @@ const Container = styled.div`
 
 
 ```tsx
-import { Slider, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Slider, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Slider', () => (
     <div style={{width: 300, margin: 20}}>
       <div style={{backgroundColor: 'rgba(255, 255, 255, 0.2)', padding: '10px 30px'}}>
@@ -350,14 +356,16 @@ export const BlueSlider = styled(Slider)`
 
 
 ```tsx
-import { Tooltip, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Tooltip, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { Error } from '@material-ui/icons';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Tooltip', () => {
     const title = (
       <div>

@@ -1,4 +1,6 @@
 import { useHeatmapScaleImageURI } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
@@ -17,6 +19,8 @@ function Image({width, height, threshold}: {width: number, height: number, thres
 }
 
 storiesOf('heatmap', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withKnobs)
   .add('useHeatmapScaleImageURI()', () => {
     const width: number = number('Width', 300, {range: true, step: 10, min: 100, max: 600});
