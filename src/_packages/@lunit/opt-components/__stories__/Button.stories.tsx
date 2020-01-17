@@ -1,4 +1,5 @@
-import { Button, ButtonLayout, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Button, ButtonLayout, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { Fragment } from 'react';
@@ -7,7 +8,8 @@ import styled from 'styled-components';
 const directions = ['vertical', 'horizontal'] as const;
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Button', () => (
     <Container>
       {

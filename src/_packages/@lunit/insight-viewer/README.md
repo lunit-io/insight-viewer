@@ -299,7 +299,9 @@ import {
   unloadWADOImage,
   useInsightViewerSync,
   useUserContour,
+  withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -389,6 +391,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -416,8 +420,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -505,6 +510,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -533,8 +540,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import { color as d3color } from 'd3-color';
 import React, { useMemo, useState } from 'react';
@@ -717,6 +725,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -745,8 +755,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import { color as d3color } from 'd3-color';
 import React, { useMemo, useState } from 'react';
@@ -916,6 +927,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -943,8 +956,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -1041,6 +1055,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1063,8 +1079,9 @@ import {
   InsightViewer,
   installWADOImageLoader,
   unloadWADOImage,
-  useInsightViewerSync,
+  useInsightViewerSync, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1136,6 +1153,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1158,13 +1177,17 @@ import {
   DCMImage,
   installWADOImageLoader,
   unloadWADOImage,
+  withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 
 installWADOImageLoader();
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('<DCMImage>', () => {
     //tslint:disable:react-hooks-nesting
     const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
@@ -1203,8 +1226,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1295,6 +1319,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1317,8 +1343,9 @@ import {
   InsightViewer,
   installWADOImageLoader,
   unloadWADOImage,
-  useInsightViewerSync,
+  useInsightViewerSync, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1363,6 +1390,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1390,8 +1419,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -1488,6 +1518,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1521,8 +1553,9 @@ import {
   unloadWADOImage,
   useContainerStyleOfProgressViewersInactivity,
   useInsightViewerSync,
-  useProgressViewersActivity,
+  useProgressViewersActivity, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { CSSProperties, useMemo } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1604,6 +1637,8 @@ function Component({image}: {image: CornerstoneImage}) {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [300, 200, 500],
     height: [400, 300, 600],
@@ -1633,8 +1668,9 @@ import {
   useBulkImageScroll,
   useImageProgress,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1732,6 +1768,8 @@ function Component() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1756,8 +1794,9 @@ import {
   installWADOImageLoader,
   useImageProgress,
   useImageStore,
-  useInsightViewerSync,
+  useInsightViewerSync, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1843,6 +1882,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(storyFn => (
     <ImageStoreProvider>
       {storyFn()}
@@ -1875,8 +1916,9 @@ import {
   useInsightViewerSync,
   UserContourCanvasDrawer,
   UserContourCanvasViewer,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -1969,6 +2011,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],
@@ -1992,8 +2036,9 @@ import {
   InsightViewerContainer,
   installWADOImageLoader,
   unloadWADOImage,
-  useInsightViewerSync,
+  useInsightViewerSync, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 import useResizeObserver from 'use-resize-observer';
@@ -2036,6 +2081,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('useResizeObserver', () => <Sample/>);
 ```
 
@@ -2058,8 +2105,9 @@ import {
   ContourDrawer,
   ContourViewer,
   useUserContour,
-  useViewportMirroring,
+  useViewportMirroring, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { RefObject, useMemo, useRef, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -2197,6 +2245,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [300, 200, 500],
     height: [400, 300, 600],

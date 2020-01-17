@@ -4,13 +4,17 @@ import {
   DCMImage,
   installWADOImageLoader,
   unloadWADOImage,
+  withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 
 installWADOImageLoader();
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('<DCMImage>', () => {
     //tslint:disable:react-hooks-nesting
     const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);

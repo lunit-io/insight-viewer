@@ -1,8 +1,7 @@
-import { globalStyle } from './style';
 import { DecoratorFunction } from '@storybook/addons';
 import React, { createElement, isValidElement } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { ThemeProvider } from './context';
+import { globalStyle } from './style';
 
 const StorybookGlobalStyle = createGlobalStyle`
   html {
@@ -14,11 +13,11 @@ const StorybookGlobalStyle = createGlobalStyle`
 `;
 
 //tslint:disable-next-line:no-any
-export const withStorybookGlobalStyle: DecoratorFunction<any> = storyFn => {
+export const withInsightViewerStorybookGlobalStyle: DecoratorFunction<any> = storyFn => {
   const story = storyFn();
   
   return (
-    <ThemeProvider>
+    <>
       <StorybookGlobalStyle/>
       {
         typeof story === 'function'
@@ -27,6 +26,6 @@ export const withStorybookGlobalStyle: DecoratorFunction<any> = storyFn => {
           ? story
           : <div>story is not valid element</div>
       }
-    </ThemeProvider>
+    </>
   );
 };

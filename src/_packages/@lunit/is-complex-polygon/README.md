@@ -30,8 +30,10 @@ import {
   Point,
   unloadWADOImage,
   useInsightViewerSync,
+  withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
 import { isComplexPolygon } from '@lunit/is-complex-polygon';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, useCallback, useState } from 'react';
 
@@ -102,6 +104,8 @@ function Sample() {
 }
 
 storiesOf('in-complex-polygon', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('isComplexPolygon()', () => <Sample/>);
 ```
 

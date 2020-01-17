@@ -9,8 +9,9 @@ import {
   ProgressViewer,
   unloadWADOImage,
   useInsightViewerSync,
-  useUserContour,
+  useUserContour, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -107,6 +108,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [600, 400, 1000],
     height: [700, 400, 1000],

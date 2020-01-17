@@ -31,6 +31,8 @@ npm install @lunit/heatmap
 
 ```tsx
 import { HeatmapScaleSVGImage } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
@@ -40,6 +42,8 @@ import React from 'react';
  * <svg>를 사용해서 별도의 디자인을 구현하려고 할때 사용할 수 있다
  */
 storiesOf('heatmap', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withKnobs)
   .add('<HeatmapScaleSVGImage>', () => {
     const width: number = number('Width', 300, {range: true, step: 10, min: 100, max: 600});
@@ -61,6 +65,8 @@ storiesOf('heatmap', module)
 
 ```tsx
 import { posMapToImageData } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import data from './posMap.sample.json';
@@ -98,6 +104,8 @@ function Sample() {
 }
 
 storiesOf('heatmap', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('posMapToImageData()', () => <Sample/>);
 ```
 
@@ -107,6 +115,8 @@ storiesOf('heatmap', module)
 
 ```tsx
 import { useHeatmapScaleImageURI } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
@@ -125,6 +135,8 @@ function Image({width, height, threshold}: {width: number, height: number, thres
 }
 
 storiesOf('heatmap', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withKnobs)
   .add('useHeatmapScaleImageURI()', () => {
     const width: number = number('Width', 300, {range: true, step: 10, min: 100, max: 600});

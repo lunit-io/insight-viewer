@@ -1,4 +1,6 @@
 import { HeatmapScaleSVGImage } from '@lunit/heatmap';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, radios, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode } from 'react';
@@ -53,6 +55,8 @@ const scalebarDecorator = (story: () => ReactNode) => (
 );
 
 storiesOf('scalebar', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(scalebarDecorator)
   .addDecorator(withKnobs)
   .add('<GrayScalebar>', () => {

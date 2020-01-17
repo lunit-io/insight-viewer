@@ -27,3 +27,4 @@ export * from './hooks/useImageLoadedTime';
 export * from './hooks/useImageStore';
 export * from './components/ThumbnailImage';
 export * from './theme/style';
+export * from './theme/withInsightViewerStorybookGlobalStyle';

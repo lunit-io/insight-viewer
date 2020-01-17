@@ -10,8 +10,9 @@ import {
   unloadWADOImage,
   useContainerStyleOfProgressViewersInactivity,
   useInsightViewerSync,
-  useProgressViewersActivity,
+  useProgressViewersActivity, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { CSSProperties, useMemo } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -93,6 +94,8 @@ function Component({image}: {image: CornerstoneImage}) {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [300, 200, 500],
     height: [400, 300, 600],

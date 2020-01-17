@@ -5,8 +5,9 @@ import {
   InsightViewerContainer,
   installWADOImageLoader,
   unloadWADOImage,
-  useInsightViewerSync,
+  useInsightViewerSync, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 import useResizeObserver from 'use-resize-observer';
@@ -49,4 +50,6 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('useResizeObserver', () => <Sample/>);

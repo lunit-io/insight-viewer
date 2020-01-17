@@ -1,11 +1,13 @@
-import { Tooltip, withStorybookGlobalStyle } from '@lunit/opt-components';
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { Tooltip, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { Error } from '@material-ui/icons';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
 storiesOf('opt-components', module)
-  .addDecorator(withStorybookGlobalStyle)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Tooltip', () => {
     const title = (
       <div>

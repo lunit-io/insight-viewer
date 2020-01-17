@@ -1,3 +1,5 @@
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { useShortcut } from '@lunit/use-shortcut';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, useState } from 'react';
@@ -29,4 +31,6 @@ function Sample() {
 }
 
 storiesOf('use-shortcut', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('useShortcut()', () => <Sample/>);

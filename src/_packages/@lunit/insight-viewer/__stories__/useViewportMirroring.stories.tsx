@@ -12,8 +12,9 @@ import {
   ContourDrawer,
   ContourViewer,
   useUserContour,
-  useViewportMirroring,
+  useViewportMirroring, withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
+import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { RefObject, useMemo, useRef, useState } from 'react';
 import { useController, withTestController } from './decorators/withTestController';
@@ -151,6 +152,8 @@ function Sample() {
 }
 
 storiesOf('insight-viewer', module)
+  .addDecorator(withOPTComponentsStorybookGlobalStyle)
+  .addDecorator(withInsightViewerStorybookGlobalStyle)
   .addDecorator(withTestController({
     width: [300, 200, 500],
     height: [400, 300, 600],
