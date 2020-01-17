@@ -1,0 +1,15 @@
+{
+  "name": "@lunit/timeout",
+  "version": "1.0.0",
+  "description": "Simple promise timeout",
+  "author": {
+    "name": "Seoyeon Lee",
+    "email": "seoyeon.lee@lunit.io"
+  },
+  "repository": "lunit-io/frontend-components",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js"
+}

@@ -1,4 +1,6 @@
 import {
+  ContourDrawer,
+  ContourViewer,
   CornerstoneBulkImage,
   CornerstoneSeriesImage,
   InsightViewer,
@@ -9,8 +11,6 @@ import {
   useBulkImageScroll,
   useImageProgress,
   useInsightViewerSync,
-  UserContourDrawer,
-  UserContourViewer,
   useUserContour,
 } from '@lunit/insight-viewer';
 import { storiesOf } from '@storybook/react';
@@ -75,24 +75,24 @@ function Component() {
           contours &&
           contours.length > 0 &&
           cornerstoneRenderData &&
-          <UserContourViewer width={width}
-                             height={height}
-                             contours={contours}
-                             focusedContour={focusedContour}
-                             cornerstoneRenderData={cornerstoneRenderData}/>
+          <ContourViewer width={width}
+                         height={height}
+                         contours={contours}
+                         focusedContour={focusedContour}
+                         cornerstoneRenderData={cornerstoneRenderData}/>
         }
         {
           contours &&
           cornerstoneRenderData &&
           control === 'pen' &&
-          <UserContourDrawer width={width}
-                             height={height}
-                             contours={contours}
-                             draw={control === 'pen' && interactionElement}
-                             onFocus={focusContour}
-                             onAdd={contour => addContour(contour)}
-                             onRemove={removeContour}
-                             cornerstoneRenderData={cornerstoneRenderData}/>
+          <ContourDrawer width={width}
+                         height={height}
+                         contours={contours}
+                         draw={control === 'pen' && interactionElement}
+                         onFocus={focusContour}
+                         onAdd={contour => addContour(contour)}
+                         onRemove={removeContour}
+                         cornerstoneRenderData={cornerstoneRenderData}/>
         }
         <ProgressViewer image={image}
                         width={width}

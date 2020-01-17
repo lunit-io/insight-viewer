@@ -1,4 +1,5 @@
 import {
+  ContourDrawer,
   CornerstoneImage,
   CornerstoneSingleImage,
   InsightViewer,
@@ -7,7 +8,6 @@ import {
   Point,
   unloadWADOImage,
   useInsightViewerSync,
-  UserContourDrawer,
 } from '@lunit/insight-viewer';
 import { isComplexPolygon } from '@lunit/is-complex-polygon';
 import { storiesOf } from '@storybook/react';
@@ -62,14 +62,14 @@ function Sample() {
                        updateCornerstoneRenderData={updateCornerstoneRenderData}/>
         {
           cornerstoneRenderData &&
-          <UserContourDrawer width={width}
-                             height={height}
-                             contours={[]}
-                             draw={interactionElement}
-                             onFocus={doNothing}
-                             onAdd={check}
-                             onRemove={doNothing}
-                             cornerstoneRenderData={cornerstoneRenderData}/>
+          <ContourDrawer width={width}
+                         height={height}
+                         contours={[]}
+                         draw={interactionElement}
+                         onFocus={doNothing}
+                         onAdd={check}
+                         onRemove={doNothing}
+                         cornerstoneRenderData={cornerstoneRenderData}/>
         }
       </InsightViewerContainer>
       <div>

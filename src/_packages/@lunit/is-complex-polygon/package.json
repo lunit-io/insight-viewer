@@ -1,6 +1,6 @@
 {
   "name": "@lunit/is-complex-polygon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Test is polygon complex",
   "author": {
     "name": "Seoyeon Lee",
@@ -13,6 +13,6 @@
   },
   "main": "index.js",
   "dependencies": {
-    "@lunit/is-intersection": "^0.1.0"
+    "@lunit/is-intersection": "^1.0.0"
   }
 }

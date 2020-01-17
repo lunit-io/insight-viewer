@@ -11,10 +11,14 @@ export function installWADOImageLoader() {
   cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
   cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
   cornerstoneWADOImageLoader.webWorkerManager.initialize({
+    maxWebWorkers: navigator.hardwareConcurrency || 4,
+    startWebWorkersOnDemand: false,
     webWorkerPath: 'cornerstoneWADOImageLoaderWebWorker.min.js',
     taskConfiguration: {
-      'decodeTask': {
+      decodeTask: {
+        initializeCodecsOnStartup: true,
         codecsPath: 'cornerstoneWADOImageLoaderCodecs.min.js',
+        //usePDFJS: false,
       },
     },
   });

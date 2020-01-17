@@ -40,3 +40,12 @@ export function getProgressEventDetail(event: Event): ProgressEventDetail | unde
   
   return undefined;
 }
+
+export interface LoadImageParams {
+  imageId: string;
+  options?: object;
+}
+
+export interface ImageLoader {
+  loadImage: (params: LoadImageParams) => Promise<Image>;
+}

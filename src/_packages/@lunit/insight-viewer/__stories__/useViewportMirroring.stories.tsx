@@ -9,8 +9,8 @@ import {
   unloadWADOImage,
   useBulkImageScroll,
   useInsightViewerSync,
-  UserContourDrawer,
-  UserContourViewer,
+  ContourDrawer,
+  ContourViewer,
   useUserContour,
   useViewportMirroring,
 } from '@lunit/insight-viewer';
@@ -113,7 +113,7 @@ function Sample() {
           contours &&
           contours.length > 0 &&
           cornerstoneRenderData &&
-          <UserContourViewer width={width}
+          <ContourViewer width={width}
                              height={height}
                              contours={contours}
                              focusedContour={focusedContour}
@@ -122,7 +122,7 @@ function Sample() {
         {
           contours &&
           cornerstoneRenderData &&
-          <UserContourDrawer width={width}
+          <ContourDrawer width={width}
                              height={height}
                              contours={contours}
                              draw={interactionElement3}

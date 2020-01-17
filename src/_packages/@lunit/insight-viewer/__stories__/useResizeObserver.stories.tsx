@@ -24,7 +24,11 @@ function Sample() {
   // 특정 Element의 width, height를 지속적으로 감지한다
   // flex 등 layout으로 처리된 <div> Element의 width, height를 useResizeObserver()로 받아서
   // <InsightViewer width={width} height={height}> 로 넘길 수 있다
-  const [resizeRef, width, height] = useResizeObserver();
+  const {ref: resizeRef, width, height} = useResizeObserver<HTMLDivElement>({
+    useDefaults: true,
+    defaultWidth: 500,
+    defaultHeight: 500,
+  });
   
   return (
     <div ref={resizeRef} style={{width: '50vw', height: '80vh'}}>

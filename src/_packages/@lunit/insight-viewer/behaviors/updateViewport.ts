@@ -1,11 +1,8 @@
-import { Viewport } from 'cornerstone-core';
 import { RefObject } from 'react';
 import { InsightViewer } from '../components/InsightViewer';
-import { ViewportTransformParams } from '../types';
+import { ViewportTransform } from '../types';
 
-type Update = (params: ViewportTransformParams) => Partial<Viewport> | undefined;
-
-export function updateViewport(viewer: InsightViewer | RefObject<InsightViewer>, update: Update) {
+export function updateViewport(viewer: InsightViewer | RefObject<InsightViewer>, update: ViewportTransform) {
   let v: InsightViewer | null = null;
   
   if ('updateViewer' in viewer) {
@@ -23,7 +20,7 @@ export function updateViewport(viewer: InsightViewer | RefObject<InsightViewer>,
   }
 }
 
-export const zoomMiddleLeft: (increment: number) => Update = increment => ({element, currentViewport, minScale, maxScale}) => {
+export const zoomMiddleLeft: (increment: number) => ViewportTransform = increment => ({element, currentViewport, minScale, maxScale}) => {
   if (!currentViewport) return;
   
   const nextScale: number = Math.max(
@@ -53,7 +50,7 @@ export const zoomMiddleLeft: (increment: number) => Update = increment => ({elem
   };
 };
 
-export const zoomMiddleRight: (increment: number) => Update = increment => ({element, currentViewport, minScale, maxScale}) => {
+export const zoomMiddleRight: (increment: number) => ViewportTransform = increment => ({element, currentViewport, minScale, maxScale}) => {
   if (!currentViewport) return;
   
   const nextScale: number = Math.max(
@@ -83,7 +80,7 @@ export const zoomMiddleRight: (increment: number) => Update = increment => ({ele
   };
 };
 
-export const zoomMiddleCenter: (increment: number) => Update = increment => ({element, currentViewport, minScale, maxScale}) => {
+export const zoomMiddleCenter: (increment: number) => ViewportTransform = increment => ({element, currentViewport, minScale, maxScale}) => {
   if (!currentViewport) return;
   
   const nextScale: number = Math.max(
@@ -111,7 +108,7 @@ export const zoomMiddleCenter: (increment: number) => Update = increment => ({el
   };
 };
 
-export const adjustWindowCenter: (increment: number) => Update = increment => ({currentViewport}) => {
+export const adjustWindowCenter: (increment: number) => ViewportTransform = increment => ({currentViewport}) => {
   if (!currentViewport) return;
   
   const {windowWidth, windowCenter} = currentViewport.voi;
@@ -124,7 +121,7 @@ export const adjustWindowCenter: (increment: number) => Update = increment => ({
   };
 };
 
-export const adjustWindowWidth: (increment: number) => Update = increment => ({currentViewport}) => {
+export const adjustWindowWidth: (increment: number) => ViewportTransform = increment => ({currentViewport}) => {
   if (!currentViewport) return;
   
   const {windowWidth, windowCenter} = currentViewport.voi;

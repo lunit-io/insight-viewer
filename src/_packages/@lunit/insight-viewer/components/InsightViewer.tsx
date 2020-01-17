@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 import { Unsubscribable } from 'rxjs';
 import { InsightViewerHostProps } from '../hooks/useInsightViewerSync';
 import { CornerstoneImage } from '../image/types';
-import { CornerstoneRenderData, ViewportTransformParams } from '../types';
+import { CornerstoneRenderData, ViewportTransform, ViewportTransformParams } from '../types';
 import { startAdjustInteraction } from './interactions/startAdjustInteraction';
 import { startPanInteraction } from './interactions/startPanInteraction';
 import { startZoomInteraction } from './interactions/startZoomInteraction';
@@ -33,6 +33,7 @@ export interface InsightViewerProps extends InsightViewerHostProps {
   zoom: boolean | HTMLElement | null;
   invert: boolean;
   flip: boolean;
+  defaultViewportTransforms?: ViewportTransform[];
 }
 
 const maxScale: number = 3;
@@ -100,10 +101,28 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     disable(this.element);
     enable(this.element, {renderer: 'webgl'});
     
-    const defaultViewport = this.getDefaultViewport(image, this.element);
+    let defaultViewport = this.getDefaultViewport(image, this.element);
     
     if (!defaultViewport) {
       throw new Error('defaultViewport는 null일 수 없다.');
+    }
+    
+    if (Array.isArray(this.props.defaultViewportTransforms)) {
+      const minScale: number = defaultViewport.scale;
+      
+      for (const transform of this.props.defaultViewportTransforms) {
+        const patch = transform({
+          element: this.element,
+          currentViewport: defaultViewport,
+          minScale,
+          maxScale,
+        });
+        
+        defaultViewport = {
+          ...defaultViewport,
+          ...patch,
+        };
+      }
     }
     
     displayImage(this.element, image, defaultViewport);

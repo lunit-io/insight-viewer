@@ -9,6 +9,10 @@ interface ZoomInteractionParams {
 
 export function startZoomInteraction({element, getMinMaxScale, getCurrentViewport, onZoom}: ZoomInteractionParams): () => void {
   function wheel(event: WheelEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    
     const [minScale, maxScale] = getMinMaxScale();
     const currentViewport = getCurrentViewport();
     
@@ -35,11 +39,12 @@ export function startZoomInteraction({element, getMinMaxScale, getCurrentViewpor
     const {top, left, width, height} = element.getBoundingClientRect();
     
     // left + width / 2 는 screen 기준 element의 center
+    // mouse pointer point - window scroll position 으로 scroll 기준 위치를 찾는다
     // screen 기준 mouse pointer point - element의 center
     // element center 부터의 mouse 상대 위치의 차를 계산하게 된다
     // | ------ center ==== mouse - |   = 로 표시된 거리
-    const distanceX: number = event.pageX - (left + width / 2);
-    const distanceY: number = event.pageY - (top + height / 2);
+    const distanceX: number = event.pageX - window.scrollX - (left + width / 2);
+    const distanceY: number = event.pageY - window.scrollY - (top + height / 2);
     
     // nextScale / currentViewport.scale 으로 scale 변화의 비율을 계산 (확대 시 >1, 축소 시 <1)
     // 1 - scale 변환 비율로 확대 / 축소 시 size 변화에 따른 위치 변화의 폭을 찾는다

@@ -15,6 +15,7 @@ npm install @lunit/is-polygon-area-greater-than-area
 
 ```tsx
 import {
+  ContourDrawer,
   CornerstoneImage,
   CornerstoneSingleImage,
   InsightViewer,
@@ -23,7 +24,6 @@ import {
   Point,
   unloadWADOImage,
   useInsightViewerSync,
-  UserContourDrawer,
 } from '@lunit/insight-viewer';
 import { isPolygonAreaGreaterThanArea } from '@lunit/is-polygon-area-greater-than-area';
 import { storiesOf } from '@storybook/react';
@@ -58,7 +58,8 @@ function Sample() {
       <div>
         <h3><span role="img" aria-label="polygon">🧬</span> POLYGON</h3>
         <pre><code>{JSON.stringify(polygon)}</code></pre>
-        <p><span role="img" aria-label="question">🤷‍♂️</span> IS GREATER THAN AREA({100})? → {result ? 'YES' : 'NO'}</p>
+        <p><span role="img" aria-label="question">🤷‍♂️</span> IS GREATER THAN AREA({100})? → {result ? 'YES' : 'NO'}
+        </p>
       </div>
     ));
   }, []);
@@ -78,14 +79,14 @@ function Sample() {
                        updateCornerstoneRenderData={updateCornerstoneRenderData}/>
         {
           cornerstoneRenderData &&
-          <UserContourDrawer width={width}
-                             height={height}
-                             contours={[]}
-                             draw={interactionElement}
-                             onFocus={doNothing}
-                             onAdd={check}
-                             onRemove={doNothing}
-                             cornerstoneRenderData={cornerstoneRenderData}/>
+          <ContourDrawer width={width}
+                         height={height}
+                         contours={[]}
+                         draw={interactionElement}
+                         onFocus={doNothing}
+                         onAdd={check}
+                         onRemove={doNothing}
+                         cornerstoneRenderData={cornerstoneRenderData}/>
         }
       </InsightViewerContainer>
       <div>

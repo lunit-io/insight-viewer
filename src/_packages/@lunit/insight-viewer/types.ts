@@ -20,3 +20,5 @@ export interface ViewportTransformParams {
   maxScale: number;
   currentViewport: Viewport | null;
 }
+
+export type ViewportTransform = (params: ViewportTransformParams) => Partial<Viewport> | undefined;

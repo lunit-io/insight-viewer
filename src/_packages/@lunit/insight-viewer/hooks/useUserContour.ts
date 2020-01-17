@@ -46,18 +46,20 @@ export function useUserContour<T extends Contour>({nextId, initialContours, mode
       validateDataAttrs(dataAttrs);
     }
     
-    const contour: T = {
-      ...contourInfo,
-      id: typeof nextId === 'number'
-        ? nextId
-        : nextId && typeof nextId.current === 'number'
-          ? nextId.current
-          : Math.max(...contours.map(({id}) => id), 0) + 1,
-      polygon,
-      dataAttrs,
-    } as T;
+    let contour: T | null = null;
     
     setContours(prevContours => {
+      contour = {
+        ...contourInfo,
+        id: typeof nextId === 'number'
+          ? nextId
+          : nextId && typeof nextId.current === 'number'
+            ? nextId.current
+            : Math.max(...prevContours.map(({id}) => id), 0) + 1,
+        polygon,
+        dataAttrs,
+      } as T;
+      
       return [
         ...prevContours,
         contour,
@@ -65,7 +67,7 @@ export function useUserContour<T extends Contour>({nextId, initialContours, mode
     });
     
     return contour;
-  }, [contours, nextId, mode]);
+  }, [nextId, mode]);
   
   const addContours = useCallback((added: Omit<T, 'id'>[]) => {
     for (const contour of added) {
@@ -74,13 +76,13 @@ export function useUserContour<T extends Contour>({nextId, initialContours, mode
       }
     }
     
-    const startId: number = typeof nextId === 'number'
-      ? nextId
-      : nextId && typeof nextId.current === 'number'
-        ? nextId.current
-        : Math.max(...contours.map(({id}) => id), 0) + 1;
-    
     setContours(prevContours => {
+      const startId: number = typeof nextId === 'number'
+        ? nextId
+        : nextId && typeof nextId.current === 'number'
+          ? nextId.current
+          : Math.max(...prevContours.map(({id}) => id), 0) + 1;
+      
       return [
         ...prevContours,
         ...added.map((addedContour, i) => {
@@ -91,7 +93,7 @@ export function useUserContour<T extends Contour>({nextId, initialContours, mode
         }),
       ];
     });
-  }, [contours, nextId]);
+  }, [nextId]);
   
   const updateContour = useCallback((contour: T, patch: Partial<Omit<T, 'id'>>) => {
     if (patch.polygon && mode === 'contour' && (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))) return;

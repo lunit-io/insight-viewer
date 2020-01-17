@@ -10,8 +10,20 @@ before_install:
 script:
   - npm run lint
   - npm run test
-after_success:
+  - npm run package:build
   - npm run storybook:build
+deploy:
+  - provider: script
+    script: npm run package:publish:ci
+    on:
+      branch: master
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    local_dir: ./dist-storybook
+    on:
+      all_branches: true
 notifications:
   email:
     on_success: never
