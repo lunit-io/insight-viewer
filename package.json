@@ -10,8 +10,7 @@
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "start": "npm run storybook:start",
     "test": "jest --colors",
-    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\" && tslint \"src/**/*.{ts,tsx}\"",
-    "foo": "echo \"$NPM_TOKEN $NPM_LUNIT_TOKEN\""
+    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\" && tslint \"src/**/*.{ts,tsx}\""
   },
   "jest": {
     "preset": "react-zeroconfig",
