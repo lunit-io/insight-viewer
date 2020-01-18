@@ -20,6 +20,11 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+  - provider: script
+    script: npm run foo
+    skip_cleanup: true
+    on:
+      branch: master
   - provider: pages
     skip_cleanup: true
     token: $GITHUB_TOKEN
