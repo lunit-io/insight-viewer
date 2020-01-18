@@ -25,6 +25,11 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+  - provider: script
+    script: npm whoami
+    skip_cleanup: true
+    on:
+      branch: master
   - provider: pages
     skip_cleanup: true
     token: $GITHUB_TOKEN
