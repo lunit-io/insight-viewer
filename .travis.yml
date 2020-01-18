@@ -14,22 +14,26 @@ script:
   - npm run test
   - npm run package:build
   - npm run storybook:build
+after_success:
+  - if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then npm run package:publish:ci; fi
+  - if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then npm run foo; fi
+  - if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then npm whoami; fi
 deploy:
-  - provider: script
-    script: npm run package:publish:ci
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: script
-    script: npm run foo
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: script
-    script: npm whoami
-    skip_cleanup: true
-    on:
-      branch: master
+#  - provider: script
+#    script: npm run package:publish:ci
+#    skip_cleanup: true
+#    on:
+#      branch: master
+#  - provider: script
+#    script: npm run foo
+#    skip_cleanup: true
+#    on:
+#      branch: master
+#  - provider: script
+#    script: npm whoami
+#    skip_cleanup: true
+#    on:
+#      branch: master
   - provider: pages
     skip_cleanup: true
     token: $GITHUB_TOKEN
