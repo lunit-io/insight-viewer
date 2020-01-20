@@ -26,7 +26,7 @@ deploy:
     keep_history: true
     local_dir: ./dist-storybook
     on:
-      branch: master
+      all_branches: true
 notifications:
   email:
     on_success: never
