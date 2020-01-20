@@ -1823,10 +1823,12 @@ import {
   installWADOImageLoader,
   ProgressViewer,
   unloadWADOImage,
+  useBulkImagePosition,
   useBulkImageScroll,
   useImageProgress,
   useInsightViewerSync,
-  useUserContour, withInsightViewerStorybookGlobalStyle,
+  useUserContour,
+  withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
@@ -1840,6 +1842,8 @@ function Component() {
   const resetTime: number = useMemo(() => Date.now(), []);
   // CornerstoneSeriesImage는 여러장의 dcm 이미지를 받는다
   const image: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
+  
+  const imagePosition = useBulkImagePosition(image);
   
   const {
     width,
@@ -1915,11 +1919,17 @@ function Component() {
                         height={height}/>
       </InsightViewerContainer>
       
+      <div>
+        scroll position: {imagePosition.current} / {imagePosition.end}
+      </div>
+      
       {
         typeof imageProgress === 'number' &&
-        <button onClick={() => image.destroy()}>
-          Destroy Image (= Cancel Loading)
-        </button>
+        <div>
+          <button onClick={() => image.destroy()}>
+            Destroy Image (= Cancel Loading)
+          </button>
+        </div>
       }
     </div>
   );

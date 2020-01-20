@@ -28,3 +28,4 @@ export * from './hooks/useImageStore';
 export * from './components/ThumbnailImage';
 export * from './theme/style';
 export * from './theme/withInsightViewerStorybookGlobalStyle';
+export * from './hooks/useBulkImagePosition';
