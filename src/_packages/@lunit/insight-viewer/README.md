@@ -2277,6 +2277,10 @@ storiesOf('insight-viewer', module)
 
 # Changelog
 
+## 3.5.0
+### Added
+- `useBulkImagePosition()` 추가
+
 ## 3.4.0
 ### Added
 - `<ThumbnailImage>` 추가
