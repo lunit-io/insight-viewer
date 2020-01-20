@@ -20,7 +20,7 @@ function Sample() {
   
   // unload 옵션은 위에 선언된 installWADOImageLoader()와 함께 동작한다
   // CornerstoneImage 객체를 unload 할때 wado image loader의 unload 동작을 하게 된다
-  const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+  const image: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
   
   // addDecorator(withTestController())의 값을 받는다
   const {

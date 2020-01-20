@@ -24,10 +24,10 @@ installWADOImageLoader();
 
 function Sample() {
   const resetTime: number = useMemo(() => Date.now(), []);
-  const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
-  const image2: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000020.dcm`, {unload: unloadWADOImage}), []);
-  const image3: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000030.dcm`, {unload: unloadWADOImage}), []);
-  const image4: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
+  const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+  const image2: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000020.dcm`, {unload: unloadWADOImage}), []);
+  const image3: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000030.dcm`, {unload: unloadWADOImage}), []);
+  const image4: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
   
   const {
     width,
