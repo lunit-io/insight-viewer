@@ -27,7 +27,7 @@ installWADOImageLoader();
 function Component() {
   const resetTime: number = useMemo(() => Date.now(), []);
   // CornerstoneSeriesImage는 여러장의 dcm 이미지를 받는다
-  const image: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
+  const image: CornerstoneBulkImage = useMemo(() => new CornerstoneSeriesImage(series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`), {unload: unloadWADOImage}), []);
   
   const imagePosition = useBulkImagePosition(image);
   

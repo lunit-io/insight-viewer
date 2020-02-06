@@ -17,10 +17,10 @@ storiesOf('insight-viewer', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('<DCMImage>', () => {
     //tslint:disable:react-hooks-nesting
-    const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
-    const image2: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000011.dcm`, {unload: unloadWADOImage}), []);
-    const image3: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000012.dcm`, {unload: unloadWADOImage}), []);
-    const image4: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000013.dcm`, {unload: unloadWADOImage}), []);
+    const image1: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage}), []);
+    const image2: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000011.dcm`, {unload: unloadWADOImage}), []);
+    const image3: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000012.dcm`, {unload: unloadWADOImage}), []);
+    const image4: CornerstoneImage = useMemo(() => new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000013.dcm`, {unload: unloadWADOImage}), []);
     
     return (
       <ul>

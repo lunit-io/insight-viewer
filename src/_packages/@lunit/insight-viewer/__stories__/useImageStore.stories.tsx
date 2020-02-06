@@ -19,10 +19,10 @@ function Sample() {
   
   const {fetch} = useImageStore();
   
-  const image1: CornerstoneImage = fetch(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000010.dcm`);
-  const image2: CornerstoneImage = fetch(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000011.dcm`);
-  const image3: CornerstoneImage = fetch(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000012.dcm`);
-  const image4: CornerstoneImage = fetch(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000013.dcm`);
+  const image1: CornerstoneImage = fetch(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`);
+  const image2: CornerstoneImage = fetch(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000011.dcm`);
+  const image3: CornerstoneImage = fetch(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000012.dcm`);
+  const image4: CornerstoneImage = fetch(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000013.dcm`);
   
   const progress1 = useImageProgress(image2);
   const progress2 = useImageProgress(image1);
