@@ -11,7 +11,7 @@ export function FooterBase({className}: {className?: string}) {
         Contact <a href="mailto:insight@lunit.io">insight@lunit.io</a>
       </p>
       <p>
-        © 2018 <a href="https://lunit.io" target="_blank" rel="noopener noreferrer">Lunit Inc.</a> ALL RIGHTS RESERVED
+        © {new Date().getFullYear()} <a href="https://lunit.io" target="_blank" rel="noopener noreferrer">Lunit Inc.</a> ALL RIGHTS RESERVED
       </p>
     </footer>
   );
