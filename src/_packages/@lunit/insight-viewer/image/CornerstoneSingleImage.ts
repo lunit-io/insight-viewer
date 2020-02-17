@@ -29,13 +29,13 @@ export class CornerstoneSingleImage implements CornerstoneImage {
     this.loadImage(imageId);
   }
   
-  onProgress = (event: Event) => {
-    const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(event);
-    
-    if (eventDetail && eventDetail.imageId === this.imageId) {
-      this._progressSubject.next(Math.min(eventDetail.loaded / eventDetail.total, 0.99));
-    }
-  };
+  get image(): Observable<Image | null> {
+    return this._imageSubject.asObservable();
+  }
+  
+  get progress(): Observable<number> {
+    return this._progressSubject.asObservable();
+  }
   
   destroy = () => {
     if (this.options && typeof this.options.unload === 'function') {
@@ -49,13 +49,13 @@ export class CornerstoneSingleImage implements CornerstoneImage {
     this._destoyed = true;
   };
   
-  get image(): Observable<Image | null> {
-    return this._imageSubject.asObservable();
-  }
-  
-  get progress(): Observable<number> {
-    return this._progressSubject.asObservable();
-  }
+  private onProgress = (event: Event) => {
+    const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(event);
+    
+    if (eventDetail && eventDetail.imageId === this.imageId) {
+      this._progressSubject.next(Math.min(eventDetail.loaded / eventDetail.total, 0.99));
+    }
+  };
   
   private loadImage = async (imageId: string) => {
     try {

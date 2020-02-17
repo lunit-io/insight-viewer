@@ -17,7 +17,7 @@ import React, { ReactNode, useCallback, useState } from 'react';
 installWADOImageLoader();
 
 const resetTime: number = Date.now();
-const image: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://elegant-jackson-8b43a6.netlify.com/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage});
+const image: CornerstoneImage = new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {unload: unloadWADOImage});
 
 function doNothing() {
   // DO NOTHING

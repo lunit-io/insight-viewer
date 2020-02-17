@@ -59,6 +59,20 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
     });
   }
   
+  get image(): Observable<Image | null> {
+    return this._imageSubject.asObservable();
+  }
+  
+  get progress(): Observable<number> {
+    return this._progressSubject.pipe<number>(
+      map<number[], number>(progress => progress.reduce((t, x) => t + x, 0) / progress.length),
+    );
+  }
+  
+  get index(): Observable<number> {
+    return this._indexSubject.asObservable();
+  }
+  
   onProgress = (event: Event) => {
     const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(event);
     
@@ -86,20 +100,6 @@ export class CornerstoneSeriesImage implements CornerstoneBulkImage {
     
     this._destoyed = true;
   };
-  
-  get image(): Observable<Image | null> {
-    return this._imageSubject.asObservable();
-  }
-  
-  get progress(): Observable<number> {
-    return this._progressSubject.pipe<number>(
-      map<number[], number>(progress => progress.reduce((t, x) => t + x, 0) / progress.length),
-    );
-  }
-  
-  get index(): Observable<number> {
-    return this._indexSubject.asObservable();
-  }
   
   length = (): number => {
     return this._images.length;
