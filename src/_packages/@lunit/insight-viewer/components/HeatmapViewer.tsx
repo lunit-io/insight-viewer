@@ -66,30 +66,34 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
       return;
     }
     
-    this.ctx.save();
-    
-    this.imageResourceCanvas.width = this.imageData.width;
-    this.imageResourceCanvas.height = this.imageData.height;
-    this.imageResourceCanvas.getContext('2d')!.putImageData(this.imageData, 0, 0);
-    
-    setToPixelCoordinateSystem(cornerstoneRenderData.enabledElement, this.ctx);
-    
-    const imageWidth: number = cornerstoneRenderData.image.width;
-    const imageHeight: number = cornerstoneRenderData.image.height;
-    
-    this.ctx.drawImage(
-      this.imageResourceCanvas,
-      0,
-      0,
-      this.imageResourceCanvas.width,
-      this.imageResourceCanvas.height,
-      0,
-      0,
-      imageWidth,
-      imageHeight,
-    );
-    
-    this.ctx.restore();
+    try {
+      this.ctx.save();
+      
+      this.imageResourceCanvas.width = this.imageData.width;
+      this.imageResourceCanvas.height = this.imageData.height;
+      this.imageResourceCanvas.getContext('2d')!.putImageData(this.imageData, 0, 0);
+      
+      setToPixelCoordinateSystem(cornerstoneRenderData.enabledElement, this.ctx);
+      
+      const imageWidth: number = cornerstoneRenderData.image.width;
+      const imageHeight: number = cornerstoneRenderData.image.height;
+      
+      this.ctx.drawImage(
+        this.imageResourceCanvas,
+        0,
+        0,
+        this.imageResourceCanvas.width,
+        this.imageResourceCanvas.height,
+        0,
+        0,
+        imageWidth,
+        imageHeight,
+      );
+      
+      this.ctx.restore();
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 
