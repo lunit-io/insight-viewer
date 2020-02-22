@@ -23,11 +23,11 @@ export interface ProgressViewerProps {
 
 let count: number = 0;
 
-export function ProgressViewer({width, height, inProgress, image}: ProgressViewerProps) {
+export function ProgressViewer({ width, height, inProgress, image }: ProgressViewerProps) {
   const id: number = useMemo(() => ++count, []);
   const imageProgress = useImageProgress(image);
-  const {setProgress, unsetProgress} = useProgressCollection();
-  
+  const { setProgress, unsetProgress } = useProgressCollection();
+
   useEffect(() => {
     if (inProgress === true || typeof imageProgress === 'number') {
       setProgress(id, imageProgress || 0);
@@ -35,30 +35,30 @@ export function ProgressViewer({width, height, inProgress, image}: ProgressViewe
       unsetProgress(id);
     }
   }, [id, imageProgress, inProgress, setProgress, unsetProgress]);
-  
+
   return (
     <>
-      {
-        (inProgress === true || typeof imageProgress === 'number') &&
-        <Div style={{
-          width,
-          height,
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        }}>
-          <CircularProgress size={120}/>
+      {(inProgress === true || typeof imageProgress === 'number') && (
+        <Div
+          style={{
+            width,
+            height,
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          <CircularProgress size={120} />
         </Div>
-      }
-      {
-        typeof imageProgress === 'number' &&
-        <Div style={{
-          width,
-          height,
-        }}>
-          <CircularProgress size={100}
-                            variant="static"
-                            value={imageProgress * 100}/>
+      )}
+      {typeof imageProgress === 'number' && (
+        <Div
+          style={{
+            width,
+            height,
+          }}
+        >
+          <CircularProgress size={100} variant="static" value={imageProgress * 100} />
         </Div>
-      }
+      )}
     </>
   );
 }
@@ -75,7 +75,7 @@ interface ProgressCollection {
 
 const ProgressCollectionContext: Context<ProgressCollection> = createContext<ProgressCollection>({
   inProgress: false,
-  
+
   setProgress: () => {
     // DO NOTHING
   },
@@ -84,32 +84,38 @@ const ProgressCollectionContext: Context<ProgressCollection> = createContext<Pro
   },
 });
 
-export function ProgressCollector({children}: ProgressCollectorProps) {
+export function ProgressCollector({ children }: ProgressCollectorProps) {
   const [collection, setCollection] = useState<Map<number, number>>(() => new Map());
-  
-  const setProgress = useCallback((id: number, progress: number) => {
-    setCollection(prevCollection => {
-      const nextCollection: Map<number, number> = new Map(prevCollection);
-      nextCollection.set(id, progress);
-      return nextCollection;
-    });
-  }, [setCollection]);
-  
-  const unsetProgress = useCallback((id: number) => {
-    setCollection(prevCollection => {
-      if (prevCollection.has(id)) {
+
+  const setProgress = useCallback(
+    (id: number, progress: number) => {
+      setCollection(prevCollection => {
         const nextCollection: Map<number, number> = new Map(prevCollection);
-        nextCollection.delete(id);
+        nextCollection.set(id, progress);
         return nextCollection;
-      }
-      return prevCollection;
-    });
-  }, [setCollection]);
-  
+      });
+    },
+    [setCollection],
+  );
+
+  const unsetProgress = useCallback(
+    (id: number) => {
+      setCollection(prevCollection => {
+        if (prevCollection.has(id)) {
+          const nextCollection: Map<number, number> = new Map(prevCollection);
+          nextCollection.delete(id);
+          return nextCollection;
+        }
+        return prevCollection;
+      });
+    },
+    [setCollection],
+  );
+
   const inProgress: boolean = useMemo(() => {
     return collection.size > 0;
   }, [collection]);
-  
+
   const state: ProgressCollection = useMemo<ProgressCollection>(() => {
     return {
       inProgress,
@@ -117,12 +123,8 @@ export function ProgressCollector({children}: ProgressCollectorProps) {
       unsetProgress,
     };
   }, [inProgress, setProgress, unsetProgress]);
-  
-  return (
-    <ProgressCollectionContext.Provider value={state}>
-      {children}
-    </ProgressCollectionContext.Provider>
-  );
+
+  return <ProgressCollectionContext.Provider value={state}>{children}</ProgressCollectionContext.Provider>;
 }
 
 function useProgressCollection(): ProgressCollection {
@@ -133,11 +135,11 @@ export function useProgressViewersActivity(): boolean {
   return useContext(ProgressCollectionContext).inProgress;
 }
 
-export function useContainerStyleOfProgressViewersInactivity(style: CSSProperties = {pointerEvents: 'none'}): CSSProperties {
-  const {inProgress} = useContext(ProgressCollectionContext);
-  return inProgress
-    ? style
-    : {};
+export function useContainerStyleOfProgressViewersInactivity(
+  style: CSSProperties = { pointerEvents: 'none' },
+): CSSProperties {
+  const { inProgress } = useContext(ProgressCollectionContext);
+  return inProgress ? style : {};
 }
 
 const Div = styled.div`

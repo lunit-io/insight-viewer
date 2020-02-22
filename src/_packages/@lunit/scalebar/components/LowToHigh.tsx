@@ -23,38 +23,27 @@ const textStyleEnd: CSSProperties = {
   textAlign: 'right',
 };
 
-export function LowToHigh({width, style, ...svgProps}: LowToHighProps) {
+export function LowToHigh({ width, style, ...svgProps }: LowToHighProps) {
   return (
-    <svg {...svgProps}
-         width={width}
-         height={20}
-         style={{
-           ...style,
-           position: 'absolute',
-           left: 0,
-         }}>
-      <text x={0}
-            y={15}
-            fill="#ffffff"
-            style={textStyle}>
+    <svg
+      {...svgProps}
+      width={width}
+      height={20}
+      style={{
+        ...style,
+        position: 'absolute',
+        left: 0,
+      }}
+    >
+      <text x={0} y={15} fill="#ffffff" style={textStyle}>
         LOW
       </text>
-      
-      <line x1={40}
-            y1={11}
-            x2={width - 50}
-            y2={11}
-            stroke="#ffffff"
-            strokeWidth={1}/>
-      
-      <polygon points={trianglePath(width - 50, 11, 5, 5)}
-               fill="#ffffff"/>
-      
-      <text x={width}
-            y={15}
-            fill="#ffffff"
-            style={textStyleEnd}
-            textAnchor="end">
+
+      <line x1={40} y1={11} x2={width - 50} y2={11} stroke="#ffffff" strokeWidth={1} />
+
+      <polygon points={trianglePath(width - 50, 11, 5, 5)} fill="#ffffff" />
+
+      <text x={width} y={15} fill="#ffffff" style={textStyleEnd} textAnchor="end">
         HIGH
       </text>
     </svg>

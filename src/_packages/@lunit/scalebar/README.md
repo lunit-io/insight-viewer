@@ -74,7 +74,7 @@ const ScalebarTopLabel = styled.span`
   left: 0;
 
   &:after {
-    content: "";
+    content: '';
     display: inline-block;
     width: 100%;
   }
@@ -96,11 +96,7 @@ const ScalebarLeftLabel = styled.span`
   left: -410px;
 `;
 
-const scalebarDecorator = (story: () => ReactNode) => (
-  <div style={{marginLeft: 250, marginTop: 100}}>
-    {story()}
-  </div>
-);
+const scalebarDecorator = (story: () => ReactNode) => <div style={{ marginLeft: 250, marginTop: 100 }}>{story()}</div>;
 
 storiesOf('scalebar', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
@@ -108,71 +104,64 @@ storiesOf('scalebar', module)
   .addDecorator(scalebarDecorator)
   .addDecorator(withKnobs)
   .add('<GrayScalebar>', () => {
-    const width: number = number('Width', 200, {range: true, step: 10, min: 100, max: 600});
-    const label: string = radios<string>('Label', {
-      None: 'none',
-      Top: 'top',
-      Left: 'left',
-    }, 'none');
-    
+    const width: number = number('Width', 200, { range: true, step: 10, min: 100, max: 600 });
+    const label: string = radios<string>(
+      'Label',
+      {
+        None: 'none',
+        Top: 'top',
+        Left: 'left',
+      },
+      'none',
+    );
+
     return (
-      <GrayScalebar width={width}
-                    steps={10}
-                    backgroundColor="#333333"
-                    lines={[
-                      {step: 1, lineWidth: 2, color: '#ffffff'},
-                      {step: 5, lineWidth: 4, color: '#ffffff'},
-                      {step: 9, lineWidth: 6, color: '#ffffff'},
-                    ]}>
-        {
-          label === 'top'
-            ? (
-              <ScalebarTopLabel style={{width}}>
-                STROKE WEIGHT INDICATOR
-              </ScalebarTopLabel>
-            )
-            : label === 'left'
-            ? (
-              <ScalebarLeftLabel>
-                STROKE WEIGHT INDICATOR
-              </ScalebarLeftLabel>
-            )
-            : null
-        }
+      <GrayScalebar
+        width={width}
+        steps={10}
+        backgroundColor="#333333"
+        lines={[
+          { step: 1, lineWidth: 2, color: '#ffffff' },
+          { step: 5, lineWidth: 4, color: '#ffffff' },
+          { step: 9, lineWidth: 6, color: '#ffffff' },
+        ]}
+      >
+        {label === 'top' ? (
+          <ScalebarTopLabel style={{ width }}>STROKE WEIGHT INDICATOR</ScalebarTopLabel>
+        ) : label === 'left' ? (
+          <ScalebarLeftLabel>STROKE WEIGHT INDICATOR</ScalebarLeftLabel>
+        ) : null}
       </GrayScalebar>
     );
   })
   .add('<ColorScalebar>', () => {
-    const width: number = number('Width', 200, {range: true, step: 10, min: 100, max: 600});
-    const label: string = radios<string>('Label', {
-      None: 'none',
-      Top: 'top',
-      Left: 'left',
-    }, 'none');
-    
+    const width: number = number('Width', 200, { range: true, step: 10, min: 100, max: 600 });
+    const label: string = radios<string>(
+      'Label',
+      {
+        None: 'none',
+        Top: 'top',
+        Left: 'left',
+      },
+      'none',
+    );
+
     return (
-      <ColorScalebar width={width}
-                     steps={10}
-                     scaleImage={<HeatmapScaleSVGImage width={width} height={scalebarHeight} threshold={0.1}/>}
-                     tickColor="#333333">
-        {
-          label === 'top'
-            ? (
-              <ScalebarTopLabel style={{width}}>
-                HEATMAP COLOR INDICATOR
-              </ScalebarTopLabel>
-            )
-            : label === 'left'
-            ? (
-              <ScalebarLeftLabel>
-                HEATMAP COLOR INDICATOR
-              </ScalebarLeftLabel>
-            )
-            : null
-        }
+      <ColorScalebar
+        width={width}
+        steps={10}
+        scaleImage={<HeatmapScaleSVGImage width={width} height={scalebarHeight} threshold={0.1} />}
+        tickColor="#333333"
+      >
+        {label === 'top' ? (
+          <ScalebarTopLabel style={{ width }}>HEATMAP COLOR INDICATOR</ScalebarTopLabel>
+        ) : label === 'left' ? (
+          <ScalebarLeftLabel>HEATMAP COLOR INDICATOR</ScalebarLeftLabel>
+        ) : null}
       </ColorScalebar>
     );
   });
+
 ```
 
 <!-- importend -->

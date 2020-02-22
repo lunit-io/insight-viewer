@@ -4,13 +4,12 @@ import { makeStyles } from '@material-ui/styles';
 import React, { Fragment } from 'react';
 import styled, { DefaultTheme, keyframes } from 'styled-components';
 
-export interface TooltipProps extends MuiTooltipProps {
-}
+export interface TooltipProps extends MuiTooltipProps {}
 
-export function Tooltip({className, ...props}: TooltipProps) {
-  const {arrow, popper, ...classes} = useTooltipStyle(props);
+export function Tooltip({ className, ...props }: TooltipProps) {
+  const { arrow, popper, ...classes } = useTooltipStyle(props);
   const [arrowRef, setArrowRef] = React.useState<HTMLSpanElement | null>(null);
-  
+
   return (
     <MuiTooltip
       classes={classes}
@@ -29,8 +28,7 @@ export function Tooltip({className, ...props}: TooltipProps) {
       title={
         <Fragment>
           {props.title}
-          <span className={arrow}
-                ref={setArrowRef}/>
+          <span className={arrow} ref={setArrowRef} />
         </Fragment>
       }
     />
@@ -47,7 +45,7 @@ export const useTooltipStyle = makeStyles<DefaultTheme, TooltipProps>({
   arrow: {
     position: 'absolute',
     fontSize: 6,
-    
+
     '&::before': {
       content: '""',
       margin: 'auto',
@@ -104,18 +102,14 @@ export const useTooltipStyle = makeStyles<DefaultTheme, TooltipProps>({
 });
 
 export const NormalTooltip = styled(Tooltip).attrs({
-  children: (
-    <Help style={{color: 'rgba(255, 255, 255, 0.6)'}}/>
-  ),
+  children: <Help style={{ color: 'rgba(255, 255, 255, 0.6)' }} />,
 })`
   --tooltip-background-color: rgba(255, 255, 255, 0.6);
   --tooltip-label-color: #030a18;
 `;
 
 export const InfoTooltip = styled(Tooltip).attrs({
-  children: (
-    <Help style={{color: '#00a4c8'}}/>
-  ),
+  children: <Help style={{ color: '#00a4c8' }} />,
 })`
   --tooltip-background-color: #00a4c8;
   --tooltip-label-color: #ffffff;
@@ -140,18 +134,14 @@ const ErrorIcon = styled(Error)`
 `;
 
 export const WarningTooltip = styled(Tooltip).attrs({
-  children: (
-    <ErrorIcon style={{color: '#d6ae41'}}/>
-  ),
+  children: <ErrorIcon style={{ color: '#d6ae41' }} />,
 })`
   --tooltip-background-color: #d6ae41;
   --tooltip-label-color: #ffffff;
 `;
 
 export const ErrorTooltip = styled(Tooltip).attrs({
-  children: (
-    <ErrorIcon style={{color: '#c9434b'}}/>
-  ),
+  children: <ErrorIcon style={{ color: '#c9434b' }} />,
 })`
   --tooltip-background-color: #c9434b;
   --tooltip-label-color: #ffffff;

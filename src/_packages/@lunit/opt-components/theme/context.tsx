@@ -3,13 +3,11 @@ import React, { ReactNode } from 'react';
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 import { theme } from './theme';
 
-export function ThemeProvider({children}: {children: ReactNode}) {
+export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <MuiStylesProvider injectFirst>
       <StyledComponentsThemeProvider theme={theme}>
-        <MuiThemeProvider theme={theme}>
-          {children}
-        </MuiThemeProvider>
+        <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
       </StyledComponentsThemeProvider>
     </MuiStylesProvider>
   );

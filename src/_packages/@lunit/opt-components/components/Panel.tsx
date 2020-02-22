@@ -21,69 +21,50 @@ export const panelClasses = {
 } as const;
 
 function getIcon(value: ReactNode | ((expanded: boolean) => ReactNode), expanded: boolean | undefined) {
-  const icon: ReactNode | undefined = typeof value === 'function'
-    ? value(expanded === true)
-    : value;
-  
+  const icon: ReactNode | undefined = typeof value === 'function' ? value(expanded === true) : value;
+
   if (icon) return icon;
-  
-  return typeof expanded !== 'boolean'
-    ? null
-    : expanded
-      ? <Arrow/>
-      : <Arrow style={{transform: 'rotate(180deg)'}}/>;
+
+  return typeof expanded !== 'boolean' ? null : expanded ? (
+    <Arrow />
+  ) : (
+    <Arrow style={{ transform: 'rotate(180deg)' }} />
+  );
 }
 
 export function PanelBase({
-                            className = '',
-                            expanded,
-                            onChange,
-                            style = {},
-                            title,
-                            icon,
-                            children,
-                            disabled,
-                          }: PanelProps) {
+  className = '',
+  expanded,
+  onChange,
+  style = {},
+  title,
+  icon,
+  children,
+  disabled,
+}: PanelProps) {
   const expand = useCallback(() => {
     if (typeof expanded === 'boolean' && typeof onChange === 'function') {
       onChange(!expanded);
     }
   }, [expanded, onChange]);
-  
-  const content = typeof children === 'function'
-    ? children(expanded === true)
-    : children;
-  
+
+  const content = typeof children === 'function' ? children(expanded === true) : children;
+
   const iconElement = getIcon(icon, expanded);
-  
+
   return (
-    <div className={className}
-         aria-expanded={expanded === true}
-         aria-disabled={disabled === true}
-         style={style}>
+    <div className={className} aria-expanded={expanded === true} aria-disabled={disabled === true} style={style}>
       <div className={panelClasses.header}>
-        {
-          iconElement &&
+        {iconElement && (
           <span className={panelClasses.icon} onClick={expand}>
             {iconElement}
           </span>
-        }
-        
-        <span className={panelClasses.title}>
-          {
-            typeof title === 'function'
-              ? title(expanded === true)
-              : title
-          }
-        </span>
+        )}
+
+        <span className={panelClasses.title}>{typeof title === 'function' ? title(expanded === true) : title}</span>
       </div>
-      
-      {
-        content &&
-        <div className={panelClasses.content}>
-          {content}
-        </div>
-      }
+
+      {content && <div className={panelClasses.content}>{content}</div>}
     </div>
   );
 }
@@ -93,30 +74,27 @@ export interface SessionPanelProps extends Omit<PanelProps, 'expanded'> {
   defaultExpanded?: boolean;
 }
 
-export function SessionPanelBase({sessionId, defaultExpanded = true, onChange, ...props}: SessionPanelProps) {
+export function SessionPanelBase({ sessionId, defaultExpanded = true, onChange, ...props }: SessionPanelProps) {
   const id: string = useMemo(() => {
     return `__sidebar_panel_${sessionId}__`;
   }, [sessionId]);
-  
+
   const [expanded, setExpanded] = useState<boolean>(() => {
     const sessionValue: string | null = localStorage.getItem(id);
-    
-    return typeof sessionValue === 'string'
-      ? sessionValue === 'open'
-      : defaultExpanded;
+
+    return typeof sessionValue === 'string' ? sessionValue === 'open' : defaultExpanded;
   });
-  
-  const updateExpanded = useCallback((nextExpanded: boolean) => {
-    localStorage.setItem(id, nextExpanded ? 'open' : 'close');
-    setExpanded(nextExpanded);
-    if (typeof onChange === 'function') onChange(nextExpanded);
-  }, [id, onChange]);
-  
-  return (
-    <Panel {...props}
-           expanded={expanded}
-           onChange={updateExpanded}/>
+
+  const updateExpanded = useCallback(
+    (nextExpanded: boolean) => {
+      localStorage.setItem(id, nextExpanded ? 'open' : 'close');
+      setExpanded(nextExpanded);
+      if (typeof onChange === 'function') onChange(nextExpanded);
+    },
+    [id, onChange],
   );
+
+  return <Panel {...props} expanded={expanded} onChange={updateExpanded} />;
 }
 
 const Arrow = styled(KeyboardArrowDown)`
@@ -128,11 +106,10 @@ export const PANEL_HEADER_HEIGHT: number = 25;
 const panelStyle = css`
   background-color: var(--panel-background-color);
   position: relative;
-  
-  &[aria-disabled="true"] {
-  
+
+  &[aria-disabled='true'] {
   }
-  
+
   .${panelClasses.header} {
     height: 25px;
     background-color: var(--panel-header-background-color);
@@ -140,20 +117,20 @@ const panelStyle = css`
     align-items: center;
     font-size: 12px;
     padding: 1px 14px 0 14px;
-    
+
     .${panelClasses.icon} {
       color: var(--panel-icon-color);
       margin-left: -8px;
       margin-right: 6px;
       transform: translateY(2px);
     }
-    
+
     .${panelClasses.title} {
       color: var(--panel-title-color);
       letter-spacing: 0.2em;
     }
   }
-  
+
   .${panelClasses.content} {
     padding: 14px;
   }
@@ -163,7 +140,7 @@ const panelIconHoverStyle = css`
   .${panelClasses.header} {
     .${panelClasses.icon} {
       cursor: pointer;
-      
+
       &:hover {
         color: var(--panel-icon-color-hover);
       }
@@ -171,24 +148,25 @@ const panelIconHoverStyle = css`
   }
 `;
 
-export const panelDisabled = ({disabled}: PanelProps) => disabled
-  ? css`
-    opacity: 0.4;
-    pointer-events: none;
-    user-select: none;
-  `
-  : css`
-    opacity: 1;
-  `;
+export const panelDisabled = ({ disabled }: PanelProps) =>
+  disabled
+    ? css`
+        opacity: 0.4;
+        pointer-events: none;
+        user-select: none;
+      `
+    : css`
+        opacity: 1;
+      `;
 
 export const Panel: ComponentType<PanelProps> = styled(PanelBase)`
   ${panelDisabled}
   ${panelStyle}
-  ${({onChange}) => typeof onChange === 'function' ? panelIconHoverStyle : ''}
+  ${({ onChange }) => (typeof onChange === 'function' ? panelIconHoverStyle : '')}
 `;
 
 export const SessionPanel: ComponentType<SessionPanelProps> = styled(SessionPanelBase)`
-  opacity: ${({disabled}) => disabled ? 0.4 : 1};
+  opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
   ${panelStyle}
   ${panelIconHoverStyle}s
 `;

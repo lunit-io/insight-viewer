@@ -7,7 +7,7 @@ const dash = keyframes`
 `;
 
 export const dashStroke = css`
-  stroke-dasharray: 10,10;
+  stroke-dasharray: 10, 10;
   stroke-dashoffset: 1000;
   animation: ${dash} 10s linear infinite;
 `;

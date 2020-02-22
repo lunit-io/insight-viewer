@@ -1,11 +1,14 @@
 import { ComponentType, DetailedHTMLProps, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-export const PanelDescription: ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>> = styled.p`
+export const PanelDescription: ComponentType<DetailedHTMLProps<
+  HTMLAttributes<HTMLParagraphElement>,
+  HTMLParagraphElement
+>> = styled.p`
   font-size: 12px;
   margin-top: 0;
   color: #ffffff;
-  
+
   > .MuiSvgIcon-root {
     font-size: 16px;
     margin-bottom: 6px;
@@ -13,12 +16,15 @@ export const PanelDescription: ComponentType<DetailedHTMLProps<HTMLAttributes<HT
   }
 `;
 
-export const PanelDescriptionTitle: ComponentType<DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>> = styled.h3`
+export const PanelDescriptionTitle: ComponentType<DetailedHTMLProps<
+  HTMLAttributes<HTMLHeadingElement>,
+  HTMLHeadingElement
+>> = styled.h3`
   font-size: 12px;
   font-weight: normal;
   margin: 5px 0 4px 0;
   color: currentColor;
-  
+
   > .MuiSvgIcon-root {
     font-size: 16px;
     margin-right: 6px;

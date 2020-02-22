@@ -5,6 +5,6 @@ export function hitTestContours<T extends Contour>(contours: T[], cursor: Point)
   const result: T | undefined = contours.find(contour => {
     return pointInPolygon(cursor, contour.polygon);
   });
-  
+
   return result || null;
 }

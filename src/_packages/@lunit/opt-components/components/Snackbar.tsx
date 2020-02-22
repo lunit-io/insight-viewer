@@ -7,8 +7,9 @@ export const SnackbarContent: ComponentType<SnackbarContentProps> = styled(MuiSn
     border-radius: 0;
     background-color: var(--snackbar-background-color);
     color: var(--snackbar-label-color);
-    
-    .MuiButton-label, .MuiIconButton-label {
+
+    .MuiButton-label,
+    .MuiIconButton-label {
       opacity: 0.6;
     }
   }

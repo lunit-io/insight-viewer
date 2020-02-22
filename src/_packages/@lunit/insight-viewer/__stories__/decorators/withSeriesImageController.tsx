@@ -8,29 +8,30 @@ interface ControllerProps {
   image: CornerstoneBulkImage;
 }
 
-function Controller({image}: ControllerProps) {
+function Controller({ image }: ControllerProps) {
   const [displayIndex, setDisplayIndex] = useState<number>(image.getIndex());
   const numImages = useMemo<number>(() => image.length() - 1, [image]);
-  
+
   useEffect(() => {
     const displayIndexSubscription = image.index.subscribe(setDisplayIndex);
-    
+
     return () => {
       displayIndexSubscription.unsubscribe();
     };
   }, [image]);
-  
+
   return (
     <FloatingBox>
       <Typography gutterBottom>
         Image ({displayIndex} / {numImages})
       </Typography>
-      
+
       <Slider
         value={displayIndex}
         min={0}
         max={numImages}
-        onChange={(event, nextValue) => image.goto(nextValue as number)}/>
+        onChange={(event, nextValue) => image.goto(nextValue as number)}
+      />
     </FloatingBox>
   );
 }
@@ -38,17 +39,17 @@ function Controller({image}: ControllerProps) {
 //tslint:disable-next-line:no-any
 export const withSeriesImageController: (image: CornerstoneBulkImage) => DecoratorFunction<any> = image => storyFn => {
   const story = storyFn();
-  
+
   return (
     <>
-      {
-        typeof story === 'function'
-          ? createElement(story)
-          : isValidElement(story)
-          ? story
-          : <div>story is not valid element</div>
-      }
-      <Controller image={image}/>
+      {typeof story === 'function' ? (
+        createElement(story)
+      ) : isValidElement(story) ? (
+        story
+      ) : (
+        <div>story is not valid element</div>
+      )}
+      <Controller image={image} />
     </>
   );
 };

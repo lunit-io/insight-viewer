@@ -26,18 +26,18 @@ export interface ProgressEventDetail {
 
 export function getProgressEventDetail(event: Event): ProgressEventDetail | undefined {
   const detail: object | undefined = event['detail'];
-  
+
   if (
-    detail
-    && typeof detail['url'] === 'string'
-    && typeof detail['imageId'] === 'string'
-    && typeof detail['loaded'] === 'number'
-    && typeof detail['total'] === 'number'
-    && typeof detail['percentComplete'] === 'number'
+    detail &&
+    typeof detail['url'] === 'string' &&
+    typeof detail['imageId'] === 'string' &&
+    typeof detail['loaded'] === 'number' &&
+    typeof detail['total'] === 'number' &&
+    typeof detail['percentComplete'] === 'number'
   ) {
     return detail as ProgressEventDetail;
   }
-  
+
   return undefined;
 }
 

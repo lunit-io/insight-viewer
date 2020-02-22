@@ -8,18 +8,21 @@ export interface ControlLog {
 
 export function useControlLog(sessionId: string): ControlLog {
   const controlLog: MutableRefObject<Log[]> = useRef([]);
-  
+
   useEffect(() => {
     controlLog.current = [];
   }, [sessionId]);
-  
+
   return {
     controlLog,
-    addControlLog: useCallback((log: Omit<Log, 'time'>) => {
-      controlLog.current.push({
-        ...log,
-        time: Date.now(),
-      });
-    }, [controlLog]),
+    addControlLog: useCallback(
+      (log: Omit<Log, 'time'>) => {
+        controlLog.current.push({
+          ...log,
+          time: Date.now(),
+        });
+      },
+      [controlLog],
+    ),
   };
 }

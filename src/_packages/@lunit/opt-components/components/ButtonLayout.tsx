@@ -9,37 +9,36 @@ export interface ButtonLayoutProps {
   style?: CSSProperties;
 }
 
-export function ButtonLayoutBase({className = '', children, style}: ButtonLayoutProps) {
+export function ButtonLayoutBase({ className = '', children, style }: ButtonLayoutProps) {
   return (
-    <div className={className}
-         style={style}>
+    <div className={className} style={style}>
       {children}
     </div>
   );
 }
 
-const verticalLayout = ({gap = 2}: ButtonLayoutProps) => css`
+const verticalLayout = ({ gap = 2 }: ButtonLayoutProps) => css`
   display: flex;
   flex-flow: column;
-  
+
   > :not(:last-child) {
     margin-bottom: ${gap}px;
   }
 `;
 
-const horizontalLayout = ({gap = 2}: ButtonLayoutProps) => css`
+const horizontalLayout = ({ gap = 2 }: ButtonLayoutProps) => css`
   display: flex;
   width: 100%;
-  
+
   > * {
     flex: 1;
   }
-  
+
   > :not(:last-child) {
     margin-right: ${gap}px;
   }
 `;
 
 export const ButtonLayout: ComponentType<ButtonLayoutProps> = styled(ButtonLayoutBase)`
-  ${({direction}) => direction === 'horizontal' ? horizontalLayout : verticalLayout};
+  ${({ direction }) => (direction === 'horizontal' ? horizontalLayout : verticalLayout)};
 `;

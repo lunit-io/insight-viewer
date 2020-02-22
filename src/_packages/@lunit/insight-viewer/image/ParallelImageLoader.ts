@@ -12,17 +12,16 @@ interface Options {
 }
 
 export class ParallelImageLoader implements ImageLoader {
-  constructor(private readonly options: Options = {}) {
-  }
-  
-  loadImage = ({imageId, options}: LoadImageParams): Promise<Image> => {
+  constructor(private readonly options: Options = {}) {}
+
+  loadImage = ({ imageId, options }: LoadImageParams): Promise<Image> => {
     return typeof this.options.timeout === 'number'
       ? Promise.race([
-        loadImage(imageId, options),
-        delay(this.options.timeout).then(() => {
-          throw new Error('TIMEOUT');
-        }),
-      ])
+          loadImage(imageId, options),
+          delay(this.options.timeout).then(() => {
+            throw new Error('TIMEOUT');
+          }),
+        ])
       : loadImage(imageId, options);
   };
 }

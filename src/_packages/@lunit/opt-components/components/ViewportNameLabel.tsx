@@ -8,30 +8,30 @@ export interface ViewportLabelProps {
 const height: number = 17;
 const y: number = 13;
 
-export function ViewportNameLabel({children, width = 100}: ViewportLabelProps) {
+export function ViewportNameLabel({ children, width = 100 }: ViewportLabelProps) {
   return (
-    <svg width={width}
-         height={height}
-         style={{
-           pointerEvents: 'none',
-           userSelect: 'none',
-           fontSize: 12,
-         }}>
-      <text x={5}
-            y={y}
-            width={width}
-            height={height}
-            stroke="#000000"
-            strokeWidth={6}
-            strokeLinejoin="round"
-            strokeLinecap="round">
+    <svg
+      width={width}
+      height={height}
+      style={{
+        pointerEvents: 'none',
+        userSelect: 'none',
+        fontSize: 12,
+      }}
+    >
+      <text
+        x={5}
+        y={y}
+        width={width}
+        height={height}
+        stroke="#000000"
+        strokeWidth={6}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      >
         {children}
       </text>
-      <text x={5}
-            y={y}
-            fill="#ffffff"
-            width={width}
-            height={height}>
+      <text x={5} y={y} fill="#ffffff" width={width} height={height}>
         {children}
       </text>
     </svg>

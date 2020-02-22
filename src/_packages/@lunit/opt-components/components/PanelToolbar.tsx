@@ -7,12 +7,8 @@ export interface PanelToolbarProps {
   className?: string;
 }
 
-export function PanelToolbarBase({children, className = ''}: PanelToolbarProps) {
-  return (
-    <div className={className}>
-      {children}
-    </div>
-  );
+export function PanelToolbarBase({ children, className = '' }: PanelToolbarProps) {
+  return <div className={className}>{children}</div>;
 }
 
 export const PanelToolbar = styled(PanelToolbarBase)`

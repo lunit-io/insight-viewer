@@ -7,11 +7,11 @@ export interface ResetTimeState {
 
 export function useResetTime(): ResetTimeState {
   const [resetTime, setResetTime] = useState<number>(Date.now());
-  
+
   const updateResetTime = useCallback(() => {
     setResetTime(Date.now());
   }, []);
-  
+
   return {
     resetTime,
     updateResetTime,

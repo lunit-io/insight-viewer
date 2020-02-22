@@ -4,43 +4,45 @@ import { ViewportTransform } from '../types';
 
 export function updateViewport(viewer: InsightViewer | RefObject<InsightViewer>, update: ViewportTransform) {
   let v: InsightViewer | null = null;
-  
+
   if ('updateViewer' in viewer) {
     v = viewer;
   } else if ('current' in viewer && viewer.current) {
     v = viewer.current;
   }
-  
+
   if (!v) return;
-  
+
   const patch = update(v.getViewportTransformParams());
-  
+
   if (patch) {
     v.updateViewport(patch);
   }
 }
 
-export const zoomMiddleLeft: (increment: number) => ViewportTransform = increment => ({element, currentViewport, minScale, maxScale}) => {
+export const zoomMiddleLeft: (increment: number) => ViewportTransform = increment => ({
+  element,
+  currentViewport,
+  minScale,
+  maxScale,
+}) => {
   if (!currentViewport) return;
-  
+
   const nextScale: number = Math.max(
     minScale,
-    Math.min(
-      maxScale,
-      currentViewport.scale + (currentViewport.scale * increment),
-    ),
+    Math.min(maxScale, currentViewport.scale + currentViewport.scale * increment),
   );
-  
+
   if (currentViewport.scale === nextScale) return;
-  
-  const {width} = element.getBoundingClientRect();
-  
+
+  const { width } = element.getBoundingClientRect();
+
   const distanceX: number = width / -2;
   const distanceY: number = 0;
-  
+
   const dx: number = (1 - nextScale / currentViewport.scale) * distanceX;
   const dy: number = (1 - nextScale / currentViewport.scale) * distanceY;
-  
+
   return {
     translation: {
       x: currentViewport.translation.x + dx / nextScale,
@@ -50,27 +52,29 @@ export const zoomMiddleLeft: (increment: number) => ViewportTransform = incremen
   };
 };
 
-export const zoomMiddleRight: (increment: number) => ViewportTransform = increment => ({element, currentViewport, minScale, maxScale}) => {
+export const zoomMiddleRight: (increment: number) => ViewportTransform = increment => ({
+  element,
+  currentViewport,
+  minScale,
+  maxScale,
+}) => {
   if (!currentViewport) return;
-  
+
   const nextScale: number = Math.max(
     minScale,
-    Math.min(
-      maxScale,
-      currentViewport.scale + (currentViewport.scale * increment),
-    ),
+    Math.min(maxScale, currentViewport.scale + currentViewport.scale * increment),
   );
-  
+
   if (currentViewport.scale === nextScale) return;
-  
-  const {width} = element.getBoundingClientRect();
-  
+
+  const { width } = element.getBoundingClientRect();
+
   const distanceX: number = width / 2;
   const distanceY: number = 0;
-  
+
   const dx: number = (1 - nextScale / currentViewport.scale) * distanceX;
   const dy: number = (1 - nextScale / currentViewport.scale) * distanceY;
-  
+
   return {
     translation: {
       x: currentViewport.translation.x + dx / nextScale,
@@ -80,25 +84,27 @@ export const zoomMiddleRight: (increment: number) => ViewportTransform = increme
   };
 };
 
-export const zoomMiddleCenter: (increment: number) => ViewportTransform = increment => ({element, currentViewport, minScale, maxScale}) => {
+export const zoomMiddleCenter: (increment: number) => ViewportTransform = increment => ({
+  element,
+  currentViewport,
+  minScale,
+  maxScale,
+}) => {
   if (!currentViewport) return;
-  
+
   const nextScale: number = Math.max(
     minScale,
-    Math.min(
-      maxScale,
-      currentViewport.scale + (currentViewport.scale * increment),
-    ),
+    Math.min(maxScale, currentViewport.scale + currentViewport.scale * increment),
   );
-  
+
   if (currentViewport.scale === nextScale) return;
-  
+
   const distanceX: number = 0;
   const distanceY: number = 0;
-  
+
   const dx: number = (1 - nextScale / currentViewport.scale) * distanceX;
   const dy: number = (1 - nextScale / currentViewport.scale) * distanceY;
-  
+
   return {
     translation: {
       x: currentViewport.translation.x + dx / nextScale,
@@ -108,27 +114,27 @@ export const zoomMiddleCenter: (increment: number) => ViewportTransform = increm
   };
 };
 
-export const adjustWindowCenter: (increment: number) => ViewportTransform = increment => ({currentViewport}) => {
+export const adjustWindowCenter: (increment: number) => ViewportTransform = increment => ({ currentViewport }) => {
   if (!currentViewport) return;
-  
-  const {windowWidth, windowCenter} = currentViewport.voi;
-  
+
+  const { windowWidth, windowCenter } = currentViewport.voi;
+
   return {
     voi: {
       windowWidth,
-      windowCenter: Math.max(Math.floor(windowCenter + (windowCenter * increment)), 1),
+      windowCenter: Math.max(Math.floor(windowCenter + windowCenter * increment), 1),
     },
   };
 };
 
-export const adjustWindowWidth: (increment: number) => ViewportTransform = increment => ({currentViewport}) => {
+export const adjustWindowWidth: (increment: number) => ViewportTransform = increment => ({ currentViewport }) => {
   if (!currentViewport) return;
-  
-  const {windowWidth, windowCenter} = currentViewport.voi;
-  
+
+  const { windowWidth, windowCenter } = currentViewport.voi;
+
   return {
     voi: {
-      windowWidth: Math.max(Math.floor(windowWidth + (windowWidth * increment)), 1),
+      windowWidth: Math.max(Math.floor(windowWidth + windowWidth * increment), 1),
       windowCenter,
     },
   };

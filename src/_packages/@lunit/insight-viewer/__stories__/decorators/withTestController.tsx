@@ -23,14 +23,14 @@ export interface ControllerProviderProps {
 
 export interface ControllerState {
   options: ControllerOptions;
-  
+
   width: number;
   height: number;
   control: Control;
   wheel: Wheel;
   invert: boolean;
   flip: boolean;
-  
+
   updateWidth: (value: number) => void;
   updateHeight: (value: number) => void;
   updateControl: (value: Control) => void;
@@ -42,40 +42,42 @@ export interface ControllerState {
 // @ts-ignore
 const ControllerContext: Context<ControllerState> = createContext<ControllerState>();
 
-function ControllerProvider({storyFn, options}: ControllerProviderProps) {
+function ControllerProvider({ storyFn, options }: ControllerProviderProps) {
   const [width, setWidth] = useState<number>(options.width[0]);
   const [height, setHeight] = useState<number>(options.height[0]);
   const [control, setControl] = useState<Control>(options.control[0]);
   const [wheel, setWheel] = useState<Wheel>(options.wheel[0]);
   const [invert, setInvert] = useState(options.invert);
   const [flip, setFlip] = useState(options.flip);
-  
+
   const story = storyFn();
-  
+
   return (
-    <ControllerContext.Provider value={{
-      options,
-      width,
-      height,
-      control,
-      wheel,
-      invert,
-      flip,
-      updateWidth: setWidth,
-      updateHeight: setHeight,
-      updateControl: setControl,
-      updateWheel: setWheel,
-      updateInvert: setInvert,
-      updateFlip: setFlip,
-    }}>
-      {
-        typeof story === 'function'
-          ? createElement(story)
-          : isValidElement(story)
-          ? story
-          : <div>story is not valid element</div>
-      }
-      <Controller/>
+    <ControllerContext.Provider
+      value={{
+        options,
+        width,
+        height,
+        control,
+        wheel,
+        invert,
+        flip,
+        updateWidth: setWidth,
+        updateHeight: setHeight,
+        updateControl: setControl,
+        updateWheel: setWheel,
+        updateInvert: setInvert,
+        updateFlip: setFlip,
+      }}
+    >
+      {typeof story === 'function' ? (
+        createElement(story)
+      ) : isValidElement(story) ? (
+        story
+      ) : (
+        <div>story is not valid element</div>
+      )}
+      <Controller />
     </ControllerContext.Provider>
   );
 }
@@ -100,85 +102,59 @@ function Controller() {
     updateInvert,
     updateFlip,
   } = useController();
-  
+
   return (
     <FloatingBox>
-      <Typography gutterBottom>
-        Width
-      </Typography>
-      
+      <Typography gutterBottom>Width</Typography>
+
       <Slider
         defaultValue={width}
         min={options.width[1]}
         max={options.width[2]}
-        onChange={(event, nextValue) => updateWidth(nextValue as number)}/>
-      
-      <Typography gutterBottom>
-        Height
-      </Typography>
-      
+        onChange={(event, nextValue) => updateWidth(nextValue as number)}
+      />
+
+      <Typography gutterBottom>Height</Typography>
+
       <Slider
         defaultValue={height}
         min={options.height[1]}
         max={options.height[2]}
-        onChange={(event, nextValue) => updateHeight(nextValue as number)}/>
-      
-      <Typography gutterBottom>
-        Control
-      </Typography>
-      
-      <RadioGroup value={control}
-                  onChange={(event, nextValue) => updateControl(nextValue as Control)}>
-        {
-          options.control[1].map(value => (
-            <FormControlLabel key={value}
-                              value={value}
-                              control={<Radio/>}
-                              label={value.toUpperCase()}/>
-          ))
-        }
+        onChange={(event, nextValue) => updateHeight(nextValue as number)}
+      />
+
+      <Typography gutterBottom>Control</Typography>
+
+      <RadioGroup value={control} onChange={(event, nextValue) => updateControl(nextValue as Control)}>
+        {options.control[1].map(value => (
+          <FormControlLabel key={value} value={value} control={<Radio />} label={value.toUpperCase()} />
+        ))}
       </RadioGroup>
-      
-      <Typography gutterBottom>
-        Wheel
-      </Typography>
-      
-      <RadioGroup value={wheel}
-                  onChange={(event, nextValue) => updateWheel(nextValue as Wheel)}>
-        {
-          options.wheel[1].map(value => (
-            <FormControlLabel key={value}
-                              value={value}
-                              control={<Radio/>}
-                              label={value.toUpperCase()}/>
-          ))
-        }
+
+      <Typography gutterBottom>Wheel</Typography>
+
+      <RadioGroup value={wheel} onChange={(event, nextValue) => updateWheel(nextValue as Wheel)}>
+        {options.wheel[1].map(value => (
+          <FormControlLabel key={value} value={value} control={<Radio />} label={value.toUpperCase()} />
+        ))}
       </RadioGroup>
-      
-      <Typography gutterBottom>
-        Invert
-      </Typography>
-      
-      <Switch checked={invert}
-              color="primary"
-              onChange={(event, nextValue) => updateInvert(nextValue)}/>
-      
-      <Typography gutterBottom>
-        Flip
-      </Typography>
-      
-      <Switch checked={flip}
-              color="primary"
-              onChange={(event, nextValue) => updateFlip(nextValue)}/>
+
+      <Typography gutterBottom>Invert</Typography>
+
+      <Switch checked={invert} color="primary" onChange={(event, nextValue) => updateInvert(nextValue)} />
+
+      <Typography gutterBottom>Flip</Typography>
+
+      <Switch checked={flip} color="primary" onChange={(event, nextValue) => updateFlip(nextValue)} />
     </FloatingBox>
   );
 }
 
 //tslint:disable-next-line:no-any
-export const withTestController: (options: ControllerOptions) => DecoratorFunction<any> = (options: ControllerOptions) => storyFn => {
-  return (
-    <ControllerProvider options={options} storyFn={storyFn}/>
-  );
+export const withTestController: (options: ControllerOptions) => DecoratorFunction<any> = (
+  options: ControllerOptions,
+) => storyFn => {
+  return <ControllerProvider options={options} storyFn={storyFn} />;
 };
 
 const FloatingBox = styled(Box)`

@@ -9,24 +9,16 @@ export interface TicksProps {
   tickColor: string;
 }
 
-export function Ticks({steps, y, tickWidth, stepWidth, tickHeight, tickColor}: TicksProps) {
+export function Ticks({ steps, y, tickWidth, stepWidth, tickHeight, tickColor }: TicksProps) {
   return (
     <>
-      {
-        Array.from({length: steps + 1}, (_, i) => {
-          const x: number = Math.floor(stepWidth * i);
-          
-          return (
-            <line key={'tick_' + i}
-                  x1={x}
-                  y1={y}
-                  x2={x}
-                  y2={y + tickHeight}
-                  strokeWidth={tickWidth}
-                  stroke={tickColor}/>
-          );
-        })
-      }
+      {Array.from({ length: steps + 1 }, (_, i) => {
+        const x: number = Math.floor(stepWidth * i);
+
+        return (
+          <line key={'tick_' + i} x1={x} y1={y} x2={x} y2={y + tickHeight} strokeWidth={tickWidth} stroke={tickColor} />
+        );
+      })}
     </>
   );
 }
