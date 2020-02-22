@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useStateMemo } from '../';
 
-//tslint:disable:react-hooks-nesting
 describe('useStateMemo()', () => {
   const arr1: string[] = [];
   const arr2: string[] = [];

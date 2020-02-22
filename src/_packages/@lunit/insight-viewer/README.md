@@ -1771,7 +1771,6 @@ storiesOf('insight-viewer', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('<DCMImage>', () => {
-    //tslint:disable:react-hooks-nesting
     const image1: CornerstoneImage = useMemo(
       () =>
         new CornerstoneSingleImage(

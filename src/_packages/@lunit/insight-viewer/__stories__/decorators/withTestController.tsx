@@ -16,7 +16,7 @@ export interface ControllerOptions {
 }
 
 export interface ControllerProviderProps {
-  //tslint:disable-next-line:no-any
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   storyFn: StoryFn<any>;
   options: ControllerOptions;
 }
@@ -150,7 +150,7 @@ function Controller() {
   );
 }
 
-//tslint:disable-next-line:no-any
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withTestController: (options: ControllerOptions) => DecoratorFunction<any> = (
   options: ControllerOptions,
 ) => storyFn => {

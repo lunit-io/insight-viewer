@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useControlLog } from '../useControlLog';
 
-//tslint:disable:react-hooks-nesting
 describe('useControlLog()', () => {
   test('addControlLog', () => {
     const { result, rerender } = renderHook(({ sessionId }) => useControlLog(sessionId), {

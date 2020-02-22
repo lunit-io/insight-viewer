@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useOPTControl } from '../useOPTControl';
 
-//tslint:disable:react-hooks-nesting
 describe('useOPTControl()', () => {
   test('basic', () => {
     const { result } = renderHook(() => useOPTControl());

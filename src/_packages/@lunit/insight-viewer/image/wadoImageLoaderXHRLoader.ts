@@ -1,6 +1,6 @@
 import * as cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface Params {
   deferred?: {

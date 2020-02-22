@@ -276,7 +276,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   };
 }
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const ContourDrawer: new <T extends Contour>() => ContourDrawerBase<T> = styled(ContourDrawerBase)`
   position: absolute;
   top: 0;

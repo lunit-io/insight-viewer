@@ -284,7 +284,7 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   };
 }
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const CircleDrawer: new <T extends Contour>() => CircleDrawerBase<T> = styled(CircleDrawerBase)`
   position: absolute;
   top: 0;

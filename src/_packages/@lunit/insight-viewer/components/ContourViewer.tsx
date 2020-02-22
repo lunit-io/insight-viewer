@@ -105,7 +105,7 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
   }
 }
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const ContourViewer: new <T extends Contour>() => ContourViewerBase<T> = styled(ContourViewerBase)`
   position: absolute;
   top: 0;

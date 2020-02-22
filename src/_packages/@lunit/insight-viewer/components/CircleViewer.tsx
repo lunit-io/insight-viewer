@@ -105,7 +105,7 @@ export class CircleViewerBase<T extends Contour> extends Component<CircleViewerP
   }
 }
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const CircleViewer: new <T extends Contour>() => CircleViewerBase<T> = styled(CircleViewerBase)`
   position: absolute;
   top: 0;

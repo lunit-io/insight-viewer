@@ -36,7 +36,7 @@ function Controller({ image }: ControllerProps) {
   );
 }
 
-//tslint:disable-next-line:no-any
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withSeriesImageController: (image: CornerstoneBulkImage) => DecoratorFunction<any> = image => storyFn => {
   const story = storyFn();
 
