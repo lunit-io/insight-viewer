@@ -10,7 +10,7 @@
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "start": "npm run storybook:start",
     "test": "jest --colors",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\""
   },
   "jest": {
