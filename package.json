@@ -1,5 +1,10 @@
 {
   "private": true,
+  "repository" : {
+    "type" : "git",
+    "url": "git+https://github.com/lunit-io/frontend-components.git",
+    "directory": "src/_packages/name"
+  },
   "scripts": {
     "docs:import": "markdown-source-import \"{,!(node_modules)/**/}*.md\"",
     "package:build": "npm run docs:import && zeroconfig-package-scripts build",
@@ -31,6 +36,7 @@
       "jest --colors --findRelatedTests"
     ]
   },
+  "prettier": "@lunit/prettier-config",
   "eslintConfig": {
     "extends": [
       "@lunit",
@@ -87,6 +93,7 @@
   },
   "devDependencies": {
     "@lunit/eslint-config": "^0.3.0",
+    "@lunit/prettier-config": "^0.1.0",
     "@storybook/addon-knobs": "^5.3.9",
     "@storybook/addon-storysource": "^5.3.9",
     "@storybook/react": "^5.3.9",
