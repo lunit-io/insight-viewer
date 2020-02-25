@@ -3,7 +3,7 @@
   "repository" : {
     "type" : "git",
     "url": "git+https://github.com/lunit-io/frontend-components.git",
-    "directory": "src/_packages/name"
+    "directory": "src/_packages/@lunit/name"
   },
   "scripts": {
     "docs:import": "markdown-source-import \"{,!(node_modules)/**/}*.md\"",
