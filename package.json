@@ -13,6 +13,8 @@
     "package:validate": "zeroconfig-package-scripts list && zeroconfig-package-scripts validate",
     "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
+    "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline",
+    "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
     "start": "npm run storybook:start",
     "test": "jest --colors",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
