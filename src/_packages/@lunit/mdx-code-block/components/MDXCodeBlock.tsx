@@ -1,3 +1,4 @@
+//@ts-ignore
 import { mdx } from '@mdx-js/react';
 import Highlight, { defaultProps, Language, PrismTheme } from 'prism-react-renderer';
 import vsDark from 'prism-react-renderer/themes/vsDark';
