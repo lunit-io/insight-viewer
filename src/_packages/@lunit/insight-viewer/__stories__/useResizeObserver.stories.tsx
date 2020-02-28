@@ -11,7 +11,7 @@ import {
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
-import useResizeObserver from 'use-resize-observer';
+import useResizeObserver from 'use-resize-observer/polyfilled';
 
 installWADOImageLoader();
 
@@ -30,11 +30,7 @@ function Sample() {
   // 특정 Element의 width, height를 지속적으로 감지한다
   // flex 등 layout으로 처리된 <div> Element의 width, height를 useResizeObserver()로 받아서
   // <InsightViewer width={width} height={height}> 로 넘길 수 있다
-  const { ref: resizeRef, width, height } = useResizeObserver<HTMLDivElement>({
-    useDefaults: true,
-    defaultWidth: 500,
-    defaultHeight: 500,
-  });
+  const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<HTMLDivElement>({});
 
   return (
     <div ref={resizeRef} style={{ width: '50vw', height: '80vh' }}>
@@ -56,7 +52,7 @@ function Sample() {
   );
 }
 
-storiesOf('insight-viewer', module)
+storiesOf('library/use-resize-observer', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('useResizeObserver', () => <Sample />);
+  .add('basic', () => <Sample />);

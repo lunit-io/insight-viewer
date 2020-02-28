@@ -2,7 +2,7 @@ import { IconButton } from '@material-ui/core';
 import { Fullscreen, FullscreenExit } from '@material-ui/icons';
 import React, { Children, ReactNode, useState } from 'react';
 import styled, { css } from 'styled-components';
-import useResizeObserver from 'use-resize-observer';
+import useResizeObserver from 'use-resize-observer/polyfilled';
 
 export interface QuarterViewProps {
   children: ReactNode;
@@ -10,11 +10,7 @@ export interface QuarterViewProps {
 }
 
 export function QuarterView({ children, className }: QuarterViewProps) {
-  const { ref: resizeRef, width, height } = useResizeObserver<HTMLDivElement>({
-    useDefaults: true,
-    defaultWidth: 500,
-    defaultHeight: 500,
-  });
+  const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<HTMLDivElement>({});
   const [solo, setSolo] = useState<number>(-1);
 
   const soloEnabled: boolean = solo > -1;
