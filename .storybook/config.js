@@ -3,6 +3,7 @@ import { create } from '@storybook/theming';
 
 addParameters({
   options: {
+    enableShortcuts: false,
     theme: create({
       base: 'dark',
       appBg: '#141422',
@@ -11,7 +12,4 @@ addParameters({
   },
 });
 
-configure(() => {
-  const req = require.context('../src', true, /\.stories\.(js|jsx|ts|tsx)$/);
-  req.keys().forEach(req);
-}, module);
+configure(require.context('../src', true, /\.stories\.(js|jsx|ts|tsx)$/), module);

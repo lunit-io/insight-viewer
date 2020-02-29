@@ -14,8 +14,7 @@ export interface ContourDrawingState<T extends Contour> {
   removeAllContours: () => void;
 }
 
-// <UserContourDrawer>, <UserContourViewer>를 사용하기 위한 helper
-export function useUserContour<T extends Contour>({
+export function useContour<T extends Contour>({
   nextId,
   initialContours,
   mode = 'contour',
@@ -24,7 +23,6 @@ export function useUserContour<T extends Contour>({
   initialContours?: Omit<T, 'id'>[];
   mode?: 'contour' | 'point' | 'circle';
 } = {}): ContourDrawingState<T> {
-  // 사용자가 그린 contour list
   const [contours, setContours] = useState<T[]>(() => {
     if (initialContours) {
       const startId: number =
@@ -39,7 +37,7 @@ export function useUserContour<T extends Contour>({
     }
     return [];
   });
-  // mouse hover에 의해서 focus된 contour
+
   const [focusedContour, setFocusedContour] = useState<T | null>(null);
 
   const addContour = useCallback(
@@ -144,14 +142,11 @@ export function useUserContour<T extends Contour>({
     [mode],
   );
 
-  const focusContour = useCallback(
-    (contour: T | null) => {
-      if (contour !== focusedContour) {
-        setFocusedContour(contour);
-      }
-    },
-    [focusedContour],
-  );
+  const focusContour = useCallback((contour: T | null) => {
+    setFocusedContour(prevFocusedContour => {
+      return contour !== prevFocusedContour ? contour : prevFocusedContour;
+    });
+  }, []);
 
   const removeAllContours = useCallback(() => {
     setContours([]);
@@ -194,3 +189,6 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
     }
   });
 }
+
+/** @deprecated use useContour() */
+export const useUserContour = useContour;

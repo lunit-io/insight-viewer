@@ -9,13 +9,17 @@ import {
   withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
-import { storiesOf } from '@storybook/react';
 import React, { useMemo } from 'react';
 import useResizeObserver from 'use-resize-observer/polyfilled';
 
 installWADOImageLoader();
 
-function Sample() {
+export default {
+  title: 'libraries',
+  decorators: [withInsightViewerStorybookGlobalStyle, withOPTComponentsStorybookGlobalStyle],
+};
+
+export const useResizeObserverSample = () => {
   const resetTime: number = useMemo(() => Date.now(), []);
   const image: CornerstoneImage = useMemo(
     () =>
@@ -50,9 +54,8 @@ function Sample() {
       </InsightViewerContainer>
     </div>
   );
-}
+};
 
-storiesOf('library/use-resize-observer', module)
-  .addDecorator(withOPTComponentsStorybookGlobalStyle)
-  .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('basic', () => <Sample />);
+useResizeObserverSample.story = {
+  name: 'use-resize-observer',
+};

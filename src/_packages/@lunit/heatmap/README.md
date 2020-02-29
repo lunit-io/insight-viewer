@@ -34,29 +34,29 @@ import { HeatmapScaleSVGImage } from '@lunit/heatmap';
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, withKnobs } from '@storybook/addon-knobs';
-import { storiesOf } from '@storybook/react';
 import React from 'react';
 
-/**
- * Heatmap이 그려진 SVG <image>를 만든다
- * <svg>를 사용해서 별도의 디자인을 구현하려고 할때 사용할 수 있다
- */
-storiesOf('heatmap', module)
-  .addDecorator(withOPTComponentsStorybookGlobalStyle)
-  .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .addDecorator(withKnobs)
-  .add('<HeatmapScaleSVGImage>', () => {
-    const width: number = number('Width', 300, { range: true, step: 10, min: 100, max: 600 });
-    const height: number = number('Height', 100, { range: true, step: 10, min: 60, max: 300 });
-    const threshold: number = number('Threshold', 0, { range: true, step: 0.1, min: 0, max: 1 });
+export default {
+  title: 'heatmap',
+  decorators: [withInsightViewerStorybookGlobalStyle, withOPTComponentsStorybookGlobalStyle, withKnobs],
+};
 
-    return (
-      <svg width={width} height={height}>
-        <rect width={width} height={height} fill="#000000" />
-        <HeatmapScaleSVGImage width={width} height={height} threshold={threshold} />
-      </svg>
-    );
-  });
+export const HeatmapScaleSVGImageSample = () => {
+  const width: number = number('Width', 300, { range: true, step: 10, min: 100, max: 600 });
+  const height: number = number('Height', 100, { range: true, step: 10, min: 60, max: 300 });
+  const threshold: number = number('Threshold', 0, { range: true, step: 0.1, min: 0, max: 1 });
+
+  return (
+    <svg width={width} height={height}>
+      <rect width={width} height={height} fill="#000000" />
+      <HeatmapScaleSVGImage width={width} height={height} threshold={threshold} />
+    </svg>
+  );
+};
+
+HeatmapScaleSVGImageSample.story = {
+  name: '<HeatmapScaleSVGImageSample>',
+};
 
 ```
 
@@ -66,28 +66,23 @@ storiesOf('heatmap', module)
 
 ```tsx
 import { posMapToImageData } from '@lunit/heatmap';
+import data from '@lunit/heatmap/__stories__/posMap.sample.json';
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
-import { storiesOf } from '@storybook/react';
+import { withKnobs } from '@storybook/addon-knobs';
 import React, { MutableRefObject, useEffect, useMemo, useRef } from 'react';
-import data from './posMap.sample.json';
 
-const {
-  engine_result: {
-    engine_result: { pos_map: posMap },
-  },
-} = data;
+export default {
+  title: 'heatmap',
+  decorators: [withInsightViewerStorybookGlobalStyle, withOPTComponentsStorybookGlobalStyle, withKnobs],
+};
 
-/**
- * Heatmap이 그려진 ImageData를 만든다
- * <canvas>를 사용해서 별도의 디자인을 구현하려고 할 때 사용할 수 있다
- */
-function Sample() {
+export const posMapToImageDataSample = () => {
   const canvasRef: MutableRefObject<HTMLCanvasElement | null> = useRef<HTMLCanvasElement | null>(null);
 
   // AI에서 나온 posMap 결과를 ImageData로 변환한다
   const imageData = useMemo<ImageData>(() => {
-    return posMapToImageData(posMap, 0.1);
+    return posMapToImageData(data.engine_result.engine_result.pos_map, 0.1);
   }, []);
 
   useEffect(() => {
@@ -110,12 +105,11 @@ function Sample() {
       }}
     />
   );
-}
+};
 
-storiesOf('heatmap', module)
-  .addDecorator(withOPTComponentsStorybookGlobalStyle)
-  .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('posMapToImageData()', () => <Sample />);
+posMapToImageDataSample.story = {
+  name: 'posMapToImageDataSample()',
+};
 
 ```
 
@@ -128,29 +122,26 @@ import { useHeatmapScaleImageURI } from '@lunit/heatmap';
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { number, withKnobs } from '@storybook/addon-knobs';
-import { storiesOf } from '@storybook/react';
 import React from 'react';
 
-/**
- * Heatmap이 그려진 Data URI를 만든다
- * <img>를 비롯한 여러 Element를 사용해서 별도의 디자인을 구현하려 할 때 사용할 수 있다
- */
-function Image({ width, height, threshold }: { width: number; height: number; threshold: number }) {
+export default {
+  title: 'heatmap',
+  decorators: [withInsightViewerStorybookGlobalStyle, withOPTComponentsStorybookGlobalStyle, withKnobs],
+};
+
+export const useHeatmapScaleImageURISample = () => {
+  const width: number = number('Width', 300, { range: true, step: 10, min: 100, max: 600 });
+  const height: number = number('Height', 100, { range: true, step: 10, min: 60, max: 300 });
+  const threshold: number = number('Threshold', 0, { range: true, step: 0.1, min: 0, max: 1 });
+
   const dataUri: string | null = useHeatmapScaleImageURI({ width, height, threshold });
+
   return dataUri ? <img src={dataUri} style={{ width, height, backgroundColor: '#000000' }} alt="test" /> : null;
-}
+};
 
-storiesOf('heatmap', module)
-  .addDecorator(withOPTComponentsStorybookGlobalStyle)
-  .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .addDecorator(withKnobs)
-  .add('useHeatmapScaleImageURI()', () => {
-    const width: number = number('Width', 300, { range: true, step: 10, min: 100, max: 600 });
-    const height: number = number('Height', 100, { range: true, step: 10, min: 60, max: 300 });
-    const threshold: number = number('Threshold', 0, { range: true, step: 0.1, min: 0, max: 1 });
-
-    return <Image width={width} height={height} threshold={threshold} />;
-  });
+useHeatmapScaleImageURISample.story = {
+  name: 'useHeatmapScaleImageURI()',
+};
 
 ```
 

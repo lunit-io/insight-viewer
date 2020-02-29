@@ -1,32 +1,38 @@
-import {
-  Contour,
-  ContourDrawer,
-  ContourViewer,
-  CornerstoneImage,
-  CornerstoneSingleImage,
-  InsightViewer,
-  InsightViewerContainer,
-  installWADOImageLoader,
-  ProgressViewer,
-  unloadWADOImage,
-  useInsightViewerSync,
-  useUserContour,
-  withInsightViewerStorybookGlobalStyle,
-} from '@lunit/insight-viewer';
-import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
-import { storiesOf } from '@storybook/react';
-import { color as d3color } from 'd3-color';
-import React, { useMemo, useState } from 'react';
-import styled, { css } from 'styled-components';
-import { useController, withTestController } from './decorators/withTestController';
+import { Contour } from '@lunit/insight-viewer';
 
-installWADOImageLoader();
-
-function labelFunction(contour: Contour): string {
-  return `CONTOUR(${contour.id})`;
+export function labelFunction(contour: Contour): string {
+  return `Annotation(${contour.id})`;
 }
 
-const initialContours: Omit<Contour, 'id'>[] = [
+export const categoryColors = {
+  normal: '#3366cc',
+  abnormal: '#dc3912',
+} as const;
+
+export const seriesColors = [
+  '#3366cc',
+  '#dc3912',
+  '#ff9900',
+  '#109618',
+  '#990099',
+  '#0099c6',
+  '#dd4477',
+  '#66aa00',
+  '#b82e2e',
+  '#316395',
+  '#994499',
+  '#22aa99',
+  '#aaaa11',
+  '#6633cc',
+  '#e67300',
+  '#8b0707',
+  '#651067',
+  '#329262',
+  '#5574a6',
+  '#3b3eac',
+];
+
+export const initialContours: Omit<Contour, 'id'>[] = [
   {
     polygon: [
       [365.2266666666667, 40.959999999999994],
@@ -58,6 +64,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [437.76000000000005, 47.78666666666666],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'normal',
+    },
   },
   {
     polygon: [
@@ -92,6 +101,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [313.17333333333335, 186.88],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'abnormal',
+    },
   },
   {
     polygon: [
@@ -126,6 +138,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [187.73333333333335, 385.70666666666665],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'normal',
+    },
   },
   {
     polygon: [
@@ -161,6 +176,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [190.29333333333335, 133.97333333333336],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'normal',
+    },
   },
   {
     polygon: [
@@ -200,6 +218,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [302.08000000000004, -5.973333333333336],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'abnormal',
+    },
   },
   {
     polygon: [
@@ -240,6 +261,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [354.9866666666667, 370.3466666666667],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'abnormal',
+    },
   },
   {
     polygon: [
@@ -287,6 +311,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [440.32000000000005, 267.09333333333336],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'normal',
+    },
   },
   {
     polygon: [
@@ -324,6 +351,9 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [145.06666666666666, 230.39999999999998],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'normal',
+    },
   },
   {
     polygon: [
@@ -362,129 +392,8 @@ const initialContours: Omit<Contour, 'id'>[] = [
       [36.693333333333335, 366.08],
     ],
     label: labelFunction,
+    dataAttrs: {
+      'data-category': 'abnormal',
+    },
   },
 ];
-
-const colors = [
-  '#3366cc',
-  '#dc3912',
-  '#ff9900',
-  '#109618',
-  '#990099',
-  '#0099c6',
-  '#dd4477',
-  '#66aa00',
-  '#b82e2e',
-  '#316395',
-  '#994499',
-  '#22aa99',
-  '#aaaa11',
-  '#6633cc',
-  '#e67300',
-  '#8b0707',
-  '#651067',
-  '#329262',
-  '#5574a6',
-  '#3b3eac',
-];
-
-const contourStyle = (id: number, color: string) => css`
-  > [data-id="${id}"] {
-    --contour-viewer-color: ${color};
-    --contour-viewer-focused-color: ${d3color(color)
-      ?.brighter(3)
-      .toString() || color};
-    --contour-viewer-fill-color: ${color};
-  }
-`;
-
-const Viewer = styled(ContourViewer)`
-  polygon {
-    fill-opacity: 0.2;
-  }
-
-  ${colors.map((color, i) => contourStyle(i, color))}
-`;
-
-const Drawer = styled(ContourDrawer)`
-  --contour-drawer-color: #99f4ac;
-  --contour-drawer-fill-color: rgba(255, 255, 255, 0.4);
-  --contour-drawer-stroke-width: 7px;
-`;
-
-function Sample() {
-  const resetTime: number = useMemo(() => Date.now(), []);
-  const image: CornerstoneImage = useMemo(
-    () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
-      }),
-    [],
-  );
-
-  const { width, height, control, wheel, invert, flip } = useController();
-
-  const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
-
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
-
-  const { contours, focusedContour, addContour, removeContour, focusContour } = useUserContour({
-    initialContours,
-  });
-
-  return (
-    <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
-      <InsightViewer
-        width={width}
-        height={height}
-        invert={invert}
-        flip={flip}
-        pan={control === 'pan' && interactionElement}
-        adjust={control === 'adjust' && interactionElement}
-        zoom={wheel === 'zoom' && interactionElement}
-        resetTime={resetTime}
-        image={image}
-        updateCornerstoneRenderData={updateCornerstoneRenderData}
-      />
-      {contours && contours.length > 0 && cornerstoneRenderData && (
-        // Canvas Style을 변경할 수 있다
-        <Viewer
-          width={width}
-          height={height}
-          contours={contours}
-          focusedContour={focusedContour}
-          cornerstoneRenderData={cornerstoneRenderData}
-        />
-      )}
-      {contours && cornerstoneRenderData && control === 'pen' && (
-        // Canvas Style을 변경할 수 있다
-        <Drawer
-          width={width}
-          height={height}
-          contours={contours}
-          draw={control === 'pen' && interactionElement}
-          onFocus={focusContour}
-          onAdd={contour => addContour(contour, { label: labelFunction })}
-          onRemove={removeContour}
-          cornerstoneRenderData={cornerstoneRenderData}
-        />
-      )}
-      <ProgressViewer image={image} width={width} height={height} />
-    </InsightViewerContainer>
-  );
-}
-
-storiesOf('insight-viewer', module)
-  .addDecorator(withOPTComponentsStorybookGlobalStyle)
-  .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .addDecorator(
-    withTestController({
-      width: [600, 400, 1000],
-      height: [700, 400, 1000],
-      control: ['pen', ['none', 'pen', 'pan', 'adjust']],
-      wheel: ['zoom', ['none', 'zoom']],
-      flip: false,
-      invert: false,
-    }),
-  )
-  .add('<ContourViewer className={colors}>', () => <Sample />);
