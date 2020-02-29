@@ -26,6 +26,7 @@
     "@lunit/use-dialog": "^1.0.2",
     "use-resize-observer": "^5.0.0",
     "@lunit/insight-viewer": "^3.0.0-alpha.6",
-    "@ssen/snackbar": "^0.1.0"
+    "@ssen/snackbar": "^0.1.0",
+    "@lunit/use-opt-control": "^1.0.2"
   }
 }
