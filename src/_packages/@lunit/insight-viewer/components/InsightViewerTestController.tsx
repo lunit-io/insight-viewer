@@ -1,6 +1,6 @@
 import { Control } from '@lunit/use-opt-control';
 import { Box, Button, FormControlLabel, Radio, RadioGroup, Slider, Switch, Typography } from '@material-ui/core';
-import React, { ReactNode, useMemo, useState } from 'react';
+import React, { Fragment, ReactNode, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 export type Wheel = 'none' | 'zoom' | 'scroll';
@@ -90,10 +90,10 @@ export function InsightViewerTestController({ children, options }: InsightViewer
   );
 
   return (
-    <>
+    <Fragment>
       {children(state)}
       <Controller {...state} />
-    </>
+    </Fragment>
   );
 }
 
