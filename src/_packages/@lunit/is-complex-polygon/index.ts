@@ -10,11 +10,10 @@ export function isComplexPolygon(polygon: Point[]): boolean {
   // 끝점으로 최초점을 추가해서 닫힌 polygon을 만들어준다
   const closedPolygon: Point[] = [...polygon, polygon[0]];
   const max: number = closedPolygon.length;
-  
+
   // 0 ->
   let i: number = -1;
   while (++i < max - 2) {
-    
     // i + 1 ->
     // 현재 i 지점의 이전은 검색할 필요가 없기 때문에 i 이후 지점부터 검색한다
     let n: number = i + 2;
@@ -28,6 +27,6 @@ export function isComplexPolygon(polygon: Point[]): boolean {
       }
     }
   }
-  
+
   return false;
 }

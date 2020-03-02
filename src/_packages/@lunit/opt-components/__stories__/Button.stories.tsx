@@ -12,101 +12,61 @@ storiesOf('opt-components', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Button', () => (
     <Container>
-      {
-        directions.map(direction => (
-          <Fragment key={direction}>
-            <div style={{width: direction === 'vertical' ? 200 : 500}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="left"
-                        label="PEN"
-                        icon={<PenIcon/>}/>
-                <Button layout="left"
-                        label="PAN"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <div style={{width: direction === 'vertical' ? 200 : 330}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="center"
-                        label="PEN"/>
-                <Button layout="center"
-                        label="PAN"
-                        selected/>
-                <Button layout="center"
-                        label="ADJUST"/>
-                <Button layout="center"
-                        label="MAGNIFY"
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <div style={{width: 200}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="center"
-                        icon={<PenIcon/>}/>
-                <Button layout="center"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="center"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="center"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <div style={{width: direction === 'vertical' ? 200 : 500}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="left"
-                        label="PEN"/>
-                <Button layout="left"
-                        label="PAN"
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <BlueButtonDiv style={{width: direction === 'vertical' ? 200 : 500}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="left"
-                        label="PEN"
-                        icon={<PenIcon/>}/>
-                <Button layout="left"
-                        label="PAN"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
-              </ButtonLayout>
-            </BlueButtonDiv>
-          </Fragment>
-        ))
-      }
+      {directions.map(direction => (
+        <Fragment key={direction}>
+          <div style={{ width: direction === 'vertical' ? 200 : 500 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="left" label="PEN" icon={<PenIcon />} />
+              <Button layout="left" label="PAN" icon={<PanIcon />} selected />
+              <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </div>
+
+          <div style={{ width: direction === 'vertical' ? 200 : 330 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="center" label="PEN" />
+              <Button layout="center" label="PAN" selected />
+              <Button layout="center" label="ADJUST" />
+              <Button layout="center" label="MAGNIFY" disabled />
+            </ButtonLayout>
+          </div>
+
+          <div style={{ width: 200 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="center" icon={<PenIcon />} />
+              <Button layout="center" icon={<PanIcon />} selected />
+              <Button layout="center" icon={<AdjustIcon />} />
+              <Button layout="center" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </div>
+
+          <div style={{ width: direction === 'vertical' ? 200 : 500 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="left" label="PEN" />
+              <Button layout="left" label="PAN" selected />
+              <Button layout="left" label="ADJUST" />
+              <Button layout="left" label="MAGNIFY" disabled />
+            </ButtonLayout>
+          </div>
+
+          <BlueButtonDiv style={{ width: direction === 'vertical' ? 200 : 500 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="left" label="PEN" icon={<PenIcon />} />
+              <Button layout="left" label="PAN" icon={<PanIcon />} selected />
+              <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </BlueButtonDiv>
+        </Fragment>
+      ))}
     </Container>
   ));
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  
+
   > div {
     margin-right: 10px;
     margin-bottom: 10px;

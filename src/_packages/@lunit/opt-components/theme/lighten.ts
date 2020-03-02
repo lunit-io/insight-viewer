@@ -10,11 +10,11 @@ export const lighten = css`
   --button-label-color-hover: rgba(255, 255, 255, 1);
   --button-background-color-selected: #007294;
   --button-label-color-selected: rgba(255, 255, 255, 1);
-  --button-background-color-disabled: rgba(0,164,200,0.65);
+  --button-background-color-disabled: rgba(0, 164, 200, 0.65);
   --button-label-color-disabled: rgba(255, 255, 255, 0.2);
-  
+
   --slider-rail-color: rgba(86, 81, 136, 0.4);
-  --slider-thumb-color: #6B6B9B;
+  --slider-thumb-color: #6b6b9b;
   --slider-track-color: rgba(86, 81, 136, 0.6);
   --slider-value-label-color: #ffffff;
 `;

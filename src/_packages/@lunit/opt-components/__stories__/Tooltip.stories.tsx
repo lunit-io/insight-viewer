@@ -15,58 +15,42 @@ storiesOf('opt-components', module)
         <p>World!!! World!!!</p>
       </div>
     );
-    
+
     return (
       <>
-        <Grid style={{marginLeft: 170, marginTop: 150}}>
-          <Tooltip title={title}
-                   placement="top"
-                   open>
-            <Error/>
+        <Grid style={{ marginLeft: 170, marginTop: 150 }}>
+          <Tooltip title={title} placement="top" open>
+            <Error />
           </Tooltip>
-          
-          <Tooltip title={title}
-                   placement="right"
-                   open>
-            <Error/>
+
+          <Tooltip title={title} placement="right" open>
+            <Error />
           </Tooltip>
-          
-          <Tooltip title={title}
-                   placement="left"
-                   open>
-            <Error/>
+
+          <Tooltip title={title} placement="left" open>
+            <Error />
           </Tooltip>
-          
-          <Tooltip title={title}
-                   placement="bottom"
-                   open>
-            <Error/>
+
+          <Tooltip title={title} placement="bottom" open>
+            <Error />
           </Tooltip>
         </Grid>
-        
-        <Grid style={{marginLeft: 570, marginTop: 150}}>
-          <WarningTooltip title={title}
-                          placement="top"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+        <Grid style={{ marginLeft: 570, marginTop: 150 }}>
+          <WarningTooltip title={title} placement="top" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
-          
-          <WarningTooltip title={title}
-                          placement="right"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+          <WarningTooltip title={title} placement="right" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
-          
-          <WarningTooltip title={title}
-                          placement="left"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+          <WarningTooltip title={title} placement="left" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
-          
-          <WarningTooltip title={title}
-                          placement="bottom"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+          <WarningTooltip title={title} placement="bottom" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
         </Grid>
       </>
@@ -80,7 +64,7 @@ const WarningTooltip = styled(Tooltip)`
 
 const Grid = styled.div`
   position: fixed;
-  
+
   display: grid;
   grid-template-columns: 100px 100px;
   grid-template-rows: 100px 100px;

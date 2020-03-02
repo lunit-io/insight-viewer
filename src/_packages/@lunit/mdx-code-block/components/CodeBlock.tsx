@@ -7,10 +7,6 @@ export interface CodeBlockProps {
   language: Language;
 }
 
-export function CodeBlock({children, language}: CodeBlockProps) {
-  return (
-    <MDXCodeBlock className={`language-${language}`}>
-      {children}
-    </MDXCodeBlock>
-  );
+export function CodeBlock({ children, language }: CodeBlockProps) {
+  return <MDXCodeBlock className={`language-${language}`}>{children}</MDXCodeBlock>;
 }

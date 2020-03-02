@@ -10,7 +10,7 @@ export type DialogTemplate<P = {}, R = void> = (props: Props<P, R>) => ReactNode
 
 export function useDialog<P = {}, R = void>(dialogTemplate: DialogTemplate<P, R>): [OpenDialog<P, R>, ReactNode] {
   const [dialogProps, setDialogProps] = useState<Props<P, R> | null>(null);
-  
+
   const openDialog: OpenDialog<P, R> = useCallback(async (props: P) => {
     return new Promise<R>(resolve => {
       setDialogProps({
@@ -22,12 +22,10 @@ export function useDialog<P = {}, R = void>(dialogTemplate: DialogTemplate<P, R>
       });
     });
   }, []);
-  
+
   const dialog = useMemo<ReactNode>(() => {
-    return dialogProps
-      ? dialogTemplate(dialogProps)
-      : null;
+    return dialogProps ? dialogTemplate(dialogProps) : null;
   }, [dialogProps, dialogTemplate]);
-  
+
   return [openDialog, dialog];
 }

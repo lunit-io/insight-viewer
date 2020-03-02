@@ -2,49 +2,49 @@ import { IconButton } from '@material-ui/core';
 import { Fullscreen, FullscreenExit } from '@material-ui/icons';
 import React, { Children, ReactNode, useState } from 'react';
 import styled, { css } from 'styled-components';
-import useResizeObserver from 'use-resize-observer';
+import useResizeObserver from 'use-resize-observer/polyfilled';
 
 export interface QuarterViewProps {
   children: ReactNode;
   className?: string;
 }
 
-export function QuarterView({children, className}: QuarterViewProps) {
-  const {ref: resizeRef, width, height} = useResizeObserver<HTMLDivElement>({
-    useDefaults: true,
-    defaultWidth: 500,
-    defaultHeight: 500,
-  });
+export function QuarterView({ children, className }: QuarterViewProps) {
+  const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<HTMLDivElement>({});
   const [solo, setSolo] = useState<number>(-1);
-  
+
   const soloEnabled: boolean = solo > -1;
-  
+
   return (
-    <div ref={resizeRef}
-         className={className}
-         css={`${soloEnabled ? soloContainerStyle : width / height < 1.2 ? gridContainerStyle : verticalContainerStyle}`}>
-      {
-        Children.map(children, (child, i) => {
-          return (
-            <div key={'quarter-' + i}
-                 css={`${!soloEnabled || solo === i ? itemStyle : hiddenStyle}`}>
-              {child}
-              <ExpandButton onClick={event => {
+    <div
+      ref={resizeRef}
+      className={className}
+      css={`
+        ${soloEnabled ? soloContainerStyle : width / height < 1.2 ? gridContainerStyle : verticalContainerStyle}
+      `}
+    >
+      {Children.map(children, (child, i) => {
+        return (
+          <div
+            key={'quarter-' + i}
+            css={`
+              ${!soloEnabled || solo === i ? itemStyle : hiddenStyle}
+            `}
+          >
+            {child}
+            <ExpandButton
+              onClick={event => {
                 event.preventDefault();
                 event.stopPropagation();
                 event.nativeEvent.stopImmediatePropagation();
                 setSolo(soloEnabled ? -1 : i);
-              }}>
-                {
-                  soloEnabled
-                    ? <FullscreenExit/>
-                    : <Fullscreen/>
-                }
-              </ExpandButton>
-            </div>
-          );
-        })
-      }
+              }}
+            >
+              {soloEnabled ? <FullscreenExit /> : <Fullscreen />}
+            </ExpandButton>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -52,10 +52,10 @@ export function QuarterView({children, className}: QuarterViewProps) {
 const verticalContainerStyle = css`
   display: flex;
   background-color: #1c2331; // line color
-  
+
   > div {
     flex: 1;
-    
+
     &:not(:last-of-type) {
       margin-right: 1px;
     }
@@ -65,7 +65,7 @@ const verticalContainerStyle = css`
 const gridContainerStyle = css`
   display: grid;
   background-color: #1c2331; // line color
-  
+
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-gap: 1px;
@@ -97,9 +97,9 @@ const ExpandButton = styled(IconButton)`
   left: 0;
   border-radius: 0;
   padding: 4px 6px;
-  color: #8694B1;
+  color: #8694b1;
   font-size: 18px;
-  
+
   .MuiSvgIcon-root {
     font-size: 1em;
   }

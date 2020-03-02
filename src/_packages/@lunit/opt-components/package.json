@@ -1,11 +1,17 @@
 {
   "name": "@lunit/opt-components",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Component library for annotation / opt apps",
   "author": {
     "name": "Seoyeon Lee",
     "email": "seoyeon.lee@lunit.io"
   },
+  "contributors": [
+    {
+      "name": "Seula Lee",
+      "email": "seula@lunit.io"
+    }
+  ],
   "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {

@@ -1,6 +1,8 @@
 import { CornerstoneEventData, Viewport } from 'cornerstone-core';
 
-export type CornerstoneRenderData = Required<Pick<CornerstoneEventData, 'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'>>;
+export type CornerstoneRenderData = Required<
+  Pick<CornerstoneEventData, 'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'>
+>;
 
 export type Point = [number, number];
 
@@ -11,7 +13,7 @@ export interface Contour {
   polygon: Point[];
   // 존재하는 경우 id 대신 출력된다
   label?: ((contour: this) => string) | string;
-  dataAttrs?: {[attr: string]: string};
+  dataAttrs?: { [attr: string]: string };
 }
 
 export interface ViewportTransformParams {

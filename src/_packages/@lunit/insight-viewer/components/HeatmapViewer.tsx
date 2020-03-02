@@ -17,67 +17,70 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
   private ctx: CanvasRenderingContext2D | null = null;
   private imageData: ImageData | null = null;
   private imageResourceCanvas: HTMLCanvasElement | null = null;
-  
+
   render() {
     return (
-      <Canvas ref={this.canvasRef}
-              width={this.props.width}
-              height={this.props.height}
-              style={{
-                width: this.props.width,
-                height: this.props.height,
-              }}/>
+      <Canvas
+        ref={this.canvasRef}
+        width={this.props.width}
+        height={this.props.height}
+        style={{
+          width: this.props.width,
+          height: this.props.height,
+        }}
+      />
     );
   }
-  
+
   componentDidMount() {
     this.imageResourceCanvas = document.createElement('canvas');
-    
+
     if (!this.canvasRef.current) throw new Error('<canvas> is not initialized');
-    
+
     this.ctx = this.canvasRef.current.getContext('2d');
-    
+
     if (!this.ctx) throw new Error('<canvas> context 2d is not initialized');
-    
+
     this.imageData = posMapToImageData(this.props.posMap, this.props.threshold);
-    
+
     this.drawHeatmap(this.props);
   }
-  
+
   componentDidUpdate(prevProps: Readonly<HeatmapViewerProps>) {
-    const {width, height, posMap, threshold, cornerstoneRenderData} = this.props;
-    
+    const { width, height, posMap, threshold, cornerstoneRenderData } = this.props;
+
     if (prevProps.posMap !== posMap || prevProps.threshold !== threshold) {
       this.imageData = posMapToImageData(posMap, threshold);
     }
-    
-    if (prevProps.posMap !== posMap || prevProps.threshold !== threshold || prevProps.cornerstoneRenderData !== cornerstoneRenderData) {
+
+    if (
+      prevProps.posMap !== posMap ||
+      prevProps.threshold !== threshold ||
+      prevProps.cornerstoneRenderData !== cornerstoneRenderData
+    ) {
       cleanCanvas(this.ctx!, width, height);
-      
+
       this.drawHeatmap(this.props);
     }
   }
-  
-  drawHeatmap = ({cornerstoneRenderData}: Readonly<HeatmapViewerProps>) => {
-    if (!this.imageData
-      || !this.imageResourceCanvas
-      || !this.ctx
-      || !cornerstoneRenderData) {
+
+  drawHeatmap = ({ cornerstoneRenderData }: Readonly<HeatmapViewerProps>) => {
+    if (!this.imageData || !this.imageResourceCanvas || !this.ctx || !cornerstoneRenderData) {
       return;
     }
-    
+
     try {
       this.ctx.save();
-      
+
       this.imageResourceCanvas.width = this.imageData.width;
       this.imageResourceCanvas.height = this.imageData.height;
       this.imageResourceCanvas.getContext('2d')!.putImageData(this.imageData, 0, 0);
-      
+
       setToPixelCoordinateSystem(cornerstoneRenderData.enabledElement, this.ctx);
-      
+
       const imageWidth: number = cornerstoneRenderData.image.width;
       const imageHeight: number = cornerstoneRenderData.image.height;
-      
+
       this.ctx.drawImage(
         this.imageResourceCanvas,
         0,
@@ -89,7 +92,7 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
         imageWidth,
         imageHeight,
       );
-      
+
       this.ctx.restore();
     } catch (error) {
       console.error(error);

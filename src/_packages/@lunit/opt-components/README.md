@@ -76,101 +76,61 @@ storiesOf('opt-components', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Button', () => (
     <Container>
-      {
-        directions.map(direction => (
-          <Fragment key={direction}>
-            <div style={{width: direction === 'vertical' ? 200 : 500}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="left"
-                        label="PEN"
-                        icon={<PenIcon/>}/>
-                <Button layout="left"
-                        label="PAN"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <div style={{width: direction === 'vertical' ? 200 : 330}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="center"
-                        label="PEN"/>
-                <Button layout="center"
-                        label="PAN"
-                        selected/>
-                <Button layout="center"
-                        label="ADJUST"/>
-                <Button layout="center"
-                        label="MAGNIFY"
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <div style={{width: 200}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="center"
-                        icon={<PenIcon/>}/>
-                <Button layout="center"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="center"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="center"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <div style={{width: direction === 'vertical' ? 200 : 500}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="left"
-                        label="PEN"/>
-                <Button layout="left"
-                        label="PAN"
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        disabled/>
-              </ButtonLayout>
-            </div>
-            
-            <BlueButtonDiv style={{width: direction === 'vertical' ? 200 : 500}}>
-              <ButtonLayout direction={direction}>
-                <Button layout="left"
-                        label="PEN"
-                        icon={<PenIcon/>}/>
-                <Button layout="left"
-                        label="PAN"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
-              </ButtonLayout>
-            </BlueButtonDiv>
-          </Fragment>
-        ))
-      }
+      {directions.map(direction => (
+        <Fragment key={direction}>
+          <div style={{ width: direction === 'vertical' ? 200 : 500 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="left" label="PEN" icon={<PenIcon />} />
+              <Button layout="left" label="PAN" icon={<PanIcon />} selected />
+              <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </div>
+
+          <div style={{ width: direction === 'vertical' ? 200 : 330 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="center" label="PEN" />
+              <Button layout="center" label="PAN" selected />
+              <Button layout="center" label="ADJUST" />
+              <Button layout="center" label="MAGNIFY" disabled />
+            </ButtonLayout>
+          </div>
+
+          <div style={{ width: 200 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="center" icon={<PenIcon />} />
+              <Button layout="center" icon={<PanIcon />} selected />
+              <Button layout="center" icon={<AdjustIcon />} />
+              <Button layout="center" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </div>
+
+          <div style={{ width: direction === 'vertical' ? 200 : 500 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="left" label="PEN" />
+              <Button layout="left" label="PAN" selected />
+              <Button layout="left" label="ADJUST" />
+              <Button layout="left" label="MAGNIFY" disabled />
+            </ButtonLayout>
+          </div>
+
+          <BlueButtonDiv style={{ width: direction === 'vertical' ? 200 : 500 }}>
+            <ButtonLayout direction={direction}>
+              <Button layout="left" label="PEN" icon={<PenIcon />} />
+              <Button layout="left" label="PAN" icon={<PanIcon />} selected />
+              <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </BlueButtonDiv>
+        </Fragment>
+      ))}
     </Container>
   ));
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  
+
   > div {
     margin-right: 10px;
     margin-bottom: 10px;
@@ -192,6 +152,56 @@ const BlueButtonDiv = styled.div`
   --button-background-color-disabled: #8b75ca;
   --button-label-color-disabled: rgba(255, 255, 255, 0.2);
 `;
+
+```
+
+
+### \_\_stories\_\_/DialogPaper.stories.tsx
+
+
+```tsx
+import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
+import { DialogPaper, Button, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import React, { useState } from 'react';
+import { Modal } from '@material-ui/core';
+import styled from 'styled-components';
+
+export default {
+  title: 'opt-components',
+  component: DialogPaper,
+  decorators: [withOPTComponentsStorybookGlobalStyle, withInsightViewerStorybookGlobalStyle],
+};
+
+export const DialogPaperSample = () => {
+  const [modalOpen, setModalOpen] = useState<boolean>(true);
+
+  return (
+    <>
+      <CenterModal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <DialogPaper>
+          <p>Hello World</p>
+
+          <div style={{ marginTop: 17 }}>
+            <Button onClick={() => setModalOpen(false)} style={{ width: 130 }} layout="center" label="CLOSE" />
+          </div>
+        </DialogPaper>
+      </CenterModal>
+      {!modalOpen && <Button onClick={() => setModalOpen(true)} style={{ width: 100 }} layout="center" label="show" />}
+    </>
+  );
+};
+
+const CenterModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+`;
+
+DialogPaperSample.story = {
+  name: 'DialogPaper',
+};
+
 ```
 
 
@@ -217,90 +227,72 @@ storiesOf('opt-components', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Panel', () => (
     <Container>
-      {
-        [200, 250, 300].map(width => (
-          <div key={'width-' + width} style={{width}}>
-            <SessionPanel title="TEST"
-                          style={{marginBottom: 6}}
-                          sessionId={'session-panel-' + width}>
-              {
-                expanded => (
-                  <ButtonLayout direction={expanded ? 'vertical' : 'horizontal'}>
-                    <Button layout={expanded ? 'left' : 'center'}
-                            label={expanded ? 'PEN' : undefined}
-                            icon={<PenIcon/>}/>
-                    <Button layout={expanded ? 'left' : 'center'}
-                            label={expanded ? 'PAN' : undefined}
-                            icon={<PanIcon/>}
-                            selected/>
-                    <Button layout={expanded ? 'left' : 'center'}
-                            label={expanded ? 'ADJUST' : undefined}
-                            icon={<AdjustIcon/>}/>
-                    <Button layout={expanded ? 'left' : 'center'}
-                            label={expanded ? 'MAGNIFY' : undefined}
-                            icon={<MagnifyIcon/>}
-                            disabled/>
-                  </ButtonLayout>
-                )
-              }
-            </SessionPanel>
-            
-            <Panel title="TEST" style={{backgroundColor: '#294723'}}>
-              <ButtonLayout direction="vertical">
-                <Button layout="left"
-                        label="PEN"
-                        icon={<PenIcon/>}/>
-                <Button layout="left"
-                        label="PAN"
-                        icon={<PanIcon/>}
-                        selected/>
-                <Button layout="left"
-                        label="ADJUST"
-                        icon={<AdjustIcon/>}/>
-                <Button layout="left"
-                        label="MAGNIFY"
-                        icon={<MagnifyIcon/>}
-                        disabled/>
+      {[200, 250, 300].map(width => (
+        <div key={'width-' + width} style={{ width }}>
+          <SessionPanel title="TEST" style={{ marginBottom: 6 }} sessionId={'session-panel-' + width}>
+            {expanded => (
+              <ButtonLayout direction={expanded ? 'vertical' : 'horizontal'}>
+                <Button layout={expanded ? 'left' : 'center'} label={expanded ? 'PEN' : undefined} icon={<PenIcon />} />
+                <Button
+                  layout={expanded ? 'left' : 'center'}
+                  label={expanded ? 'PAN' : undefined}
+                  icon={<PanIcon />}
+                  selected
+                />
+                <Button
+                  layout={expanded ? 'left' : 'center'}
+                  label={expanded ? 'ADJUST' : undefined}
+                  icon={<AdjustIcon />}
+                />
+                <Button
+                  layout={expanded ? 'left' : 'center'}
+                  label={expanded ? 'MAGNIFY' : undefined}
+                  icon={<MagnifyIcon />}
+                  disabled
+                />
               </ButtonLayout>
-            </Panel>
-          </div>
-        ))
-      }
-      
-      <LineText x={600}
-                y={15}
-                width={600}
-                height={20}
-                textAnchor="end"
-                stroke="#000000"
-                fill="#ffffff">
-        <tspan fill="blue">Hello</tspan>
-        {' '}
-        World?
-        {' '}
-        <tspan fill="red">Hello</tspan>
-        {' '}
-        World?
+            )}
+          </SessionPanel>
+
+          <Panel title="TEST" style={{ backgroundColor: '#294723' }}>
+            <ButtonLayout direction="vertical">
+              <Button layout="left" label="PEN" icon={<PenIcon />} />
+              <Button layout="left" label="PAN" icon={<PanIcon />} selected />
+              <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+            </ButtonLayout>
+          </Panel>
+        </div>
+      ))}
+
+      <LineText x={600} y={15} width={600} height={20} textAnchor="end" stroke="#000000" fill="#ffffff">
+        <tspan fill="blue">Hello</tspan> World? <tspan fill="red">Hello</tspan> World?
       </LineText>
     </Container>
   ));
 
-function LineText({children, width, height, stroke, fill, ...props}: {children: ReactNode} & SVGProps<SVGTextElement>) {
+function LineText({
+  children,
+  width,
+  height,
+  stroke,
+  fill,
+  ...props
+}: { children: ReactNode } & SVGProps<SVGTextElement>) {
   return (
-    <svg width={width} height={height} style={{backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
-      <text {...props}
-            width={width}
-            height={height}
-            stroke={stroke}
-            strokeWidth={5}
-            strokeLinejoin="round"
-            strokeLinecap="round">
+    <svg width={width} height={height} style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+      <text
+        {...props}
+        width={width}
+        height={height}
+        stroke={stroke}
+        strokeWidth={5}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      >
         {children}
       </text>
-      <text {...props}
-            width={width}
-            height={height}
-            fill={fill}>
+      <text {...props} width={width} height={height} fill={fill}>
         {children}
       </text>
     </svg>
@@ -338,23 +330,24 @@ storiesOf('opt-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Slider', () => (
-    <div style={{width: 300, margin: 20}}>
-      <div style={{backgroundColor: 'rgba(255, 255, 255, 0.2)', padding: '10px 30px'}}>
-        <Slider defaultValue={50}/>
+    <div style={{ width: 300, margin: 20 }}>
+      <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', padding: '10px 30px' }}>
+        <Slider defaultValue={50} />
       </div>
-      
-      <div style={{backgroundColor: 'rgba(255, 255, 255, 1)', padding: '10px 30px'}}>
-        <BlueSlider defaultValue={50}/>
+
+      <div style={{ backgroundColor: 'rgba(255, 255, 255, 1)', padding: '10px 30px' }}>
+        <BlueSlider defaultValue={50} />
       </div>
     </div>
   ));
 
 export const BlueSlider = styled(Slider)`
   --slider-rail-color: rgba(86, 81, 136, 0.4);
-  --slider-thumb-color: #6B6B9B;
+  --slider-thumb-color: #6b6b9b;
   --slider-track-color: rgba(86, 81, 136, 0.6);
   --slider-value-label-color: #ffffff;
 `;
+
 ```
 
 
@@ -381,111 +374,131 @@ import styled from 'styled-components';
 let count: number = 0;
 
 function Basic() {
-  const {addSnackbar, snackbarContainer} = useSnackbar();
-  
+  const { addSnackbar, snackbarContainer } = useSnackbar();
+
   return (
     <Container>
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <SnackbarContent message={`${count} HELLO SNACKBAR!`}
-                             action={[
-                               <Button key="undo" color="inherit" size="small">
-                                 UNDO
-                               </Button>,
-                               <IconButton key="close" aria-label="close" color="inherit">
-                                 <Close/>
-                               </IconButton>,
-                             ]}/>
-          </Snackbar>,
-        );
-      }}>
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <SnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Default
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <NormalSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                   action={[
-                                     <Button key="undo" color="inherit" size="small">
-                                       UNDO
-                                     </Button>,
-                                     <IconButton key="close" aria-label="close" color="inherit">
-                                       <Close/>
-                                     </IconButton>,
-                                   ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <NormalSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Normal
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <InfoSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                 action={[
-                                   <Button key="undo" color="inherit" size="small">
-                                     UNDO
-                                   </Button>,
-                                   <IconButton key="close" aria-label="close" color="inherit">
-                                     <Close/>
-                                   </IconButton>,
-                                 ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <InfoSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Info
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <WarningSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                    action={[
-                                      <Button key="undo" color="inherit" size="small">
-                                        UNDO
-                                      </Button>,
-                                      <IconButton key="close" aria-label="close" color="inherit">
-                                        <Close/>
-                                      </IconButton>,
-                                    ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <WarningSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Warning
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <ErrorSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                  action={[
-                                    <Button key="undo" color="inherit" size="small">
-                                      UNDO
-                                    </Button>,
-                                    <IconButton key="close" aria-label="close" color="inherit">
-                                      <Close/>
-                                    </IconButton>,
-                                  ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <ErrorSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Error
       </button>
-      
-      <SnackbarContainer ref={snackbarContainer}/>
+
+      <SnackbarContainer ref={snackbarContainer} />
     </Container>
   );
 }
@@ -493,12 +506,8 @@ function Basic() {
 storiesOf('opt-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .addDecorator(storyFn => (
-    <SnackbarProvider>
-      {storyFn()}
-    </SnackbarProvider>
-  ))
-  .add('<Snackbar>', () => <Basic/>);
+  .addDecorator(storyFn => <SnackbarProvider>{storyFn()}</SnackbarProvider>)
+  .add('<Snackbar>', () => <Basic />);
 
 const Container = styled.div`
   position: relative;
@@ -515,11 +524,12 @@ const SnackbarContainer = styled.div`
   flex-direction: column-reverse;
   justify-content: right;
   align-items: flex-end;
-  
+
   > * {
     margin-top: 10px;
   }
 `;
+
 ```
 
 
@@ -544,58 +554,42 @@ storiesOf('opt-components', module)
         <p>World!!! World!!!</p>
       </div>
     );
-    
+
     return (
       <>
-        <Grid style={{marginLeft: 170, marginTop: 150}}>
-          <Tooltip title={title}
-                   placement="top"
-                   open>
-            <Error/>
+        <Grid style={{ marginLeft: 170, marginTop: 150 }}>
+          <Tooltip title={title} placement="top" open>
+            <Error />
           </Tooltip>
-          
-          <Tooltip title={title}
-                   placement="right"
-                   open>
-            <Error/>
+
+          <Tooltip title={title} placement="right" open>
+            <Error />
           </Tooltip>
-          
-          <Tooltip title={title}
-                   placement="left"
-                   open>
-            <Error/>
+
+          <Tooltip title={title} placement="left" open>
+            <Error />
           </Tooltip>
-          
-          <Tooltip title={title}
-                   placement="bottom"
-                   open>
-            <Error/>
+
+          <Tooltip title={title} placement="bottom" open>
+            <Error />
           </Tooltip>
         </Grid>
-        
-        <Grid style={{marginLeft: 570, marginTop: 150}}>
-          <WarningTooltip title={title}
-                          placement="top"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+        <Grid style={{ marginLeft: 570, marginTop: 150 }}>
+          <WarningTooltip title={title} placement="top" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
-          
-          <WarningTooltip title={title}
-                          placement="right"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+          <WarningTooltip title={title} placement="right" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
-          
-          <WarningTooltip title={title}
-                          placement="left"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+          <WarningTooltip title={title} placement="left" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
-          
-          <WarningTooltip title={title}
-                          placement="bottom"
-                          open>
-            <Error style={{color: 'red'}}/>
+
+          <WarningTooltip title={title} placement="bottom" open>
+            <Error style={{ color: 'red' }} />
           </WarningTooltip>
         </Grid>
       </>
@@ -609,7 +603,7 @@ const WarningTooltip = styled(Tooltip)`
 
 const Grid = styled.div`
   position: fixed;
-  
+
   display: grid;
   grid-template-columns: 100px 100px;
   grid-template-rows: 100px 100px;

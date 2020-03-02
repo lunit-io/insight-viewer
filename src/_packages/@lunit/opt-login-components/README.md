@@ -22,39 +22,31 @@ import React, { CSSProperties } from 'react';
 import { Button } from '../components/Button';
 import { SubmitContainer } from '../components/SubmitContainer';
 
-const style: CSSProperties = {width: 300};
+const style: CSSProperties = { width: 300 };
 
 storiesOf('opt-login-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('<Button>', () => (
-    <Button style={style}
-            variant="outlined"
-            size="large">
+    <Button style={style} variant="outlined" size="large">
       Submit
     </Button>
   ))
   .add('<Button disabled>', () => (
-    <Button style={style}
-            variant="outlined"
-            size="large"
-            disabled>
+    <Button style={style} variant="outlined" size="large" disabled>
       Submit
     </Button>
   ))
   .add('<Button> + <Progress>', () => (
     <SubmitContainer style={style}>
-      <Button style={style}
-              variant="outlined"
-              size="large"
-              disabled>
+      <Button style={style} variant="outlined" size="large" disabled>
         Submit
       </Button>
-      
-      <Progress size={24}/>
+
+      <Progress size={24} />
     </SubmitContainer>
   ));
-  
+
 ```
 
 
@@ -68,25 +60,16 @@ import { storiesOf } from '@storybook/react';
 import React, { CSSProperties } from 'react';
 import { TextInput } from '../components/TextInput';
 
-const style: CSSProperties = {width: 300};
+const style: CSSProperties = { width: 300 };
 
 storiesOf('opt-login-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('<TextInput>', () => (
-    <TextInput style={style}
-               placeholder="PLACEHOLDER"
-               margin="dense"
-               variant="outlined"/>
-  ))
+  .add('<TextInput>', () => <TextInput style={style} placeholder="PLACEHOLDER" margin="dense" variant="outlined" />)
   .add('<TextInput disabled>', () => (
-    <TextInput style={style}
-               placeholder="PLACEHOLDER"
-               margin="dense"
-               variant="outlined"
-               disabled/>
+    <TextInput style={style} placeholder="PLACEHOLDER" margin="dense" variant="outlined" disabled />
   ));
-  
+
 ```
 
 <!-- importend -->

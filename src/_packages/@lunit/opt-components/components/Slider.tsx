@@ -7,7 +7,7 @@ export const Slider = styled(MuiSlider).attrs({
   && {
     color: var(--slider-rail-color);
     height: 19px;
-    
+
     .MuiSlider-thumb {
       width: 28px;
       height: 19px;
@@ -16,16 +16,16 @@ export const Slider = styled(MuiSlider).attrs({
       margin-top: -7px;
       margin-left: -14px;
     }
-    
+
     .MuiSlider-active {
       cursor: none;
     }
-    
+
     .MuiSlider-valueLabel {
       left: 0;
       top: -7px;
       transform: none;
-      
+
       * {
         text-align: center;
         width: 28px;
@@ -36,13 +36,14 @@ export const Slider = styled(MuiSlider).attrs({
         color: var(--slider-value-label-color);
         font-size: 13px;
       }
-    },
-    
+    }
+
+    ,
     .MuiSlider-rail {
       height: 5px;
       border-radius: 2px;
     }
-    
+
     .MuiSlider-track {
       background-color: var(--slider-track-color);
       height: 5px;

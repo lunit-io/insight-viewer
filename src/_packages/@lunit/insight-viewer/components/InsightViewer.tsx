@@ -41,75 +41,77 @@ const maxScale: number = 3;
 export class InsightViewer extends Component<InsightViewerProps, {}> {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
   private element!: HTMLDivElement;
-  
+
   // imageLoaded 이후 지연되어 들어오게 된다
   // setViewport, updateViewport 에 의해서만 접근한다
   private currentViewport: Viewport | null = null;
   // props.image.subscribe()를 통해서 지연되어 들어오게 된다
   private currentImage: Image | null = null;
-  
+
   // mouse interaction에서 사용한다
   private teardownPanInteraction: (() => void) | null = null;
   private teardownAdjustInteraction: (() => void) | null = null;
   private teardownZoomInteraction: (() => void) | null = null;
-  
+
   // rx subscriptions
   private imageSubscription: Unsubscribable | null = null;
-  
+
   private needImageInitialize: boolean = true;
-  
+
   render() {
     return (
-      <div ref={this.elementRef}
-           style={{
-             width: this.props.width,
-             height: this.props.height,
-           }}/>
+      <div
+        ref={this.elementRef}
+        style={{
+          width: this.props.width,
+          height: this.props.height,
+        }}
+      />
     );
   }
-  
+
   // ---------------------------------------------
   // life cycle
   // ---------------------------------------------
   elementRef = (element: HTMLDivElement) => {
     this.element = element;
-    
+
     if (!element) return;
-    
+
     if (this.props.pan === true) {
       this.startPanInteraction(this.props.pan);
     }
-    
+
     if (this.props.adjust === true) {
       this.startAdjustInteraction(this.props.adjust);
     }
-    
+
     if (this.props.zoom === true) {
       this.startZoomInteraction(this.props.zoom);
     }
   };
-  
+
   componentDidMount() {
     // cornerstone의 imagernderered event를 받는다
     // image가 render 될때마다 context로 enabledElement를 배포해주기 위해 필요하다
     this.element.addEventListener(EVENTS.IMAGE_RENDERED, this.onImageRenderered);
-    
+
     this.setCornerstoneImage(this.props.image);
   }
-  
+
   initImage = (image: Image) => {
     disable(this.element);
-    enable(this.element, {renderer: 'webgl'});
-    
+    enable(this.element, { renderer: 'webgl' });
+
     let defaultViewport = this.getDefaultViewport(image, this.element);
-    
+
     if (!defaultViewport) {
       throw new Error('defaultViewport는 null일 수 없다.');
     }
-    
+
     if (Array.isArray(this.props.defaultViewportTransforms)) {
       const minScale: number = defaultViewport.scale;
-      
+
       for (const transform of this.props.defaultViewportTransforms) {
         const patch = transform({
           element: this.element,
@@ -117,72 +119,62 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
           minScale,
           maxScale,
         });
-        
+
         defaultViewport = {
           ...defaultViewport,
           ...patch,
         };
       }
     }
-    
+
     displayImage(this.element, image, defaultViewport);
-    
+
     this.setImage(image);
     this.setViewport(defaultViewport);
     this.startPanInteraction(this.props.pan);
     this.startAdjustInteraction(this.props.adjust);
     this.startZoomInteraction(this.props.zoom);
   };
-  
+
   componentWillUnmount() {
     this.element.removeEventListener(EVENTS.IMAGE_RENDERED, this.onImageRenderered);
     disable(this.element);
-    
+
     if (this.imageSubscription) {
       this.imageSubscription.unsubscribe();
     }
-    
+
     if (this.teardownPanInteraction) {
       this.teardownPanInteraction();
     }
-    
+
     if (this.teardownAdjustInteraction) {
       this.teardownAdjustInteraction();
     }
-    
+
     if (this.teardownZoomInteraction) {
       this.teardownZoomInteraction();
     }
   }
-  
+
   componentDidUpdate(prevProps: Readonly<InsightViewerProps>) {
-    const {
-      width,
-      height,
-      flip,
-      invert,
-      pan,
-      adjust,
-      zoom,
-      resetTime,
-      image,
-    } = this.props;
-    
+    const { width, height, flip, invert, pan, adjust, zoom, resetTime, image } = this.props;
+
     const defaultViewport: Viewport | null = this.getDefaultViewport(this.currentImage, this.element);
-    
+
     // 선택된 control 상태에 따라 event를 해제/등록 해준다
     if (prevProps.pan !== pan) {
       this.startPanInteraction(pan);
     }
-    
+
     if (prevProps.adjust !== adjust) {
       this.startAdjustInteraction(adjust);
     }
-    
+
     if (prevProps.zoom !== zoom) {
       this.startZoomInteraction(zoom);
     }
-    
+
     if (defaultViewport) {
       if (prevProps.resetTime !== resetTime) {
         // resetTime이 새로 갱신되면 viewport를 defaultViewport를 사용해서 초기화 해준다
@@ -203,14 +195,14 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
         }
       }
     }
-    
+
     if (prevProps.width !== width || prevProps.height !== height) {
       if (this.currentImage) {
         // container size가 변경되는 경우 cornerstone resize() 처리를 해준다
         resize(this.element);
-        
+
         const viewport = getViewport(this.element);
-        
+
         if (viewport) {
           this.setViewport(viewport);
         } else {
@@ -218,17 +210,17 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
         }
       }
     }
-    
+
     if (prevProps.image !== image) {
       this.setCornerstoneImage(image);
     }
   }
-  
+
   subscribeImage = (image: Image | null) => {
     if (!image) return;
-    
+
     image.voiLUT = undefined; // remove VOI LUT for 'adjust' functionality
-    
+
     // props.image의 변경 또는 초기화로 인한 완전한 초기화가 필요할때
     if (this.needImageInitialize) {
       this.needImageInitialize = false;
@@ -243,23 +235,25 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       throw new Error('어떤 상황인지 확인 필요!!!');
     }
   };
-  
+
   onImageRenderered = (event: CornerstoneEvent) => {
     const eventData: CornerstoneEventData | undefined = event.detail;
-    if (eventData
-      && eventData.canvasContext
-      && eventData.element
-      && eventData.enabledElement
-      && eventData.image
-      && typeof eventData.renderTimeInMs === 'number'
-      && eventData.viewport) {
+    if (
+      eventData &&
+      eventData.canvasContext &&
+      eventData.element &&
+      eventData.enabledElement &&
+      eventData.image &&
+      typeof eventData.renderTimeInMs === 'number' &&
+      eventData.viewport
+    ) {
       this.currentViewport = eventData.viewport;
       this.props.updateCornerstoneRenderData(eventData as CornerstoneRenderData);
     } else {
       console.error('CornerstoneEventData에 없는 정보가 있다???', eventData);
     }
   };
-  
+
   // ---------------------------------------------
   // event handlers
   // ---------------------------------------------
@@ -267,59 +261,47 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     if (this.teardownPanInteraction) {
       this.teardownPanInteraction();
     }
-    
-    const element: HTMLElement | null = pan instanceof HTMLElement
-      ? pan
-      : pan === true
-        ? this.element
-        : null;
-    
+
+    const element: HTMLElement | null = pan instanceof HTMLElement ? pan : pan === true ? this.element : null;
+
     if (element) {
       this.teardownPanInteraction = startPanInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
-        onMove: (translation: Vec2) => this.updateCurrentViewport({translation}),
+        onMove: (translation: Vec2) => this.updateCurrentViewport({ translation }),
         onEnd: () => {
           // DO NOTHING
         },
       });
     }
   };
-  
+
   startAdjustInteraction = (adjust: boolean | HTMLElement | null) => {
     if (this.teardownAdjustInteraction) {
       this.teardownAdjustInteraction();
     }
-    
-    const element: HTMLElement | null = adjust instanceof HTMLElement
-      ? adjust
-      : adjust === true
-        ? this.element
-        : null;
-    
+
+    const element: HTMLElement | null = adjust instanceof HTMLElement ? adjust : adjust === true ? this.element : null;
+
     if (element) {
       this.teardownAdjustInteraction = startAdjustInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
-        onMove: (voi: VOI) => this.updateCurrentViewport({voi}),
+        onMove: (voi: VOI) => this.updateCurrentViewport({ voi }),
         onEnd: () => {
           // DO NOTHING
         },
       });
     }
   };
-  
+
   startZoomInteraction = (zoom: boolean | HTMLElement | null) => {
     if (this.teardownZoomInteraction) {
       this.teardownZoomInteraction();
     }
-    
-    const element: HTMLElement | null = zoom instanceof HTMLElement
-      ? zoom
-      : zoom === true
-        ? this.element
-        : null;
-    
+
+    const element: HTMLElement | null = zoom instanceof HTMLElement ? zoom : zoom === true ? this.element : null;
+
     if (element) {
       this.teardownZoomInteraction = startZoomInteraction({
         element,
@@ -329,7 +311,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       });
     }
   };
-  
+
   // ---------------------------------------------
   // getters
   // ---------------------------------------------
@@ -337,21 +319,21 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
     if (!image || !element) return null;
     return getDefaultViewportForImage(element, image);
   };
-  
+
   getMinScale = () => {
     const viewport = this.getDefaultViewport(this.currentImage, this.element);
-    
+
     if (!viewport) {
       throw new Error('viewport가 정상적으로 와야만 한다');
     }
-    
+
     return viewport.scale;
   };
-  
+
   getMaxScale = () => {
     return maxScale;
   };
-  
+
   // ---------------------------------------------
   // setters
   // ---------------------------------------------
@@ -360,7 +342,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.updateCurrentViewport(patch);
     }
   };
-  
+
   getViewportTransformParams = (): ViewportTransformParams => {
     return {
       element: this.element,
@@ -369,43 +351,41 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       currentViewport: this.currentViewport,
     };
   };
-  
+
   private setCornerstoneImage = (image: CornerstoneImage) => {
     this.needImageInitialize = true;
-    
+
     this.setImage(null);
-    
+
     if (this.imageSubscription) {
       this.imageSubscription.unsubscribe();
       this.imageSubscription = null;
     }
-    
+
     this.imageSubscription = image.image.subscribe(this.subscribeImage);
   };
-  
+
   private setImage = (image: Image | null) => {
     this.currentImage = image;
   };
-  
+
   private setViewport = (viewport: Viewport) => {
     this.currentViewport = viewport;
     setViewport(this.element, this.currentViewport);
   };
-  
+
   private updateCurrentViewport = (update: Partial<Viewport> | ((viewport: Viewport) => Partial<Viewport>)) => {
     if (!this.currentViewport) {
       throw new Error('viewport가 없는 상태에서 실행되면 안된다');
     }
-    
-    const patch: Partial<Viewport> = typeof update === 'function'
-      ? update(this.currentViewport)
-      : update;
-    
+
+    const patch: Partial<Viewport> = typeof update === 'function' ? update(this.currentViewport) : update;
+
     this.currentViewport = {
       ...this.currentViewport,
       ...patch,
     };
-    
+
     setViewport(this.element, this.currentViewport);
   };
 }

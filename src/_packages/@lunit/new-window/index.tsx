@@ -20,32 +20,36 @@ const UPDATE: string = '__window_value_update__';
 export class NewWindow<T> extends Component<NewWindowProps<T>, {}> {
   private windowObject!: Window;
   private intervalId!: number;
-  
+
   render() {
     return null;
   }
-  
+
   close = () => {
-    const {onClose} = this.props;
-    
+    const { onClose } = this.props;
+
     if (typeof onClose === 'function') {
       onClose();
     }
-    
+
     clearInterval(this.intervalId);
     this.windowObject.removeEventListener('close', this.close);
     window.removeEventListener('beforeunload', this.close);
-    
+
     if (!this.windowObject.closed) {
       this.windowObject.close();
     }
   };
-  
+
   componentDidMount() {
-    const {url, value, features, onOpen, onBlock} = this.props;
-    
-    const windowObject: Window | null = window.open(url, '_blank', typeof features === 'string' ? features : parseWindowFeatures(features));
-    
+    const { url, value, features, onOpen, onBlock } = this.props;
+
+    const windowObject: Window | null = window.open(
+      url,
+      '_blank',
+      typeof features === 'string' ? features : parseWindowFeatures(features),
+    );
+
     if (windowObject) {
       if (typeof onOpen === 'function') {
         onOpen(windowObject);
@@ -65,26 +69,26 @@ export class NewWindow<T> extends Component<NewWindowProps<T>, {}> {
       }
     }
   }
-  
+
   componentDidUpdate(prevProps: Readonly<NewWindowProps<T>>) {
-    const {url, value} = this.props;
-    
+    const { url, value } = this.props;
+
     if (prevProps.url !== url) {
       this.windowObject.history.pushState({}, '', url);
     }
-    
+
     if (prevProps.value !== value) {
       this.windowObject[VALUE] = value;
       this.windowObject.dispatchEvent(new Event(UPDATE));
     }
   }
-  
+
   componentWillUnmount() {
     this.close();
   }
 }
 
-function parseWindowFeatures({width, height}: WindowFeatures): string {
+function parseWindowFeatures({ width, height }: WindowFeatures): string {
   return `width=${width}, height=${height}`;
 }
 
@@ -92,18 +96,18 @@ export function useWindowValue<T>(): T | undefined {
   const [value, setValue] = useState<T | undefined>(() => {
     return window[VALUE];
   });
-  
+
   useEffect(() => {
     function callback() {
       setValue(window[VALUE]);
     }
-    
+
     window.addEventListener(UPDATE, callback);
-    
+
     return () => {
       window.removeEventListener(UPDATE, callback);
     };
   }, []);
-  
+
   return value;
 }

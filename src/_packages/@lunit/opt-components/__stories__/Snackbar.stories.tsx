@@ -17,111 +17,131 @@ import styled from 'styled-components';
 let count: number = 0;
 
 function Basic() {
-  const {addSnackbar, snackbarContainer} = useSnackbar();
-  
+  const { addSnackbar, snackbarContainer } = useSnackbar();
+
   return (
     <Container>
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <SnackbarContent message={`${count} HELLO SNACKBAR!`}
-                             action={[
-                               <Button key="undo" color="inherit" size="small">
-                                 UNDO
-                               </Button>,
-                               <IconButton key="close" aria-label="close" color="inherit">
-                                 <Close/>
-                               </IconButton>,
-                             ]}/>
-          </Snackbar>,
-        );
-      }}>
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <SnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Default
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <NormalSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                   action={[
-                                     <Button key="undo" color="inherit" size="small">
-                                       UNDO
-                                     </Button>,
-                                     <IconButton key="close" aria-label="close" color="inherit">
-                                       <Close/>
-                                     </IconButton>,
-                                   ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <NormalSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Normal
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <InfoSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                 action={[
-                                   <Button key="undo" color="inherit" size="small">
-                                     UNDO
-                                   </Button>,
-                                   <IconButton key="close" aria-label="close" color="inherit">
-                                     <Close/>
-                                   </IconButton>,
-                                 ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <InfoSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Info
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <WarningSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                    action={[
-                                      <Button key="undo" color="inherit" size="small">
-                                        UNDO
-                                      </Button>,
-                                      <IconButton key="close" aria-label="close" color="inherit">
-                                        <Close/>
-                                      </IconButton>,
-                                    ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <WarningSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Warning
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <ErrorSnackbarContent message={`${count} HELLO SNACKBAR!`}
-                                  action={[
-                                    <Button key="undo" color="inherit" size="small">
-                                      UNDO
-                                    </Button>,
-                                    <IconButton key="close" aria-label="close" color="inherit">
-                                      <Close/>
-                                    </IconButton>,
-                                  ]}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <ErrorSnackbarContent
+                message={`${count} HELLO SNACKBAR!`}
+                action={[
+                  <Button key="undo" color="inherit" size="small">
+                    UNDO
+                  </Button>,
+                  <IconButton key="close" aria-label="close" color="inherit">
+                    <Close />
+                  </IconButton>,
+                ]}
+              />
+            </Snackbar>,
+          );
+        }}
+      >
         Error
       </button>
-      
-      <SnackbarContainer ref={snackbarContainer}/>
+
+      <SnackbarContainer ref={snackbarContainer} />
     </Container>
   );
 }
@@ -129,12 +149,8 @@ function Basic() {
 storiesOf('opt-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .addDecorator(storyFn => (
-    <SnackbarProvider>
-      {storyFn()}
-    </SnackbarProvider>
-  ))
-  .add('<Snackbar>', () => <Basic/>);
+  .addDecorator(storyFn => <SnackbarProvider>{storyFn()}</SnackbarProvider>)
+  .add('<Snackbar>', () => <Basic />);
 
 const Container = styled.div`
   position: relative;
@@ -151,7 +167,7 @@ const SnackbarContainer = styled.div`
   flex-direction: column-reverse;
   justify-content: right;
   align-items: flex-end;
-  
+
   > * {
     margin-top: 10px;
   }

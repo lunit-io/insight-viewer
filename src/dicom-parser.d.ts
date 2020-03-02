@@ -2,7 +2,7 @@
 
 declare module 'dicom-parser' {
   type ByteArrayParser = {};
-  
+
   interface DicomElement {
     readonly parser: unknown;
     readonly tag: string;
@@ -11,18 +11,18 @@ declare module 'dicom-parser' {
     readonly dataOffset: number;
     readonly hadUndefinedLength: boolean;
   }
-  
+
   interface ParseDicomOptions {
     untilTag?: string;
     vrCallback?: Function; // TODO unknown callback type
     inflater?: (byteArray: Uint8Array, position: number) => void;
   }
-  
+
   declare class DataSet {
     readonly byteArray: Uint8Array;
-    readonly elements: {[tag: string]: DicomElement};
+    readonly elements: { [tag: string]: DicomElement };
     readonly byteArrayParser: unknown;
-    
+
     uint16: (tag: string, index?: number) => ByteArrayParser | undefined;
     int16: (tag: string, index?: number) => ByteArrayParser | undefined;
     uint32: (tag: string, index?: number) => ByteArrayParser | undefined;
@@ -36,12 +36,8 @@ declare module 'dicom-parser' {
     intString: (tag: string, index?: number) => string | undefined;
     attributeTag: (tag: string) => string | undefined;
   }
-  
+
   declare function parseDicom(byteArray: Uint8Array, options?: ParseDicomOptions): DataSet;
-  
-  export {
-    parseDicom,
-    DataSet,
-    DicomElement,
-  };
+
+  export { parseDicom, DataSet, DicomElement };
 }

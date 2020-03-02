@@ -12,20 +12,20 @@ const StorybookGlobalStyle = createGlobalStyle`
   ${globalStyle}
 `;
 
-//tslint:disable-next-line:no-any
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withInsightViewerStorybookGlobalStyle: DecoratorFunction<any> = storyFn => {
   const story = storyFn();
-  
+
   return (
     <>
-      <StorybookGlobalStyle/>
-      {
-        typeof story === 'function'
-          ? createElement(story)
-          : isValidElement(story)
-          ? story
-          : <div>story is not valid element</div>
-      }
+      <StorybookGlobalStyle />
+      {typeof story === 'function' ? (
+        createElement(story)
+      ) : isValidElement(story) ? (
+        story
+      ) : (
+        <div>story is not valid element</div>
+      )}
     </>
   );
 };

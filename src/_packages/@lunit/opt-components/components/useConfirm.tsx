@@ -14,37 +14,29 @@ export interface ConfirmParams {
   disagree?: string;
 }
 
-export const ConfirmDialogTemplate: DialogTemplate<ConfirmParams, boolean> = ({closeDialog, title, description, agree = 'Agree', disagree = 'Disagree'}) => {
+export const ConfirmDialogTemplate: DialogTemplate<ConfirmParams, boolean> = ({
+  closeDialog,
+  title,
+  description,
+  agree = 'Agree',
+  disagree = 'Disagree',
+}) => {
   return (
     <Dialog
       open
       onClose={() => closeDialog(false)}
       aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description">
-      
-      {
-        title &&
-        <DialogTitle id="alert-dialog-title">
-          {title}
-        </DialogTitle>
-      }
-      
+      aria-describedby="alert-dialog-description"
+    >
+      {title && <DialogTitle id="alert-dialog-title">{title}</DialogTitle>}
+
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {description}
-        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">{description}</DialogContentText>
       </DialogContent>
-      
+
       <DialogActions>
-        <Button layout="center"
-                label={disagree}
-                style={{width: 150}}
-                onClick={() => closeDialog(false)}/>
-        <Button autoFocus
-                layout="center"
-                label={agree}
-                style={{width: 150}}
-                onClick={() => closeDialog(true)}/>
+        <Button layout="center" label={disagree} style={{ width: 150 }} onClick={() => closeDialog(false)} />
+        <Button autoFocus layout="center" label={agree} style={{ width: 150 }} onClick={() => closeDialog(true)} />
       </DialogActions>
     </Dialog>
   );

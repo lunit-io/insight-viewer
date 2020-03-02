@@ -7,13 +7,15 @@ export interface ThumbnailImageProps {
   src: string;
 }
 
-export function ThumbnailImage({width, height, src}: ThumbnailImageProps) {
+export function ThumbnailImage({ width, height, src }: ThumbnailImageProps) {
   return (
-    <Thumbnail style={{
-      width,
-      height,
-      backgroundImage: `url(${src})`,
-    }}/>
+    <Thumbnail
+      style={{
+        width,
+        height,
+        backgroundImage: `url(${src})`,
+      }}
+    />
   );
 }
 

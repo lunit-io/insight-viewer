@@ -22,17 +22,18 @@ storiesOf('opt-contol-icons', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Icons', () => (
     <Typography>
-      <AdjustIcon/>
-      <FlipIcon/>
-      <InvertIcon/>
-      <MagnifyIcon/>
-      <PanIcon/>
-      <PenIcon/>
-      <ResetIcon/>
-      <CircleIcon/>
-      <LunitIcon/>
+      <AdjustIcon />
+      <FlipIcon />
+      <InvertIcon />
+      <MagnifyIcon />
+      <PanIcon />
+      <PenIcon />
+      <ResetIcon />
+      <CircleIcon />
+      <LunitIcon />
     </Typography>
   ));
+
 ```
 
 <!-- importend -->

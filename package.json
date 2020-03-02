@@ -1,5 +1,10 @@
 {
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lunit-io/frontend-components.git",
+    "directory": "src/_packages/@lunit/name"
+  },
   "scripts": {
     "docs:import": "markdown-source-import \"{,!(node_modules)/**/}*.md\"",
     "package:build": "npm run docs:import && zeroconfig-package-scripts build",
@@ -8,9 +13,12 @@
     "package:validate": "zeroconfig-package-scripts list && zeroconfig-package-scripts validate",
     "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
+    "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline",
+    "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
     "start": "npm run storybook:start",
     "test": "jest --colors",
-    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\" && tslint \"src/**/*.{ts,tsx}\""
+    "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\""
   },
   "jest": {
     "preset": "react-zeroconfig",
@@ -24,18 +32,20 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint",
-      "tslint",
-      "jest --colors --findRelatedTests"
-    ],
-    "src/**/*.{js,jsx,mjs}": [
+    "src/**/*.{js,jsx,mjs,ts,tsx}": [
+      "prettier --write",
       "eslint",
       "jest --colors --findRelatedTests"
     ]
   },
+  "prettier": "@lunit/prettier-config",
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "@lunit",
+      "prettier",
+      "prettier/react",
+      "prettier/@typescript-eslint"
+    ]
   },
   "eslintIgnore": [
     "src/**/public/*",
@@ -56,10 +66,10 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.0",
+    "@material-ui/core": "^4.9.4",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.9.0",
-    "@mdx-js/react": "^1.5.5",
+    "@mdx-js/react": "^1.5.7",
     "@ssen/snackbar": "^0.1.1",
     "cornerstone-core": "^2.3.0",
     "cornerstone-wado-image-loader": "^2.2.3",
@@ -72,10 +82,10 @@
     "polylabel": "^1.0.2",
     "prism-react-renderer": "^1.0.2",
     "puppeteer": "^2.1.0",
-    "react": "^16.12.0",
+    "react": "^16.13.0",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
-    "react-dom": "^16.12.0",
+    "react-dom": "^16.13.0",
     "react-live": "^2.2.2",
     "react-router-dom": "^5.1.2",
     "resize-observer-polyfill": "^1.5.1",
@@ -84,30 +94,42 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-knobs": "^5.3.9",
-    "@storybook/addon-storysource": "^5.3.9",
-    "@storybook/react": "^5.3.9",
-    "@storybook/theming": "^5.3.9",
+    "@lunit/eslint-config": "^0.4.0",
+    "@lunit/prettier-config": "^0.1.1",
+    "@storybook/addon-knobs": "^5.3.14",
+    "@storybook/addon-storysource": "^5.3.14",
+    "@storybook/react": "^5.3.14",
+    "@storybook/source-loader": "^5.3.14",
+    "@storybook/theming": "^5.3.14",
     "@testing-library/react-hooks": "^3.2.1",
+    "@types/d3-color": "^1.2.2",
     "@types/eslint": "^6.1.7",
-    "@types/jest": "^25.1.1",
-    "@types/node-fetch": "^2.5.4",
+    "@types/fs-extra": "^8.1.0",
+    "@types/history": "^4.7.5",
+    "@types/jest": "^25.1.3",
+    "@types/mdx-js__react": "^1.5.0",
+    "@types/node-fetch": "^2.5.5",
     "@types/point-in-polygon": "^1.0.0",
     "@types/polylabel": "^1.0.5",
-    "@types/react": "^16.9.19",
+    "@types/prettier": "^1.19.0",
+    "@types/puppeteer": "^2.0.1",
+    "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
-    "@types/styled-components": "^4.4.2",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/react-test-renderer": "^16.9.2",
+    "@types/styled-components": "^5.0.1",
+    "@types/testing-library__react-hooks": "^3.2.0",
     "@types/use-resize-observer": "^6.0.0",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-config-react-app": "^5.1.0",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
-    "lint-staged": "^10.0.6",
+    "lint-staged": "^10.0.8",
     "markdown-source-import": "^1.3.1",
     "node-fetch": "^2.6.0",
-    "react-test-renderer": "^16.12.0",
-    "react-zeroconfig": "^3.23.2",
-    "tslint": "^6.0.0",
-    "tslint-ssen-rules": "^1.3.0"
+    "prettier": "^1.19.1",
+    "react-test-renderer": "^16.13.0",
+    "react-zeroconfig": "^3.25.1"
   }
 }

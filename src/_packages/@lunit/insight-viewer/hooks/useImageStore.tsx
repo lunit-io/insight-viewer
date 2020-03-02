@@ -29,41 +29,47 @@ function defaultFactory(imageId: string): CornerstoneImage {
   return new CornerstoneSingleImage(imageId);
 }
 
-export function ImageStoreProvider({cacheImages = 10, factory = defaultFactory, children}: ImageStoreProviderProps) {
+export function ImageStoreProvider({ cacheImages = 10, factory = defaultFactory, children }: ImageStoreProviderProps) {
   const [cache] = useState<[string, CornerstoneImage][]>(() => []);
-  
-  const fetch = useCallback((imageId: string) => {
-    let item = cache.find(([itemImageId]) => itemImageId === imageId);
-    
-    if (!item) {
-      item = [imageId, factory(imageId)];
-      cache.push(item);
-      
-      if (cache.length > cacheImages) {
-        const deleteCount: number = cache.length - cacheImages;
-        const deleteItems = cache.splice(0, deleteCount);
-        
+
+  const fetch = useCallback(
+    (imageId: string) => {
+      let item = cache.find(([itemImageId]) => itemImageId === imageId);
+
+      if (!item) {
+        item = [imageId, factory(imageId)];
+        cache.push(item);
+
+        if (cache.length > cacheImages) {
+          const deleteCount: number = cache.length - cacheImages;
+          const deleteItems = cache.splice(0, deleteCount);
+
+          for (const deleteItem of deleteItems) {
+            deleteItem[1].destroy();
+          }
+        }
+      }
+
+      return item[1];
+    },
+    [cache, cacheImages, factory],
+  );
+
+  const purge = useCallback(
+    (imageId: string) => {
+      const index = cache.findIndex(([itemImageId]) => itemImageId === imageId);
+
+      if (index > -1) {
+        const deleteItems = cache.splice(index, 1);
+
         for (const deleteItem of deleteItems) {
           deleteItem[1].destroy();
         }
       }
-    }
-    
-    return item[1];
-  }, [cache, cacheImages, factory]);
-  
-  const purge = useCallback((imageId: string) => {
-    const index = cache.findIndex(([itemImageId]) => itemImageId === imageId);
-    
-    if (index > -1) {
-      const deleteItems = cache.splice(index, 1);
-      
-      for (const deleteItem of deleteItems) {
-        deleteItem[1].destroy();
-      }
-    }
-  }, [cache]);
-  
+    },
+    [cache],
+  );
+
   useEffect(() => {
     return () => {
       for (const deleteItem of cache) {
@@ -71,12 +77,8 @@ export function ImageStoreProvider({cacheImages = 10, factory = defaultFactory, 
       }
     };
   }, [cache]);
-  
-  return (
-    <ImageStoreContext.Provider value={{fetch, purge}}>
-      {children}
-    </ImageStoreContext.Provider>
-  );
+
+  return <ImageStoreContext.Provider value={{ fetch, purge }}>{children}</ImageStoreContext.Provider>;
 }
 
 export function useImageStore(): ImageStoreState {

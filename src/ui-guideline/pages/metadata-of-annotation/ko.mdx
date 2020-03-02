@@ -1,0 +1,27 @@
+import { CXRAnnotationExample } from './components/CXRAnnotationExample';
+import { OPTReaderTestAnnotationExample } from './components/OPTReaderTestAnnotationExample';
+import { OPTReaderTestAnnotationSliderExample } from './components/OPTReaderTestAnnotationSliderExample';
+import { MultiFormAnnotationExample } from './components/MultiFormAnnotationExample';
+import { width } from '../../env';
+
+# Annotation을 그리고 난 뒤, 부가정보 입력하기
+
+Annotation을 그린 이후, 정보를 입력받을 수 있습니다.
+
+<CXRAnnotationExample width={width} height={800} />
+
+CXR Annotation의 경우, 병변의 종류를 입력받습니다.
+
+<OPTReaderTestAnnotationExample width={width} height={600} />
+
+CXR OPT RT의 경우, 표식한 병변의 확신도를 입력받습니다.
+
+<OPTReaderTestAnnotationSliderExample width={width} height={600} />
+
+필요에 따라 Slider와 같은 다른 입력 방식을 사용할 수 있습니다. 
+
+<MultiFormAnnotationExample width={width} height={600} />
+
+고려대 OPT와 같이 복합적인 형태의 질의를 구성할 수도 있습니다. 
+
+이와 같이 부가정보 항목이 지나치게 많아지는 경우, Panel에서 항목을 수정 기능을 팝업으로 뺄 수 있습니다.
