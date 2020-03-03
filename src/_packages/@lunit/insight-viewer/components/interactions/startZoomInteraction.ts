@@ -1,10 +1,8 @@
-import { Vec2, Viewport } from 'cornerstone-core';
-
 interface ZoomInteractionParams {
   element: HTMLElement;
   getMinMaxScale: () => [number, number];
-  getCurrentViewport: () => Viewport | null;
-  onZoom: (patch: { translation: Vec2; scale: number }) => void;
+  getCurrentViewport: () => cornerstone.Viewport | null;
+  onZoom: (patch: { translation: cornerstone.Vec2; scale: number }) => void;
 }
 
 export function startZoomInteraction({

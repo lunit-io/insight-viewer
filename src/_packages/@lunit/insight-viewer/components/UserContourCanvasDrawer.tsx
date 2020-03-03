@@ -1,4 +1,3 @@
-import { pageToPixel } from 'cornerstone-core';
 import React, { Component } from 'react';
 import { hitTestContours } from '../geom/hitTestContours';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
@@ -147,7 +146,7 @@ export class UserContourCanvasDrawer<T extends Contour> extends Component<UserCo
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, pageX, pageY);
+    const { x, y } = cornerstone.pageToPixel(element, pageX, pageY);
 
     this.focused = hitTestContours(this.props.contours, [x, y]);
 
@@ -181,7 +180,7 @@ export class UserContourCanvasDrawer<T extends Contour> extends Component<UserCo
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+    const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
     this.polygon = [[x, y]];
   };
 
@@ -215,7 +214,7 @@ export class UserContourCanvasDrawer<T extends Contour> extends Component<UserCo
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+    const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
     this.polygon.push([x, y]);
 
     cleanCanvas(this.ctx!, this.props.width, this.props.height);

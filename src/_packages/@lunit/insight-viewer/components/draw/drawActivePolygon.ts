@@ -1,4 +1,3 @@
-import { setToPixelCoordinateSystem } from 'cornerstone-core';
 import { CornerstoneRenderData, Point } from '../../types';
 
 export function drawActivePolygon(
@@ -12,7 +11,7 @@ export function drawActivePolygon(
   const [[startX, startY], ...drawPoints] = polygon;
   const [endX, endY] = drawPoints[drawPoints.length - 1];
 
-  setToPixelCoordinateSystem(enabledElement!, ctx);
+  cornerstone.setToPixelCoordinateSystem(enabledElement!, ctx);
 
   // draw paths
   ctx.beginPath();

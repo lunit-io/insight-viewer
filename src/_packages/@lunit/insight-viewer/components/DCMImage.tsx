@@ -1,4 +1,3 @@
-import { disable, displayImage, enable, getDefaultViewportForImage } from 'cornerstone-core';
 import React, { useEffect, useRef } from 'react';
 import { CornerstoneImage } from '../image/types';
 
@@ -15,12 +14,12 @@ export function DCMImage({ cornerstoneImage, width, height }: DCMImageProps) {
     const subscription = cornerstoneImage.image.subscribe(image => {
       if (!element.current) return;
 
-      disable(element.current);
-      enable(element.current);
+      cornerstone.disable(element.current);
+      cornerstone.enable(element.current);
 
       if (image) {
-        const defaultViewport = getDefaultViewportForImage(element.current, image);
-        displayImage(element.current, image, defaultViewport);
+        const defaultViewport = cornerstone.getDefaultViewportForImage(element.current, image);
+        cornerstone.displayImage(element.current, image, defaultViewport);
       }
     });
 

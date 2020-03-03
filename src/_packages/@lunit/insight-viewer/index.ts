@@ -1,3 +1,5 @@
+/// <reference types="@lunit/cornerstone-declarations"/>
+
 export * from './installWADO';
 export * from './types';
 export * from './components/InsightViewer';

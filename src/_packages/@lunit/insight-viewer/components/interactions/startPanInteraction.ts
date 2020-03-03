@@ -1,9 +1,7 @@
-import { Vec2, Viewport } from 'cornerstone-core';
-
 interface PanInteractionParams {
   element: HTMLElement;
-  getCurrentViewport: () => Viewport | null;
-  onMove: (translation: Vec2) => void;
+  getCurrentViewport: () => cornerstone.Viewport | null;
+  onMove: (translation: cornerstone.Vec2) => void;
   onEnd: () => void;
 }
 

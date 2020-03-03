@@ -1,4 +1,3 @@
-import { pageToPixel, pixelToCanvas } from 'cornerstone-core';
 import React, { Component, ComponentType, MouseEvent } from 'react';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
@@ -19,7 +18,7 @@ export interface PointDrawerProps<T extends Contour> extends InsightViewerGuestP
 }
 
 function toLocal(element: HTMLElement, point: Point): { x: number; y: number } {
-  return pixelToCanvas(element, { x: point[0], y: point[1] });
+  return cornerstone.pixelToCanvas(element, { x: point[0], y: point[1] });
 }
 
 export class PointViewer<T extends Contour> extends Component<PointDrawerProps<T>, {}> {
@@ -80,7 +79,7 @@ export class PointViewer<T extends Contour> extends Component<PointDrawerProps<T
       this.props.cornerstoneRenderData.element
     ) {
       const element: HTMLElement = this.props.cornerstoneRenderData.element;
-      const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+      const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
       this.props.onAdd([[x, y]], event);
     }
   };
