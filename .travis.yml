@@ -36,7 +36,8 @@ deploy:
     skip_cleanup: true
     token: $GITHUB_TOKEN
     keep_history: true
-    local_dir: ./dist/storybook/$TRAVIS_BRANCH
+    local_dir: ./dist-storybook
+    target_branch: dist/storybook/$TRAVIS_BRANCH
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH =~ ^(master|develop|feature|release)
