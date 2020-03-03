@@ -13,7 +13,7 @@
     ".dev",
     "dist",
     "node_modules",
-    "*.js",
+    "**/*.js",
     "dist-storybook",
     "**/public"
   ]
