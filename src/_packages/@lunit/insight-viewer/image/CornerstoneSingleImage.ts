@@ -1,4 +1,3 @@
-import { events, Image } from 'cornerstone-core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ParallelImageLoader } from './ParallelImageLoader';
 import { CornerstoneImage, getProgressEventDetail, ImageLoader, ProgressEventDetail } from './types';
@@ -14,22 +13,22 @@ interface Options {
 const defaultLoader: ImageLoader = new ParallelImageLoader();
 
 export class CornerstoneSingleImage implements CornerstoneImage {
-  private readonly _imageSubject: BehaviorSubject<Image | null>;
+  private readonly _imageSubject: BehaviorSubject<cornerstone.Image | null>;
   private readonly _progressSubject: BehaviorSubject<number>;
   private readonly _cancel: (() => void)[] = [];
   private readonly _loader: ImageLoader;
   private _destoyed: boolean = false;
 
   constructor(private readonly imageId: string, private readonly options: Options = {}) {
-    this._imageSubject = new BehaviorSubject<Image | null>(null);
+    this._imageSubject = new BehaviorSubject<cornerstone.Image | null>(null);
     this._progressSubject = new BehaviorSubject(0);
     this._loader = options.loader || defaultLoader;
 
-    events.addEventListener('cornerstoneimageloadprogress', this.onProgress);
+    cornerstone.events.addEventListener('cornerstoneimageloadprogress', this.onProgress);
     this.loadImage(imageId);
   }
 
-  get image(): Observable<Image | null> {
+  get image(): Observable<cornerstone.Image | null> {
     return this._imageSubject.asObservable();
   }
 
@@ -42,7 +41,7 @@ export class CornerstoneSingleImage implements CornerstoneImage {
       this.options.unload(this.imageId);
     }
 
-    events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
+    cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
 
     this._cancel.forEach(cancel => cancel());
 
@@ -64,7 +63,7 @@ export class CornerstoneSingleImage implements CornerstoneImage {
         options: { loader: wadoImageLoaderXHRLoader(cancel => this._cancel.push(cancel)) },
       });
 
-      events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
+      cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
 
       if (!this._destoyed) {
         this._imageSubject.next(image);

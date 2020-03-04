@@ -1,4 +1,3 @@
-import { Image, loadImage } from 'cornerstone-core';
 import { ImageLoader, LoadImageParams } from './types';
 
 interface Options {
@@ -8,7 +7,7 @@ interface Options {
 interface Item {
   imageId: string;
   options?: object;
-  resolve: (image: Image) => void;
+  resolve: (image: cornerstone.Image) => void;
   reject: (error: Error) => void;
 }
 
@@ -24,8 +23,8 @@ export class QueueImageLoader implements ImageLoader {
 
   constructor(private readonly options: Options = {}) {}
 
-  loadImage = ({ imageId, options }: LoadImageParams): Promise<Image> => {
-    return new Promise<Image>((resolve, reject) => {
+  loadImage = ({ imageId, options }: LoadImageParams): Promise<cornerstone.Image> => {
+    return new Promise<cornerstone.Image>((resolve, reject) => {
       this.add({ imageId, options, resolve, reject });
     });
   };
@@ -50,12 +49,12 @@ export class QueueImageLoader implements ImageLoader {
     const promise =
       typeof this.options.timeout === 'number'
         ? Promise.race([
-            loadImage(item.imageId, item.options),
+            cornerstone.loadImage(item.imageId, item.options),
             delay(this.options.timeout).then(() => {
               throw new Error('TIMEOUT');
             }),
           ])
-        : loadImage(item.imageId, item.options);
+        : cornerstone.loadImage(item.imageId, item.options);
 
     promise
       .then(item.resolve)

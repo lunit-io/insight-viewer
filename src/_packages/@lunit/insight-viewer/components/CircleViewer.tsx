@@ -1,4 +1,3 @@
-import { pixelToCanvas } from 'cornerstone-core';
 import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
 import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
@@ -15,8 +14,8 @@ export interface CircleViewerProps<T extends Contour> extends InsightViewerGuest
 }
 
 function toLocal(element: HTMLElement, polygon: Point[]): { cx: number; cy: number; r: number } {
-  const { x: x1, y: y1 } = pixelToCanvas(element, { x: polygon[0][0], y: polygon[0][1] });
-  const { x: x2, y: y2 } = pixelToCanvas(element, { x: polygon[1][0], y: polygon[1][1] });
+  const { x: x1, y: y1 } = cornerstone.pixelToCanvas(element, { x: polygon[0][0], y: polygon[0][1] });
+  const { x: x2, y: y2 } = cornerstone.pixelToCanvas(element, { x: polygon[1][0], y: polygon[1][1] });
   const r: number = Math.sqrt(Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2));
 
   return {

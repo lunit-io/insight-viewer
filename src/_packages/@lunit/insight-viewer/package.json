@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "3.6.0-alpha.1",
+  "version": "4.0.0-alpha.1",
   "description": "dcm viewer component library",
   "keywords": [
     "dicom",
@@ -20,9 +20,6 @@
   "main": "index.js",
   "dependencies": {
     "react": ">=16.8.0",
-    "cornerstone-core": "^2.3.0",
-    "cornerstone-wado-image-loader": "^2.2.3",
-    "dicom-parser": "^1.8.3",
     "rxjs": "^6.5.2",
     "polylabel": "^1.0.2",
     "point-in-polygon": "^1.0.1",
@@ -33,6 +30,7 @@
     "@lunit/is-polygon-area-greater-than-area": "^1.0.0",
     "csstype": "^2.6.7",
     "@storybook/addons": "^5.2.8",
-    "@lunit/use-opt-control": "^1.0.2"
+    "@lunit/use-opt-control": "^1.0.2",
+    "@lunit/cornerstone-declarations": "^0.1.0"
   }
 }

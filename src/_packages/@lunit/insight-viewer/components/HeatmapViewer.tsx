@@ -1,5 +1,4 @@
 import { posMapToImageData } from '@lunit/heatmap';
-import { setToPixelCoordinateSystem } from 'cornerstone-core';
 import React, { Component, createRef, RefObject } from 'react';
 import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
@@ -76,7 +75,7 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
       this.imageResourceCanvas.height = this.imageData.height;
       this.imageResourceCanvas.getContext('2d')!.putImageData(this.imageData, 0, 0);
 
-      setToPixelCoordinateSystem(cornerstoneRenderData.enabledElement, this.ctx);
+      cornerstone.setToPixelCoordinateSystem(cornerstoneRenderData.enabledElement, this.ctx);
 
       const imageWidth: number = cornerstoneRenderData.image.width;
       const imageHeight: number = cornerstoneRenderData.image.height;

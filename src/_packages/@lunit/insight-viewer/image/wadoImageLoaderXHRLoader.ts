@@ -1,5 +1,3 @@
-import * as cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface Params {

@@ -1,7 +1,8 @@
-import { CornerstoneEventData, Viewport } from 'cornerstone-core';
-
 export type CornerstoneRenderData = Required<
-  Pick<CornerstoneEventData, 'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'>
+  Pick<
+    cornerstone.CornerstoneEventData,
+    'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'
+  >
 >;
 
 export type Point = [number, number];
@@ -20,7 +21,7 @@ export interface ViewportTransformParams {
   element: HTMLElement;
   minScale: number;
   maxScale: number;
-  currentViewport: Viewport | null;
+  currentViewport: cornerstone.Viewport | null;
 }
 
-export type ViewportTransform = (params: ViewportTransformParams) => Partial<Viewport> | undefined;
+export type ViewportTransform = (params: ViewportTransformParams) => Partial<cornerstone.Viewport> | undefined;

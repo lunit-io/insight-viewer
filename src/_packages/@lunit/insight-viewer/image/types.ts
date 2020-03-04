@@ -1,8 +1,7 @@
-import { Image } from 'cornerstone-core';
 import { Observable } from 'rxjs';
 
 export interface CornerstoneImage {
-  readonly image: Observable<Image | null>;
+  readonly image: Observable<cornerstone.Image | null>;
   readonly progress: Observable<number>;
   destroy: () => void;
 }
@@ -47,5 +46,5 @@ export interface LoadImageParams {
 }
 
 export interface ImageLoader {
-  loadImage: (params: LoadImageParams) => Promise<Image>;
+  loadImage: (params: LoadImageParams) => Promise<cornerstone.Image>;
 }

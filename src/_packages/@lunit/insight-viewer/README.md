@@ -15,7 +15,20 @@ npm install @lunit/insight-viewer
 }
 ```
 
-Package 내부에 `public/cornerstoneWADOImageLoaderCodecs.min.js` 파일과 `public/cornerstoneWADOImageLoaderWebWorker.min.js` 파일을 가지고 있고, 이를 App 빌드에 적용하기 위해서는 위와 같이 `--static-file-packages` 옵션을 추가해줘야 한다. 
+Package 내부에 `public/cornerstoneWADOImageLoaderCodecs.min.js` 파일과 `public/cornerstoneWADOImageLoaderWebWorker.min.js` 파일을 가지고 있고, 이를 App 빌드에 적용하기 위해서는 위와 같이 `--static-file-packages` 옵션을 추가해줘야 한다.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="cornerstone.js"></script>
+    <script src="cornerstoneWADOImageLoader.js/"></script>
+    <script src="dicomParser.js"></script>
+  </head>
+</html>
+``` 
+
+`4.x` 버전 부터는 html 파일에 위와 같이 `<script>`를 통해서 js 파일들을 삽입해줘야 한다. 
 
 # API
 
@@ -24,10 +37,11 @@ Package 내부에 `public/cornerstoneWADOImageLoaderCodecs.min.js` 파일과 `pu
 <!-- import types.ts -->
 
 ```ts
-import { CornerstoneEventData, Viewport } from 'cornerstone-core';
-
 export type CornerstoneRenderData = Required<
-  Pick<CornerstoneEventData, 'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'>
+  Pick<
+    cornerstone.CornerstoneEventData,
+    'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'
+  >
 >;
 
 export type Point = [number, number];
@@ -46,10 +60,10 @@ export interface ViewportTransformParams {
   element: HTMLElement;
   minScale: number;
   maxScale: number;
-  currentViewport: Viewport | null;
+  currentViewport: cornerstone.Viewport | null;
 }
 
-export type ViewportTransform = (params: ViewportTransformParams) => Partial<Viewport> | undefined;
+export type ViewportTransform = (params: ViewportTransformParams) => Partial<cornerstone.Viewport> | undefined;
 
 ```
 
@@ -58,11 +72,10 @@ export type ViewportTransform = (params: ViewportTransformParams) => Partial<Vie
 <!-- import image/types.ts -->
 
 ```ts
-import { Image } from 'cornerstone-core';
 import { Observable } from 'rxjs';
 
 export interface CornerstoneImage {
-  readonly image: Observable<Image | null>;
+  readonly image: Observable<cornerstone.Image | null>;
   readonly progress: Observable<number>;
   destroy: () => void;
 }
@@ -107,7 +120,7 @@ export interface LoadImageParams {
 }
 
 export interface ImageLoader {
-  loadImage: (params: LoadImageParams) => Promise<Image>;
+  loadImage: (params: LoadImageParams) => Promise<cornerstone.Image>;
 }
 
 ```
