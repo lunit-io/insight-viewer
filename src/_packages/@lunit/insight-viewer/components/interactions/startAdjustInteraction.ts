@@ -1,9 +1,7 @@
-import { Viewport, VOI } from 'cornerstone-core';
-
 interface AdjustInteractionParams {
   element: HTMLElement;
-  getCurrentViewport: () => Viewport | null;
-  onMove: (voi: VOI) => void;
+  getCurrentViewport: () => cornerstone.Viewport | null;
+  onMove: (voi: cornerstone.VOI) => void;
   onEnd: () => void;
 }
 

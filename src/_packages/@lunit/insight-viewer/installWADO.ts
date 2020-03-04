@@ -1,7 +1,3 @@
-import * as cornerstone from 'cornerstone-core';
-import * as cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
-import * as dicomParser from 'dicom-parser';
-
 let installed: boolean = false;
 
 export function installWADOImageLoader() {
@@ -13,12 +9,9 @@ export function installWADOImageLoader() {
   cornerstoneWADOImageLoader.webWorkerManager.initialize({
     maxWebWorkers: navigator.hardwareConcurrency || 4,
     startWebWorkersOnDemand: false,
-    webWorkerPath: 'cornerstoneWADOImageLoaderWebWorker.min.js',
     taskConfiguration: {
       decodeTask: {
         initializeCodecsOnStartup: true,
-        codecsPath: 'cornerstoneWADOImageLoaderCodecs.min.js',
-        //usePDFJS: false,
       },
     },
   });

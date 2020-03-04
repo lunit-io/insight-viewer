@@ -1,4 +1,3 @@
-import { setToPixelCoordinateSystem } from 'cornerstone-core';
 import polylabel from 'polylabel';
 import { Contour, CornerstoneRenderData } from '../../types';
 
@@ -13,7 +12,7 @@ export function drawContour(
 ) {
   const labelCenter: number[] = polylabel([polygon], 1);
 
-  setToPixelCoordinateSystem(enabledElement, ctx);
+  cornerstone.setToPixelCoordinateSystem(enabledElement, ctx);
 
   ctx.beginPath();
   ctx.strokeStyle = stokeStye;

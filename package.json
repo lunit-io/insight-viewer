@@ -18,7 +18,8 @@
     "start": "npm run storybook:start",
     "test": "jest --colors",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\""
+    "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
+    "download": "node scripts/download.js"
   },
   "jest": {
     "preset": "react-zeroconfig",
@@ -71,11 +72,8 @@
     "@material-ui/styles": "^4.9.0",
     "@mdx-js/react": "^1.5.7",
     "@ssen/snackbar": "^0.1.1",
-    "cornerstone-core": "^2.3.0",
-    "cornerstone-wado-image-loader": "^2.2.3",
     "csstype": "^2.6.8",
     "d3-color": "^1.4.0",
-    "dicom-parser": "^1.8.4",
     "fs-extra": "^8.1.0",
     "history": "^4.10.1",
     "point-in-polygon": "^1.0.1",
@@ -94,6 +92,7 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
+    "@lunit/cornerstone-declarations": "^0.2.0",
     "@lunit/eslint-config": "^0.4.0",
     "@lunit/prettier-config": "^0.1.1",
     "@storybook/addon-knobs": "^5.3.14",

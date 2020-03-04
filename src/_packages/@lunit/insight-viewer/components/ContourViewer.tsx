@@ -1,4 +1,3 @@
-import { pixelToCanvas } from 'cornerstone-core';
 import polylabel from 'polylabel';
 import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
 import styled from 'styled-components';
@@ -17,7 +16,7 @@ export interface ContourViewerProps<T extends Contour> extends InsightViewerGues
 
 function toLocal(element: HTMLElement, polygon: Point[]): Point[] {
   return polygon.map(([x, y]) => {
-    const p = pixelToCanvas(element, { x, y });
+    const p = cornerstone.pixelToCanvas(element, { x, y });
     return [p.x, p.y];
   });
 }

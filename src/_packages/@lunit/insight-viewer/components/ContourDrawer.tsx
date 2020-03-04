@@ -1,4 +1,3 @@
-import { pageToPixel, pixelToCanvas } from 'cornerstone-core';
 import React, { Component, CSSProperties } from 'react';
 import styled from 'styled-components';
 import { hitTestContours } from '../geom/hitTestContours';
@@ -26,7 +25,7 @@ interface ContourDrawerState {
 function toLocal(element: HTMLElement, polygon: Point[]): string {
   return polygon
     .map(([x, y]) => {
-      const p = pixelToCanvas(element, { x, y });
+      const p = cornerstone.pixelToCanvas(element, { x, y });
       return p.x + ',' + p.y;
     })
     .join(' ');
@@ -155,7 +154,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, pageX, pageY);
+    const { x, y } = cornerstone.pageToPixel(element, pageX, pageY);
 
     this.focused = hitTestContours<T>(this.props.contours, [x, y]);
 
@@ -189,7 +188,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+    const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
 
     this.setState(prevState => ({
       ...prevState,
@@ -229,7 +228,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+    const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
 
     this.setState(prevState => ({
       ...prevState,

@@ -1,4 +1,3 @@
-import { pageToPixel, pixelToCanvas } from 'cornerstone-core';
 import React, { Component, CSSProperties } from 'react';
 import styled from 'styled-components';
 import { hitTestCircles } from '../geom/hitTestCircles';
@@ -55,11 +54,11 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
           this.state.p1 &&
           this.state.p2 &&
           (() => {
-            const { x: x1, y: y1 } = pixelToCanvas(this.props.cornerstoneRenderData.element, {
+            const { x: x1, y: y1 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
               x: this.state.p1[0],
               y: this.state.p1[1],
             });
-            const { x: x2, y: y2 } = pixelToCanvas(this.props.cornerstoneRenderData.element, {
+            const { x: x2, y: y2 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
               x: this.state.p2[0],
               y: this.state.p2[1],
             });
@@ -159,7 +158,7 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, pageX, pageY);
+    const { x, y } = cornerstone.pageToPixel(element, pageX, pageY);
 
     this.focused = hitTestCircles(this.props.contours, [x, y]);
 
@@ -193,7 +192,7 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+    const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
 
     this.setState(prevState => ({
       ...prevState,
@@ -233,7 +232,7 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = pageToPixel(element, event.pageX, event.pageY);
+    const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
 
     this.setState(prevState => ({
       ...prevState,
