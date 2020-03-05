@@ -4,6 +4,7 @@ const path = require('path');
 
 const files = [
   'https://unpkg.com/cornerstone-wado-image-loader@^3/dist/cornerstoneWADOImageLoader.js',
+  'https://unpkg.com/cornerstone-web-image-loader@^2/dist/cornerstoneWebImageLoader.js',
   'https://unpkg.com/cornerstone-core@^2/dist/cornerstone.js',
   'https://unpkg.com/dicom-parser@^1/dist/dicomParser.js',
 ];

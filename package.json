@@ -92,7 +92,7 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
-    "@lunit/cornerstone-declarations": "^0.2.0",
+    "@lunit/cornerstone-declarations": "^0.3.0",
     "@lunit/eslint-config": "^0.4.0",
     "@lunit/prettier-config": "^0.1.1",
     "@storybook/addon-knobs": "^5.3.14",

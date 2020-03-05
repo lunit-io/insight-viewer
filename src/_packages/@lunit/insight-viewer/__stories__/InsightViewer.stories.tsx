@@ -10,7 +10,7 @@ import {
   InsightViewerTestController,
   installWADOImageLoader,
   ProgressViewer,
-  unloadWADOImage,
+  unloadImage,
   useBulkImagePosition,
   useBulkImageScroll,
   useInsightViewerSync,
@@ -45,7 +45,7 @@ export const Basic = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -74,7 +74,7 @@ export const InterctionWithHTMLElement = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -113,7 +113,7 @@ export const ViewportSyncWithLayers = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -163,7 +163,7 @@ export const SeriesImage = () => {
     () =>
       new CornerstoneSeriesImage(
         series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),
-        { unload: unloadWADOImage },
+        { unload: unloadImage },
       ),
     [],
   );
@@ -236,7 +236,7 @@ export const ViewportMirroring = () => {
   const image1: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -244,7 +244,7 @@ export const ViewportMirroring = () => {
   const image2: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000020.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -252,7 +252,7 @@ export const ViewportMirroring = () => {
   const image3: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000030.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -316,7 +316,7 @@ export const MulticastImage = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );

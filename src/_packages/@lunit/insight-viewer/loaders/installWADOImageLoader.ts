@@ -16,11 +16,3 @@ export function installWADOImageLoader() {
     },
   });
 }
-
-export function unloadWADOImage(imageId: string | string[] | null) {
-  if (Array.isArray(imageId)) {
-    imageId.forEach(id => cornerstoneWADOImageLoader.wadouri.dataSetCacheManager.unload(id));
-  } else if (typeof imageId === 'string') {
-    cornerstoneWADOImageLoader.wadouri.dataSetCacheManager.unload(imageId);
-  }
-}
