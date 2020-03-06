@@ -40,8 +40,8 @@ const Sample = () => {
     `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000013.dcm`,
   );
 
-  const progress1 = useImageProgress(image2);
-  const progress2 = useImageProgress(image1);
+  const progress1 = useImageProgress(image1);
+  const progress2 = useImageProgress(image2);
   const progress3 = useImageProgress(image3);
   const progress4 = useImageProgress(image4);
 
