@@ -1,9 +1,11 @@
 import { Handbook, page } from '@handbook/react';
-import { globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
-import { globalStyle as componentsGlobalStyle } from '@lunit/opt-components';
-import React from 'react';
-import { render } from 'react-dom';
-import styled, { createGlobalStyle } from 'styled-components';
+import { FrameProvider, globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
+import { globalStyle as componentsGlobalStyle, ThemeProvider } from '@lunit/opt-components';
+import { jssPreset, StylesProvider } from '@material-ui/styles';
+import { create } from 'jss';
+import React, { DetailedHTMLProps, IframeHTMLAttributes, ReactNode, useEffect, useMemo, useState } from 'react';
+import { createPortal, render } from 'react-dom';
+import styled, { createGlobalStyle, StyleSheetManager } from 'styled-components';
 import './markdown.css';
 
 const GlobalStyle = createGlobalStyle`
@@ -55,11 +57,11 @@ export const SampleGlobalStyle = createGlobalStyle`
   
   body {
     margin: 0;
-    padding: 20px 50px;
+    padding: 20px;
   }
 `;
 
-const sampleTemplate = `
+const template = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,6 +85,53 @@ const sampleTemplate = `
 </html>
 `;
 
+function IFrame({
+  children,
+  ...iframeProps
+}: DetailedHTMLProps<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>) {
+  const [frame, setFrame] = useState<HTMLIFrameElement | null>(null);
+  const [contentWindow, setContentWindow] = useState<Window | null>(null);
+  const sheetsManager = useMemo(() => new Map(), []);
+  const jssInstance = useMemo(() => {
+    return contentWindow
+      ? create({ plugins: jssPreset().plugins, insertionPoint: contentWindow.document?.body })
+      : null;
+  }, [contentWindow]);
+
+  useEffect(() => {
+    function update() {
+      setContentWindow(frame?.contentWindow || window);
+    }
+
+    frame?.addEventListener('load', update);
+
+    return () => {
+      frame?.removeEventListener('load', update);
+    };
+  }, [frame]);
+
+  return (
+    <iframe {...iframeProps} ref={setFrame}>
+      {contentWindow &&
+        children &&
+        jssInstance &&
+        createPortal(
+          <FrameProvider frame={frame || undefined} contentWindow={contentWindow}>
+            <StylesProvider jss={jssInstance} sheetsManager={sheetsManager}>
+              <StyleSheetManager target={contentWindow.document.head}>
+                <ThemeProvider injectFirst={false}>
+                  <SampleGlobalStyle />
+                  {children}
+                </ThemeProvider>
+              </StyleSheetManager>
+            </StylesProvider>
+          </FrameProvider>,
+          contentWindow.document.body.querySelector('#app')!,
+        )}
+    </iframe>
+  );
+}
+
 function App() {
   return (
     <div>
@@ -100,7 +149,10 @@ function App() {
             InsightViewer: page('@lunit/insight-viewer/__stories__/InsightViewer'),
             Annotation: page('@lunit/insight-viewer/__stories__/Annotation.Contour'),
           },
-          sampleTemplate,
+          template,
+          components: {
+            IFrame,
+          },
         }}
       </StyledHandbook>
     </div>
