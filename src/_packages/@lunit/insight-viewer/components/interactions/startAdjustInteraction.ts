@@ -3,6 +3,7 @@ interface AdjustInteractionParams {
   getCurrentViewport: () => cornerstone.Viewport | null;
   onMove: (voi: cornerstone.VOI) => void;
   onEnd: () => void;
+  contentWindow: Window;
 }
 
 export function startAdjustInteraction({
@@ -10,6 +11,7 @@ export function startAdjustInteraction({
   getCurrentViewport,
   onMove,
   onEnd,
+  contentWindow,
 }: AdjustInteractionParams): () => void {
   let startPageX: number;
   let startPageY: number;
@@ -33,8 +35,8 @@ export function startAdjustInteraction({
     startWindowCenter = viewport.voi.windowCenter;
     startWindowWidth = viewport.voi.windowWidth;
 
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseup', end);
+    contentWindow.addEventListener('mousemove', move);
+    contentWindow.addEventListener('mouseup', end);
     element.addEventListener('mouseleave', end);
   }
 
@@ -59,8 +61,8 @@ export function startAdjustInteraction({
     event.stopImmediatePropagation();
     event.preventDefault();
 
-    window.removeEventListener('mousemove', move);
-    window.removeEventListener('mouseup', end);
+    contentWindow.removeEventListener('mousemove', move);
+    contentWindow.removeEventListener('mouseup', end);
     element.removeEventListener('mouseleave', end);
 
     element.addEventListener('mousedown', start);
@@ -72,8 +74,8 @@ export function startAdjustInteraction({
 
   return () => {
     element.removeEventListener('mousedown', start);
-    window.removeEventListener('mousemove', move);
-    window.removeEventListener('mouseup', end);
+    contentWindow.removeEventListener('mousemove', move);
+    contentWindow.removeEventListener('mouseup', end);
     element.removeEventListener('mouseleave', end);
   };
 }

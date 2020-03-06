@@ -1,0 +1,28 @@
+{
+  "name": "@handbook/react",
+  "version": "0.1.0",
+  "description": "Handbook",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "author": "Seoyeon Lee",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-zeroconfig/handbook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/react-zeroconfig/handbook/issues"
+  },
+  "homepage": "https://github.com/react-zeroconfig/handbook",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-frame-component": "^4.0.0",
+    "@mdx-js/react": "^1.5.0",
+    "@lunit/mdx-code-block": "^1.0.0"
+  }
+}

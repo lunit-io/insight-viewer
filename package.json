@@ -13,6 +13,8 @@
     "package:validate": "zeroconfig-package-scripts list && zeroconfig-package-scripts validate",
     "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
+    "handbook:build": "zeroconfig-webapp-scripts build handbook",
+    "handbook:start": "zeroconfig-webapp-scripts start handbook --port 3109",
     "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline",
     "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
     "start": "npm run storybook:start",
@@ -76,6 +78,7 @@
     "d3-color": "^1.4.0",
     "fs-extra": "^8.1.0",
     "history": "^4.10.1",
+    "jss": "^10.0.4",
     "point-in-polygon": "^1.0.1",
     "polylabel": "^1.0.2",
     "prism-react-renderer": "^1.0.2",
@@ -84,6 +87,8 @@
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.13.0",
+    "react-frame-component": "^4.1.1",
+    "react-helmet": "^5.2.1",
     "react-live": "^2.2.2",
     "react-router-dom": "^5.1.2",
     "resize-observer-polyfill": "^1.5.1",
@@ -92,6 +97,7 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
+    "@handbook/react": "^0.1.0",
     "@lunit/cornerstone-declarations": "^0.3.0",
     "@lunit/eslint-config": "^0.4.0",
     "@lunit/prettier-config": "^0.1.1",
@@ -114,6 +120,7 @@
     "@types/puppeteer": "^2.0.1",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
+    "@types/react-frame-component": "^4.1.1",
     "@types/react-router-dom": "^5.1.3",
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "^5.0.1",
@@ -129,6 +136,6 @@
     "node-fetch": "^2.6.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.13.0",
-    "react-zeroconfig": "^3.25.1"
+    "react-zeroconfig": "^3.27.0-alpha.1"
   }
 }

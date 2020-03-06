@@ -3,9 +3,16 @@ interface PanInteractionParams {
   getCurrentViewport: () => cornerstone.Viewport | null;
   onMove: (translation: cornerstone.Vec2) => void;
   onEnd: () => void;
+  contentWindow: Window;
 }
 
-export function startPanInteraction({ element, getCurrentViewport, onMove, onEnd }: PanInteractionParams): () => void {
+export function startPanInteraction({
+  element,
+  getCurrentViewport,
+  onMove,
+  onEnd,
+  contentWindow,
+}: PanInteractionParams): () => void {
   let startPageX: number;
   let startPageY: number;
   let startTranslationX: number;
@@ -28,8 +35,8 @@ export function startPanInteraction({ element, getCurrentViewport, onMove, onEnd
     startTranslationX = viewport.translation.x;
     startTranslationY = viewport.translation.y;
 
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseup', end);
+    contentWindow.addEventListener('mousemove', move);
+    contentWindow.addEventListener('mouseup', end);
     element.addEventListener('mouseleave', end);
   }
 
@@ -57,8 +64,8 @@ export function startPanInteraction({ element, getCurrentViewport, onMove, onEnd
     event.stopImmediatePropagation();
     event.preventDefault();
 
-    window.removeEventListener('mousemove', move);
-    window.removeEventListener('mouseup', end);
+    contentWindow.removeEventListener('mousemove', move);
+    contentWindow.removeEventListener('mouseup', end);
     element.removeEventListener('mouseleave', end);
 
     element.addEventListener('mousedown', start);
@@ -70,8 +77,8 @@ export function startPanInteraction({ element, getCurrentViewport, onMove, onEnd
 
   return () => {
     element.removeEventListener('mousedown', start);
-    window.removeEventListener('mousemove', move);
-    window.removeEventListener('mouseup', end);
+    contentWindow.removeEventListener('mousemove', move);
+    contentWindow.removeEventListener('mouseup', end);
     element.removeEventListener('mouseleave', end);
   };
 }

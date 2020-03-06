@@ -1,5 +1,6 @@
 import React, { Component, CSSProperties } from 'react';
 import styled from 'styled-components';
+import { FrameConsumer } from '../context/frame';
 import { hitTestContours } from '../geom/hitTestContours';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
@@ -39,6 +40,8 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   private startX: number = 0;
   private startY: number = 0;
 
+  private contentWindow: Window = window;
+
   constructor(props: ContourDrawerProps<T>) {
     super(props);
 
@@ -49,26 +52,29 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
   render() {
     return (
-      <svg
-        ref={this.svgRef}
-        role="figure"
-        width={this.props.width}
-        height={this.props.height}
-        className={this.props.className}
-        style={this.props.style}
-      >
-        {this.props.cornerstoneRenderData && this.state.polygon && this.state.polygon.length > 0 && (
-          <>
-            <polyline points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)} />
-            {this.props.animateStroke !== false && (
-              <polyline
-                points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)}
-                data-highlight="highlight"
-              />
-            )}
-          </>
-        )}
-      </svg>
+      <>
+        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <svg
+          ref={this.svgRef}
+          role="figure"
+          width={this.props.width}
+          height={this.props.height}
+          className={this.props.className}
+          style={this.props.style}
+        >
+          {this.props.cornerstoneRenderData && this.state.polygon && this.state.polygon.length > 0 && (
+            <>
+              <polyline points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)} />
+              {this.props.animateStroke !== false && (
+                <polyline
+                  points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)}
+                  data-highlight="highlight"
+                />
+              )}
+            </>
+          )}
+        </svg>
+      </>
     );
   }
 
@@ -119,11 +125,11 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
   getElement = ({ draw }: Readonly<ContourDrawerProps<T>>): HTMLElement => {
     //@ts-ignore
-    return draw instanceof HTMLElement ? draw : (this.svg as HTMLElement);
+    return draw instanceof this.contentWindow['HTMLElement'] ? (draw as HTMLElement) : (this.svg as HTMLElement);
   };
 
   canActivate = ({ draw }: Readonly<ContourDrawerProps<T>>) => {
-    return draw instanceof HTMLElement || draw === true;
+    return draw instanceof this.contentWindow['HTMLElement'] || draw === true;
   };
 
   // ---------------------------------------------

@@ -1588,13 +1588,6 @@ import {
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import React, { useMemo } from 'react';
 
-// ===========================================
-// DCMImage
-// `<DCMImage>`를 사용해서 좀 더 간단하게 Dicom File을 출력할 수 있다.
-// 하지만, `.dcm` 파일의 용량 및 렌더링 비용이 너무 크기 때문에
-// 가능하다면 `.jpg` 썸네일 이미지를 만들어서 사용하는 것이 더 좋다.
-// ===========================================
-
 installWADOImageLoader();
 
 export default {
@@ -1611,6 +1604,10 @@ export const DCMImageSample = () => {
       `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000013.dcm`,
     ].map(imageId => new CornerstoneSingleImage(imageId, { unload: unloadWADOImage }));
   }, []);
+
+  // `<DCMImage>`를 사용해서 좀 더 간단하게 Dicom File을 출력할 수 있다.
+  // 하지만, `.dcm` 파일의 용량 및 렌더링 비용이 너무 크기 때문에
+  // 가능하다면 `.jpg` 썸네일 이미지를 만들어서 사용하는 것이 더 좋다.
 
   return (
     <ul>

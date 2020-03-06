@@ -7,9 +7,7 @@ export * from './loaders/installWebImageLoader';
 export * from './loaders/unloadImage';
 
 export * from './components/InsightViewer';
-export * from './components/UserContourCanvasViewer';
 export * from './components/ContourViewer';
-export * from './components/UserContourCanvasDrawer';
 export * from './components/ContourDrawer';
 export * from './components/HeatmapViewer';
 export * from './components/InsightViewerContainer';
@@ -40,3 +38,5 @@ export * from './behaviors/updateViewport';
 
 export * from './theme/style';
 export * from './theme/withInsightViewerStorybookGlobalStyle';
+
+export * from './context/frame';
