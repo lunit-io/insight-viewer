@@ -21,8 +21,10 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^5.0.0",
-    "react-frame-component": "^4.0.0",
     "@mdx-js/react": "^1.5.0",
-    "@lunit/mdx-code-block": "^1.0.0"
+    "@lunit/mdx-code-block": "^1.0.0",
+    "styled-components": "^5.0.0",
+    "@handbook/core": "^0.1.0",
+    "prism-react-renderer": "^1.0.0"
   }
 }
