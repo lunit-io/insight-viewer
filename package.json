@@ -97,7 +97,7 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
-    "@handbook/react": "^0.1.0",
+    "@handbook/babel-plugin": "^0.3.0",
     "@lunit/cornerstone-declarations": "^0.3.0",
     "@lunit/eslint-config": "^0.4.0",
     "@lunit/prettier-config": "^0.1.1",
@@ -136,6 +136,6 @@
     "node-fetch": "^2.6.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.13.0",
-    "react-zeroconfig": "^3.27.0-alpha.1"
+    "react-zeroconfig": "^3.27.0-alpha.3"
   }
 }

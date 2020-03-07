@@ -1,4 +1,4 @@
-import { HandbookConfig } from '@handbook/react';
+import { HandbookConfig } from '@handbook/components';
 import React, { Consumer, Context, createContext, ReactNode, useContext } from 'react';
 
 export interface HandbookProviderProps extends HandbookConfig {
