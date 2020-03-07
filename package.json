@@ -13,7 +13,7 @@
     "package:validate": "zeroconfig-package-scripts list && zeroconfig-package-scripts validate",
     "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
-    "handbook:build": "zeroconfig-webapp-scripts build handbook",
+    "handbook:build": "zeroconfig-webapp-scripts build handbook --source-map true",
     "handbook:start": "zeroconfig-webapp-scripts start handbook --port 3109",
     "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline",
     "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
@@ -97,7 +97,6 @@
     "use-resize-observer": "^6.0.0"
   },
   "devDependencies": {
-    "@handbook/babel-plugin": "^0.3.0",
     "@lunit/cornerstone-declarations": "^0.3.0",
     "@lunit/eslint-config": "^0.4.0",
     "@lunit/prettier-config": "^0.1.1",
@@ -136,6 +135,6 @@
     "node-fetch": "^2.6.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.13.0",
-    "react-zeroconfig": "^3.27.0-alpha.3"
+    "react-zeroconfig": "^3.27.0-alpha.4"
   }
 }
