@@ -4,17 +4,19 @@ import {
   Button,
   Dialog,
   DialogActions,
-  Typography,
   DialogContent,
   DialogTitle,
   IconButton,
   TextField,
+  Typography,
 } from '@material-ui/core';
-import { GitHub, OpenInBrowser } from '@material-ui/icons';
+import { GitHub } from '@material-ui/icons';
+import createSvgIcon from '@material-ui/icons/utils/createSvgIcon';
 import { Language } from 'prism-react-renderer';
 import React, { cloneElement, createElement, CSSProperties, ReactElement, ReactNode, useState } from 'react';
 import styled from 'styled-components';
 import { useHandbook } from '../context/handbook';
+import { ReactComponent as VSCodeSvg } from './assets/vscode.svg';
 
 interface Props {
   className?: string;
@@ -24,6 +26,8 @@ interface Props {
 }
 
 const VSCODE_KEY: string = '__handbook_vscode__';
+
+const VSCodeIcon = createSvgIcon(createElement(VSCodeSvg), VSCodeSvg.displayName || 'VSCodeIcon');
 
 export function ExampleBase({ example: { component, source, filename }, className, style, children }: Props) {
   const { github, vscode } = useHandbook();
@@ -55,12 +59,12 @@ export function ExampleBase({ example: { component, source, filename }, classNam
                 setOpen(!open);
               }}
             >
-              <OpenInBrowser />
+              <VSCodeIcon />
             </IconButton>
           )}
           {vscode && vscodeProject.trim().length === 0 && (
             <IconButton onClick={() => setOpen(!open)}>
-              <OpenInBrowser />
+              <VSCodeIcon />
             </IconButton>
           )}
         </div>
