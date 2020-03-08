@@ -1,5 +1,5 @@
 {
-  "name": "@handbook/core",
+  "name": "@handbook/source",
   "version": "0.1.0",
   "description": "Handbook",
   "main": "index.js",

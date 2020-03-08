@@ -1,5 +1,5 @@
-import { page } from '@handbook/core';
-import { Handbook, HandbookConfig } from '@lunit/handbook';
+import { Handbook, HandbookConfig } from '@handbook/components';
+import { page } from '@handbook/source';
 import React from 'react';
 import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -17,6 +17,7 @@ const handbookConfig: HandbookConfig = {
     repo: 'lunit-io/frontend-components',
     branch: 'feature/web-and-3d-loaders',
   },
+  vscode: true,
   index: {
     Title1: page('./pages/Page1'),
     Title2: page('./pages/Page2'),

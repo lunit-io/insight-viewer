@@ -1,4 +1,4 @@
-import { MDXCodeBlock } from '@lunit/mdx-code-block';
+import { MDXCodeBlock } from '@handbook/code-block';
 import { MDXProvider } from '@mdx-js/react';
 import React, { CSSProperties, ReactNode, useMemo } from 'react';
 import { HashRouter, Switch } from 'react-router-dom';
@@ -26,18 +26,18 @@ export function HandbookBase({ config, className, style }: HandbookProps) {
   }, [config]);
 
   return (
-    <HandbookProvider {...config}>
-      <HashRouter>
-        <div className={className} style={style}>
-          <nav>{list}</nav>
-          <article>
-            <MDXProvider components={components}>
+    <MDXProvider components={components}>
+      <HandbookProvider {...config}>
+        <HashRouter>
+          <div className={className} style={style}>
+            <nav>{list}</nav>
+            <article>
               <Switch>{routes}</Switch>
-            </MDXProvider>
-          </article>
-        </div>
-      </HashRouter>
-    </HandbookProvider>
+            </article>
+          </div>
+        </HashRouter>
+      </HandbookProvider>
+    </MDXProvider>
   );
 }
 

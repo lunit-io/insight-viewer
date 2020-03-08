@@ -1,4 +1,4 @@
-import { Page } from '@handbook/core';
+import { Page } from '@handbook/source';
 import React, { createElement, ReactElement, ReactNode, useEffect, useState } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import { HandbookTreeNode } from '../types';

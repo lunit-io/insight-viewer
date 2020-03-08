@@ -7,5 +7,5 @@ export default () => {
 
 const Div = styled.div`
   font-size: 20px;
-  color: blue;
+  color: yellow;
 `;

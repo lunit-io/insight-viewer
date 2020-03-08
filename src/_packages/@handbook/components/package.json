@@ -22,9 +22,11 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^5.0.0",
     "@mdx-js/react": "^1.5.0",
-    "@lunit/mdx-code-block": "^1.0.0",
     "styled-components": "^5.0.0",
-    "@handbook/core": "^0.1.0",
-    "prism-react-renderer": "^1.0.0"
+    "prism-react-renderer": "^1.0.0",
+    "@handbook/code-block": "^0.1.0",
+    "@handbook/source": "^0.1.0",
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1"
   }
 }

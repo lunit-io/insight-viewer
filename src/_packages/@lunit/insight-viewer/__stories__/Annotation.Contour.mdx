@@ -1,8 +1,11 @@
-import { preview } from '@handbook/core';
-import { Preview } from '@lunit/handbook'; 
+import { example } from '@handbook/source';
+import { Example } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
 
 # `<ContourDrawer>`
 
-<Preview preview={preview('./Annotation.Contour.story')} height={720}/>
+<Example example={example('./Annotation.Contour.story')}>
+  <InsightViewerPreview height={720}/>
+</Example>
 
 어쩌구 저쩌구...

@@ -5,7 +5,7 @@ export interface Page {
   filename: string;
 }
 
-export interface Preview {
+export interface Example {
   component: { default: ComponentType };
   source: { default: string };
   filename: string;
@@ -18,7 +18,7 @@ export function page(path: string, content?: Page): Page {
   return content;
 }
 
-export function preview(path: string, content?: Preview): Preview {
+export function example(path: string, content?: Example): Example {
   if (!content) {
     throw new Error(`you have to install @handbook/babel-plugin`);
   }

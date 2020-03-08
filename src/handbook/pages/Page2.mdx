@@ -1,6 +1,8 @@
-import { preview } from '@handbook/core';
-import { Preview } from '@lunit/handbook';
+import { example } from '@handbook/source';
+import { Example, Preview } from '@handbook/components';
 
 # Page 2
 
-<Preview preview={preview('./samples/Sample')}/>
+<Example example={example('./samples/Sample')}>
+  <Preview/>
+</Example>

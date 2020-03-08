@@ -1,4 +1,4 @@
-import { Page } from '@handbook/core';
+import { Page } from '@handbook/source';
 
 export type HandbookTreeNode = { [name: string]: HandbookTreeNode | Page };
 
