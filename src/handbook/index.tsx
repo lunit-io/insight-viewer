@@ -1,5 +1,6 @@
 import { Handbook, HandbookConfig } from '@handbook/components';
 import { page } from '@handbook/source';
+import { insightViewerPages } from '@lunit/insight-viewer/__pages__';
 import React from 'react';
 import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -26,8 +27,7 @@ const handbookConfig: HandbookConfig = {
         Title3: page('./pages/Page3'),
       },
     },
-    InsightViewer: page('@lunit/insight-viewer/__stories__/InsightViewer'),
-    Annotation: page('@lunit/insight-viewer/__stories__/Annotation.Contour'),
+    'insight-viewer': insightViewerPages,
   },
 };
 
