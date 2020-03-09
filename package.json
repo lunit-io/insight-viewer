@@ -31,7 +31,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "markdown-source-import \"{,!(node_modules)/**/}*.md\" --git-add && lint-staged"
+      "pre-commit": "npm run package:validate && markdown-source-import \"{,!(node_modules)/**/}*.md\" --git-add && lint-staged"
     }
   },
   "lint-staged": {
@@ -93,6 +93,7 @@
     "react-router-dom": "^5.1.2",
     "resize-observer-polyfill": "^1.5.1",
     "rxjs": "^6.5.4",
+    "slugify": "^1.4.0",
     "styled-components": "^5.0.0",
     "use-resize-observer": "^6.0.0"
   },
@@ -120,6 +121,7 @@
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/react-frame-component": "^4.1.1",
+    "@types/react-helmet": "^5.0.15",
     "@types/react-router-dom": "^5.1.3",
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "^5.0.1",
