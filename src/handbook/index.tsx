@@ -1,5 +1,4 @@
 import { Handbook, HandbookConfig } from '@handbook/components';
-import { page } from '@handbook/source';
 import { insightViewerPages } from '@lunit/insight-viewer/__pages__';
 import React from 'react';
 import { render } from 'react-dom';
@@ -20,13 +19,6 @@ const handbookConfig: HandbookConfig = {
   },
   vscode: true,
   index: {
-    Title1: page('./pages/Page1'),
-    Title2: page('./pages/Page2'),
-    Cate: {
-      Gory: {
-        Title3: page('./pages/Page3'),
-      },
-    },
     'insight-viewer': insightViewerPages,
   },
 };

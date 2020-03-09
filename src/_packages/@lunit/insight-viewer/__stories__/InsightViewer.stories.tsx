@@ -1,5 +1,4 @@
 import {
-  CornerstoneBulkImage,
   CornerstoneImage,
   CornerstoneSeriesImage,
   CornerstoneSingleImage,
@@ -159,7 +158,7 @@ const controllerOptionsWithScroll: InsightViewerControllerOptions = {
 
 export const SeriesImage = () => {
   // CT와 같이 여러개의 이미지를 연결해서 보여줘야 할 때 사용할 수 있다.
-  const image: CornerstoneBulkImage = useMemo(
+  const image: CornerstoneSeriesImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
         series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),

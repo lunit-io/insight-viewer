@@ -1,7 +1,7 @@
+import { CornerstoneSeriesImage } from '@lunit/insight-viewer';
 import { useEffect, useState } from 'react';
-import { CornerstoneBulkImage } from '../image/types';
 
-export function useBulkImagePosition(image: CornerstoneBulkImage): { current: number; end: number } {
+export function useSeriesImagePosition(image: CornerstoneSeriesImage): { current: number; end: number } {
   const [result, setResult] = useState<{ current: number; end: number }>(() => ({
     current: image.getIndex(),
     end: image.length() - 1,
@@ -25,3 +25,6 @@ export function useBulkImagePosition(image: CornerstoneBulkImage): { current: nu
 
   return result;
 }
+
+/** @deprecated use useSeriesImagePosition() */
+export const useBulkImagePosition = useSeriesImagePosition;

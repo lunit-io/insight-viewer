@@ -85,18 +85,32 @@ export function ExampleBase({ example: { component, source, filename }, classNam
         aria-describedby="vscode setting..."
         open={open}
         onClose={() => setOpen(false)}
+        maxWidth="md"
       >
         <DialogTitle>VSCode Configuration</DialogTitle>
         <DialogContent>
-          <Typography>
-            Write the project path. (e.g. <code>/Users/username/Workspace/project</code>)
+          <Typography style={{ wordBreak: 'keep-all', whiteSpace: 'nowrap' }}>
+            {github && (
+              <>
+                First, clone the{' '}
+                <a href={`https://github.com/${github?.repo}`} target="_blank" rel="noopener noreferrer">
+                  {github?.repo}
+                </a>{' '}
+                repository from Github.
+                <br />
+                And, change branch to "{github?.branch}".
+                <br />
+                Finally,{' '}
+              </>
+            )}
+            Write your local directory path. (e.g. <code>/Users/username/Workspace/project</code>)
           </Typography>
           <TextField
             label="Project Path"
             variant="outlined"
             size="small"
             fullWidth
-            style={{ marginTop: 10 }}
+            style={{ marginTop: 20 }}
             value={project}
             onChange={event => setProject(event.target.value)}
           />
