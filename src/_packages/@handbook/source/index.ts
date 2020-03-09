@@ -6,7 +6,7 @@ export interface Page {
 }
 
 export interface Example {
-  component: { default: ComponentType };
+  component?: { default: ComponentType };
   source: { default: string };
   filename: string;
 }
@@ -18,7 +18,14 @@ export function page(path: string, content?: Page): Page {
   return content;
 }
 
-export function example(path: string, content?: Example): Example {
+export function component(path: string, content?: Example): Example {
+  if (!content) {
+    throw new Error(`you have to install @handbook/babel-plugin`);
+  }
+  return content;
+}
+
+export function source(path: string, content?: Example): Example {
   if (!content) {
     throw new Error(`you have to install @handbook/babel-plugin`);
   }

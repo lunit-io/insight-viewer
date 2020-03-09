@@ -13,7 +13,15 @@ import {
 import { GitHub } from '@material-ui/icons';
 import createSvgIcon from '@material-ui/icons/utils/createSvgIcon';
 import { Language } from 'prism-react-renderer';
-import React, { cloneElement, createElement, CSSProperties, ReactElement, ReactNode, useState } from 'react';
+import React, {
+  cloneElement,
+  createElement,
+  CSSProperties,
+  isValidElement,
+  ReactElement,
+  ReactNode,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 import { useHandbook } from '../context/handbook';
 import { ReactComponent as VSCodeSvg } from './assets/vscode.svg';
@@ -22,7 +30,7 @@ interface Props {
   className?: string;
   style?: CSSProperties;
   example: E;
-  children: ReactElement<{ children: ReactNode }>;
+  children?: ReactElement<{ children: ReactNode }>;
 }
 
 const VSCODE_KEY: string = '__handbook_vscode__';
@@ -38,9 +46,11 @@ export function ExampleBase({ example: { component, source, filename }, classNam
 
   return (
     <div className={className} style={style} data-file={filename}>
-      {cloneElement(children, {
-        children: createElement(component.default),
-      })}
+      {component &&
+        isValidElement(children) &&
+        cloneElement(children, {
+          children: createElement(component.default),
+        })}
 
       <div>
         <CodeBlock children={source.default} language={filename.split('.').reverse()[0] as Language} />
@@ -115,10 +125,6 @@ export function ExampleBase({ example: { component, source, filename }, classNam
 export const Example = styled(ExampleBase)`
   position: relative;
 
-  > :first-child {
-    margin-bottom: 10px;
-  }
-
   > :last-child {
     position: relative;
 
@@ -131,5 +137,9 @@ export const Example = styled(ExampleBase)`
         color: rgba(255, 255, 255, 0.7);
       }
     }
+  }
+
+  > :nth-child(2) {
+    margin-top: 10px;
   }
 `;
