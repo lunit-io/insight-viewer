@@ -17,6 +17,7 @@
     "handbook:start": "zeroconfig-webapp-scripts start handbook --port 3109",
     "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline",
     "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
+    "handbook-sample1:start": "zeroconfig-webapp-scripts start handbook-sample1 --port 3301",
     "start": "npm run storybook:start",
     "test": "jest --colors",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
