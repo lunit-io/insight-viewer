@@ -1,0 +1,62 @@
+import { component } from '@handbook/source';
+import { Example, Preview } from '@handbook/components';
+
+# `interface CornerstoneRenderData`
+
+`cornerstone.EVENTS.IMAGE_RENDERED` Event에 의해서 발생되는 데이터이다.
+
+화면을 그려내는 대부분의 상황에 사용된다.
+
+```ts
+export interface CornerstoneRenderData {
+  /** cornerstone이 그림을 그리고 있는 CanvasRenderingContext2D */
+  canvasContext: CanvasRenderingContext2D;
+  
+  /** cornerstone이 그림을 그리고 있는 HTMLElement */
+  element: HTMLElement;
+  
+  /** 
+   * cornerstone의 Rendering에 관련된 정보들
+   * 
+   * - <HeatmapViewer>, <ContourViewer> 등 <InsightViewer>와 화면을 동기화 시키는 기능을 만들 때 사용된다.
+   * - 그 외, 잡다한 Rendering에 관련된 거의 대부분의 정보들을 얻을 수 있다
+   */
+  enabledElement: cornerstone.EnabledElement;
+  
+  /** 
+   * cornerstone이 화면에 그리고 있는 Image 객체 
+   * interface CornerstoneImage 와 연관된다
+   * 
+   * @see CornerstoneImage.image
+   */
+  image: cornerstone.Image;
+  
+  renderTimeInMs: number;
+  
+  /** 
+   * cornerstone이 화면에 그리고 있는 Viewport 상태
+   * 
+   * - useViewportMirroring()과 같이 <InsightViewer>들의 화면을 동기화 시키는 기능을 만들 때 사용된다.
+   * - 그 외, 현재 cornerstone 화면 상태에 대한 거의 대부분의 정보들으 얻을 수 있다
+   */
+  viewport: cornerstone.Viewport;
+}
+```
+
+아래와 같이 `<InsightViewer updateCornerstoneRenderData={(renderData: CornerstoneRenderData) => void} />`를 사용해서 얻을 수 있다.
+
+<Example example={component('./CornerstoneRenderData/GetData')}>
+  <Preview height={520}/>
+</Example>
+
+얻어낸 `CornerstoneRenderData`는 아래와 같이 `<HeatmapViewer>`와 같은 화면 동기화를 필요로 하는 다른 Component에 전달해줄 수 있다.
+
+<Example example={component('./CornerstoneRenderData/SetData')}>
+  <Preview height={520}/>
+</Example>
+
+혹은 동기화 도구를 사용해서 여러개의 `<InsightViewer>`들을 동기화 시킬 수도 있다.
+
+<Example example={component('./CornerstoneRenderData/MirrorData')}>
+  <Preview height={520}/>
+</Example>
