@@ -43,11 +43,15 @@ export interface CornerstoneRenderData {
 }
 ```
 
+# `CornerstoneRenderData` 얻기
+
 아래와 같이 `<InsightViewer updateCornerstoneRenderData={(renderData: CornerstoneRenderData) => void} />`를 사용해서 얻을 수 있다.
 
 <Example example={component('./CornerstoneRenderData/GetData')}>
   <Preview height={520}/>
 </Example>
+
+# 얻은 `CornerstoneRenderData` 사용하기
 
 얻어낸 `CornerstoneRenderData`는 아래와 같이 `<HeatmapViewer>`와 같은 화면 동기화를 필요로 하는 다른 Component에 전달해줄 수 있다.
 

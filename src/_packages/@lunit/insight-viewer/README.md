@@ -47,10 +47,10 @@ Package 내부에 `public/cornerstoneWADOImageLoaderCodecs.min.js` 파일과 `pu
 export interface CornerstoneRenderData {
   /** cornerstone이 그림을 그리고 있는 CanvasRenderingContext2D */
   canvasContext: CanvasRenderingContext2D;
-  
+
   /** cornerstone이 그림을 그리고 있는 HTMLElement */
   element: HTMLElement;
-  
+
   /**
    * cornerstone의 Rendering에 관련된 정보들
    *
@@ -58,7 +58,7 @@ export interface CornerstoneRenderData {
    * - 그 외, 잡다한 Rendering에 관련된 거의 대부분의 정보들을 얻을 수 있다
    */
   enabledElement: cornerstone.EnabledElement;
-  
+
   /**
    * cornerstone이 화면에 그리고 있는 Image 객체
    * interface CornerstoneImage 와 연관된다
@@ -66,9 +66,9 @@ export interface CornerstoneRenderData {
    * @see CornerstoneImage.image
    */
   image: cornerstone.Image;
-  
+
   renderTimeInMs: number;
-  
+
   /**
    * cornerstone이 화면에 그리고 있는 Viewport 상태
    *
@@ -85,7 +85,7 @@ export type Point = [number, number];
 export interface Contour {
   /** 일종의 label 역할을 한다 */
   id: number;
-  
+
   /**
    * Mode에 따라 사용하는 방식이 다르다
    * - (mode: contour) = [x, y][]
@@ -93,10 +93,10 @@ export interface Contour {
    * - (mode: point) = [x, y]
    */
   polygon: Point[];
-  
+
   /** 존재하는 경우 id 대신 출력된다 */
   label?: ((contour: this) => string) | string;
-  
+
   /**
    * svg element에 data-* 형식의 attribute를 넣어주게 된다.
    * 해당 attribute들을 기준으로 css styling과 같은 기능들을 구현할 수 있다.

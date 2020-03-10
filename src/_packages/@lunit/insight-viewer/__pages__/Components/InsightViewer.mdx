@@ -1,0 +1,91 @@
+import { component } from '@handbook/source';
+import { Example } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
+
+# `<InsightViewer>`
+
+- 포함되어 있는 기능들
+    - `*.dcm`, `*.jpg`, `*.png` 등의 이미지를 그린다
+    - Pan, Adjust, Flip, Invert 등 기본적인 User Interaction 이나 Dicom Display 에 관련된 기능들을 구현한다
+- 포함되어 있지 않은 기능들
+    - Heatmap 또는 Contour 처리 → `<HeatmapViewer>`, `<ContourViewer>` 에서 구현됨
+    - DBT 등에 사용되는 Series Image 기능 구현 → `class CornerstoneSeriesImage` 를 통해 구현됨
+    - 여러개의 화면들을 동기화 시키거나 하는 Viewport 동기화 → `useViewportMirroring()` 등 Utility Hook을 통해 구현됨
+
+아래와 같은 React Props를 가지고 있다.
+
+```ts
+export interface InsightViewerProps extends InsightViewerHostProps {
+  width: number;
+  height: number;
+  
+  image: CornerstoneImage;
+  
+  /**
+   * Pan Action (Mouse Drag)
+   * 
+   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
+   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
+   * - `false | null` 로 입력되는 경우 Pan 기능을 끈다
+   */
+  pan: boolean | HTMLElement | null;
+  
+  /**
+   * Adjust Action (Mouse Drag)
+   *
+   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
+   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
+   * - `false | null` 로 입력되는 경우 Adjust 기능을 끈다
+   */
+  adjust: boolean | HTMLElement | null;
+  
+  /**
+   * Zoom Action (Mouse Wheel)
+   *
+   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
+   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
+   * - `false | null` 로 입력되는 경우 Wheel 기능을 끈다
+   */
+  zoom: boolean | HTMLElement | null;
+  
+  /** Invert Color Image */
+  invert: boolean;
+  
+  /** Flip Image */
+  flip: boolean;
+  
+  /**
+   * Date.now() 로 입력하면 된다.
+   * 값이 변경되는 경우 Pan, Adjust, Zoom 으로 변경된 상태들이 초기화 된다.
+   */
+  resetTime: number;
+  
+  /**
+   * Image가 최초 그려지는 순간 변경한다
+   */
+  defaultViewportTransforms?: ViewportTransform[];
+}
+```
+
+# 기본적인 사용
+
+<Example example={component('./InsightViewer/Basic')}>
+  <InsightViewerPreview height={720}/>
+</Example>
+
+# 외부 HTML Element를 사용해서 Event 처리
+
+```tsx
+<InsightViewer/>
+<HeatmapViewer/>
+<ContourViewer/>
+<ContourDrawer/>
+```
+
+위와 같이 여러개의 Component들을 Layer로 겹쳐 사용하는 경우 `MouseEvent`와 같은 사용자 입력이 차단될 수 있다.
+
+이와 같은 Layer 구성 문제를 비롯한 여러 User Interaction을 외부에 위임하기 위해, 일부 속성들은 `boolean` 뿐만 아니라 `HTMLElement`로 입력될 수 있다.
+
+<Example example={component('./InsightViewer/DelegateInteraction')}>
+  <InsightViewerPreview height={720}/>
+</Example>
