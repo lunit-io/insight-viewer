@@ -23,7 +23,7 @@ export default () => {
     // image 정보를 받는다
     const imageSubscription = image.image.subscribe((cornerstoneImage: cornerstone.Image | null) => {
       console.warn('cornerstoneImage:', cornerstoneImage);
-      setLog(prevLog => [...prevLog, `[image]: ${JSON.stringify(cornerstoneImage)}`]);
+      setLog(prevLog => [...prevLog, `[image]: ${cornerstoneImage?.imageId}`]);
     });
 
     return () => {

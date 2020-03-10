@@ -13,21 +13,21 @@ export interface Example {
 
 export function page(path: string, content?: Page): Page {
   if (!content) {
-    throw new Error(`you have to install @handbook/babel-plugin`);
+    throw new Error(`Can't find the content of the "${path}". You have to install @handbook/babel-plugin`);
   }
   return content;
 }
 
 export function component(path: string, content?: Example): Example {
   if (!content) {
-    throw new Error(`you have to install @handbook/babel-plugin`);
+    throw new Error(`Can't find the content of the "${path}". You have to install @handbook/babel-plugin`);
   }
   return content;
 }
 
 export function source(path: string, content?: Example): Example {
   if (!content) {
-    throw new Error(`you have to install @handbook/babel-plugin`);
+    throw new Error(`Can't find the content of the "${path}". You have to install @handbook/babel-plugin`);
   }
   return content;
 }

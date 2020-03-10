@@ -24,8 +24,8 @@ export interface CornerstoneImage {
 
 1장의 이미지만 사용하면 되는 경우 사용할 수 있다. (CXR, MMG...)
 
-<Example example={component('./CornerstoneImage.sample.CornerstoneSingleImage')}>
-  <Preview height={300} style={{overflowY: 'auto'}}/>
+<Example example={component('./CornerstoneImage/CornerstoneSingleImage')}>
+  <Preview height={200} style={{overflowY: 'auto'}}/>
 </Example>
 
 > `<InsightViewer>`, `<DCMImage>` 또는 `CornerstoneImage`를 사용하는 모든 기능들은   
@@ -33,13 +33,13 @@ export interface CornerstoneImage {
 
 `<DCMImage>` Component를 사용해서 단순 화면 출력하거나,
 
-<Example example={component('./CornerstoneImage.sample.DCMImage')}>
+<Example example={component('./CornerstoneImage/DCMImage')}>
   <Preview height={280}/>
 </Example>
 
 `<InsightViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
 
-<Example example={component('./CornerstoneImage.sample.InsightViewer')}>
+<Example example={component('./CornerstoneImage/InsightViewer')}>
   <Preview height={520}/>
 </Example>
 
@@ -66,18 +66,18 @@ export interface CornerstoneSeriesImage extends CornerstoneImage {
 
 `CornerstoneImage`를 상속 받아서 여러장의 이미지를 제어할 수 있는 기능들이 더해져 있다.
 
-<Example example={component('./CornerstoneImage.sample.CornerstoneSeriesImage')}>
+<Example example={component('./CornerstoneImage/CornerstoneSeriesImage')}>
   <Preview height={500} style={{overflowY: 'auto'}}/>
 </Example>
 
 마찬가지로 `<DCMImage>` Component를 사용해서 화면에 출력하거나,
 
-<Example example={component('./CornerstoneImage.sample.DCMImageWithSeries')}>
+<Example example={component('./CornerstoneImage/DCMImageWithSeries')}>
   <Preview height={280}/>
 </Example> 
 
 `<InsightViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
 
-<Example example={component('./CornerstoneImage.sample.InsightViewerWithSeries')}>
+<Example example={component('./CornerstoneImage/InsightViewerWithSeries')}>
   <Preview height={520}/>
 </Example>

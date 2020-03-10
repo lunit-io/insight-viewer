@@ -1,5 +1,5 @@
 import { CornerstoneSeriesImage, installWADOImageLoader, unloadImage } from '@lunit/insight-viewer';
-import series from '../../__fixtures__/series.json';
+import series from '../../../__fixtures__/series.json';
 import React, { useEffect, useMemo, useState } from 'react';
 
 installWADOImageLoader();
