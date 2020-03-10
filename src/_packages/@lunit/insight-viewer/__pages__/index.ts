@@ -8,9 +8,7 @@ export const insightViewerPages: HandbookTreeNode = {
   '<InsightViewer>': page('./Components/InsightViewer'),
   '<InsightViewerContainer>': page('./Components/InsightViewerContainer'),
   '<StrokeText>': page('./Components/StrokeText'),
-  Annotation: {
-    Contour: {
-      Viewer: page('./Annotation/Contour/Viewer'),
-    },
-  },
+  '<HeatmapViewer>': page('./Components/HeatmapViewer'),
+  Contour: page('./Basic/Contour'),
+  '<ContourViewer>': page('./Components/ContourViewer'),
 };

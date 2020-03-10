@@ -42,16 +42,22 @@ export interface CornerstoneRenderData {
 /** [x, y] */
 export type Point = [number, number];
 
-/** UserContoureViewer와 같은 곳에서 사용된다 */
+/**
+ * UserContoureViewer와 같은 곳에서 사용된다
+ *
+ * Annotation Tool, OPT 등 Annotation을 해야 하는 상황에서 데이터가 된다.
+ *
+ * 직접 사용하지 말고, 내부적으로 상속해서 새로운 데이터를 생성해야 한다.
+ */
 export interface Contour {
   /** 일종의 label 역할을 한다 */
   id: number;
 
   /**
    * Mode에 따라 사용하는 방식이 다르다
-   * - (mode: contour) = [x, y][]
-   * - (mode: circle) = [centerX, centerY][radius, ]
-   * - (mode: point) = [x, y]
+   * - (mode: contour) = [[x, y], [x, y], [x, y]...]
+   * - (mode: circle) = [[centerX, centerY][radius, ]]
+   * - (mode: point) = [[x, y]]
    */
   polygon: Point[];
 

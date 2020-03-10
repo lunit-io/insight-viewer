@@ -139,6 +139,11 @@ export function ExampleBase({ example: { component, source, filename }, classNam
 export const Example = styled(ExampleBase)`
   position: relative;
 
+  pre.prism-code {
+    overflow-y: auto;
+    max-height: 350px;
+  }
+
   > :last-child {
     position: relative;
 
@@ -155,10 +160,5 @@ export const Example = styled(ExampleBase)`
 
   > :nth-child(2) {
     margin-top: 10px;
-
-    pre.prism-code {
-      overflow-y: auto;
-      max-height: 350px;
-    }
   }
 `;
