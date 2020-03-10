@@ -7,6 +7,7 @@ export const insightViewerPages: HandbookTreeNode = {
   CornerstoneRenderData: page('./Basic/CornerstoneRenderData'),
   '<InsightViewer>': page('./Components/InsightViewer'),
   '<InsightViewerContainer>': page('./Components/InsightViewerContainer'),
+  '<StrokeText>': page('./Components/StrokeText'),
   Annotation: {
     Contour: {
       Viewer: page('./Annotation/Contour/Viewer'),

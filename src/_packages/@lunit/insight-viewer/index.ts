@@ -18,6 +18,7 @@ export * from './components/CircleViewer';
 export * from './components/DCMImage';
 export * from './components/ThumbnailImage';
 export * from './components/InsightViewerTestController';
+export * from './components/StrokeText';
 
 export * from './hooks/useBulkImagePosition';
 export * from './hooks/useBulkImageScroll';
