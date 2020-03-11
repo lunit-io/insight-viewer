@@ -15,4 +15,5 @@ export const insightViewerPages: HandbookTreeNode = {
   '<ContourDrawer>': page('./Components/ContourDrawer'),
   '<CircleViewer>': page('./Components/CircleViewer'),
   '<CircleDrawer>': page('./Components/CircleDrawer'),
+  '<PointViewer>': page('./Components/PointViewer'),
 };

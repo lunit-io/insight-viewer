@@ -6,14 +6,34 @@ import { PointPin, PointPinProps } from './PointPin';
 export interface PointDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
+
+  /** Contour 데이터를 상속받은 Annotation 데이터 */
   contours: T[];
+
+  /** Mouse Over 등 User Interaction에 의해서 Focus 된 Contour */
   focusedContour: T | null;
+
+  /** Draw / Focus / Remove 와 같은 User Interaction을 활성 / 비활성 한다 */
   interact?: boolean;
+
+  /**
+   * 특정 Contour에 Mouse Over 되었을 때
+   * focusedContour를 결정하는데 필요하다
+   */
   onFocus?: (contour: T | null) => void;
+
+  /** 그리기가 완료되어 새로운 Contour가 발생했을 때 */
   onAdd?: (polygon: Point[], event: MouseEvent) => void;
+
+  /** 특정 Contour를 Click 해서 지울때 필요하다 */
   onRemove?: (contour: T) => void;
+
   className?: string;
+
+  /** Pin의 모양을 변경하는데 사용할 수 있다 */
   pointPinComponent?: ComponentType<PointPinProps>;
+
+  /** Contour 데이터에 따라 Pin을 다르게 하고 싶은 경우 사용할 수 있다 */
   pointPinFunction?: (contour: T) => ComponentType<PointPinProps>;
 }
 
