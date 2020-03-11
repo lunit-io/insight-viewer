@@ -9,13 +9,33 @@ import { dashStroke } from './animation/dashStroke';
 export interface ContourDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
+
+  /** Contour 데이터를 상속받은 Annotation 데이터 */
   contours: T[];
+
+  /**
+   * 그리기 기능 활성화 여부
+   *
+   * <InsightViewer> 와 마찬가지로 HTMLElement로 입력할 경우 MouseEvent를 해당 HTMLElement를 사용해서 처리한다
+   */
   draw: boolean | HTMLElement | null;
+
+  /**
+   * 특정 Contour에 Mouse Over 되었을 때
+   * focusedContour를 결정하는데 필요하다
+   */
   onFocus: (contour: T | null) => void;
+
+  /** 그리기가 완료되어 새로운 Contour가 발생했을 때 */
   onAdd: (polygon: Point[], event: MouseEvent) => void;
+
+  /** 특정 Contour를 Click 해서 지울때 필요하다 */
   onRemove: (contour: T) => void;
+
   className?: string;
   style?: CSSProperties;
+
+  /** 그리는 과정에서 Line에 표현되는 Animation을 비활성 시킬 수 있다 */
   animateStroke?: boolean;
 }
 

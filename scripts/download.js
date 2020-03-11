@@ -10,7 +10,7 @@ const files = [
 ];
 
 async function downloadFiles(files) {
-  for (const file of files) {
+  for (const file of [...files, ...files.map(file => file.replace(/\.js$/, '.min.js'))]) {
     const filename = path.basename(file);
     const res = await fetch(file);
     const text = await res.text();
