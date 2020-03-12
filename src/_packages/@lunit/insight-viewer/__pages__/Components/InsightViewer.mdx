@@ -110,7 +110,7 @@ startPanInteraction = (pan: boolean | HTMLElement | null) => {
     pan instanceof this.contentWindow['HTMLElement'] ? (pan as HTMLElement) : pan === true ? this.element : null;
 
   /**
-  * pan이 HTMLElement이거나 boolean일 때
+  * pan이 HTMLElement이거나 boolean 타입 일 때
   * /interactions/startPanInteraction에 있는 `startPanInteraction()`을 실행한다.
   */
   if (element) {
