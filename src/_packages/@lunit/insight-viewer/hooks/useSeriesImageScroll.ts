@@ -1,18 +1,20 @@
 import { CornerstoneSeriesImage } from '@lunit/insight-viewer';
 import { useEffect } from 'react';
 
-interface BulkImageScrollParams {
+interface SeriesImageScrollParams {
   image: CornerstoneSeriesImage;
+
+  /** Wheel Event를 처리할 EventTarget */
   element: HTMLElement | null;
+
+  /** User Interaction 활성화 여부 */
   enabled?: boolean;
 }
 
-export function useSeriesImageScroll({ image, element, enabled = true }: BulkImageScrollParams) {
+export function useSeriesImageScroll({ image, element, enabled = true }: SeriesImageScrollParams) {
   useEffect(() => {
     if (!element || enabled !== true) {
-      return () => {
-        // DO NOTHING
-      };
+      return () => {};
     }
 
     function handler(event: WheelEvent) {

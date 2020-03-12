@@ -16,4 +16,6 @@ export const insightViewerPages: HandbookTreeNode = {
   '<CircleViewer>': page('./Components/CircleViewer'),
   '<CircleDrawer>': page('./Components/CircleDrawer'),
   '<PointViewer>': page('./Components/PointViewer'),
+  'useSeriesImagePosition()': page('./Hooks/useSeriesImagePosition'),
+  'useSeriesImageScroll()': page('./Hooks/useSeriesImageScroll'),
 };

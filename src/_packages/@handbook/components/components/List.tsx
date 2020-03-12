@@ -23,6 +23,8 @@ function isPageContent(content: HandbookTreeNode | Page): content is Page {
 slugify.extend({
   '<': '',
   '>': '',
+  '(': '',
+  ')': '',
 });
 
 export function List({

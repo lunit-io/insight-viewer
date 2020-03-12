@@ -20,8 +20,8 @@ export * from './components/ThumbnailImage';
 export * from './components/InsightViewerTestController';
 export * from './components/StrokeText';
 
-export * from './hooks/useBulkImagePosition';
-export * from './hooks/useBulkImageScroll';
+export * from './hooks/useSeriesImagePosition';
+export * from './hooks/useSeriesImageScroll';
 export * from './hooks/useImageProgress';
 export * from './hooks/useInsightViewerSync';
 export * from './hooks/useContour';

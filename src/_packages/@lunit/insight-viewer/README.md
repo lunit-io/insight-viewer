@@ -1213,9 +1213,9 @@ import {
   installWADOImageLoader,
   ProgressViewer,
   unloadImage,
-  useBulkImagePosition,
-  useBulkImageScroll,
   useInsightViewerSync,
+  useSeriesImagePosition,
+  useSeriesImageScroll,
   useViewportMirroring,
   withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
@@ -1374,14 +1374,14 @@ export const SeriesImage = () => {
   const [scrollEnabled, setScrollEnabled] = useState<boolean>(false);
 
   // Wheel을 사용해서 SeriesImage의 위치를 제어한다
-  useBulkImageScroll({
+  useSeriesImageScroll({
     image,
     element: divElement,
     enabled: scrollEnabled,
   });
 
   // 현재 SeriesImage의 위치와 전체 이미지 수량을 알 수 있다
-  const { current, end } = useBulkImagePosition(image);
+  const { current, end } = useSeriesImagePosition(image);
 
   return (
     <InsightViewerTestController options={controllerOptionsWithScroll}>
