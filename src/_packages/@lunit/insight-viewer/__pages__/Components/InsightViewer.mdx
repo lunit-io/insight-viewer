@@ -89,3 +89,38 @@ export interface InsightViewerProps extends InsightViewerHostProps {
 <Example example={component('./InsightViewer/DelegateInteraction')}>
   <InsightViewerPreview height={720}/>
 </Example>
+
+`InsightViewer` Class에서 `startPanInteraction`을 확인하면 더 자세히 확인할 수 있다.
+
+```tsx
+// ---------------------------------------------
+// event handlers
+// ---------------------------------------------
+startPanInteraction = (pan: boolean | HTMLElement | null) => {
+  if (this.teardownPanInteraction) {
+    this.teardownPanInteraction();
+  }
+
+  /**
+  * `pan: boolean | HTMLElement | null` pan의 타입을 확인 한 후 element 변수에 저장한다.
+  * boolean 일 때는 this.element
+  * HTMLElement일 때는 pan
+  */
+  const element: HTMLElement | null =
+    pan instanceof this.contentWindow['HTMLElement'] ? (pan as HTMLElement) : pan === true ? this.element : null;
+
+  /**
+  * pan이 HTMLElement이거나 boolean일 때
+  * /interactions/startPanInteraction에 있는 `startPanInteraction()`을 실행한다.
+  */
+  if (element) {
+    this.teardownPanInteraction = startPanInteraction({
+      element,
+      getCurrentViewport: () => this.currentViewport!,
+      onMove: (translation: cornerstone.Vec2) => this.updateCurrentViewport({ translation }),
+      onEnd: () => {},
+      contentWindow: this.contentWindow,
+    });
+  }
+};
+  ```
