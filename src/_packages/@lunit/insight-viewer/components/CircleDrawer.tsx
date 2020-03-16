@@ -1,5 +1,6 @@
 import React, { Component, CSSProperties } from 'react';
 import styled from 'styled-components';
+import { FrameConsumer } from '../context/frame';
 import { hitTestCircles } from '../geom/hitTestCircles';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
@@ -8,13 +9,33 @@ import { dashStroke } from './animation/dashStroke';
 export interface CircleDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
+
+  /** Contour 데이터를 상속받은 Annotation 데이터 */
   contours: T[];
+
+  /**
+   * 그리기 기능 활성화 여부
+   *
+   * <InsightViewer> 와 마찬가지로 HTMLElement로 입력할 경우 MouseEvent를 해당 HTMLElement를 사용해서 처리한다
+   */
   draw: boolean | HTMLElement | null;
+
+  /**
+   * 특정 Contour에 Mouse Over 되었을 때
+   * focusedContour를 결정하는데 필요하다
+   */
   onFocus: (contour: T | null) => void;
+
+  /** 그리기가 완료되어 새로운 Contour가 발생했을 때 */
   onAdd: (polygon: Point[], event: MouseEvent) => void;
+
+  /** 특정 Contour를 Click 해서 지울때 필요하다 */
   onRemove: (contour: T) => void;
+
   className?: string;
   style?: CSSProperties;
+
+  /** 그리는 과정에서 Line에 표현되는 Animation을 비활성 시킬 수 있다 */
   animateStroke?: boolean;
 }
 
@@ -31,6 +52,8 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   private startX: number = 0;
   private startY: number = 0;
 
+  private contentWindow: Window = window;
+
   constructor(props: CircleDrawerProps<T>) {
     super(props);
 
@@ -42,37 +65,40 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
   render() {
     return (
-      <svg
-        ref={this.svgRef}
-        role="figure"
-        width={this.props.width}
-        height={this.props.height}
-        className={this.props.className}
-        style={this.props.style}
-      >
-        {this.props.cornerstoneRenderData &&
-          this.state.p1 &&
-          this.state.p2 &&
-          (() => {
-            const { x: x1, y: y1 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
-              x: this.state.p1[0],
-              y: this.state.p1[1],
-            });
-            const { x: x2, y: y2 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
-              x: this.state.p2[0],
-              y: this.state.p2[1],
-            });
-            const r: number = Math.sqrt(Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2));
+      <>
+        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <svg
+          ref={this.svgRef}
+          role="figure"
+          width={this.props.width}
+          height={this.props.height}
+          className={this.props.className}
+          style={this.props.style}
+        >
+          {this.props.cornerstoneRenderData &&
+            this.state.p1 &&
+            this.state.p2 &&
+            (() => {
+              const { x: x1, y: y1 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
+                x: this.state.p1[0],
+                y: this.state.p1[1],
+              });
+              const { x: x2, y: y2 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
+                x: this.state.p2[0],
+                y: this.state.p2[1],
+              });
+              const r: number = Math.sqrt(Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2));
 
-            return (
-              <>
-                <circle cx={x1} cy={y1} r={r} />
-                {this.props.animateStroke !== false && <circle cx={x1} cy={y1} r={r} data-highlight="highlight" />}
-                <line x1={x1} y1={y1} x2={x2} y2={y2} />
-              </>
-            );
-          })()}
-      </svg>
+              return (
+                <>
+                  <circle cx={x1} cy={y1} r={r} />
+                  {this.props.animateStroke !== false && <circle cx={x1} cy={y1} r={r} data-highlight="highlight" />}
+                  <line x1={x1} y1={y1} x2={x2} y2={y2} />
+                </>
+              );
+            })()}
+        </svg>
+      </>
     );
   }
 
@@ -123,11 +149,11 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
   getElement = ({ draw }: Readonly<CircleDrawerProps<T>>): HTMLElement => {
     //@ts-ignore
-    return draw instanceof HTMLElement ? draw : (this.svg as HTMLElement);
+    return draw instanceof this.contentWindow['HTMLElement'] ? (draw as HTMLElement) : (this.svg as HTMLElement);
   };
 
   canActivate = ({ draw }: Readonly<CircleDrawerProps<T>>) => {
-    return draw instanceof HTMLElement || draw === true;
+    return draw instanceof this.contentWindow['HTMLElement'] || draw === true;
   };
 
   // ---------------------------------------------

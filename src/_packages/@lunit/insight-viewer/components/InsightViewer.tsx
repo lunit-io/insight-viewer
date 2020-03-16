@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Unsubscribable } from 'rxjs';
+import { FrameConsumer } from '../context/frame';
 import { InsightViewerHostProps } from '../hooks/useInsightViewerSync';
 import { CornerstoneImage } from '../image/types';
 import { CornerstoneRenderData, ViewportTransform, ViewportTransformParams } from '../types';
@@ -10,13 +11,51 @@ import { startZoomInteraction } from './interactions/startZoomInteraction';
 export interface InsightViewerProps extends InsightViewerHostProps {
   width: number;
   height: number;
+
   image: CornerstoneImage;
-  resetTime: number;
+
+  /**
+   * Pan Action (Mouse Drag)
+   *
+   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
+   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
+   * - `false | null` 로 입력되는 경우 Pan 기능을 끈다
+   */
   pan: boolean | HTMLElement | null;
+
+  /**
+   * Adjust Action (Mouse Drag)
+   *
+   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
+   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
+   * - `false | null` 로 입력되는 경우 Adjust 기능을 끈다
+   */
   adjust: boolean | HTMLElement | null;
+
+  /**
+   * Zoom Action (Mouse Wheel)
+   *
+   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
+   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
+   * - `false | null` 로 입력되는 경우 Wheel 기능을 끈다
+   */
   zoom: boolean | HTMLElement | null;
+
+  /** Invert Color Image */
   invert: boolean;
+
+  /** Flip Image */
   flip: boolean;
+
+  /**
+   * Date.now() 로 입력하면 된다.
+   * 값이 변경되는 경우 Pan, Adjust, Zoom 으로 변경된 상태들이 초기화 된다.
+   */
+  resetTime: number;
+
+  /**
+   * Image가 최초 그려지는 순간 변경한다
+   */
   defaultViewportTransforms?: ViewportTransform[];
 }
 
@@ -42,15 +81,20 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
 
   private needImageInitialize: boolean = true;
 
+  private contentWindow: Window = window;
+
   render() {
     return (
-      <div
-        ref={this.elementRef}
-        style={{
-          width: this.props.width,
-          height: this.props.height,
-        }}
-      />
+      <>
+        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <div
+          ref={this.elementRef}
+          style={{
+            width: this.props.width,
+            height: this.props.height,
+          }}
+        />
+      </>
     );
   }
 
@@ -110,6 +154,12 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
         };
       }
     }
+
+    defaultViewport = {
+      ...defaultViewport,
+      hflip: this.props.flip,
+      invert: this.props.invert,
+    };
 
     cornerstone.displayImage(this.element, image, defaultViewport);
 
@@ -246,16 +296,16 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.teardownPanInteraction();
     }
 
-    const element: HTMLElement | null = pan instanceof HTMLElement ? pan : pan === true ? this.element : null;
+    const element: HTMLElement | null =
+      pan instanceof this.contentWindow['HTMLElement'] ? (pan as HTMLElement) : pan === true ? this.element : null;
 
     if (element) {
       this.teardownPanInteraction = startPanInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
         onMove: (translation: cornerstone.Vec2) => this.updateCurrentViewport({ translation }),
-        onEnd: () => {
-          // DO NOTHING
-        },
+        onEnd: () => {},
+        contentWindow: this.contentWindow,
       });
     }
   };
@@ -265,16 +315,20 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.teardownAdjustInteraction();
     }
 
-    const element: HTMLElement | null = adjust instanceof HTMLElement ? adjust : adjust === true ? this.element : null;
+    const element: HTMLElement | null =
+      adjust instanceof this.contentWindow['HTMLElement']
+        ? (adjust as HTMLElement)
+        : adjust === true
+        ? this.element
+        : null;
 
     if (element) {
       this.teardownAdjustInteraction = startAdjustInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
         onMove: (voi: cornerstone.VOI) => this.updateCurrentViewport({ voi }),
-        onEnd: () => {
-          // DO NOTHING
-        },
+        onEnd: () => {},
+        contentWindow: this.contentWindow,
       });
     }
   };
@@ -284,7 +338,8 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.teardownZoomInteraction();
     }
 
-    const element: HTMLElement | null = zoom instanceof HTMLElement ? zoom : zoom === true ? this.element : null;
+    const element: HTMLElement | null =
+      zoom instanceof this.contentWindow['HTMLElement'] ? (zoom as HTMLElement) : zoom === true ? this.element : null;
 
     if (element) {
       this.teardownZoomInteraction = startZoomInteraction({
@@ -292,6 +347,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
         getMinMaxScale: () => [this.getMinScale(), this.getMaxScale()],
         getCurrentViewport: () => this.currentViewport!,
         onZoom: patch => this.updateCurrentViewport(patch),
+        contentWindow: this.contentWindow,
       });
     }
   };

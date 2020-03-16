@@ -1,0 +1,21 @@
+import { Link } from 'react-router-dom';
+import { component } from '@handbook/source';
+import { Example, Preview } from '@handbook/components';
+
+# `useViewportMirroring()`
+
+여러개의 `<InsightViewer>` 화면을 동기화 시키기 위해 필요하다.
+
+Many-to-Many 구조의 Sync가 아니라, One-to-Many 형태의 Mirroing 이기 때문에,   
+Master가 되는 `<InsightViewer>`에서만 User Interaction이 가능하고,    
+그 외의 Slave가 되는 `<InsightViewer>`에서는 단순 User Interaction이 불가능하다.
+
+> Many-to-Many 구조의 Sync가 필요하면, 나중에 개발
+
+<Link to="/insight-viewer/cornerstonerenderdata">CornerstoneRenderData에서 좀 더 자세히 확인할 수 있다.</Link>
+
+# Sample
+
+<Example example={component('../Basic/CornerstoneRenderData/MirrorData')}>
+  <Preview height={520}/>
+</Example>

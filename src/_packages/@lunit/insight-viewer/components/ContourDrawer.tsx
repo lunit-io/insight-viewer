@@ -1,5 +1,6 @@
 import React, { Component, CSSProperties } from 'react';
 import styled from 'styled-components';
+import { FrameConsumer } from '../context/frame';
 import { hitTestContours } from '../geom/hitTestContours';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
@@ -8,13 +9,33 @@ import { dashStroke } from './animation/dashStroke';
 export interface ContourDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
+
+  /** Contour 데이터를 상속받은 Annotation 데이터 */
   contours: T[];
+
+  /**
+   * 그리기 기능 활성화 여부
+   *
+   * <InsightViewer> 와 마찬가지로 HTMLElement로 입력할 경우 MouseEvent를 해당 HTMLElement를 사용해서 처리한다
+   */
   draw: boolean | HTMLElement | null;
+
+  /**
+   * 특정 Contour에 Mouse Over 되었을 때
+   * focusedContour를 결정하는데 필요하다
+   */
   onFocus: (contour: T | null) => void;
+
+  /** 그리기가 완료되어 새로운 Contour가 발생했을 때 */
   onAdd: (polygon: Point[], event: MouseEvent) => void;
+
+  /** 특정 Contour를 Click 해서 지울때 필요하다 */
   onRemove: (contour: T) => void;
+
   className?: string;
   style?: CSSProperties;
+
+  /** 그리는 과정에서 Line에 표현되는 Animation을 비활성 시킬 수 있다 */
   animateStroke?: boolean;
 }
 
@@ -39,6 +60,8 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   private startX: number = 0;
   private startY: number = 0;
 
+  private contentWindow: Window = window;
+
   constructor(props: ContourDrawerProps<T>) {
     super(props);
 
@@ -49,26 +72,29 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
   render() {
     return (
-      <svg
-        ref={this.svgRef}
-        role="figure"
-        width={this.props.width}
-        height={this.props.height}
-        className={this.props.className}
-        style={this.props.style}
-      >
-        {this.props.cornerstoneRenderData && this.state.polygon && this.state.polygon.length > 0 && (
-          <>
-            <polyline points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)} />
-            {this.props.animateStroke !== false && (
-              <polyline
-                points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)}
-                data-highlight="highlight"
-              />
-            )}
-          </>
-        )}
-      </svg>
+      <>
+        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <svg
+          ref={this.svgRef}
+          role="figure"
+          width={this.props.width}
+          height={this.props.height}
+          className={this.props.className}
+          style={this.props.style}
+        >
+          {this.props.cornerstoneRenderData && this.state.polygon && this.state.polygon.length > 0 && (
+            <>
+              <polyline points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)} />
+              {this.props.animateStroke !== false && (
+                <polyline
+                  points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)}
+                  data-highlight="highlight"
+                />
+              )}
+            </>
+          )}
+        </svg>
+      </>
     );
   }
 
@@ -119,11 +145,11 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
   getElement = ({ draw }: Readonly<ContourDrawerProps<T>>): HTMLElement => {
     //@ts-ignore
-    return draw instanceof HTMLElement ? draw : (this.svg as HTMLElement);
+    return draw instanceof this.contentWindow['HTMLElement'] ? (draw as HTMLElement) : (this.svg as HTMLElement);
   };
 
   canActivate = ({ draw }: Readonly<ContourDrawerProps<T>>) => {
-    return draw instanceof HTMLElement || draw === true;
+    return draw instanceof this.contentWindow['HTMLElement'] || draw === true;
   };
 
   // ---------------------------------------------

@@ -7,7 +7,11 @@ import { cleanCanvas } from './draw/cleanCanvas';
 export interface HeatmapViewerProps extends InsightViewerGuestProps {
   width: number;
   height: number;
+
+  /** AI 결과로 나오는 Heatmap 데이터 형식 */
   posMap: number[][];
+
+  /** Threshold 값 (CXR = 0.15, MMG = 0.1) */
   threshold: number;
 }
 

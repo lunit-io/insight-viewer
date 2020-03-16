@@ -1,5 +1,4 @@
 import {
-  CornerstoneBulkImage,
   CornerstoneImage,
   CornerstoneSeriesImage,
   CornerstoneSingleImage,
@@ -10,10 +9,10 @@ import {
   InsightViewerTestController,
   installWADOImageLoader,
   ProgressViewer,
-  unloadWADOImage,
-  useBulkImagePosition,
-  useBulkImageScroll,
+  unloadImage,
   useInsightViewerSync,
+  useSeriesImagePosition,
+  useSeriesImageScroll,
   useViewportMirroring,
   withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
@@ -45,7 +44,7 @@ export const Basic = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -74,7 +73,7 @@ export const InteractionWithHTMLElement = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -113,7 +112,7 @@ export const ViewportSyncWithLayers = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -159,11 +158,11 @@ const controllerOptionsWithScroll: InsightViewerControllerOptions = {
 
 export const SeriesImage = () => {
   // CT와 같이 여러개의 이미지를 연결해서 보여줘야 할 때 사용할 수 있다.
-  const image: CornerstoneBulkImage = useMemo(
+  const image: CornerstoneSeriesImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
         series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),
-        { unload: unloadWADOImage },
+        { unload: unloadImage },
       ),
     [],
   );
@@ -172,14 +171,14 @@ export const SeriesImage = () => {
   const [scrollEnabled, setScrollEnabled] = useState<boolean>(false);
 
   // Wheel을 사용해서 SeriesImage의 위치를 제어한다
-  useBulkImageScroll({
+  useSeriesImageScroll({
     image,
     element: divElement,
     enabled: scrollEnabled,
   });
 
   // 현재 SeriesImage의 위치와 전체 이미지 수량을 알 수 있다
-  const { current, end } = useBulkImagePosition(image);
+  const { current, end } = useSeriesImagePosition(image);
 
   return (
     <InsightViewerTestController options={controllerOptionsWithScroll}>
@@ -236,7 +235,7 @@ export const ViewportMirroring = () => {
   const image1: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -244,7 +243,7 @@ export const ViewportMirroring = () => {
   const image2: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000020.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -252,7 +251,7 @@ export const ViewportMirroring = () => {
   const image3: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000030.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -316,7 +315,7 @@ export const MulticastImage = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );

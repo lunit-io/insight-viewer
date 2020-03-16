@@ -3,26 +3,59 @@ import { isPolygonAreaGreaterThanArea } from '@lunit/is-polygon-area-greater-tha
 import { RefObject, useCallback, useState } from 'react';
 import { Contour, Point } from '../types';
 
+export interface UseContourParams<T extends Contour> {
+  /**
+   * 다음 contour id를 결정하는데 사용될 수 있다.
+   * MMG와 같이 여러개의 useContour()가 동시에 사용되는 경우 nextId를 일치 시키기 위해 사용된다.
+   */
+  nextId?: number | RefObject<number>;
+
+  /**
+   * 초기화 데이터
+   */
+  initialContours?: Omit<T, 'id'>[];
+
+  /**
+   * Contour Mode
+   * Contour Validation에 영향을 준다. (e.g. polygon 최소 면적 판단)
+   */
+  mode?: 'contour' | 'point' | 'circle';
+}
+
 export interface ContourDrawingState<T extends Contour> {
+  /** 현재 Contours */
   contours: T[];
+
+  /** User Interaction 등으로 인해서 Focus 된 Contour */
   focusedContour: T | null;
+
+  /** 새로운 Contour를 만들어준다 */
   addContour: (polygon: Point[], contourInfo?: Omit<T, 'id' | 'polygon'>) => T | null;
+
+  /** 여러개의 Contour들을 일괄 추가한다. */
   addContours: (contours: Omit<T, 'id'>[]) => void;
+
+  /** 특정 Contour를 Focus 하거나, Focus 된 Contour를 제거한다 */
   focusContour: (contour: T | null) => void;
+
+  /** 특정 Contour의 정보를 Update 한다 */
   updateContour: (contour: T, patch: Partial<T>) => void;
+
+  /** 특정 Contour를 삭제한다 */
   removeContour: (contour: T) => void;
+
+  /** 모든 Contour들을 삭제한다 */
   removeAllContours: () => void;
+
+  /** Contour 데이터를 초기화한다 */
+  reset: (config?: { initialContours?: Omit<T, 'id'>[] }) => void;
 }
 
 export function useContour<T extends Contour>({
   nextId,
   initialContours,
   mode = 'contour',
-}: {
-  nextId?: number | RefObject<number>;
-  initialContours?: Omit<T, 'id'>[];
-  mode?: 'contour' | 'point' | 'circle';
-} = {}): ContourDrawingState<T> {
+}: UseContourParams<T> = {}): ContourDrawingState<T> {
   const [contours, setContours] = useState<T[]>(() => {
     if (initialContours) {
       const startId: number =
@@ -168,6 +201,26 @@ export function useContour<T extends Contour>({
     setFocusedContour(null);
   }, []);
 
+  const reset = useCallback(
+    ({ initialContours }: { initialContours?: Omit<T, 'id'>[] } = {}) => {
+      setContours(() => {
+        if (initialContours) {
+          const startId: number =
+            typeof nextId === 'number' ? nextId : nextId && typeof nextId.current === 'number' ? nextId.current : 1;
+
+          return initialContours.map<T>((addedContour, i) => {
+            return {
+              ...addedContour,
+              id: startId + i,
+            } as T;
+          });
+        }
+        return [];
+      });
+    },
+    [nextId],
+  );
+
   return {
     contours,
     addContour,
@@ -177,6 +230,7 @@ export function useContour<T extends Contour>({
     removeAllContours,
     focusContour,
     focusedContour,
+    reset,
   };
 }
 

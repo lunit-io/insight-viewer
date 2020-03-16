@@ -1,18 +1,20 @@
+import { CornerstoneSeriesImage } from '@lunit/insight-viewer';
 import { useEffect } from 'react';
-import { CornerstoneBulkImage } from '../image/types';
 
-interface BulkImageScrollParams {
-  image: CornerstoneBulkImage;
+interface SeriesImageScrollParams {
+  image: CornerstoneSeriesImage;
+
+  /** Wheel Event를 처리할 EventTarget */
   element: HTMLElement | null;
+
+  /** User Interaction 활성화 여부 */
   enabled?: boolean;
 }
 
-export function useBulkImageScroll({ image, element, enabled = true }: BulkImageScrollParams) {
+export function useSeriesImageScroll({ image, element, enabled = true }: SeriesImageScrollParams) {
   useEffect(() => {
     if (!element || enabled !== true) {
-      return () => {
-        // DO NOTHING
-      };
+      return () => {};
     }
 
     function handler(event: WheelEvent) {
@@ -34,3 +36,6 @@ export function useBulkImageScroll({ image, element, enabled = true }: BulkImage
     };
   }, [image, element, enabled]);
 }
+
+/** @deprecated use useSeriesImageScroll */
+export const useBulkImageScroll = useSeriesImageScroll;

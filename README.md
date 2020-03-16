@@ -15,6 +15,7 @@
 
 <!-- index src/_packages/**/README.md -->
 
+- [src/_packages/@handbook/code-block/README.md](src/_packages/@handbook/code-block/README.md)
 - [src/_packages/@lunit/heatmap/README.md](src/_packages/@lunit/heatmap/README.md)
 - [src/_packages/@lunit/insight-viewer/README.md](src/_packages/@lunit/insight-viewer/README.md)
 - [src/_packages/@lunit/is-complex-polygon/README.md](src/_packages/@lunit/is-complex-polygon/README.md)

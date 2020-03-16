@@ -1,0 +1,152 @@
+import { source } from '@handbook/source';
+import { Example } from '@handbook/components';
+
+# 1. Install
+
+```sh
+npm install @lunit/insight-viewer@alpha
+```
+
+# 2. Static Files 포함시키기
+
+`react-zeroconfig` Command-Line에 `--static-file-packages ""`를 추가해준다.
+
+```json
+{
+  "scripts": {
+    "app:build": "zeroconfig-webapp-scripts build app --static-file-packages \"@lunit/insight-viewer\"",
+    "app:start": "zeroconfig-webapp-scripts start app --static-file-packages \"@lunit/insight-viewer\""
+  }
+}
+```
+
+이 명령어는 `node_modules/@lunit/insight-viewer/public/` 디렉토리에 있는 아래 파일들을 포함시키기 위한 과정이다.
+
+- `cornerstone.js` → `http://domain/cornerstone.js`
+- `cornerstoneWADOImageLoader.js`
+- `cornerstoneWebImageLoader.js`
+- `dicomParser.js`
+
+> `create-react-app`을 사용하는 경우 `node_modules/@lunit/insight-viewer/public/` 디렉토리에 있는 파일들을 복사해서 `/public` 디렉토리에 넣어주면 된다.
+
+그리고, 아래와 같이 `*.js` 파일들을 `html` 파일에 추가시켜줘야 한다.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#222232" />
+    <base href="/"/>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.json" />
+    <title>Title</title>
+    <script src="cornerstone.js"></script>
+    <script src="cornerstoneWADOImageLoader.js"></script>
+    <script src="cornerstoneWebImageLoader.js"></script>
+    <script src="dicomParser.js"></script>
+    <link rel="stylesheet" href="fonts/proximanova/proximanova.css" />
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="app"></div>
+  </body>
+</html>
+```
+
+# 3. `installWADOImageLoader()` 또는 `installWebImageLoader()` 실행
+
+`index.tsx` 파일에 아래와 같이 `installWADOImageLoader()` 또는 `installWebImageLoader()`를 실행해준다.
+
+```tsx
+import React from 'react';
+import { render } from 'react-dom';
+import { installWADOImageLoader } from '@lunit/insight-viewer';
+
+installWADOImageLoader();
+
+function App() {
+  return (
+    <div>Hello</div>
+  );
+}
+
+render(<App />, document.querySelector('#app'));
+
+// Hot Module Replacement
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  module.hot.accept();
+}
+```
+
+- `*.dcm` 파일을 사용하는 경우 `installWADOImageLoader()`를 실행한다.
+- `*.jpg`, `*.png`와 같은 이미지 파일들을 사용하는 경우 `installWebImageLoader()`를 실행한다.
+
+# 4. Style 
+
+우선 `styled-components`를 사용해서 `<GlobalStyle/>`을 만들어준다.
+
+```ts
+import { globalStyle as componentsGlobalStyle } from '@lunit/opt-components';
+import { globalStyle as insightViewerGlobalStyle } from '@lunit/insight-viewer';
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  ${componentsGlobalStyle}
+  ${insightViewerGlobalStyle}
+  
+  html {
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  #app {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+`;
+```
+
+(`@lunit/opt-components`를 사용하지 않는다면 제외하면 된다.)
+
+```tsx
+import React from 'react';
+import { render } from 'react-dom';
+import { installWADOImageLoader } from '@lunit/insight-viewer';
+import { GlobalStyle } from './components/GlobalStyle';
+
+installWADOImageLoader();
+
+function App() {
+  return (
+    <div>
+      <GlobalStyle />
+      Hello
+    </div>
+  );
+}
+
+render(<App />, document.querySelector('#app'));
+
+// Hot Module Replacement
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  module.hot.accept();
+}
+```
+
+위와 같이 `<GlobalStyle/>`을 포함시켜 준다.
+
+# 5. 동작 테스트
+
+아래와 같이 `<InsightViewer>`를 사용해서 설정이 제대로 되었는지 확인해본다.
+
+<Example example={source('handbook-sample1/index')}/>

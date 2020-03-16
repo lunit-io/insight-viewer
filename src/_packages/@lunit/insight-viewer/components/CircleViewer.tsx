@@ -6,10 +6,23 @@ import { Contour, Point } from '../types';
 export interface CircleViewerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
+
+  /** Contour 데이터를 상속받은 Annotation 데이터 */
   contours: T[];
+
+  /** Mouse Over 등 User Interaction에 의해서 Focus 된 Contour */
   focusedContour: T | null;
+
+  /** <svg className={}> */
   className?: string;
+
+  /** <svg style={}> */
   style?: CSSProperties;
+
+  /**
+   * Line에 외곽을 그려준다
+   * Line을 두 개 그려서 border를 표현하기 때문에,성능에 민감한 상황인 경우 비활성 시킬 수 있다.
+   */
   border?: boolean;
 }
 

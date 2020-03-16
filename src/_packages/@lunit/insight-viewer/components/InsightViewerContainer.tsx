@@ -1,26 +1,32 @@
-import React, { DetailedHTMLProps, forwardRef, HTMLAttributes } from 'react';
+import styled from 'styled-components';
 
-export interface InsightViewerContainerProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  width: number;
-  height: number;
-}
+export const InsightViewerContainer = styled.div<{ width: number; height: number }>`
+  background-color: #000000;
+  position: relative;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+`;
 
-export const InsightViewerContainer = forwardRef<HTMLDivElement, InsightViewerContainerProps>(
-  ({ width, height, children, style, ...divProps }, ref) => {
-    return (
-      <div
-        ref={ref}
-        {...divProps}
-        style={{
-          backgroundColor: '#000000',
-          ...(style || {}),
-          position: 'relative',
-          width,
-          height,
-        }}
-      >
-        {children}
-      </div>
-    );
-  },
-);
+export const LeftTopHolder = styled.div`
+  position: absolute;
+  left: 5px;
+  top: 5px;
+`;
+
+export const LeftBottomHolder = styled.div`
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+`;
+
+export const RightTopHolder = styled.div`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+`;
+
+export const RightBottomHolder = styled.div`
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+`;

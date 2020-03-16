@@ -1,0 +1,59 @@
+import { Link } from 'react-router-dom';
+import { component, source } from '@handbook/source';
+import { Example } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
+
+# `<CircleViewer>`
+
+`<ContourViewer>`와 마찬가지로 `Contour` 데이터를 화면에 그린다.
+
+<Link to="/insight-viewer/contour">`Contour` 데이터를 `Circle` Type으로 사용한다.</Link>
+
+```ts
+export interface CircleViewerProps<T extends Contour> extends InsightViewerGuestProps {
+  width: number;
+  height: number;
+  
+  /** Contour 데이터를 상속받은 Annotation 데이터 */
+  contours: T[];
+  
+  /** Mouse Over 등 User Interaction에 의해서 Focus 된 Contour */
+  focusedContour: T | null;
+  
+  /** <svg className={}> */
+  className?: string;
+  
+  /** <svg style={}> */
+  style?: CSSProperties;
+  
+  /**
+   * Line에 외곽을 그려준다
+   * Line을 두 개 그려서 border를 표현하기 때문에,성능에 민감한 상황인 경우 비활성 시킬 수 있다.
+   */
+  border?: boolean;
+}
+```
+
+아래 모든 예제들은 이 Data를 사용하게 된다.
+
+<Example example={source('../../__fixtures__/circle')}/>
+
+`Contour` 데이터를 넣어주면 화면에 Annotation을 그린다.
+
+<Example example={component('./CircleViewer/Basic')}>
+  <InsightViewerPreview height={720}/>
+</Example>
+
+# Styling
+
+`<ContourViewer>`와 마찬가지로 CSS Variable을 통해서 색상을 변경할 수 있다.
+
+`<ContourViewer>`와 같은 `--contour-viewer-*`의 이름을 가진 항목들에 영향을 받는다.
+
+<Example example={source('../../theme/style')}/>
+
+<Example example={component('./CircleViewer/CustomStyle')}>
+  <InsightViewerPreview height={720}/>
+</Example>
+
+`Contour.dataAttrs`나 배열 순서에 따른 Styling은 `<ContourViewer>`와 동일하다. 

@@ -1,0 +1,135 @@
+# `interface Contour`
+
+Annotation 데이터가 된다.
+
+직접 사용하지 말고, 상속해서 프로젝트 내용에 맞는 Annotation을 정의한 다음 사용하도록 한다.
+
+> Application Data Modeling에 관련된 내용이기 때문에 쉽지 않을 수 있음     
+> Annotation Tool, OPT 모두 사용자가 Pen Annotation으로 화면에 병변을 그린다는 전제를 가지고 있고,   
+> 해당 Annotation (병변)에 부가 정보를 입력한다는 구성을 가지고 있기 때문에    
+> 사용자 Annotation이 들어가는 프로젝트의 경우 이 `Contour` Type을 이해해야 함
+
+```ts
+/** 
+ * UserContoureViewer와 같은 곳에서 사용된다
+ * 
+ * Annotation Tool, OPT 등 Annotation을 해야 하는 상황에서 데이터가 된다.
+ * 
+ * 직접 사용하지 말고, 내부적으로 상속해서 새로운 데이터를 생성해야 한다.
+ */
+export interface Contour {
+  /** 일종의 label 역할을 한다 */
+  id: number;
+
+  /**
+   * Mode에 따라 사용하는 방식이 다르다
+   * - (mode: contour) = [[x, y], [x, y], [x, y]...]
+   * - (mode: circle) = [[centerX, centerY][radius, ]]
+   * - (mode: point) = [[x, y]]
+   */
+  polygon: Point[];
+
+  /** 존재하는 경우 id 대신 출력된다 */
+  label?: ((contour: this) => string) | string;
+
+  /**
+   * svg element에 data-* 형식의 attribute를 넣어주게 된다.
+   * 해당 attribute들을 기준으로 css styling과 같은 기능들을 구현할 수 있다.
+   */
+  dataAttrs?: { [attr: string]: string };
+}
+```
+
+# `polygon`의 유형
+
+`<ContourViewer>` 와 `<CircleViewer>`, `<PointViewer>` 모두 이 `Contour` 데이터를 사용하지만, `[number, number][]` 구조의 배열을 사용하는 방식이 다르다.
+
+- `<ContourViewer contours={[[x, y], [x, y], [x, y]...]}>` Point(x, y)의 배열로서 Polygon을 사용한다
+- `<CircleViewer contours={[[centerX, centerY][radius, ]]}}>` Center Point(x, y) 와 반지름 (Radius)으로 Circle을 사용한다
+- `<PointViewer contours={[[x, y]]}>` Point(x, y) 하나만 존재하는 배열을 사용한다
+
+# CXR OPT (MGH 2020 연구)의 Annotation Modeling 사례 
+
+<https://github.com/lunit-io/cxr-opt-frontend-2002-mgh/blob/develop/src/app/model/annotation.ts>
+
+```ts
+import { Contour } from '@lunit/insight-viewer';
+
+/** Classification의 Enumeration Values */
+export const classifications = ['TP', 'FP', 'FN'] as const;
+
+/** Lesion의 Enumeration Values - MGH OPT 연구에서는 단순히 Nodule과 Nodule이 아닌 것으로 2가지 병변만 구분한다  */
+export const lesions = ['nodule', 'non-nodule'] as const;
+
+export type Classification = typeof classifications[number];
+export type Lesion = typeof lesions[number];
+
+export const classificationLabels = {
+  TP: 'True Positive',
+  FP: 'False Positive',
+  FN: 'False Negative',
+} as const;
+
+export const lesionLabels = {
+  nodule: 'Nodule',
+  'non-nodule': 'Other findings',
+} as const;
+
+/**
+ * Annotation의 부가 정보
+ */
+export interface AnnotationInfo {
+  /**
+   * GT, RT 모두에서 Annotation이 어떤 병변에 속하는지를 지정하는데 사용한다
+   * GT, RT 모두에서 Pen으로 Annotation을 그리고 난 뒤, 화면에 등장하는 Dialog 로 확인할 수 있다.
+   */
+  lesion: Lesion;
+
+  /**
+   * GT 에서 Annotation의 유형을 지정하는데 사용된다
+   * GT 에서 Pen으로 Annotation을 그리고 난 뒤, 화면에 등장하는 Dialog 로 확인할 수 있다.
+   */
+  classification?: Classification;
+
+  /**
+   * RT 에서 Annotation에 대한 의사의 확신도를 지정하는데 사용된다
+   * RT 에서 Pen으로 Annotation을 그리고 난 뒤, 화면에 등장하는 Dialog 로 확인할 수 있다.
+   */
+  confidenceLevel?: number; // 0 ~ 1 // RT 에서만 사용됨
+}
+
+/**
+ * 현재 Application에서 사용되는 Annotation Model
+ *
+ * AnnotationInfo & Contour 의 합집합 유형이 된다
+ *
+ * <ContourDrawer>, <ContourDrawer> 를 비롯한 모든 Annotation 관리 Component에서 사용된다.
+ */
+export interface Annotation extends AnnotationInfo, Contour {}
+``` 
+
+위와 같이 Application에서 사용되는 Annotation을 `Contour` 데이터를 사용해서 정의한다.   
+(`Contour` 데이터를 직접 사용하지 않도록 한다.)
+
+<https://github.com/lunit-io/cxr-opt-frontend-2002-mgh/blob/develop/src/app/pages/ground-truth/case/index.tsx#L71>
+
+```ts
+  const {
+    contours,
+    addContour: _addContour,
+    addContours,
+    updateContour: _updatecontour,
+    removeContour: _removeContour,
+    removeAllContours: _removeAllContours,
+    focusContour,
+    focusedContour,
+  } = useUserContour<Annotation>();
+```
+
+그리고, 이와 같이 `useUserContour<T>()`에 Generic으로 Annotation 유형을 넘겨서 Application이 동작되도록 한다.
+
+이와 같은 `Annotation` Data Modeling은 Application 전반적으로 Type을 일관화 시킴으로서, 개발자의 Coding 실수로 인해 발생할 수 있는 모든 종류의 Error 발생을 방지시킬 수 있다.
+
+# CXR Annotation Tool의 Annotation Modeling 사례
+
+- [ ] 프로젝트 종료 후 추가 
