@@ -3,7 +3,7 @@ cornerstone 등 OPT 기능을 구현하기 위한 여러 graphics layer를 구�
 # Install
 
 ```sh
-npm install @lunit/insight-viewer
+npm install @lunit/insight-viewer@alpha
 ```
 
 # Usage

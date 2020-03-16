@@ -72,6 +72,7 @@ export function AnnotationExample<T extends Contour>({
     addContours,
     removeAllContours,
     updateContour,
+    reset,
   } = useUserContour({
     initialContours,
     mode: contourMode,
@@ -100,6 +101,7 @@ export function AnnotationExample<T extends Contour>({
     updateContour,
     viewerWidth,
     interactionElement,
+    reset,
   });
 
   const { viewer, sidepanel } = children(childProps);

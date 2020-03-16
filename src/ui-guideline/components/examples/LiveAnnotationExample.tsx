@@ -58,6 +58,7 @@ export function LiveAnnotationExample<T extends Contour>({
     addContours,
     removeAllContours,
     updateContour,
+    reset,
   } = useUserContour({
     initialContours,
     mode: contourMode,
@@ -74,6 +75,7 @@ export function LiveAnnotationExample<T extends Contour>({
     removeAllContours,
     updateContour,
     interactionElement,
+    reset,
   });
 
   return (
