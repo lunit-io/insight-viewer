@@ -8,6 +8,7 @@ export const insightViewerPages: HandbookTreeNode = {
   '<DCMImage>': page('./Components/DCMImage'),
   '<InsightViewer>': page('./Components/InsightViewer'),
   '<InsightViewerContainer>': page('./Components/InsightViewerContainer'),
+  '<InsightViewerTestController>': page('./Components/InsightViewerTestController'),
   '<StrokeText>': page('./Components/StrokeText'),
   '<HeatmapViewer>': page('./Components/HeatmapViewer'),
   Contour: page('./Basic/Contour'),
