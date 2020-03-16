@@ -201,22 +201,25 @@ export function useContour<T extends Contour>({
     setFocusedContour(null);
   }, []);
 
-  const reset = useCallback(({ initialContours }: { initialContours?: Omit<T, 'id'>[] } = {}) => {
-    setContours(() => {
-      if (initialContours) {
-        const startId: number =
-          typeof nextId === 'number' ? nextId : nextId && typeof nextId.current === 'number' ? nextId.current : 1;
+  const reset = useCallback(
+    ({ initialContours }: { initialContours?: Omit<T, 'id'>[] } = {}) => {
+      setContours(() => {
+        if (initialContours) {
+          const startId: number =
+            typeof nextId === 'number' ? nextId : nextId && typeof nextId.current === 'number' ? nextId.current : 1;
 
-        return initialContours.map<T>((addedContour, i) => {
-          return {
-            ...addedContour,
-            id: startId + i,
-          } as T;
-        });
-      }
-      return [];
-    });
-  }, []);
+          return initialContours.map<T>((addedContour, i) => {
+            return {
+              ...addedContour,
+              id: startId + i,
+            } as T;
+          });
+        }
+        return [];
+      });
+    },
+    [nextId],
+  );
 
   return {
     contours,

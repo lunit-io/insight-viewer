@@ -13,12 +13,19 @@ import { CornerstoneImage } from '../image/types';
 
 export interface ImageStoreProviderProps {
   children: ReactNode;
+
+  /** 최대 Cache 갯수 - 높을수록 Memory에 영향을 미치게 된다. */
   cacheImages?: number;
+
+  /** CornerstoneImage factory */
   factory?: (imageId: string) => CornerstoneImage;
 }
 
 export interface ImageStoreState {
+  /** CornerstoneImage를 Load 한다 */
   fetch: (imageId: string) => CornerstoneImage;
+
+  /** Cache를 지운다 */
   purge: (imageId: string) => void;
 }
 

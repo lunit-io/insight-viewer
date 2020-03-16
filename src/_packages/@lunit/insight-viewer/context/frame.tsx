@@ -15,6 +15,10 @@ const FrameContext: Context<FrameState> = createContext<FrameState>({
   contentWindow: window,
 });
 
+/**
+ * `<iframe>` + `React.createPortal()` 이라는 매우 특수한 상황을 위한 기능.
+ * 사용할 일은 거의 없다.
+ */
 export function FrameProvider({ children, contentWindow = window }: FrameProviderProps) {
   return (
     <FrameContext.Provider

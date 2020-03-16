@@ -3,9 +3,13 @@ import { InsightViewer } from '../components/InsightViewer';
 import { CornerstoneRenderData } from '../types';
 
 interface ViewportMirroring {
+  /** <InsightViewer updateCornerstoneRenderData={}> 에 사용한다 */
   updateMasterRenderData: (renderData: CornerstoneRenderData) => void;
 }
 
+/**
+ * 여러개의 <InsightViewer>를 동기화 시키기 위해 사용된다
+ */
 export function useViewportMirroring(...destinations: (InsightViewer | RefObject<InsightViewer>)[]): ViewportMirroring {
   const updateMasterRenderData = useCallback(
     ({ viewport }: CornerstoneRenderData) => {

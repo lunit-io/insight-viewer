@@ -10,6 +10,7 @@ export const insightViewerPages: HandbookTreeNode = {
   '<InsightViewerContainer>': page('./Components/InsightViewerContainer'),
   '<InsightViewerTestController>': page('./Components/InsightViewerTestController'),
   '<StrokeText>': page('./Components/StrokeText'),
+  '<ProgressViewer>': page('./Components/ProgressViewer'),
   '<HeatmapViewer>': page('./Components/HeatmapViewer'),
   Contour: page('./Basic/Contour'),
   '<ContourViewer>': page('./Components/ContourViewer'),
@@ -20,4 +21,9 @@ export const insightViewerPages: HandbookTreeNode = {
   'useSeriesImagePosition()': page('./Hooks/useSeriesImagePosition'),
   'useSeriesImageScroll()': page('./Hooks/useSeriesImageScroll'),
   'useContour()': page('./Hooks/useContour'),
+  'useImageLoadedTime()': page('./Hooks/useImageLoadedTime'),
+  'useImageProgress()': page('./Hooks/useImageProgress'),
+  'useImageStore()': page('./Hooks/useImageStore'),
+  'useInsightViewerSync()': page('./Hooks/useInsightViewerSync'),
+  'useViewportMirroring()': page('./Hooks/useViewportMirroring'),
 };
