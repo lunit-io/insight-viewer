@@ -155,6 +155,12 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       }
     }
 
+    defaultViewport = {
+      ...defaultViewport,
+      hflip: this.props.flip,
+      invert: this.props.invert,
+    };
+
     cornerstone.displayImage(this.element, image, defaultViewport);
 
     this.setImage(image);

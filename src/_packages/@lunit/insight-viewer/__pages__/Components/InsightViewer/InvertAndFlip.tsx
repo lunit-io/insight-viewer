@@ -16,13 +16,11 @@ const controllerOptions: InsightViewerControllerOptions = {
   height: [700, 400, 1000],
   control: ['pan', ['none', 'pan', 'adjust']],
   wheel: ['zoom', ['none', 'zoom']],
-  flip: [false],
-  invert: [false],
+  flip: [true],
+  invert: [true],
 };
 
 export default () => {
-  // Dicom Viewer
-  // Pan, Adjust, Zoom과 같은 기초적인 User Interaction 기능을 가지고 있다.
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`, {
