@@ -1,14 +1,14 @@
-cornerstone 등 OPT 기능을 구현하기 위한 여러 graphics layer를 구현한다.
+# `@lunit/insight-viewer`
+
+cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.
+
+<https://frontend-components-handbook.netlify.com/#/insight-viewer/getting-started>
 
 # Install
 
 ```sh
 npm install @lunit/insight-viewer@alpha
 ```
-
-# Usage
-
-<https://frontend-components-handbook.netlify.com/#/insight-viewer/getting-started>
 
 # Changelog
 

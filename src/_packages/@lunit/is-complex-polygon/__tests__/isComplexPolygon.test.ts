@@ -1,7 +1,7 @@
 import { isComplexPolygon } from '@lunit/is-complex-polygon';
 
 describe('isComplexPolygon()', () => {
-  test('Polygon은 Complex Polygon이다', () => {
+  test('the polygons are complex polygons', () => {
     expect(
       isComplexPolygon([
         [267.52, 179.20000000000002],
@@ -324,7 +324,7 @@ describe('isComplexPolygon()', () => {
     ).toBeTruthy();
   });
 
-  test('Polygon은 Simple Polygon이다', () => {
+  test('the polygons are simple polygons', () => {
     expect(
       isComplexPolygon([
         [179.20000000000002, -15.36],

@@ -1,7 +1,7 @@
 import { isPolygonAreaGreaterThanArea } from '@lunit/is-polygon-area-greater-than-area';
 
 describe('isPolygonAreaGreaterThanArea()', () => {
-  test('Polygon의 Area는 100보다 크다', () => {
+  test('the polygon area is bigger than 100', () => {
     expect(
       isPolygonAreaGreaterThanArea([
         [293.12, 344.32],
@@ -243,7 +243,7 @@ describe('isPolygonAreaGreaterThanArea()', () => {
     ).toBeTruthy();
   });
 
-  test('Polygon의 Area는 100보다 작다', () => {
+  test('the polygon area is smaller than 100', () => {
     expect(
       isPolygonAreaGreaterThanArea([
         [407.04, 336.64],

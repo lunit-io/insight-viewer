@@ -1,17 +1,15 @@
 {
   "name": "@lunit/is-complex-polygon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Test is polygon complex",
-  "author": {
-    "name": "Seoyeon Lee",
-    "email": "seoyeon.lee@lunit.io"
-  },
+  "author": "Seoyeon Lee <seoyeon.lee@lunit.io>",
   "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
+  "typings": "index.d.ts",
   "dependencies": {
     "@lunit/is-intersection": "^1.0.0"
   }

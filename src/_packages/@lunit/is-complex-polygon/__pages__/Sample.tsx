@@ -6,38 +6,32 @@ import {
   InsightViewerContainer,
   installWADOImageLoader,
   Point,
-  unloadWADOImage,
+  unloadImage,
   useInsightViewerSync,
-  withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
 import { isComplexPolygon } from '@lunit/is-complex-polygon';
-import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
-import { storiesOf } from '@storybook/react';
-import React, { ReactNode, useCallback, useState } from 'react';
+import React, { ReactNode, useCallback, useMemo, useState } from 'react';
 
 installWADOImageLoader();
 
-const resetTime: number = Date.now();
-const image: CornerstoneImage = new CornerstoneSingleImage(
-  `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`,
-  { unload: unloadWADOImage },
-);
+const width: number = 400;
+const height: number = 500;
 
-function doNothing() {
-  // DO NOTHING
-}
+export default () => {
+  const image: CornerstoneImage = useMemo(() => {
+    return new CornerstoneSingleImage(
+      `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/CT000010.dcm`,
+      { unload: unloadImage },
+    );
+  }, []);
 
-function Sample() {
-  const width: number = 400;
-  const height: number = 500;
-
-  const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
+  const [divElement, setDivElement] = useState<HTMLElement | null>(null);
 
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   const [checkResult, setCheckResult] = useState<ReactNode>(null);
 
-  const check = useCallback((polygon: Point[]) => {
+  const onAdd = useCallback((polygon: Point[]) => {
     const result: boolean = isComplexPolygon(polygon);
 
     setCheckResult(
@@ -48,9 +42,7 @@ function Sample() {
           </span>{' '}
           POLYGON
         </h3>
-        <pre>
-          <code>{JSON.stringify(polygon)}</code>
-        </pre>
+        <div>{JSON.stringify(polygon)}</div>
         <p>
           <span role="img" aria-label="question">
             🤷‍♂️
@@ -62,8 +54,8 @@ function Sample() {
   }, []);
 
   return (
-    <div>
-      <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
+    <div style={{ display: 'flex' }}>
+      <InsightViewerContainer ref={setDivElement} width={width} height={height}>
         <InsightViewer
           width={width}
           height={height}
@@ -72,7 +64,7 @@ function Sample() {
           pan={false}
           adjust={false}
           zoom={false}
-          resetTime={resetTime}
+          resetTime={0}
           image={image}
           updateCornerstoneRenderData={updateCornerstoneRenderData}
         />
@@ -81,24 +73,15 @@ function Sample() {
             width={width}
             height={height}
             contours={[]}
-            draw={interactionElement}
-            onFocus={doNothing}
-            onAdd={check}
-            onRemove={doNothing}
+            draw={divElement}
+            onFocus={() => {}}
+            onAdd={onAdd}
+            onRemove={() => {}}
             cornerstoneRenderData={cornerstoneRenderData}
           />
         )}
       </InsightViewerContainer>
-      <div>
-        <pre>
-          <code>{checkResult}</code>
-        </pre>
-      </div>
+      <div>{checkResult}</div>
     </div>
   );
-}
-
-storiesOf('in-complex-polygon', module)
-  .addDecorator(withOPTComponentsStorybookGlobalStyle)
-  .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('isComplexPolygon()', () => <Sample />);
+};

@@ -1,5 +1,5 @@
 import { globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
-import { MDXCodeBlock } from '@lunit/mdx-code-block';
+import { MDXCodeBlock } from '@handbook/code-block';
 import { globalStyle as componentsGlobalStyle, ThemeProvider } from '@lunit/opt-components';
 import { MDXProvider } from '@mdx-js/react';
 import { SnackbarProvider } from '@ssen/snackbar';

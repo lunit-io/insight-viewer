@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "description": "dcm viewer component library",
   "keywords": [
     "dicom",
@@ -8,16 +8,14 @@
     "cornerstone",
     "react"
   ],
-  "author": {
-    "name": "Seoyeon Lee",
-    "email": "seoyeon.lee@lunit.io"
-  },
+  "author": "Seoyeon Lee <seoyeon.lee@lunit.io>",
   "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
+  "typings": "index.d.ts",
   "dependencies": {
     "react": ">=16.8.0",
     "rxjs": "^6.5.2",
