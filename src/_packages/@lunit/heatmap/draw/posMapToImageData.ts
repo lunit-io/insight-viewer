@@ -2,6 +2,8 @@ import { getRGBArray } from './getRGBArray';
 
 /**
  * posMap data를 ImageData 객체로 변환한다
+ *
+ * threshold는 보통 CXR=0.15 MMG=0.1 (개별 프로젝트에 따라 확인 필요)
  */
 export function posMapToImageData(posMap: number[][], threshold: number): ImageData {
   const width: number = posMap[0].length;

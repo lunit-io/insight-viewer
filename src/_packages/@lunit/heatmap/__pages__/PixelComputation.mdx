@@ -1,0 +1,24 @@
+import { source } from '@handbook/source';
+import { Example } from '@handbook/components';
+
+# `getRGBArray()`, `getAlpha()`, `getRGBAArray()`
+
+Heatmap Pixel 계산 공식들이다.
+
+`0 ~ 1` 형태로 들어오는 Posmap Value를 RGBA Pixel로 어떻게 계산 할지 결정한다. 
+
+## `getRGBArray()`
+
+<Example example={source('../draw/getRGBArray')} />
+
+## `getAlpha()`
+
+<Example example={source('../draw/getAlpha')} />
+
+## `getRGBAArray()`
+
+<Example example={source('../draw/getRGBAArray')} />
+
+## Test
+
+<Example example={source('../__tests__/heatmap.test')} />

@@ -1,4 +1,5 @@
 import { Handbook, HandbookConfig } from '@handbook/components';
+import { heatmapPages } from '@lunit/heatmap/__pages__';
 import { insightViewerPages } from '@lunit/insight-viewer/__pages__';
 import React from 'react';
 import { render } from 'react-dom';
@@ -19,6 +20,7 @@ const handbookConfig: HandbookConfig = {
   },
   vscode: true,
   index: {
+    heatmap: heatmapPages,
     'insight-viewer': insightViewerPages,
   },
 };
