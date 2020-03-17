@@ -8,11 +8,10 @@ import {
   InsightViewerContainer,
   installWADOImageLoader,
   ProgressViewer,
+  useContour,
   useInsightViewerSync,
-  useUserContour,
 } from '@lunit/insight-viewer';
 import { ViewportInfoLabel } from '@lunit/opt-components';
-import { useStateMemo } from '@lunit/use-state-memo';
 import React, { ReactNode, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
@@ -59,24 +58,39 @@ export function LiveAnnotationExample<T extends Contour>({
     removeAllContours,
     updateContour,
     reset,
-  } = useUserContour({
+  } = useContour({
     initialContours,
     mode: contourMode,
   });
 
-  const childProps = useStateMemo<ChildProps<T>>({
-    cornerstoneRenderData,
-    contours,
-    focusedContour,
-    addContour,
-    removeContour,
-    focusContour,
-    addContours,
-    removeAllContours,
-    updateContour,
-    interactionElement,
-    reset,
-  });
+  const childProps = useMemo<ChildProps<T>>(
+    () => ({
+      cornerstoneRenderData,
+      contours,
+      focusedContour,
+      addContour,
+      removeContour,
+      focusContour,
+      addContours,
+      removeAllContours,
+      updateContour,
+      interactionElement,
+      reset,
+    }),
+    [
+      cornerstoneRenderData,
+      contours,
+      focusedContour,
+      addContour,
+      removeContour,
+      focusContour,
+      addContours,
+      removeAllContours,
+      updateContour,
+      interactionElement,
+      reset,
+    ],
+  );
 
   return (
     <div

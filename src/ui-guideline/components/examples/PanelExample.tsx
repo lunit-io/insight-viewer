@@ -1,4 +1,3 @@
-import { useStateMemo } from '@lunit/use-state-memo';
 import { useSnackbar } from '@ssen/snackbar';
 import React, { ReactNode, useMemo } from 'react';
 import styled from 'styled-components';
@@ -22,9 +21,12 @@ export function PanelExample({ width, height, children }: PanelExampleProps) {
     return width - sidebarWidth;
   }, [width]);
 
-  const childProps = useStateMemo<ChildProps>({
-    viewerWidth,
-  });
+  const childProps = useMemo<ChildProps>(
+    () => ({
+      viewerWidth,
+    }),
+    [viewerWidth],
+  );
 
   const { viewer, sidepanel } = children(childProps);
 

@@ -8,13 +8,12 @@ import {
   InsightViewerContainer,
   installWADOImageLoader,
   ProgressViewer,
+  useContour,
   useInsightViewerSync,
-  useUserContour,
 } from '@lunit/insight-viewer';
 import { ViewportInfoLabel } from '@lunit/opt-components';
 import { OPTControlState, useOPTControl } from '@lunit/use-opt-control';
 import { useResetTime } from '@lunit/use-reset-time';
-import { useStateMemo } from '@lunit/use-state-memo';
 import { useSnackbar } from '@ssen/snackbar';
 import React, { ReactNode, useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -73,7 +72,7 @@ export function AnnotationExample<T extends Contour>({
     removeAllContours,
     updateContour,
     reset,
-  } = useUserContour({
+  } = useContour({
     initialContours,
     mode: contourMode,
   });
@@ -82,27 +81,50 @@ export function AnnotationExample<T extends Contour>({
     return width - sidebarWidth;
   }, [width]);
 
-  const childProps = useStateMemo<ChildProps<T>>({
-    cornerstoneRenderData,
-    control,
-    flip,
-    invert,
-    updateControl,
-    resetControl,
-    updateFlip,
-    updateInvert,
-    contours,
-    focusedContour,
-    addContour,
-    removeContour,
-    focusContour,
-    addContours,
-    removeAllContours,
-    updateContour,
-    viewerWidth,
-    interactionElement,
-    reset,
-  });
+  const childProps = useMemo<ChildProps<T>>(
+    () => ({
+      cornerstoneRenderData,
+      control,
+      flip,
+      invert,
+      updateControl,
+      resetControl,
+      updateFlip,
+      updateInvert,
+      contours,
+      focusedContour,
+      addContour,
+      removeContour,
+      focusContour,
+      addContours,
+      removeAllContours,
+      updateContour,
+      viewerWidth,
+      interactionElement,
+      reset,
+    }),
+    [
+      cornerstoneRenderData,
+      control,
+      flip,
+      invert,
+      updateControl,
+      resetControl,
+      updateFlip,
+      updateInvert,
+      contours,
+      focusedContour,
+      addContour,
+      removeContour,
+      focusContour,
+      addContours,
+      removeAllContours,
+      updateContour,
+      viewerWidth,
+      interactionElement,
+      reset,
+    ],
+  );
 
   const { viewer, sidepanel } = children(childProps);
 
