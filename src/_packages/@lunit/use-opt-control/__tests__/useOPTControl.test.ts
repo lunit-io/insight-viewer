@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useOPTControl } from '../useOPTControl';
+import { useControl } from '../useControl';
 
 describe('useOPTControl()', () => {
   test('basic', () => {
-    const { result } = renderHook(() => useOPTControl());
+    const { result } = renderHook(() => useControl());
 
     expect(result.current.control).toBe('pan');
     expect(result.current.invert).toBeFalsy();

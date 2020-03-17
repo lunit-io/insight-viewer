@@ -1,17 +1,15 @@
 {
   "name": "@lunit/use-reset-time",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reset Time control hook",
-  "author": {
-    "name": "Seoyeon Lee",
-    "email": "seoyeon.lee@lunit.io"
-  },
+  "author": "Seoyeon Lee <seoyeon.lee@lunit.io>",
   "repository": "lunit-io/frontend-components",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
+  "typings": "index.d.ts",
   "dependencies": {
     "react": ">=16.12.0"
   }

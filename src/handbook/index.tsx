@@ -7,6 +7,8 @@ import { isPolygonAreaGreaterThanAreaPages } from '@lunit/is-polygon-area-greate
 import { newWindowPages } from '@lunit/new-window/__pages__';
 import { optControlIcons } from '@lunit/opt-control-icons/__pages__';
 import { useDialogPages } from '@lunit/use-dialog/__pages__';
+import { useControlPages } from '@lunit/use-opt-control/__pages__';
+import { useResetTimePages } from '@lunit/use-reset-time/__pages__';
 import React from 'react';
 import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -34,6 +36,8 @@ const handbookConfig: HandbookConfig = {
     'new-window': newWindowPages,
     'opt-control-icons': optControlIcons,
     'use-dialog': useDialogPages,
+    'use-opt-control': useControlPages,
+    'use-reset-time': useResetTimePages,
   },
 };
 

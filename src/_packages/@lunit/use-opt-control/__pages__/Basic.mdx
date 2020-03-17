@@ -1,3 +1,6 @@
+import { source } from '@handbook/source';
+import { Example } from '@handbook/components';
+
 # `@lunit/use-opt-control`
 
 `<InsightViewer>`에서 사용되는 `control={}`, `flip={}`, `invert={}` 상태를 관리하는데 사용된다.
@@ -16,10 +19,6 @@ function Component() {
 }
 ```
 
-<http://frontend-components-handbook.netlify.com/#/use-opt-control>
+# Test
 
-# Install
-
-```sh
-npm install @lunit/use-opt-control
-```
+<Example example={source('../__tests__/useOPTControl.test')} />
