@@ -1,22 +1,37 @@
 import { Component, useEffect, useState } from 'react';
 
+/** window.open() 새 창의 width, height */
 export interface WindowFeatures {
   width: number;
   height: number;
 }
 
 export interface NewWindowProps<T> {
+  /** Window의 URL */
   url: string;
+
+  /** Window로 전달할 Data */
   value: T;
+
+  /** window.open() 의 3번째 인자로 전달되는 features */
   features: WindowFeatures | string;
+
+  /** Window가 열렸을때 */
   onOpen?: (window: Window) => void;
-  onBlock?: () => void;
+
+  /** Window가 닫혔을때 */
   onClose?: () => void;
+
+  /** Window를 열려고 했지만, Browser Pop-up 제한에 막혔을때 */
+  onBlock?: () => void;
 }
 
 const VALUE: string = '__window_value__';
 const UPDATE: string = '__window_value_update__';
 
+/**
+ * Window를 연다
+ */
 export class NewWindow<T> extends Component<NewWindowProps<T>, {}> {
   private windowObject!: Window;
   private intervalId!: number;
@@ -47,7 +62,7 @@ export class NewWindow<T> extends Component<NewWindowProps<T>, {}> {
     const windowObject: Window | null = window.open(
       url,
       '_blank',
-      typeof features === 'string' ? features : parseWindowFeatures(features),
+      typeof features === 'string' ? features : `width=${features.width}, height=${features.height}`,
     );
 
     if (windowObject) {
@@ -88,10 +103,9 @@ export class NewWindow<T> extends Component<NewWindowProps<T>, {}> {
   }
 }
 
-function parseWindowFeatures({ width, height }: WindowFeatures): string {
-  return `width=${width}, height=${height}`;
-}
-
+/**
+ * Window에서 <NewWindow value={}/> 로 넣어진 Data를 받는다
+ */
 export function useWindowValue<T>(): T | undefined {
   const [value, setValue] = useState<T | undefined>(() => {
     return window[VALUE];

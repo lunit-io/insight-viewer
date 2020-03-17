@@ -14,8 +14,9 @@ script:
   - npm run lint
   - npm run test
   - npm run package:build
-  - npm run storybook:build
   - npm run handbook:build
+  - npm run handbook-insight-viewer-sample:build
+  - npm run handbook-new-window-sample:build
   - npm run ui-guideline:build
 deploy:
   # npm publish
@@ -24,24 +25,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-  # https://lunit-io.github.io/frontend-components
-  - provider: pages
-    skip_cleanup: true
-    token: $GITHUB_TOKEN
-    keep_history: true
-    local_dir: ./dist-storybook
-    on:
-      all_branches: true
-  # storybook
-  - provider: pages
-    skip_cleanup: true
-    token: $GITHUB_TOKEN
-    keep_history: true
-    local_dir: ./dist-storybook
-    target_branch: dist/storybook/$TRAVIS_BRANCH
-    on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|develop|feature|release)
   # handbook
   - provider: pages
     skip_cleanup: true
@@ -52,6 +35,23 @@ deploy:
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH =~ ^(master|develop|feature|release)
+  # handbook samples
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    local_dir: ./dist/handbook-insight-viewer-sample/browser
+    target_branch: dist/handbook-insight-viewer-sample
+    on:
+      all_branches: true
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    local_dir: ./dist/handbook-new-window-sample/browser
+    target_branch: dist/handbook-new-window-sample
+    on:
+      all_branches: true
   # https://lunit-io.github.io/ui-guideline
   - provider: pages
     skip_cleanup: true

@@ -1,0 +1,26 @@
+import { component, source } from '@handbook/source';
+import { Example, Preview } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
+
+# `@lunit/new-window`
+
+`window.open()`을 대체하는 용도로 사용할 수 있다.   
+
+Main Window와 Popup Window의 Data가 React Hook으로 연결되기 때문에,   
+Main Window를 보조하는 Popup을 만드는 용도로 사용할 수 있다.
+
+> `window.open()` 으로 Window를 연 다음 `createPortal()`을 사용해서 제어하는 방법도 있지만,   
+> 양측의 `window` 객체가 다르다는 것에 의해 여러가지 문제들이 발생하게 된다.    
+> 양측을 분리된 별개의 Window로 구성하고, 단순히 Data로만 연결하는 것이 더 안정적인 방법이었다.
+
+# Usage
+
+[Sample Site](https://handbook-new-window-sample.netlify.com)
+
+아래와 같이 Main Window에서 `<NewWindow>`를 사용해서 Window를 열 수 있다.
+
+<Example example={source('../../../../handbook-new-window-sample/components/MainContent')} />
+
+열려진 Window에서는 `useWindowValue()`를 사용해서 Main Window에서 전달한 Data를 받을 수 있다.
+
+<Example example={source('../../../../handbook-new-window-sample/components/WindowContent')} />

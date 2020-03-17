@@ -4,6 +4,7 @@ import { insightViewerPages } from '@lunit/insight-viewer/__pages__';
 import { isComplexPolygonPages } from '@lunit/is-complex-polygon/__pages__';
 import { isIntersectionPages } from '@lunit/is-intersection/__pages__';
 import { isPolygonAreaGreaterThanAreaPages } from '@lunit/is-polygon-area-greater-than-area/__pages__';
+import { newWindowPages } from '@lunit/new-window/__pages__';
 import React from 'react';
 import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -28,6 +29,7 @@ const handbookConfig: HandbookConfig = {
     'is-complex-polygon': isComplexPolygonPages,
     'is-polygon-area-greater-than-area': isPolygonAreaGreaterThanAreaPages,
     'insight-viewer': insightViewerPages,
+    'new-window': newWindowPages,
   },
 };
 
