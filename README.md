@@ -31,7 +31,7 @@
 - [src/_packages/@lunit/use-control-log/README.md](src/_packages/@lunit/use-control-log/README.md)
 - [src/_packages/@lunit/use-dialog/README.md](src/_packages/@lunit/use-dialog/README.md)
 - [src/_packages/@lunit/use-opt-control/README.md](src/_packages/@lunit/use-opt-control/README.md)
+- [src/_packages/@lunit/use-reset-time/README.md](src/_packages/@lunit/use-reset-time/README.md)
 - [src/_packages/@lunit/use-shortcut/README.md](src/_packages/@lunit/use-shortcut/README.md)
-- [src/_packages/@lunit/use-state-memo/README.md](src/_packages/@lunit/use-state-memo/README.md)
 
 <!-- indexend -->
