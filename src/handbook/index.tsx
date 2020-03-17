@@ -6,6 +6,7 @@ import { isIntersectionPages } from '@lunit/is-intersection/__pages__';
 import { isPolygonAreaGreaterThanAreaPages } from '@lunit/is-polygon-area-greater-than-area/__pages__';
 import { newWindowPages } from '@lunit/new-window/__pages__';
 import { optControlIcons } from '@lunit/opt-control-icons/__pages__';
+import { useDialogPages } from '@lunit/use-dialog/__pages__';
 import React from 'react';
 import { render } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -32,6 +33,7 @@ const handbookConfig: HandbookConfig = {
     'insight-viewer': insightViewerPages,
     'new-window': newWindowPages,
     'opt-control-icons': optControlIcons,
+    'use-dialog': useDialogPages,
   },
 };
 

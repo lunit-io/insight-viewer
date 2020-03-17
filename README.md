@@ -26,7 +26,6 @@
 - [src/_packages/@lunit/opt-components/README.md](src/_packages/@lunit/opt-components/README.md)
 - [src/_packages/@lunit/opt-control-icons/README.md](src/_packages/@lunit/opt-control-icons/README.md)
 - [src/_packages/@lunit/opt-login-components/README.md](src/_packages/@lunit/opt-login-components/README.md)
-- [src/_packages/@lunit/scalebar/README.md](src/_packages/@lunit/scalebar/README.md)
 - [src/_packages/@lunit/screenshot/README.md](src/_packages/@lunit/screenshot/README.md)
 - [src/_packages/@lunit/timeout/README.md](src/_packages/@lunit/timeout/README.md)
 - [src/_packages/@lunit/use-control-log/README.md](src/_packages/@lunit/use-control-log/README.md)
