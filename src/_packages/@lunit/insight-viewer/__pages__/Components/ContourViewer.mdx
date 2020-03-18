@@ -28,6 +28,7 @@ export interface ContourViewerProps<T extends Contour> extends InsightViewerGues
   /**
    * Line에 외곽을 그려준다
    * Line을 두 개 그려서 border를 표현하기 때문에,성능에 민감한 상황인 경우 비활성 시킬 수 있다.
+   * default: true
    */
   border?: boolean;
 }
@@ -42,6 +43,8 @@ export interface ContourViewerProps<T extends Contour> extends InsightViewerGues
 <Example example={component('./ContourViewer/Basic')}>
   <InsightViewerPreview height={720}/>
 </Example>
+
+[useContour()에 대해 자세히 알아보기](https://frontend-components-handbook.netlify.com/#/insight-viewer/usecontour())
 
 # Styling
 
