@@ -11,6 +11,7 @@ Contour의 Mouse Over Event를 위해 `<ContourDrawer>`에서 Drawing 기능만 
 Focused Color를 변경하고자 한다면 `<ContourViewer>`에 Contour가 그려지기 때문에 `<ContourViewer>`를 통해 변경하여야 한다.
 
 ```ts
+export interface ContourHoverProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -30,6 +31,7 @@ Focused Color를 변경하고자 한다면 `<ContourViewer>`에 Contour가 그�
   onFocus: (contour: T | null) => void;
 
   className?: string;
+}
 ```
 
 <Example example={component('./ContourViewer/Basic')}>
