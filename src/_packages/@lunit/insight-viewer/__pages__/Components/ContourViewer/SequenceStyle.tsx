@@ -1,5 +1,6 @@
 import {
   ContourViewer,
+  ContourHover,
   CornerstoneImage,
   CornerstoneSingleImage,
   InsightViewer,
@@ -64,7 +65,7 @@ export default () => {
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data
-  const { contours, focusedContour } = useContour({
+  const { contours, focusedContour, focusContour } = useContour({
     mode: 'contour', // is [x, y][]
     initialContours,
   });
@@ -86,13 +87,23 @@ export default () => {
             updateCornerstoneRenderData={updateCornerstoneRenderData}
           />
           {contours && contours.length > 0 && cornerstoneRenderData && (
-            <SequenceStyleViewer
-              width={width}
-              height={height}
-              contours={contours}
-              focusedContour={focusedContour}
-              cornerstoneRenderData={cornerstoneRenderData}
-            />
+            <>
+              <SequenceStyleViewer
+                width={width}
+                height={height}
+                contours={contours}
+                focusedContour={focusedContour}
+                cornerstoneRenderData={cornerstoneRenderData}
+              />
+              <ContourHover
+                hover
+                width={width}
+                height={height}
+                contours={contours}
+                onFocus={focusContour}
+                cornerstoneRenderData={cornerstoneRenderData}
+              />
+            </>
           )}
         </InsightViewerContainer>
       )}
