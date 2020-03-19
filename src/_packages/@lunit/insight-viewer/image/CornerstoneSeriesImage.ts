@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ParallelImageLoader } from './ParallelImageLoader';
-import { CornerstoneBulkImage, getProgressEventDetail, ImageLoader, ProgressEventDetail } from './types';
+import { CornerstoneSequenceImage, getProgressEventDetail, ImageLoader, ProgressEventDetail } from './types';
 import { wadoImageLoaderXHRLoader } from './wadoImageLoaderXHRLoader';
 
 function isImage(image: cornerstone.Image | null): image is cornerstone.Image {
@@ -18,7 +18,7 @@ interface Options {
 
 const defaultLoader: ImageLoader = new ParallelImageLoader();
 
-export class CornerstoneSeriesImage implements CornerstoneBulkImage {
+export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
   private readonly _images: (cornerstone.Image | null)[];
   private readonly _imageSubject: BehaviorSubject<cornerstone.Image | null>;
   private readonly _progressSubject: BehaviorSubject<number[]>;

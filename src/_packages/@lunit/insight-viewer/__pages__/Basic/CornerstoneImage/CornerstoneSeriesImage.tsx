@@ -1,13 +1,18 @@
-import { CornerstoneSeriesImage, installWADOImageLoader, unloadImage } from '@lunit/insight-viewer';
-import series from '../../../__fixtures__/series.json';
+import {
+  CornerstoneSequenceImage,
+  CornerstoneSeriesImage,
+  installWADOImageLoader,
+  unloadImage,
+} from '@lunit/insight-viewer';
 import React, { useEffect, useMemo, useState } from 'react';
+import series from '../../../__fixtures__/series.json';
 
 installWADOImageLoader();
 
 export default () => {
   const [log, setLog] = useState<string[]>(() => []);
 
-  const image: CornerstoneSeriesImage = useMemo(
+  const image: CornerstoneSequenceImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
         series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),

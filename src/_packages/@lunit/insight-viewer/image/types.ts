@@ -9,8 +9,7 @@ export interface CornerstoneImage {
   destroy: () => void;
 }
 
-/** @deprecated use just CornerstoneSeriesImage */
-export interface CornerstoneBulkImage extends CornerstoneImage {
+export interface CornerstoneSequenceImage extends CornerstoneImage {
   /** 총 이미지 갯수 */
   length: () => number;
   /** 현재 보여주고 있는 Image의 index number */
@@ -24,6 +23,9 @@ export interface CornerstoneBulkImage extends CornerstoneImage {
   /** 특정 index number의 Image 보기 */
   goto: (index: number) => void;
 }
+
+/** @deprecated use CornerstoneSequenceImage */
+export interface CornerstoneBulkImage extends CornerstoneSequenceImage {}
 
 export interface ProgressEventDetail {
   url: string;
@@ -57,4 +59,17 @@ export interface LoadImageParams {
 
 export interface ImageLoader {
   loadImage: (params: LoadImageParams) => Promise<cornerstone.Image>;
+}
+
+export interface NpyImageInfo {
+  id: string;
+  windowCenter: number;
+  windowWidth: number;
+  sliceSpacing: number;
+  rowPixelSpacing: number;
+  columnPixelSpacing: number;
+  slope?: number;
+  intercept?: number;
+  minPixelValue?: number;
+  maxPixelValue?: number;
 }
