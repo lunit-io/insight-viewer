@@ -18,7 +18,7 @@ export interface ContourViewerProps<T extends Contour> extends InsightViewerGues
   
   /**
    * Mouse Over 등 User Interaction에 의해서 Focus 된 Contour
-   * <ContorHover>와 꼭 같이 써줘야 Event가 발생한다.
+   * `<ContourViewer>`는 Focus 관련 Event 기능이 없기 때문에 `<ContourHover>`와 같이 써줘야 한다.
    */
   focusedContour: T | null;
   
