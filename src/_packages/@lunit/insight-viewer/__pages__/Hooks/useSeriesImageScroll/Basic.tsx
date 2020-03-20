@@ -1,4 +1,5 @@
 import {
+  CornerstoneSequenceImage,
   CornerstoneSeriesImage,
   installWADOImageLoader,
   unloadImage,
@@ -13,7 +14,7 @@ installWADOImageLoader();
 export default () => {
   const [log, setLog] = useState<string[]>(() => []);
 
-  const image: CornerstoneSeriesImage = useMemo(
+  const image: CornerstoneSequenceImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
         series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),

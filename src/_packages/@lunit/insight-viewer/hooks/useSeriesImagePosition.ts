@@ -1,4 +1,4 @@
-import { CornerstoneSeriesImage } from '@lunit/insight-viewer';
+import { CornerstoneSequenceImage } from '@lunit/insight-viewer';
 import { useEffect, useState } from 'react';
 
 interface SeriesImagePosition {
@@ -9,7 +9,7 @@ interface SeriesImagePosition {
   end: number;
 }
 
-export function useSeriesImagePosition(image: CornerstoneSeriesImage): SeriesImagePosition {
+export function useSeriesImagePosition(image: CornerstoneSequenceImage): SeriesImagePosition {
   const [result, setResult] = useState<{ current: number; end: number }>(() => ({
     current: image.getIndex(),
     end: image.length() - 1,

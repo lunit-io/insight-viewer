@@ -59,7 +59,7 @@ export class CornerstoneSingleImage implements CornerstoneImage {
   private loadImage = async (imageId: string) => {
     try {
       const image = await this._loader.loadImage({
-        imageId: imageId,
+        imageId,
         options: { loader: wadoImageLoaderXHRLoader(cancel => this._cancel.push(cancel)) },
       });
 

@@ -1,4 +1,5 @@
 import {
+  CornerstoneSequenceImage,
   CornerstoneSeriesImage,
   InsightViewer,
   InsightViewerContainer,
@@ -12,7 +13,7 @@ import series from '../../../__fixtures__/series.json';
 installWADOImageLoader();
 
 export default () => {
-  const image: CornerstoneSeriesImage = useMemo(
+  const image: CornerstoneSequenceImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
         series.map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),

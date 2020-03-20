@@ -8,6 +8,7 @@ import {
 import React, { useMemo } from 'react';
 
 installWADOImageLoader();
+
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>

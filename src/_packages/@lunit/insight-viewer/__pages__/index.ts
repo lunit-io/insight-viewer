@@ -26,4 +26,8 @@ export const insightViewerPages: HandbookTreeNode = {
   'useImageStore()': page('./Hooks/useImageStore'),
   'useInsightViewerSync()': page('./Hooks/useInsightViewerSync'),
   'useViewportMirroring()': page('./Hooks/useViewportMirroring'),
+  CT: {
+    'Get ArrayBuffer': page('./CT/GetArrayBuffer'),
+    'Convert to Images': page('./CT/ConvertToImages'),
+  },
 };
