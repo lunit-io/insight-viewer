@@ -1,5 +1,6 @@
 import {
   CircleViewer,
+  CircleHover,
   CornerstoneImage,
   CornerstoneSingleImage,
   InsightViewer,
@@ -39,7 +40,7 @@ export default () => {
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data
-  const { contours, focusedContour } = useContour({
+  const { contours, focusedContour, focusContour } = useContour({
     mode: 'circle',
     initialContours,
   });
@@ -61,13 +62,23 @@ export default () => {
             updateCornerstoneRenderData={updateCornerstoneRenderData}
           />
           {contours && contours.length > 0 && cornerstoneRenderData && (
-            <CircleViewer
-              width={width}
-              height={height}
-              contours={contours}
-              focusedContour={focusedContour}
-              cornerstoneRenderData={cornerstoneRenderData}
-            />
+            <>
+              <CircleViewer
+                width={width}
+                height={height}
+                contours={contours}
+                focusedContour={focusedContour}
+                cornerstoneRenderData={cornerstoneRenderData}
+              />
+              <CircleHover
+                hover={divElement}
+                width={width}
+                height={height}
+                contours={contours}
+                onFocus={focusContour}
+                cornerstoneRenderData={cornerstoneRenderData}
+              />
+            </>
           )}
         </InsightViewerContainer>
       )}

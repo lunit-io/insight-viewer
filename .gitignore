@@ -10,3 +10,4 @@
 /yarn.lock
 /dist
 /dist-storybook
+/.vscode

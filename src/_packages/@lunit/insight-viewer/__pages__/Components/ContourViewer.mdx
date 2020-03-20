@@ -16,7 +16,10 @@ export interface ContourViewerProps<T extends Contour> extends InsightViewerGues
   /** Contour 데이터를 상속받은 Annotation 데이터 */
   contours: T[];
   
-  /** Mouse Over 등 User Interaction에 의해서 Focus 된 Contour */
+  /**
+   * Mouse Over 등 User Interaction에 의해서 Focus 된 Contour
+   * `<ContourViewer>`는 Focus 관련 Event 기능이 없기 때문에 `<ContourHover>`와 같이 써줘야 한다.
+   */
   focusedContour: T | null;
   
   /** <svg className={}> */
