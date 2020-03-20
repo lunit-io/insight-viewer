@@ -10,7 +10,7 @@
 # Start development
 
 - `npm test` Run unit test (Jest)
-- `npm start` Run storybook test (Storybook)
+- `npm run handbook:start` Run handbook test (Handbook)
 
 # Packages
 
