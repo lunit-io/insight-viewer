@@ -37,6 +37,12 @@ export * from './image/CornerstoneSeriesImage';
 export * from './image/ParallelImageLoader';
 export * from './image/QueueImageLoader';
 
+export * from './image/fetchBuffer';
+export * from './image/fileToBuffer';
+export * from './image/CornerstoneFileSingleImage';
+export * from './image/CornerstoneStaticSeriesImage';
+export * from './image/mapNpyBufferToImages';
+
 export * from './behaviors/updateViewport';
 
 export * from './theme/style';

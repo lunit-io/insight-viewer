@@ -1,8 +1,8 @@
-import { CornerstoneSeriesImage } from '@lunit/insight-viewer';
+import { CornerstoneSequenceImage } from '@lunit/insight-viewer';
 import { useEffect } from 'react';
 
 interface SeriesImageScrollParams {
-  image: CornerstoneSeriesImage;
+  image: CornerstoneSequenceImage;
 
   /** Wheel Event를 처리할 EventTarget */
   element: HTMLElement | null;

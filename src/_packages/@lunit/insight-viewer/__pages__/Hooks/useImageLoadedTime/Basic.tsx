@@ -15,7 +15,7 @@ export default () => {
       series
         .slice(0, 5)
         .map(
-          p => new CornerstoneSingleImage(`wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`),
+          p => new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`),
         ),
     [],
   );
