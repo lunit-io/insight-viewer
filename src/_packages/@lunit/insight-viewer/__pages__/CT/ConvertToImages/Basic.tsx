@@ -6,6 +6,7 @@ import {
   InsightViewerContainer,
   installWADOImageLoader,
   mapNpyBufferToImages,
+  NpyCornerstoneImages,
   ProgressViewer,
   RightTopHolder,
   StrokeText,
@@ -13,6 +14,7 @@ import {
   useSeriesImageScroll,
 } from '@lunit/insight-viewer';
 import React, { useEffect, useState } from 'react';
+import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 installWADOImageLoader();
@@ -68,16 +70,16 @@ export default () => {
   useEffect(() => {
     const abort = new AbortController();
 
-    const buffer = fetchBuffer({
+    const buffer: Observable<number | ArrayBufferLike> = fetchBuffer({
       url: 'https://opt-frontend.s3.ap-northeast-2.amazonaws.com/fixtures/npy/image.npy',
       signal: abort.signal,
     });
 
-    const progress = buffer.pipe(
+    const progress: Observable<number> = buffer.pipe(
       map(progressOrBytes => (typeof progressOrBytes === 'number' ? progressOrBytes : progressOrBytes ? 1 : 0)),
     );
 
-    const images = buffer.pipe(
+    const images: Observable<NpyCornerstoneImages> = buffer.pipe(
       filter<number | ArrayBufferLike, ArrayBufferLike>(
         (progressOrBytes: number | ArrayBufferLike): progressOrBytes is ArrayBufferLike => {
           return typeof progressOrBytes !== 'number' && !!progressOrBytes;

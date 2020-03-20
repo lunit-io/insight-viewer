@@ -2,7 +2,7 @@ import { Observable, OperatorFunction, Subscription } from 'rxjs';
 import { npy } from './npy';
 import { NpyImageInfo } from './types';
 
-interface Images {
+export interface NpyCornerstoneImages {
   axial: cornerstone.Image[];
   coronal: cornerstone.Image[];
   sagittal: cornerstone.Image[];
@@ -19,8 +19,10 @@ export const mapNpyBufferToImages = ({
   intercept = 0.0,
   minPixelValue = -2048,
   maxPixelValue = 3096,
-}: NpyImageInfo): OperatorFunction<ArrayBufferLike, Images> => (observable: Observable<ArrayBufferLike>) =>
-  new Observable<Images>(observer => {
+}: NpyImageInfo): OperatorFunction<ArrayBufferLike, NpyCornerstoneImages> => (
+  observable: Observable<ArrayBufferLike>,
+) =>
+  new Observable<NpyCornerstoneImages>(observer => {
     const subscription: Subscription = observable.subscribe(
       buffer => {
         const {
