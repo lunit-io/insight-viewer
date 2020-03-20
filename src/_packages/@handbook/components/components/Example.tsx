@@ -1,5 +1,5 @@
 import { CodeBlock } from '@handbook/code-block';
-import { Example as E } from '@handbook/source';
+import { Example as E, api as getAPI } from '@handbook/source';
 import {
   Button,
   Dialog,
@@ -30,6 +30,7 @@ interface Props {
   className?: string;
   style?: CSSProperties;
   example: E;
+  api?: string[] | boolean;
   children?: ReactElement<{ children: ReactNode }>;
 }
 
@@ -37,12 +38,18 @@ const VSCODE_KEY: string = '__handbook_vscode__';
 
 const VSCodeIcon = createSvgIcon(createElement(VSCodeSvg), VSCodeSvg.displayName || 'VSCodeIcon');
 
-export function ExampleBase({ example: { component, source, filename }, className, style, children }: Props) {
+export function ExampleBase({ example: { component, source, filename }, className, api, style, children }: Props) {
   const { github, vscode } = useHandbook();
 
   const [vscodeProject, setVSCodeProject] = useState<string>(() => localStorage.getItem(VSCODE_KEY) || '');
   const [project, setProject] = useState<string>(() => vscodeProject);
   const [open, setOpen] = useState<boolean>(false);
+
+  const filteredSource: string = api
+    ? Array.from(getAPI(...(Array.isArray(api) ? api : []))(source.default))
+        .map(([, code]) => code)
+        .join('\n\n')
+    : source.default;
 
   return (
     <div className={className} style={style} data-file={filename}>
@@ -53,7 +60,7 @@ export function ExampleBase({ example: { component, source, filename }, classNam
         })}
 
       <div>
-        <CodeBlock children={source.default} language={filename.split('.').reverse()[0] as Language} />
+        <CodeBlock children={filteredSource} language={filename.split('.').reverse()[0] as Language} />
 
         <div>
           {github && (

@@ -1,7 +1,7 @@
 import React, { SVGProps } from 'react';
 import { useHeatmapScaleImageURI } from '../hooks/useHeatmapScaleImageURI';
 
-interface HeatmapScaleImageProps extends SVGProps<SVGImageElement> {
+export interface HeatmapScaleImageProps extends SVGProps<SVGImageElement> {
   threshold?: number;
   width: number;
   height: number;

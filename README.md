@@ -17,6 +17,7 @@
 <!-- index src/_packages/**/README.md -->
 
 - [src/_packages/@handbook/code-block/README.md](src/_packages/@handbook/code-block/README.md)
+- [src/_packages/@handbook/source/README.md](src/_packages/@handbook/source/README.md)
 - [src/_packages/@lunit/handbook/README.md](src/_packages/@lunit/handbook/README.md)
 - [src/_packages/@lunit/heatmap/README.md](src/_packages/@lunit/heatmap/README.md)
 - [src/_packages/@lunit/insight-viewer/README.md](src/_packages/@lunit/insight-viewer/README.md)
