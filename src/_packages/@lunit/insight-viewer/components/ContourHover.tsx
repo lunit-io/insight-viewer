@@ -31,15 +31,6 @@ interface ContourHoverState {
   polygon: Point[];
 }
 
-function toLocal(element: HTMLElement, polygon: Point[]): string {
-  return polygon
-    .map(([x, y]) => {
-      const p = cornerstone.pixelToCanvas(element, { x, y });
-      return p.x + ',' + p.y;
-    })
-    .join(' ');
-}
-
 export class ContourHoverBase<T extends Contour> extends Component<ContourHoverProps<T>, ContourHoverState> {
   private svg: SVGSVGElement | null = null;
   private element: HTMLElement | null = null;
@@ -64,13 +55,7 @@ export class ContourHoverBase<T extends Contour> extends Component<ContourHoverP
           width={this.props.width}
           height={this.props.height}
           className={this.props.className}
-        >
-          {this.props.cornerstoneRenderData && this.state.polygon && this.state.polygon.length > 0 && (
-            <>
-              <polyline points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)} />
-            </>
-          )}
-        </svg>
+        ></svg>
       </>
     );
   }
@@ -134,8 +119,6 @@ export class ContourHoverBase<T extends Contour> extends Component<ContourHoverP
   };
 
   onMouseMoveToFindFocus = (event: MouseEvent) => {
-    event.stopPropagation();
-
     this.findFocus(event.pageX, event.pageY);
   };
 
@@ -158,8 +141,3 @@ export const ContourHover: new <T extends Contour>() => ContourHoverBase<T> = st
   top: 0;
   left: 0;
 ` as any;
-
-/**
- * @deprecated use ContourHover instead
- */
-export const UserContourHover = ContourHover;

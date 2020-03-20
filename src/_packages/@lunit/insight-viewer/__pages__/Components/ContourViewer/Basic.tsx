@@ -71,7 +71,7 @@ export default () => {
                 cornerstoneRenderData={cornerstoneRenderData}
               />
               <ContourHover
-                hover
+                hover={divElement}
                 width={width}
                 height={height}
                 contours={contours}

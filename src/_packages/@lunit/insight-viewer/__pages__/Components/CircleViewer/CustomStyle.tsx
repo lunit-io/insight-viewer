@@ -82,7 +82,7 @@ export default () => {
                 cornerstoneRenderData={cornerstoneRenderData}
               />
               <CircleHover
-                hover
+                hover={divElement}
                 width={width}
                 height={height}
                 contours={contours}
