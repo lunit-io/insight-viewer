@@ -26,7 +26,7 @@ const controllerOptions: InsightViewerControllerOptions = {
 
 const imageIds: string[] = series
   .slice(0, 10)
-  .map(p => `wadouri:https://lunit-frontend-fixtures.netlify.com/dcm-files/series/${p}`);
+  .map(p => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`);
 
 function Sample() {
   const { fetch } = useImageStore();
