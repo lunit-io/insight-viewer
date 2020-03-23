@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 import useHeatmapScaleImageURIPreview from './Samples/useHeatmapScaleImageURIPreview.png';
 import heatmapScaleSVGImagePreview from './Samples/heatmapScaleSVGImagePreview.png';
@@ -6,6 +6,8 @@ import heatmapScaleSVGImagePreview from './Samples/heatmapScaleSVGImagePreview.p
 # `useHeatmapScaleImageURI()`
 
 UI 상에서 Heatmap Scale Indicator를 만들때 사용한다.
+
+<Example example={source('../hooks/useHeatmapScaleImageURI')} api />
 
 `<canvas>`에 렌더링 할 때 필요하며, 보통의 경우 `<HeatmapScaleSVGImage>`를 사용하면 된다.
 
@@ -16,6 +18,8 @@ UI 상에서 Heatmap Scale Indicator를 만들때 사용한다.
 </Example>
 
 # `<HeatmapScaleSVGImage>`
+
+<Example example={source('../components/HeatmapScaleSVGImage')} api />
 
 `useHeatmapScaleImageURI()`를 SVG `<image>`로 만들어준다.
 

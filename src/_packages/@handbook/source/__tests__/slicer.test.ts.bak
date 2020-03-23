@@ -1,0 +1,92 @@
+import { transform } from '@babel/core';
+import traverse, { NodePath } from '@babel/traverse';
+import { ExportDeclaration, TSInterfaceDeclaration } from '@babel/types';
+
+const source: string = `
+/**
+ * Foo....
+ */
+export interface X {
+  a: string;
+  b: number;
+}
+
+export interface Y {
+  /** foo... */
+  a: string;
+  
+  /** bar... */
+  b: number;
+}
+
+/**
+ * hello?
+ */
+export function x({ a, b }: { a: number, b: number }): number {
+  console.log('hello world?');
+  return a + b;
+}
+
+export function y() {
+  console.log('hello world?');
+}
+
+/**
+ * hello?
+ */
+export function z() {
+  console.log('hello world?');
+}
+
+export const xx: string = 'aaaa';
+
+export const yy: number = 12323;
+
+
+`;
+
+/**
+ * dksjksjksj
+ */
+const cwd: string = process.cwd();
+const filename: string = 'src/dir/test.tsx';
+
+describe('slicer', () => {
+  test('test...', () => {
+    const result = transform(source, {
+      babelrc: false,
+      ast: true,
+      cwd,
+      filename,
+      //plugins: [require.resolve('@babel/plugin-syntax-jsx')],
+      presets: [require.resolve('@babel/preset-typescript')],
+    });
+
+    if (!result || !result.ast) return;
+
+    traverse(result.ast, {
+      TSInterfaceDeclaration(path: NodePath<TSInterfaceDeclaration>) {
+        console.log('slicer.test.ts..TSInterfaceDeclaration()', path);
+      }
+      
+      //ExportDeclaration(path: NodePath<ExportDeclaration>) {
+      //  console.log(path);
+      //},
+
+      //ExportNamedDeclaration(path: NodePath<ExportNamedDeclaration>) {
+      //  const start: number =
+      //    path.node.leadingComments && path.node.leadingComments.length > 0
+      //      ? Math.max(...path.node.leadingComments.map(({ start }) => start))
+      //      : path.node.start || 0;
+      //  const end: number =
+      //    path.node.declaration.type === 'FunctionDeclaration'
+      //      ? (path.node.declaration as FunctionDeclaration).body.start || path.node.end || 0
+      //      : path.node.end || 0;
+      //
+      //  const sliced: string = source.substring(start, end);
+      //
+      //  console.log(sliced);
+      //},
+    });
+  });
+});

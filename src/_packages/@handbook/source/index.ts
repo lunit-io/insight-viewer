@@ -31,3 +31,5 @@ export function source(path: string, content?: Example): Example {
   }
   return content;
 }
+
+export * from './transpile/api';
