@@ -38,7 +38,7 @@ npm install @lunit/insight-viewer@alpha
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#222232" />
-    <base href="/"/>
+    <base href="/" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.json" />
     <title>Title</title>
@@ -68,9 +68,7 @@ import { installWADOImageLoader } from '@lunit/insight-viewer';
 installWADOImageLoader();
 
 function App() {
-  return (
-    <div>Hello</div>
-  );
+  return <div>Hello</div>;
 }
 
 render(<App />, document.querySelector('#app'));
@@ -84,7 +82,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 - `*.dcm` 파일을 사용하는 경우 `installWADOImageLoader()`를 실행한다.
 - `*.jpg`, `*.png`와 같은 이미지 파일들을 사용하는 경우 `installWebImageLoader()`를 실행한다.
 
-# 4. Style 
+# 4. Style
 
 우선 `styled-components`를 사용해서 `<GlobalStyle/>`을 만들어준다.
 
@@ -149,6 +147,6 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 
 아래와 같이 `<InsightViewer>`를 사용해서 설정이 제대로 되었는지 확인해본다.
 
-[Sample Site](https://handbook-insight-viewer-sample.netlify.com)
+[Sample Site](https://dist-handbook-insight-viewer-sample.d2vum99qvuarsy.amplifyapp.com/)
 
-<Example example={source('handbook-insight-viewer-sample/index')}/>
+<Example example={source('handbook-insight-viewer-sample/index')} />

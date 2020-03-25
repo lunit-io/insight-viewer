@@ -21,7 +21,7 @@
     "handbook-insight-viewer-sample:start": "zeroconfig-webapp-scripts start handbook-insight-viewer-sample --port 3301",
     "handbook-new-window-sample:build": "zeroconfig-webapp-scripts build handbook-new-window-sample --source-map true",
     "handbook-new-window-sample:start": "zeroconfig-webapp-scripts start handbook-new-window-sample --port 3302",
-    "start": "npm run storybook:start",
+    "start": "npm run handbook:start",
     "test": "jest --colors",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
