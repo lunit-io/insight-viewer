@@ -140,7 +140,7 @@
     "node-fetch": "^2.6.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.13.0",
-    "react-zeroconfig": "^3.27.2-alpha.2",
+    "react-zeroconfig": "^3.28.0-alpha.1",
     "typescript": "^3.8.3"
   }
 }

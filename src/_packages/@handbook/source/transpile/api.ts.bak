@@ -1,4 +1,4 @@
-import * as ts from 'typescript/lib/typescript';
+import ts from 'typescript';
 
 export function createSourceProgram(source: string, compilerOptions: ts.CompilerOptions = {}): ts.Program {
   const host: ts.CompilerHost = {
@@ -40,8 +40,8 @@ export function getExportNode(declaration: ts.Node) {
 export function removeBody(declaration: ts.Node) {
   if (ts.isClassLike(declaration)) {
     declaration.members = ts.createNodeArray();
-  } else if (ts.isFunctionDeclaration(declaration)) {
-    declaration.body = undefined;
+  } else if (ts.isFunctionDeclaration(declaration) && declaration.body) {
+    declaration.body.statements = ts.createNodeArray();
   } else if (ts.isVariableDeclaration(declaration)) {
     //@ts-ignore
     if (ts.isFunctionLike(declaration.initializer)) {
@@ -52,12 +52,12 @@ export function removeBody(declaration: ts.Node) {
       removeBody(declaration.body);
     } else {
       //@ts-ignore
-      declaration.body = undefined;
+      declaration.body.statements = ts.createNodeArray();
     }
   }
 }
 
-export const filterExports = (...names: string[]) => (source: string): Map<string, string> => {
+export const api = (...names: string[]) => (source: string): Map<string, string> => {
   const program = createSourceProgram(source);
   const sourceFile = program.getSourceFile('test.ts')!;
 
@@ -72,7 +72,7 @@ export const filterExports = (...names: string[]) => (source: string): Map<strin
   for (const { escapedName, declarations, valueDeclaration } of exports) {
     const name = escapedName.toString();
 
-    if (names.indexOf(name) === -1) continue;
+    if (names.length > 0 && names.indexOf(name) === -1) continue;
 
     const declaration: ts.Declaration | undefined = valueDeclaration || declarations[0];
 

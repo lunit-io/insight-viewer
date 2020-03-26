@@ -21,10 +21,9 @@ const isGreaterThanArea: number = 100;
 
 export default () => {
   const image: CornerstoneImage = useMemo(() => {
-    return new CornerstoneSingleImage(
-      `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
-      { unload: unloadImage },
-    );
+    return new CornerstoneSingleImage(`wadouri:https://fixtures.front.lunit.io/dcm-files/series/CT000010.dcm`, {
+      unload: unloadImage,
+    });
   }, []);
 
   const [divElement, setDivElement] = useState<HTMLElement | null>(null);

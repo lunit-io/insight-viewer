@@ -1,6 +1,13 @@
 /* eslint-disable */
 
+const errorMessage =
+  'you have to add <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/3.8.3/typescript.min.js"></script> in your html';
+
 export function createSourceProgram(source, compilerOptions = {}) {
+  if (!ts || !ts.createProgram) {
+    throw new Error(errorMessage);
+  }
+
   const host = {
     getSourceFile: (fileName, languageVersion, _onError) => {
       return fileName === 'test.ts'
@@ -38,6 +45,10 @@ export function getExportNode(declaration) {
 }
 
 export function removeBody(declaration) {
+  if (!ts || !ts.isClassLike) {
+    throw new Error(errorMessage);
+  }
+
   if (ts.isClassLike(declaration)) {
     declaration.members = ts.createNodeArray();
   } else if (ts.isFunctionDeclaration(declaration)) {
@@ -58,6 +69,10 @@ export function removeBody(declaration) {
 }
 
 export const api = (...names) => source => {
+  if (!ts || !ts.NewLineKind) {
+    throw new Error(errorMessage);
+  }
+
   const program = createSourceProgram(source);
   const sourceFile = program.getSourceFile('test.ts');
 
