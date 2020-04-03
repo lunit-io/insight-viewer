@@ -6,6 +6,7 @@ export const insightViewerPages: HandbookTreeNode = {
   CornerstoneImage: page('./Basic/CornerstoneImage'),
   CornerstoneRenderData: page('./Basic/CornerstoneRenderData'),
   '<DCMImage>': page('./Components/DCMImage'),
+  '<CornerstoneViewer>': page('./Components/CornerstoneViewer'),
   '<InsightViewer>': page('./Components/InsightViewer'),
   '<InsightViewerContainer>': page('./Components/InsightViewerContainer'),
   '<InsightViewerTestController>': page('./Components/InsightViewerTestController'),

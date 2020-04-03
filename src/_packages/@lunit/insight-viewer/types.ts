@@ -79,3 +79,15 @@ export interface ViewportTransformParams {
 }
 
 export type ViewportTransform = (params: ViewportTransformParams) => Partial<cornerstone.Viewport> | undefined;
+
+export interface CornerstoneViewerLike {
+  getMinScale: () => number;
+  getMaxScale: () => number;
+  getElement: () => HTMLElement;
+  getContentWindow: () => Window;
+  getCurrentViewport: () => cornerstone.Viewport;
+  updateViewport: (patch: Partial<cornerstone.Viewport>) => void;
+  getViewportTransformParams: () => ViewportTransformParams;
+}
+
+export type Interaction = (viewer: CornerstoneViewerLike) => () => void;

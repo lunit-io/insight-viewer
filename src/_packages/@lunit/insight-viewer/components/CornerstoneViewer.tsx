@@ -3,43 +3,23 @@ import { Unsubscribable } from 'rxjs';
 import { FrameConsumer } from '../context/frame';
 import { InsightViewerHostProps } from '../hooks/useInsightViewerSync';
 import { CornerstoneImage } from '../image/types';
-import { CornerstoneRenderData, ViewportTransform, ViewportTransformParams } from '../types';
-import { startAdjustInteraction } from './interactions/startAdjustInteraction';
-import { startPanInteraction } from './interactions/startPanInteraction';
-import { startZoomInteraction } from './interactions/startZoomInteraction';
+import {
+  CornerstoneRenderData,
+  CornerstoneViewerLike,
+  Interaction,
+  ViewportTransform,
+  ViewportTransformParams,
+} from '../types';
 
-export interface InsightViewerProps extends InsightViewerHostProps {
+type Interactions = (Interaction | false | null | undefined)[];
+
+export interface CornerstoneViewerProps extends InsightViewerHostProps {
   width: number;
   height: number;
 
   image: CornerstoneImage;
 
-  /**
-   * Pan Action (Mouse Drag)
-   *
-   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
-   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
-   * - `false | null` 로 입력되는 경우 Pan 기능을 끈다
-   */
-  pan: boolean | HTMLElement | null;
-
-  /**
-   * Adjust Action (Mouse Drag)
-   *
-   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
-   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
-   * - `false | null` 로 입력되는 경우 Adjust 기능을 끈다
-   */
-  adjust: boolean | HTMLElement | null;
-
-  /**
-   * Zoom Action (Mouse Wheel)
-   *
-   * - `true` 로 입력되는 경우 자체 Element를 사용해서 Event를 처리한다
-   * - `HTMLElement` 로 입력되는 경우 해당 Element를 사용해서 Event를 처리한다
-   * - `false | null` 로 입력되는 경우 Wheel 기능을 끈다
-   */
-  zoom: boolean | HTMLElement | null;
+  interactions: Interactions;
 
   /** Invert Color Image */
   invert: boolean;
@@ -61,8 +41,7 @@ export interface InsightViewerProps extends InsightViewerHostProps {
 
 const maxScale: number = 3;
 
-/** @deprecated use <CornerstoneViewer> instead */
-export class InsightViewer extends Component<InsightViewerProps, {}> {
+export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> implements CornerstoneViewerLike {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
   private element!: HTMLDivElement;
 
@@ -73,9 +52,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
   private currentImage: cornerstone.Image | null = null;
 
   // mouse interaction에서 사용한다
-  private teardownPanInteraction: (() => void) | null = null;
-  private teardownAdjustInteraction: (() => void) | null = null;
-  private teardownZoomInteraction: (() => void) | null = null;
+  private teardownInteraction: (() => void)[] | null = null;
 
   // rx subscriptions
   private imageSubscription: Unsubscribable | null = null;
@@ -107,17 +84,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
 
     if (!element) return;
 
-    if (this.props.pan === true) {
-      this.startPanInteraction(this.props.pan);
-    }
-
-    if (this.props.adjust === true) {
-      this.startAdjustInteraction(this.props.adjust);
-    }
-
-    if (this.props.zoom === true) {
-      this.startZoomInteraction(this.props.zoom);
-    }
+    this.startInteraction(this.props.interactions);
   };
 
   componentDidMount() {
@@ -166,9 +133,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
 
     this.setImage(image);
     this.setViewport(defaultViewport);
-    this.startPanInteraction(this.props.pan);
-    this.startAdjustInteraction(this.props.adjust);
-    this.startZoomInteraction(this.props.zoom);
+    this.startInteraction(this.props.interactions);
   };
 
   componentWillUnmount() {
@@ -179,35 +144,19 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
       this.imageSubscription.unsubscribe();
     }
 
-    if (this.teardownPanInteraction) {
-      this.teardownPanInteraction();
-    }
-
-    if (this.teardownAdjustInteraction) {
-      this.teardownAdjustInteraction();
-    }
-
-    if (this.teardownZoomInteraction) {
-      this.teardownZoomInteraction();
+    if (this.teardownInteraction) {
+      this.teardownInteraction.forEach((teardown) => teardown());
     }
   }
 
-  componentDidUpdate(prevProps: Readonly<InsightViewerProps>) {
-    const { width, height, flip, invert, pan, adjust, zoom, resetTime, image } = this.props;
+  componentDidUpdate(prevProps: Readonly<CornerstoneViewerProps>) {
+    const { width, height, flip, invert, interactions, resetTime, image } = this.props;
 
     const defaultViewport: cornerstone.Viewport | null = this.getDefaultViewport(this.currentImage, this.element);
 
     // 선택된 control 상태에 따라 event를 해제/등록 해준다
-    if (prevProps.pan !== pan) {
-      this.startPanInteraction(pan);
-    }
-
-    if (prevProps.adjust !== adjust) {
-      this.startAdjustInteraction(adjust);
-    }
-
-    if (prevProps.zoom !== zoom) {
-      this.startZoomInteraction(zoom);
+    if (prevProps.interactions !== interactions) {
+      this.startInteraction(interactions);
     }
 
     if (defaultViewport) {
@@ -292,70 +241,25 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
   // ---------------------------------------------
   // event handlers
   // ---------------------------------------------
-  startPanInteraction = (pan: boolean | HTMLElement | null) => {
-    if (this.teardownPanInteraction) {
-      this.teardownPanInteraction();
+  startInteraction = (interactions: Interactions) => {
+    if (this.teardownInteraction) {
+      this.teardownInteraction.forEach((teardown) => teardown());
     }
 
-    const element: HTMLElement | null =
-      pan instanceof this.contentWindow['HTMLElement'] ? (pan as HTMLElement) : pan === true ? this.element : null;
-
-    if (element) {
-      this.teardownPanInteraction = startPanInteraction({
-        element,
-        getCurrentViewport: () => this.currentViewport!,
-        onMove: (translation: cornerstone.Vec2) => this.updateCurrentViewport({ translation }),
-        onEnd: () => {},
-        contentWindow: this.contentWindow,
-      });
-    }
-  };
-
-  startAdjustInteraction = (adjust: boolean | HTMLElement | null) => {
-    if (this.teardownAdjustInteraction) {
-      this.teardownAdjustInteraction();
-    }
-
-    const element: HTMLElement | null =
-      adjust instanceof this.contentWindow['HTMLElement']
-        ? (adjust as HTMLElement)
-        : adjust === true
-        ? this.element
-        : null;
-
-    if (element) {
-      this.teardownAdjustInteraction = startAdjustInteraction({
-        element,
-        getCurrentViewport: () => this.currentViewport!,
-        onMove: (voi: cornerstone.VOI) => this.updateCurrentViewport({ voi }),
-        onEnd: () => {},
-        contentWindow: this.contentWindow,
-      });
-    }
-  };
-
-  startZoomInteraction = (zoom: boolean | HTMLElement | null) => {
-    if (this.teardownZoomInteraction) {
-      this.teardownZoomInteraction();
-    }
-
-    const element: HTMLElement | null =
-      zoom instanceof this.contentWindow['HTMLElement'] ? (zoom as HTMLElement) : zoom === true ? this.element : null;
-
-    if (element) {
-      this.teardownZoomInteraction = startZoomInteraction({
-        element,
-        getMinMaxScale: () => [this.getMinScale(), this.getMaxScale()],
-        getCurrentViewport: () => this.currentViewport!,
-        onZoom: (patch) => this.updateCurrentViewport(patch),
-        contentWindow: this.contentWindow,
-      });
-    }
+    this.teardownInteraction = interactions
+      .filter((interaction): interaction is Interaction => typeof interaction === 'function')
+      .map((interaction) => interaction(this));
   };
 
   // ---------------------------------------------
   // getters
   // ---------------------------------------------
+  getElement = () => this.element;
+
+  getContentWindow = () => this.contentWindow;
+
+  getCurrentViewport = () => this.currentViewport!;
+
   getDefaultViewport = (image: cornerstone.Image | null, element: HTMLElement | null): cornerstone.Viewport | null => {
     if (!image || !element) return null;
     return cornerstone.getDefaultViewportForImage(element, image);

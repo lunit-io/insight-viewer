@@ -21,6 +21,11 @@ export * from './components/DCMImage';
 export * from './components/ThumbnailImage';
 export * from './components/InsightViewerTestController';
 export * from './components/StrokeText';
+export * from './components/CornerstoneViewer';
+
+export * from './interactions/adjust';
+export * from './interactions/pan';
+export * from './interactions/zoom';
 
 export * from './hooks/useSeriesImagePosition';
 export * from './hooks/useSeriesImageScroll';
