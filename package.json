@@ -15,6 +15,7 @@
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "handbook:build": "zeroconfig-webapp-scripts build handbook --source-map true",
     "handbook:start": "zeroconfig-webapp-scripts start handbook --port 3109",
+    "preview:start": "zeroconfig-webapp-scripts start preview --port 3110",
     "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline --source-map true",
     "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
     "handbook-insight-viewer-sample:build": "zeroconfig-webapp-scripts build handbook-insight-viewer-sample --source-map true",

@@ -6,13 +6,14 @@ export function installWADOImageLoader() {
 
   cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
   cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
-  cornerstoneWADOImageLoader.webWorkerManager.initialize({
-    maxWebWorkers: navigator.hardwareConcurrency || 4,
-    startWebWorkersOnDemand: false,
-    taskConfiguration: {
-      decodeTask: {
-        initializeCodecsOnStartup: true,
-      },
-    },
-  });
+  // TODO iPad에서 제대로 안되는 이유 확인
+  //cornerstoneWADOImageLoader.webWorkerManager.initialize({
+  //maxWebWorkers: navigator.hardwareConcurrency || 4,
+  //startWebWorkersOnDemand: false,
+  //taskConfiguration: {
+  //  decodeTask: {
+  //    initializeCodecsOnStartup: true,
+  //  },
+  //},
+  //});
 }
