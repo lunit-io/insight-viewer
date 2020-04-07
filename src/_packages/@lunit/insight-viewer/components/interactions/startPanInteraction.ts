@@ -29,6 +29,14 @@ export function startPanInteraction({
   }
 
   function touchStart(event: TouchEvent) {
+    if (event.targetTouches.length > 1) {
+      contentWindow.removeEventListener('touchmove', touchMove);
+      contentWindow.removeEventListener('touchend', touchEnd);
+      contentWindow.removeEventListener('touchcancel', touchEnd);
+
+      startTrigger();
+    }
+
     if (event.targetTouches.length !== 1) return;
 
     event.stopPropagation();

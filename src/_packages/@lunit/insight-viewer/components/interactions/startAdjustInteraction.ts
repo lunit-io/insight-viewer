@@ -29,6 +29,14 @@ export function startAdjustInteraction({
   }
 
   function touchStart(event: TouchEvent) {
+    if (event.targetTouches.length > 1) {
+      contentWindow.removeEventListener('touchmove', touchMove);
+      contentWindow.removeEventListener('touchend', touchEnd);
+      contentWindow.removeEventListener('touchcancel', touchEnd);
+
+      startTrigger();
+    }
+
     if (event.targetTouches.length !== 1) return;
 
     event.stopPropagation();
@@ -141,8 +149,14 @@ export function startAdjustInteraction({
 
   return () => {
     element.removeEventListener('mousedown', mouseStart);
+    element.removeEventListener('touchstart', touchStart);
+
     contentWindow.removeEventListener('mousemove', mouseMove);
     contentWindow.removeEventListener('mouseup', mouseEnd);
     element.removeEventListener('mouseleave', mouseEnd);
+
+    contentWindow.removeEventListener('touchmove', touchMove);
+    contentWindow.removeEventListener('touchend', touchEnd);
+    contentWindow.removeEventListener('touchcancel', touchEnd);
   };
 }
