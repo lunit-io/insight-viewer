@@ -220,9 +220,15 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
       event.targetTouches[0].touchType !== 'stylus'
     ) {
       return;
-    } else if (event.targetTouches.length !== 1) {
+    } else if (event.targetTouches.length > 1) {
       this.deactivateTouchDrawEvents();
       this.activateInitialEvents();
+      this.setState((prevState) => ({
+        ...prevState,
+        polygon: [],
+      }));
+      return;
+    } else if (event.targetTouches.length !== 1) {
       return;
     }
 
@@ -268,6 +274,16 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   };
 
   onTouchMoveToDraw = (event: TouchEvent) => {
+    if (event.targetTouches.length !== 1 || event.changedTouches.length !== 1) {
+      this.deactivateTouchDrawEvents();
+      this.activateInitialEvents();
+      this.setState((prevState) => ({
+        ...prevState,
+        polygon: [],
+      }));
+      return;
+    }
+
     event.preventDefault();
     event.stopPropagation();
     event.stopImmediatePropagation();

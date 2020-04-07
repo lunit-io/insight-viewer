@@ -35,6 +35,8 @@ export function startAdjustInteraction({
       contentWindow.removeEventListener('touchcancel', touchEnd);
 
       startTrigger();
+
+      return;
     }
 
     if (event.targetTouches.length !== 1) return;
@@ -65,6 +67,8 @@ export function startAdjustInteraction({
       contentWindow.removeEventListener('touchcancel', touchEnd);
 
       startTrigger();
+
+      return;
     }
 
     event.stopPropagation();
