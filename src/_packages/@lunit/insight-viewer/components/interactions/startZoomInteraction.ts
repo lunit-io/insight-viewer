@@ -1,3 +1,6 @@
+import { easeQuadInOut } from 'd3-ease';
+import { timer } from 'd3-timer';
+
 interface ZoomInteractionParams {
   element: HTMLElement;
   getMinMaxScale: () => [number, number];
@@ -5,6 +8,8 @@ interface ZoomInteractionParams {
   onZoom: (patch: { translation: cornerstone.Vec2; scale: number }) => void;
   contentWindow: Window;
 }
+
+type Point = { x: number; y: number };
 
 export function startZoomInteraction({
   element,
@@ -70,9 +75,134 @@ export function startZoomInteraction({
     });
   }
 
+  let startPagePoints: [Point, Point];
+  let startPixelDistance: number;
+
+  let startViewportPoint: Point;
+  let startViewportScale: number;
+
+  function pinchStart(event: TouchEvent) {
+    if (event.targetTouches.length !== 2) return;
+
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    const currentViewport = getCurrentViewport();
+
+    if (!currentViewport) return;
+
+    startViewportScale = currentViewport.scale;
+    startViewportPoint = currentViewport.translation;
+
+    startPagePoints = [
+      { x: event.targetTouches[0].pageX, y: event.targetTouches[0].pageY },
+      { x: event.targetTouches[1].pageX, y: event.targetTouches[1].pageY },
+    ];
+
+    const a: number = Math.abs(startPagePoints[0].x - startPagePoints[1].x);
+    const b: number = Math.abs(startPagePoints[0].y - startPagePoints[1].y);
+    startPixelDistance = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+    element.removeEventListener('touchstart', pinchStart);
+
+    element.addEventListener('touchmove', pinchMove);
+    element.addEventListener('touchend', pinchEnd);
+    element.addEventListener('touchcancel', pinchEnd);
+  }
+
+  function pinchMove(event: TouchEvent) {
+    if (event.targetTouches.length !== 2 || event.changedTouches.length !== 2) return;
+
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    const pagePoints = [
+      { x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY },
+      { x: event.changedTouches[1].pageX, y: event.changedTouches[1].pageY },
+    ];
+    const a: number = Math.abs(pagePoints[0].x - pagePoints[1].x);
+    const b: number = Math.abs(pagePoints[0].y - pagePoints[1].y);
+    const pixelDistance: number = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+    const nextScale: number = startViewportScale * (pixelDistance / startPixelDistance);
+
+    const dx: number =
+      ((pagePoints[0].x + pagePoints[1].x) / 2 - (startPagePoints[0].x + startPagePoints[1].x) / 2) / nextScale;
+    const dy: number =
+      ((pagePoints[0].y + pagePoints[1].y) / 2 - (startPagePoints[0].y + startPagePoints[1].y) / 2) / nextScale;
+
+    const nextViewportPoint: Point = {
+      x: startViewportPoint.x + dx,
+      y: startViewportPoint.y + dy,
+    };
+
+    onZoom({
+      translation: nextViewportPoint,
+      scale: nextScale,
+    });
+  }
+
+  function pinchEnd(event: TouchEvent) {
+    const currentViewport = getCurrentViewport();
+
+    if (!currentViewport) return;
+
+    const [minScale, maxScale] = getMinMaxScale();
+
+    const max = 500;
+
+    if (currentViewport.scale < minScale) {
+      const t = timer((elapsed) => {
+        const d = easeQuadInOut(elapsed / max);
+        if (elapsed > max) {
+          onZoom({
+            translation: currentViewport.translation,
+            scale: minScale,
+          });
+          t.stop();
+        } else {
+          onZoom({
+            translation: currentViewport.translation,
+            scale: currentViewport.scale + (minScale - currentViewport.scale) * d,
+          });
+        }
+      });
+    } else if (currentViewport.scale > maxScale) {
+      const t = timer((elapsed) => {
+        const d = easeQuadInOut(elapsed / max);
+        if (elapsed > max) {
+          onZoom({
+            translation: currentViewport.translation,
+            scale: maxScale,
+          });
+          t.stop();
+        } else {
+          onZoom({
+            translation: currentViewport.translation,
+            scale: currentViewport.scale + (maxScale - currentViewport.scale) * d,
+          });
+        }
+      });
+    }
+
+    element.removeEventListener('touchmove', pinchMove);
+    element.removeEventListener('touchend', pinchEnd);
+    element.removeEventListener('touchcancel', pinchEnd);
+
+    element.addEventListener('touchstart', pinchStart);
+  }
+
   element.addEventListener('wheel', wheel);
+  element.addEventListener('touchstart', pinchStart);
 
   return () => {
     element.removeEventListener('wheel', wheel);
+    element.removeEventListener('touchstart', pinchStart);
+
+    element.removeEventListener('touchmove', pinchMove);
+    element.removeEventListener('touchend', pinchEnd);
+    element.removeEventListener('touchcancel', pinchEnd);
   };
 }

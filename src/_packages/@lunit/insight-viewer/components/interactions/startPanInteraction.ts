@@ -74,7 +74,13 @@ export function startPanInteraction({
   }
 
   function touchMove(event: TouchEvent) {
-    if (event.targetTouches.length !== 1 || event.changedTouches.length !== 1) return;
+    if (event.targetTouches.length !== 1 || event.changedTouches.length !== 1) {
+      contentWindow.removeEventListener('touchmove', touchMove);
+      contentWindow.removeEventListener('touchend', touchEnd);
+      contentWindow.removeEventListener('touchcancel', touchEnd);
+
+      startTrigger();
+    }
 
     event.stopPropagation();
     event.stopImmediatePropagation();
@@ -93,10 +99,6 @@ export function startPanInteraction({
   }
 
   function touchEnd(event: TouchEvent) {
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    event.preventDefault();
-
     contentWindow.removeEventListener('touchmove', touchMove);
     contentWindow.removeEventListener('touchend', touchEnd);
     contentWindow.removeEventListener('touchcancel', touchEnd);
