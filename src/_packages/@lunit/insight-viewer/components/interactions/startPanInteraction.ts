@@ -28,28 +28,6 @@ export function startPanInteraction({
     element.removeEventListener('touchstart', touchStart);
   }
 
-  function mouseStart(event: MouseEvent) {
-    if (event.button !== 0) return;
-
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    event.preventDefault();
-
-    const viewport = getCurrentViewport();
-    if (!viewport) return;
-
-    stopTrigger();
-
-    startPageX = event.pageX;
-    startPageY = event.pageY;
-    startTranslationX = viewport.translation.x;
-    startTranslationY = viewport.translation.y;
-
-    contentWindow.addEventListener('mousemove', mouseMove);
-    contentWindow.addEventListener('mouseup', mouseEnd);
-    element.addEventListener('mouseleave', mouseEnd);
-  }
-
   function touchStart(event: TouchEvent) {
     if (event.targetTouches.length !== 1) return;
 
@@ -70,7 +48,6 @@ export function startPanInteraction({
     contentWindow.addEventListener('touchmove', touchMove);
     contentWindow.addEventListener('touchend', touchEnd);
     contentWindow.addEventListener('touchcancel', touchEnd);
-    //element.addEventListener('tou', touchEnd);
   }
 
   function touchMove(event: TouchEvent) {
@@ -106,6 +83,28 @@ export function startPanInteraction({
     startTrigger();
 
     onEnd();
+  }
+
+  function mouseStart(event: MouseEvent) {
+    if (event.button !== 0) return;
+
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    const viewport = getCurrentViewport();
+    if (!viewport) return;
+
+    stopTrigger();
+
+    startPageX = event.pageX;
+    startPageY = event.pageY;
+    startTranslationX = viewport.translation.x;
+    startTranslationY = viewport.translation.y;
+
+    contentWindow.addEventListener('mousemove', mouseMove);
+    contentWindow.addEventListener('mouseup', mouseEnd);
+    element.addEventListener('mouseleave', mouseEnd);
   }
 
   function mouseMove(event: MouseEvent) {

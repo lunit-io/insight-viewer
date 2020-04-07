@@ -18,7 +18,74 @@ export function startAdjustInteraction({
   let startWindowCenter: number;
   let startWindowWidth: number;
 
-  function start(event: MouseEvent) {
+  function startTrigger() {
+    element.addEventListener('mousedown', mouseStart);
+    element.addEventListener('touchstart', touchStart);
+  }
+
+  function stopTrigger() {
+    element.removeEventListener('mousedown', mouseStart);
+    element.removeEventListener('touchstart', touchStart);
+  }
+
+  function touchStart(event: TouchEvent) {
+    if (event.targetTouches.length !== 1) return;
+
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    const viewport = getCurrentViewport();
+    if (!viewport) return;
+
+    stopTrigger();
+
+    startPageX = event.touches[0].pageX;
+    startPageY = event.touches[0].pageY;
+    startWindowCenter = viewport.voi.windowCenter;
+    startWindowWidth = viewport.voi.windowWidth;
+
+    contentWindow.addEventListener('touchmove', touchMove);
+    contentWindow.addEventListener('touchend', touchEnd);
+    contentWindow.addEventListener('touchcancel', touchEnd);
+  }
+
+  function touchMove(event: TouchEvent) {
+    if (event.targetTouches.length !== 1 || event.changedTouches.length !== 1) {
+      contentWindow.removeEventListener('touchmove', touchMove);
+      contentWindow.removeEventListener('touchend', touchEnd);
+      contentWindow.removeEventListener('touchcancel', touchEnd);
+
+      startTrigger();
+    }
+
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    const viewport = getCurrentViewport();
+    if (!viewport) return;
+
+    const dx: number = event.touches[0].pageX - startPageX;
+    const dy: number = event.touches[0].pageY - startPageY;
+
+    onMove({
+      windowWidth: Math.max(startWindowWidth + dx, 1),
+      windowCenter: Math.max(startWindowCenter + dy, 1),
+    });
+  }
+
+  function touchEnd(event: TouchEvent) {
+    contentWindow.removeEventListener('touchmove', touchMove);
+    contentWindow.removeEventListener('touchend', touchEnd);
+    contentWindow.removeEventListener('touchcancel', touchEnd);
+
+    startTrigger();
+
+    onEnd();
+  }
+
+  function mouseStart(event: MouseEvent) {
     if (event.button !== 0) return;
 
     event.stopPropagation();
@@ -28,19 +95,19 @@ export function startAdjustInteraction({
     const viewport = getCurrentViewport();
     if (!viewport) return;
 
-    element.removeEventListener('mousedown', this.onAdjustStart);
+    stopTrigger();
 
     startPageX = event.pageX;
     startPageY = event.pageY;
     startWindowCenter = viewport.voi.windowCenter;
     startWindowWidth = viewport.voi.windowWidth;
 
-    contentWindow.addEventListener('mousemove', move);
-    contentWindow.addEventListener('mouseup', end);
-    element.addEventListener('mouseleave', end);
+    contentWindow.addEventListener('mousemove', mouseMove);
+    contentWindow.addEventListener('mouseup', mouseEnd);
+    element.addEventListener('mouseleave', mouseEnd);
   }
 
-  function move(event: MouseEvent) {
+  function mouseMove(event: MouseEvent) {
     event.stopPropagation();
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -54,28 +121,28 @@ export function startAdjustInteraction({
     });
   }
 
-  function end(event: MouseEvent) {
+  function mouseEnd(event: MouseEvent) {
     if (event.button !== 0) return;
 
     event.stopPropagation();
     event.stopImmediatePropagation();
     event.preventDefault();
 
-    contentWindow.removeEventListener('mousemove', move);
-    contentWindow.removeEventListener('mouseup', end);
-    element.removeEventListener('mouseleave', end);
+    contentWindow.removeEventListener('mousemove', mouseMove);
+    contentWindow.removeEventListener('mouseup', mouseEnd);
+    element.removeEventListener('mouseleave', mouseEnd);
 
-    element.addEventListener('mousedown', start);
+    startTrigger();
 
     onEnd();
   }
 
-  element.addEventListener('mousedown', start);
+  startTrigger();
 
   return () => {
-    element.removeEventListener('mousedown', start);
-    contentWindow.removeEventListener('mousemove', move);
-    contentWindow.removeEventListener('mouseup', end);
-    element.removeEventListener('mouseleave', end);
+    element.removeEventListener('mousedown', mouseStart);
+    contentWindow.removeEventListener('mousemove', mouseMove);
+    contentWindow.removeEventListener('mouseup', mouseEnd);
+    element.removeEventListener('mouseleave', mouseEnd);
   };
 }
