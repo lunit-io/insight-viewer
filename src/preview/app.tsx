@@ -1,5 +1,5 @@
 import { globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
-import Basic from '@lunit/insight-viewer/__pages__/Components/CornerstoneViewer/Basic';
+import Basic from '@lunit/insight-viewer/__pages__/Components/ContourDrawer/Basic';
 import { globalStyle as componentsGlobalStyle, ThemeProvider } from '@lunit/opt-components';
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';

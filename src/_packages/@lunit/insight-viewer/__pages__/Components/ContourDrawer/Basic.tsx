@@ -74,9 +74,10 @@ export default () => {
               contours={contours}
               draw={control === 'pen' && divElement}
               onFocus={focusContour}
-              onAdd={contour => addContour(contour, { label: labelFunction })}
+              onAdd={(contour) => addContour(contour, { label: labelFunction })}
               onRemove={removeContour}
               cornerstoneRenderData={cornerstoneRenderData}
+              device="mouse-and-stylus"
             />
           )}
         </InsightViewerContainer>

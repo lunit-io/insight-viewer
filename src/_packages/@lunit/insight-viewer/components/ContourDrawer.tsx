@@ -27,7 +27,7 @@ export interface ContourDrawerProps<T extends Contour> extends InsightViewerGues
   onFocus: (contour: T | null) => void;
 
   /** 그리기가 완료되어 새로운 Contour가 발생했을 때 */
-  onAdd: (polygon: Point[], event: MouseEvent) => void;
+  onAdd: (polygon: Point[], event: MouseEvent | TouchEvent) => void;
 
   /** 특정 Contour를 Click 해서 지울때 필요하다 */
   onRemove: (contour: T) => void;
@@ -37,6 +37,11 @@ export interface ContourDrawerProps<T extends Contour> extends InsightViewerGues
 
   /** 그리는 과정에서 Line에 표현되는 Animation을 비활성 시킬 수 있다 */
   animateStroke?: boolean;
+
+  /**
+   * 접근 Device 설정
+   */
+  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus';
 }
 
 interface ContourDrawerState {
@@ -53,6 +58,10 @@ function toLocal(element: HTMLElement, polygon: Point[]): string {
 }
 
 export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawerProps<T>, ContourDrawerState> {
+  static defaultProps: Partial<ContourDrawerProps<Contour>> = {
+    device: 'all',
+  };
+
   private svg: SVGSVGElement | null = null;
   private element: HTMLElement | null = null;
   private focused: T | null = null;
@@ -101,7 +110,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   svgRef = (svg: SVGSVGElement) => {
     if (svg && this.svg && this.element) {
       this.deactivateInitialEvents();
-      this.deactivateDrawEvents();
+      this.deactivateMouseDrawEvents();
 
       if (this.canActivate(this.props)) {
         this.svg = svg;
@@ -126,7 +135,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
     if (prevProps.draw !== this.props.draw) {
       if (this.element) {
         this.deactivateInitialEvents();
-        this.deactivateDrawEvents();
+        this.deactivateMouseDrawEvents();
       }
 
       if (this.canActivate(this.props)) {
@@ -139,7 +148,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   componentWillUnmount() {
     if (this.element) {
       this.deactivateInitialEvents();
-      this.deactivateDrawEvents();
+      this.deactivateMouseDrawEvents();
     }
   }
 
@@ -157,8 +166,13 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   // ---------------------------------------------
   activateInitialEvents = () => {
     if (!this.element) return;
-    this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
-    this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
+    if (this.props.device !== 'touch-only' && this.props.device !== 'stylus-only') {
+      this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
+      this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
+    }
+    if (this.props.device !== 'mouse-only') {
+      this.element.addEventListener('touchstart', this.onTouchStartToStartDraw);
+    }
     this.element.addEventListener('click', this.onMouseClickToRemove);
   };
 
@@ -166,6 +180,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
     if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.removeEventListener('mousedown', this.onMouseDownToStartDraw);
+    this.element.removeEventListener('touchstart', this.onTouchStartToStartDraw);
     this.element.removeEventListener('click', this.onMouseClickToRemove);
   };
 
@@ -188,6 +203,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   };
 
   onMouseClickToRemove = (event: MouseEvent) => {
+    console.log('ContourDrawer.tsx..onMouseClickToRemove()', event);
     event.stopPropagation();
 
     if (!this.focused || this.preventClickEvent) return;
@@ -196,10 +212,133 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   };
 
   // ---------------------------------------------
-  // draw events
+  // touch draw events
+  // ---------------------------------------------
+  onTouchStartToStartDraw = (event: TouchEvent) => {
+    if (
+      (this.props.device === 'stylus-only' || this.props.device === 'mouse-and-stylus') &&
+      event.targetTouches[0].touchType !== 'stylus'
+    ) {
+      return;
+    } else if (event.targetTouches.length !== 1) {
+      this.deactivateTouchDrawEvents();
+      this.activateInitialEvents();
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    if (!this.props.cornerstoneRenderData) {
+      throw new Error('cornerstoneRenderEventData를 찾을 수 없다!');
+    }
+
+    this.preventClickEvent = false;
+    this.startX = event.targetTouches[0].pageX;
+    this.startY = event.targetTouches[0].pageY;
+
+    this.deactivateInitialEvents();
+    this.activateTouchDrawEvents();
+
+    const element: HTMLElement = this.props.cornerstoneRenderData.element;
+
+    const { x, y } = cornerstone.pageToPixel(element, event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+
+    this.setState((prevState) => ({
+      ...prevState,
+      polygon: [[x, y]],
+    }));
+  };
+
+  activateTouchDrawEvents = () => {
+    if (!this.element) return;
+    this.element.addEventListener('touchmove', this.onTouchMoveToDraw);
+    this.element.addEventListener('touchend', this.onTouchEndToEndDraw);
+    this.element.addEventListener('touchcancel', this.onTouchEndToEndDraw);
+    window.addEventListener('keydown', this.onKeyDownToCancelTouchDraw);
+  };
+
+  deactivateTouchDrawEvents = () => {
+    if (!this.element) return;
+    this.element.removeEventListener('touchmove', this.onTouchMoveToDraw);
+    this.element.removeEventListener('touchend', this.onTouchEndToEndDraw);
+    this.element.removeEventListener('touchcancel', this.onTouchEndToEndDraw);
+    window.removeEventListener('keydown', this.onKeyDownToCancelTouchDraw);
+  };
+
+  onTouchMoveToDraw = (event: TouchEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    if (!this.props.cornerstoneRenderData) {
+      throw new Error('cornerstoneRenderEventData를 찾을 수 없다!');
+    }
+
+    if (
+      !this.preventClickEvent &&
+      Math.max(
+        Math.abs(event.targetTouches[0].pageX - this.startX),
+        Math.abs(event.targetTouches[0].pageY - this.startY),
+      ) > 20
+    ) {
+      this.preventClickEvent = true;
+    }
+
+    const element: HTMLElement = this.props.cornerstoneRenderData.element;
+
+    const { x, y } = cornerstone.pageToPixel(element, event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+
+    this.setState((prevState) => ({
+      ...prevState,
+      polygon: [...prevState.polygon, [x, y]],
+    }));
+  };
+
+  onTouchEndToEndDraw = (event: TouchEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    this.deactivateTouchDrawEvents();
+    this.activateInitialEvents();
+
+    this.props.onAdd(this.state.polygon, event);
+
+    this.setState((prevState) => ({
+      ...prevState,
+      polygon: [],
+    }));
+  };
+
+  onKeyDownToCancelTouchDraw = (event: KeyboardEvent) => {
+    if (event.key.toLowerCase() === 'escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      this.cancelTouchDraw();
+    }
+  };
+
+  cancelTouchDraw = () => {
+    this.deactivateTouchDrawEvents();
+    this.activateInitialEvents();
+
+    this.setState((prevState) => ({
+      ...prevState,
+      polygon: [],
+    }));
+  };
+
+  // ---------------------------------------------
+  // mouse draw events
   // ---------------------------------------------
   onMouseDownToStartDraw = (event: MouseEvent) => {
+    event.preventDefault();
     event.stopPropagation();
+    event.stopImmediatePropagation();
 
     if (!this.props.cornerstoneRenderData) {
       throw new Error('cornerstoneRenderEventData를 찾을 수 없다!');
@@ -210,36 +349,38 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
     this.startY = event.pageY;
 
     this.deactivateInitialEvents();
-    this.activateDrawEvents();
+    this.activateMouseDrawEvents();
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
     const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       polygon: [[x, y]],
     }));
   };
 
-  activateDrawEvents = () => {
+  activateMouseDrawEvents = () => {
     if (!this.element) return;
     this.element.addEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.addEventListener('mouseup', this.onMouseUpToEndDraw);
     this.element.addEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
-    window.addEventListener('keydown', this.onKeyDownToCancelDraw);
+    window.addEventListener('keydown', this.onKeyDownToCancelMouseDraw);
   };
 
-  deactivateDrawEvents = () => {
+  deactivateMouseDrawEvents = () => {
     if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.removeEventListener('mouseup', this.onMouseUpToEndDraw);
     this.element.removeEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
-    window.removeEventListener('keydown', this.onKeyDownToCancelDraw);
+    window.removeEventListener('keydown', this.onKeyDownToCancelMouseDraw);
   };
 
   onMouseMoveToDraw = (event: MouseEvent) => {
+    event.preventDefault();
     event.stopPropagation();
+    event.stopImmediatePropagation();
 
     if (!this.props.cornerstoneRenderData) {
       throw new Error('cornerstoneRenderEventData를 찾을 수 없다!');
@@ -256,45 +397,51 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       polygon: [...prevState.polygon, [x, y]],
     }));
   };
 
   onMouseUpToEndDraw = (event: MouseEvent) => {
+    event.preventDefault();
     event.stopPropagation();
+    event.stopImmediatePropagation();
 
-    this.deactivateDrawEvents();
+    this.deactivateMouseDrawEvents();
     this.activateInitialEvents();
 
     this.props.onAdd(this.state.polygon, event);
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       polygon: [],
     }));
   };
 
   onMouseLeaveToCancelDraw = (event: MouseEvent) => {
+    event.preventDefault();
     event.stopPropagation();
+    event.stopImmediatePropagation();
 
-    this.cancelDraw();
+    this.cancelMouseDraw();
   };
 
-  onKeyDownToCancelDraw = (event: KeyboardEvent) => {
+  onKeyDownToCancelMouseDraw = (event: KeyboardEvent) => {
     if (event.key.toLowerCase() === 'escape') {
+      event.preventDefault();
       event.stopPropagation();
+      event.stopImmediatePropagation();
 
-      this.cancelDraw();
+      this.cancelMouseDraw();
     }
   };
 
-  cancelDraw = () => {
-    this.deactivateDrawEvents();
+  cancelMouseDraw = () => {
+    this.deactivateMouseDrawEvents();
     this.activateInitialEvents();
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       polygon: [],
     }));
