@@ -15,6 +15,7 @@
   "dependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
-    "styled-components": ">=4.0.0"
+    "styled-components": ">=4.0.0",
+    "event-target-shim": ">=5.0.0"
   }
 }

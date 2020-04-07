@@ -91,70 +91,74 @@ import styled from 'styled-components';
 let count: number = 0;
 
 function Basic() {
-  const {addSnackbar, snackbarContainer} = useSnackbar();
-  
+  const { addSnackbar, snackbarContainer } = useSnackbar();
+
   return (
     <Container>
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar>
-            <MuiSnackbarContent message={`${count} HELLO SNACKBAR!`}/>
-          </Snackbar>,
-        );
-      }}>
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar>
+              <MuiSnackbarContent message={`${count} HELLO SNACKBAR!`} />
+            </Snackbar>,
+          );
+        }}
+      >
         Add a MUI Snackbar
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar>
-            <CustomElement>{count} HELLO SNACKBAR!</CustomElement>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar>
+              <CustomElement>{count} HELLO SNACKBAR!</CustomElement>
+            </Snackbar>,
+          );
+        }}
+      >
         Add a Custom Snackbar
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar>
-            <ActionSnackbar message={`${count} HELLO SNACKBAR!`}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar>
+              <ActionSnackbar message={`${count} HELLO SNACKBAR!`} />
+            </Snackbar>,
+          );
+        }}
+      >
         Add a Action Snackbar
       </button>
-      
-      <button onClick={() => {
-        count++;
-        
-        addSnackbar(
-          <Snackbar autoClose={false}>
-            <ActionSnackbar message={`${count} HELLO SNACKBAR!`}/>
-          </Snackbar>,
-        );
-      }}>
+
+      <button
+        onClick={() => {
+          count++;
+
+          addSnackbar(
+            <Snackbar autoClose={false}>
+              <ActionSnackbar message={`${count} HELLO SNACKBAR!`} />
+            </Snackbar>,
+          );
+        }}
+      >
         Add a Manual Close Snackbar
       </button>
-      
-      <SnackbarContainer ref={snackbarContainer}/>
+
+      <SnackbarContainer ref={snackbarContainer} />
     </Container>
   );
 }
 
 storiesOf('<Snackbar>', module)
-  .addDecorator(storyFn => (
-    <SnackbarProvider>
-      {storyFn()}
-    </SnackbarProvider>
-  ))
-  .add('Basic', () => <Basic/>);
+  .addDecorator((storyFn) => <SnackbarProvider>{storyFn()}</SnackbarProvider>)
+  .add('Basic', () => <Basic />);
 
 const Container = styled.div`
   position: relative;
@@ -171,7 +175,7 @@ const SnackbarContainer = styled.div`
   flex-direction: column-reverse;
   justify-content: right;
   align-items: flex-end;
-  
+
   > * {
     margin-top: 10px;
   }
@@ -185,18 +189,19 @@ const CustomElement = styled.div`
   color: red;
 `;
 
-const ActionSnackbar = styled(({onClose, ...props}: SnackbarContentProps & {onClose?: () => void}) => {
+const ActionSnackbar = styled(({ onClose, ...props }: SnackbarContentProps & { onClose?: () => void }) => {
   return (
-    <MuiSnackbarContent {...props}
-                        action={[
-                          <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
-                            <Close/>
-                          </IconButton>,
-                        ]}/>
+    <MuiSnackbarContent
+      {...props}
+      action={[
+        <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
+          <Close />
+        </IconButton>,
+      ]}
+    />
   );
-})`
+})``;
 
-`;
 ```
 
 <!-- importend -->
