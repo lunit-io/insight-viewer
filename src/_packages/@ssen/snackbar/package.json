@@ -1,0 +1,20 @@
+{
+  "name": "@ssen/snackbar",
+  "version": "0.1.1",
+  "description": "Snackbar container",
+  "author": {
+    "name": "SSen",
+    "email": "i@ssen.name"
+  },
+  "repository": "iamssen/ssenkit",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "styled-components": ">=4.0.0"
+  }
+}

@@ -77,7 +77,6 @@ export default () => {
               onAdd={(contour) => addContour(contour, { label: labelFunction })}
               onRemove={removeContour}
               cornerstoneRenderData={cornerstoneRenderData}
-              device="mouse-and-stylus"
             />
           )}
         </InsightViewerContainer>

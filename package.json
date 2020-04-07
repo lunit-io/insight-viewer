@@ -83,6 +83,7 @@
     "d3-color": "^1.4.0",
     "d3-ease": "^1.0.6",
     "d3-timer": "^1.0.10",
+    "event-target-shim": "^5.0.1",
     "fs-extra": "^9.0.0",
     "history": "^4.10.1",
     "point-in-polygon": "^1.0.1",

@@ -35,5 +35,6 @@
 - [src/_packages/@lunit/use-opt-control/README.md](src/_packages/@lunit/use-opt-control/README.md)
 - [src/_packages/@lunit/use-reset-time/README.md](src/_packages/@lunit/use-reset-time/README.md)
 - [src/_packages/@lunit/use-shortcut/README.md](src/_packages/@lunit/use-shortcut/README.md)
+- [src/_packages/@ssen/snackbar/README.md](src/_packages/@ssen/snackbar/README.md)
 
 <!-- indexend -->
