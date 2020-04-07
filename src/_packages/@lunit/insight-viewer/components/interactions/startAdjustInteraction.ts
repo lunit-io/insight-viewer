@@ -48,8 +48,8 @@ export function startAdjustInteraction({
 
     stopTrigger();
 
-    startPageX = event.touches[0].pageX;
-    startPageY = event.touches[0].pageY;
+    startPageX = event.targetTouches[0].pageX;
+    startPageY = event.targetTouches[0].pageY;
     startWindowCenter = viewport.voi.windowCenter;
     startWindowWidth = viewport.voi.windowWidth;
 
@@ -74,8 +74,8 @@ export function startAdjustInteraction({
     const viewport = getCurrentViewport();
     if (!viewport) return;
 
-    const dx: number = event.touches[0].pageX - startPageX;
-    const dy: number = event.touches[0].pageY - startPageY;
+    const dx: number = event.targetTouches[0].pageX - startPageX;
+    const dy: number = event.targetTouches[0].pageY - startPageY;
 
     onMove({
       windowWidth: Math.max(startWindowWidth + dx, 1),

@@ -48,8 +48,8 @@ export function startPanInteraction({
 
     stopTrigger();
 
-    startPageX = event.touches[0].pageX;
-    startPageY = event.touches[0].pageY;
+    startPageX = event.targetTouches[0].pageX;
+    startPageY = event.targetTouches[0].pageY;
     startTranslationX = viewport.translation.x;
     startTranslationY = viewport.translation.y;
 
@@ -74,8 +74,8 @@ export function startPanInteraction({
     const viewport = getCurrentViewport();
     if (!viewport) return;
 
-    const dx: number = (event.touches[0].pageX - startPageX) / viewport.scale;
-    const dy: number = (event.touches[0].pageY - startPageY) / viewport.scale;
+    const dx: number = (event.targetTouches[0].pageX - startPageX) / viewport.scale;
+    const dy: number = (event.targetTouches[0].pageY - startPageY) / viewport.scale;
 
     onMove({
       x: startTranslationX + dx,
