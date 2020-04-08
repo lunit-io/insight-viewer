@@ -18,7 +18,7 @@ export function useSeriesImageScroll({
   image,
   element,
   enabled = true,
-  touchDirection = 'horizontal',
+  touchDirection = 'vertical',
 }: SeriesImageScrollParams) {
   useEffect(() => {
     if (!element || enabled !== true) {
@@ -37,6 +37,7 @@ export function useSeriesImageScroll({
       }
     }
 
+    let startIndex: number = -1;
     let startPoint: { x: number; y: number } | null = null;
 
     function touchStart(event: TouchEvent) {
@@ -45,6 +46,8 @@ export function useSeriesImageScroll({
       event.stopPropagation();
       event.stopImmediatePropagation();
       event.preventDefault();
+
+      startIndex = image.getIndex();
 
       startPoint = {
         x: event.targetTouches[0].pageX,
@@ -73,7 +76,7 @@ export function useSeriesImageScroll({
       const dy: number = event.targetTouches[0].pageY - startPoint.y;
       const d: number = touchDirection === 'vertical' ? dy : dx;
 
-      image.goto(image.getIndex() + d / 100);
+      image.goto(startIndex + Math.floor(d / 10));
     }
 
     function touchEnd(event: TouchEvent) {
