@@ -1,9 +1,12 @@
 import { RefObject } from 'react';
 import { InsightViewer } from '../components/InsightViewer';
-import { ViewportTransform } from '../types';
+import { CornerstoneViewerLike, ViewportTransform } from '../types';
 
-export function updateViewport(viewer: InsightViewer | RefObject<InsightViewer>, update: ViewportTransform) {
-  let v: InsightViewer | null = null;
+export function updateViewport(
+  viewer: InsightViewer | RefObject<InsightViewer> | CornerstoneViewerLike | RefObject<CornerstoneViewerLike>,
+  update: ViewportTransform,
+) {
+  let v: InsightViewer | CornerstoneViewerLike | null = null;
 
   if ('updateViewer' in viewer) {
     v = viewer;
@@ -20,7 +23,7 @@ export function updateViewport(viewer: InsightViewer | RefObject<InsightViewer>,
   }
 }
 
-export const zoomMiddleLeft: (increment: number) => ViewportTransform = increment => ({
+export const zoomMiddleLeft: (increment: number) => ViewportTransform = (increment) => ({
   element,
   currentViewport,
   minScale,
@@ -52,7 +55,7 @@ export const zoomMiddleLeft: (increment: number) => ViewportTransform = incremen
   };
 };
 
-export const zoomMiddleRight: (increment: number) => ViewportTransform = increment => ({
+export const zoomMiddleRight: (increment: number) => ViewportTransform = (increment) => ({
   element,
   currentViewport,
   minScale,
@@ -84,7 +87,7 @@ export const zoomMiddleRight: (increment: number) => ViewportTransform = increme
   };
 };
 
-export const zoomMiddleCenter: (increment: number) => ViewportTransform = increment => ({
+export const zoomMiddleCenter: (increment: number) => ViewportTransform = (increment) => ({
   element,
   currentViewport,
   minScale,
@@ -114,7 +117,7 @@ export const zoomMiddleCenter: (increment: number) => ViewportTransform = increm
   };
 };
 
-export const adjustWindowCenter: (increment: number) => ViewportTransform = increment => ({ currentViewport }) => {
+export const adjustWindowCenter: (increment: number) => ViewportTransform = (increment) => ({ currentViewport }) => {
   if (!currentViewport) return;
 
   const { windowWidth, windowCenter } = currentViewport.voi;
@@ -127,7 +130,7 @@ export const adjustWindowCenter: (increment: number) => ViewportTransform = incr
   };
 };
 
-export const adjustWindowWidth: (increment: number) => ViewportTransform = increment => ({ currentViewport }) => {
+export const adjustWindowWidth: (increment: number) => ViewportTransform = (increment) => ({ currentViewport }) => {
   if (!currentViewport) return;
 
   const { windowWidth, windowCenter } = currentViewport.voi;
