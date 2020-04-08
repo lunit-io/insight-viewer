@@ -203,7 +203,6 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   };
 
   onMouseClickToRemove = (event: MouseEvent) => {
-    console.log('ContourDrawer.tsx..onMouseClickToRemove()', event);
     event.stopPropagation();
 
     if (!this.focused || this.preventClickEvent) return;
