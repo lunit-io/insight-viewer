@@ -3,7 +3,7 @@ import { Unsubscribable } from 'rxjs';
 import { FrameConsumer } from '../context/frame';
 import { InsightViewerHostProps } from '../hooks/useInsightViewerSync';
 import { CornerstoneImage } from '../image/types';
-import { CornerstoneRenderData, ViewportTransform, ViewportTransformParams } from '../types';
+import { CornerstoneRenderData, CornerstoneViewerLike, ViewportTransform, ViewportTransformParams } from '../types';
 import { startAdjustInteraction } from './interactions/startAdjustInteraction';
 import { startPanInteraction } from './interactions/startPanInteraction';
 import { startZoomInteraction } from './interactions/startZoomInteraction';
@@ -62,7 +62,7 @@ export interface InsightViewerProps extends InsightViewerHostProps {
 const maxScale: number = 3;
 
 /** @deprecated use <CornerstoneViewer> instead */
-export class InsightViewer extends Component<InsightViewerProps, {}> {
+export class InsightViewer extends Component<InsightViewerProps, {}> implements CornerstoneViewerLike {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
   private element!: HTMLDivElement;
 
@@ -356,6 +356,12 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
   // ---------------------------------------------
   // getters
   // ---------------------------------------------
+  getElement = () => this.element;
+
+  getContentWindow = () => this.contentWindow;
+
+  getCurrentViewport = () => this.currentViewport!;
+
   getDefaultViewport = (image: cornerstone.Image | null, element: HTMLElement | null): cornerstone.Viewport | null => {
     if (!image || !element) return null;
     return cornerstone.getDefaultViewportForImage(element, image);
