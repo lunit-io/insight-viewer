@@ -33,32 +33,23 @@ export function UserContoursPanel({
   disabled,
 }: UserContoursPanelProps) {
   return (
-    <SessionPanel
+    <Panel
       title="ANNOTATIONS"
       sessionId="annotations"
       disabled={disabled}
       icon={
         contours.length === 0 ? (
           <WarningTooltip placement="left" title="Contour를 한 개 이상 그려야 합니다" />
-        ) : (
-          undefined
-        )
+        ) : undefined
       }
       defaultExpanded
-      css={`
-        background-color: #104445;
-
-        .${panelClasses.content} {
-          padding: 0;
-        }
-      `}
     >
-      {expanded => {
+      {(expanded) => {
         return (
           <>
             {contours.length > 0 && expanded && (
               <List>
-                {contours.map(contour => (
+                {contours.map((contour) => (
                   <li
                     key={contour.id}
                     role="row"
@@ -73,13 +64,13 @@ export function UserContoursPanel({
                     </div>
                     {type === 'reader-test' && (
                       <ButtonLayout direction="horizontal" style={{ backgroundColor: '#2b3544', padding: 2 }}>
-                        {[1, 2, 3, 4, 5].map(v => (
+                        {[1, 2, 3, 4, 5].map((v) => (
                           <SelectionButton
                             key={'item' + v}
                             label={v.toString()}
                             layout="center"
                             selected={contour.confidenceLevel * 5 === v}
-                            onChange={selected => selected && onUpdate(contour, { confidenceLevel: v / 5 })}
+                            onChange={(selected) => selected && onUpdate(contour, { confidenceLevel: v / 5 })}
                           />
                         ))}
                       </ButtonLayout>
@@ -97,9 +88,17 @@ export function UserContoursPanel({
           </>
         );
       }}
-    </SessionPanel>
+    </Panel>
   );
 }
+
+const Panel = styled(SessionPanel)`
+  background-color: #104445;
+
+  .${panelClasses.content} {
+    padding: 0;
+  }
+`;
 
 const DeleteButton = styled(IconButton).attrs({
   children: <Clear />,

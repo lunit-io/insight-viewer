@@ -38,32 +38,23 @@ export function UserContoursPanel({
 
   return (
     <>
-      <SessionPanel
+      <Panel
         title="ANNOTATIONS"
         sessionId="annotations"
         disabled={disabled}
         icon={
           contours.length === 0 ? (
             <WarningTooltip placement="left" title="Contour를 한 개 이상 그려야 합니다" />
-          ) : (
-            undefined
-          )
+          ) : undefined
         }
         defaultExpanded
-        css={`
-          background-color: #104445;
-
-          .${panelClasses.content} {
-            padding: 0;
-          }
-        `}
       >
-        {expanded => {
+        {(expanded) => {
           return (
             <>
               {contours.length > 0 && expanded && (
                 <List>
-                  {contours.map(contour => (
+                  {contours.map((contour) => (
                     <li
                       key={contour.id}
                       role="row"
@@ -105,11 +96,19 @@ export function UserContoursPanel({
             </>
           );
         }}
-      </SessionPanel>
+      </Panel>
       {editContourDialogElement}
     </>
   );
 }
+
+const Panel = styled(SessionPanel)`
+  background-color: #104445;
+
+  .${panelClasses.content} {
+    padding: 0;
+  }
+`;
 
 const DeleteButton = styled(IconButton).attrs({
   children: <Clear />,

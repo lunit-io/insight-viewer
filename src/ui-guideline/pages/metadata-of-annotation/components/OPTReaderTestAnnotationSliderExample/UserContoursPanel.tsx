@@ -8,9 +8,9 @@ import {
 } from '@lunit/opt-components';
 import { IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
-import { Annotation } from 'ui-guideline/samples/opt-cxr/model/annotation';
 import React from 'react';
 import styled from 'styled-components';
+import { Annotation } from 'ui-guideline/samples/opt-cxr/model/annotation';
 
 export interface UserContoursPanelProps {
   contours: Annotation[];
@@ -30,32 +30,23 @@ export function UserContoursPanel({
   disabled,
 }: UserContoursPanelProps) {
   return (
-    <SessionPanel
+    <Panel
       title="ANNOTATIONS"
       sessionId="annotations"
       disabled={disabled}
       icon={
         contours.length === 0 ? (
           <WarningTooltip placement="left" title="Contour를 한 개 이상 그려야 합니다" />
-        ) : (
-          undefined
-        )
+        ) : undefined
       }
       defaultExpanded
-      css={`
-        background-color: #104445;
-
-        .${panelClasses.content} {
-          padding: 0;
-        }
-      `}
     >
-      {expanded => {
+      {(expanded) => {
         return (
           <>
             {contours.length > 0 && expanded && (
               <List>
-                {contours.map(contour => (
+                {contours.map((contour) => (
                   <li
                     key={contour.id}
                     role="row"
@@ -87,9 +78,17 @@ export function UserContoursPanel({
           </>
         );
       }}
-    </SessionPanel>
+    </Panel>
   );
 }
+
+const Panel = styled(SessionPanel)`
+  background-color: #104445;
+
+  .${panelClasses.content} {
+    padding: 0;
+  }
+`;
 
 const DeleteButton = styled(IconButton).attrs({
   children: <Clear />,

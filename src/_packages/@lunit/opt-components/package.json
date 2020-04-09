@@ -1,6 +1,6 @@
 {
   "name": "@lunit/opt-components",
-  "version": "1.4.4",
+  "version": "1.5.0-alpha.1",
   "description": "Component library for annotation / opt apps",
   "author": {
     "name": "Seoyeon Lee",

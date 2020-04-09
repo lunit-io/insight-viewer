@@ -16,24 +16,13 @@ export function QuarterView({ children, className }: QuarterViewProps) {
   const soloEnabled: boolean = solo > -1;
 
   return (
-    <div
-      ref={resizeRef}
-      className={className}
-      css={`
-        ${soloEnabled ? soloContainerStyle : width / height < 1.2 ? gridContainerStyle : verticalContainerStyle}
-      `}
-    >
+    <Container ref={resizeRef} soloEnabled={soloEnabled} width={width} height={height} className={className}>
       {Children.map(children, (child, i) => {
         return (
-          <div
-            key={'quarter-' + i}
-            css={`
-              ${!soloEnabled || solo === i ? itemStyle : hiddenStyle}
-            `}
-          >
+          <Quarter key={'quarter-' + i} soloEnabled={soloEnabled} solo={solo} index={i}>
             {child}
             <ExpandButton
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
                 event.nativeEvent.stopImmediatePropagation();
@@ -42,12 +31,21 @@ export function QuarterView({ children, className }: QuarterViewProps) {
             >
               {soloEnabled ? <FullscreenExit /> : <Fullscreen />}
             </ExpandButton>
-          </div>
+          </Quarter>
         );
       })}
-    </div>
+    </Container>
   );
 }
+
+const Quarter = styled.div<{ soloEnabled: boolean; solo: number; index: number }>`
+  ${({ soloEnabled, solo, index }) => (!soloEnabled || solo === index ? itemStyle : hiddenStyle)};
+`;
+
+const Container = styled.div<{ soloEnabled: boolean; width: number; height: number }>`
+  ${({ soloEnabled, width, height }) =>
+    soloEnabled ? soloContainerStyle : width / height < 1.2 ? gridContainerStyle : verticalContainerStyle};
+`;
 
 const verticalContainerStyle = css`
   display: flex;
