@@ -19,7 +19,7 @@ export function QuarterView({ children, className }: QuarterViewProps) {
     <Container ref={resizeRef} soloEnabled={soloEnabled} width={width} height={height} className={className}>
       {Children.map(children, (child, i) => {
         return (
-          <Quarter key={'quarter-' + i} soloEnabled={soloEnabled} solo={solo} index={i}>
+          <div key={'quarter-' + i} data-solo={solo === i}>
             {child}
             <ExpandButton
               onClick={(event) => {
@@ -31,16 +31,12 @@ export function QuarterView({ children, className }: QuarterViewProps) {
             >
               {soloEnabled ? <FullscreenExit /> : <Fullscreen />}
             </ExpandButton>
-          </Quarter>
+          </div>
         );
       })}
     </Container>
   );
 }
-
-const Quarter = styled.div<{ soloEnabled: boolean; solo: number; index: number }>`
-  ${({ soloEnabled, solo, index }) => (!soloEnabled || solo === index ? itemStyle : hiddenStyle)};
-`;
 
 const Container = styled.div<{ soloEnabled: boolean; width: number; height: number }>`
   ${({ soloEnabled, width, height }) =>
@@ -53,6 +49,9 @@ const verticalContainerStyle = css`
 
   > div {
     flex: 1;
+
+    position: relative;
+    overflow: hidden;
 
     &:not(:last-of-type) {
       margin-right: 1px;
@@ -67,26 +66,31 @@ const gridContainerStyle = css`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-gap: 1px;
+
+  > div {
+    position: relative;
+    overflow: hidden;
+  }
 `;
 
 const soloContainerStyle = css`
   display: block;
   position: relative;
-`;
 
-const itemStyle = css`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-`;
+  > div[data-solo='true'] {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
 
-const hiddenStyle = css`
-  position: absolute;
-  left: 100vw;
-  top: 0;
-  width: 200px;
-  height: 300px;
+  > div[data-solo='false'] {
+    position: absolute;
+    left: 100vw;
+    top: 0;
+    width: 200px;
+    height: 300px;
+  }
 `;
 
 const ExpandButton = styled(IconButton)`

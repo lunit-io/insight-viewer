@@ -1,3 +1,4 @@
+import { isTouchDevice } from '@lunit/is-touch-device';
 import React, { Component, CSSProperties } from 'react';
 import styled from 'styled-components';
 import { FrameConsumer } from '../context/frame';
@@ -170,7 +171,7 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
       this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
       this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
     }
-    if (this.props.device !== 'mouse-only') {
+    if (isTouchDevice() && this.props.device !== 'mouse-only') {
       this.element.addEventListener('touchstart', this.onTouchStartToStartDraw);
     }
     this.element.addEventListener('click', this.onMouseClickToRemove);

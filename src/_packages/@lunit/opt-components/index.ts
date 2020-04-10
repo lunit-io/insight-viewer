@@ -24,3 +24,5 @@ export * from './components/SwitchRow';
 export * from './components/Snackbar';
 export * from './theme/lighten';
 export * from './components/VideoBackgroundContainer';
+export * from './components/useTouchDeviceLayoutFixer';
+export * from './components/useWindowSize';

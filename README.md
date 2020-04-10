@@ -24,6 +24,7 @@
 - [src/_packages/@lunit/is-complex-polygon/README.md](src/_packages/@lunit/is-complex-polygon/README.md)
 - [src/_packages/@lunit/is-intersection/README.md](src/_packages/@lunit/is-intersection/README.md)
 - [src/_packages/@lunit/is-polygon-area-greater-than-area/README.md](src/_packages/@lunit/is-polygon-area-greater-than-area/README.md)
+- [src/_packages/@lunit/is-touch-device/README.md](src/_packages/@lunit/is-touch-device/README.md)
 - [src/_packages/@lunit/new-window/README.md](src/_packages/@lunit/new-window/README.md)
 - [src/_packages/@lunit/opt-components/README.md](src/_packages/@lunit/opt-components/README.md)
 - [src/_packages/@lunit/opt-control-icons/README.md](src/_packages/@lunit/opt-control-icons/README.md)

@@ -1,4 +1,5 @@
 import { CornerstoneSequenceImage } from '@lunit/insight-viewer';
+import { isTouchDevice } from '@lunit/is-touch-device';
 import { useEffect } from 'react';
 
 interface SeriesImageScrollParams {
@@ -25,6 +26,9 @@ export function useSeriesImageScroll({
       return () => {};
     }
 
+    // ---------------------------------------------
+    // wheel handler
+    // ---------------------------------------------
     function wheel(event: WheelEvent) {
       event.preventDefault();
       event.stopPropagation();
@@ -37,6 +41,9 @@ export function useSeriesImageScroll({
       }
     }
 
+    // ---------------------------------------------
+    // touch handler
+    // ---------------------------------------------
     let startIndex: number = -1;
     let startPoint: { x: number; y: number } | null = null;
 
@@ -91,9 +98,18 @@ export function useSeriesImageScroll({
       element.addEventListener('touchstart', touchStart);
     }
 
+    // ---------------------------------------------
+    // start
+    // ---------------------------------------------
     element.addEventListener('wheel', wheel);
-    element.addEventListener('touchstart', touchStart);
 
+    if (isTouchDevice()) {
+      element.addEventListener('touchstart', touchStart);
+    }
+
+    // ---------------------------------------------
+    // end
+    // ---------------------------------------------
     return () => {
       element.removeEventListener('wheel', wheel);
 

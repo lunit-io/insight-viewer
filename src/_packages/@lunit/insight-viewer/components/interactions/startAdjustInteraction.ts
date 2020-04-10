@@ -1,3 +1,5 @@
+import { isTouchDevice } from '@lunit/is-touch-device';
+
 interface AdjustInteractionParams {
   element: HTMLElement;
   getCurrentViewport: () => cornerstone.Viewport | null;
@@ -20,7 +22,9 @@ export function startAdjustInteraction({
 
   function startTrigger() {
     element.addEventListener('mousedown', mouseStart);
-    element.addEventListener('touchstart', touchStart);
+    if (isTouchDevice()) {
+      element.addEventListener('touchstart', touchStart);
+    }
   }
 
   function stopTrigger() {
@@ -28,6 +32,9 @@ export function startAdjustInteraction({
     element.removeEventListener('touchstart', touchStart);
   }
 
+  // ---------------------------------------------
+  // touch handler
+  // ---------------------------------------------
   function touchStart(event: TouchEvent) {
     if (event.targetTouches.length > 1) {
       contentWindow.removeEventListener('touchmove', touchMove);
@@ -97,6 +104,9 @@ export function startAdjustInteraction({
     onEnd();
   }
 
+  // ---------------------------------------------
+  // mouse handler
+  // ---------------------------------------------
   function mouseStart(event: MouseEvent) {
     if (event.button !== 0) return;
 
@@ -149,8 +159,14 @@ export function startAdjustInteraction({
     onEnd();
   }
 
+  // ---------------------------------------------
+  // start
+  // ---------------------------------------------
   startTrigger();
 
+  // ---------------------------------------------
+  // end
+  // ---------------------------------------------
   return () => {
     element.removeEventListener('mousedown', mouseStart);
     element.removeEventListener('touchstart', touchStart);
