@@ -1,7 +1,7 @@
 import {
   CornerstoneImage,
+  CornerstoneViewer,
   ImageStoreProvider,
-  InsightViewer,
   InsightViewerContainer,
   InsightViewerControllerOptions,
   InsightViewerTestController,
@@ -26,7 +26,7 @@ const controllerOptions: InsightViewerControllerOptions = {
 
 const imageIds: string[] = series
   .slice(0, 10)
-  .map(p => `wadouri:https://fixtures.front.lunit.io/dcm-files/series/${p}`);
+  .map((p) => `wadouri:https://fixtures.front.lunit.io/dcm-files/series/${p}`);
 
 function Sample() {
   const { fetch } = useImageStore();
@@ -47,16 +47,14 @@ function Sample() {
   return (
     <div style={{ display: 'flex' }}>
       <InsightViewerTestController options={controllerOptions}>
-        {({ width, height, invert, flip, control, wheel, resetTime }) => (
+        {({ width, height, invert, flip, control, wheel, resetTime, element, setElement, interactions }) => (
           <InsightViewerContainer width={width} height={height}>
-            <InsightViewer
+            <CornerstoneViewer
               width={width}
               height={height}
               invert={invert}
               flip={flip}
-              pan={control === 'pan'}
-              adjust={control === 'adjust'}
-              zoom={wheel === 'zoom'}
+              interactions={interactions}
               resetTime={resetTime}
               image={image}
               updateCornerstoneRenderData={() => {}}

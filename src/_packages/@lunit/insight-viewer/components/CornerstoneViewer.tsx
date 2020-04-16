@@ -11,7 +11,7 @@ import {
   ViewportTransformParams,
 } from '../types';
 
-type Interactions = (Interaction | false | null | undefined)[];
+export type CornerstoneViewerInteractions = (Interaction | false | null | undefined)[];
 
 export interface CornerstoneViewerProps extends InsightViewerHostProps {
   width: number;
@@ -19,7 +19,7 @@ export interface CornerstoneViewerProps extends InsightViewerHostProps {
 
   image: CornerstoneImage;
 
-  interactions: Interactions;
+  interactions?: CornerstoneViewerInteractions;
 
   /** Invert Color Image */
   invert: boolean;
@@ -241,14 +241,16 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   // ---------------------------------------------
   // event handlers
   // ---------------------------------------------
-  startInteraction = (interactions: Interactions) => {
+  startInteraction = (interactions: CornerstoneViewerInteractions | undefined) => {
     if (this.teardownInteraction) {
       this.teardownInteraction.forEach((teardown) => teardown());
     }
 
-    this.teardownInteraction = interactions
-      .filter((interaction): interaction is Interaction => typeof interaction === 'function')
-      .map((interaction) => interaction(this));
+    if (Array.isArray(interactions) && interactions.length > 0) {
+      this.teardownInteraction = interactions
+        .filter((interaction): interaction is Interaction => typeof interaction === 'function')
+        .map((interaction) => interaction(this));
+    }
   };
 
   // ---------------------------------------------

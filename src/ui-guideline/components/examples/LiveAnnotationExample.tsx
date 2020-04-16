@@ -4,12 +4,13 @@ import {
   CornerstoneImage,
   CornerstoneRenderData,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   ProgressViewer,
   useContour,
   useInsightViewerSync,
+  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import { ViewportInfoLabel } from '@lunit/opt-components';
 import React, { ReactNode, useMemo, useState } from 'react';
@@ -91,6 +92,8 @@ export function LiveAnnotationExample<T extends Contour>({
     ],
   );
 
+  const interactions = useViewerInteractions(['pan', 'zoom'], { element: interactionElement });
+
   return (
     <div
       style={{
@@ -107,14 +110,12 @@ export function LiveAnnotationExample<T extends Contour>({
         }}
       >
         <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
-          <InsightViewer
+          <CornerstoneViewer
             width={width}
             height={height}
             invert={false}
             flip={false}
-            pan={interactionElement}
-            adjust={false}
-            zoom={interactionElement}
+            interactions={interactions}
             resetTime={resetTime}
             image={image}
             updateCornerstoneRenderData={updateCornerstoneRenderData}

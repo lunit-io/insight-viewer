@@ -1,8 +1,8 @@
 import {
   CornerstoneSequenceImage,
   CornerstoneStaticSeriesImage,
+  CornerstoneViewer,
   fetchBuffer,
-  InsightViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   mapNpyBufferToImages,
@@ -12,6 +12,7 @@ import {
   StrokeText,
   useSeriesImagePosition,
   useSeriesImageScroll,
+  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import React, { useEffect, useState } from 'react';
 import { Observable } from 'rxjs';
@@ -32,16 +33,16 @@ function Viewer({ image }: { image: CornerstoneSequenceImage }) {
 
   const { current, end } = useSeriesImagePosition(image);
 
+  const interactions = useViewerInteractions(['pan']);
+
   return (
     <InsightViewerContainer ref={setElement} width={width} height={height}>
-      <InsightViewer
+      <CornerstoneViewer
         width={width}
         height={height}
         invert={false}
         flip={false}
-        pan={true}
-        adjust={false}
-        zoom={false}
+        interactions={interactions}
         resetTime={0}
         image={image}
         updateCornerstoneRenderData={() => {}}
@@ -76,7 +77,7 @@ export default () => {
     });
 
     const progress: Observable<number> = buffer.pipe(
-      map(progressOrBytes => (typeof progressOrBytes === 'number' ? progressOrBytes : progressOrBytes ? 1 : 0)),
+      map((progressOrBytes) => (typeof progressOrBytes === 'number' ? progressOrBytes : progressOrBytes ? 1 : 0)),
     );
 
     const images: Observable<NpyCornerstoneImages> = buffer.pipe(

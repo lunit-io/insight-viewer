@@ -38,7 +38,7 @@ export function List({
 }) {
   return (
     <ul>
-      {Object.keys(node).map(name => {
+      {Object.keys(node).map((name) => {
         const pathName: string = slugify(name, {
           lower: true,
         });
@@ -52,7 +52,9 @@ export function List({
           );
           return (
             <li key={pathName}>
-              <NavLink to={`${parentPath}/${pathName}`}>{name}</NavLink>
+              <NavLink to={`${parentPath}/${pathName}`} onClick={() => (document.documentElement.scrollTop = 0)}>
+                {name}
+              </NavLink>
             </li>
           );
         } else {

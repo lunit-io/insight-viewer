@@ -3,12 +3,13 @@ import {
   ContourViewer,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   unloadImage,
   useContour,
   useInsightViewerSync,
+  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -28,7 +29,7 @@ export default () => {
     [],
   );
 
-  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
 
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
@@ -37,17 +38,17 @@ export default () => {
     initialContours,
   });
 
+  const interactions = useViewerInteractions(['pan'], { element });
+
   return (
     <div style={{ display: 'flex' }}>
-      <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-        <InsightViewer
+      <InsightViewerContainer ref={setElement} width={width} height={height}>
+        <CornerstoneViewer
           width={width}
           height={height}
           invert={false}
           flip={false}
-          pan={false}
-          adjust={false}
-          zoom={false}
+          interactions={interactions}
           resetTime={0}
           image={image}
           updateCornerstoneRenderData={updateCornerstoneRenderData}
@@ -66,9 +67,9 @@ export default () => {
             width={width}
             height={height}
             contours={contours}
-            draw={divElement}
+            draw={element}
             onFocus={focusContour}
-            onAdd={contour => addContour(contour)}
+            onAdd={(contour) => addContour(contour)}
             onRemove={removeContour}
             cornerstoneRenderData={cornerstoneRenderData}
           />
@@ -76,7 +77,7 @@ export default () => {
       </InsightViewerContainer>
 
       <ul>
-        {contours.map(contour => (
+        {contours.map((contour) => (
           <Item
             key={contour.id}
             focused={focusedContour === contour}

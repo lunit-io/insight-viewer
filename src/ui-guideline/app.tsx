@@ -1,5 +1,5 @@
-import { globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
 import { MDXCodeBlock } from '@handbook/code-block';
+import { globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
 import { globalStyle as componentsGlobalStyle, ThemeProvider } from '@lunit/opt-components';
 import { MDXProvider } from '@mdx-js/react';
 import { SnackbarProvider } from '@ssen/snackbar';
@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 const components = {
-  pre: props => <div {...props} />,
+  pre: (props) => <div {...props} />,
   code: MDXCodeBlock,
 };
 

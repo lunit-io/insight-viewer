@@ -1,11 +1,12 @@
 import {
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
-  unloadWADOImage,
+  unloadImage,
   useInsightViewerSync,
+  useViewerInteractions,
   withInsightViewerStorybookGlobalStyle,
 } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
@@ -24,7 +25,7 @@ export const useResizeObserverSample = () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSingleImage(`wadouri:https://fixtures.front.lunit.io/dcm-files/series/CT000010.dcm`, {
-        unload: unloadWADOImage,
+        unload: unloadImage,
       }),
     [],
   );
@@ -33,20 +34,20 @@ export const useResizeObserverSample = () => {
 
   // 특정 Element의 width, height를 지속적으로 감지한다
   // flex 등 layout으로 처리된 <div> Element의 width, height를 useResizeObserver()로 받아서
-  // <InsightViewer width={width} height={height}> 로 넘길 수 있다
+  // <CornerstoneViewer width={width} height={height}> 로 넘길 수 있다
   const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<HTMLDivElement>({});
+
+  const interactions = useViewerInteractions(['pan']);
 
   return (
     <div ref={resizeRef} style={{ width: '50vw', height: '80vh' }}>
       <InsightViewerContainer width={width} height={height}>
-        <InsightViewer
+        <CornerstoneViewer
           width={width}
           height={height}
           invert={false}
           flip={false}
-          pan
-          adjust={false}
-          zoom={false}
+          interactions={interactions}
           resetTime={resetTime}
           image={image}
           updateCornerstoneRenderData={updateCornerstoneRenderData}

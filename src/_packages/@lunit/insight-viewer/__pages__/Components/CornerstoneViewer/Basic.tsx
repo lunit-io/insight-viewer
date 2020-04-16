@@ -1,14 +1,11 @@
 import {
-  adjust,
   CornerstoneImage,
   CornerstoneSingleImage,
   CornerstoneViewer,
   InsightViewerControllerOptions,
   InsightViewerTestController,
   installWADOImageLoader,
-  pan,
   unloadImage,
-  zoom,
 } from '@lunit/insight-viewer';
 import React, { useMemo } from 'react';
 
@@ -34,17 +31,13 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime }) => (
+      {({ width, height, invert, flip, control, wheel, resetTime, interactions }) => (
         <CornerstoneViewer
           width={width}
           height={height}
           invert={invert} // 색상을 반전한다
           flip={flip} // 이미지를 좌우로 뒤집는다
-          interactions={[
-            control === 'pan' && pan(), // Pan Interaction을 활성화 한다
-            control === 'adjust' && adjust(), // Adjust Interaction을 활성화 한다 (Pan과 동시에 사용할 수 없다)
-            wheel === 'zoom' && zoom(), // Zoom Interaction을 활성화 한다
-          ]}
+          interactions={interactions}
           resetTime={resetTime} // 이 값이 변경되면 Pan, Adjust, Zoom 상태가 초기화 된다
           image={image}
           updateCornerstoneRenderData={() => {}}

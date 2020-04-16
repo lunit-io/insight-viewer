@@ -1,18 +1,18 @@
 import {
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   InsightViewerControllerOptions,
   InsightViewerTestController,
   installWADOImageLoader,
-  unloadImage,
-  LeftTopHolder,
-  RightTopHolder,
   LeftBottomHolder,
+  LeftTopHolder,
   RightBottomHolder,
+  RightTopHolder,
+  unloadImage,
 } from '@lunit/insight-viewer';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 installWADOImageLoader();
 
@@ -34,20 +34,16 @@ export default () => {
     [],
   );
 
-  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
-
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime }) => (
-        <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-          <InsightViewer
+      {({ width, height, invert, flip, control, wheel, resetTime, element, setElement, interactions }) => (
+        <InsightViewerContainer ref={setElement} width={width} height={height}>
+          <CornerstoneViewer
             width={width}
             height={height}
             invert={invert}
             flip={flip}
-            pan={control === 'pan' && divElement}
-            adjust={control === 'adjust' && divElement}
-            zoom={wheel === 'zoom' && divElement}
+            interactions={interactions}
             resetTime={resetTime}
             image={image}
             updateCornerstoneRenderData={() => {}}

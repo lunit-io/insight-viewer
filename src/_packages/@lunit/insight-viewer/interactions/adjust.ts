@@ -1,7 +1,7 @@
 import { CornerstoneViewerLike } from '@lunit/insight-viewer';
 import { startAdjustInteraction } from '../components/interactions/startAdjustInteraction';
 
-export const adjust = ({ element }: { element?: HTMLElement } = {}) => ({
+export const adjust = ({ element }: { element?: HTMLElement | null } = {}) => ({
   getElement,
   getCurrentViewport,
   updateViewport,

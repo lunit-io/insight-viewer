@@ -3,7 +3,7 @@ import {
   ContourViewer,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   unloadImage,
@@ -35,14 +35,11 @@ export default () => {
 
   return (
     <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-      <InsightViewer
+      <CornerstoneViewer
         width={width}
         height={height}
         invert={false}
         flip={false}
-        pan={false}
-        adjust={false}
-        zoom={false}
         resetTime={0}
         image={image}
         updateCornerstoneRenderData={updateCornerstoneRenderData}
@@ -63,7 +60,7 @@ export default () => {
           contours={contours}
           draw={divElement}
           onFocus={focusContour}
-          onAdd={contour => addContour(contour)}
+          onAdd={(contour) => addContour(contour)}
           onRemove={removeContour}
           cornerstoneRenderData={cornerstoneRenderData}
         />

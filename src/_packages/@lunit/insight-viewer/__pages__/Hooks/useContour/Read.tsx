@@ -2,12 +2,13 @@ import {
   ContourViewer,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   unloadImage,
   useContour,
   useInsightViewerSync,
+  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import React, { useMemo, useState } from 'react';
 import { initialContours } from '../../../__fixtures__/contour';
@@ -26,7 +27,7 @@ export default () => {
     [],
   );
 
-  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
 
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
@@ -35,16 +36,16 @@ export default () => {
     initialContours,
   });
 
+  const interactions = useViewerInteractions(['pan', 'zoom'], { element });
+
   return (
-    <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-      <InsightViewer
+    <InsightViewerContainer ref={setElement} width={width} height={height}>
+      <CornerstoneViewer
         width={width}
         height={height}
         invert={false}
         flip={false}
-        pan={divElement}
-        adjust={false}
-        zoom={divElement}
+        interactions={interactions}
         resetTime={0}
         image={image}
         updateCornerstoneRenderData={updateCornerstoneRenderData}

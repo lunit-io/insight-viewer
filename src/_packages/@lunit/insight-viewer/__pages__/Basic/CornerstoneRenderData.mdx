@@ -18,7 +18,7 @@ export interface CornerstoneRenderData {
   /** 
    * cornerstone의 Rendering에 관련된 정보들
    * 
-   * - <HeatmapViewer>, <ContourViewer> 등 <InsightViewer>와 화면을 동기화 시키는 기능을 만들 때 사용된다.
+   * - <HeatmapViewer>, <ContourViewer> 등 <CornerstoneViewer>와 화면을 동기화 시키는 기능을 만들 때 사용된다.
    * - 그 외, 잡다한 Rendering에 관련된 거의 대부분의 정보들을 얻을 수 있다
    */
   enabledElement: cornerstone.EnabledElement;
@@ -36,7 +36,7 @@ export interface CornerstoneRenderData {
   /** 
    * cornerstone이 화면에 그리고 있는 Viewport 상태
    * 
-   * - useViewportMirroring()과 같이 <InsightViewer>들의 화면을 동기화 시키는 기능을 만들 때 사용된다.
+   * - useViewportMirroring()과 같이 <CornerstoneViewer>들의 화면을 동기화 시키는 기능을 만들 때 사용된다.
    * - 그 외, 현재 cornerstone 화면 상태에 대한 거의 대부분의 정보들으 얻을 수 있다
    */
   viewport: cornerstone.Viewport;
@@ -45,7 +45,7 @@ export interface CornerstoneRenderData {
 
 # `CornerstoneRenderData` 얻기
 
-아래와 같이 `<InsightViewer updateCornerstoneRenderData={(renderData: CornerstoneRenderData) => void} />`를 사용해서 얻을 수 있다.
+아래와 같이 `<CornerstoneViewer updateCornerstoneRenderData={(renderData: CornerstoneRenderData) => void} />`를 사용해서 얻을 수 있다.
 
 <Example example={component('./CornerstoneRenderData/GetData')}>
   <Preview height={520}/>
@@ -95,7 +95,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
   <Preview height={520}/>
 </Example>
 
-혹은 동기화 도구를 사용해서 여러개의 `<InsightViewer>`들을 동기화 시킬 수도 있다.
+혹은 동기화 도구를 사용해서 여러개의 `<CornerstoneViewer>`들을 동기화 시킬 수도 있다.
 
 <Example example={component('./CornerstoneRenderData/MirrorData')}>
   <Preview height={520}/>

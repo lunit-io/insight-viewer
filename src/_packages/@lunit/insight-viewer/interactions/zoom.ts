@@ -1,7 +1,7 @@
 import { CornerstoneViewerLike } from '@lunit/insight-viewer';
 import { startZoomInteraction } from '../components/interactions/startZoomInteraction';
 
-export const zoom = ({ element }: { element?: HTMLElement } = {}) => ({
+export const zoom = ({ element }: { element?: HTMLElement | null } = {}) => ({
   getElement,
   updateViewport,
   getCurrentViewport,

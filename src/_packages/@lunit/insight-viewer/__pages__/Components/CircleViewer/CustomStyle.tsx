@@ -1,9 +1,9 @@
 import {
-  CircleViewer,
   CircleHover,
+  CircleViewer,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   InsightViewerControllerOptions,
   InsightViewerTestController,
@@ -12,7 +12,7 @@ import {
   useContour,
   useInsightViewerSync,
 } from '@lunit/insight-viewer';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { initialContours } from '../../../__fixtures__/circle';
 
@@ -46,8 +46,6 @@ export default () => {
     [],
   );
 
-  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
-
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data
@@ -58,16 +56,14 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime }) => (
-        <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-          <InsightViewer
+      {({ width, height, invert, flip, control, wheel, resetTime, interactions, element, setElement }) => (
+        <InsightViewerContainer ref={setElement} width={width} height={height}>
+          <CornerstoneViewer
             width={width}
             height={height}
             invert={invert}
             flip={flip}
-            pan={control === 'pan' && divElement}
-            adjust={control === 'adjust' && divElement}
-            zoom={wheel === 'zoom' && divElement}
+            interactions={interactions}
             resetTime={resetTime}
             image={image}
             updateCornerstoneRenderData={updateCornerstoneRenderData}
@@ -82,7 +78,7 @@ export default () => {
                 cornerstoneRenderData={cornerstoneRenderData}
               />
               <CircleHover
-                hover={divElement}
+                hover={element}
                 width={width}
                 height={height}
                 contours={contours}

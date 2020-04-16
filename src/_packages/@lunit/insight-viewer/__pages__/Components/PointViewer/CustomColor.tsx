@@ -2,7 +2,7 @@ import {
   Contour,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   InsightViewerControllerOptions,
   InsightViewerTestController,
@@ -12,7 +12,7 @@ import {
   useContour,
   useInsightViewerSync,
 } from '@lunit/insight-viewer';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 function labelFunction({ id }: Contour): string {
@@ -68,8 +68,6 @@ export default () => {
     [],
   );
 
-  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
-
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data
@@ -80,16 +78,14 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime }) => (
-        <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-          <InsightViewer
+      {({ width, height, invert, flip, control, wheel, resetTime, element, setElement, interactions }) => (
+        <InsightViewerContainer ref={setElement} width={width} height={height}>
+          <CornerstoneViewer
             width={width}
             height={height}
             invert={invert}
             flip={flip}
-            pan={control === 'pan' && divElement}
-            adjust={control === 'adjust' && divElement}
-            zoom={wheel === 'zoom' && divElement}
+            interactions={interactions}
             resetTime={resetTime}
             image={image}
             updateCornerstoneRenderData={updateCornerstoneRenderData}
@@ -102,7 +98,7 @@ export default () => {
               interact={control === 'pen'}
               focusedContour={focusedContour}
               onFocus={focusContour}
-              onAdd={polygon => addContour(polygon, { label: labelFunction })}
+              onAdd={(polygon) => addContour(polygon, { label: labelFunction })}
               onRemove={removeContour}
               cornerstoneRenderData={cornerstoneRenderData}
             />

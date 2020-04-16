@@ -4,15 +4,16 @@ import {
   CornerstoneImage,
   CornerstoneRenderData,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   ProgressViewer,
   useContour,
   useInsightViewerSync,
+  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import { ViewportInfoLabel } from '@lunit/opt-components';
-import { OPTControlState, useOPTControl } from '@lunit/use-opt-control';
+import { OPTControlState, useControl } from '@lunit/use-opt-control';
 import { useResetTime } from '@lunit/use-reset-time';
 import { useSnackbar } from '@ssen/snackbar';
 import React, { ReactNode, useMemo, useState } from 'react';
@@ -57,7 +58,7 @@ export function AnnotationExample<T extends Contour>({
 
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
-  const { control, flip, invert, updateControl, resetControl, updateFlip, updateInvert } = useOPTControl({
+  const { control, flip, invert, updateControl, resetControl, updateFlip, updateInvert } = useControl({
     initialControl: 'pen',
   });
 
@@ -127,6 +128,8 @@ export function AnnotationExample<T extends Contour>({
 
   const { viewer, sidepanel } = children(childProps);
 
+  const interactions = useViewerInteractions([control, 'zoom'], { element: interactionElement });
+
   return (
     <div
       style={{
@@ -143,14 +146,12 @@ export function AnnotationExample<T extends Contour>({
         }}
       >
         <InsightViewerContainer ref={setInteractionElement} width={viewerWidth} height={height}>
-          <InsightViewer
+          <CornerstoneViewer
             width={viewerWidth}
             height={height}
             invert={invert}
             flip={flip}
-            pan={control === 'pan' && interactionElement}
-            adjust={control === 'adjust' && interactionElement}
-            zoom={interactionElement}
+            interactions={interactions}
             resetTime={resetTime}
             image={image}
             updateCornerstoneRenderData={updateCornerstoneRenderData}

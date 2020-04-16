@@ -14,7 +14,7 @@ interface HandbookProps {
 }
 
 const components = {
-  pre: props => <div {...props} />,
+  pre: (props) => <div {...props} />,
   code: MDXCodeBlock,
 };
 

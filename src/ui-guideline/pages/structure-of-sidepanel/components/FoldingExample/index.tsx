@@ -1,9 +1,9 @@
-import { useOPTControl } from '@lunit/use-opt-control';
+import { useControl } from '@lunit/use-opt-control';
+import React, { ReactNode } from 'react';
 import { ControlPanel } from 'ui-guideline/samples/annotation-cxr/components/sidebar/ControlPanel';
 import { ReportPanel } from 'ui-guideline/samples/annotation-cxr/components/sidebar/ReportPanel';
 import { UserContoursPanel } from 'ui-guideline/samples/opt-cxr/components/sidebar/UserContoursPanel';
 import { Annotation } from 'ui-guideline/samples/opt-cxr/model/annotation';
-import React, { ReactNode } from 'react';
 import { PanelExample } from '../../../../components/examples/PanelExample';
 import data from './contours.json';
 
@@ -15,7 +15,7 @@ function mockFn() {
 }
 
 export function FoldingExample({ width, height }: { width: number; height: number }) {
-  const { control, flip, invert, updateControl, resetControl, updateFlip, updateInvert } = useOPTControl({
+  const { control, flip, invert, updateControl, resetControl, updateFlip, updateInvert } = useControl({
     initialControl: 'pen',
   });
 

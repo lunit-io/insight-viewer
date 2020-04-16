@@ -1,11 +1,12 @@
 import {
   CornerstoneImage,
   CornerstoneSingleImage,
+  CornerstoneViewer,
   HeatmapViewer,
-  InsightViewer,
   installWADOImageLoader,
   unloadImage,
   useInsightViewerSync,
+  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import React, { useMemo } from 'react';
 import data from '../../../__fixtures__/posMap.sample.json';
@@ -25,16 +26,16 @@ export default () => {
 
   const resetTime = useMemo<number>(() => Date.now(), []);
 
+  const interactions = useViewerInteractions(['pan', 'zoom']);
+
   return (
     <div style={{ display: 'flex' }}>
-      <InsightViewer
+      <CornerstoneViewer
         width={400}
         height={500}
         invert={false}
         flip={false}
-        pan={true}
-        adjust={false}
-        zoom={true}
+        interactions={interactions}
         resetTime={resetTime}
         image={image}
         updateCornerstoneRenderData={updateCornerstoneRenderData} // 받아서

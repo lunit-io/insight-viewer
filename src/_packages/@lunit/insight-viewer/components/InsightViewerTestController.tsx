@@ -1,3 +1,4 @@
+import { CornerstoneViewerInteractions, useViewerInteractions } from '@lunit/insight-viewer';
 import { Control } from '@lunit/use-opt-control';
 import { Box, Button, FormControlLabel, Radio, RadioGroup, Slider, Switch, Typography } from '@material-ui/core';
 import React, { Fragment, ReactNode, useMemo, useState } from 'react';
@@ -30,6 +31,10 @@ export interface InsightViewerControllerState {
   flip: boolean;
   resetTime: number;
 
+  element: HTMLElement | null;
+  setElement: <E extends HTMLElement>(element: E | null) => void;
+  interactions: CornerstoneViewerInteractions;
+
   updateWidth: (value: number) => void;
   updateHeight: (value: number) => void;
   updateControl: (value: Control) => void;
@@ -52,6 +57,9 @@ export function InsightViewerTestController({ children, options }: InsightViewer
   const [flip, setFlip] = useState(() => (Array.isArray(options.flip) ? options.flip[0] : options.flip));
   const [resetTime, setResetTime] = useState(Date.now());
 
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const interactions = useViewerInteractions([control, wheel], { element });
+
   const state: InsightViewerControllerState = useMemo<InsightViewerControllerState>(
     () => ({
       options,
@@ -69,24 +77,12 @@ export function InsightViewerTestController({ children, options }: InsightViewer
       updateInvert: setInvert,
       updateFlip: setFlip,
       updateResetTime: setResetTime,
+
+      element,
+      setElement,
+      interactions,
     }),
-    [
-      options,
-      width,
-      height,
-      control,
-      wheel,
-      invert,
-      flip,
-      resetTime,
-      setWidth,
-      setHeight,
-      setControl,
-      setWheel,
-      setInvert,
-      setFlip,
-      setResetTime,
-    ],
+    [options, width, height, control, wheel, invert, flip, resetTime, element, interactions],
   );
 
   return (
@@ -146,7 +142,7 @@ function Controller({
         <>
           <Typography gutterBottom>Control</Typography>
           <RadioGroup value={control} onChange={(event, nextValue) => updateControl(nextValue as Control)}>
-            {options.control[1].map(value => (
+            {options.control[1].map((value) => (
               <FormControlLabel
                 color="primary"
                 key={value}
@@ -163,7 +159,7 @@ function Controller({
         <>
           <Typography gutterBottom>Wheel</Typography>
           <RadioGroup value={wheel} onChange={(event, nextValue) => updateWheel(nextValue as Wheel)}>
-            {options.wheel[1].map(value => (
+            {options.wheel[1].map((value) => (
               <FormControlLabel
                 color="primary"
                 key={value}

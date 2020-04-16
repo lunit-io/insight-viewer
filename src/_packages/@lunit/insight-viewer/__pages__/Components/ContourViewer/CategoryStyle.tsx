@@ -1,9 +1,9 @@
 import {
-  ContourViewer,
   ContourHover,
+  ContourViewer,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   InsightViewerControllerOptions,
   InsightViewerTestController,
@@ -13,7 +13,7 @@ import {
   useInsightViewerSync,
 } from '@lunit/insight-viewer';
 import { color as d3color } from 'd3-color';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import { categoryColors, initialContours } from '../../../__fixtures__/contour';
 
@@ -30,10 +30,7 @@ const controllerOptions: InsightViewerControllerOptions = {
 
 const categoryStyle = (category: string) => {
   // focused color는 기본 color를 조금 밝게해서 사용한다
-  const focusedColor =
-    d3color(categoryColors[category])
-      ?.brighter(3)
-      .toString() || categoryColors[category];
+  const focusedColor = d3color(categoryColors[category])?.brighter(3).toString() || categoryColors[category];
 
   // data-category attribute 별로 색상을 지정해준다
   return css`
@@ -62,8 +59,6 @@ export default () => {
     [],
   );
 
-  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
-
   const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data
@@ -74,16 +69,14 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime }) => (
-        <InsightViewerContainer ref={setDivElement} width={width} height={height}>
-          <InsightViewer
+      {({ width, height, invert, flip, control, wheel, resetTime, interactions, setElement, element }) => (
+        <InsightViewerContainer ref={setElement} width={width} height={height}>
+          <CornerstoneViewer
             width={width}
             height={height}
             invert={invert}
             flip={flip}
-            pan={control === 'pan' && divElement}
-            adjust={control === 'adjust' && divElement}
-            zoom={wheel === 'zoom' && divElement}
+            interactions={interactions}
             resetTime={resetTime}
             image={image}
             updateCornerstoneRenderData={updateCornerstoneRenderData}
@@ -98,7 +91,7 @@ export default () => {
                 cornerstoneRenderData={cornerstoneRenderData}
               />
               <ContourHover
-                hover={divElement}
+                hover={element}
                 width={width}
                 height={height}
                 contours={contours}

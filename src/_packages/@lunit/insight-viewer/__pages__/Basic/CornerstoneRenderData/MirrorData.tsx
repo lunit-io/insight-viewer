@@ -1,9 +1,10 @@
 import {
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   installWADOImageLoader,
   unloadImage,
+  useViewerInteractions,
   useViewportMirroring,
 } from '@lunit/insight-viewer';
 import React, { useMemo, useRef } from 'react';
@@ -35,50 +36,45 @@ export default () => {
     [],
   );
 
-  const viewer2 = useRef<InsightViewer>(null);
-
-  const viewer3 = useRef<InsightViewer>(null);
+  const viewer2 = useRef<CornerstoneViewer>(null);
+  const viewer3 = useRef<CornerstoneViewer>(null);
 
   const { updateMasterRenderData } = useViewportMirroring(viewer2, viewer3);
 
   const resetTime = useMemo<number>(() => Date.now(), []);
 
+  const interactions = useViewerInteractions(['pan', 'zoom']);
+
   return (
     <div style={{ display: 'flex' }}>
-      <InsightViewer
+      <CornerstoneViewer
         width={400}
         height={500}
         invert={false}
         flip={false}
-        pan={true}
-        adjust={false}
-        zoom={true}
+        interactions={interactions}
         resetTime={resetTime}
         image={image1}
         updateCornerstoneRenderData={updateMasterRenderData}
       />
-      <InsightViewer
+      <CornerstoneViewer
         ref={viewer2}
         width={400}
         height={500}
         invert={false}
         flip={false}
-        pan={true}
-        adjust={false}
-        zoom={true}
+        interactions={interactions}
         resetTime={resetTime}
         image={image2}
         updateCornerstoneRenderData={() => {}}
       />
-      <InsightViewer
+      <CornerstoneViewer
         ref={viewer3}
         width={400}
         height={500}
         invert={false}
         flip={false}
-        pan={true}
-        adjust={false}
-        zoom={true}
+        interactions={interactions}
         resetTime={resetTime}
         image={image3}
         updateCornerstoneRenderData={() => {}}

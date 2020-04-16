@@ -3,7 +3,7 @@ import {
   ContourViewer,
   CornerstoneImage,
   CornerstoneSingleImage,
-  InsightViewer,
+  CornerstoneViewer,
   InsightViewerContainer,
   installWADOImageLoader,
   unloadImage,
@@ -45,14 +45,11 @@ export default () => {
   return (
     <div style={{ display: 'flex' }}>
       <InsightViewerContainer ref={setDivElement1} width={width} height={height}>
-        <InsightViewer
+        <CornerstoneViewer
           width={width}
           height={height}
           invert={false}
           flip={false}
-          pan={false}
-          adjust={false}
-          zoom={false}
           resetTime={0}
           image={image}
           updateCornerstoneRenderData={sync1.updateCornerstoneRenderData}
@@ -73,7 +70,7 @@ export default () => {
             contours={contour1.contours}
             draw={divElement1}
             onFocus={contour1.focusContour}
-            onAdd={contour => contour1.addContour(contour)}
+            onAdd={(contour) => contour1.addContour(contour)}
             onRemove={contour1.removeContour}
             cornerstoneRenderData={sync1.cornerstoneRenderData}
           />
@@ -81,14 +78,11 @@ export default () => {
       </InsightViewerContainer>
 
       <InsightViewerContainer ref={setDivElement2} width={width} height={height}>
-        <InsightViewer
+        <CornerstoneViewer
           width={width}
           height={height}
           invert={false}
           flip={false}
-          pan={false}
-          adjust={false}
-          zoom={false}
           resetTime={0}
           image={image}
           updateCornerstoneRenderData={sync2.updateCornerstoneRenderData}
@@ -109,7 +103,7 @@ export default () => {
             contours={contour2.contours}
             draw={divElement2}
             onFocus={contour2.focusContour}
-            onAdd={contour => contour2.addContour(contour)}
+            onAdd={(contour) => contour2.addContour(contour)}
             onRemove={contour2.removeContour}
             cornerstoneRenderData={sync2.cornerstoneRenderData}
           />

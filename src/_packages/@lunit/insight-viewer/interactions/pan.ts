@@ -1,7 +1,7 @@
 import { CornerstoneViewerLike } from '@lunit/insight-viewer';
 import { startPanInteraction } from '../components/interactions/startPanInteraction';
 
-export const pan = ({ element }: { element?: HTMLElement } = {}) => ({
+export const pan = ({ element }: { element?: HTMLElement | null } = {}) => ({
   getElement,
   getCurrentViewport,
   getContentWindow,

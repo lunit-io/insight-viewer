@@ -26,6 +26,7 @@ export * from './components/CornerstoneViewer';
 export * from './interactions/adjust';
 export * from './interactions/pan';
 export * from './interactions/zoom';
+export * from './interactions/useViewerInteractions';
 
 export * from './hooks/useSeriesImagePosition';
 export * from './hooks/useSeriesImageScroll';

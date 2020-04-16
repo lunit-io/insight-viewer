@@ -28,7 +28,7 @@ export interface CornerstoneImage {
   <Preview height={200} style={{overflowY: 'auto'}}/>
 </Example>
 
-> `<InsightViewer>`, `<DCMImage>` 또는 `CornerstoneImage`를 사용하는 모든 기능들은   
+> `<CornerstoneViewer>`, `<DCMImage>` 또는 `CornerstoneImage`를 사용하는 모든 기능들은   
 > `cornerstoneImage.image.subscribe()`와 `cornerstoneImage.progress.subscribe()`를 내부적으로 사용해서 기능을 구현하고 있다.
 
 `<DCMImage>` Component를 사용해서 단순 화면 출력하거나,
@@ -37,9 +37,9 @@ export interface CornerstoneImage {
   <Preview height={280}/>
 </Example>
 
-`<InsightViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
+`<CornerstoneViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
 
-<Example example={component('./CornerstoneImage/InsightViewer')}>
+<Example example={component('./CornerstoneImage/CornerstoneViewer')}>
   <Preview height={520}/>
 </Example>
 
@@ -76,9 +76,9 @@ export interface CornerstoneSeriesImage extends CornerstoneImage {
   <Preview height={280}/>
 </Example> 
 
-`<InsightViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
+`<CornerstoneViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
 
-<Example example={component('./CornerstoneImage/InsightViewerWithSeries')}>
+<Example example={component('./CornerstoneImage/CornerstoneViewerWithSeries')}>
   <Preview height={520}/>
 </Example>
 

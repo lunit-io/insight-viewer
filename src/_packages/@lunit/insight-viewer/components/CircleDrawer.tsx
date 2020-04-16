@@ -17,7 +17,7 @@ export interface CircleDrawerProps<T extends Contour> extends InsightViewerGuest
   /**
    * 그리기 기능 활성화 여부
    *
-   * <InsightViewer> 와 마찬가지로 HTMLElement로 입력할 경우 MouseEvent를 해당 HTMLElement를 사용해서 처리한다
+   * HTMLElement로 입력할 경우 MouseEvent를 해당 HTMLElement를 사용해서 처리한다
    */
   draw: boolean | HTMLElement | null;
 
