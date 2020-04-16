@@ -1,6 +1,6 @@
 {
   "name": "@lunit/opt-components",
-  "version": "1.5.0-alpha.3",
+  "version": "1.5.0",
   "description": "Component library for annotation / opt apps",
   "author": {
     "name": "Seoyeon Lee",
@@ -31,7 +31,7 @@
     "@storybook/addons": "^5.2.6",
     "@lunit/use-dialog": "^1.0.2",
     "use-resize-observer": "^5.0.0",
-    "@lunit/insight-viewer": "^4.0.0-alpha.11",
+    "@lunit/insight-viewer": "^4.0.0",
     "@ssen/snackbar": "^0.1.0",
     "@lunit/is-touch-device": "^0.1.0"
   }

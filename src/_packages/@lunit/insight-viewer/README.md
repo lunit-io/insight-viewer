@@ -13,6 +13,9 @@ npm install @lunit/insight-viewer@alpha
 # Changelog
 
 ## 4.0.0
+### Added
+- `<CornerstoneViewer>` 추가 → Deprecate `<InsightViewer>`
+
 ### Fixed
 - `invert={true} flip={true}` 기본값 적용 안되는 문제 수정
 
