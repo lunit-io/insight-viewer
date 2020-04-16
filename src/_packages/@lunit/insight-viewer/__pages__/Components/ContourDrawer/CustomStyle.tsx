@@ -11,10 +11,9 @@ import {
   unloadImage,
   useContour,
   useInsightViewerSync,
-  useViewerInteractions,
 } from '@lunit/insight-viewer';
 import { labelFunction } from '@lunit/insight-viewer/__fixtures__/contour';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 installWADOImageLoader();

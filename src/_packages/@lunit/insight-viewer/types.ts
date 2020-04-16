@@ -1,10 +1,3 @@
-//export type CornerstoneRenderData = Required<
-//  Pick<
-//    cornerstone.CornerstoneEventData,
-//    'canvasContext' | 'element' | 'enabledElement' | 'image' | 'renderTimeInMs' | 'viewport'
-//  >
-//>;
-
 export interface CornerstoneRenderData {
   /** cornerstone이 그림을 그리고 있는 CanvasRenderingContext2D */
   canvasContext: CanvasRenderingContext2D;

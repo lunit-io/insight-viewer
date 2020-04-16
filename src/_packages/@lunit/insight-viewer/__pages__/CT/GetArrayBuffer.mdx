@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # Get `ArrayBuffer`
@@ -13,6 +13,8 @@ NumPy Data를 Bytes로 읽어들여 사용해야 하므로,
 
 URL 상의 파일을 `ArrayBuffer`로 가져온다.
 
+<Example example={source('@lunit/insight-viewer/image/fetchBuffer')} api />
+
 <Example example={component('./GetBytes/fetchBuffer')}>
   <Preview height={300} style={{overflowY: 'auto'}}/>
 </Example>
@@ -22,6 +24,8 @@ URL 상의 파일을 `ArrayBuffer`로 가져온다.
 Drag and Drop으로 던져진 `*.npy` 파일을 `ArrayBuffer`로 변환한다.
 
 > Download file here → <https://drive.google.com/file/d/16NtQKztrP6xRddscqtUigeW3--0FrhiH/view?usp=sharing>
+
+<Example example={source('@lunit/insight-viewer/image/fileToBuffer')} api />
 
 <Example example={component('./GetBytes/fileToBuffer')}>
   <Preview height={300} style={{overflowY: 'auto'}}/>

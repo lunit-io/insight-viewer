@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -6,18 +6,11 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 AI에서 내려받는 Heatmap 데이터 형식을 화면에 그린다.
 
-```ts
-export interface HeatmapViewerProps extends InsightViewerGuestProps {
-  width: number;
-  height: number;
-  
-  /** AI 결과로 나오는 Heatmap 데이터 형식 */
-  posMap: number[][];
-  
-  /** Threshold 값 (CXR = 0.15, MMG = 0.1) */
-  threshold: number;
-}
-```
+# API
+
+<Example example={source('@lunit/insight-viewer/components/HeatmapViewer')} api />
+
+# Sample
 
 <Example example={component('./HeatmapViewer/Basic')}>
   <InsightViewerPreview height={720}/>

@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useSeriesImageScroll()`
@@ -6,6 +6,12 @@ import { Example, Preview } from '@handbook/components';
 `CornerstoneSeriesImage`를 Mouse Wheel을 사용해서 Navigation 하는데 사용한다.
 
 `EventTarget`으로 사용할 `HTMLElement`를 필요로 한다.
+
+# API
+
+<Example example={source('@lunit/insight-viewer/hooks/useSeriesImageScroll')} api />
+
+# Sample
 
 <Example example={component('./useSeriesImageScroll/Basic')}>
   <Preview height={380} style={{overflowY: 'auto'}}/>

@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useSeriesImagePosition()`
@@ -6,6 +6,12 @@ import { Example, Preview } from '@handbook/components';
 `CornerstoneSeriesImage`의 현재 이미지 위치를 알아낼 수 있다.
 
 화면에 `CornerstoneSeriesImage`의 이미지 위치 정보를 표시해야 하는 경우 사용할 수 있다.
+
+# API
+
+<Example example={source('@lunit/insight-viewer/hooks/useSeriesImagePosition')} api />
+
+# Sample
 
 <Example example={component('../Basic/CornerstoneImage/DCMImageWithSeries')}>
   <Preview height={280}/>

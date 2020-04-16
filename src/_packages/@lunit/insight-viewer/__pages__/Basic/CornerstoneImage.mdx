@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `interface CornerstoneImage`
@@ -7,18 +7,7 @@ import { Example, Preview } from '@handbook/components';
 
 RxJs 기반으로 동작하기 때문에 <https://rxjs-dev.firebaseapp.com/guide/observable> 문서를 읽어두면 도움이 된다.
 
-```ts
-import { Observable } from 'rxjs';
-
-export interface CornerstoneImage {
-  /** cornerstoneImage.image.subscribe() 로 cornerstone.Image를 받을 수 있다 */
-  readonly image: Observable<cornerstone.Image | null>;
-  /** cornerstoneImage.progress.subscribe() 로 로딩 상태를 0 ~ 1의 값으로 얻을 수 있다 */
-  readonly progress: Observable<number>;
-  /** cornerstoneImage.destroy() 로 현재 Image를 Cache에서 삭제한다 */
-  destroy: () => void;
-}
-```
+<Example example={source('@lunit/insight-viewer/image/types')} api={['CornerstoneImage']} />
 
 # `class CornerstoneSingleImage implements CornerstoneImage`
 

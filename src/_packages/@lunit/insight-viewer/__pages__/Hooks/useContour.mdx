@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useContour()`
@@ -7,22 +7,11 @@ import { Example, Preview } from '@handbook/components';
 
 `<ContourViewer>`, `<ContourDrawer>`, `<CircleViewer>`, `<CircleDrawer>`, `<PointViewer>`, `<PointDrawer>` 등 모든 `Contour` 데이터를 다루는 Component과 연관된다.
 
-매개변수 Type Annotation 참고
-```ts
-// Contour들의 id 값을 일괄 제어할 때 사용 (하단 설명 참고)
-nextId?: number | RefObject<number>;
+# API
 
-// 화면에 그릴 Contour 데이터
-initialContours?: Omit<T, 'id'>[];
+<Example example={source('@lunit/insight-viewer/hooks/useContour')} api />
 
-
-/**
- * - (mode: contour) = [[x, y], [x, y], [x, y]...]
- * - (mode: point) = [[x, y]]
- * - (mode: circle) = [[centerX, centerY][radius, ]]
- */
-mode?: 'contour' | 'point' | 'circle';
-```
+# Sample
 
 아래와 같이 단순히 화면에 표시하기 위한 상황에서 사용할 수도 있고,
 

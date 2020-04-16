@@ -1,4 +1,4 @@
-import { component } from '@handbook/source';
+import { component, source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `interface CornerstoneRenderData`
@@ -7,41 +7,7 @@ import { Example, Preview } from '@handbook/components';
 
 화면을 그려내는 대부분의 상황에 사용된다.
 
-```ts
-export interface CornerstoneRenderData {
-  /** cornerstone이 그림을 그리고 있는 CanvasRenderingContext2D */
-  canvasContext: CanvasRenderingContext2D;
-  
-  /** cornerstone이 그림을 그리고 있는 HTMLElement */
-  element: HTMLElement;
-  
-  /** 
-   * cornerstone의 Rendering에 관련된 정보들
-   * 
-   * - <HeatmapViewer>, <ContourViewer> 등 <CornerstoneViewer>와 화면을 동기화 시키는 기능을 만들 때 사용된다.
-   * - 그 외, 잡다한 Rendering에 관련된 거의 대부분의 정보들을 얻을 수 있다
-   */
-  enabledElement: cornerstone.EnabledElement;
-  
-  /** 
-   * cornerstone이 화면에 그리고 있는 Image 객체 
-   * interface CornerstoneImage 와 연관된다
-   * 
-   * @see CornerstoneImage.image
-   */
-  image: cornerstone.Image;
-  
-  renderTimeInMs: number;
-  
-  /** 
-   * cornerstone이 화면에 그리고 있는 Viewport 상태
-   * 
-   * - useViewportMirroring()과 같이 <CornerstoneViewer>들의 화면을 동기화 시키는 기능을 만들 때 사용된다.
-   * - 그 외, 현재 cornerstone 화면 상태에 대한 거의 대부분의 정보들으 얻을 수 있다
-   */
-  viewport: cornerstone.Viewport;
-}
-```
+<Example example={source('@lunit/insight-viewer/types')} api={['CornerstoneRenderData']} />
 
 # `CornerstoneRenderData` 얻기
 

@@ -10,29 +10,11 @@ Contour의 Mouse Over Event를 위해 `<CircleDrawer>`에서 Drawing 기능만 �
 
 Focused Color를 변경하고자 한다면 `<CircleViewer>`에 Contour가 그려지기 때문에 `<CircleViewer>`를 통해 변경하여야 한다.
 
-```ts
-export interface CircleHoverProps<T extends Contour> extends InsightViewerGuestProps {
-  width: number;
-  height: number;
+# API
 
-  /** Contour 데이터를 상속받은 Annotation 데이터 */
-  contours: T[];
+<Example example={source('@lunit/insight-viewer/components/ContourHover')} api />
 
-  /**
-   * Hover 기능 활성화 여부
-   * HTMLElement로 입력할 경우 MouseEvent를 해당 HTMLElement를 사용해서 처리한다.
-   */
-  hover: boolean | HTMLElement | null;
-
-  /**
-   * 특정 Contour에 Mouse Over 되었을 때
-   * focusedContour를 결정하는데 필요하다.
-   */
-  onFocus: (contour: T | null) => void;
-
-  className?: string;
-}
-```
+# Sample
 
 <Example example={component('./CircleViewer/Basic')}>
   <InsightViewerPreview height={720}/>
