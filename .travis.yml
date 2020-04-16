@@ -1,8 +1,6 @@
 branches:
   only:
     - master
-    - develop
-    - /^(feature|release)\/.*$/
 os: linux
 language: node_js
 node_js: '10'
@@ -26,22 +24,23 @@ deploy:
     on:
       branch: master
   # handbook
-  - provider: pages
-    skip_cleanup: true
-    token: $GITHUB_TOKEN
-    keep_history: true
-    local_dir: ./dist/handbook/browser
-    target_branch: dist/handbook/$TRAVIS_BRANCH
-    on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|develop|feature|release)
+#  - provider: pages
+#    skip_cleanup: true
+#    token: $GITHUB_TOKEN
+#    keep_history: true
+#    local_dir: ./dist/handbook/browser
+#    target_branch: dist/handbook/$TRAVIS_BRANCH
+#    on:
+#      all_branches: true
+#      condition: $TRAVIS_BRANCH =~ ^(master|develop|feature|release)
   # handbook samples
   - provider: pages
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
     keep_history: true
     local_dir: ./dist/handbook-insight-viewer-sample/browser
-    target_branch: dist/handbook-insight-viewer-sample
+    repo: lunit-io/frontend-components-dist
+    target_branch: handbook-insight-viewer-sample
     on:
       all_branches: true
   - provider: pages
@@ -49,7 +48,8 @@ deploy:
     github_token: $GITHUB_TOKEN
     keep_history: true
     local_dir: ./dist/handbook-new-window-sample/browser
-    target_branch: dist/handbook-new-window-sample
+    repo: lunit-io/frontend-components-dist
+    target_branch: handbook-new-window-sample
     on:
       all_branches: true
   # https://lunit-io.github.io/ui-guideline
@@ -59,6 +59,7 @@ deploy:
     keep_history: true
     local_dir: ./dist/ui-guideline/browser
     repo: lunit-io/ui-guideline
+    target_branch: $TRAVIS_BRANCH
     on:
       all_branches: true
 notifications:
