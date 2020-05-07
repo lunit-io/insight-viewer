@@ -22,6 +22,8 @@ export * from './components/ThumbnailImage';
 export * from './components/InsightViewerTestController';
 export * from './components/StrokeText';
 export * from './components/CornerstoneViewer';
+export * from './components/LineDrawer';
+export * from './components/LineViewer';
 
 export * from './interactions/adjust';
 export * from './interactions/pan';
