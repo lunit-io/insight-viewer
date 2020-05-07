@@ -24,7 +24,7 @@
     "react-frame-component": "^4.0.0",
     "@mdx-js/react": "^1.5.0",
     "@lunit/insight-viewer": "^4.0.0-alpha.3",
-    "@lunit/opt-components": "^1.4.3",
+    "@lunit/insight-layout": "^1.4.3",
     "@ssen/snackbar": "^0.1.1",
     "prism-react-renderer": "^1.0.0",
     "styled-components": "^5.0.0",

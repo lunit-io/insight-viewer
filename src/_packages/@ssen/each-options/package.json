@@ -1,0 +1,13 @@
+{
+  "name": "@ssen/each-options",
+  "version": "0.1.0",
+  "description": "Each options",
+  "author": "SSen <i@ssen.name>",
+  "repository": "iamssen/ssenkit",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "typings": "index.d.ts"
+}

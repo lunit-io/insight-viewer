@@ -7,14 +7,13 @@
         "_packages/*",
         "*"
       ]
-    }
+    },
+    "outDir": "__temp__"
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
-    ".dev",
-    "dist",
-    "node_modules",
-    "**/*.js",
-    "dist-storybook",
-    "**/public"
+    "src/**/public"
   ]
 }

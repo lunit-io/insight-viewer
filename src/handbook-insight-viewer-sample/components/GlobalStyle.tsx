@@ -1,4 +1,4 @@
-import { globalStyle as componentsGlobalStyle } from '@lunit/opt-components';
+import { globalStyle as componentsGlobalStyle } from '@lunit/insight-ui';
 import { globalStyle as insightViewerGlobalStyle } from '@lunit/insight-viewer';
 import { createGlobalStyle } from 'styled-components';
 

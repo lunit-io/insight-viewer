@@ -87,7 +87,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 우선 `styled-components`를 사용해서 `<GlobalStyle/>`을 만들어준다.
 
 ```ts
-import { globalStyle as componentsGlobalStyle } from '@lunit/opt-components';
+import { globalStyle as componentsGlobalStyle } from '@lunit/insight-layout';
 import { globalStyle as insightViewerGlobalStyle } from '@lunit/insight-viewer';
 import { createGlobalStyle } from 'styled-components';
 
@@ -114,7 +114,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 ```
 
-(`@lunit/opt-components`를 사용하지 않는다면 제외하면 된다.)
+(`@lunit/insight-layout`를 사용하지 않는다면 제외하면 된다.)
 
 ```tsx
 import React from 'react';

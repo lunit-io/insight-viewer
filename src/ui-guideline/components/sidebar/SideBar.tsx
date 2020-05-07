@@ -1,4 +1,4 @@
-import { ScrollContainer, ScrollContainerProps } from '@lunit/opt-components';
+import { ScrollContainer, ScrollContainerProps } from '@lunit/insight-ui';
 import React from 'react';
 import styled from 'styled-components';
 

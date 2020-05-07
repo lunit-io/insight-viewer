@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@lunit/opt-components';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@lunit/insight-ui';
 import { DialogProps, DialogTemplate, OpenDialog, useDialog } from '@lunit/use-dialog';
 import { Button as MuiButton, TextField } from '@material-ui/core';
 import React, { ReactNode, useCallback, useState } from 'react';
@@ -15,7 +15,7 @@ function useForm(): [OpenDialog<FormParams, FormReturn>, ReactNode] {
 
 // 내부적으로 State (e.g. useState()) 를 사용하지 않으면 useAlert() 과 같이
 // FormTemplate 에서 바로 JSX Template을 구성하면 되지만,
-const FormTemplate: DialogTemplate<FormParams, FormReturn> = props => {
+const FormTemplate: DialogTemplate<FormParams, FormReturn> = (props) => {
   return <FormComponent {...props} />;
 };
 

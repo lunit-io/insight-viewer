@@ -1,4 +1,4 @@
-import { useAlert, useConfirm } from '@lunit/opt-components';
+import { useAlert, useConfirm } from '@lunit/insight-ui';
 import { Button } from '@material-ui/core';
 import React, { useCallback } from 'react';
 
