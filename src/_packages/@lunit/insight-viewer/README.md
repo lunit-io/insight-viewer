@@ -12,6 +12,10 @@ npm install @lunit/insight-viewer@alpha
 
 # Changelog
 
+## 4.1.0
+### Addded
+- `<LineDrawer>`, `<LineViewer>` 추가
+
 ## 4.0.0
 ### Added
 - `<CornerstoneViewer>` 추가 → Deprecate `<InsightViewer>`

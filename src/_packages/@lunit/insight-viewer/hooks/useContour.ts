@@ -19,7 +19,7 @@ export interface UseContourParams<T extends Contour> {
    * Contour Mode
    * Contour Validation에 영향을 준다. (e.g. polygon 최소 면적 판단)
    */
-  mode?: 'contour' | 'point' | 'circle';
+  mode?: 'contour' | 'point' | 'circle' | 'line';
 }
 
 export interface ContourDrawingState<T extends Contour> {
@@ -76,6 +76,7 @@ export function useContour<T extends Contour>({
   const addContour = useCallback(
     (polygon: Point[], contourInfo: Partial<Omit<T, 'id' | 'polygon'>> = {}): T | null => {
       if (mode === 'contour' && (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon))) return null;
+      if (mode === 'line' && !isPolygonAreaGreaterThanArea(polygon)) return null;
 
       const { dataAttrs } = contourInfo;
 
@@ -85,7 +86,7 @@ export function useContour<T extends Contour>({
 
       let contour: T | null = null;
 
-      setContours(prevContours => {
+      setContours((prevContours) => {
         contour = {
           ...contourInfo,
           id:
@@ -114,7 +115,7 @@ export function useContour<T extends Contour>({
         }
       }
 
-      setContours(prevContours => {
+      setContours((prevContours) => {
         const startId: number =
           typeof nextId === 'number'
             ? nextId
@@ -144,6 +145,7 @@ export function useContour<T extends Contour>({
         (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))
       )
         return;
+      if (patch.polygon && mode === 'line' && !isPolygonAreaGreaterThanArea(patch.polygon)) return;
 
       if (patch.dataAttrs) {
         validateDataAttrs(patch.dataAttrs);
@@ -155,14 +157,14 @@ export function useContour<T extends Contour>({
         id: contour.id,
       };
 
-      setContours(prevContours => {
+      setContours((prevContours) => {
         const nextContours = [...prevContours];
         const index: number = nextContours.findIndex(({ id }) => nextContour.id === id);
 
         if (index > -1) {
           nextContours[index] = nextContour;
 
-          setFocusedContour(prevFocusedContour => {
+          setFocusedContour((prevFocusedContour) => {
             return contour === prevFocusedContour ? nextContour : prevFocusedContour;
           });
         }
@@ -176,7 +178,7 @@ export function useContour<T extends Contour>({
   );
 
   const focusContour = useCallback((contour: T | null) => {
-    setFocusedContour(prevFocusedContour => {
+    setFocusedContour((prevFocusedContour) => {
       return contour !== prevFocusedContour ? contour : prevFocusedContour;
     });
   }, []);
@@ -187,7 +189,7 @@ export function useContour<T extends Contour>({
   }, []);
 
   const removeContour = useCallback((contour: T) => {
-    setContours(prevContours => {
+    setContours((prevContours) => {
       const index = prevContours.findIndex(({ id }) => id === contour.id);
 
       if (index > -1) {
@@ -237,7 +239,7 @@ export function useContour<T extends Contour>({
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return;
 
-  Object.keys(dataAttrs).forEach(attr => {
+  Object.keys(dataAttrs).forEach((attr) => {
     if (!/^data-/.test(attr)) {
       throw new Error(`Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`);
     }

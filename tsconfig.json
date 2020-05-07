@@ -7,7 +7,8 @@
         "_packages/*",
         "*"
       ]
-    }
+    },
+    "outDir": "foo"
   },
   "exclude": [
     ".dev",
@@ -15,6 +16,7 @@
     "node_modules",
     "**/*.js",
     "dist-storybook",
-    "**/public"
+    "**/public",
+    "*.js"
   ]
 }

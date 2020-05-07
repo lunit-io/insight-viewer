@@ -1,5 +1,5 @@
 import { useControl } from '@lunit/use-opt-control';
-import React, { ReactNode } from 'react';
+import React, { ReactElement } from 'react';
 import { ControlPanel } from 'ui-guideline/samples/annotation-cxr/components/sidebar/ControlPanel';
 import { ReportPanel } from 'ui-guideline/samples/annotation-cxr/components/sidebar/ReportPanel';
 import { UserContoursPanel } from 'ui-guideline/samples/opt-cxr/components/sidebar/UserContoursPanel';
@@ -8,7 +8,7 @@ import { PanelExample } from '../../../../components/examples/PanelExample';
 import data from './contours.json';
 
 const contours: Annotation[] = data as Annotation[];
-const content: ReactNode = <p>{'텍스트 '.repeat(100)}</p>;
+const content: ReactElement = <p>{'텍스트 '.repeat(100)}</p>;
 
 function mockFn() {
   // DO NOTHING
