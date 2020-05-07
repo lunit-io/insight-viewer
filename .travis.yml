@@ -18,11 +18,11 @@ script:
   - npm run ui-guideline:build
 deploy:
   # npm publish
-  - provider: script
-    script: npm run package:publish:ci
-    skip_cleanup: true
-    on:
-      branch: master
+#  - provider: script
+#    script: npm run package:publish:ci
+#    skip_cleanup: true
+#    on:
+#      branch: master
   # handbook
 #  - provider: pages
 #    skip_cleanup: true
@@ -34,34 +34,34 @@ deploy:
 #      all_branches: true
 #      condition: $TRAVIS_BRANCH =~ ^(master|develop|feature|release)
   # handbook samples
-  - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    keep_history: true
-    local_dir: ./dist/handbook-insight-viewer-sample/browser
-    repo: lunit-io/frontend-components-dist
-    target_branch: handbook-insight-viewer-sample
-    on:
-      all_branches: true
-  - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    keep_history: true
-    local_dir: ./dist/handbook-new-window-sample/browser
-    repo: lunit-io/frontend-components-dist
-    target_branch: handbook-new-window-sample
-    on:
-      all_branches: true
-  # https://lunit-io.github.io/ui-guideline
-  - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    keep_history: true
-    local_dir: ./dist/ui-guideline/browser
-    repo: lunit-io/ui-guideline
-    target_branch: $TRAVIS_BRANCH
-    on:
-      all_branches: true
+#  - provider: pages
+#    skip_cleanup: true
+#    github_token: $GITHUB_TOKEN
+#    keep_history: true
+#    local_dir: ./dist/handbook-insight-viewer-sample/browser
+#    repo: lunit-io/frontend-components-dist
+#    target_branch: handbook-insight-viewer-sample
+#    on:
+#      all_branches: true
+#  - provider: pages
+#    skip_cleanup: true
+#    github_token: $GITHUB_TOKEN
+#    keep_history: true
+#    local_dir: ./dist/handbook-new-window-sample/browser
+#    repo: lunit-io/frontend-components-dist
+#    target_branch: handbook-new-window-sample
+#    on:
+#      all_branches: true
+#  # https://lunit-io.github.io/ui-guideline
+#  - provider: pages
+#    skip_cleanup: true
+#    github_token: $GITHUB_TOKEN
+#    keep_history: true
+#    local_dir: ./dist/ui-guideline/browser
+#    repo: lunit-io/ui-guideline
+#    target_branch: $TRAVIS_BRANCH
+#    on:
+#      all_branches: true
 notifications:
   email:
     on_success: never
