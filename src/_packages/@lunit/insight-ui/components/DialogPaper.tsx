@@ -1,9 +1,8 @@
 import { Paper } from '@material-ui/core';
 import styled from 'styled-components';
-import { lighten } from '../theme/lighten';
 
 export const DialogPaper = styled(Paper)`
-  ${lighten};
+  // TODO {lighten};
 
   background-color: #ffffff;
   width: fit-content;

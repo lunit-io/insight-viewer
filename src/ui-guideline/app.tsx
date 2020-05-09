@@ -44,7 +44,7 @@ const components = {
 export function App() {
   return (
     <SnackbarProvider>
-      <StylesProvider>
+      <StylesProvider injectFirst>
         <ThemeProvider theme={lunitDarkTheme}>
           <GlobalStyle />
           <BrowserRouter>

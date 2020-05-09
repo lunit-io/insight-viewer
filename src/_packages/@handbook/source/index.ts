@@ -1,4 +1,3 @@
-import { CornerstoneViewer } from '@lunit/insight-viewer';
 import { ComponentType } from 'react';
 
 export interface Page {
@@ -10,7 +9,6 @@ export interface Example {
   component?: { default: ComponentType };
   source: { default: string };
   filename: string;
-  x: CornerstoneViewer;
 }
 
 export function page(path: string, content?: Page): Page {

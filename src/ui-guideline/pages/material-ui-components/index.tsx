@@ -1,4 +1,11 @@
-import { getContrastText, ScrollContainer } from '@lunit/insight-ui';
+import {
+  getContrastText,
+  LunitButton,
+  lunitDark,
+  lunitDarkTheme,
+  ScrollContainer,
+  ThemeProvider,
+} from '@lunit/insight-ui';
 import {
   Button,
   ButtonGroup,
@@ -34,6 +41,10 @@ import styled from 'styled-components';
 const buttonOptions = eachOptions<ComponentProps<typeof Button>>({
   variant: ['contained', 'outlined', 'text'],
   size: ['small', 'medium', 'large'],
+  disabled: [false, true],
+});
+
+const lunitButtonProps = eachOptions<ComponentProps<typeof LunitButton>>({
   disabled: [false, true],
 });
 
@@ -144,6 +155,26 @@ export default function () {
             </Button>
           </Section>
         ))}
+
+        {lunitButtonProps.map((props) => (
+          <Section>
+            <LunitButton {...props}>BUTTON</LunitButton>
+            <LunitButton {...props} color={{ root: lunitDark.control.secondary }}>
+              BUTTON
+            </LunitButton>
+          </Section>
+        ))}
+
+        <ThemeProvider theme={lunitDarkTheme}>
+          {lunitButtonProps.map((props) => (
+            <Section>
+              <LunitButton {...props}>BUTTON</LunitButton>
+              <LunitButton {...props} color={{ root: lunitDark.control.secondary }}>
+                BUTTON
+              </LunitButton>
+            </Section>
+          ))}
+        </ThemeProvider>
 
         {iconButtonOptions.map((props) => (
           <Section>
@@ -648,6 +679,7 @@ const ColorTable = styled(({ color, className }: { color: Color; className?: str
     <tbody>
       {Object.keys(color).map((key) => (
         <tr
+          key={key}
           style={{
             backgroundColor: color[key],
             color: getContrastText(color[key]),

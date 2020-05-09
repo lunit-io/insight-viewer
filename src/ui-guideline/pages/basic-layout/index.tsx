@@ -32,7 +32,7 @@ const Container = styled(ScreenFitContainer)`
 `;
 
 const Header = styled.div`
-  background: ${lunitDark.containers.body.background};
+  background: ${lunitDark.containers.background};
   height: 50px;
   min-height: 50px;
   max-height: 50px;

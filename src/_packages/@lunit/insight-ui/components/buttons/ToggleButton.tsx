@@ -1,4 +1,3 @@
-import { useButtonStyle } from '@lunit/insight-ui/components/buttons/useButtonStyle';
 import { ButtonBase, ButtonBaseProps } from '@material-ui/core';
 import { PaletteColor } from '@material-ui/core/styles/createPalette';
 import { useTheme } from '@material-ui/styles';
@@ -23,7 +22,8 @@ export function ToggleButton({ color, selectedColor, selected, onChange, onClick
     [onChange, onClick, selected],
   );
 
-  const classes = useButtonStyle({ color: selected ? selectedColor : color });
+  // TODO
+  //const classes = useButtonStyle({ color: selected ? selectedColor : color });
 
-  return <ButtonBase {...buttonProps} onClick={click} classes={classes} />;
+  return <ButtonBase {...buttonProps} onClick={click} />;
 }
