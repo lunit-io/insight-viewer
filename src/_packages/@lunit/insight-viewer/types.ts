@@ -55,7 +55,8 @@ export interface Contour {
   polygon: Point[];
 
   /** 존재하는 경우 id 대신 출력된다 */
-  label?: ((contour: this) => string) | string;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  label?: ((contour: any) => string) | string;
 
   /**
    * svg element에 data-* 형식의 attribute를 넣어주게 된다.
