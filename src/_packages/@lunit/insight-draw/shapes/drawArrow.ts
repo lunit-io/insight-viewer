@@ -1,5 +1,3 @@
-import { Point } from '@lunit/insight-viewer';
-
 interface DrawArrowParams {
   start: [number, number];
   end: [number, number];
@@ -17,10 +15,7 @@ export function drawArrow({ start, end, lineWidth, arrowWidth, arrowDepth }: Dra
     west: south + Math.PI * 0.5,
   };
 
-  const arrowEnd: Point = [
-    arrowDepth * Math.cos(angle.north) + start[0],
-    arrowDepth * Math.sin(angle.north) + start[1],
-  ];
+  const arrowEnd = [arrowDepth * Math.cos(angle.north) + start[0], arrowDepth * Math.sin(angle.north) + start[1]];
 
   return [
     start,
