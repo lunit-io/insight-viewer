@@ -10,6 +10,7 @@ export * from './components/InsightViewer';
 export * from './components/ContourViewer';
 export * from './components/ContourDrawer';
 export * from './components/ContourHover';
+export * from './components/ArrowedContourViewer';
 export * from './components/HeatmapViewer';
 export * from './components/InsightViewerContainer';
 export * from './components/ProgressViewer';

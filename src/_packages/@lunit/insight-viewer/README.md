@@ -12,6 +12,10 @@ npm install @lunit/insight-viewer@alpha
 
 # Changelog
 
+## 4.3.0
+### Added
+- `<ArrowedContourViewer>` 추가
+
 ## 4.1.0
 ### Addded
 - `<LineDrawer>`, `<LineViewer>` 추가

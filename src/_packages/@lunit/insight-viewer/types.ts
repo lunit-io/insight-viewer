@@ -65,6 +65,15 @@ export interface Contour {
   dataAttrs?: { [attr: string]: string };
 }
 
+/**
+ * 화살표가 있는 Contour
+ * arrowStart, arrowEnd 만 추가된다
+ */
+export interface ArrowedContour extends Contour {
+  arrowStart: Point;
+  arrowEnd: Point;
+}
+
 export interface ViewportTransformParams {
   element: HTMLElement;
   minScale: number;
