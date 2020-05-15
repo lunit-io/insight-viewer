@@ -1,0 +1,16 @@
+{
+  "name": "@lunit/insight-draw",
+  "version": "0.1.0",
+  "description": "shape drawing library",
+  "keywords": [
+    "draw"
+  ],
+  "author": "Seoyeon Lee <seoyeon.lee@lunit.io>",
+  "repository": "lunit-io/frontend-components",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "typings": "index.d.ts"
+}
