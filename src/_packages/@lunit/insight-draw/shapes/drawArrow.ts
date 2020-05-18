@@ -1,8 +1,17 @@
-interface DrawArrowParams {
+export interface DrawArrowParams {
+  /** start 화살표 시작점 */
   start: [number, number];
+
+  /** end 막대 끝점 */
   end: [number, number];
+
+  /** lineWidth 막대의 굵기 */
   lineWidth: number;
+
+  /** arrowWidth 화살의 넓이 (양옆으로) */
   arrowDepth: number;
+
+  /** arrowDepth 화살의 깊이 (길이) */
   arrowWidth: number;
 }
 

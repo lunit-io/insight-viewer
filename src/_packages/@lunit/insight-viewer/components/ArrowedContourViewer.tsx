@@ -1,6 +1,5 @@
-import { drawArrow } from '@lunit/insight-draw';
+import { drawArrow, getAngledTextPosition } from '@lunit/insight-draw';
 import { ArrowedContour, InsightViewerGuestProps, Point } from '@lunit/insight-viewer';
-import polylabel from 'polylabel';
 import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
 import styled from 'styled-components';
 
@@ -80,9 +79,20 @@ export class ArrowedContourViewerBase<T extends ArrowedContour> extends Componen
                 arrowWidth: this.props.arrowWidth!,
               }),
             );
-            const [labelStart] = toLocal(cornerstoneRenderData.element, [contour.arrowEnd]);
             const focused: boolean = contour === focusedContour;
             const dataAttrs: { [attr: string]: string } = contour.dataAttrs || {};
+
+            const fontSize: number = Math.floor(
+              this.props.baseFontSize! * Math.max(1, cornerstoneRenderData.viewport.scale),
+            );
+
+            const [start, end] = toLocal(cornerstoneRenderData.element, [contour.arrowStart, contour.arrowEnd]);
+
+            const labelPosition = getAngledTextPosition({
+              start,
+              end,
+              fontSize,
+            });
 
             return (
               <Fragment key={'polygon' + contour.id}>
@@ -126,9 +136,8 @@ export class ArrowedContourViewerBase<T extends ArrowedContour> extends Componen
                     data-border="border"
                     data-id={contour.id}
                     data-focused={focused || undefined}
-                    fontSize={this.props.baseFontSize! * Math.max(1, cornerstoneRenderData.viewport.scale)}
-                    x={labelStart[0]}
-                    y={labelStart[1]}
+                    fontSize={fontSize}
+                    {...labelPosition}
                   >
                     {contour.label
                       ? typeof contour.label === 'function'
@@ -141,9 +150,8 @@ export class ArrowedContourViewerBase<T extends ArrowedContour> extends Componen
                   {...dataAttrs}
                   data-id={contour.id}
                   data-focused={focused || undefined}
-                  fontSize={this.props.baseFontSize! * Math.max(1, cornerstoneRenderData.viewport.scale)}
-                  x={labelStart[0]}
-                  y={labelStart[1]}
+                  fontSize={fontSize}
+                  {...labelPosition}
                 >
                   {contour.label
                     ? typeof contour.label === 'function'
@@ -219,8 +227,6 @@ export const ArrowedContourViewer: new <T extends ArrowedContour>() => ArrowedCo
     fill: var(--contour-viewer-color, var(--color));
     font-family: proximanova, noto_sans, sans-serif;
     font-weight: 600;
-    text-anchor: middle;
-    dominant-baseline: ideographic;
     transition: fill 120ms ease-out, stroke-width 120ms ease-out;
 
     &[data-focused] {

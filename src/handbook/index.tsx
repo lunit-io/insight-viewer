@@ -1,6 +1,7 @@
 import { Handbook, HandbookConfig } from '@handbook/components';
 import { handbookSourcePages } from '@handbook/source/__pages__';
 import { heatmapPages } from '@lunit/heatmap/__pages__';
+import { insightDrawPages } from '@lunit/insight-draw/__pages__';
 import { insightViewerPages } from '@lunit/insight-viewer/__pages__';
 import { isComplexPolygonPages } from '@lunit/is-complex-polygon/__pages__';
 import { isIntersectionPages } from '@lunit/is-intersection/__pages__';
@@ -32,6 +33,7 @@ const handbookConfig: HandbookConfig = {
   index: {
     handbook: handbookSourcePages,
     heatmap: heatmapPages,
+    'insight-draw': insightDrawPages,
     'is-intersection': isIntersectionPages,
     'is-complex-polygon': isComplexPolygonPages,
     'is-polygon-area-greater-than-area': isPolygonAreaGreaterThanAreaPages,
