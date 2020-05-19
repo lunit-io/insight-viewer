@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "dcm viewer component library",
   "keywords": [
     "dicom",
@@ -33,6 +33,6 @@
     "d3-ease": "^1.0.6",
     "d3-timer": "^1.0.10",
     "@lunit/is-touch-device": "^0.1.0",
-    "@lunit/insight-draw": "^0.1.0"
+    "@lunit/insight-draw": "^0.2.0"
   }
 }
