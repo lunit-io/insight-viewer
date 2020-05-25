@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Node Version
+        run: node --version
+
+      - name: NPM Version
+        run: npm --version
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build Packages
+        run: npm run package:build
+
+      - name: Build Handbook
+        run: npm run handbook:build
+
+      - name: Build Handbook Sample (insight-viewer-sample)
+        run: npm run handbook-insight-viewer-sample:build
+
+      - name: Build Handbook Sample (insight-new-window-sample)
+        run: npm run handbook-new-window-sample:build
+
+      - name: Build UI Guideline
+        run: npm run ui-guideline:build
