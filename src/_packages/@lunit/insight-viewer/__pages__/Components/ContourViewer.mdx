@@ -53,5 +53,16 @@ CSS Variable을 통해서 색상을 변경할 수 있다.
 혹은 배열의 순서에 따라 각각 다른 색상을 줄 수도 있다.
 
  <Example example={component('./ContourViewer/SequenceStyle')}>
-   <InsightViewerPreview height={720}/>
+  <InsightViewerPreview height={720}/>
  </Example>
+
+
+# Customize Polygon Attributes
+
+`<ContourViewer polygonAttrs={}/>`를 통해서 `<polygon>`에 직접적으로 접근할 수 있다.
+
+위에 안내한 방법들에 의해 처리가 안되는 경우 마지막 수단으로 사용할 수 있다.
+
+<Example example={component('./ContourViewer/PolygonAttrs')}>
+  <InsightViewerPreview height={720}/>
+</Example>

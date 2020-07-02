@@ -41,6 +41,10 @@ export interface CornerstoneViewerProps extends InsightViewerHostProps {
 
 const maxScale: number = 3;
 
+function resolveInvert(invert: boolean, viewport?: cornerstone.Viewport): boolean {
+  return viewport?.invert === true ? !invert : invert;
+}
+
 export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> implements CornerstoneViewerLike {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
   private element!: HTMLDivElement;
@@ -126,7 +130,8 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
     defaultViewport = {
       ...defaultViewport,
       hflip: this.props.flip,
-      invert: this.props.invert,
+      // FIXME some images are "invert : true" is normal color
+      invert: resolveInvert(this.props.invert, defaultViewport),
     };
 
     cornerstone.displayImage(this.element, image, defaultViewport);
@@ -166,7 +171,7 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
           ...defaultViewport,
           //...this.defaultViewport,
           hflip: flip,
-          invert: defaultViewport.invert ? !invert : invert,
+          invert: resolveInvert(invert, defaultViewport),
         });
       } else {
         // flip, invert는 resetTime의 부분 집합이기 때문에
@@ -174,7 +179,7 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
         if (prevProps.flip !== flip || prevProps.invert !== invert) {
           this.updateCurrentViewport({
             hflip: flip,
-            invert: defaultViewport.invert ? !invert : invert,
+            invert: resolveInvert(invert, defaultViewport),
           });
         }
       }
@@ -231,6 +236,7 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
       typeof eventData.renderTimeInMs === 'number' &&
       eventData.viewport
     ) {
+      console.log('CornerstoneViewer.tsx..onImageRenderered()', eventData.viewport.invert);
       this.currentViewport = eventData.viewport;
       this.props.updateCornerstoneRenderData(eventData as CornerstoneRenderData);
     } else {
