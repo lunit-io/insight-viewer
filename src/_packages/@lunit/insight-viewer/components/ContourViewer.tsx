@@ -1,8 +1,8 @@
 import polylabel from 'polylabel';
-import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
+import React, { Component, createRef, CSSProperties, Fragment, RefObject, SVGProps } from 'react';
 import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
-import { Contour, Point } from '../types';
+import { Contour, CornerstoneRenderData, Point } from '../types';
 
 export interface ContourViewerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
@@ -19,6 +19,17 @@ export interface ContourViewerProps<T extends Contour> extends InsightViewerGues
 
   /** <svg style={}> */
   style?: CSSProperties;
+
+  /**
+   * 개별 polygon 개체의 attribute를 설정할 수 있다.
+   * strokeWidth 등의 속성을 설정하면 Styled Components에 설정된 Style을 무시하게 된다.
+   * 특수한 경우를 제외하고는 가급적 사용하지 않는게 좋다.
+   */
+  polygonAttrs?: (
+    contour: T,
+    cornerstoneRenderData: CornerstoneRenderData,
+    isBorder: boolean,
+  ) => SVGProps<SVGPolygonElement>;
 
   /**
    * Line에 외곽을 그려준다
@@ -42,7 +53,7 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
   private svgRef: RefObject<SVGSVGElement> = createRef();
 
   render() {
-    const { cornerstoneRenderData, contours, focusedContour } = this.props;
+    const { cornerstoneRenderData, contours, focusedContour, polygonAttrs: _polygonAttrs } = this.props;
 
     return (
       <svg
@@ -55,16 +66,23 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
         {contours.length > 0 &&
           cornerstoneRenderData &&
           cornerstoneRenderData.element &&
-          contours.map(contour => {
+          contours.map((contour) => {
             const polygon: number[][] = toLocal(cornerstoneRenderData.element, contour.polygon);
             const labelCenter: number[] = polylabel([polygon], 1);
             const focused: boolean = contour === focusedContour;
             const dataAttrs: { [attr: string]: string } = contour.dataAttrs || {};
+            const borderPolygonAttrs: SVGProps<SVGPolygonElement> | undefined =
+              this.props.border === true && typeof _polygonAttrs === 'function'
+                ? _polygonAttrs(contour, cornerstoneRenderData, true)
+                : undefined;
+            const polygonAttrs: SVGProps<SVGPolygonElement> | undefined =
+              typeof _polygonAttrs === 'function' ? _polygonAttrs(contour, cornerstoneRenderData, false) : undefined;
 
             return (
               <Fragment key={'polygon' + contour.id}>
                 {this.props.border === true && (
                   <polygon
+                    {...borderPolygonAttrs}
                     {...dataAttrs}
                     data-border="border"
                     data-id={contour.id}
@@ -73,6 +91,7 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
                   />
                 )}
                 <polygon
+                  {...polygonAttrs}
                   {...dataAttrs}
                   data-id={contour.id}
                   data-focused={focused || undefined}
