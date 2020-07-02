@@ -61,6 +61,10 @@ export interface InsightViewerProps extends InsightViewerHostProps {
 
 const maxScale: number = 3;
 
+function resolveInvert(invert: boolean, viewport?: cornerstone.Viewport): boolean {
+  return viewport?.invert === true ? !invert : invert;
+}
+
 /** @deprecated use <CornerstoneViewer> instead */
 export class InsightViewer extends Component<InsightViewerProps, {}> implements CornerstoneViewerLike {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
@@ -159,7 +163,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
     defaultViewport = {
       ...defaultViewport,
       hflip: this.props.flip,
-      invert: this.props.invert,
+      invert: resolveInvert(this.props.invert, defaultViewport),
     };
 
     cornerstone.displayImage(this.element, image, defaultViewport);
@@ -217,7 +221,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
           ...defaultViewport,
           //...this.defaultViewport,
           hflip: flip,
-          invert: defaultViewport.invert ? !invert : invert,
+          invert: resolveInvert(invert, defaultViewport),
         });
       } else {
         // flip, invert는 resetTime의 부분 집합이기 때문에
@@ -225,7 +229,7 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
         if (prevProps.flip !== flip || prevProps.invert !== invert) {
           this.updateCurrentViewport({
             hflip: flip,
-            invert: defaultViewport.invert ? !invert : invert,
+            invert: resolveInvert(invert, defaultViewport),
           });
         }
       }
