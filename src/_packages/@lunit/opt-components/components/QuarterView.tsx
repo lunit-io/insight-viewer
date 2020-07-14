@@ -3,17 +3,49 @@ import { Fullscreen, FullscreenExit } from '@material-ui/icons';
 import React, { Children, ReactNode, useState } from 'react';
 import styled, { css } from 'styled-components';
 import useResizeObserver from 'use-resize-observer/polyfilled';
+import { useShortcut, key } from '@lunit/use-shortcut';
 
 export interface QuarterViewProps {
   children: ReactNode;
   className?: string;
+  shortcuts?: string[];
 }
 
-export function QuarterView({ children, className }: QuarterViewProps) {
+export function QuarterView({ children, className, shortcuts = ['', '', '', ''] }: QuarterViewProps) {
   const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<HTMLDivElement>({});
   const [solo, setSolo] = useState<number>(-1);
 
   const soloEnabled: boolean = solo > -1;
+
+  useShortcut({
+    test: key(shortcuts[0] || ''),
+    callback: () => setSoloShortcut(0),
+  });
+
+  useShortcut({
+    test: key(shortcuts[1] || ''),
+    callback: () => setSoloShortcut(1),
+  });
+
+  useShortcut({
+    test: key(shortcuts[2] || ''),
+    callback: () => setSoloShortcut(2),
+  });
+
+  useShortcut({
+    test: key(shortcuts[3] || ''),
+    callback: () => setSoloShortcut(3),
+  });
+
+  function setSoloShortcut(index: number) {
+    if (Children.count(children) > index) {
+      if (solo > -1) {
+        setSolo(-1);
+      } else {
+        setSolo(index);
+      }
+    }
+  }
 
   return (
     <Container ref={resizeRef} soloEnabled={soloEnabled} width={width} height={height} className={className}>
@@ -94,15 +126,17 @@ const soloContainerStyle = css`
 `;
 
 const ExpandButton = styled(IconButton)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 0;
-  padding: 4px 6px;
-  color: #8694b1;
-  font-size: 18px;
+  && {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    padding: 4px 6px;
+    color: #8694b1;
+    font-size: 18px;
 
-  .MuiSvgIcon-root {
-    font-size: 1em;
+    .MuiSvgIcon-root {
+      font-size: 1em;
+    }
   }
 `;

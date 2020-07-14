@@ -2,12 +2,9 @@ import {
   CornerstoneImage,
   CornerstoneSingleImage,
   CornerstoneViewer,
-  InsightViewerControllerOptions,
-  InsightViewerTestController,
   installWADOImageLoader,
   unloadImage,
   InsightViewerContainer,
-  useInsightViewerSync,
   useViewerInteractions,
 } from '@lunit/insight-viewer';
 import React, { useMemo, useState } from 'react';
@@ -16,9 +13,6 @@ import styled from 'styled-components';
 import useResizeObserver from 'use-resize-observer';
 
 installWADOImageLoader();
-
-const _width: number = 400;
-const _height: number = 400;
 
 export default () => {
   const image1: CornerstoneImage = useMemo(
@@ -64,7 +58,7 @@ export default () => {
 
   return (
     <div>
-      <QuarterViewContainer>
+      <QuarterViewContainer shortcuts={['1', '2', '3', '4']}>
         <Viewer image={image1} />
         <Viewer image={image2} />
         <Viewer image={image3} />
@@ -77,7 +71,7 @@ export default () => {
 function Viewer({ image }: { image: CornerstoneImage }) {
   const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
   const interactions = useViewerInteractions(['none', 'zoom'], { element: interactionElement });
-  const { ref: resizeRef, width = 200, height = 300 } = useResizeObserver<HTMLDivElement>({});
+  const { ref: resizeRef, width = 200, height = 400 } = useResizeObserver<HTMLDivElement>({});
 
   return (
     <div
@@ -97,7 +91,6 @@ function Viewer({ image }: { image: CornerstoneImage }) {
           flip={false}
           resetTime={0}
           image={image}
-          // ref={viewerRef as RefObject<CornerstoneViewer>}
           updateCornerstoneRenderData={() => {}}
           interactions={interactions}
         />
