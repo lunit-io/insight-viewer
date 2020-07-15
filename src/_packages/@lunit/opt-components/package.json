@@ -10,6 +10,10 @@
     {
       "name": "Seula Lee",
       "email": "seula@lunit.io"
+    },
+    {
+      "name": "Jiyeon Seo",
+      "email": "jyseo@lunit.io"
     }
   ],
   "repository": "lunit-io/frontend-components",
