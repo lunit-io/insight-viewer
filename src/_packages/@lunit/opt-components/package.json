@@ -1,6 +1,6 @@
 {
   "name": "@lunit/opt-components",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Component library for annotation / opt apps",
   "author": {
     "name": "Seoyeon Lee",
@@ -10,6 +10,10 @@
     {
       "name": "Seula Lee",
       "email": "seula@lunit.io"
+    },
+    {
+      "name": "Jiyeon Seo",
+      "email": "jyseo@lunit.io"
     }
   ],
   "repository": "lunit-io/frontend-components",
@@ -33,6 +37,7 @@
     "use-resize-observer": "^5.0.0",
     "@lunit/insight-viewer": "^4.0.0",
     "@ssen/snackbar": "^0.1.0",
-    "@lunit/is-touch-device": "^0.1.0"
+    "@lunit/is-touch-device": "^0.1.0",
+    "@lunit/use-shortcut": "^1.1.0"
   }
 }
