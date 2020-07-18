@@ -7,21 +7,20 @@
   },
   "scripts": {
     "docs:import": "markdown-source-import \"{,!(node_modules)/**/}*.md\"",
-    "package:build": "npm run docs:import && zeroconfig-package-scripts build",
-    "package:publish": "zeroconfig-package-scripts publish",
-    "package:publish:ci": "zeroconfig-package-scripts publish --choice false",
-    "package:validate": "zeroconfig-package-scripts list && zeroconfig-package-scripts validate",
+    "package:build": "npm run docs:import && rocket-punch build --out-dir dist/packages",
+    "package:publish": "rocket-punch publish --tag canary --registry $LOCAL_NPM_REGISTRY --out-dir dist/packages",
+    "package:publish:ci": "rocket-punch publish --skipt-selection --tag canary --registry $LOCAL_NPM_REGISTRY --out-dir dist/packages",
     "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/_packages/@lunit/insight-viewer/public",
     "handbook:build": "zeroconfig-webapp-scripts build handbook --source-map true",
-    "handbook:start": "zeroconfig-webapp-scripts start handbook --port 3109",
-    "preview:start": "zeroconfig-webapp-scripts start preview --port 3110",
+    "handbook:start": "PORT=3109 STATIC_FILE_DIRECTORIES=\"{cwd}/public {cwd}/src/@lunit/insight-viewer/public\" rocket-scripts web start handbook",
+    "preview:start": "PORT=3110 rocket-scripts web start preview",
     "ui-guideline:build": "zeroconfig-webapp-scripts build ui-guideline --source-map true",
-    "ui-guideline:start": "zeroconfig-webapp-scripts start ui-guideline --port 3107",
+    "ui-guideline:start": "PORT=3107 STATIC_FILE_DIRECTORIES=\"{cwd}/public {cwd}/src/@lunit/insight-viewer/public\" rocket-scripts web start ui-guideline",
     "handbook-insight-viewer-sample:build": "zeroconfig-webapp-scripts build handbook-insight-viewer-sample --source-map true",
-    "handbook-insight-viewer-sample:start": "zeroconfig-webapp-scripts start handbook-insight-viewer-sample --port 3301",
+    "handbook-insight-viewer-sample:start": "PORT=3301 STATIC_FILE_DIRECTORIES=\"{cwd}/public {cwd}/src/@lunit/insight-viewer/public\" rocket-scripts web start handbook-insight-viewer-sample",
     "handbook-new-window-sample:build": "zeroconfig-webapp-scripts build handbook-new-window-sample --source-map true",
-    "handbook-new-window-sample:start": "zeroconfig-webapp-scripts start handbook-new-window-sample --port 3302",
+    "handbook-new-window-sample:start": "PORT=3302 STATIC_FILE_DIRECTORIES=\"{cwd}/public {cwd}/src/@lunit/insight-viewer/public\" rocket-scripts web start handbook-new-window-sample",
     "start": "npm run handbook:start",
     "test": "jest --colors",
     "prettier": "prettier --write \"src/**/*.{js,jsx,mjs,ts,tsx}\"",
@@ -36,7 +35,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run package:validate && markdown-source-import \"{,!(node_modules)/**/}*.md\" --git-add && lint-staged"
+      "pre-commit": "markdown-source-import \"{,!(node_modules)/**/}*.md\" --git-add && lint-staged"
     }
   },
   "lint-staged": {
@@ -110,6 +109,7 @@
     "@lunit/prettier-config": "^0.1.1",
     "@storybook/addon-knobs": "^5.3.17",
     "@storybook/addon-storysource": "^5.3.17",
+    "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.17",
     "@storybook/source-loader": "^5.3.17",
     "@storybook/theming": "^5.3.17",
@@ -147,6 +147,8 @@
     "prettier": "^2.0.2",
     "react-test-renderer": "^16.13.1",
     "react-zeroconfig": "^3.29.1",
+    "rocket-punch": "^1.0.1",
+    "rocket-scripts": "^0.3.6-alpha.1",
     "typescript": "^3.8.3"
   }
 }
