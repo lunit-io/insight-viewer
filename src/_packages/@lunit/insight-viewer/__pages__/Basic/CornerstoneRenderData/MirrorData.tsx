@@ -14,7 +14,7 @@ installWADOImageLoader();
 export default () => {
   const image1: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://fixtures.front.lunit.io/dcm-files/series/CT000010.dcm`, {
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
         unload: unloadImage,
       }),
     [],
@@ -22,7 +22,7 @@ export default () => {
 
   const image2: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://fixtures.front.lunit.io/dcm-files/series/CT000020.dcm`, {
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000020.dcm`, {
         unload: unloadImage,
       }),
     [],
@@ -30,7 +30,7 @@ export default () => {
 
   const image3: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://fixtures.front.lunit.io/dcm-files/series/CT000030.dcm`, {
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000030.dcm`, {
         unload: unloadImage,
       }),
     [],

@@ -14,11 +14,11 @@ export default () => {
     () =>
       series
         .slice(0, 5)
-        .map(p => new CornerstoneSingleImage(`wadouri:https://fixtures.front.lunit.io/dcm-files/series/${p}`)),
+        .map((p) => new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/${p}`)),
     [],
   );
 
-  const progresses = useMemo(() => images.map(image => image.progress), [images]);
+  const progresses = useMemo(() => images.map((image) => image.progress), [images]);
 
   const imageLoadedTime = useImageLoadedTime(progresses);
 

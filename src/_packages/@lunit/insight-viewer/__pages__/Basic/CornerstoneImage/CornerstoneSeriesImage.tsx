@@ -15,7 +15,7 @@ export default () => {
   const image: CornerstoneSequenceImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
-        series.map(p => `wadouri:https://fixtures.front.lunit.io/dcm-files/series/${p}`),
+        series.map((p) => `wadouri:https://static.lunit.io/fixtures/dcm-files/series/${p}`),
         { unload: unloadImage },
       ),
     [],
@@ -26,13 +26,13 @@ export default () => {
   useEffect(() => {
     // progress 정보를 받는다
     const progressSubscription = image.progress.subscribe((progress: number) => {
-      setLog(prevLog => [...prevLog, `[progress]: ${Math.floor(progress * 100)}%`]);
+      setLog((prevLog) => [...prevLog, `[progress]: ${Math.floor(progress * 100)}%`]);
     });
 
     // image 정보를 받는다
     const imageSubscription = image.image.subscribe((cornerstoneImage: cornerstone.Image | null) => {
       console.warn('cornerstoneImage:', cornerstoneImage);
-      setLog(prevLog => [...prevLog, `[image]: ${cornerstoneImage?.imageId}`]);
+      setLog((prevLog) => [...prevLog, `[image]: ${cornerstoneImage?.imageId}`]);
     });
 
     // index 정보를 받는다
