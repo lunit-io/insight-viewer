@@ -1,29 +1,29 @@
-import { ColorProperty } from 'csstype';
+import { Property } from 'csstype';
 import { createGlobalStyle, css } from 'styled-components';
 
 export interface OPTComponentsCSSProperties {
-  '--button-background-color'?: ColorProperty;
-  '--button-label-color'?: ColorProperty;
-  '--button-background-color-hover'?: ColorProperty;
-  '--button-label-color-hover'?: ColorProperty;
-  '--button-background-color-selected'?: ColorProperty;
-  '--button-label-color-selected'?: ColorProperty;
-  '--button-background-color-disabled'?: ColorProperty;
-  '--button-label-color-disabled'?: ColorProperty;
+  '--button-background-color'?: Property.Color;
+  '--button-label-color'?: Property.Color;
+  '--button-background-color-hover'?: Property.Color;
+  '--button-label-color-hover'?: Property.Color;
+  '--button-background-color-selected'?: Property.Color;
+  '--button-label-color-selected'?: Property.Color;
+  '--button-background-color-disabled'?: Property.Color;
+  '--button-label-color-disabled'?: Property.Color;
 
-  '--panel-background-color'?: ColorProperty;
-  '--panel-header-background-color'?: ColorProperty;
-  '--panel-icon-color'?: ColorProperty;
-  '--panel-icon-color-hover'?: ColorProperty;
-  '--panel-title-color'?: ColorProperty;
+  '--panel-background-color'?: Property.Color;
+  '--panel-header-background-color'?: Property.Color;
+  '--panel-icon-color'?: Property.Color;
+  '--panel-icon-color-hover'?: Property.Color;
+  '--panel-title-color'?: Property.Color;
 
-  '--slider-rail-color'?: ColorProperty;
-  '--slider-thumb-color'?: ColorProperty;
-  '--slider-track-color'?: ColorProperty;
-  '--slider-value-label-color'?: ColorProperty;
+  '--slider-rail-color'?: Property.Color;
+  '--slider-thumb-color'?: Property.Color;
+  '--slider-track-color'?: Property.Color;
+  '--slider-value-label-color'?: Property.Color;
 
-  '--tooltip-background-color'?: ColorProperty;
-  '--tooltip-color'?: ColorProperty;
+  '--tooltip-background-color'?: Property.Color;
+  '--tooltip-color'?: Property.Color;
 }
 
 export const blockStyle = css`

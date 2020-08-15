@@ -76,7 +76,7 @@ storiesOf('opt-components', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Button', () => (
     <Container>
-      {directions.map(direction => (
+      {directions.map((direction) => (
         <Fragment key={direction}>
           <div style={{ width: direction === 'vertical' ? 200 : 500 }}>
             <ButtonLayout direction={direction}>
@@ -227,10 +227,10 @@ storiesOf('opt-components', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Panel', () => (
     <Container>
-      {[200, 250, 300].map(width => (
+      {[200, 250, 300].map((width) => (
         <div key={'width-' + width} style={{ width }}>
           <SessionPanel title="TEST" style={{ marginBottom: 6 }} sessionId={'session-panel-' + width}>
-            {expanded => (
+            {(expanded) => (
               <ButtonLayout direction={expanded ? 'vertical' : 'horizontal'}>
                 <Button layout={expanded ? 'left' : 'center'} label={expanded ? 'PEN' : undefined} icon={<PenIcon />} />
                 <Button
@@ -506,7 +506,7 @@ function Basic() {
 storiesOf('opt-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .addDecorator(storyFn => <SnackbarProvider>{storyFn()}</SnackbarProvider>)
+  .addDecorator((storyFn) => <SnackbarProvider>{storyFn()}</SnackbarProvider>)
   .add('<Snackbar>', () => <Basic />);
 
 const Container = styled.div`

@@ -1,20 +1,20 @@
-import { ColorProperty } from 'csstype';
+import { Property } from 'csstype';
 import { css } from 'styled-components';
 
 export interface InsightViewerCSSProperties {
-  '--contour-viewer-color'?: ColorProperty;
-  '--contour-viewer-focused-color'?: ColorProperty;
-  '--contour-viewer-stroke-width'?: ColorProperty;
-  '--contour-viewer-focused-stroke-width'?: ColorProperty;
-  '--contour-viewer-fill-color'?: ColorProperty;
-  '--contour-viewer-focused-fill-color'?: ColorProperty;
+  '--contour-viewer-color'?: Property.Color;
+  '--contour-viewer-focused-color'?: Property.Color;
+  '--contour-viewer-stroke-width'?: Property.Color;
+  '--contour-viewer-focused-stroke-width'?: Property.Color;
+  '--contour-viewer-fill-color'?: Property.Color;
+  '--contour-viewer-focused-fill-color'?: Property.Color;
 
-  '--contour-drawer-color'?: ColorProperty;
-  '--contour-drawer-stroke-width'?: ColorProperty;
-  '--contour-drawer-fill-color'?: ColorProperty;
+  '--contour-drawer-color'?: Property.Color;
+  '--contour-drawer-stroke-width'?: Property.Color;
+  '--contour-drawer-fill-color'?: Property.Color;
 
-  '--pin-color'?: ColorProperty;
-  '--pin-focused-color'?: ColorProperty;
+  '--pin-color'?: Property.Color;
+  '--pin-focused-color'?: Property.Color;
 }
 
 export const blockStyle = css`

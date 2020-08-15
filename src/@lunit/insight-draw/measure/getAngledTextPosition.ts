@@ -1,4 +1,4 @@
-import { DominantBaselineProperty, TextAnchorProperty } from 'csstype';
+import { Property } from 'csstype';
 import { radToDirection } from './radToDirection';
 
 const dominantBaselineMap = {
@@ -28,8 +28,8 @@ export function getAngledTextPosition({
 }: GetAngledTextPositionParams): {
   x: number;
   y: number;
-  textAnchor: TextAnchorProperty;
-  dominantBaseline: DominantBaselineProperty;
+  textAnchor: Property.TextAnchor;
+  dominantBaseline: Property.DominantBaseline;
   'data-direction': 'south' | 'north' | 'east' | 'west';
 } {
   const rad: number = Math.atan2(start[1] - end[1], start[0] - end[0]);

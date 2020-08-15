@@ -12,3 +12,5 @@
 /dist-storybook
 /.vscode
 /.history
+/out
+/foo

@@ -1,13 +1,8 @@
 {
-  "extends": "react-zeroconfig/tsconfig",
+  "extends": "@rocket-scripts/web/tsconfig.base.json",
   "compilerOptions": {
+    "noImplicitAny": false,
     "baseUrl": "src",
-    "paths": {
-      "*": [
-        "_packages/*",
-        "*"
-      ]
-    },
     "outDir": "foo"
   },
   "exclude": [
