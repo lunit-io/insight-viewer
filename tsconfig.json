@@ -5,6 +5,9 @@
     "baseUrl": "src",
     "outDir": "foo"
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     ".dev",
     "dist",

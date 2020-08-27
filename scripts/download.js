@@ -14,7 +14,7 @@ async function downloadFiles(files) {
     const filename = path.basename(file);
     const res = await fetch(file);
     const text = await res.text();
-    const fileto = path.join(__dirname, `../src/_packages/@lunit/insight-viewer/public/${filename}`);
+    const fileto = path.join(__dirname, `../src/@lunit/insight-viewer/public/${filename}`);
     await fs.mkdirp(path.dirname(fileto));
     await fs.writeFileSync(fileto, text);
   }
