@@ -81,7 +81,7 @@ export function ExampleBase({
         <div>
           {github && (
             <IconButton
-              href={`https://github.com/${github.repo}/blob/${github.branch}/${filename}`}
+              href={`https://github.com/${github.repo}/blob/${github.branch}/src/${filename}`}
               target="_blank"
             >
               <GitHub />

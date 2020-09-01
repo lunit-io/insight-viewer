@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
 
 const handbookConfig: HandbookConfig = {
   github: {
-    repo: 'lunit-io/frontend-components',
+    repo: 'iamssen/frontend-components',
     branch: 'master',
   },
   vscode: true,
