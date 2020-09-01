@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `interface CornerstoneRenderData`
@@ -13,7 +13,7 @@ import { Example, Preview } from '@handbook/components';
 
 아래와 같이 `<CornerstoneViewer updateCornerstoneRenderData={(renderData: CornerstoneRenderData) => void} />`를 사용해서 얻을 수 있다.
 
-<Example example={component('./CornerstoneRenderData/GetData')}>
+<Example example={source(require('./CornerstoneRenderData/GetData'))}>
   <Preview height={520}/>
 </Example>
 
@@ -57,13 +57,13 @@ export class InsightViewer extends Component<InsightViewerProps, {}> {
 
 얻어낸 `CornerstoneRenderData`는 아래와 같이 `<HeatmapViewer>`와 같은 화면 동기화를 필요로 하는 다른 Component에 전달해줄 수 있다.
 
-<Example example={component('./CornerstoneRenderData/SetData')}>
+<Example example={source(require('./CornerstoneRenderData/SetData'))}>
   <Preview height={520}/>
 </Example>
 
 혹은 동기화 도구를 사용해서 여러개의 `<CornerstoneViewer>`들을 동기화 시킬 수도 있다.
 
-<Example example={component('./CornerstoneRenderData/MirrorData')}>
+<Example example={source(require('./CornerstoneRenderData/MirrorData'))}>
   <Preview height={520}/>
 </Example>
 

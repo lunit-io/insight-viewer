@@ -1,6 +1,11 @@
-import { Page } from '@handbook/source';
+import { SourceModule } from '@handbook/source';
+import { ComponentType } from 'react';
 
-export type HandbookTreeNode = { [name: string]: HandbookTreeNode | Page };
+export type HandbookTreeNode = {
+  [name: string]:
+    | HandbookTreeNode
+    | SourceModule<() => Promise<{ default: ComponentType }>>;
+};
 
 export interface HandbookConfig {
   github?: {

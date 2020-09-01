@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const isComplexPolygonPages = page('./Basic');
+export const isComplexPolygonPages = source(() => import('./Basic.mdx'));

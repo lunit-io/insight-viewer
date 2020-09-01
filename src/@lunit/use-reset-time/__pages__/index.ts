@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const useResetTimePages = page('./Basic');
+export const useResetTimePages = source(() => import('./Basic.mdx'));

@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const newWindowPages = page('./Basic');
+export const newWindowPages = source(() => import('./Basic.mdx'));

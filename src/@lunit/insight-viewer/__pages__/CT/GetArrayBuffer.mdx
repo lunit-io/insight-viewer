@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # Get `ArrayBuffer`
@@ -15,7 +15,7 @@ URL 상의 파일을 `ArrayBuffer`로 가져온다.
 
 <Example example={source('@lunit/insight-viewer/image/fetchBuffer')} api />
 
-<Example example={component('./GetBytes/fetchBuffer')}>
+<Example example={source(require('./GetBytes/fetchBuffer'))}>
   <Preview height={300} style={{overflowY: 'auto'}}/>
 </Example>
 
@@ -27,6 +27,6 @@ Drag and Drop으로 던져진 `*.npy` 파일을 `ArrayBuffer`로 변환한다.
 
 <Example example={source('@lunit/insight-viewer/image/fileToBuffer')} api />
 
-<Example example={component('./GetBytes/fileToBuffer')}>
+<Example example={source(require('./GetBytes/fileToBuffer'))}>
   <Preview height={300} style={{overflowY: 'auto'}}/>
 </Example>

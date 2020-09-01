@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -12,7 +12,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # Sample
 
-<Example example={component('./ArrowedContourViewer/Basic')}>
+<Example example={source(require('./ArrowedContourViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -24,6 +24,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # Custom Style
 
-<Example example={component('./ArrowedContourViewer/CustomStyle')}>
+<Example example={source(require('./ArrowedContourViewer/CustomStyle'))}>
   <InsightViewerPreview height={720}/>
 </Example>

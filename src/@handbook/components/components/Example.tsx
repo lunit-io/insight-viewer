@@ -1,5 +1,6 @@
 import { CodeBlock } from '@handbook/code-block';
-import { Example as E, api as getAPI } from '@handbook/source';
+import { SourceModule } from '@handbook/source';
+import { sampling } from '@handbook/typescript-source-sampler';
 import {
   Button,
   Dialog,
@@ -15,6 +16,7 @@ import createSvgIcon from '@material-ui/icons/utils/createSvgIcon';
 import { Language } from 'prism-react-renderer';
 import React, {
   cloneElement,
+  ComponentType,
   createElement,
   CSSProperties,
   isValidElement,
@@ -29,42 +31,59 @@ import { ReactComponent as VSCodeSvg } from './assets/vscode.svg';
 interface Props {
   className?: string;
   style?: CSSProperties;
-  example: E;
+  example: SourceModule<{ default: ComponentType | string }>;
   api?: string[] | boolean;
   children?: ReactElement<{ children: ReactNode }>;
 }
 
 const VSCODE_KEY: string = '__handbook_vscode__';
 
-const VSCodeIcon = createSvgIcon(createElement(VSCodeSvg), VSCodeSvg.displayName || 'VSCodeIcon');
+const VSCodeIcon = createSvgIcon(
+  createElement(VSCodeSvg),
+  VSCodeSvg.displayName || 'VSCodeIcon',
+);
 
-export function ExampleBase({ example: { component, source, filename }, className, api, style, children }: Props) {
+export function ExampleBase({
+  example: { module, source, filename },
+  className,
+  api,
+  style,
+  children,
+}: Props) {
   const { github, vscode } = useHandbook();
 
-  const [vscodeProject, setVSCodeProject] = useState<string>(() => localStorage.getItem(VSCODE_KEY) || '');
+  const [vscodeProject, setVSCodeProject] = useState<string>(
+    () => localStorage.getItem(VSCODE_KEY) || '',
+  );
   const [project, setProject] = useState<string>(() => vscodeProject);
   const [open, setOpen] = useState<boolean>(false);
 
-  const filteredSource: string = api
-    ? Array.from(getAPI(...(Array.isArray(api) ? api : []))(source.default))
+  const filteredSource: string = Array.isArray(api)
+    ? Array.from(sampling({ source, samples: api }))
         .map(([, code]) => code)
         .join('\n\n')
-    : source.default;
+    : source;
 
   return (
     <div className={className} style={style} data-file={filename}>
-      {component &&
+      {module &&
         isValidElement(children) &&
         cloneElement(children, {
-          children: createElement(component.default),
+          children: createElement(module.default),
         })}
 
       <div>
-        <CodeBlock children={filteredSource} language={filename.split('.').reverse()[0] as Language} />
+        <CodeBlock
+          children={filteredSource}
+          language={filename.split('.').reverse()[0] as Language}
+        />
 
         <div>
           {github && (
-            <IconButton href={`https://github.com/${github.repo}/blob/${github.branch}/${filename}`} target="_blank">
+            <IconButton
+              href={`https://github.com/${github.repo}/blob/${github.branch}/${filename}`}
+              target="_blank"
+            >
               <GitHub />
             </IconButton>
           )}
@@ -100,7 +119,11 @@ export function ExampleBase({ example: { component, source, filename }, classNam
             {github && (
               <>
                 First, clone the{' '}
-                <a href={`https://github.com/${github?.repo}`} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={`https://github.com/${github?.repo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {github?.repo}
                 </a>{' '}
                 repository from Github.
@@ -110,7 +133,8 @@ export function ExampleBase({ example: { component, source, filename }, classNam
                 Finally,{' '}
               </>
             )}
-            Write your local directory path. (e.g. <code>/Users/username/Workspace/project</code>)
+            Write your local directory path. (e.g.{' '}
+            <code>/Users/username/Workspace/project</code>)
           </Typography>
           <TextField
             label="Project Path"

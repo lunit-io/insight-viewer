@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -23,12 +23,12 @@ React Hook 형태의 Dialog를 만들기 위한 Wrapper.
 
 만들어진 Dialog Hook은 아래와 같이 사용할 수 있다.
 
-<Example example={component('./Samples/Basic')}>
+<Example example={source(require('./Samples/Basic'))}>
   <InsightViewerPreview height={100} />
 </Example>
 
 # Custom Dialog 예제
 
-<Example example={component('./Samples/FormDialog')}>
+<Example example={source(require('./Samples/FormDialog'))}>
   <InsightViewerPreview height={100} />
 </Example>

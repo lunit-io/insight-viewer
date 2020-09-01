@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -17,6 +17,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 - 현재 1번 Image를 보고 있다면
 - `useEffect(() => fetch(imageIds[2]), [imageIds])` 이와 같은 식으로 2번 이미지를 Prefetch 한다
 
-<Example example={component('./useImageStore/Basic')}>
+<Example example={source(require('./useImageStore/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>

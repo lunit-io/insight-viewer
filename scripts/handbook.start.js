@@ -1,6 +1,7 @@
 const {start} = require('@rocket-scripts/web');
 const babelLoaderOptions = require('./babelLoaderOptions');
 const puppeteer = require('puppeteer');
+const webpackConfig = require('./webpackConfig');
 
 (async () => {
   const {port} = await start({
@@ -10,6 +11,7 @@ const puppeteer = require('puppeteer');
       '{cwd}/src/@lunit/insight-viewer/public',
     ],
     babelLoaderOptions,
+    webpackConfig,
   });
   
   const browser = await puppeteer.launch({

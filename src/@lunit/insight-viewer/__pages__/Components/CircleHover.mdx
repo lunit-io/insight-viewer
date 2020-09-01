@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -16,6 +16,6 @@ Focused Color를 변경하고자 한다면 `<CircleViewer>`에 Contour가 그려
 
 # Sample
 
-<Example example={component('./CircleViewer/Basic')}>
+<Example example={source(require('./CircleViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>

@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const optControlIcons = page('./Basic');
+export const optControlIcons = source(() => import('./Basic.mdx'));

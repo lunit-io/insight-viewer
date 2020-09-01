@@ -1,11 +1,11 @@
-import { component } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `@lunit/opt-control-icons`
 
 Icon 들을 제공한다.
 
-<Example example={component('./Samples/Icons')}>
+<Example example={source(require('./Samples/Icons'))}>
   <Preview height={130} />
 </Example>
 
@@ -13,6 +13,6 @@ Icon 들을 제공한다.
 
 모든 Icon들은 Material-UI 형식에 맞춰져 있기 때문에, `@material-ui/icons`와 동일하게 사용할 수 있다.
 
-<Example example={component('./Samples/MaterialUI')}>
+<Example example={source(require('./Samples/MaterialUI'))}>
   <Preview height={300} />
 </Example>

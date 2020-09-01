@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -12,6 +12,6 @@ AI에서 내려받는 Heatmap 데이터 형식을 화면에 그린다.
 
 # Sample
 
-<Example example={component('./HeatmapViewer/Basic')}>
+<Example example={source(require('./HeatmapViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>

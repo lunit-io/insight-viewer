@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -13,7 +13,7 @@ Annotation Tool, OPT와 같이 사용자에게 Annotation을 입력 받을때
 
 # Test
 
-<Example example={component('./Sample')}>
+<Example example={source(require('./Sample'))}>
   <InsightViewerPreview height={520} />
 </Example>
 

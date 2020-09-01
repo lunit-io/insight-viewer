@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const isIntersectionPages = page('./Basic');
+export const isIntersectionPages = source(() => import('./Basic.mdx'));

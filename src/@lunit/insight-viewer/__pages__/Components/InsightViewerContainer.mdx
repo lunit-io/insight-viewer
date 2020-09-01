@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -16,6 +16,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 > 단순한 Styled-Component 이기 때문에 필요에 따라 Holder는 그냥 만들어 사용해도 된다.
 
-<Example example={component('./InsightViewerContainer/Holders')}>
+<Example example={source(require('./InsightViewerContainer/Holders'))}>
   <InsightViewerPreview height={720}/>
 </Example>

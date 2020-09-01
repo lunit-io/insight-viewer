@@ -1,3 +1,5 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const isPolygonAreaGreaterThanAreaPages = page('./Basic');
+export const isPolygonAreaGreaterThanAreaPages = source(
+  () => import('./Basic.mdx'),
+);

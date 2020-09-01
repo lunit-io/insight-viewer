@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 import posMapToImageDataPreview from './Samples/posMapToImageDataPreview.png';
 
@@ -12,6 +12,6 @@ import posMapToImageDataPreview from './Samples/posMapToImageDataPreview.png';
 
 `<HeatmapViewer>`에서 사용된다.
 
-<Example example={component('./Samples/posMapImageData')}>
+<Example example={source(require('./Samples/posMapImageData'))}>
   <Preview height={320} />
 </Example>

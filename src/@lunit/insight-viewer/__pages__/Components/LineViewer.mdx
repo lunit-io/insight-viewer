@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -18,7 +18,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 `Contour` 데이터를 넣어주면 화면에 Annotation을 그린다.
 
-<Example example={component('./LineViewer/Basic')}>
+<Example example={source(require('./LineViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -30,6 +30,6 @@ CSS Variable을 통해서 색상을 변경할 수 있다.
 
 <Example example={source('../../theme/style')}/>
 
-<Example example={component('./LineViewer/CustomStyle')}>
+<Example example={source(require('./LineViewer/CustomStyle'))}>
   <InsightViewerPreview height={720}/>
 </Example>

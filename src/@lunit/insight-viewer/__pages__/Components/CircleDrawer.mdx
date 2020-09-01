@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -12,7 +12,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # Sample
 
-<Example example={component('./CircleDrawer/Basic')}>
+<Example example={source(require('./CircleDrawer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -24,6 +24,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 <Example example={source('../../theme/style')}/>
 
-<Example example={component('./CircleDrawer/CustomStyle')}>
+<Example example={source(require('./CircleDrawer/CustomStyle'))}>
   <InsightViewerPreview height={720}/>
 </Example>

@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -10,7 +10,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 <Example example={source('@lunit/insight-draw/shapes/drawArrow')} api />
 
-<Example example={component('./Samples/drawArrow')}>
+<Example example={source(require('./Samples/drawArrow'))}>
   <Preview height={420} />
 </Example>
 
@@ -18,6 +18,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 <Example example={source('@lunit/insight-draw/measure/getAngledTextPosition')} api />
 
-<Example example={component('./Samples/getAngledTextPosition')}>
+<Example example={source(require('./Samples/getAngledTextPosition'))}>
   <Preview height={420} />
 </Example>

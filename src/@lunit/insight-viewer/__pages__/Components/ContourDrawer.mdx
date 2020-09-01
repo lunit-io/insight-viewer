@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -14,7 +14,7 @@ Annotation Tool, OPT 와 같이 사용자의 Contour Drawing이 필요한 경우
 
 # Sample
 
-<Example example={component('./ContourDrawer/Basic')}>
+<Example example={source(require('./ContourDrawer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -26,6 +26,6 @@ CSS Variable을 통해서 색상을 변경할 수 있다.
 
 <Example example={source('../../theme/style')}/>
 
-<Example example={component('./ContourDrawer/CustomStyle')}>
+<Example example={source(require('./ContourDrawer/CustomStyle'))}>
   <InsightViewerPreview height={720}/>
 </Example>

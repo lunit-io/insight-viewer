@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useViewportMirroring()`
@@ -20,6 +20,6 @@ Master가 되는 `<CornerstoneViewer>`에서만 User Interaction이 가능하고
 
 # Sample
 
-<Example example={component('../Basic/CornerstoneRenderData/MirrorData')}>
+<Example example={source(require('../Basic/CornerstoneRenderData/MirrorData'))}>
   <Preview height={520}/>
 </Example>

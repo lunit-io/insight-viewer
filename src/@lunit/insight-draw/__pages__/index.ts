@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const insightDrawPages = page('./Basic');
+export const insightDrawPages = source(() => import('./Basic.mdx'));

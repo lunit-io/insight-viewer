@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -12,7 +12,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # Sample
 
-<Example example={component('./LineDrawer/Basic')}>
+<Example example={source(require('./LineDrawer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -24,6 +24,6 @@ CSS Variable을 통해서 색상을 변경할 수 있다.
 
 <Example example={source('../../theme/style')}/>
 
-<Example example={component('./LineDrawer/CustomStyle')}>
+<Example example={source(require('./LineDrawer/CustomStyle'))}>
   <InsightViewerPreview height={720}/>
 </Example>

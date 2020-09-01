@@ -13,8 +13,6 @@
 
 <!-- index src/**/README.md -->
 
-- [src/@handbook/code-block/README.md](src/@handbook/code-block/README.md)
-- [src/@handbook/source/README.md](src/@handbook/source/README.md)
 - [src/@lunit/handbook/README.md](src/@lunit/handbook/README.md)
 - [src/@lunit/heatmap/README.md](src/@lunit/heatmap/README.md)
 - [src/@lunit/insight-viewer/README.md](src/@lunit/insight-viewer/README.md)

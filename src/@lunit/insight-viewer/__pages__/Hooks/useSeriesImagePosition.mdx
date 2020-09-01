@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useSeriesImagePosition()`
@@ -13,10 +13,10 @@ import { Example, Preview } from '@handbook/components';
 
 # Sample
 
-<Example example={component('../Basic/CornerstoneImage/DCMImageWithSeries')}>
+<Example example={source(require('../Basic/CornerstoneImage/DCMImageWithSeries'))}>
   <Preview height={280}/>
 </Example> 
 
-<Example example={component('../Basic/CornerstoneImage/CornerstoneViewerWithSeries')}>
+<Example example={source(require('../Basic/CornerstoneImage/CornerstoneViewerWithSeries'))}>
   <Preview height={520}/>
 </Example>

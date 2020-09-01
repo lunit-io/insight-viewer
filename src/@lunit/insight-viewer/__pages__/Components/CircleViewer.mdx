@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -21,7 +21,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 `Contour` 데이터를 넣어주면 화면에 Annotation을 그린다.
 
-<Example example={component('./CircleViewer/Basic')}>
+<Example example={source(require('./CircleViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -33,7 +33,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 <Example example={source('../../theme/style')}/>
 
-<Example example={component('./CircleViewer/CustomStyle')}>
+<Example example={source(require('./CircleViewer/CustomStyle'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 

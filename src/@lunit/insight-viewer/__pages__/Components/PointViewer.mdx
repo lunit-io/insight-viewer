@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -17,7 +17,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # Sample
 
-<Example example={component('./PointViewer/Basic')}>
+<Example example={source(require('./PointViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -29,7 +29,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 <Example example={source('../../theme/style')}/>
 
-<Example example={component('./PointViewer/CustomColor')}>
+<Example example={source(require('./PointViewer/CustomColor'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -41,6 +41,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 `pointPinComponent`나 `pointPinFunction` Props를 사용할 수 있다.
 
-<Example example={component('./PointViewer/CustomPin')}>
+<Example example={source(require('./PointViewer/CustomPin'))}>
   <InsightViewerPreview height={720}/>
 </Example>

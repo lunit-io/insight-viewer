@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const useControlPages = page('./Basic');
+export const useControlPages = source(() => import('./Basic.mdx'));

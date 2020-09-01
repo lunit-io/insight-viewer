@@ -1,14 +1,25 @@
-import { Page } from '@handbook/source';
-import React, { createElement, ReactElement, ReactNode, useEffect, useState } from 'react';
+import { SourceModule } from '@handbook/source';
+import React, {
+  ComponentType,
+  createElement,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import slugify from 'slugify';
 import { HandbookTreeNode } from '../types';
 
-function PageLoader({ content }: { content: Page }): ReactElement | null {
+function PageLoader({
+  content,
+}: {
+  content: SourceModule<() => Promise<{ default: ComponentType }>>;
+}): ReactElement | null {
   const [element, setElement] = useState<ReactElement | null>(null);
 
   useEffect(() => {
-    content.component().then(({ default: component }) => {
+    content.module().then(({ default: component }) => {
       setElement(createElement(component, {}));
     });
   }, [content]);
@@ -16,8 +27,12 @@ function PageLoader({ content }: { content: Page }): ReactElement | null {
   return element;
 }
 
-function isPageContent(content: HandbookTreeNode | Page): content is Page {
-  return 'component' in content && typeof content.component === 'function';
+function isPageContent(
+  content:
+    | HandbookTreeNode
+    | SourceModule<() => Promise<{ default: ComponentType }>>,
+): content is SourceModule<() => Promise<{ default: ComponentType }>> {
+  return 'module' in content && typeof content.module === 'function';
 }
 
 slugify.extend({
@@ -42,7 +57,10 @@ export function List({
         const pathName: string = slugify(name, {
           lower: true,
         });
-        const content: HandbookTreeNode | Page = node[name];
+        const content:
+          | HandbookTreeNode
+          | SourceModule<() => Promise<{ default: ComponentType }>> =
+          node[name];
 
         if (isPageContent(content)) {
           routes.push(
@@ -52,7 +70,10 @@ export function List({
           );
           return (
             <li key={pathName}>
-              <NavLink to={`${parentPath}/${pathName}`} onClick={() => (document.documentElement.scrollTop = 0)}>
+              <NavLink
+                to={`${parentPath}/${pathName}`}
+                onClick={() => (document.documentElement.scrollTop = 0)}
+              >
                 {name}
               </NavLink>
             </li>
@@ -61,7 +82,11 @@ export function List({
           return (
             <li key={pathName}>
               {name}
-              <List node={content} parentPath={`${parentPath}/${pathName}`} routes={routes} />
+              <List
+                node={content}
+                parentPath={`${parentPath}/${pathName}`}
+                routes={routes}
+              />
             </li>
           );
         }

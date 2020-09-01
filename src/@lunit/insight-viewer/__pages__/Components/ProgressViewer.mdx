@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -13,6 +13,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # Sample
 
-<Example example={component('./ProgressViewer/Basic')}>
+<Example example={source(require('./ProgressViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>

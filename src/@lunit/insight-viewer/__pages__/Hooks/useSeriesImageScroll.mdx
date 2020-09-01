@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useSeriesImageScroll()`
@@ -13,7 +13,7 @@ import { Example, Preview } from '@handbook/components';
 
 # Sample
 
-<Example example={component('./useSeriesImageScroll/Basic')}>
+<Example example={source(require('./useSeriesImageScroll/Basic'))}>
   <Preview height={380} style={{overflowY: 'auto'}}/>
 </Example>
 
@@ -21,6 +21,6 @@ import { Example, Preview } from '@handbook/components';
 
 `<InsightViewerContainer ref={}>`를 통해 `HTMLElement`를 받아서 처리할 수 있다.
 
-<Example example={component('./useSeriesImageScroll/InsightViewer')}>
+<Example example={source(require('./useSeriesImageScroll/InsightViewer'))}>
   <Preview height={520}/>
 </Example>

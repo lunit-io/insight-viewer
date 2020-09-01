@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -8,12 +8,12 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 SVG Text를 사용한다. <https://www.w3schools.com/graphics/svg_text.asp>
 
-<Example example={component('./StrokeText/Basic')}>
+<Example example={source(require('./StrokeText/Basic'))}>
   <Preview height={200}/>
 </Example>
 
 # `<CornerstoneViewer>`에 Holder를 사용해서 배치
 
-<Example example={component('./StrokeText/WithHolders')}>
+<Example example={source(require('./StrokeText/WithHolders'))}>
   <InsightViewerPreview height={720}/>
 </Example>

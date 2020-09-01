@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `useContour()`
@@ -15,13 +15,13 @@ import { Example, Preview } from '@handbook/components';
 
 아래와 같이 단순히 화면에 표시하기 위한 상황에서 사용할 수도 있고,
 
-<Example example={component('./useContour/Read')}>
+<Example example={source(require('./useContour/Read'))}>
   <Preview height={520}/>
 </Example>
 
 아래와 같이 사용자의 Annotation을 입력받는 상황에서 사용할 수도 있다.
 
-<Example example={component('./useContour/Write')}>
+<Example example={source(require('./useContour/Write'))}>
   <Preview height={520}/>
 </Example>
 
@@ -29,7 +29,7 @@ import { Example, Preview } from '@handbook/components';
 
 외부 UI와 Focus 상태를 공유할 수 있다.
 
-<Example example={component('./useContour/Focus')}>
+<Example example={source(require('./useContour/Focus'))}>
   <Preview height={520}/>
 </Example>
 
@@ -39,7 +39,7 @@ MMG와 같이 분할된 여러개의 화면에 Annotation을 그리는 경우, �
 
 아래와 같이 `nextId`를 사용해서 분할된 여러개의 화면에 분산된 Contour들의 `id`를 순서대로 생성할 수 있다. 
 
-<Example example={component('./useContour/NextId')}>
+<Example example={source(require('./useContour/NextId'))}>
   <Preview height={520}/>
 </Example>
 

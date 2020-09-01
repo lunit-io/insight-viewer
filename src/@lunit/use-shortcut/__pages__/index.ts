@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const useShortcutPages = page('./Basic');
+export const useShortcutPages = source(() => import('./Basic.mdx'));

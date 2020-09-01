@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -67,6 +67,6 @@ export interface InsightViewerControllerOptions {
 ```
 
 
-<Example example={component('./InsightViewerTestController/Basic')}>
+<Example example={source(require('./InsightViewerTestController/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>

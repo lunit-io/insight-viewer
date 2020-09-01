@@ -1,3 +1,3 @@
-import { page } from '@handbook/source';
+import { source } from '@handbook/source';
 
-export const useDialogPages = page('./Basic');
+export const useDialogPages = source(() => import('./Basic.mdx'));

@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `interface CornerstoneImage`
@@ -13,7 +13,7 @@ RxJs 기반으로 동작하기 때문에 <https://rxjs-dev.firebaseapp.com/guide
 
 1장의 이미지만 사용하면 되는 경우 사용할 수 있다. (CXR, MMG...)
 
-<Example example={component('./CornerstoneImage/CornerstoneSingleImage')}>
+<Example example={source(require('./CornerstoneImage/CornerstoneSingleImage'))}>
   <Preview height={200} style={{overflowY: 'auto'}}/>
 </Example>
 
@@ -22,13 +22,13 @@ RxJs 기반으로 동작하기 때문에 <https://rxjs-dev.firebaseapp.com/guide
 
 `<DCMImage>` Component를 사용해서 단순 화면 출력하거나,
 
-<Example example={component('./CornerstoneImage/DCMImage')}>
+<Example example={source(require('./CornerstoneImage/DCMImage'))}>
   <Preview height={280}/>
 </Example>
 
 `<CornerstoneViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
 
-<Example example={component('./CornerstoneImage/CornerstoneViewer')}>
+<Example example={source(require('./CornerstoneImage/CornerstoneViewer'))}>
   <Preview height={520}/>
 </Example>
 
@@ -55,19 +55,19 @@ export interface CornerstoneSeriesImage extends CornerstoneImage {
 
 `CornerstoneImage`를 상속 받아서 여러장의 이미지를 제어할 수 있는 기능들이 더해져 있다.
 
-<Example example={component('./CornerstoneImage/CornerstoneSeriesImage')}>
+<Example example={source(require('./CornerstoneImage/CornerstoneSeriesImage'))}>
   <Preview height={500} style={{overflowY: 'auto'}}/>
 </Example>
 
 마찬가지로 `<DCMImage>` Component를 사용해서 화면에 출력하거나,
 
-<Example example={component('./CornerstoneImage/DCMImageWithSeries')}>
+<Example example={source(require('./CornerstoneImage/DCMImageWithSeries'))}>
   <Preview height={280}/>
 </Example> 
 
 `<CornerstoneViewer>` Component를 사용해서 User Interaction이 가능한 형태로 출력할 수 있다.
 
-<Example example={component('./CornerstoneImage/CornerstoneViewerWithSeries')}>
+<Example example={source(require('./CornerstoneImage/CornerstoneViewerWithSeries'))}>
   <Preview height={520}/>
 </Example>
 
@@ -75,6 +75,6 @@ export interface CornerstoneSeriesImage extends CornerstoneImage {
 
 Drop Handling 처럼 File을 다뤄야 하는 경우 사용할 수 있다.
 
-<Example example={component('./CornerstoneImage/CornerstoneFileSingleImage')}>
+<Example example={source(require('./CornerstoneImage/CornerstoneFileSingleImage'))}>
   <Preview height={520}/>
 </Example>

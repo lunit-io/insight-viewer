@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example } from '@handbook/components';
 import { InsightViewerPreview } from '@lunit/handbook';
 
@@ -18,7 +18,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 # 기본적인 사용
 
-<Example example={component('./CornerstoneViewer/Basic')}>
+<Example example={source(require('./CornerstoneViewer/Basic'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -35,7 +35,7 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 이와 같은 Layer 구성 문제를 비롯한 여러 User Interaction을 외부에 위임하기 위해, 일부 속성들은 `boolean` 뿐만 아니라 `HTMLElement`로 입력될 수 있다.
 
-<Example example={component('./CornerstoneViewer/DelegateInteraction')}>
+<Example example={source(require('./CornerstoneViewer/DelegateInteraction'))}>
   <InsightViewerPreview height={720}/>
 </Example>
 
@@ -43,6 +43,6 @@ import { InsightViewerPreview } from '@lunit/handbook';
 
 `flip={true} invert={true}` 기본값 Test
 
-<Example example={component('./CornerstoneViewer/InvertAndFlip')}>
+<Example example={source(require('./CornerstoneViewer/InvertAndFlip'))}>
   <InsightViewerPreview height={720}/>
 </Example>

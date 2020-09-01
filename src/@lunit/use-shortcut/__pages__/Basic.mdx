@@ -1,4 +1,4 @@
-import { component, source } from '@handbook/source';
+import { source } from '@handbook/source';
 import { Example, Preview } from '@handbook/components';
 
 # `@lunit/use-shortcut`
@@ -11,6 +11,6 @@ import { Example, Preview } from '@handbook/components';
 
 # Sample
 
-<Example example={component('./Sample')}>
+<Example example={source(require('./Sample'))}>
   <Preview height={120} />
 </Example>
