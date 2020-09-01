@@ -89,7 +89,7 @@ export function ExampleBase({
           )}
           {vscode && vscodeProject.trim().length > 0 && (
             <IconButton
-              href={`vscode://file${vscodeProject}/${filename}`}
+              href={`vscode://file${vscodeProject}/src/${filename}`}
               onContextMenu={(event) => {
                 event.preventDefault();
                 setOpen(!open);
