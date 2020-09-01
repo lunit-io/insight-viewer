@@ -14,9 +14,12 @@ installWADOImageLoader();
 function App() {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 

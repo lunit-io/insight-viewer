@@ -12,7 +12,7 @@ function App() {
       <GlobalStyle />
       {/* Contents */}
     </div>
-  )
+  );
 }
 ```
 
@@ -38,7 +38,7 @@ function App() {
       <GlobalStyle />
       {/* Contents */}
     </div>
-  )
+  );
 }
 ```
 
@@ -60,11 +60,19 @@ storiesOf('Theme', module)
 
 ### \_\_stories\_\_/Button.stories.tsx
 
-
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import { Button, ButtonLayout, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
-import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
+import {
+  Button,
+  ButtonLayout,
+  withOPTComponentsStorybookGlobalStyle,
+} from '@lunit/opt-components';
+import {
+  AdjustIcon,
+  MagnifyIcon,
+  PanIcon,
+  PenIcon,
+} from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
@@ -83,7 +91,12 @@ storiesOf('opt-components', module)
               <Button layout="left" label="PEN" icon={<PenIcon />} />
               <Button layout="left" label="PAN" icon={<PanIcon />} selected />
               <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
-              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+              <Button
+                layout="left"
+                label="MAGNIFY"
+                icon={<MagnifyIcon />}
+                disabled
+              />
             </ButtonLayout>
           </div>
 
@@ -114,12 +127,19 @@ storiesOf('opt-components', module)
             </ButtonLayout>
           </div>
 
-          <BlueButtonDiv style={{ width: direction === 'vertical' ? 200 : 500 }}>
+          <BlueButtonDiv
+            style={{ width: direction === 'vertical' ? 200 : 500 }}
+          >
             <ButtonLayout direction={direction}>
               <Button layout="left" label="PEN" icon={<PenIcon />} />
               <Button layout="left" label="PAN" icon={<PanIcon />} selected />
               <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
-              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+              <Button
+                layout="left"
+                label="MAGNIFY"
+                icon={<MagnifyIcon />}
+                disabled
+              />
             </ButtonLayout>
           </BlueButtonDiv>
         </Fragment>
@@ -152,16 +172,17 @@ const BlueButtonDiv = styled.div`
   --button-background-color-disabled: #8b75ca;
   --button-label-color-disabled: rgba(255, 255, 255, 0.2);
 `;
-
 ```
-
 
 ### \_\_stories\_\_/DialogPaper.stories.tsx
 
-
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import { DialogPaper, Button, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import {
+  DialogPaper,
+  Button,
+  withOPTComponentsStorybookGlobalStyle,
+} from '@lunit/opt-components';
 import React, { useState } from 'react';
 import { Modal } from '@material-ui/core';
 import styled from 'styled-components';
@@ -169,7 +190,10 @@ import styled from 'styled-components';
 export default {
   title: 'opt-components',
   component: DialogPaper,
-  decorators: [withOPTComponentsStorybookGlobalStyle, withInsightViewerStorybookGlobalStyle],
+  decorators: [
+    withOPTComponentsStorybookGlobalStyle,
+    withInsightViewerStorybookGlobalStyle,
+  ],
 };
 
 export const DialogPaperSample = () => {
@@ -182,11 +206,23 @@ export const DialogPaperSample = () => {
           <p>Hello World</p>
 
           <div style={{ marginTop: 17 }}>
-            <Button onClick={() => setModalOpen(false)} style={{ width: 130 }} layout="center" label="CLOSE" />
+            <Button
+              onClick={() => setModalOpen(false)}
+              style={{ width: 130 }}
+              layout="center"
+              label="CLOSE"
+            />
           </div>
         </DialogPaper>
       </CenterModal>
-      {!modalOpen && <Button onClick={() => setModalOpen(true)} style={{ width: 100 }} layout="center" label="show" />}
+      {!modalOpen && (
+        <Button
+          onClick={() => setModalOpen(true)}
+          style={{ width: 100 }}
+          layout="center"
+          label="show"
+        />
+      )}
     </>
   );
 };
@@ -201,12 +237,9 @@ const CenterModal = styled(Modal)`
 DialogPaperSample.story = {
   name: 'DialogPaper',
 };
-
 ```
 
-
 ### \_\_stories\_\_/Panel.stories.tsx
-
 
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
@@ -217,7 +250,12 @@ import {
   SessionPanel,
   withOPTComponentsStorybookGlobalStyle,
 } from '@lunit/opt-components';
-import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
+import {
+  AdjustIcon,
+  MagnifyIcon,
+  PanIcon,
+  PenIcon,
+} from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { ReactNode, SVGProps } from 'react';
 import styled from 'styled-components';
@@ -229,10 +267,18 @@ storiesOf('opt-components', module)
     <Container>
       {[200, 250, 300].map((width) => (
         <div key={'width-' + width} style={{ width }}>
-          <SessionPanel title="TEST" style={{ marginBottom: 6 }} sessionId={'session-panel-' + width}>
+          <SessionPanel
+            title="TEST"
+            style={{ marginBottom: 6 }}
+            sessionId={'session-panel-' + width}
+          >
             {(expanded) => (
               <ButtonLayout direction={expanded ? 'vertical' : 'horizontal'}>
-                <Button layout={expanded ? 'left' : 'center'} label={expanded ? 'PEN' : undefined} icon={<PenIcon />} />
+                <Button
+                  layout={expanded ? 'left' : 'center'}
+                  label={expanded ? 'PEN' : undefined}
+                  icon={<PenIcon />}
+                />
                 <Button
                   layout={expanded ? 'left' : 'center'}
                   label={expanded ? 'PAN' : undefined}
@@ -259,14 +305,28 @@ storiesOf('opt-components', module)
               <Button layout="left" label="PEN" icon={<PenIcon />} />
               <Button layout="left" label="PAN" icon={<PanIcon />} selected />
               <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
-              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
+              <Button
+                layout="left"
+                label="MAGNIFY"
+                icon={<MagnifyIcon />}
+                disabled
+              />
             </ButtonLayout>
           </Panel>
         </div>
       ))}
 
-      <LineText x={600} y={15} width={600} height={20} textAnchor="end" stroke="#000000" fill="#ffffff">
-        <tspan fill="blue">Hello</tspan> World? <tspan fill="red">Hello</tspan> World?
+      <LineText
+        x={600}
+        y={15}
+        width={600}
+        height={20}
+        textAnchor="end"
+        stroke="#000000"
+        fill="#ffffff"
+      >
+        <tspan fill="blue">Hello</tspan> World? <tspan fill="red">Hello</tspan>{' '}
+        World?
       </LineText>
     </Container>
   ));
@@ -280,7 +340,11 @@ function LineText({
   ...props
 }: { children: ReactNode } & SVGProps<SVGTextElement>) {
   return (
-    <svg width={width} height={height} style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+    <svg
+      width={width}
+      height={height}
+      style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+    >
       <text
         {...props}
         width={width}
@@ -312,16 +376,16 @@ const Container = styled.div`
     flex-flow: column;
   }
 `;
-
 ```
-
 
 ### \_\_stories\_\_/Slider.stories.tsx
 
-
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import { Slider, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import {
+  Slider,
+  withOPTComponentsStorybookGlobalStyle,
+} from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
@@ -331,11 +395,21 @@ storiesOf('opt-components', module)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
   .add('Slider', () => (
     <div style={{ width: 300, margin: 20 }}>
-      <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', padding: '10px 30px' }}>
+      <div
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+          padding: '10px 30px',
+        }}
+      >
         <Slider defaultValue={50} />
       </div>
 
-      <div style={{ backgroundColor: 'rgba(255, 255, 255, 1)', padding: '10px 30px' }}>
+      <div
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+          padding: '10px 30px',
+        }}
+      >
         <BlueSlider defaultValue={50} />
       </div>
     </div>
@@ -347,12 +421,9 @@ export const BlueSlider = styled(Slider)`
   --slider-track-color: rgba(86, 81, 136, 0.6);
   --slider-value-label-color: #ffffff;
 `;
-
 ```
 
-
 ### \_\_stories\_\_/Snackbar.stories.tsx
-
 
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
@@ -529,16 +600,16 @@ const SnackbarContainer = styled.div`
     margin-top: 10px;
   }
 `;
-
 ```
-
 
 ### \_\_stories\_\_/Tooltip.stories.tsx
 
-
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import { Tooltip, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import {
+  Tooltip,
+  withOPTComponentsStorybookGlobalStyle,
+} from '@lunit/opt-components';
 import { Error } from '@material-ui/icons';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
@@ -608,7 +679,6 @@ const Grid = styled.div`
   grid-template-columns: 100px 100px;
   grid-template-rows: 100px 100px;
 `;
-
 ```
 
 <!-- importend -->

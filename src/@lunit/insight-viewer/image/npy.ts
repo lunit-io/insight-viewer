@@ -16,7 +16,15 @@ export function npy(
 ): {
   shape: [number, number, number, number];
   isFortranOrder: boolean;
-  data: Uint8Array | Int8Array | Uint16Array | Int16Array | Uint32Array | Int32Array | Float32Array | Float64Array;
+  data:
+    | Uint8Array
+    | Int8Array
+    | Uint16Array
+    | Int16Array
+    | Uint32Array
+    | Int32Array
+    | Float32Array
+    | Float64Array;
 } {
   // Check the magic number
   let magic: string = asciiDecode(buf.slice(0, 6));
@@ -37,10 +45,22 @@ export function npy(
     .replace(/\)/g, ']')
     .replace(/'/g, '"')
     .replace(', }', '}');
-  let info: { descr: string; shape: [number, number, number, number]; fortran_order: boolean } = JSON.parse(header);
+  let info: {
+    descr: string;
+    shape: [number, number, number, number];
+    fortran_order: boolean;
+  } = JSON.parse(header);
 
   // Intepret the bytes according to the specified dtype
-  let data: Uint8Array | Int8Array | Uint16Array | Int16Array | Uint32Array | Int32Array | Float32Array | Float64Array;
+  let data:
+    | Uint8Array
+    | Int8Array
+    | Uint16Array
+    | Int16Array
+    | Uint32Array
+    | Int32Array
+    | Float32Array
+    | Float64Array;
   if (info.descr === '|u1') {
     data = new Uint8Array(buf, offsetBytes);
   } else if (info.descr === '|i1') {

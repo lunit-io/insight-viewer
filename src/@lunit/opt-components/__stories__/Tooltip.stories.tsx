@@ -1,5 +1,8 @@
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import { Tooltip, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import {
+  Tooltip,
+  withOPTComponentsStorybookGlobalStyle,
+} from '@lunit/opt-components';
 import { Error } from '@material-ui/icons';
 import { storiesOf } from '@storybook/react';
 import React from 'react';

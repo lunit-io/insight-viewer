@@ -15,7 +15,10 @@ export default () => {
   const image: CornerstoneSequenceImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
-        series.map((p) => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`),
+        series.map(
+          (p) =>
+            `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`,
+        ),
         { unload: unloadImage },
       ),
     [],
@@ -25,7 +28,15 @@ export default () => {
 
   return (
     <>
-      <div style={{ position: 'absolute', top: 0, left: 0, padding: 10, backgroundColor: 'gray' }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          padding: 10,
+          backgroundColor: 'gray',
+        }}
+      >
         <button onClick={() => image.prev()}>PREV</button>
         <button onClick={() => image.next()}>NEXT</button>
         <hr />

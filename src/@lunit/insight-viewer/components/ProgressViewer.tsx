@@ -23,7 +23,12 @@ export interface ProgressViewerProps {
 
 let count: number = 0;
 
-export function ProgressViewer({ width, height, inProgress, image }: ProgressViewerProps) {
+export function ProgressViewer({
+  width,
+  height,
+  inProgress,
+  image,
+}: ProgressViewerProps) {
   const id: number = useMemo(() => ++count, []);
   const imageProgress = useImageProgress(image);
   const { setProgress, unsetProgress } = useProgressCollection();
@@ -56,7 +61,11 @@ export function ProgressViewer({ width, height, inProgress, image }: ProgressVie
             height,
           }}
         >
-          <CircularProgress size={100} variant="static" value={imageProgress * 100} />
+          <CircularProgress
+            size={100}
+            variant="static"
+            value={imageProgress * 100}
+          />
         </Div>
       )}
     </>
@@ -73,7 +82,9 @@ interface ProgressCollection {
   unsetProgress: (id: number) => void;
 }
 
-const ProgressCollectionContext: Context<ProgressCollection> = createContext<ProgressCollection>({
+const ProgressCollectionContext: Context<ProgressCollection> = createContext<
+  ProgressCollection
+>({
   inProgress: false,
 
   setProgress: () => {
@@ -85,7 +96,9 @@ const ProgressCollectionContext: Context<ProgressCollection> = createContext<Pro
 });
 
 export function ProgressCollector({ children }: ProgressCollectorProps) {
-  const [collection, setCollection] = useState<Map<number, number>>(() => new Map());
+  const [collection, setCollection] = useState<Map<number, number>>(
+    () => new Map(),
+  );
 
   const setProgress = useCallback(
     (id: number, progress: number) => {
@@ -124,7 +137,11 @@ export function ProgressCollector({ children }: ProgressCollectorProps) {
     };
   }, [inProgress, setProgress, unsetProgress]);
 
-  return <ProgressCollectionContext.Provider value={state}>{children}</ProgressCollectionContext.Provider>;
+  return (
+    <ProgressCollectionContext.Provider value={state}>
+      {children}
+    </ProgressCollectionContext.Provider>
+  );
 }
 
 function useProgressCollection(): ProgressCollection {

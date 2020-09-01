@@ -31,12 +31,18 @@ export default () => {
 
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   const [checkResult, setCheckResult] = useState<ReactNode>(null);
 
   const onAdd = useCallback((polygon: Point[]) => {
-    const result: boolean = isPolygonAreaGreaterThanArea(polygon, isGreaterThanArea);
+    const result: boolean = isPolygonAreaGreaterThanArea(
+      polygon,
+      isGreaterThanArea,
+    );
 
     setCheckResult(
       <div>

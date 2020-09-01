@@ -558,23 +558,46 @@ const controllerOptions: InsightViewerControllerOptions = {
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   // create contour data
-  const { contours, focusedContour, focusContour, removeContour, addContour } = useContour({
+  const {
+    contours,
+    focusedContour,
+    focusContour,
+    removeContour,
+    addContour,
+  } = useContour({
     mode: 'contour', // is [x, y][]
     initialContours,
   });
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime, interactions, element, setElement }) => (
+      {({
+        width,
+        height,
+        invert,
+        flip,
+        control,
+        wheel,
+        resetTime,
+        interactions,
+        element,
+        setElement,
+      }) => (
         <InsightViewerContainer ref={setElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}
@@ -594,7 +617,9 @@ export default () => {
                 contours={contours}
                 focusedContour={focusedContour}
                 polygonAttrs={(contour, cornerstoneRenderData, isBorder) => ({
-                  style: { strokeWidth: contour.lineWidth * 3 + (isBorder ? 4 : 0) },
+                  style: {
+                    strokeWidth: contour.lineWidth * 3 + (isBorder ? 4 : 0),
+                  },
                 })}
                 cornerstoneRenderData={cornerstoneRenderData}
               />
@@ -607,7 +632,9 @@ export default () => {
               contours={contours}
               draw={control === 'pen' && element}
               onFocus={focusContour}
-              onAdd={(contour) => addContour(contour, { label: () => '', lineWidth: 1 })}
+              onAdd={(contour) =>
+                addContour(contour, { label: () => '', lineWidth: 1 })
+              }
               onRemove={removeContour}
               cornerstoneRenderData={cornerstoneRenderData}
             />

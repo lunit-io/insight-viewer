@@ -14,14 +14,19 @@ export function MainContent() {
     <div>
       <div>
         <TextField value={a} onChange={({ target }) => setA(+target.value)} /> +{' '}
-        <TextField value={b} onChange={({ target }) => setB(+target.value)} /> = <span>{a + b}</span>
+        <TextField value={b} onChange={({ target }) => setB(+target.value)} /> ={' '}
+        <span>{a + b}</span>
       </div>
 
       {open ? (
         <>
           <div style={{ marginTop: 20 }}>
             {/* Window를 닫는다 */}
-            <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setOpen(false)}
+            >
               Close Window
             </Button>
           </div>
@@ -47,7 +52,11 @@ export function MainContent() {
       ) : (
         <div style={{ marginTop: 20 }}>
           {/* Window를 연다 */}
-          <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setOpen(true)}
+          >
             Open Window
           </Button>
         </div>

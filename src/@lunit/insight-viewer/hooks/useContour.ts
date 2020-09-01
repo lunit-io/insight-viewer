@@ -30,7 +30,10 @@ export interface ContourDrawingState<T extends Contour> {
   focusedContour: T | null;
 
   /** 새로운 Contour를 만들어준다 */
-  addContour: (polygon: Point[], contourInfo?: Omit<T, 'id' | 'polygon'>) => T | null;
+  addContour: (
+    polygon: Point[],
+    contourInfo?: Omit<T, 'id' | 'polygon'>,
+  ) => T | null;
 
   /** 여러개의 Contour들을 일괄 추가한다. */
   addContours: (contours: Omit<T, 'id'>[]) => void;
@@ -59,7 +62,11 @@ export function useContour<T extends Contour>({
   const [contours, setContours] = useState<T[]>(() => {
     if (initialContours) {
       const startId: number =
-        typeof nextId === 'number' ? nextId : nextId && typeof nextId.current === 'number' ? nextId.current : 1;
+        typeof nextId === 'number'
+          ? nextId
+          : nextId && typeof nextId.current === 'number'
+          ? nextId.current
+          : 1;
 
       return initialContours.map<T>((addedContour, i) => {
         return {
@@ -74,9 +81,17 @@ export function useContour<T extends Contour>({
   const [focusedContour, setFocusedContour] = useState<T | null>(null);
 
   const addContour = useCallback(
-    (polygon: Point[], contourInfo: Partial<Omit<T, 'id' | 'polygon'>> = {}): T | null => {
-      if (mode === 'contour' && (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon))) return null;
-      if (mode === 'line' && !isPolygonAreaGreaterThanArea(polygon)) return null;
+    (
+      polygon: Point[],
+      contourInfo: Partial<Omit<T, 'id' | 'polygon'>> = {},
+    ): T | null => {
+      if (
+        mode === 'contour' &&
+        (!isPolygonAreaGreaterThanArea(polygon) || isComplexPolygon(polygon))
+      )
+        return null;
+      if (mode === 'line' && !isPolygonAreaGreaterThanArea(polygon))
+        return null;
 
       const { dataAttrs } = contourInfo;
 
@@ -142,10 +157,16 @@ export function useContour<T extends Contour>({
       if (
         patch.polygon &&
         mode === 'contour' &&
-        (!isPolygonAreaGreaterThanArea(patch.polygon) || isComplexPolygon(patch.polygon))
+        (!isPolygonAreaGreaterThanArea(patch.polygon) ||
+          isComplexPolygon(patch.polygon))
       )
         return;
-      if (patch.polygon && mode === 'line' && !isPolygonAreaGreaterThanArea(patch.polygon)) return;
+      if (
+        patch.polygon &&
+        mode === 'line' &&
+        !isPolygonAreaGreaterThanArea(patch.polygon)
+      )
+        return;
 
       if (patch.dataAttrs) {
         validateDataAttrs(patch.dataAttrs);
@@ -159,13 +180,17 @@ export function useContour<T extends Contour>({
 
       setContours((prevContours) => {
         const nextContours = [...prevContours];
-        const index: number = nextContours.findIndex(({ id }) => nextContour.id === id);
+        const index: number = nextContours.findIndex(
+          ({ id }) => nextContour.id === id,
+        );
 
         if (index > -1) {
           nextContours[index] = nextContour;
 
           setFocusedContour((prevFocusedContour) => {
-            return contour === prevFocusedContour ? nextContour : prevFocusedContour;
+            return contour === prevFocusedContour
+              ? nextContour
+              : prevFocusedContour;
           });
         }
 
@@ -208,7 +233,11 @@ export function useContour<T extends Contour>({
       setContours(() => {
         if (initialContours) {
           const startId: number =
-            typeof nextId === 'number' ? nextId : nextId && typeof nextId.current === 'number' ? nextId.current : 1;
+            typeof nextId === 'number'
+              ? nextId
+              : nextId && typeof nextId.current === 'number'
+              ? nextId.current
+              : 1;
 
           return initialContours.map<T>((addedContour, i) => {
             return {
@@ -241,7 +270,9 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 
   Object.keys(dataAttrs).forEach((attr) => {
     if (!/^data-/.test(attr)) {
-      throw new Error(`Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`);
+      throw new Error(
+        `Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`,
+      );
     }
   });
 }

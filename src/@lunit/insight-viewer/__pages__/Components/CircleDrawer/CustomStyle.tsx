@@ -36,22 +36,45 @@ const CustomStyleDrawer = styled(CircleDrawer)`
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   // create contour data and user drawing behaviors
-  const { contours, focusedContour, addContour, removeContour, focusContour } = useContour({
+  const {
+    contours,
+    focusedContour,
+    addContour,
+    removeContour,
+    focusContour,
+  } = useContour({
     mode: 'circle',
   });
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime, interactions, setElement, element }) => (
+      {({
+        width,
+        height,
+        invert,
+        flip,
+        control,
+        wheel,
+        resetTime,
+        interactions,
+        setElement,
+        element,
+      }) => (
         <InsightViewerContainer ref={setElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}
@@ -72,18 +95,23 @@ export default () => {
               cornerstoneRenderData={cornerstoneRenderData}
             />
           )}
-          {contours && cornerstoneRenderData && control === 'pen' && element && (
-            <CustomStyleDrawer
-              width={width}
-              height={height}
-              contours={contours}
-              draw={control === 'pen' && element}
-              onFocus={focusContour}
-              onAdd={(contour) => addContour(contour, { label: labelFunction })}
-              onRemove={removeContour}
-              cornerstoneRenderData={cornerstoneRenderData}
-            />
-          )}
+          {contours &&
+            cornerstoneRenderData &&
+            control === 'pen' &&
+            element && (
+              <CustomStyleDrawer
+                width={width}
+                height={height}
+                contours={contours}
+                draw={control === 'pen' && element}
+                onFocus={focusContour}
+                onAdd={(contour) =>
+                  addContour(contour, { label: labelFunction })
+                }
+                onRemove={removeContour}
+                cornerstoneRenderData={cornerstoneRenderData}
+              />
+            )}
         </InsightViewerContainer>
       )}
     </InsightViewerTestController>

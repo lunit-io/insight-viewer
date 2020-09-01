@@ -3,7 +3,9 @@ import React, { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import data from './posMap.sample.json';
 
 export default () => {
-  const canvasRef: MutableRefObject<HTMLCanvasElement | null> = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef: MutableRefObject<HTMLCanvasElement | null> = useRef<HTMLCanvasElement | null>(
+    null,
+  );
 
   // AI에서 나온 posMap 결과를 ImageData로 변환한다
   const imageData = useMemo<ImageData>(() => {
@@ -13,7 +15,9 @@ export default () => {
   useEffect(() => {
     if (!canvasRef.current) throw new Error('<canvas> is null');
 
-    const ctx: CanvasRenderingContext2D | null = canvasRef.current.getContext('2d');
+    const ctx: CanvasRenderingContext2D | null = canvasRef.current.getContext(
+      '2d',
+    );
 
     if (!ctx) throw new Error('ctx is null');
 

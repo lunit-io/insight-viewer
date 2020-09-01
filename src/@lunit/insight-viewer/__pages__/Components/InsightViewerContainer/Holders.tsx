@@ -28,15 +28,29 @@ const controllerOptions: InsightViewerControllerOptions = {
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime, element, setElement, interactions }) => (
+      {({
+        width,
+        height,
+        invert,
+        flip,
+        control,
+        wheel,
+        resetTime,
+        element,
+        setElement,
+        interactions,
+      }) => (
         <InsightViewerContainer ref={setElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}

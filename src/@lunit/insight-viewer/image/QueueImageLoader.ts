@@ -23,7 +23,10 @@ export class QueueImageLoader implements ImageLoader {
 
   constructor(private readonly options: Options = {}) {}
 
-  loadImage = ({ imageId, options }: LoadImageParams): Promise<cornerstone.Image> => {
+  loadImage = ({
+    imageId,
+    options,
+  }: LoadImageParams): Promise<cornerstone.Image> => {
     return new Promise<cornerstone.Image>((resolve, reject) => {
       this.add({ imageId, options, resolve, reject });
     });

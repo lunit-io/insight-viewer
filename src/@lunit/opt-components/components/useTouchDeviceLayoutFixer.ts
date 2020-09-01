@@ -18,7 +18,9 @@ export function useTouchDeviceLayoutFixer() {
     let intervalId: number | null = null;
 
     if (isTouchDevice()) {
-      document.addEventListener('touchmove', preventPinchZoom, { passive: false });
+      document.addEventListener('touchmove', preventPinchZoom, {
+        passive: false,
+      });
       document.addEventListener('scroll', preventScroll);
 
       intervalId = setInterval(() => {

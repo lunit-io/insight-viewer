@@ -32,7 +32,7 @@ const sequenceStyle = (color: string, i: number) => {
   const focusedColor = d3color(color)?.brighter(3).toString() || color;
 
   return css`
-    > [data-id="${i}"] {
+    > [data-id='${i}'] {
       --contour-viewer-color: ${color};
       --contour-viewer-focused-color: ${focusedColor};
       --contour-viewer-fill-color: ${color};
@@ -51,13 +51,19 @@ const SequenceStyleViewer = styled(ContourViewer)`
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   // create contour data
   const { contours, focusedContour, focusContour } = useContour({
@@ -67,7 +73,18 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime, setElement, element, interactions }) => (
+      {({
+        width,
+        height,
+        invert,
+        flip,
+        control,
+        wheel,
+        resetTime,
+        setElement,
+        element,
+        interactions,
+      }) => (
         <InsightViewerContainer ref={setElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}

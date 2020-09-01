@@ -1,7 +1,13 @@
 import { Panel, Switch, SwitchRow } from '@lunit/opt-components';
 import { IconButton } from '@material-ui/core';
 import { Clear, Visibility, VisibilityOff } from '@material-ui/icons';
-import React, { ChangeEvent, CSSProperties, DetailedHTMLProps, Fragment, LiHTMLAttributes } from 'react';
+import React, {
+  ChangeEvent,
+  CSSProperties,
+  DetailedHTMLProps,
+  Fragment,
+  LiHTMLAttributes,
+} from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
@@ -76,10 +82,10 @@ function ListItem({
   annotation,
   removeContour,
   ...liProps
-}: { annotation: Annotation; removeContour: (contour: Annotation) => void } & DetailedHTMLProps<
-  LiHTMLAttributes<HTMLLIElement>,
-  HTMLLIElement
->) {
+}: {
+  annotation: Annotation;
+  removeContour: (contour: Annotation) => void;
+} & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>) {
   if (!annotation.lesion) {
     throw new Error('lesion은 null일 수 없다!');
   }
@@ -113,7 +119,9 @@ export function AnnotationsPanelBase({
   onRemove,
   onUpdate,
 }: AnnotationsPanelProps & { lesions: Lesion[] }) {
-  const annotations: OfLesion<Annotation[]> = categorizeAnnotations(lesions)(contours);
+  const annotations: OfLesion<Annotation[]> = categorizeAnnotations(lesions)(
+    contours,
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -135,7 +143,11 @@ export function AnnotationsPanelBase({
         {lesions.map((lesion) => (
           <Fragment key={lesion.id}>
             <LesionHeader>
-              <Title lesion={lesion} lesions={lesions} updateContour={onUpdate} />
+              <Title
+                lesion={lesion}
+                lesions={lesions}
+                updateContour={onUpdate}
+              />
             </LesionHeader>
             {annotations[lesion.id].length > 0 && (
               <List>

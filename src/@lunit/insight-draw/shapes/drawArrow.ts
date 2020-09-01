@@ -15,7 +15,13 @@ export interface DrawArrowParams {
   arrowWidth: number;
 }
 
-export function drawArrow({ start, end, lineWidth, arrowWidth, arrowDepth }: DrawArrowParams): [number, number][] {
+export function drawArrow({
+  start,
+  end,
+  lineWidth,
+  arrowWidth,
+  arrowDepth,
+}: DrawArrowParams): [number, number][] {
   const south: number = Math.atan2(start[1] - end[1], start[0] - end[0]);
   const angle: { south: number; north: number; east: number; west: number } = {
     south,
@@ -24,7 +30,10 @@ export function drawArrow({ start, end, lineWidth, arrowWidth, arrowDepth }: Dra
     west: south + Math.PI * 0.5,
   };
 
-  const arrowEnd = [arrowDepth * Math.cos(angle.north) + start[0], arrowDepth * Math.sin(angle.north) + start[1]];
+  const arrowEnd = [
+    arrowDepth * Math.cos(angle.north) + start[0],
+    arrowDepth * Math.sin(angle.north) + start[1],
+  ];
 
   return [
     start,

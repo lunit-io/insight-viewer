@@ -13,7 +13,10 @@ interface Options {
 export class ParallelImageLoader implements ImageLoader {
   constructor(private readonly options: Options = {}) {}
 
-  loadImage = ({ imageId, options }: LoadImageParams): Promise<cornerstone.Image> => {
+  loadImage = ({
+    imageId,
+    options,
+  }: LoadImageParams): Promise<cornerstone.Image> => {
     return typeof this.options.timeout === 'number'
       ? Promise.race([
           cornerstone.loadImage(imageId, options),

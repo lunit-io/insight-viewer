@@ -1,7 +1,12 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ParallelImageLoader } from './ParallelImageLoader';
-import { CornerstoneSequenceImage, getProgressEventDetail, ImageLoader, ProgressEventDetail } from './types';
+import {
+  CornerstoneSequenceImage,
+  getProgressEventDetail,
+  ImageLoader,
+  ProgressEventDetail,
+} from './types';
 import { wadoImageLoaderXHRLoader } from './wadoImageLoaderXHRLoader';
 
 function isImage(image: cornerstone.Image | null): image is cornerstone.Image {
@@ -27,7 +32,10 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
   private readonly _loader: ImageLoader;
   private _destoyed: boolean = false;
 
-  constructor(private readonly imageIds: string[], private readonly options: Options = {}) {
+  constructor(
+    private readonly imageIds: string[],
+    private readonly options: Options = {},
+  ) {
     this._images = imageIds.map(() => null);
 
     const { initialIndex = 0 } = options;
@@ -37,7 +45,10 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
     this._progressSubject = new BehaviorSubject(imageIds.map(() => 0));
     this._loader = options.loader || defaultLoader;
 
-    cornerstone.events.addEventListener('cornerstoneimageloadprogress', this.onProgress);
+    cornerstone.events.addEventListener(
+      'cornerstoneimageloadprogress',
+      this.onProgress,
+    );
 
     this.loadImage(imageIds[initialIndex], initialIndex).then(() => {
       // 최초 image를 next로 보내준다
@@ -64,7 +75,9 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
 
   get progress(): Observable<number> {
     return this._progressSubject.pipe<number>(
-      map<number[], number>((progress) => progress.reduce((t, x) => t + x, 0) / progress.length),
+      map<number[], number>(
+        (progress) => progress.reduce((t, x) => t + x, 0) / progress.length,
+      ),
     );
   }
 
@@ -73,7 +86,9 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
   }
 
   onProgress = (event: Event) => {
-    const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(event);
+    const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(
+      event,
+    );
 
     if (eventDetail) {
       const imageIndex: number = this.imageIds.indexOf(eventDetail.imageId);
@@ -93,7 +108,10 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
 
     this._imageSubject.unsubscribe();
 
-    cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
+    cornerstone.events.removeEventListener(
+      'cornerstoneimageloadprogress',
+      this.onProgress,
+    );
 
     this._cancel.forEach((cancel) => cancel());
 
@@ -113,7 +131,9 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
   };
 
   next = (delta: number = 1) => {
-    this.change(Math.min(this._images.length - 1, this._indexSubject.getValue() + delta));
+    this.change(
+      Math.min(this._images.length - 1, this._indexSubject.getValue() + delta),
+    );
   };
 
   prev = (delta: number = 1) => {
@@ -141,7 +161,9 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
       return;
     }
 
-    const after: cornerstone.Image[] = this._images.slice(index + 1).filter<cornerstone.Image>(isImage);
+    const after: cornerstone.Image[] = this._images
+      .slice(index + 1)
+      .filter<cornerstone.Image>(isImage);
 
     if (after.length > 0) {
       this._imageSubject.next(after[0]);
@@ -155,7 +177,11 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
     try {
       this._images[index] = await this._loader.loadImage({
         imageId: imageId,
-        options: { loader: wadoImageLoaderXHRLoader((cancel) => this._cancel.push(cancel)) },
+        options: {
+          loader: wadoImageLoaderXHRLoader((cancel) =>
+            this._cancel.push(cancel),
+          ),
+        },
       });
 
       const nextProgress: number[] = [...this._progressSubject.getValue()];
@@ -163,7 +189,10 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
 
       const total: number = nextProgress.reduce((t, n) => t + n, 0);
       if (total >= 1) {
-        cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
+        cornerstone.events.removeEventListener(
+          'cornerstoneimageloadprogress',
+          this.onProgress,
+        );
       }
 
       if (!this._destoyed) {

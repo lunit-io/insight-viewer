@@ -18,7 +18,10 @@ export function DCMImage({ cornerstoneImage, width, height }: DCMImageProps) {
       cornerstone.enable(element.current);
 
       if (image) {
-        const defaultViewport = cornerstone.getDefaultViewportForImage(element.current, image);
+        const defaultViewport = cornerstone.getDefaultViewportForImage(
+          element.current,
+          image,
+        );
         cornerstone.displayImage(element.current, image, defaultViewport);
       }
     });

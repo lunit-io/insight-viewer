@@ -3,7 +3,11 @@ import { InsightViewer } from '../components/InsightViewer';
 import { CornerstoneViewerLike, ViewportTransform } from '../types';
 
 export function updateViewport(
-  viewer: InsightViewer | RefObject<InsightViewer> | CornerstoneViewerLike | RefObject<CornerstoneViewerLike>,
+  viewer:
+    | InsightViewer
+    | RefObject<InsightViewer>
+    | CornerstoneViewerLike
+    | RefObject<CornerstoneViewerLike>,
   update: ViewportTransform,
 ) {
   let v: InsightViewer | CornerstoneViewerLike | null = null;
@@ -23,17 +27,17 @@ export function updateViewport(
   }
 }
 
-export const zoomMiddleLeft: (increment: number) => ViewportTransform = (increment) => ({
-  element,
-  currentViewport,
-  minScale,
-  maxScale,
-}) => {
+export const zoomMiddleLeft: (increment: number) => ViewportTransform = (
+  increment,
+) => ({ element, currentViewport, minScale, maxScale }) => {
   if (!currentViewport) return;
 
   const nextScale: number = Math.max(
     minScale,
-    Math.min(maxScale, currentViewport.scale + currentViewport.scale * increment),
+    Math.min(
+      maxScale,
+      currentViewport.scale + currentViewport.scale * increment,
+    ),
   );
 
   if (currentViewport.scale === nextScale) return;
@@ -55,17 +59,17 @@ export const zoomMiddleLeft: (increment: number) => ViewportTransform = (increme
   };
 };
 
-export const zoomMiddleRight: (increment: number) => ViewportTransform = (increment) => ({
-  element,
-  currentViewport,
-  minScale,
-  maxScale,
-}) => {
+export const zoomMiddleRight: (increment: number) => ViewportTransform = (
+  increment,
+) => ({ element, currentViewport, minScale, maxScale }) => {
   if (!currentViewport) return;
 
   const nextScale: number = Math.max(
     minScale,
-    Math.min(maxScale, currentViewport.scale + currentViewport.scale * increment),
+    Math.min(
+      maxScale,
+      currentViewport.scale + currentViewport.scale * increment,
+    ),
   );
 
   if (currentViewport.scale === nextScale) return;
@@ -87,17 +91,17 @@ export const zoomMiddleRight: (increment: number) => ViewportTransform = (increm
   };
 };
 
-export const zoomMiddleCenter: (increment: number) => ViewportTransform = (increment) => ({
-  element,
-  currentViewport,
-  minScale,
-  maxScale,
-}) => {
+export const zoomMiddleCenter: (increment: number) => ViewportTransform = (
+  increment,
+) => ({ element, currentViewport, minScale, maxScale }) => {
   if (!currentViewport) return;
 
   const nextScale: number = Math.max(
     minScale,
-    Math.min(maxScale, currentViewport.scale + currentViewport.scale * increment),
+    Math.min(
+      maxScale,
+      currentViewport.scale + currentViewport.scale * increment,
+    ),
   );
 
   if (currentViewport.scale === nextScale) return;
@@ -117,7 +121,9 @@ export const zoomMiddleCenter: (increment: number) => ViewportTransform = (incre
   };
 };
 
-export const adjustWindowCenter: (increment: number) => ViewportTransform = (increment) => ({ currentViewport }) => {
+export const adjustWindowCenter: (increment: number) => ViewportTransform = (
+  increment,
+) => ({ currentViewport }) => {
   if (!currentViewport) return;
 
   const { windowWidth, windowCenter } = currentViewport.voi;
@@ -125,19 +131,27 @@ export const adjustWindowCenter: (increment: number) => ViewportTransform = (inc
   return {
     voi: {
       windowWidth,
-      windowCenter: Math.max(Math.floor(windowCenter + windowCenter * increment), 1),
+      windowCenter: Math.max(
+        Math.floor(windowCenter + windowCenter * increment),
+        1,
+      ),
     },
   };
 };
 
-export const adjustWindowWidth: (increment: number) => ViewportTransform = (increment) => ({ currentViewport }) => {
+export const adjustWindowWidth: (increment: number) => ViewportTransform = (
+  increment,
+) => ({ currentViewport }) => {
   if (!currentViewport) return;
 
   const { windowWidth, windowCenter } = currentViewport.voi;
 
   return {
     voi: {
-      windowWidth: Math.max(Math.floor(windowWidth + windowWidth * increment), 1),
+      windowWidth: Math.max(
+        Math.floor(windowWidth + windowWidth * increment),
+        1,
+      ),
       windowCenter,
     },
   };

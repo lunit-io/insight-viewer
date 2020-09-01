@@ -66,23 +66,34 @@ function Viewer({ image }: { image: CornerstoneSequenceImage }) {
 export default () => {
   const [axial, setAxial] = useState<CornerstoneSequenceImage | null>(null);
   const [coronal, setCoronal] = useState<CornerstoneSequenceImage | null>(null);
-  const [sagittal, setSagittal] = useState<CornerstoneSequenceImage | null>(null);
+  const [sagittal, setSagittal] = useState<CornerstoneSequenceImage | null>(
+    null,
+  );
 
   useEffect(() => {
     const abort = new AbortController();
 
     const buffer: Observable<number | ArrayBufferLike> = fetchBuffer({
-      url: 'https://opt-frontend.s3.ap-northeast-2.amazonaws.com/fixtures/npy/image.npy',
+      url:
+        'https://opt-frontend.s3.ap-northeast-2.amazonaws.com/fixtures/npy/image.npy',
       signal: abort.signal,
     });
 
     const progress: Observable<number> = buffer.pipe(
-      map((progressOrBytes) => (typeof progressOrBytes === 'number' ? progressOrBytes : progressOrBytes ? 1 : 0)),
+      map((progressOrBytes) =>
+        typeof progressOrBytes === 'number'
+          ? progressOrBytes
+          : progressOrBytes
+          ? 1
+          : 0,
+      ),
     );
 
     const images: Observable<NpyCornerstoneImages> = buffer.pipe(
       filter<number | ArrayBufferLike, ArrayBufferLike>(
-        (progressOrBytes: number | ArrayBufferLike): progressOrBytes is ArrayBufferLike => {
+        (
+          progressOrBytes: number | ArrayBufferLike,
+        ): progressOrBytes is ArrayBufferLike => {
           return typeof progressOrBytes !== 'number' && !!progressOrBytes;
         },
       ),
@@ -96,9 +107,24 @@ export default () => {
       }),
     );
 
-    setAxial(new CornerstoneStaticSeriesImage({ progress, images: images.pipe(map(({ axial }) => axial)) }));
-    setCoronal(new CornerstoneStaticSeriesImage({ progress, images: images.pipe(map(({ coronal }) => coronal)) }));
-    setSagittal(new CornerstoneStaticSeriesImage({ progress, images: images.pipe(map(({ sagittal }) => sagittal)) }));
+    setAxial(
+      new CornerstoneStaticSeriesImage({
+        progress,
+        images: images.pipe(map(({ axial }) => axial)),
+      }),
+    );
+    setCoronal(
+      new CornerstoneStaticSeriesImage({
+        progress,
+        images: images.pipe(map(({ coronal }) => coronal)),
+      }),
+    );
+    setSagittal(
+      new CornerstoneStaticSeriesImage({
+        progress,
+        images: images.pipe(map(({ sagittal }) => sagittal)),
+      }),
+    );
 
     return () => {
       abort.abort();

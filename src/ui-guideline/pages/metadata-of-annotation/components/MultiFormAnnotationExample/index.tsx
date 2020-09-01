@@ -5,11 +5,24 @@ import { Annotation, AnnotationInfo } from './model';
 import { useAddContourDialog } from './useAddContourDialog';
 import { UserContoursPanel } from './UserContoursPanel';
 
-export function MultiFormAnnotationExample({ width, height }: { width: number; height: number }) {
-  const [openAddAnnotationDialog, addAnnotationDialogElement] = useAddContourDialog();
+export function MultiFormAnnotationExample({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}) {
+  const [
+    openAddAnnotationDialog,
+    addAnnotationDialogElement,
+  ] = useAddContourDialog();
 
   return (
-    <AnnotationExample<Annotation> width={width} height={height} contourMode="contour">
+    <AnnotationExample<Annotation>
+      width={width}
+      height={height}
+      contourMode="contour"
+    >
       {({
         contours,
         cornerstoneRenderData,
@@ -41,7 +54,7 @@ export function MultiFormAnnotationExample({ width, height }: { width: number; h
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={async polygon => {
+                  onAdd={async (polygon) => {
                     const contour = addContour(polygon, {
                       confidenceLevel: 0,
                       significant: 'non-significant',
@@ -50,7 +63,9 @@ export function MultiFormAnnotationExample({ width, height }: { width: number; h
 
                     if (!contour) return;
 
-                    const result: AnnotationInfo | null = await openAddAnnotationDialog({});
+                    const result: AnnotationInfo | null = await openAddAnnotationDialog(
+                      {},
+                    );
 
                     if (result) {
                       updateContour(contour, {

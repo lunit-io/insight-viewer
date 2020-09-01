@@ -1,12 +1,26 @@
-import React, { DetailedHTMLProps, HTMLAttributes, ReactElement, SourceHTMLAttributes } from 'react';
+import React, {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ReactElement,
+  SourceHTMLAttributes,
+} from 'react';
 import styled, { keyframes } from 'styled-components';
 
 export interface VideoBackgroundContainerProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  source: ReactElement<DetailedHTMLProps<SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>>;
+  source: ReactElement<
+    DetailedHTMLProps<
+      SourceHTMLAttributes<HTMLSourceElement>,
+      HTMLSourceElement
+    >
+  >;
 }
 
-function VideoBackgroundContainerBase({ source, children, ...divProps }: VideoBackgroundContainerProps) {
+function VideoBackgroundContainerBase({
+  source,
+  children,
+  ...divProps
+}: VideoBackgroundContainerProps) {
   return (
     <div {...divProps}>
       <video autoPlay loop muted>

@@ -9,7 +9,10 @@ export interface ViewportInfoLabelProps {
 const height: number = 17;
 const y: number = 13;
 
-export function ViewportInfoLabel({ cornerstoneRenderData, width = 400 }: ViewportInfoLabelProps) {
+export function ViewportInfoLabel({
+  cornerstoneRenderData,
+  width = 400,
+}: ViewportInfoLabelProps) {
   const children = useMemo(() => {
     if (!cornerstoneRenderData) return null;
 
@@ -17,12 +20,15 @@ export function ViewportInfoLabel({ cornerstoneRenderData, width = 400 }: Viewpo
       <>
         <tspan fill="#8694B1">ZOOM</tspan>
         &nbsp; &nbsp;
-        <tspan fill="#ffffff">{cornerstoneRenderData.viewport.scale.toFixed(3)}</tspan>
+        <tspan fill="#ffffff">
+          {cornerstoneRenderData.viewport.scale.toFixed(3)}
+        </tspan>
         &nbsp; &nbsp; &nbsp;
         <tspan fill="#8694B1">WW / WL</tspan>
         &nbsp; &nbsp;
         <tspan fill="#ffffff">
-          {cornerstoneRenderData.viewport.voi.windowWidth} / {cornerstoneRenderData.viewport.voi.windowCenter}
+          {cornerstoneRenderData.viewport.voi.windowWidth} /{' '}
+          {cornerstoneRenderData.viewport.voi.windowCenter}
         </tspan>
         &nbsp;
       </>

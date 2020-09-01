@@ -57,8 +57,10 @@ export function startZoomInteraction({
     // screen 기준 mouse pointer point - element의 center
     // element center 부터의 mouse 상대 위치의 차를 계산하게 된다
     // | ------ center ==== mouse - |   = 로 표시된 거리
-    const distanceX: number = event.pageX - contentWindow.scrollX - (left + width / 2);
-    const distanceY: number = event.pageY - contentWindow.scrollY - (top + height / 2);
+    const distanceX: number =
+      event.pageX - contentWindow.scrollX - (left + width / 2);
+    const distanceY: number =
+      event.pageY - contentWindow.scrollY - (top + height / 2);
 
     // nextScale / currentViewport.scale 으로 scale 변화의 비율을 계산 (확대 시 >1, 축소 시 <1)
     // 1 - scale 변환 비율로 확대 / 축소 시 size 변화에 따른 위치 변화의 폭을 찾는다
@@ -122,7 +124,8 @@ export function startZoomInteraction({
   }
 
   function pinchMove(event: TouchEvent) {
-    if (event.targetTouches.length !== 2 || event.changedTouches.length !== 2) return;
+    if (event.targetTouches.length !== 2 || event.changedTouches.length !== 2)
+      return;
 
     event.stopPropagation();
     event.stopImmediatePropagation();
@@ -138,14 +141,19 @@ export function startZoomInteraction({
 
     // 현재 p1, p2의 거리 / 이전 p1, p2의 거리를 구한다 = 확대비
     // 이전 viewport scale 에 확대비를 곱해서 변동된 viewport scale을 구한다
-    const nextViewportScale: number = startViewportScale * (pixelDistance / startPixelDistance);
+    const nextViewportScale: number =
+      startViewportScale * (pixelDistance / startPixelDistance);
 
     // 현재 center point - 이전 center point = center point의 이동량
     // center point의 이동량 * viewport scale = image scale 내에서의 이동량
     const dx: number =
-      ((pagePoints[0].x + pagePoints[1].x) / 2 - (startPagePoints[0].x + startPagePoints[1].x) / 2) / nextViewportScale;
+      ((pagePoints[0].x + pagePoints[1].x) / 2 -
+        (startPagePoints[0].x + startPagePoints[1].x) / 2) /
+      nextViewportScale;
     const dy: number =
-      ((pagePoints[0].y + pagePoints[1].y) / 2 - (startPagePoints[0].y + startPagePoints[1].y) / 2) / nextViewportScale;
+      ((pagePoints[0].y + pagePoints[1].y) / 2 -
+        (startPagePoints[0].y + startPagePoints[1].y) / 2) /
+      nextViewportScale;
 
     onZoom({
       translation: {
@@ -183,7 +191,8 @@ export function startZoomInteraction({
           onZoom({
             // FIXME translation에 특별한 처리를 하지 않아서 마지막 이동 위치를 기준으로 움직이는데, 부자연스럽다면 scale에 따른 translation 조정이 필요할 수도 있다
             translation: currentViewport.translation,
-            scale: currentViewport.scale + (minScale - currentViewport.scale) * d,
+            scale:
+              currentViewport.scale + (minScale - currentViewport.scale) * d,
           });
         }
       });
@@ -199,7 +208,8 @@ export function startZoomInteraction({
         } else {
           onZoom({
             translation: currentViewport.translation,
-            scale: currentViewport.scale + (maxScale - currentViewport.scale) * d,
+            scale:
+              currentViewport.scale + (maxScale - currentViewport.scale) * d,
           });
         }
       });

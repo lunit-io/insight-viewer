@@ -23,9 +23,24 @@ describe('@lunit/heatmap', () => {
 
   test('getRGBAArray', () => {
     expect(getRGBAArray({ threshold: 0, stop: 0 })).toEqual([0, 0, 0, 0]);
-    expect(getRGBAArray({ threshold: 0, stop: 0.25 })).toEqual([0, 255, 255, 0.1875]);
-    expect(getRGBAArray({ threshold: 0, stop: 0.5 })).toEqual([0, 255, 0, 0.375]);
-    expect(getRGBAArray({ threshold: 0, stop: 0.75 })).toEqual([255, 255, 0, 0.5625]);
+    expect(getRGBAArray({ threshold: 0, stop: 0.25 })).toEqual([
+      0,
+      255,
+      255,
+      0.1875,
+    ]);
+    expect(getRGBAArray({ threshold: 0, stop: 0.5 })).toEqual([
+      0,
+      255,
+      0,
+      0.375,
+    ]);
+    expect(getRGBAArray({ threshold: 0, stop: 0.75 })).toEqual([
+      255,
+      255,
+      0,
+      0.5625,
+    ]);
     expect(getRGBAArray({ threshold: 0, stop: 1 })).toEqual([255, 0, 0, 0.75]);
 
     // stop < threshold -> alpha는 0이 된다

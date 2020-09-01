@@ -39,7 +39,12 @@ export function getAngledTextPosition({
 
   return {
     x,
-    y: direction === 'north' ? y - fontSize : direction === 'south' ? y + fontSize : y,
+    y:
+      direction === 'north'
+        ? y - fontSize
+        : direction === 'south'
+        ? y + fontSize
+        : y,
     textAnchor: textAnchorMap[direction],
     dominantBaseline: dominantBaselineMap[direction],
     'data-direction': direction,

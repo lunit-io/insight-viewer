@@ -50,7 +50,13 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
   }
 
   componentDidUpdate(prevProps: Readonly<HeatmapViewerProps>) {
-    const { width, height, posMap, threshold, cornerstoneRenderData } = this.props;
+    const {
+      width,
+      height,
+      posMap,
+      threshold,
+      cornerstoneRenderData,
+    } = this.props;
 
     if (prevProps.posMap !== posMap || prevProps.threshold !== threshold) {
       this.imageData = posMapToImageData(posMap, threshold);
@@ -68,7 +74,12 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
   }
 
   drawHeatmap = ({ cornerstoneRenderData }: Readonly<HeatmapViewerProps>) => {
-    if (!this.imageData || !this.imageResourceCanvas || !this.ctx || !cornerstoneRenderData) {
+    if (
+      !this.imageData ||
+      !this.imageResourceCanvas ||
+      !this.ctx ||
+      !cornerstoneRenderData
+    ) {
       return;
     }
 
@@ -77,9 +88,14 @@ export class HeatmapViewer extends Component<HeatmapViewerProps, {}> {
 
       this.imageResourceCanvas.width = this.imageData.width;
       this.imageResourceCanvas.height = this.imageData.height;
-      this.imageResourceCanvas.getContext('2d')!.putImageData(this.imageData, 0, 0);
+      this.imageResourceCanvas
+        .getContext('2d')!
+        .putImageData(this.imageData, 0, 0);
 
-      cornerstone.setToPixelCoordinateSystem(cornerstoneRenderData.enabledElement, this.ctx);
+      cornerstone.setToPixelCoordinateSystem(
+        cornerstoneRenderData.enabledElement,
+        this.ctx,
+      );
 
       const imageWidth: number = cornerstoneRenderData.image.width;
       const imageHeight: number = cornerstoneRenderData.image.height;

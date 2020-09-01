@@ -7,8 +7,15 @@ export interface SideBarProps extends ScrollContainerProps {
   className?: string;
 }
 
-export function SideBarBase({ width, ref, children, ...scrollContainerProps }: SideBarProps) {
-  return <ScrollContainer {...scrollContainerProps}>{children}</ScrollContainer>;
+export function SideBarBase({
+  width,
+  ref,
+  children,
+  ...scrollContainerProps
+}: SideBarProps) {
+  return (
+    <ScrollContainer {...scrollContainerProps}>{children}</ScrollContainer>
+  );
 }
 
 export const SideBar = styled(SideBarBase)`

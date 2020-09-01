@@ -14,7 +14,11 @@ interface UseShortcutParameters {
   windows?: Window[];
 }
 
-export function useShortcut({ test, callback, windows = [window] }: UseShortcutParameters) {
+export function useShortcut({
+  test,
+  callback,
+  windows = [window],
+}: UseShortcutParameters) {
   useEffect(() => {
     function handler(event: KeyboardEvent) {
       // event.target instanceof HTMLElement ) block... from input, text field...
@@ -33,9 +37,16 @@ export function useShortcut({ test, callback, windows = [window] }: UseShortcutP
 
 export const key = (
   key: string | string[],
-  { ctrl = false, alt = false, shift = false }: { ctrl?: boolean; alt?: boolean; shift?: boolean } = {},
+  {
+    ctrl = false,
+    alt = false,
+    shift = false,
+  }: { ctrl?: boolean; alt?: boolean; shift?: boolean } = {},
 ) => (event: KeyboardEvent) => {
-  const keys: string[] = typeof key === 'string' ? [key.toLowerCase()] : key.map((k) => k.toLowerCase());
+  const keys: string[] =
+    typeof key === 'string'
+      ? [key.toLowerCase()]
+      : key.map((k) => k.toLowerCase());
 
   return (
     keys.indexOf(event.key.toLowerCase()) > -1 &&

@@ -16,7 +16,10 @@ import { ReactComponent as Reset } from './assets/ico-reset.svg';
 import { ReactComponent as User } from './assets/ico-user.svg';
 
 function toMaterialIcon(Icon: ComponentType): typeof SvgIcon {
-  return createSvgIcon(createElement(Icon), Icon.displayName || 'OPTControlIcon');
+  return createSvgIcon(
+    createElement(Icon),
+    Icon.displayName || 'OPTControlIcon',
+  );
 }
 
 export const AdjustIcon = toMaterialIcon(Adjust);

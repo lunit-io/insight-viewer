@@ -21,15 +21,21 @@ const height: number = 500;
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   const { contours, focusedContour } = useContour({
     mode: 'contour',

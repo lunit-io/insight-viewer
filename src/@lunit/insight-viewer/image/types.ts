@@ -35,7 +35,9 @@ export interface ProgressEventDetail {
   percentComplete: number; // 0 ~ 100
 }
 
-export function getProgressEventDetail(event: Event): ProgressEventDetail | undefined {
+export function getProgressEventDetail(
+  event: Event,
+): ProgressEventDetail | undefined {
   const detail: object | undefined = event['detail'];
 
   if (

@@ -11,7 +11,12 @@ import {
   ViewportTransformParams,
 } from '../types';
 
-export type CornerstoneViewerInteractions = (Interaction | false | null | undefined)[];
+export type CornerstoneViewerInteractions = (
+  | Interaction
+  | false
+  | null
+  | undefined
+)[];
 
 export interface CornerstoneViewerProps extends InsightViewerHostProps {
   width: number;
@@ -41,11 +46,16 @@ export interface CornerstoneViewerProps extends InsightViewerHostProps {
 
 const maxScale: number = 3;
 
-function resolveInvert(invert: boolean, viewport?: cornerstone.Viewport): boolean {
+function resolveInvert(
+  invert: boolean,
+  viewport?: cornerstone.Viewport,
+): boolean {
   return viewport?.invert === true ? !invert : invert;
 }
 
-export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> implements CornerstoneViewerLike {
+export class CornerstoneViewer
+  extends Component<CornerstoneViewerProps, {}>
+  implements CornerstoneViewerLike {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
   private element!: HTMLDivElement;
 
@@ -68,7 +78,9 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   render() {
     return (
       <>
-        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <FrameConsumer
+          stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)}
+        />
         <div
           ref={this.elementRef}
           style={{
@@ -94,7 +106,10 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   componentDidMount() {
     // cornerstone의 imagernderered event를 받는다
     // image가 render 될때마다 context로 enabledElement를 배포해주기 위해 필요하다
-    this.element.addEventListener(cornerstone.EVENTS.IMAGE_RENDERED, this.onImageRenderered);
+    this.element.addEventListener(
+      cornerstone.EVENTS.IMAGE_RENDERED,
+      this.onImageRenderered,
+    );
 
     this.setCornerstoneImage(this.props.image);
   }
@@ -142,7 +157,10 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   };
 
   componentWillUnmount() {
-    this.element.removeEventListener(cornerstone.EVENTS.IMAGE_RENDERED, this.onImageRenderered);
+    this.element.removeEventListener(
+      cornerstone.EVENTS.IMAGE_RENDERED,
+      this.onImageRenderered,
+    );
     cornerstone.disable(this.element);
 
     if (this.imageSubscription) {
@@ -155,9 +173,20 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   }
 
   componentDidUpdate(prevProps: Readonly<CornerstoneViewerProps>) {
-    const { width, height, flip, invert, interactions, resetTime, image } = this.props;
+    const {
+      width,
+      height,
+      flip,
+      invert,
+      interactions,
+      resetTime,
+      image,
+    } = this.props;
 
-    const defaultViewport: cornerstone.Viewport | null = this.getDefaultViewport(this.currentImage, this.element);
+    const defaultViewport: cornerstone.Viewport | null = this.getDefaultViewport(
+      this.currentImage,
+      this.element,
+    );
 
     // 선택된 control 상태에 따라 event를 해제/등록 해준다
     if (prevProps.interactions !== interactions) {
@@ -226,7 +255,8 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   };
 
   onImageRenderered = (event: cornerstone.CornerstoneEvent) => {
-    const eventData: cornerstone.CornerstoneEventData | undefined = event.detail;
+    const eventData: cornerstone.CornerstoneEventData | undefined =
+      event.detail;
     if (
       eventData &&
       eventData.canvasContext &&
@@ -236,9 +266,14 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
       typeof eventData.renderTimeInMs === 'number' &&
       eventData.viewport
     ) {
-      console.log('CornerstoneViewer.tsx..onImageRenderered()', eventData.viewport.invert);
+      console.log(
+        'CornerstoneViewer.tsx..onImageRenderered()',
+        eventData.viewport.invert,
+      );
       this.currentViewport = eventData.viewport;
-      this.props.updateCornerstoneRenderData(eventData as CornerstoneRenderData);
+      this.props.updateCornerstoneRenderData(
+        eventData as CornerstoneRenderData,
+      );
     } else {
       console.error('CornerstoneEventData에 없는 정보가 있다???', eventData);
     }
@@ -247,14 +282,19 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   // ---------------------------------------------
   // event handlers
   // ---------------------------------------------
-  startInteraction = (interactions: CornerstoneViewerInteractions | undefined) => {
+  startInteraction = (
+    interactions: CornerstoneViewerInteractions | undefined,
+  ) => {
     if (this.teardownInteraction) {
       this.teardownInteraction.forEach((teardown) => teardown());
     }
 
     if (Array.isArray(interactions) && interactions.length > 0) {
       this.teardownInteraction = interactions
-        .filter((interaction): interaction is Interaction => typeof interaction === 'function')
+        .filter(
+          (interaction): interaction is Interaction =>
+            typeof interaction === 'function',
+        )
         .map((interaction) => interaction(this));
     }
   };
@@ -268,7 +308,10 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
 
   getCurrentViewport = () => this.currentViewport!;
 
-  getDefaultViewport = (image: cornerstone.Image | null, element: HTMLElement | null): cornerstone.Viewport | null => {
+  getDefaultViewport = (
+    image: cornerstone.Image | null,
+    element: HTMLElement | null,
+  ): cornerstone.Viewport | null => {
     if (!image || !element) return null;
     return cornerstone.getDefaultViewportForImage(element, image);
   };
@@ -328,13 +371,16 @@ export class CornerstoneViewer extends Component<CornerstoneViewerProps, {}> imp
   };
 
   private updateCurrentViewport = (
-    update: Partial<cornerstone.Viewport> | ((viewport: cornerstone.Viewport) => Partial<cornerstone.Viewport>),
+    update:
+      | Partial<cornerstone.Viewport>
+      | ((viewport: cornerstone.Viewport) => Partial<cornerstone.Viewport>),
   ) => {
     if (!this.currentViewport) {
       throw new Error('viewport가 없는 상태에서 실행되면 안된다');
     }
 
-    const patch: Partial<cornerstone.Viewport> = typeof update === 'function' ? update(this.currentViewport) : update;
+    const patch: Partial<cornerstone.Viewport> =
+      typeof update === 'function' ? update(this.currentViewport) : update;
 
     this.currentViewport = {
       ...this.currentViewport,

@@ -10,13 +10,21 @@ export interface QuarterViewProps {
 }
 
 export function QuarterView({ children, className }: QuarterViewProps) {
-  const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<HTMLDivElement>({});
+  const { ref: resizeRef, width = 500, height = 500 } = useResizeObserver<
+    HTMLDivElement
+  >({});
   const [solo, setSolo] = useState<number>(-1);
 
   const soloEnabled: boolean = solo > -1;
 
   return (
-    <Container ref={resizeRef} soloEnabled={soloEnabled} width={width} height={height} className={className}>
+    <Container
+      ref={resizeRef}
+      soloEnabled={soloEnabled}
+      width={width}
+      height={height}
+      className={className}
+    >
       {Children.map(children, (child, i) => {
         return (
           <div key={'quarter-' + i} data-solo={solo === i}>
@@ -38,9 +46,17 @@ export function QuarterView({ children, className }: QuarterViewProps) {
   );
 }
 
-const Container = styled.div<{ soloEnabled: boolean; width: number; height: number }>`
+const Container = styled.div<{
+  soloEnabled: boolean;
+  width: number;
+  height: number;
+}>`
   ${({ soloEnabled, width, height }) =>
-    soloEnabled ? soloContainerStyle : width / height < 1.2 ? gridContainerStyle : verticalContainerStyle};
+    soloEnabled
+      ? soloContainerStyle
+      : width / height < 1.2
+      ? gridContainerStyle
+      : verticalContainerStyle};
 `;
 
 const verticalContainerStyle = css`

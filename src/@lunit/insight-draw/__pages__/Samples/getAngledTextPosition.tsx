@@ -48,7 +48,14 @@ export default () => {
       </svg>
 
       {/* HTML */}
-      <div style={{ width: size, height: size, position: 'relative', backgroundColor: '#eeeeee' }}>
+      <div
+        style={{
+          width: size,
+          height: size,
+          position: 'relative',
+          backgroundColor: '#eeeeee',
+        }}
+      >
         <div
           style={{
             position: 'absolute',
@@ -76,7 +83,13 @@ export default () => {
         <div
           style={{
             position: 'absolute',
-            left: position.x - (position.textAnchor === 'start' ? 0 : position.textAnchor === 'end' ? 300 : 300 / 2),
+            left:
+              position.x -
+              (position.textAnchor === 'start'
+                ? 0
+                : position.textAnchor === 'end'
+                ? 300
+                : 300 / 2),
             top:
               position.y -
               (position.dominantBaseline === 'text-after-edge'
@@ -85,7 +98,12 @@ export default () => {
                 ? fontSize / 2
                 : 0),
             width: 300,
-            textAlign: position.textAnchor === 'start' ? 'left' : position.textAnchor === 'end' ? 'right' : 'center',
+            textAlign:
+              position.textAnchor === 'start'
+                ? 'left'
+                : position.textAnchor === 'end'
+                ? 'right'
+                : 'center',
           }}
         >
           {position['data-direction'].toUpperCase()}

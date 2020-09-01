@@ -6,28 +6,26 @@ npm install @ssen/snackbar
 
 # API
 
-1) Add the `<SnackbarProvider>` on your top node of App.
+1. Add the `<SnackbarProvider>` on your top node of App.
 
 ```jsx
 function App() {
-  <SnackbarProvider>
-    {children}
-  </SnackbarProvider>
+  <SnackbarProvider>{children}</SnackbarProvider>;
 }
 ```
 
-2) Assign the `snackbarContainer` ref object to some `<div>` to use as the snackbar container.  
+2. Assign the `snackbarContainer` ref object to some `<div>` to use as the snackbar container.
 
 ```jsx
-function Component({children}) {
-  const {snackbarContainer} = useSnackbar();
+function Component({ children }) {
+  const { snackbarContainer } = useSnackbar();
 
   return (
     <Container>
       {children}
-      <SnackbarContainer ref={snackbarContainer}/>
+      <SnackbarContainer ref={snackbarContainer} />
     </Container>
-  ) 
+  );
 }
 
 const Container = styled.div`
@@ -45,33 +43,28 @@ const SnackbarContainer = styled.div`
   flex-direction: column-reverse;
   justify-content: right;
   align-items: flex-end;
-  
+
   > * {
     margin-top: 10px;
   }
 `;
 ```
 
-3) You can your `addSnackbar()` function anywhere in the `<SnackbarProvider>`
+3. You can your `addSnackbar()` function anywhere in the `<SnackbarProvider>`
 
 ```jsx
 import { SnackbarContent } from '@material-ui/core';
 
 function Component() {
-  const {addSnackbar} = useSnackbar();
+  const { addSnackbar } = useSnackbar();
 
   const onClick = useCallback(() => {
-    addSnackbar(<SnackbarContent message="HELLO SNACKBAR!"/>)
+    addSnackbar(<SnackbarContent message="HELLO SNACKBAR!" />);
   }, [addSnackbar]);
 
-  return (
-    <button onClick={onClick}>
-      Open a snackbar
-    </button>
-  )
+  return <button onClick={onClick}>Open a snackbar</button>;
 }
 ```
-
 
 # Sample Codes
 
@@ -79,9 +72,12 @@ function Component() {
 
 ### \_\_stories\_\_/Snackbar.stories.tsx
 
-
 ```tsx
-import { IconButton, SnackbarContent as MuiSnackbarContent, SnackbarContentProps } from '@material-ui/core';
+import {
+  IconButton,
+  SnackbarContent as MuiSnackbarContent,
+  SnackbarContentProps,
+} from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { Snackbar, SnackbarProvider, useSnackbar } from '@ssen/snackbar';
 import { storiesOf } from '@storybook/react';
@@ -189,19 +185,25 @@ const CustomElement = styled.div`
   color: red;
 `;
 
-const ActionSnackbar = styled(({ onClose, ...props }: SnackbarContentProps & { onClose?: () => void }) => {
-  return (
-    <MuiSnackbarContent
-      {...props}
-      action={[
-        <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
-          <Close />
-        </IconButton>,
-      ]}
-    />
-  );
-})``;
-
+const ActionSnackbar = styled(
+  ({ onClose, ...props }: SnackbarContentProps & { onClose?: () => void }) => {
+    return (
+      <MuiSnackbarContent
+        {...props}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={onClose}
+          >
+            <Close />
+          </IconButton>,
+        ]}
+      />
+    );
+  },
+)``;
 ```
 
 <!-- importend -->

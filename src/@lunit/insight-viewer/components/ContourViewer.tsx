@@ -1,10 +1,18 @@
 import polylabel from 'polylabel';
-import React, { Component, createRef, CSSProperties, Fragment, RefObject, SVGProps } from 'react';
+import React, {
+  Component,
+  createRef,
+  CSSProperties,
+  Fragment,
+  RefObject,
+  SVGProps,
+} from 'react';
 import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, CornerstoneRenderData, Point } from '../types';
 
-export interface ContourViewerProps<T extends Contour> extends InsightViewerGuestProps {
+export interface ContourViewerProps<T extends Contour>
+  extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -45,7 +53,10 @@ function toLocal(element: HTMLElement, polygon: Point[]): Point[] {
   });
 }
 
-export class ContourViewerBase<T extends Contour> extends Component<ContourViewerProps<T>, {}> {
+export class ContourViewerBase<T extends Contour> extends Component<
+  ContourViewerProps<T>,
+  {}
+> {
   static defaultProps: Pick<ContourViewerProps<Contour>, 'border'> = {
     border: true,
   };
@@ -53,7 +64,12 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
   private svgRef: RefObject<SVGSVGElement> = createRef();
 
   render() {
-    const { cornerstoneRenderData, contours, focusedContour, polygonAttrs: _polygonAttrs } = this.props;
+    const {
+      cornerstoneRenderData,
+      contours,
+      focusedContour,
+      polygonAttrs: _polygonAttrs,
+    } = this.props;
 
     return (
       <svg
@@ -67,16 +83,22 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
           cornerstoneRenderData &&
           cornerstoneRenderData.element &&
           contours.map((contour) => {
-            const polygon: number[][] = toLocal(cornerstoneRenderData.element, contour.polygon);
+            const polygon: number[][] = toLocal(
+              cornerstoneRenderData.element,
+              contour.polygon,
+            );
             const labelCenter: number[] = polylabel([polygon], 1);
             const focused: boolean = contour === focusedContour;
-            const dataAttrs: { [attr: string]: string } = contour.dataAttrs || {};
+            const dataAttrs: { [attr: string]: string } =
+              contour.dataAttrs || {};
             const borderPolygonAttrs: SVGProps<SVGPolygonElement> | undefined =
               this.props.border === true && typeof _polygonAttrs === 'function'
                 ? _polygonAttrs(contour, cornerstoneRenderData, true)
                 : undefined;
             const polygonAttrs: SVGProps<SVGPolygonElement> | undefined =
-              typeof _polygonAttrs === 'function' ? _polygonAttrs(contour, cornerstoneRenderData, false) : undefined;
+              typeof _polygonAttrs === 'function'
+                ? _polygonAttrs(contour, cornerstoneRenderData, false)
+                : undefined;
 
             return (
               <Fragment key={'polygon' + contour.id}>
@@ -103,7 +125,9 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
                     data-border="border"
                     data-id={contour.id}
                     data-focused={focused || undefined}
-                    fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
+                    fontSize={
+                      14 * Math.max(1, cornerstoneRenderData.viewport.scale)
+                    }
                     x={labelCenter[0]}
                     y={labelCenter[1]}
                   >
@@ -118,7 +142,9 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
                   {...dataAttrs}
                   data-id={contour.id}
                   data-focused={focused || undefined}
-                  fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
+                  fontSize={
+                    14 * Math.max(1, cornerstoneRenderData.viewport.scale)
+                  }
                   x={labelCenter[0]}
                   y={labelCenter[1]}
                 >
@@ -137,7 +163,9 @@ export class ContourViewerBase<T extends Contour> extends Component<ContourViewe
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ContourViewer: new <T extends Contour>() => ContourViewerBase<T> = styled(ContourViewerBase)`
+export const ContourViewer: new <T extends Contour>() => ContourViewerBase<
+  T
+> = styled(ContourViewerBase)`
   position: absolute;
   top: 0;
   left: 0;
@@ -158,18 +186,28 @@ export const ContourViewer: new <T extends Contour>() => ContourViewerBase<T> = 
     transition: stroke 120ms ease-out, stroke-width 120ms ease-out;
 
     &[data-focused] {
-      stroke-width: var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width));
+      stroke-width: var(
+        --contour-viewer-focused-stroke-width,
+        var(--focused-stroke-width)
+      );
       stroke: var(--contour-viewer-focused-color, var(--focused-color));
       fill: var(--contour-viewer-focused-fill-color, var(--focused-fill-color));
     }
 
     &[data-border] {
-      stroke-width: calc(var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px);
+      stroke-width: calc(
+        var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px
+      );
       stroke: #000000;
       fill: transparent;
 
       &[data-focused] {
-        stroke-width: calc(var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width)) + 2px);
+        stroke-width: calc(
+          var(
+              --contour-viewer-focused-stroke-width,
+              var(--focused-stroke-width)
+            ) + 2px
+        );
         stroke: #000000;
       }
     }

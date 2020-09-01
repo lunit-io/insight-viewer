@@ -9,7 +9,7 @@ import { timeout } from '@lunit/timeout';
 
 async function mockAPI() {
   await timeout(1000);
-  
+
   return {
     data: 'foo',
   };

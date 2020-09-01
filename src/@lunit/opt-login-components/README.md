@@ -12,7 +12,6 @@
 
 ### \_\_stories\_\_/Button.stories.tsx
 
-
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
 import { withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
@@ -46,12 +45,9 @@ storiesOf('opt-login-components', module)
       <Progress size={24} />
     </SubmitContainer>
   ));
-
 ```
 
-
 ### \_\_stories\_\_/TextInput.stories.tsx
-
 
 ```tsx
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
@@ -65,11 +61,23 @@ const style: CSSProperties = { width: 300 };
 storiesOf('opt-login-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('<TextInput>', () => <TextInput style={style} placeholder="PLACEHOLDER" margin="dense" variant="outlined" />)
+  .add('<TextInput>', () => (
+    <TextInput
+      style={style}
+      placeholder="PLACEHOLDER"
+      margin="dense"
+      variant="outlined"
+    />
+  ))
   .add('<TextInput disabled>', () => (
-    <TextInput style={style} placeholder="PLACEHOLDER" margin="dense" variant="outlined" disabled />
+    <TextInput
+      style={style}
+      placeholder="PLACEHOLDER"
+      margin="dense"
+      variant="outlined"
+      disabled
+    />
   ));
-
 ```
 
 <!-- importend -->
@@ -77,7 +85,9 @@ storiesOf('opt-login-components', module)
 ## Tests
 
 <!-- import **/*.test.{ts,tsx} --title-tag h3 -->
+
 <!-- importend -->
 
 <!-- import __tests__/*.{ts,tsx} --title-tag h3 -->
+
 <!-- importend -->

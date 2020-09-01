@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const InsightViewerContainer = styled.div<{ width: number; height: number }>`
+export const InsightViewerContainer = styled.div<{
+  width: number;
+  height: number;
+}>`
   background-color: #000000;
   position: relative;
   width: ${({ width }) => width}px;

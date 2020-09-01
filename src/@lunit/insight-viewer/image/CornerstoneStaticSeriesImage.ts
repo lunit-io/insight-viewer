@@ -73,7 +73,10 @@ export class CornerstoneStaticSeriesImage implements CornerstoneSequenceImage {
 
   next = (delta: number = 1) => {
     if (!this._images) return;
-    const index: number = Math.min(this._images.length - 1, this._indexSubject.getValue() + delta);
+    const index: number = Math.min(
+      this._images.length - 1,
+      this._indexSubject.getValue() + delta,
+    );
     this._imageSubject.next(this._images[index]);
     this._indexSubject.next(index);
   };

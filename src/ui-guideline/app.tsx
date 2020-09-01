@@ -1,6 +1,9 @@
 import { MDXCodeBlock } from '@handbook/code-block';
 import { globalStyle as insightViewerGlobaltyle } from '@lunit/insight-viewer';
-import { globalStyle as componentsGlobalStyle, ThemeProvider } from '@lunit/opt-components';
+import {
+  globalStyle as componentsGlobalStyle,
+  ThemeProvider,
+} from '@lunit/opt-components';
 import { MDXProvider } from '@mdx-js/react';
 import { SnackbarProvider } from '@ssen/snackbar';
 import React from 'react';

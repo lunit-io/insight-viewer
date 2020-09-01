@@ -7,7 +7,8 @@ import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 import { dashStroke } from './animation/dashStroke';
 
-export interface CircleDrawerProps<T extends Contour> extends InsightViewerGuestProps {
+export interface CircleDrawerProps<T extends Contour>
+  extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -42,7 +43,12 @@ export interface CircleDrawerProps<T extends Contour> extends InsightViewerGuest
   /**
    * 접근 Device 설정
    */
-  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus';
+  device?:
+    | 'all'
+    | 'mouse-only'
+    | 'touch-only'
+    | 'stylus-only'
+    | 'mouse-and-stylus';
 }
 
 interface CircleDrawerState {
@@ -50,7 +56,10 @@ interface CircleDrawerState {
   p2: Point | null;
 }
 
-export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerProps<T>, CircleDrawerState> {
+export class CircleDrawerBase<T extends Contour> extends Component<
+  CircleDrawerProps<T>,
+  CircleDrawerState
+> {
   static defaultProps: Partial<CircleDrawerProps<Contour>> = {
     device: 'all',
   };
@@ -76,7 +85,9 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   render() {
     return (
       <>
-        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <FrameConsumer
+          stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)}
+        />
         <svg
           ref={this.svgRef}
           role="figure"
@@ -89,20 +100,30 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
             this.state.p1 &&
             this.state.p2 &&
             (() => {
-              const { x: x1, y: y1 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
-                x: this.state.p1[0],
-                y: this.state.p1[1],
-              });
-              const { x: x2, y: y2 } = cornerstone.pixelToCanvas(this.props.cornerstoneRenderData.element, {
-                x: this.state.p2[0],
-                y: this.state.p2[1],
-              });
-              const r: number = Math.sqrt(Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2));
+              const { x: x1, y: y1 } = cornerstone.pixelToCanvas(
+                this.props.cornerstoneRenderData.element,
+                {
+                  x: this.state.p1[0],
+                  y: this.state.p1[1],
+                },
+              );
+              const { x: x2, y: y2 } = cornerstone.pixelToCanvas(
+                this.props.cornerstoneRenderData.element,
+                {
+                  x: this.state.p2[0],
+                  y: this.state.p2[1],
+                },
+              );
+              const r: number = Math.sqrt(
+                Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2),
+              );
 
               return (
                 <>
                   <circle cx={x1} cy={y1} r={r} />
-                  {this.props.animateStroke !== false && <circle cx={x1} cy={y1} r={r} data-highlight="highlight" />}
+                  {this.props.animateStroke !== false && (
+                    <circle cx={x1} cy={y1} r={r} data-highlight="highlight" />
+                  )}
                   <line x1={x1} y1={y1} x2={x2} y2={y2} />
                 </>
               );
@@ -158,8 +179,9 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   }
 
   getElement = ({ draw }: Readonly<CircleDrawerProps<T>>): HTMLElement => {
-    //@ts-ignore
-    return draw instanceof this.contentWindow['HTMLElement'] ? (draw as HTMLElement) : (this.svg as HTMLElement);
+    return draw instanceof this.contentWindow['HTMLElement']
+      ? (draw as HTMLElement)
+      : ((this.svg as unknown) as HTMLElement);
   };
 
   canActivate = ({ draw }: Readonly<CircleDrawerProps<T>>) => {
@@ -171,7 +193,10 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   // ---------------------------------------------
   activateInitialEvents = () => {
     if (!this.element) return;
-    if (this.props.device !== 'touch-only' && this.props.device !== 'stylus-only') {
+    if (
+      this.props.device !== 'touch-only' &&
+      this.props.device !== 'stylus-only'
+    ) {
       this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
       this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
     }
@@ -185,7 +210,10 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
     if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.removeEventListener('mousedown', this.onMouseDownToStartDraw);
-    this.element.removeEventListener('touchstart', this.onTouchStartToStartDraw);
+    this.element.removeEventListener(
+      'touchstart',
+      this.onTouchStartToStartDraw,
+    );
     this.element.removeEventListener('click', this.onMouseClickToRemove);
   };
 
@@ -196,7 +224,12 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   };
 
   findFocus = (pageX: number, pageY: number) => {
-    if (!this.props.contours || this.props.contours.length === 0 || !this.props.cornerstoneRenderData) return;
+    if (
+      !this.props.contours ||
+      this.props.contours.length === 0 ||
+      !this.props.cornerstoneRenderData
+    )
+      return;
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
@@ -220,7 +253,8 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
   // ---------------------------------------------
   onTouchStartToStartDraw = (event: TouchEvent) => {
     if (
-      (this.props.device === 'stylus-only' || this.props.device === 'mouse-and-stylus') &&
+      (this.props.device === 'stylus-only' ||
+        this.props.device === 'mouse-and-stylus') &&
       event.targetTouches[0].touchType !== 'stylus'
     ) {
       return;
@@ -254,7 +288,11 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = cornerstone.pageToPixel(element, event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+    const { x, y } = cornerstone.pageToPixel(
+      element,
+      event.targetTouches[0].pageX,
+      event.targetTouches[0].pageY,
+    );
 
     this.setState((prevState) => ({
       ...prevState,
@@ -310,7 +348,11 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = cornerstone.pageToPixel(element, event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+    const { x, y } = cornerstone.pageToPixel(
+      element,
+      event.targetTouches[0].pageX,
+      event.targetTouches[0].pageY,
+    );
 
     this.setState((prevState) => ({
       ...prevState,
@@ -399,7 +441,10 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
     if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.removeEventListener('mouseup', this.onMouseUpToEndDraw);
-    this.element.removeEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
+    this.element.removeEventListener(
+      'mouseleave',
+      this.onMouseLeaveToCancelDraw,
+    );
     window.removeEventListener('keydown', this.onKeyDownToCancelMouseDraw);
   };
 
@@ -414,7 +459,10 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 
     if (
       !this.preventClickEvent &&
-      Math.max(Math.abs(event.pageX - this.startX), Math.abs(event.pageY - this.startY)) > 20
+      Math.max(
+        Math.abs(event.pageX - this.startX),
+        Math.abs(event.pageY - this.startY),
+      ) > 20
     ) {
       this.preventClickEvent = true;
     }
@@ -479,7 +527,9 @@ export class CircleDrawerBase<T extends Contour> extends Component<CircleDrawerP
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const CircleDrawer: new <T extends Contour>() => CircleDrawerBase<T> = styled(CircleDrawerBase)`
+export const CircleDrawer: new <T extends Contour>() => CircleDrawerBase<
+  T
+> = styled(CircleDrawerBase)`
   position: absolute;
   top: 0;
   left: 0;

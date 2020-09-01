@@ -27,7 +27,10 @@ export default () => {
   const image: CornerstoneSequenceImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
-        series.map((p) => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`),
+        series.map(
+          (p) =>
+            `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`,
+        ),
         { unload: unloadImage },
       ),
     [],
@@ -35,7 +38,16 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({ width, height, invert, flip, control, wheel, resetTime, interactions }) => (
+      {({
+        width,
+        height,
+        invert,
+        flip,
+        control,
+        wheel,
+        resetTime,
+        interactions,
+      }) => (
         <InsightViewerContainer width={width} height={height}>
           <CornerstoneViewer
             width={width}

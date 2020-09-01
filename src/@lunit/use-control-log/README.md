@@ -5,6 +5,7 @@
 ## Stories
 
 <!-- import **/*.stories.{ts,tsx} --title-tag h3 -->
+
 <!-- importend -->
 
 ## Tests
@@ -13,18 +14,20 @@
 
 ### \_\_tests\_\_/useControlLog.test.ts
 
-
 ```ts
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useControlLog } from '../useControlLog';
 
 describe('useControlLog()', () => {
   test('addControlLog', () => {
-    const { result, rerender } = renderHook(({ sessionId }) => useControlLog(sessionId), {
-      initialProps: {
-        sessionId: 'session1',
+    const { result, rerender } = renderHook(
+      ({ sessionId }) => useControlLog(sessionId),
+      {
+        initialProps: {
+          sessionId: 'session1',
+        },
       },
-    });
+    );
 
     expect(result.current.controlLog.current).toHaveLength(0);
 
@@ -41,7 +44,9 @@ describe('useControlLog()', () => {
     });
 
     expect(result.current.controlLog.current).toHaveLength(4);
-    expect(result.current.controlLog.current!.map(({ command }) => command).join('')).toBe('abcd');
+    expect(
+      result.current.controlLog.current!.map(({ command }) => command).join(''),
+    ).toBe('abcd');
 
     rerender({
       sessionId: 'session2',
@@ -50,7 +55,6 @@ describe('useControlLog()', () => {
     expect(result.current.controlLog.current).toHaveLength(0);
   });
 });
-
 ```
 
 <!-- importend -->
@@ -59,18 +63,20 @@ describe('useControlLog()', () => {
 
 ### \_\_tests\_\_/useControlLog.test.ts
 
-
 ```ts
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useControlLog } from '../useControlLog';
 
 describe('useControlLog()', () => {
   test('addControlLog', () => {
-    const { result, rerender } = renderHook(({ sessionId }) => useControlLog(sessionId), {
-      initialProps: {
-        sessionId: 'session1',
+    const { result, rerender } = renderHook(
+      ({ sessionId }) => useControlLog(sessionId),
+      {
+        initialProps: {
+          sessionId: 'session1',
+        },
       },
-    });
+    );
 
     expect(result.current.controlLog.current).toHaveLength(0);
 
@@ -87,7 +93,9 @@ describe('useControlLog()', () => {
     });
 
     expect(result.current.controlLog.current).toHaveLength(4);
-    expect(result.current.controlLog.current!.map(({ command }) => command).join('')).toBe('abcd');
+    expect(
+      result.current.controlLog.current!.map(({ command }) => command).join(''),
+    ).toBe('abcd');
 
     rerender({
       sessionId: 'session2',
@@ -96,7 +104,6 @@ describe('useControlLog()', () => {
     expect(result.current.controlLog.current).toHaveLength(0);
   });
 });
-
 ```
 
 <!-- importend -->

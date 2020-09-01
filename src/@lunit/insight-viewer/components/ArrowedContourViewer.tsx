@@ -1,9 +1,20 @@
 import { drawArrow, getAngledTextPosition } from '@lunit/insight-draw';
-import { ArrowedContour, InsightViewerGuestProps, Point } from '@lunit/insight-viewer';
-import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
+import {
+  ArrowedContour,
+  InsightViewerGuestProps,
+  Point,
+} from '@lunit/insight-viewer';
+import React, {
+  Component,
+  createRef,
+  CSSProperties,
+  Fragment,
+  RefObject,
+} from 'react';
 import styled from 'styled-components';
 
-export interface ArrowedContourViewerProps<T extends ArrowedContour> extends InsightViewerGuestProps {
+export interface ArrowedContourViewerProps<T extends ArrowedContour>
+  extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -42,7 +53,9 @@ function toLocal(element: HTMLElement, polygon: Point[]): Point[] {
   });
 }
 
-export class ArrowedContourViewerBase<T extends ArrowedContour> extends Component<ArrowedContourViewerProps<T>, {}> {
+export class ArrowedContourViewerBase<
+  T extends ArrowedContour
+> extends Component<ArrowedContourViewerProps<T>, {}> {
   static defaultProps: Partial<ArrowedContourViewerProps<ArrowedContour>> = {
     border: true,
     arrowDepth: 7,
@@ -68,7 +81,10 @@ export class ArrowedContourViewerBase<T extends ArrowedContour> extends Componen
           cornerstoneRenderData &&
           cornerstoneRenderData.element &&
           contours.map((contour) => {
-            const polygon: number[][] = toLocal(cornerstoneRenderData.element, contour.polygon);
+            const polygon: number[][] = toLocal(
+              cornerstoneRenderData.element,
+              contour.polygon,
+            );
             const arrowPolygon: number[][] = toLocal(
               cornerstoneRenderData.element,
               drawArrow({
@@ -80,13 +96,18 @@ export class ArrowedContourViewerBase<T extends ArrowedContour> extends Componen
               }),
             );
             const focused: boolean = contour === focusedContour;
-            const dataAttrs: { [attr: string]: string } = contour.dataAttrs || {};
+            const dataAttrs: { [attr: string]: string } =
+              contour.dataAttrs || {};
 
             const fontSize: number = Math.floor(
-              this.props.baseFontSize! * Math.max(1, cornerstoneRenderData.viewport.scale),
+              this.props.baseFontSize! *
+                Math.max(1, cornerstoneRenderData.viewport.scale),
             );
 
-            const [start, end] = toLocal(cornerstoneRenderData.element, [contour.arrowStart, contour.arrowEnd]);
+            const [start, end] = toLocal(cornerstoneRenderData.element, [
+              contour.arrowStart,
+              contour.arrowEnd,
+            ]);
 
             const labelPosition = getAngledTextPosition({
               start,
@@ -168,9 +189,9 @@ export class ArrowedContourViewerBase<T extends ArrowedContour> extends Componen
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ArrowedContourViewer: new <T extends ArrowedContour>() => ArrowedContourViewerBase<T> = styled(
-  ArrowedContourViewerBase,
-)`
+export const ArrowedContourViewer: new <T extends ArrowedContour>() => ArrowedContourViewerBase<
+  T
+> = styled(ArrowedContourViewerBase)`
   position: absolute;
   top: 0;
   left: 0;
@@ -191,18 +212,28 @@ export const ArrowedContourViewer: new <T extends ArrowedContour>() => ArrowedCo
     transition: stroke 120ms ease-out, stroke-width 120ms ease-out;
 
     &[data-focused] {
-      stroke-width: var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width));
+      stroke-width: var(
+        --contour-viewer-focused-stroke-width,
+        var(--focused-stroke-width)
+      );
       stroke: var(--contour-viewer-focused-color, var(--focused-color));
       fill: var(--contour-viewer-focused-fill-color, var(--focused-fill-color));
     }
 
     &[data-border] {
-      stroke-width: calc(var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px);
+      stroke-width: calc(
+        var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px
+      );
       stroke: #000000;
       fill: transparent;
 
       &[data-focused] {
-        stroke-width: calc(var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width)) + 2px);
+        stroke-width: calc(
+          var(
+              --contour-viewer-focused-stroke-width,
+              var(--focused-stroke-width)
+            ) + 2px
+        );
         stroke: #000000;
       }
     }
@@ -217,7 +248,9 @@ export const ArrowedContourViewer: new <T extends ArrowedContour>() => ArrowedCo
     }
 
     &[data-border] {
-      stroke-width: calc(var(--contour-viewer-stroke-width, var(--stroke-width)));
+      stroke-width: calc(
+        var(--contour-viewer-stroke-width, var(--stroke-width))
+      );
       stroke: #000000;
       fill: transparent;
     }

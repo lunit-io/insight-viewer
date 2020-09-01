@@ -1,15 +1,31 @@
 import { ContourDrawer, ContourViewer } from '@lunit/insight-viewer';
-import { Annotation, AnnotationInfo } from 'ui-guideline/samples/opt-cxr/model/annotation';
+import {
+  Annotation,
+  AnnotationInfo,
+} from 'ui-guideline/samples/opt-cxr/model/annotation';
 import React from 'react';
 import { AnnotationExample } from '../../../../components/examples/AnnotationExample';
 import { useAddContourDialog } from './useAddContourDialog';
 import { UserContoursPanel } from './UserContoursPanel';
 
-export function OPTReaderTestAnnotationSliderExample({ width, height }: { width: number; height: number }) {
-  const [openAddAnnotationDialog, addAnnotationDialogElement] = useAddContourDialog();
+export function OPTReaderTestAnnotationSliderExample({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}) {
+  const [
+    openAddAnnotationDialog,
+    addAnnotationDialogElement,
+  ] = useAddContourDialog();
 
   return (
-    <AnnotationExample<Annotation> width={width} height={height} contourMode="contour">
+    <AnnotationExample<Annotation>
+      width={width}
+      height={height}
+      contourMode="contour"
+    >
       {({
         contours,
         cornerstoneRenderData,
@@ -41,12 +57,14 @@ export function OPTReaderTestAnnotationSliderExample({ width, height }: { width:
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={async polygon => {
+                  onAdd={async (polygon) => {
                     const contour = addContour(polygon, { confidenceLevel: 0 });
 
                     if (!contour) return;
 
-                    const result: AnnotationInfo | null = await openAddAnnotationDialog({});
+                    const result: AnnotationInfo | null = await openAddAnnotationDialog(
+                      {},
+                    );
 
                     if (result?.confidenceLevel) {
                       updateContour(contour, {

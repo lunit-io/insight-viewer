@@ -16,16 +16,25 @@ export default () => {
 
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
-  const updateCornerstoneRenderData = useCallback((renderData: CornerstoneRenderData) => {
-    console.log('UPDATE RENDER DATA:', renderData);
-    setLog((prevLog) => [...prevLog, `[update]: ${JSON.stringify(renderData.viewport)}`]);
-  }, []);
+  const updateCornerstoneRenderData = useCallback(
+    (renderData: CornerstoneRenderData) => {
+      console.log('UPDATE RENDER DATA:', renderData);
+      setLog((prevLog) => [
+        ...prevLog,
+        `[update]: ${JSON.stringify(renderData.viewport)}`,
+      ]);
+    },
+    [],
+  );
 
   const resetTime = useMemo<number>(() => Date.now(), []);
 

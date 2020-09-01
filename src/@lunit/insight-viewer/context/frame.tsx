@@ -19,7 +19,10 @@ const FrameContext: Context<FrameState> = createContext<FrameState>({
  * `<iframe>` + `React.createPortal()` 이라는 매우 특수한 상황을 위한 기능.
  * 사용할 일은 거의 없다.
  */
-export function FrameProvider({ children, contentWindow = window }: FrameProviderProps) {
+export function FrameProvider({
+  children,
+  contentWindow = window,
+}: FrameProviderProps) {
   return (
     <FrameContext.Provider
       value={{
@@ -35,8 +38,16 @@ export function useFrame(): FrameState {
   return useContext(FrameContext);
 }
 
-export function FrameConsumer({ stateRef }: { stateRef: (state: FrameState) => void }) {
-  return <FrameContext.Consumer>{(state) => void stateRef(state)}</FrameContext.Consumer>;
+export function FrameConsumer({
+  stateRef,
+}: {
+  stateRef: (state: FrameState) => void;
+}) {
+  return (
+    <FrameContext.Consumer>
+      {(state) => void stateRef(state)}
+    </FrameContext.Consumer>
+  );
 }
 
 //export const InsightViewerConsumer: Consumer<InsightViewerState> = InsightViewerContext.Consumer;

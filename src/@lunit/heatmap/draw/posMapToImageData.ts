@@ -5,7 +5,10 @@ import { getRGBArray } from './getRGBArray';
  *
  * threshold는 보통 CXR=0.15 MMG=0.1 (개별 프로젝트에 따라 확인 필요)
  */
-export function posMapToImageData(posMap: number[][], threshold: number): ImageData {
+export function posMapToImageData(
+  posMap: number[][],
+  threshold: number,
+): ImageData {
   const width: number = posMap[0].length;
   const height: number = posMap.length;
   const canvas: HTMLCanvasElement = document.createElement('canvas');

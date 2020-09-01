@@ -13,7 +13,9 @@ const StorybookGlobalStyle = createGlobalStyle`
 `;
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const withInsightViewerStorybookGlobalStyle: DecoratorFunction<any> = (storyFn) => {
+export const withInsightViewerStorybookGlobalStyle: DecoratorFunction<any> = (
+  storyFn,
+) => {
   const story = storyFn();
 
   return (

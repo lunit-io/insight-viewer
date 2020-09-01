@@ -7,7 +7,8 @@ import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 import { dashStroke } from './animation/dashStroke';
 
-export interface ContourDrawerProps<T extends Contour> extends InsightViewerGuestProps {
+export interface ContourDrawerProps<T extends Contour>
+  extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -42,7 +43,12 @@ export interface ContourDrawerProps<T extends Contour> extends InsightViewerGues
   /**
    * 접근 Device 설정
    */
-  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus';
+  device?:
+    | 'all'
+    | 'mouse-only'
+    | 'touch-only'
+    | 'stylus-only'
+    | 'mouse-and-stylus';
 }
 
 interface ContourDrawerState {
@@ -58,7 +64,10 @@ function toLocal(element: HTMLElement, polygon: Point[]): string {
     .join(' ');
 }
 
-export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawerProps<T>, ContourDrawerState> {
+export class ContourDrawerBase<T extends Contour> extends Component<
+  ContourDrawerProps<T>,
+  ContourDrawerState
+> {
   static defaultProps: Partial<ContourDrawerProps<Contour>> = {
     device: 'all',
   };
@@ -83,7 +92,9 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   render() {
     return (
       <>
-        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <FrameConsumer
+          stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)}
+        />
         <svg
           ref={this.svgRef}
           role="figure"
@@ -92,17 +103,27 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
           className={this.props.className}
           style={this.props.style}
         >
-          {this.props.cornerstoneRenderData && this.state.polygon && this.state.polygon.length > 0 && (
-            <>
-              <polyline points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)} />
-              {this.props.animateStroke !== false && (
+          {this.props.cornerstoneRenderData &&
+            this.state.polygon &&
+            this.state.polygon.length > 0 && (
+              <>
                 <polyline
-                  points={toLocal(this.props.cornerstoneRenderData.element, this.state.polygon)}
-                  data-highlight="highlight"
+                  points={toLocal(
+                    this.props.cornerstoneRenderData.element,
+                    this.state.polygon,
+                  )}
                 />
-              )}
-            </>
-          )}
+                {this.props.animateStroke !== false && (
+                  <polyline
+                    points={toLocal(
+                      this.props.cornerstoneRenderData.element,
+                      this.state.polygon,
+                    )}
+                    data-highlight="highlight"
+                  />
+                )}
+              </>
+            )}
         </svg>
       </>
     );
@@ -154,8 +175,9 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   }
 
   getElement = ({ draw }: Readonly<ContourDrawerProps<T>>): HTMLElement => {
-    //@ts-ignore
-    return draw instanceof this.contentWindow['HTMLElement'] ? (draw as HTMLElement) : (this.svg as HTMLElement);
+    return draw instanceof this.contentWindow['HTMLElement']
+      ? (draw as HTMLElement)
+      : ((this.svg as unknown) as HTMLElement);
   };
 
   canActivate = ({ draw }: Readonly<ContourDrawerProps<T>>) => {
@@ -167,7 +189,10 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   // ---------------------------------------------
   activateInitialEvents = () => {
     if (!this.element) return;
-    if (this.props.device !== 'touch-only' && this.props.device !== 'stylus-only') {
+    if (
+      this.props.device !== 'touch-only' &&
+      this.props.device !== 'stylus-only'
+    ) {
       this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
       this.element.addEventListener('mousedown', this.onMouseDownToStartDraw);
     }
@@ -181,7 +206,10 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
     if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToFindFocus);
     this.element.removeEventListener('mousedown', this.onMouseDownToStartDraw);
-    this.element.removeEventListener('touchstart', this.onTouchStartToStartDraw);
+    this.element.removeEventListener(
+      'touchstart',
+      this.onTouchStartToStartDraw,
+    );
     this.element.removeEventListener('click', this.onMouseClickToRemove);
   };
 
@@ -192,7 +220,12 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   };
 
   findFocus = (pageX: number, pageY: number) => {
-    if (!this.props.contours || this.props.contours.length === 0 || !this.props.cornerstoneRenderData) return;
+    if (
+      !this.props.contours ||
+      this.props.contours.length === 0 ||
+      !this.props.cornerstoneRenderData
+    )
+      return;
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
@@ -216,7 +249,8 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
   // ---------------------------------------------
   onTouchStartToStartDraw = (event: TouchEvent) => {
     if (
-      (this.props.device === 'stylus-only' || this.props.device === 'mouse-and-stylus') &&
+      (this.props.device === 'stylus-only' ||
+        this.props.device === 'mouse-and-stylus') &&
       event.targetTouches[0].touchType !== 'stylus'
     ) {
       return;
@@ -249,7 +283,11 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = cornerstone.pageToPixel(element, event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+    const { x, y } = cornerstone.pageToPixel(
+      element,
+      event.targetTouches[0].pageX,
+      event.targetTouches[0].pageY,
+    );
 
     this.setState((prevState) => ({
       ...prevState,
@@ -304,7 +342,11 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
-    const { x, y } = cornerstone.pageToPixel(element, event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+    const { x, y } = cornerstone.pageToPixel(
+      element,
+      event.targetTouches[0].pageX,
+      event.targetTouches[0].pageY,
+    );
 
     this.setState((prevState) => ({
       ...prevState,
@@ -389,7 +431,10 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
     if (!this.element) return;
     this.element.removeEventListener('mousemove', this.onMouseMoveToDraw);
     this.element.removeEventListener('mouseup', this.onMouseUpToEndDraw);
-    this.element.removeEventListener('mouseleave', this.onMouseLeaveToCancelDraw);
+    this.element.removeEventListener(
+      'mouseleave',
+      this.onMouseLeaveToCancelDraw,
+    );
     window.removeEventListener('keydown', this.onKeyDownToCancelMouseDraw);
   };
 
@@ -404,7 +449,10 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 
     if (
       !this.preventClickEvent &&
-      Math.max(Math.abs(event.pageX - this.startX), Math.abs(event.pageY - this.startY)) > 20
+      Math.max(
+        Math.abs(event.pageX - this.startX),
+        Math.abs(event.pageY - this.startY),
+      ) > 20
     ) {
       this.preventClickEvent = true;
     }
@@ -465,7 +513,9 @@ export class ContourDrawerBase<T extends Contour> extends Component<ContourDrawe
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ContourDrawer: new <T extends Contour>() => ContourDrawerBase<T> = styled(ContourDrawerBase)`
+export const ContourDrawer: new <T extends Contour>() => ContourDrawerBase<
+  T
+> = styled(ContourDrawerBase)`
   position: absolute;
   top: 0;
   left: 0;

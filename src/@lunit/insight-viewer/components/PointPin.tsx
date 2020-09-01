@@ -10,7 +10,15 @@ export interface PointPinProps extends SVGProps<SVGGElement> {
   onRemove: () => void;
 }
 
-function PointPinBase({ x, y, label, onEnter, onLeave, onRemove, ...gProps }: PointPinProps) {
+function PointPinBase({
+  x,
+  y,
+  label,
+  onEnter,
+  onLeave,
+  onRemove,
+  ...gProps
+}: PointPinProps) {
   const onClick = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation();
@@ -23,7 +31,13 @@ function PointPinBase({ x, y, label, onEnter, onLeave, onRemove, ...gProps }: Po
   );
 
   return (
-    <g {...gProps} transform={`translate(${x} ${y})`} onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={onClick}>
+    <g
+      {...gProps}
+      transform={`translate(${x} ${y})`}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onClick={onClick}
+    >
       <circle cx={0} cy={0} r={4} />
 
       <path

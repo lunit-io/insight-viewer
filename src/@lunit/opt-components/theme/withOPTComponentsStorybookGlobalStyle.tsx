@@ -14,7 +14,9 @@ const StorybookGlobalStyle = createGlobalStyle`
 `;
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const withOPTComponentsStorybookGlobalStyle: DecoratorFunction<any> = (storyFn) => {
+export const withOPTComponentsStorybookGlobalStyle: DecoratorFunction<any> = (
+  storyFn,
+) => {
   const story = storyFn();
 
   return (

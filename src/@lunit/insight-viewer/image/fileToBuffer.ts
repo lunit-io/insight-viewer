@@ -5,7 +5,10 @@ interface Params {
   signal?: AbortSignal;
 }
 
-export function fileToBuffer({ blob, signal }: Params): Observable<number | ArrayBufferLike> {
+export function fileToBuffer({
+  blob,
+  signal,
+}: Params): Observable<number | ArrayBufferLike> {
   const subject = new BehaviorSubject<number | ArrayBufferLike>(0);
 
   const reader = new FileReader();

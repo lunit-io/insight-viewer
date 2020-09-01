@@ -16,13 +16,19 @@ installWADOImageLoader();
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(`wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`, {
-        unload: unloadImage,
-      }),
+      new CornerstoneSingleImage(
+        `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/CT000010.dcm`,
+        {
+          unload: unloadImage,
+        },
+      ),
     [],
   );
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   const resetTime = useMemo<number>(() => Date.now(), []);
 
@@ -40,7 +46,14 @@ export default () => {
         image={image}
         updateCornerstoneRenderData={updateCornerstoneRenderData} // 받아서
       />
-      <div style={{ position: 'relative', width: 400, height: 500, backgroundColor: 'navy' }}>
+      <div
+        style={{
+          position: 'relative',
+          width: 400,
+          height: 500,
+          backgroundColor: 'navy',
+        }}
+      >
         <HeatmapViewer
           width={400}
           height={500}

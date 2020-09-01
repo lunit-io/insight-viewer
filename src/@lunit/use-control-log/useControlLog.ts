@@ -1,4 +1,10 @@
-import { MutableRefObject, RefObject, useCallback, useEffect, useRef } from 'react';
+import {
+  MutableRefObject,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 import { Log } from './types';
 
 export interface ControlLog {

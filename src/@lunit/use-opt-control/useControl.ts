@@ -10,7 +10,11 @@ export interface ControlState {
   updateInvert: (value: boolean) => void;
   /** @deprecated use reset() */
   resetControl: () => void;
-  reset: (props?: { control?: Control; invert?: boolean; flip?: boolean }) => void;
+  reset: (props?: {
+    control?: Control;
+    invert?: boolean;
+    flip?: boolean;
+  }) => void;
 }
 
 export type OPTControlState = Omit<ControlState, 'reset'>;
@@ -19,7 +23,11 @@ export function useControl({
   initialControl = 'pan',
   initialFlip = false,
   initialInvert = false,
-}: { initialControl?: Control; initialFlip?: boolean; initialInvert?: boolean } = {}): ControlState {
+}: {
+  initialControl?: Control;
+  initialFlip?: boolean;
+  initialInvert?: boolean;
+} = {}): ControlState {
   const [control, setControl] = useState<Control>(initialControl);
   const [invert, setInvert] = useState<boolean>(initialInvert);
   const [flip, setFlip] = useState<boolean>(initialFlip);

@@ -7,13 +7,17 @@ export default () => {
   useEffect(() => {
     const abort = new AbortController();
     const subscription = fetchBuffer({
-      url: 'https://opt-frontend.s3.ap-northeast-2.amazonaws.com/fixtures/npy/image.npy',
+      url:
+        'https://opt-frontend.s3.ap-northeast-2.amazonaws.com/fixtures/npy/image.npy',
       signal: abort.signal,
     }).subscribe((progressOrBytes) => {
       if (typeof progressOrBytes === 'number') {
         setLog((prev) => [...prev, `[progress] ${progressOrBytes}`]);
       } else {
-        setLog((prev) => [...prev, `[done] bytes: ${progressOrBytes.byteLength}`]);
+        setLog((prev) => [
+          ...prev,
+          `[done] bytes: ${progressOrBytes.byteLength}`,
+        ]);
       }
     });
 

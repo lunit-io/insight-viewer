@@ -29,7 +29,10 @@ export default () => {
 
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
+  const {
+    cornerstoneRenderData,
+    updateCornerstoneRenderData,
+  } = useInsightViewerSync();
 
   const [checkResult, setCheckResult] = useState<ReactNode>(null);
 

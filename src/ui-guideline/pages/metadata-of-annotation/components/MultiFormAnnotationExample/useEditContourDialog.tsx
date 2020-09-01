@@ -20,15 +20,23 @@ import {
   significants,
 } from './model';
 
-export function useEditContourDialog(): [OpenDialog<{ annotation: Annotation }, AnnotationInfo | null>, ReactNode] {
+export function useEditContourDialog(): [
+  OpenDialog<{ annotation: Annotation }, AnnotationInfo | null>,
+  ReactNode,
+] {
   return useDialog(EditContour);
 }
 
-const EditContour: DialogTemplate<{ annotation: Annotation }, AnnotationInfo | null> = ({
-  annotation,
-  closeDialog,
-}) => {
-  return <EditContourDialogComponent annotation={annotation} closeDialog={closeDialog} />;
+const EditContour: DialogTemplate<
+  { annotation: Annotation },
+  AnnotationInfo | null
+> = ({ annotation, closeDialog }) => {
+  return (
+    <EditContourDialogComponent
+      annotation={annotation}
+      closeDialog={closeDialog}
+    />
+  );
 };
 
 function EditContourDialogComponent({
@@ -38,8 +46,12 @@ function EditContourDialogComponent({
   annotation: Annotation;
   closeDialog: (result: AnnotationInfo | null) => void;
 }) {
-  const [confidenceLevel, setConfidenceLevel] = useState<number>(() => annotation.confidenceLevel * 5);
-  const [significant, setSignificant] = useState<Significant>(annotation.significant);
+  const [confidenceLevel, setConfidenceLevel] = useState<number>(
+    () => annotation.confidenceLevel * 5,
+  );
+  const [significant, setSignificant] = useState<Significant>(
+    annotation.significant,
+  );
   const [lesion, setLesion] = useState<Lesion>(annotation.lesion);
 
   return (
@@ -56,41 +68,45 @@ function EditContourDialogComponent({
         <DialogContentText>병변의 확신을 입력하세요</DialogContentText>
 
         <ButtonLayout direction="horizontal">
-          {[1, 2, 3, 4, 5].map(v => (
+          {[1, 2, 3, 4, 5].map((v) => (
             <Button
               key={'item' + v}
               label={v.toString()}
               layout="center"
               selected={confidenceLevel === v}
-              onChange={selected => selected && setConfidenceLevel(v)}
+              onChange={(selected) => selected && setConfidenceLevel(v)}
             />
           ))}
         </ButtonLayout>
 
-        <DialogContentText style={{ marginTop: 15 }}>임상적 중요성이 있습니까?</DialogContentText>
+        <DialogContentText style={{ marginTop: 15 }}>
+          임상적 중요성이 있습니까?
+        </DialogContentText>
 
         <ButtonLayout direction="vertical">
-          {significants.map(v => (
+          {significants.map((v) => (
             <Button
               key={v}
               label={SignificantLabels[v]}
               layout="left"
               selected={significant === v}
-              onChange={selected => selected && setSignificant(v)}
+              onChange={(selected) => selected && setSignificant(v)}
             />
           ))}
         </ButtonLayout>
 
-        <DialogContentText style={{ marginTop: 15 }}>의심되는 질환은 무엇입니까?</DialogContentText>
+        <DialogContentText style={{ marginTop: 15 }}>
+          의심되는 질환은 무엇입니까?
+        </DialogContentText>
 
         <ButtonLayout direction="vertical">
-          {lesions.map(v => (
+          {lesions.map((v) => (
             <Button
               key={v}
               label={LesionLabels[v]}
               layout="left"
               selected={lesion === v}
-              onChange={selected => selected && setLesion(v)}
+              onChange={(selected) => selected && setLesion(v)}
             />
           ))}
         </ButtonLayout>

@@ -18,12 +18,20 @@ interface Param {
   lesions: Lesion[];
 }
 
-export function useAddAnnotationDialog(): [OpenDialog<Param, AnnotationInfo | null>, ReactNode] {
+export function useAddAnnotationDialog(): [
+  OpenDialog<Param, AnnotationInfo | null>,
+  ReactNode,
+] {
   return useDialog(AddAnnotation);
 }
 
-const AddAnnotation: DialogTemplate<Param, AnnotationInfo | null> = ({ lesions, closeDialog }) => {
-  return <AddAnnotationDialogComponent lesions={lesions} closeDialog={closeDialog} />;
+const AddAnnotation: DialogTemplate<Param, AnnotationInfo | null> = ({
+  lesions,
+  closeDialog,
+}) => {
+  return (
+    <AddAnnotationDialogComponent lesions={lesions} closeDialog={closeDialog} />
+  );
 };
 
 interface Props {
@@ -42,18 +50,22 @@ function AddAnnotationDialogComponent({ lesions, closeDialog }: Props) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">병변의 종류를 선택해주세요.</DialogTitle>
+      <DialogTitle id="alert-dialog-title">
+        병변의 종류를 선택해주세요.
+      </DialogTitle>
 
       <DialogContent style={{ width: 300 }}>
         <ButtonLayout direction="vertical">
-          {lesions.map(lesion => (
+          {lesions.map((lesion) => (
             <LesionButton
               key={lesion.id}
               lesion={lesion}
               layout="left"
               label={lesion.label}
               selected={selectedLesion === lesion}
-              onChange={nextSelected => nextSelected && setSelectedLesion(lesion)}
+              onChange={(nextSelected) =>
+                nextSelected && setSelectedLesion(lesion)
+              }
             />
           ))}
         </ButtonLayout>
@@ -84,7 +96,8 @@ const LesionButton = styled(Button)<ButtonProps & { lesion: Lesion }>`
   --button-label-color: #ffffff;
   --button-background-color-hover: rgba(0, 0, 0, 0.5);
   --button-label-color-hover: #ffffff;
-  --button-background-color-selected: ${({ lesion }) => lesionColors[lesion.id]};
+  --button-background-color-selected: ${({ lesion }) =>
+    lesionColors[lesion.id]};
   --button-label-color-selected: #ffffff;
   --button-background-color-disabled: rgba(0, 0, 0, 0.12);
   --button-label-color-disabled: rgba(255, 255, 255, 0.2);

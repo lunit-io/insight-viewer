@@ -9,7 +9,20 @@ const style: CSSProperties = { width: 300 };
 storiesOf('opt-login-components', module)
   .addDecorator(withOPTComponentsStorybookGlobalStyle)
   .addDecorator(withInsightViewerStorybookGlobalStyle)
-  .add('<TextInput>', () => <TextInput style={style} placeholder="PLACEHOLDER" margin="dense" variant="outlined" />)
+  .add('<TextInput>', () => (
+    <TextInput
+      style={style}
+      placeholder="PLACEHOLDER"
+      margin="dense"
+      variant="outlined"
+    />
+  ))
   .add('<TextInput disabled>', () => (
-    <TextInput style={style} placeholder="PLACEHOLDER" margin="dense" variant="outlined" disabled />
+    <TextInput
+      style={style}
+      placeholder="PLACEHOLDER"
+      margin="dense"
+      variant="outlined"
+      disabled
+    />
   ));

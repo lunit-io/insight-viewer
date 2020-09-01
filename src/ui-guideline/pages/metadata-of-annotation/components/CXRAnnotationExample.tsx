@@ -27,16 +27,32 @@ const lesions: Lesion[] = [
   { id: 'pneumothorax', label: 'Pneumothorax' },
 ];
 
-function labelFunction({ id, lesion }: Annotation | AIAnnotation | AnnotatorAnnotation): string {
+function labelFunction({
+  id,
+  lesion,
+}: Annotation | AIAnnotation | AnnotatorAnnotation): string {
   return `${id} (${lesion?.label || '-'})`;
 }
 
-export function CXRAnnotationExample({ width, height }: { width: number; height: number }) {
-  const [openAddAnnotationDialog, addAnnotationDialogElement] = useAddAnnotationDialog();
+export function CXRAnnotationExample({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}) {
+  const [
+    openAddAnnotationDialog,
+    addAnnotationDialogElement,
+  ] = useAddAnnotationDialog();
   const [hideUserContours, setHideUserContours] = useState<boolean>(false);
 
   return (
-    <AnnotationExample<Annotation> width={width} height={height} contourMode="contour">
+    <AnnotationExample<Annotation>
+      width={width}
+      height={height}
+      contourMode="contour"
+    >
       {({
         contours,
         cornerstoneRenderData,
@@ -52,15 +68,18 @@ export function CXRAnnotationExample({ width, height }: { width: number; height:
         return {
           viewer: (
             <>
-              {!hideUserContours && contours && contours.length > 0 && cornerstoneRenderData && (
-                <Viewer
-                  width={viewerWidth}
-                  height={height}
-                  contours={contours}
-                  focusedContour={focusedContour}
-                  cornerstoneRenderData={cornerstoneRenderData}
-                />
-              )}
+              {!hideUserContours &&
+                contours &&
+                contours.length > 0 &&
+                cornerstoneRenderData && (
+                  <Viewer
+                    width={viewerWidth}
+                    height={height}
+                    contours={contours}
+                    focusedContour={focusedContour}
+                    cornerstoneRenderData={cornerstoneRenderData}
+                  />
+                )}
               {contours && cornerstoneRenderData && control === 'pen' && (
                 <ContourDrawer
                   width={viewerWidth}
@@ -68,12 +87,14 @@ export function CXRAnnotationExample({ width, height }: { width: number; height:
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={async polygon => {
+                  onAdd={async (polygon) => {
                     const contour = addContour(polygon, { lesion: null });
 
                     if (!contour) return;
 
-                    const result: AnnotationInfo | null = await openAddAnnotationDialog({ lesions });
+                    const result: AnnotationInfo | null = await openAddAnnotationDialog(
+                      { lesions },
+                    );
 
                     if (result?.lesion) {
                       updateContour(contour, {
@@ -117,11 +138,10 @@ export function CXRAnnotationExample({ width, height }: { width: number; height:
 }
 
 const contourStyle = (lesion: string, color: string) => css`
-  [data-lesion="${lesion}"] {
+  [data-lesion='${lesion}'] {
     --contour-viewer-color: ${color};
-    --contour-viewer-focused-color: ${d3color(color)
-      ?.brighter(3)
-      .toString() || color};
+    --contour-viewer-focused-color: ${d3color(color)?.brighter(3).toString() ||
+    color};
     --contour-viewer-fill-color: ${color};
   }
 `;
@@ -131,7 +151,9 @@ const contourColors = css`
     fill-opacity: 0.2;
   }
 
-  ${Object.keys(lesionColors).map((lesion: string) => contourStyle(lesion, lesionColors[lesion]))}
+  ${Object.keys(lesionColors).map((lesion: string) =>
+    contourStyle(lesion, lesionColors[lesion]),
+  )}
 `;
 
 const Viewer = styled(ContourViewer)`

@@ -1,4 +1,8 @@
-import { IconButton, SnackbarContent as MuiSnackbarContent, SnackbarContentProps } from '@material-ui/core';
+import {
+  IconButton,
+  SnackbarContent as MuiSnackbarContent,
+  SnackbarContentProps,
+} from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { Snackbar, SnackbarProvider, useSnackbar } from '@ssen/snackbar';
 import { storiesOf } from '@storybook/react';
@@ -106,15 +110,22 @@ const CustomElement = styled.div`
   color: red;
 `;
 
-const ActionSnackbar = styled(({ onClose, ...props }: SnackbarContentProps & { onClose?: () => void }) => {
-  return (
-    <MuiSnackbarContent
-      {...props}
-      action={[
-        <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
-          <Close />
-        </IconButton>,
-      ]}
-    />
-  );
-})``;
+const ActionSnackbar = styled(
+  ({ onClose, ...props }: SnackbarContentProps & { onClose?: () => void }) => {
+    return (
+      <MuiSnackbarContent
+        {...props}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={onClose}
+          >
+            <Close />
+          </IconButton>,
+        ]}
+      />
+    );
+  },
+)``;

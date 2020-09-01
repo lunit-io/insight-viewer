@@ -23,13 +23,20 @@ import { map } from 'rxjs/operators';
  *
  * 여기서 `imageLoadedTime`은 Image가 최종적으로 Load된 시간이다.
  */
-export function useImageLoadedTime(progresses: Observable<number>[] | null): Date | null {
+export function useImageLoadedTime(
+  progresses: Observable<number>[] | null,
+): Date | null {
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
     if (progresses) {
       const subscription = combineLatest(progresses)
-        .pipe(map((numbers: number[]) => numbers.reduce((t, x) => t + x, 0) / numbers.length))
+        .pipe(
+          map(
+            (numbers: number[]) =>
+              numbers.reduce((t, x) => t + x, 0) / numbers.length,
+          ),
+        )
         .subscribe((value) => {
           if (value >= 1) {
             setTime(new Date());

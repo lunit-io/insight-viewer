@@ -1,6 +1,11 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ParallelImageLoader } from './ParallelImageLoader';
-import { CornerstoneImage, getProgressEventDetail, ImageLoader, ProgressEventDetail } from './types';
+import {
+  CornerstoneImage,
+  getProgressEventDetail,
+  ImageLoader,
+  ProgressEventDetail,
+} from './types';
 import { wadoImageLoaderXHRLoader } from './wadoImageLoaderXHRLoader';
 
 interface Options {
@@ -19,12 +24,18 @@ export class CornerstoneSingleImage implements CornerstoneImage {
   private readonly _loader: ImageLoader;
   private _destoyed: boolean = false;
 
-  constructor(private readonly imageId: string, private readonly options: Options = {}) {
+  constructor(
+    private readonly imageId: string,
+    private readonly options: Options = {},
+  ) {
     this._imageSubject = new BehaviorSubject<cornerstone.Image | null>(null);
     this._progressSubject = new BehaviorSubject(0);
     this._loader = options.loader || defaultLoader;
 
-    cornerstone.events.addEventListener('cornerstoneimageloadprogress', this.onProgress);
+    cornerstone.events.addEventListener(
+      'cornerstoneimageloadprogress',
+      this.onProgress,
+    );
     this.loadImage(imageId);
   }
 
@@ -41,7 +52,10 @@ export class CornerstoneSingleImage implements CornerstoneImage {
       this.options.unload(this.imageId);
     }
 
-    cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
+    cornerstone.events.removeEventListener(
+      'cornerstoneimageloadprogress',
+      this.onProgress,
+    );
 
     this._cancel.forEach((cancel) => cancel());
 
@@ -49,10 +63,14 @@ export class CornerstoneSingleImage implements CornerstoneImage {
   };
 
   private onProgress = (event: Event) => {
-    const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(event);
+    const eventDetail: ProgressEventDetail | undefined = getProgressEventDetail(
+      event,
+    );
 
     if (eventDetail && eventDetail.imageId === this.imageId) {
-      this._progressSubject.next(Math.min(eventDetail.loaded / eventDetail.total, 0.99));
+      this._progressSubject.next(
+        Math.min(eventDetail.loaded / eventDetail.total, 0.99),
+      );
     }
   };
 
@@ -60,10 +78,17 @@ export class CornerstoneSingleImage implements CornerstoneImage {
     try {
       const image = await this._loader.loadImage({
         imageId,
-        options: { loader: wadoImageLoaderXHRLoader((cancel) => this._cancel.push(cancel)) },
+        options: {
+          loader: wadoImageLoaderXHRLoader((cancel) =>
+            this._cancel.push(cancel),
+          ),
+        },
       });
 
-      cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
+      cornerstone.events.removeEventListener(
+        'cornerstoneimageloadprogress',
+        this.onProgress,
+      );
 
       if (!this._destoyed) {
         this._imageSubject.next(image);

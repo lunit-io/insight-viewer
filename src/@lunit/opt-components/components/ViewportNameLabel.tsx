@@ -8,7 +8,10 @@ export interface ViewportLabelProps {
 const height: number = 17;
 const y: number = 13;
 
-export function ViewportNameLabel({ children, width = 100 }: ViewportLabelProps) {
+export function ViewportNameLabel({
+  children,
+  width = 100,
+}: ViewportLabelProps) {
   return (
     <svg
       width={width}

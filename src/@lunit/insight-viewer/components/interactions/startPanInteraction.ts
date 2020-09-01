@@ -85,8 +85,10 @@ export function startPanInteraction({
     const viewport = getCurrentViewport();
     if (!viewport) return;
 
-    const dx: number = (event.targetTouches[0].pageX - startPageX) / viewport.scale;
-    const dy: number = (event.targetTouches[0].pageY - startPageY) / viewport.scale;
+    const dx: number =
+      (event.targetTouches[0].pageX - startPageX) / viewport.scale;
+    const dy: number =
+      (event.targetTouches[0].pageY - startPageY) / viewport.scale;
 
     onMove({
       x: startTranslationX + dx,

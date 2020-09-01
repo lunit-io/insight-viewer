@@ -3,7 +3,12 @@ import { Unsubscribable } from 'rxjs';
 import { FrameConsumer } from '../context/frame';
 import { InsightViewerHostProps } from '../hooks/useInsightViewerSync';
 import { CornerstoneImage } from '../image/types';
-import { CornerstoneRenderData, CornerstoneViewerLike, ViewportTransform, ViewportTransformParams } from '../types';
+import {
+  CornerstoneRenderData,
+  CornerstoneViewerLike,
+  ViewportTransform,
+  ViewportTransformParams,
+} from '../types';
 import { startAdjustInteraction } from './interactions/startAdjustInteraction';
 import { startPanInteraction } from './interactions/startPanInteraction';
 import { startZoomInteraction } from './interactions/startZoomInteraction';
@@ -61,12 +66,17 @@ export interface InsightViewerProps extends InsightViewerHostProps {
 
 const maxScale: number = 3;
 
-function resolveInvert(invert: boolean, viewport?: cornerstone.Viewport): boolean {
+function resolveInvert(
+  invert: boolean,
+  viewport?: cornerstone.Viewport,
+): boolean {
   return viewport?.invert === true ? !invert : invert;
 }
 
 /** @deprecated use <CornerstoneViewer> instead */
-export class InsightViewer extends Component<InsightViewerProps, {}> implements CornerstoneViewerLike {
+export class InsightViewer
+  extends Component<InsightViewerProps, {}>
+  implements CornerstoneViewerLike {
   // ref={}에 의해서 componentDidMount() 이전에 반드시 들어온다
   private element!: HTMLDivElement;
 
@@ -91,7 +101,9 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
   render() {
     return (
       <>
-        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
+        <FrameConsumer
+          stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)}
+        />
         <div
           ref={this.elementRef}
           style={{
@@ -127,7 +139,10 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
   componentDidMount() {
     // cornerstone의 imagernderered event를 받는다
     // image가 render 될때마다 context로 enabledElement를 배포해주기 위해 필요하다
-    this.element.addEventListener(cornerstone.EVENTS.IMAGE_RENDERED, this.onImageRenderered);
+    this.element.addEventListener(
+      cornerstone.EVENTS.IMAGE_RENDERED,
+      this.onImageRenderered,
+    );
 
     this.setCornerstoneImage(this.props.image);
   }
@@ -176,7 +191,10 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
   };
 
   componentWillUnmount() {
-    this.element.removeEventListener(cornerstone.EVENTS.IMAGE_RENDERED, this.onImageRenderered);
+    this.element.removeEventListener(
+      cornerstone.EVENTS.IMAGE_RENDERED,
+      this.onImageRenderered,
+    );
     cornerstone.disable(this.element);
 
     if (this.imageSubscription) {
@@ -197,9 +215,22 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
   }
 
   componentDidUpdate(prevProps: Readonly<InsightViewerProps>) {
-    const { width, height, flip, invert, pan, adjust, zoom, resetTime, image } = this.props;
+    const {
+      width,
+      height,
+      flip,
+      invert,
+      pan,
+      adjust,
+      zoom,
+      resetTime,
+      image,
+    } = this.props;
 
-    const defaultViewport: cornerstone.Viewport | null = this.getDefaultViewport(this.currentImage, this.element);
+    const defaultViewport: cornerstone.Viewport | null = this.getDefaultViewport(
+      this.currentImage,
+      this.element,
+    );
 
     // 선택된 control 상태에 따라 event를 해제/등록 해준다
     if (prevProps.pan !== pan) {
@@ -276,7 +307,8 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
   };
 
   onImageRenderered = (event: cornerstone.CornerstoneEvent) => {
-    const eventData: cornerstone.CornerstoneEventData | undefined = event.detail;
+    const eventData: cornerstone.CornerstoneEventData | undefined =
+      event.detail;
     if (
       eventData &&
       eventData.canvasContext &&
@@ -287,7 +319,9 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
       eventData.viewport
     ) {
       this.currentViewport = eventData.viewport;
-      this.props.updateCornerstoneRenderData(eventData as CornerstoneRenderData);
+      this.props.updateCornerstoneRenderData(
+        eventData as CornerstoneRenderData,
+      );
     } else {
       console.error('CornerstoneEventData에 없는 정보가 있다???', eventData);
     }
@@ -302,13 +336,18 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
     }
 
     const element: HTMLElement | null =
-      pan instanceof this.contentWindow['HTMLElement'] ? (pan as HTMLElement) : pan === true ? this.element : null;
+      pan instanceof this.contentWindow['HTMLElement']
+        ? (pan as HTMLElement)
+        : pan === true
+        ? this.element
+        : null;
 
     if (element) {
       this.teardownPanInteraction = startPanInteraction({
         element,
         getCurrentViewport: () => this.currentViewport!,
-        onMove: (translation: cornerstone.Vec2) => this.updateCurrentViewport({ translation }),
+        onMove: (translation: cornerstone.Vec2) =>
+          this.updateCurrentViewport({ translation }),
         onEnd: () => {},
         contentWindow: this.contentWindow,
       });
@@ -344,7 +383,11 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
     }
 
     const element: HTMLElement | null =
-      zoom instanceof this.contentWindow['HTMLElement'] ? (zoom as HTMLElement) : zoom === true ? this.element : null;
+      zoom instanceof this.contentWindow['HTMLElement']
+        ? (zoom as HTMLElement)
+        : zoom === true
+        ? this.element
+        : null;
 
     if (element) {
       this.teardownZoomInteraction = startZoomInteraction({
@@ -366,7 +409,10 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
 
   getCurrentViewport = () => this.currentViewport!;
 
-  getDefaultViewport = (image: cornerstone.Image | null, element: HTMLElement | null): cornerstone.Viewport | null => {
+  getDefaultViewport = (
+    image: cornerstone.Image | null,
+    element: HTMLElement | null,
+  ): cornerstone.Viewport | null => {
     if (!image || !element) return null;
     return cornerstone.getDefaultViewportForImage(element, image);
   };
@@ -426,13 +472,16 @@ export class InsightViewer extends Component<InsightViewerProps, {}> implements 
   };
 
   private updateCurrentViewport = (
-    update: Partial<cornerstone.Viewport> | ((viewport: cornerstone.Viewport) => Partial<cornerstone.Viewport>),
+    update:
+      | Partial<cornerstone.Viewport>
+      | ((viewport: cornerstone.Viewport) => Partial<cornerstone.Viewport>),
   ) => {
     if (!this.currentViewport) {
       throw new Error('viewport가 없는 상태에서 실행되면 안된다');
     }
 
-    const patch: Partial<cornerstone.Viewport> = typeof update === 'function' ? update(this.currentViewport) : update;
+    const patch: Partial<cornerstone.Viewport> =
+      typeof update === 'function' ? update(this.currentViewport) : update;
 
     this.currentViewport = {
       ...this.currentViewport,

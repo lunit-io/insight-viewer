@@ -26,14 +26,20 @@ const controllerOptions: InsightViewerControllerOptions = {
 
 const imageIds: string[] = series
   .slice(0, 10)
-  .map((p) => `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`);
+  .map(
+    (p) =>
+      `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`,
+  );
 
 function Sample() {
   const { fetch } = useImageStore();
 
   const [imageId, setImageId] = useState<string>(() => imageIds[0]);
 
-  const image = useMemo<CornerstoneImage>(() => fetch(imageId), [fetch, imageId]);
+  const image = useMemo<CornerstoneImage>(() => fetch(imageId), [
+    fetch,
+    imageId,
+  ]);
 
   useEffect(() => {
     // 1 ~ 4번 이미지들을 Prefetch 한다
@@ -47,7 +53,18 @@ function Sample() {
   return (
     <div style={{ display: 'flex' }}>
       <InsightViewerTestController options={controllerOptions}>
-        {({ width, height, invert, flip, control, wheel, resetTime, element, setElement, interactions }) => (
+        {({
+          width,
+          height,
+          invert,
+          flip,
+          control,
+          wheel,
+          resetTime,
+          element,
+          setElement,
+          interactions,
+        }) => (
           <InsightViewerContainer width={width} height={height}>
             <CornerstoneViewer
               width={width}
@@ -67,7 +84,9 @@ function Sample() {
         <ul>
           {imageIds.map((imageId, i) => (
             <li key={imageId}>
-              <Button onClick={() => setImageId(imageId)}>Show Image {i}</Button>
+              <Button onClick={() => setImageId(imageId)}>
+                Show Image {i}
+              </Button>
             </li>
           ))}
         </ul>

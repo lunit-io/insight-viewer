@@ -14,8 +14,22 @@ function mockFn() {
   // DO NOTHING
 }
 
-export function FoldingExample({ width, height }: { width: number; height: number }) {
-  const { control, flip, invert, updateControl, resetControl, updateFlip, updateInvert } = useControl({
+export function FoldingExample({
+  width,
+  height,
+}: {
+  width: number;
+  height: number;
+}) {
+  const {
+    control,
+    flip,
+    invert,
+    updateControl,
+    resetControl,
+    updateFlip,
+    updateInvert,
+  } = useControl({
     initialControl: 'pen',
   });
 

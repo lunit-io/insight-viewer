@@ -16,7 +16,10 @@ export interface UserContoursPanelProps {
   contours: Annotation[];
   focusedContour: Annotation | null;
   onFocus: (contour: Annotation | null) => void;
-  onUpdate: (contour: Annotation, patch: Partial<Omit<Annotation, 'id'>>) => void;
+  onUpdate: (
+    contour: Annotation,
+    patch: Partial<Omit<Annotation, 'id'>>,
+  ) => void;
   onRemove: (contour: Annotation) => void;
   disabled: boolean;
 }
@@ -36,7 +39,10 @@ export function UserContoursPanel({
       disabled={disabled}
       icon={
         contours.length === 0 ? (
-          <WarningTooltip placement="left" title="Contour를 한 개 이상 그려야 합니다" />
+          <WarningTooltip
+            placement="left"
+            title="Contour를 한 개 이상 그려야 합니다"
+          />
         ) : undefined
       }
       defaultExpanded
@@ -62,7 +68,9 @@ export function UserContoursPanel({
                     <div>
                       <Slider
                         value={Math.floor(contour.confidenceLevel * 100)}
-                        onChange={(event, value) => onUpdate(contour, { confidenceLevel: +value / 100 })}
+                        onChange={(event, value) =>
+                          onUpdate(contour, { confidenceLevel: +value / 100 })
+                        }
                       />
                     </div>
                   </li>
