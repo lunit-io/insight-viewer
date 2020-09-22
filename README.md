@@ -4,7 +4,7 @@
 
 # Links
 
-- [API](https://api.front.lunit.io/)
+- [API](https://frontend-components.lunit.io/#/insight-viewer/getting-started)
 
 # Start development
 
