@@ -8,7 +8,7 @@
   "scripts": {
     "docs:import": "markdown-source-import README.md \"src/**/*.md\"",
     "package:build": "npm run docs:import && rocket-punch build",
-    "package:publish": "rocket-punch publish --tag canary",
+    "package:publish": "rocket-punch publish",
     "storybook:start": "start-storybook --port 9200 --static-dir ./public,./src/@lunit/insight-viewer/public",
     "storybook:build": "build-storybook --quiet --output-dir ./dist-storybook --static-dir ./public,./src/@lunit/insight-viewer/public",
     "handbook:build": "node scripts/handbook.build.js",
