@@ -18,7 +18,7 @@ export default () => {
       new CornerstoneSeriesImage(
         series.map(
           (p) =>
-            `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`,
+            `wadouri:https://static.lunit.io/fixtures/dcm-files/series/${p}`,
         ),
         { unload: unloadImage },
       ),

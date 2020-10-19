@@ -17,7 +17,7 @@ export default () => {
         .map(
           (p) =>
             new CornerstoneSingleImage(
-              `wadouri:https://lunit-io.github.io/frontend-fixtures/dcm-files/series/${p}`,
+              `wadouri:https://static.lunit.io/fixtures/dcm-files/series/${p}`,
             ),
         ),
     [],
