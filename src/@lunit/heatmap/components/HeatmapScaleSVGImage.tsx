@@ -10,19 +10,12 @@ export interface HeatmapScaleImageProps extends SVGProps<SVGImageElement> {
 /**
  * `width x height` 형태의 Rectangle SVG <image/>. <svg> 내에서 사용할 수 있다.
  */
-export function HeatmapScaleSVGImage({
-  threshold = 0,
-  width,
-  height,
-  ...imageProps
-}: HeatmapScaleImageProps) {
+export function HeatmapScaleSVGImage({ threshold = 0, width, height, ...imageProps }: HeatmapScaleImageProps) {
   const dataUri: string | null = useHeatmapScaleImageURI({
     width,
     height,
     threshold,
   });
 
-  return dataUri ? (
-    <image {...imageProps} xlinkHref={dataUri} width={width} height={height} />
-  ) : null;
+  return dataUri ? <image {...imageProps} xlinkHref={dataUri} width={width} height={height} /> : null;
 }

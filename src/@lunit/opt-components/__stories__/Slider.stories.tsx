@@ -1,8 +1,5 @@
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import {
-  Slider,
-  withOPTComponentsStorybookGlobalStyle,
-} from '@lunit/opt-components';
+import { Slider, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';

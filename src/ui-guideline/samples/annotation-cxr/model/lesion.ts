@@ -7,21 +7,15 @@ export interface Lesion {
 
 export type OfLesion<T> = { [lesionId: string]: T };
 
-export const createLesionCategorizedValues = <T>(lesions: Lesion[]) => (
-  initialValue: () => T,
-): OfLesion<T> => {
+export const createLesionCategorizedValues = <T>(lesions: Lesion[]) => (initialValue: () => T): OfLesion<T> => {
   return lesions.reduce((map, { id }) => {
     map[id] = initialValue();
     return map;
   }, {});
 };
 
-export const categorizeAnnotations = (lesions: Lesion[]) => (
-  contours: Annotation[],
-): OfLesion<Annotation[]> => {
-  const categorized: OfLesion<Annotation[]> = createLesionCategorizedValues<
-    Annotation[]
-  >(lesions)(() => []);
+export const categorizeAnnotations = (lesions: Lesion[]) => (contours: Annotation[]): OfLesion<Annotation[]> => {
+  const categorized: OfLesion<Annotation[]> = createLesionCategorizedValues<Annotation[]>(lesions)(() => []);
 
   for (const contour of contours) {
     if (contour.lesion) {

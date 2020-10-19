@@ -2,13 +2,7 @@ import { ContourDrawer, ContourViewer } from '@lunit/insight-viewer';
 import React from 'react';
 import { AnnotationExample } from '../../../components/examples/AnnotationExample';
 
-export function PolygonAnnotationExample({
-  width,
-  height,
-}: {
-  width: number;
-  height: number;
-}) {
+export function PolygonAnnotationExample({ width, height }: { width: number; height: number }) {
   return (
     <AnnotationExample width={width} height={height} contourMode="contour">
       {({

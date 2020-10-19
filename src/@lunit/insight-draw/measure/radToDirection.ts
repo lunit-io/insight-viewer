@@ -1,8 +1,6 @@
 import { rad360 } from './rad360';
 
-export function radToDirection(
-  rad: number,
-): 'south' | 'north' | 'east' | 'west' {
+export function radToDirection(rad: number): 'south' | 'north' | 'east' | 'west' {
   const deg: number = (rad360(rad) * 180) / Math.PI;
 
   if (deg < 45) {

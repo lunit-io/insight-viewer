@@ -5,8 +5,7 @@ import { hitTestContours } from '../geom/hitTestContours';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 
-export interface ContourHoverProps<T extends Contour>
-  extends InsightViewerGuestProps {
+export interface ContourHoverProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -32,10 +31,7 @@ interface ContourHoverState {
   polygon: Point[];
 }
 
-export class ContourHoverBase<T extends Contour> extends Component<
-  ContourHoverProps<T>,
-  ContourHoverState
-> {
+export class ContourHoverBase<T extends Contour> extends Component<ContourHoverProps<T>, ContourHoverState> {
   private svg: SVGSVGElement | null = null;
   private element: HTMLElement | null = null;
   private focused: T | null = null;
@@ -52,9 +48,7 @@ export class ContourHoverBase<T extends Contour> extends Component<
   render() {
     return (
       <>
-        <FrameConsumer
-          stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)}
-        />
+        <FrameConsumer stateRef={({ contentWindow }) => (this.contentWindow = contentWindow)} />
         <svg
           ref={this.svgRef}
           role="figure"
@@ -118,16 +112,11 @@ export class ContourHoverBase<T extends Contour> extends Component<
   // initial events
   // ---------------------------------------------
   activateInitialEvents = () => {
-    if (this.element)
-      this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
+    if (this.element) this.element.addEventListener('mousemove', this.onMouseMoveToFindFocus);
   };
 
   deactivateInitialEvents = () => {
-    if (this.element)
-      this.element.removeEventListener(
-        'mousemove',
-        this.onMouseMoveToFindFocus,
-      );
+    if (this.element) this.element.removeEventListener('mousemove', this.onMouseMoveToFindFocus);
   };
 
   onMouseMoveToFindFocus = (event: MouseEvent) => {
@@ -135,12 +124,7 @@ export class ContourHoverBase<T extends Contour> extends Component<
   };
 
   findFocus = (pageX: number, pageY: number) => {
-    if (
-      !this.props.contours ||
-      this.props.contours.length === 0 ||
-      !this.props.cornerstoneRenderData
-    )
-      return;
+    if (!this.props.contours || this.props.contours.length === 0 || !this.props.cornerstoneRenderData) return;
 
     const element: HTMLElement = this.props.cornerstoneRenderData.element;
 
@@ -153,9 +137,7 @@ export class ContourHoverBase<T extends Contour> extends Component<
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ContourHover: new <T extends Contour>() => ContourHoverBase<
-  T
-> = styled(ContourHoverBase)`
+export const ContourHover: new <T extends Contour>() => ContourHoverBase<T> = styled(ContourHoverBase)`
   position: absolute;
   top: 0;
   left: 0;

@@ -3,11 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { routeConfig } from '../../route/routeConfig';
 
-export function RouteNavigationBase({
-  className = '',
-}: {
-  className?: string;
-}) {
+export function RouteNavigationBase({ className = '' }: { className?: string }) {
   return (
     <ul className={className}>
       <li>

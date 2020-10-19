@@ -6,14 +6,7 @@ describe('userContour()', () => {
   test('should not change the references of the all callbacks', () => {
     const { result } = renderHook(() => useContour());
 
-    const {
-      addContour,
-      addContours,
-      updateContour,
-      removeAllContours,
-      removeContour,
-      focusContour,
-    } = result.current;
+    const { addContour, addContours, updateContour, removeAllContours, removeContour, focusContour } = result.current;
 
     function testCallbackReferenceChanging(current: typeof result.current) {
       expect(current.addContour).toBe(addContour);
@@ -32,9 +25,7 @@ describe('userContour()', () => {
     expect(result.current.contours).toHaveLength(1);
     testCallbackReferenceChanging(result.current);
 
-    act(() =>
-      result.current.addContours([initialContours[1], initialContours[2]]),
-    );
+    act(() => result.current.addContours([initialContours[1], initialContours[2]]));
 
     expect(result.current.contours).toHaveLength(3);
     testCallbackReferenceChanging(result.current);

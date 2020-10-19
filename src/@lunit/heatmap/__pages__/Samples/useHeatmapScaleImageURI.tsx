@@ -12,11 +12,5 @@ export default () => {
     threshold,
   });
 
-  return dataUri ? (
-    <img
-      src={dataUri}
-      style={{ width, height, backgroundColor: '#000000' }}
-      alt="test"
-    />
-  ) : null;
+  return dataUri ? <img src={dataUri} style={{ width, height, backgroundColor: '#000000' }} alt="test" /> : null;
 };

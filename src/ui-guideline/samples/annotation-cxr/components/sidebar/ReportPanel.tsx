@@ -9,12 +9,7 @@ export interface ReportPanelProps {
 
 export function ReportPanel({ content, disabled }: ReportPanelProps) {
   return (
-    <SessionPanel
-      title="REPORT"
-      sessionId="report"
-      disabled={disabled}
-      defaultExpanded
-    >
+    <SessionPanel title="REPORT" sessionId="report" disabled={disabled} defaultExpanded>
       {(expanded) => {
         return expanded ? (
           <Full>{content}</Full>

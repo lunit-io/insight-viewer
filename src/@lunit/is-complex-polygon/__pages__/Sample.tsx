@@ -19,20 +19,14 @@ const height: number = 500;
 
 export default () => {
   const image: CornerstoneImage = useMemo(() => {
-    return new CornerstoneSingleImage(
-      `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-      {
-        unload: unloadImage,
-      },
-    );
+    return new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+      unload: unloadImage,
+    });
   }, []);
 
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   const [checkResult, setCheckResult] = useState<ReactNode>(null);
 

@@ -18,10 +18,7 @@ export interface UserContoursPanelProps {
   contours: Annotation[];
   focusedContour: Annotation | null;
   onFocus: (contour: Annotation | null) => void;
-  onUpdate: (
-    contour: Annotation,
-    patch: Partial<Omit<Annotation, 'id'>>,
-  ) => void;
+  onUpdate: (contour: Annotation, patch: Partial<Omit<Annotation, 'id'>>) => void;
   onRemove: (contour: Annotation) => void;
   disabled: boolean;
 }
@@ -42,10 +39,7 @@ export function UserContoursPanel({
       disabled={disabled}
       icon={
         contours.length === 0 ? (
-          <WarningTooltip
-            placement="left"
-            title="Contour를 한 개 이상 그려야 합니다"
-          />
+          <WarningTooltip placement="left" title="Contour를 한 개 이상 그려야 합니다" />
         ) : undefined
       }
       defaultExpanded
@@ -69,20 +63,14 @@ export function UserContoursPanel({
                       <DeleteButton onClick={() => onRemove(contour)} />
                     </div>
                     {type === 'reader-test' && (
-                      <ButtonLayout
-                        direction="horizontal"
-                        style={{ backgroundColor: '#2b3544', padding: 2 }}
-                      >
+                      <ButtonLayout direction="horizontal" style={{ backgroundColor: '#2b3544', padding: 2 }}>
                         {[1, 2, 3, 4, 5].map((v) => (
                           <SelectionButton
                             key={'item' + v}
                             label={v.toString()}
                             layout="center"
                             selected={contour.confidenceLevel * 5 === v}
-                            onChange={(selected) =>
-                              selected &&
-                              onUpdate(contour, { confidenceLevel: v / 5 })
-                            }
+                            onChange={(selected) => selected && onUpdate(contour, { confidenceLevel: v / 5 })}
                           />
                         ))}
                       </ButtonLayout>

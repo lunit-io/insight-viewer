@@ -39,23 +39,14 @@ export function LiveAnnotationExample<T extends Contour>({
   initialContours,
 }: AnnotationExampleProps<T>) {
   const image: CornerstoneImage = useMemo(
-    () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-      ),
+    () => new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`),
     [],
   );
   const resetTime = useMemo(() => Date.now(), []);
 
-  const [
-    interactionElement,
-    setInteractionElement,
-  ] = useState<HTMLElement | null>(null);
+  const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   const {
     contours,
@@ -120,11 +111,7 @@ export function LiveAnnotationExample<T extends Contour>({
           height,
         }}
       >
-        <InsightViewerContainer
-          ref={setInteractionElement}
-          width={width}
-          height={height}
-        >
+        <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}
             height={height}

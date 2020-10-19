@@ -30,19 +30,13 @@ export interface ImageStoreState {
 }
 
 // @ts-ignore
-const ImageStoreContext: Context<ImageStoreState> = createContext<
-  ImageStoreState
->();
+const ImageStoreContext: Context<ImageStoreState> = createContext<ImageStoreState>();
 
 function defaultFactory(imageId: string): CornerstoneImage {
   return new CornerstoneSingleImage(imageId);
 }
 
-export function ImageStoreProvider({
-  cacheImages = 10,
-  factory = defaultFactory,
-  children,
-}: ImageStoreProviderProps) {
+export function ImageStoreProvider({ cacheImages = 10, factory = defaultFactory, children }: ImageStoreProviderProps) {
   const [cache] = useState<[string, CornerstoneImage][]>(() => []);
 
   const fetch = useCallback(
@@ -91,16 +85,11 @@ export function ImageStoreProvider({
     };
   }, [cache]);
 
-  return (
-    <ImageStoreContext.Provider value={{ fetch, purge }}>
-      {children}
-    </ImageStoreContext.Provider>
-  );
+  return <ImageStoreContext.Provider value={{ fetch, purge }}>{children}</ImageStoreContext.Provider>;
 }
 
 export function useImageStore(): ImageStoreState {
   return useContext(ImageStoreContext);
 }
 
-export const ImageStoreConsumer: Consumer<ImageStoreState> =
-  ImageStoreContext.Consumer;
+export const ImageStoreConsumer: Consumer<ImageStoreState> = ImageStoreContext.Consumer;

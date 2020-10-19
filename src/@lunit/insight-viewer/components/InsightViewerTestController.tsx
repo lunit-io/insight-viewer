@@ -1,18 +1,6 @@
-import {
-  CornerstoneViewerInteractions,
-  useViewerInteractions,
-} from '@lunit/insight-viewer';
+import { CornerstoneViewerInteractions, useViewerInteractions } from '@lunit/insight-viewer';
 import { Control } from '@lunit/use-opt-control';
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Slider,
-  Switch,
-  Typography,
-} from '@material-ui/core';
+import { Box, Button, FormControlLabel, Radio, RadioGroup, Slider, Switch, Typography } from '@material-ui/core';
 import React, { Fragment, ReactNode, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
@@ -56,36 +44,23 @@ export interface InsightViewerControllerState {
   updateResetTime: (value: number) => void;
 }
 
-export function InsightViewerTestController({
-  children,
-  options,
-}: InsightViewerControllerProps) {
-  const [width, setWidth] = useState<number>(() =>
-    Array.isArray(options.width) ? options.width[0] : options.width,
-  );
+export function InsightViewerTestController({ children, options }: InsightViewerControllerProps) {
+  const [width, setWidth] = useState<number>(() => (Array.isArray(options.width) ? options.width[0] : options.width));
   const [height, setHeight] = useState<number>(() =>
     Array.isArray(options.height) ? options.height[0] : options.height,
   );
   const [control, setControl] = useState<Control>(() =>
     Array.isArray(options.control) ? options.control[0] : options.control,
   );
-  const [wheel, setWheel] = useState<Wheel>(() =>
-    Array.isArray(options.wheel) ? options.wheel[0] : options.wheel,
-  );
-  const [invert, setInvert] = useState(() =>
-    Array.isArray(options.invert) ? options.invert[0] : options.invert,
-  );
-  const [flip, setFlip] = useState(() =>
-    Array.isArray(options.flip) ? options.flip[0] : options.flip,
-  );
+  const [wheel, setWheel] = useState<Wheel>(() => (Array.isArray(options.wheel) ? options.wheel[0] : options.wheel));
+  const [invert, setInvert] = useState(() => (Array.isArray(options.invert) ? options.invert[0] : options.invert));
+  const [flip, setFlip] = useState(() => (Array.isArray(options.flip) ? options.flip[0] : options.flip));
   const [resetTime, setResetTime] = useState(Date.now());
 
   const [element, setElement] = useState<HTMLElement | null>(null);
   const interactions = useViewerInteractions([control, wheel], { element });
 
-  const state: InsightViewerControllerState = useMemo<
-    InsightViewerControllerState
-  >(
+  const state: InsightViewerControllerState = useMemo<InsightViewerControllerState>(
     () => ({
       options,
       width,
@@ -107,18 +82,7 @@ export function InsightViewerTestController({
       setElement,
       interactions,
     }),
-    [
-      options,
-      width,
-      height,
-      control,
-      wheel,
-      invert,
-      flip,
-      resetTime,
-      element,
-      interactions,
-    ],
+    [options, width, height, control, wheel, invert, flip, resetTime, element, interactions],
   );
 
   return (
@@ -177,10 +141,7 @@ function Controller({
       {Array.isArray(options.control) && (
         <>
           <Typography gutterBottom>Control</Typography>
-          <RadioGroup
-            value={control}
-            onChange={(event, nextValue) => updateControl(nextValue as Control)}
-          >
+          <RadioGroup value={control} onChange={(event, nextValue) => updateControl(nextValue as Control)}>
             {options.control[1].map((value) => (
               <FormControlLabel
                 color="primary"
@@ -197,10 +158,7 @@ function Controller({
       {Array.isArray(options.wheel) && (
         <>
           <Typography gutterBottom>Wheel</Typography>
-          <RadioGroup
-            value={wheel}
-            onChange={(event, nextValue) => updateWheel(nextValue as Wheel)}
-          >
+          <RadioGroup value={wheel} onChange={(event, nextValue) => updateWheel(nextValue as Wheel)}>
             {options.wheel[1].map((value) => (
               <FormControlLabel
                 color="primary"
@@ -217,31 +175,19 @@ function Controller({
       {Array.isArray(options.invert) && (
         <>
           <Typography gutterBottom>Invert</Typography>
-          <Switch
-            checked={invert}
-            color="primary"
-            onChange={(event, nextValue) => updateInvert(nextValue)}
-          />
+          <Switch checked={invert} color="primary" onChange={(event, nextValue) => updateInvert(nextValue)} />
         </>
       )}
 
       {Array.isArray(options.flip) && (
         <>
           <Typography gutterBottom>Flip</Typography>
-          <Switch
-            checked={flip}
-            color="primary"
-            onChange={(event, nextValue) => updateFlip(nextValue)}
-          />
+          <Switch checked={flip} color="primary" onChange={(event, nextValue) => updateFlip(nextValue)} />
         </>
       )}
 
       <Typography gutterBottom>Reset</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => updateResetTime(Date.now())}
-      >
+      <Button variant="contained" color="primary" onClick={() => updateResetTime(Date.now())}>
         Reset
       </Button>
     </FloatingBox>

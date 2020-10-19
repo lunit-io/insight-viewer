@@ -10,25 +10,14 @@ export function WindowContent() {
   return value ? (
     <div>
       <div>
-        <TextField
-          value={value.a}
-          onChange={({ target }) => value.updateA(+target.value)}
-        />{' '}
-        +{' '}
-        <TextField
-          value={value.b}
-          onChange={({ target }) => value.updateB(+target.value)}
-        />{' '}
-        = <span>{value.a + value.b}</span>
+        <TextField value={value.a} onChange={({ target }) => value.updateA(+target.value)} /> +{' '}
+        <TextField value={value.b} onChange={({ target }) => value.updateB(+target.value)} /> ={' '}
+        <span>{value.a + value.b}</span>
       </div>
 
       <div style={{ marginTop: 20 }}>
         {/* Window를 닫는다 */}
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => window.close()}
-        >
+        <Button variant="contained" color="primary" onClick={() => window.close()}>
           Close Window
         </Button>
       </div>

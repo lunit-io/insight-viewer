@@ -69,16 +69,11 @@ export default () => {
 };
 
 function Viewer({ image }: { image: CornerstoneImage }) {
-  const [
-    interactionElement,
-    setInteractionElement,
-  ] = useState<HTMLElement | null>(null);
+  const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
   const interactions = useViewerInteractions(['none', 'zoom'], {
     element: interactionElement,
   });
-  const { ref: resizeRef, width = 200, height = 400 } = useResizeObserver<
-    HTMLDivElement
-  >({});
+  const { ref: resizeRef, width = 200, height = 400 } = useResizeObserver<HTMLDivElement>({});
 
   return (
     <div
@@ -90,11 +85,7 @@ function Viewer({ image }: { image: CornerstoneImage }) {
         minHeight: 0,
       }}
     >
-      <InsightViewerContainer
-        ref={setInteractionElement}
-        width={width}
-        height={height}
-      >
+      <InsightViewerContainer ref={setInteractionElement} width={width} height={height}>
         <CornerstoneViewer
           width={width}
           height={height}

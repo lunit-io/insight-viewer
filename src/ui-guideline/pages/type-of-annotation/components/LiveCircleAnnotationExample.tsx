@@ -28,22 +28,9 @@ const initialContours: Contour[] = [
   },
 ];
 
-function Example({
-  width,
-  height,
-  Viewer,
-}: {
-  width: number;
-  height: number;
-  Viewer: typeof CircleViewer;
-}) {
+function Example({ width, height, Viewer }: { width: number; height: number; Viewer: typeof CircleViewer }) {
   return (
-    <LiveAnnotationExample
-      width={width}
-      height={height}
-      initialContours={initialContours}
-      contourMode="contour"
-    >
+    <LiveAnnotationExample width={width} height={height} initialContours={initialContours} contourMode="contour">
       {({ contours, cornerstoneRenderData, focusedContour }) => {
         return (
           <>
@@ -83,13 +70,7 @@ const Viewer = styled(CircleViewer)\`
 render(<Example Viewer={Viewer} width={width} height={height} />);
 `;
 
-export function LiveCircleAnnotationExample({
-  width,
-  height,
-}: {
-  width: number;
-  height: number;
-}) {
+export function LiveCircleAnnotationExample({ width, height }: { width: number; height: number }) {
   return (
     <LiveProvider
       code={styleCode.trim()}

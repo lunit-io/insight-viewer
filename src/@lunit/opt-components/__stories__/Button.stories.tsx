@@ -1,15 +1,6 @@
 import { withInsightViewerStorybookGlobalStyle } from '@lunit/insight-viewer';
-import {
-  Button,
-  ButtonLayout,
-  withOPTComponentsStorybookGlobalStyle,
-} from '@lunit/opt-components';
-import {
-  AdjustIcon,
-  MagnifyIcon,
-  PanIcon,
-  PenIcon,
-} from '@lunit/opt-control-icons';
+import { Button, ButtonLayout, withOPTComponentsStorybookGlobalStyle } from '@lunit/opt-components';
+import { AdjustIcon, MagnifyIcon, PanIcon, PenIcon } from '@lunit/opt-control-icons';
 import { storiesOf } from '@storybook/react';
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
@@ -28,12 +19,7 @@ storiesOf('opt-components', module)
               <Button layout="left" label="PEN" icon={<PenIcon />} />
               <Button layout="left" label="PAN" icon={<PanIcon />} selected />
               <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
-              <Button
-                layout="left"
-                label="MAGNIFY"
-                icon={<MagnifyIcon />}
-                disabled
-              />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
             </ButtonLayout>
           </div>
 
@@ -64,19 +50,12 @@ storiesOf('opt-components', module)
             </ButtonLayout>
           </div>
 
-          <BlueButtonDiv
-            style={{ width: direction === 'vertical' ? 200 : 500 }}
-          >
+          <BlueButtonDiv style={{ width: direction === 'vertical' ? 200 : 500 }}>
             <ButtonLayout direction={direction}>
               <Button layout="left" label="PEN" icon={<PenIcon />} />
               <Button layout="left" label="PAN" icon={<PanIcon />} selected />
               <Button layout="left" label="ADJUST" icon={<AdjustIcon />} />
-              <Button
-                layout="left"
-                label="MAGNIFY"
-                icon={<MagnifyIcon />}
-                disabled
-              />
+              <Button layout="left" label="MAGNIFY" icon={<MagnifyIcon />} disabled />
             </ButtonLayout>
           </BlueButtonDiv>
         </Fragment>

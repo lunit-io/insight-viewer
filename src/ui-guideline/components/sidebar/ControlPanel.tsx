@@ -1,17 +1,5 @@
-import {
-  Button,
-  ButtonLayout,
-  Panel,
-  SessionPanel,
-} from '@lunit/opt-components';
-import {
-  AdjustIcon,
-  FlipIcon,
-  InvertIcon,
-  PanIcon,
-  PenIcon,
-  ResetIcon,
-} from '@lunit/opt-control-icons';
+import { Button, ButtonLayout, Panel, SessionPanel } from '@lunit/opt-components';
+import { AdjustIcon, FlipIcon, InvertIcon, PanIcon, PenIcon, ResetIcon } from '@lunit/opt-control-icons';
 import { Control } from '@lunit/use-opt-control';
 import React, { useCallback } from 'react';
 
@@ -66,9 +54,7 @@ export function ControlPanel({
           layout="center"
           icon={<AdjustIcon />}
           selected={control === 'adjust'}
-          onChange={(nextSelected) =>
-            nextSelected && onControlChanged('adjust')
-          }
+          onChange={(nextSelected) => nextSelected && onControlChanged('adjust')}
         />
         {/*<Button layout={layout}*/}
         {/*        label={expanded ? 'MAGNIFY' : undefined}*/}
@@ -114,12 +100,7 @@ export function FoldingControlPanel({
   }, [onResetControl, onReset]);
 
   return (
-    <SessionPanel
-      title="CONTROL"
-      sessionId="control"
-      disabled={disabled}
-      defaultExpanded
-    >
+    <SessionPanel title="CONTROL" sessionId="control" disabled={disabled} defaultExpanded>
       {(expanded) => {
         const direction = expanded ? 'vertical' : 'horizontal';
         const layout = expanded ? 'left' : 'center';
@@ -133,9 +114,7 @@ export function FoldingControlPanel({
                   label={expanded ? 'PEN' : undefined}
                   icon={<PenIcon />}
                   selected={control === 'pen'}
-                  onChange={(nextSelected) =>
-                    nextSelected && onControlChanged('pen')
-                  }
+                  onChange={(nextSelected) => nextSelected && onControlChanged('pen')}
                 />
               )}
               <Button
@@ -143,18 +122,14 @@ export function FoldingControlPanel({
                 label={expanded ? 'PAN' : undefined}
                 icon={<PanIcon />}
                 selected={control === 'pan'}
-                onChange={(nextSelected) =>
-                  nextSelected && onControlChanged('pan')
-                }
+                onChange={(nextSelected) => nextSelected && onControlChanged('pan')}
               />
               <Button
                 layout={layout}
                 label={expanded ? 'ADJUST' : undefined}
                 icon={<AdjustIcon />}
                 selected={control === 'adjust'}
-                onChange={(nextSelected) =>
-                  nextSelected && onControlChanged('adjust')
-                }
+                onChange={(nextSelected) => nextSelected && onControlChanged('adjust')}
               />
               {/*<Button layout={layout}*/}
               {/*        label={expanded ? 'MAGNIFY' : undefined}*/}

@@ -1,6 +1,4 @@
-import MuiTooltip, {
-  TooltipProps as MuiTooltipProps,
-} from '@material-ui/core/Tooltip';
+import MuiTooltip, { TooltipProps as MuiTooltipProps } from '@material-ui/core/Tooltip';
 import { Error, Help } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { Fragment } from 'react';

@@ -1,12 +1,5 @@
 import { KeyboardArrowDown } from '@material-ui/icons';
-import React, {
-  ComponentType,
-  CSSProperties,
-  ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
+import React, { ComponentType, CSSProperties, ReactNode, useCallback, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 export interface PanelProps {
@@ -27,12 +20,8 @@ export const panelClasses = {
   content: 'LunitPanel-content',
 } as const;
 
-function getIcon(
-  value: ReactNode | ((expanded: boolean) => ReactNode),
-  expanded: boolean | undefined,
-) {
-  const icon: ReactNode | undefined =
-    typeof value === 'function' ? value(expanded === true) : value;
+function getIcon(value: ReactNode | ((expanded: boolean) => ReactNode), expanded: boolean | undefined) {
+  const icon: ReactNode | undefined = typeof value === 'function' ? value(expanded === true) : value;
 
   if (icon) return icon;
 
@@ -59,18 +48,12 @@ export function PanelBase({
     }
   }, [expanded, onChange]);
 
-  const content =
-    typeof children === 'function' ? children(expanded === true) : children;
+  const content = typeof children === 'function' ? children(expanded === true) : children;
 
   const iconElement = getIcon(icon, expanded);
 
   return (
-    <div
-      className={className}
-      aria-expanded={expanded === true}
-      aria-disabled={disabled === true}
-      style={style}
-    >
+    <div className={className} aria-expanded={expanded === true} aria-disabled={disabled === true} style={style}>
       <div className={panelClasses.header}>
         {iconElement && (
           <span className={panelClasses.icon} onClick={expand}>
@@ -78,9 +61,7 @@ export function PanelBase({
           </span>
         )}
 
-        <span className={panelClasses.title}>
-          {typeof title === 'function' ? title(expanded === true) : title}
-        </span>
+        <span className={panelClasses.title}>{typeof title === 'function' ? title(expanded === true) : title}</span>
       </div>
 
       {content && <div className={panelClasses.content}>{content}</div>}
@@ -93,12 +74,7 @@ export interface SessionPanelProps extends Omit<PanelProps, 'expanded'> {
   defaultExpanded?: boolean;
 }
 
-export function SessionPanelBase({
-  sessionId,
-  defaultExpanded = true,
-  onChange,
-  ...props
-}: SessionPanelProps) {
+export function SessionPanelBase({ sessionId, defaultExpanded = true, onChange, ...props }: SessionPanelProps) {
   const id: string = useMemo(() => {
     return `__sidebar_panel_${sessionId}__`;
   }, [sessionId]);
@@ -106,9 +82,7 @@ export function SessionPanelBase({
   const [expanded, setExpanded] = useState<boolean>(() => {
     const sessionValue: string | null = localStorage.getItem(id);
 
-    return typeof sessionValue === 'string'
-      ? sessionValue === 'open'
-      : defaultExpanded;
+    return typeof sessionValue === 'string' ? sessionValue === 'open' : defaultExpanded;
   });
 
   const updateExpanded = useCallback(
@@ -188,13 +162,10 @@ export const panelDisabled = ({ disabled }: PanelProps) =>
 export const Panel: ComponentType<PanelProps> = styled(PanelBase)`
   ${panelDisabled}
   ${panelStyle}
-  ${({ onChange }) =>
-    typeof onChange === 'function' ? panelIconHoverStyle : ''}
+  ${({ onChange }) => (typeof onChange === 'function' ? panelIconHoverStyle : '')}
 `;
 
-export const SessionPanel: ComponentType<SessionPanelProps> = styled(
-  SessionPanelBase,
-)`
+export const SessionPanel: ComponentType<SessionPanelProps> = styled(SessionPanelBase)`
   opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
   ${panelStyle}
   ${panelIconHoverStyle}s

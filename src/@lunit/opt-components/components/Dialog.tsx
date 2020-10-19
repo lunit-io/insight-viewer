@@ -3,12 +3,7 @@ import { ComponentType } from 'react';
 import styled from 'styled-components';
 import { lighten } from '../theme/lighten';
 
-export {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@material-ui/core';
+export { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
 export const Dialog: ComponentType<DialogProps> = styled(MuiDialog)`
   && {

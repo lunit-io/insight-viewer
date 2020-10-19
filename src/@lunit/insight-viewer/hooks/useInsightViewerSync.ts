@@ -15,10 +15,7 @@ interface InsightViewerSyncProps {
 }
 
 export function useInsightViewerSync(): InsightViewerSyncProps {
-  const [
-    cornerstoneRenderData,
-    setCornerstoneRenderData,
-  ] = useState<CornerstoneRenderData | null>(null);
+  const [cornerstoneRenderData, setCornerstoneRenderData] = useState<CornerstoneRenderData | null>(null);
 
   return {
     cornerstoneRenderData,

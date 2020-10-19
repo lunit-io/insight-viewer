@@ -1,16 +1,9 @@
-import React, {
-  Component,
-  createRef,
-  CSSProperties,
-  Fragment,
-  RefObject,
-} from 'react';
+import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
 import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 
-export interface CircleViewerProps<T extends Contour>
-  extends InsightViewerGuestProps {
+export interface CircleViewerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -33,10 +26,7 @@ export interface CircleViewerProps<T extends Contour>
   border?: boolean;
 }
 
-function toLocal(
-  element: HTMLElement,
-  polygon: Point[],
-): { cx: number; cy: number; r: number } {
+function toLocal(element: HTMLElement, polygon: Point[]): { cx: number; cy: number; r: number } {
   const { x: x1, y: y1 } = cornerstone.pixelToCanvas(element, {
     x: polygon[0][0],
     y: polygon[0][1],
@@ -45,9 +35,7 @@ function toLocal(
     x: polygon[1][0],
     y: polygon[1][1],
   });
-  const r: number = Math.sqrt(
-    Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2),
-  );
+  const r: number = Math.sqrt(Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2));
 
   return {
     cx: x1,
@@ -56,10 +44,7 @@ function toLocal(
   };
 }
 
-export class CircleViewerBase<T extends Contour> extends Component<
-  CircleViewerProps<T>,
-  {}
-> {
+export class CircleViewerBase<T extends Contour> extends Component<CircleViewerProps<T>, {}> {
   static defaultProps: Pick<CircleViewerProps<Contour>, 'border'> = {
     border: true,
   };
@@ -81,13 +66,9 @@ export class CircleViewerBase<T extends Contour> extends Component<
           cornerstoneRenderData &&
           cornerstoneRenderData.element &&
           contours.map((contour) => {
-            const { cx, cy, r } = toLocal(
-              cornerstoneRenderData.element,
-              contour.polygon,
-            );
+            const { cx, cy, r } = toLocal(cornerstoneRenderData.element, contour.polygon);
             const focused: boolean = contour === focusedContour;
-            const dataAttrs: { [attr: string]: string } =
-              contour.dataAttrs || {};
+            const dataAttrs: { [attr: string]: string } = contour.dataAttrs || {};
 
             return (
               <Fragment key={'circle' + contour.id}>
@@ -102,23 +83,14 @@ export class CircleViewerBase<T extends Contour> extends Component<
                     r={r}
                   />
                 )}
-                <circle
-                  {...dataAttrs}
-                  data-id={contour.id}
-                  data-focused={focused || undefined}
-                  cx={cx}
-                  cy={cy}
-                  r={r}
-                />
+                <circle {...dataAttrs} data-id={contour.id} data-focused={focused || undefined} cx={cx} cy={cy} r={r} />
                 {this.props.border === true && (
                   <text
                     {...dataAttrs}
                     data-border="border"
                     data-id={contour.id}
                     data-focused={focused || undefined}
-                    fontSize={
-                      14 * Math.max(1, cornerstoneRenderData.viewport.scale)
-                    }
+                    fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
                     x={cx}
                     y={cy}
                   >
@@ -133,9 +105,7 @@ export class CircleViewerBase<T extends Contour> extends Component<
                   {...dataAttrs}
                   data-id={contour.id}
                   data-focused={focused || undefined}
-                  fontSize={
-                    14 * Math.max(1, cornerstoneRenderData.viewport.scale)
-                  }
+                  fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
                   x={cx}
                   y={cy}
                 >
@@ -154,9 +124,7 @@ export class CircleViewerBase<T extends Contour> extends Component<
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const CircleViewer: new <T extends Contour>() => CircleViewerBase<
-  T
-> = styled(CircleViewerBase)`
+export const CircleViewer: new <T extends Contour>() => CircleViewerBase<T> = styled(CircleViewerBase)`
   position: absolute;
   top: 0;
   left: 0;
@@ -177,28 +145,18 @@ export const CircleViewer: new <T extends Contour>() => CircleViewerBase<
     transition: stroke 120ms ease-out, stroke-width 120ms ease-out;
 
     &[data-focused] {
-      stroke-width: var(
-        --contour-viewer-focused-stroke-width,
-        var(--focused-stroke-width)
-      );
+      stroke-width: var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width));
       stroke: var(--contour-viewer-focused-color, var(--focused-color));
       fill: var(--contour-viewer-focused-fill-color, var(--focused-fill-color));
     }
 
     &[data-border] {
-      stroke-width: calc(
-        var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px
-      );
+      stroke-width: calc(var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px);
       stroke: #000000;
       fill: transparent;
 
       &[data-focused] {
-        stroke-width: calc(
-          var(
-              --contour-viewer-focused-stroke-width,
-              var(--focused-stroke-width)
-            ) + 2px
-        );
+        stroke-width: calc(var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width)) + 2px);
         stroke: #000000;
       }
     }

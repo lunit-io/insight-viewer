@@ -6,11 +6,7 @@ interface Params {
   headers?: Headers | [string, string][] | { [key: string]: string };
 }
 
-export function fetchBuffer({
-  url,
-  signal,
-  headers,
-}: Params): Observable<number | ArrayBuffer> {
+export function fetchBuffer({ url, signal, headers }: Params): Observable<number | ArrayBuffer> {
   const subject = new BehaviorSubject<number | ArrayBuffer>(0);
 
   const xhr: XMLHttpRequest = new XMLHttpRequest();

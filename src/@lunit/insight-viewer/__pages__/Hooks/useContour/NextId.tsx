@@ -20,12 +20,9 @@ const height: number = 500;
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
@@ -41,21 +38,13 @@ export default () => {
   const contour2 = useContour({ nextId });
 
   useEffect(() => {
-    const max: number = Math.max(
-      ...contour1.contours.map(({ id }) => id),
-      ...contour2.contours.map(({ id }) => id),
-      0,
-    );
+    const max: number = Math.max(...contour1.contours.map(({ id }) => id), ...contour2.contours.map(({ id }) => id), 0);
     nextId.current = max + 1;
   }, [nextId, contour1.contours, contour2.contours]);
 
   return (
     <div style={{ display: 'flex' }}>
-      <InsightViewerContainer
-        ref={setDivElement1}
-        width={width}
-        height={height}
-      >
+      <InsightViewerContainer ref={setDivElement1} width={width} height={height}>
         <CornerstoneViewer
           width={width}
           height={height}
@@ -65,17 +54,15 @@ export default () => {
           image={image}
           updateCornerstoneRenderData={sync1.updateCornerstoneRenderData}
         />
-        {contour1.contours &&
-          contour1.contours.length > 0 &&
-          sync1.cornerstoneRenderData && (
-            <ContourViewer
-              width={width}
-              height={height}
-              contours={contour1.contours}
-              focusedContour={contour1.focusedContour}
-              cornerstoneRenderData={sync1.cornerstoneRenderData}
-            />
-          )}
+        {contour1.contours && contour1.contours.length > 0 && sync1.cornerstoneRenderData && (
+          <ContourViewer
+            width={width}
+            height={height}
+            contours={contour1.contours}
+            focusedContour={contour1.focusedContour}
+            cornerstoneRenderData={sync1.cornerstoneRenderData}
+          />
+        )}
         {contour1.contours && sync1.cornerstoneRenderData && (
           <ContourDrawer
             width={width}
@@ -90,11 +77,7 @@ export default () => {
         )}
       </InsightViewerContainer>
 
-      <InsightViewerContainer
-        ref={setDivElement2}
-        width={width}
-        height={height}
-      >
+      <InsightViewerContainer ref={setDivElement2} width={width} height={height}>
         <CornerstoneViewer
           width={width}
           height={height}
@@ -104,17 +87,15 @@ export default () => {
           image={image}
           updateCornerstoneRenderData={sync2.updateCornerstoneRenderData}
         />
-        {contour2.contours &&
-          contour2.contours.length > 0 &&
-          sync2.cornerstoneRenderData && (
-            <ContourViewer
-              width={width}
-              height={height}
-              contours={contour2.contours}
-              focusedContour={contour2.focusedContour}
-              cornerstoneRenderData={sync2.cornerstoneRenderData}
-            />
-          )}
+        {contour2.contours && contour2.contours.length > 0 && sync2.cornerstoneRenderData && (
+          <ContourViewer
+            width={width}
+            height={height}
+            contours={contour2.contours}
+            focusedContour={contour2.focusedContour}
+            cornerstoneRenderData={sync2.cornerstoneRenderData}
+          />
+        )}
         {contour2.contours && sync2.cornerstoneRenderData && (
           <ContourDrawer
             width={width}

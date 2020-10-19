@@ -38,23 +38,12 @@ interface Props {
 
 const VSCODE_KEY: string = '__handbook_vscode__';
 
-const VSCodeIcon = createSvgIcon(
-  createElement(VSCodeSvg),
-  VSCodeSvg.displayName || 'VSCodeIcon',
-);
+const VSCodeIcon = createSvgIcon(createElement(VSCodeSvg), VSCodeSvg.displayName || 'VSCodeIcon');
 
-export function ExampleBase({
-  example: { module, source, filename },
-  className,
-  api,
-  style,
-  children,
-}: Props) {
+export function ExampleBase({ example: { module, source, filename }, className, api, style, children }: Props) {
   const { github, vscode } = useHandbook();
 
-  const [vscodeProject, setVSCodeProject] = useState<string>(
-    () => localStorage.getItem(VSCODE_KEY) || '',
-  );
+  const [vscodeProject, setVSCodeProject] = useState<string>(() => localStorage.getItem(VSCODE_KEY) || '');
   const [project, setProject] = useState<string>(() => vscodeProject);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -73,10 +62,7 @@ export function ExampleBase({
         })}
 
       <div>
-        <CodeBlock
-          children={filteredSource}
-          language={filename.split('.').reverse()[0] as Language}
-        />
+        <CodeBlock children={filteredSource} language={filename.split('.').reverse()[0] as Language} />
 
         <div>
           {github && (
@@ -119,11 +105,7 @@ export function ExampleBase({
             {github && (
               <>
                 First, clone the{' '}
-                <a
-                  href={`https://github.com/${github?.repo}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={`https://github.com/${github?.repo}`} target="_blank" rel="noopener noreferrer">
                   {github?.repo}
                 </a>{' '}
                 repository from Github.
@@ -133,8 +115,7 @@ export function ExampleBase({
                 Finally,{' '}
               </>
             )}
-            Write your local directory path. (e.g.{' '}
-            <code>/Users/username/Workspace/project</code>)
+            Write your local directory path. (e.g. <code>/Users/username/Workspace/project</code>)
           </Typography>
           <TextField
             label="Project Path"

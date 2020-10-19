@@ -22,14 +22,7 @@ export function isComplexPolygon(polygon: Point[]): boolean {
       // i 가 point a 가 되고, i + 1 이 point b 가 된다
       // i + 2 가 c, i + 3 이 d가 된다
       // i + 1 -> i + 2 은 i -> i + 1 과 맞닿아있어 교차될 수 없으므로 제외한다
-      if (
-        isIntersection(
-          closedPolygon[i],
-          closedPolygon[i + 1],
-          closedPolygon[n],
-          closedPolygon[n + 1],
-        )
-      ) {
+      if (isIntersection(closedPolygon[i], closedPolygon[i + 1], closedPolygon[n], closedPolygon[n + 1])) {
         return true;
       }
     }

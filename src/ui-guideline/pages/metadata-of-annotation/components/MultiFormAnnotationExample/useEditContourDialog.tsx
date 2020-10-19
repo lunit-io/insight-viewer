@@ -20,23 +20,15 @@ import {
   significants,
 } from './model';
 
-export function useEditContourDialog(): [
-  OpenDialog<{ annotation: Annotation }, AnnotationInfo | null>,
-  ReactNode,
-] {
+export function useEditContourDialog(): [OpenDialog<{ annotation: Annotation }, AnnotationInfo | null>, ReactNode] {
   return useDialog(EditContour);
 }
 
-const EditContour: DialogTemplate<
-  { annotation: Annotation },
-  AnnotationInfo | null
-> = ({ annotation, closeDialog }) => {
-  return (
-    <EditContourDialogComponent
-      annotation={annotation}
-      closeDialog={closeDialog}
-    />
-  );
+const EditContour: DialogTemplate<{ annotation: Annotation }, AnnotationInfo | null> = ({
+  annotation,
+  closeDialog,
+}) => {
+  return <EditContourDialogComponent annotation={annotation} closeDialog={closeDialog} />;
 };
 
 function EditContourDialogComponent({
@@ -46,12 +38,8 @@ function EditContourDialogComponent({
   annotation: Annotation;
   closeDialog: (result: AnnotationInfo | null) => void;
 }) {
-  const [confidenceLevel, setConfidenceLevel] = useState<number>(
-    () => annotation.confidenceLevel * 5,
-  );
-  const [significant, setSignificant] = useState<Significant>(
-    annotation.significant,
-  );
+  const [confidenceLevel, setConfidenceLevel] = useState<number>(() => annotation.confidenceLevel * 5);
+  const [significant, setSignificant] = useState<Significant>(annotation.significant);
   const [lesion, setLesion] = useState<Lesion>(annotation.lesion);
 
   return (
@@ -79,9 +67,7 @@ function EditContourDialogComponent({
           ))}
         </ButtonLayout>
 
-        <DialogContentText style={{ marginTop: 15 }}>
-          임상적 중요성이 있습니까?
-        </DialogContentText>
+        <DialogContentText style={{ marginTop: 15 }}>임상적 중요성이 있습니까?</DialogContentText>
 
         <ButtonLayout direction="vertical">
           {significants.map((v) => (
@@ -95,9 +81,7 @@ function EditContourDialogComponent({
           ))}
         </ButtonLayout>
 
-        <DialogContentText style={{ marginTop: 15 }}>
-          의심되는 질환은 무엇입니까?
-        </DialogContentText>
+        <DialogContentText style={{ marginTop: 15 }}>의심되는 질환은 무엇입니까?</DialogContentText>
 
         <ButtonLayout direction="vertical">
           {lesions.map((v) => (

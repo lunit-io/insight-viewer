@@ -1,16 +1,5 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-} from '@lunit/opt-components';
-import {
-  DialogProps,
-  DialogTemplate,
-  OpenDialog,
-  useDialog,
-} from '@lunit/use-dialog';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@lunit/opt-components';
+import { DialogProps, DialogTemplate, OpenDialog, useDialog } from '@lunit/use-dialog';
 import { Button as MuiButton, TextField } from '@material-ui/core';
 import React, { ReactNode, useCallback, useState } from 'react';
 
@@ -31,10 +20,7 @@ const FormTemplate: DialogTemplate<FormParams, FormReturn> = (props) => {
 };
 
 // 아래와 같이 useState()를 사용하는 경우엔 이렇게 한 단계 더 만들어주도록 한다.
-function FormComponent({
-  initialValue = '',
-  closeDialog,
-}: DialogProps<FormParams, FormReturn>) {
+function FormComponent({ initialValue = '', closeDialog }: DialogProps<FormParams, FormReturn>) {
   const [value, setValue] = useState<string>(() => initialValue);
 
   return (
@@ -60,20 +46,13 @@ function FormComponent({
       </DialogContent>
 
       <DialogActions>
-        <Button
-          layout="center"
-          label="Cancel"
-          style={{ width: 150 }}
-          onClick={() => closeDialog(null)}
-        />
+        <Button layout="center" label="Cancel" style={{ width: 150 }} onClick={() => closeDialog(null)} />
         <Button
           autoFocus
           layout="center"
           label="OK"
           style={{ width: 150 }}
-          disabled={
-            value.trim() === initialValue.trim() || value.trim().length === 0
-          }
+          disabled={value.trim() === initialValue.trim() || value.trim().length === 0}
           onClick={() => closeDialog({ value })}
         />
       </DialogActions>

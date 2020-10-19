@@ -1,16 +1,8 @@
 import { isTouchDevice } from '@lunit/is-touch-device';
-import React, {
-  Component,
-  createRef,
-  CSSProperties,
-  DetailedHTMLProps,
-  HTMLAttributes,
-  RefObject,
-} from 'react';
+import React, { Component, createRef, CSSProperties, DetailedHTMLProps, HTMLAttributes, RefObject } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
-export interface ScrollContainerProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface ScrollContainerProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   sessionId?: string;
 }
 
@@ -18,10 +10,7 @@ interface ScrollContainerState {}
 
 const divStyle: CSSProperties = { overflow: 'hidden' };
 
-export class ScrollContainer extends Component<
-  ScrollContainerProps,
-  ScrollContainerState
-> {
+export class ScrollContainer extends Component<ScrollContainerProps, ScrollContainerState> {
   private resizeObserver: ResizeObserver;
   private containerRef: RefObject<HTMLDivElement> = createRef();
   private startPageY: number = -1;
@@ -69,10 +58,7 @@ export class ScrollContainer extends Component<
 
     const div: HTMLDivElement | null = this.containerRef.current;
     if (!div) return;
-    div.scrollTop = Math.min(
-      Math.max(0, div.scrollTop + event.deltaY),
-      div.scrollHeight - div.offsetHeight,
-    );
+    div.scrollTop = Math.min(Math.max(0, div.scrollTop + event.deltaY), div.scrollHeight - div.offsetHeight);
   };
 
   // ---------------------------------------------
@@ -109,10 +95,7 @@ export class ScrollContainer extends Component<
 
     const dy: number = event.targetTouches[0].pageY - this.startPageY;
 
-    div.scrollTop = Math.min(
-      Math.max(0, div.scrollTop + dy),
-      div.scrollHeight - div.offsetHeight,
-    );
+    div.scrollTop = Math.min(Math.max(0, div.scrollTop + dy), div.scrollHeight - div.offsetHeight);
   };
 
   private touchEndHandler = (event: TouchEvent) => {
@@ -136,10 +119,7 @@ export class ScrollContainer extends Component<
       if (entry.target === this.containerRef.current) {
         const div: HTMLDivElement | null = this.containerRef.current;
         if (!div) return;
-        div.scrollTop = Math.min(
-          Math.max(0, div.scrollTop),
-          div.scrollHeight - div.offsetHeight,
-        );
+        div.scrollTop = Math.min(Math.max(0, div.scrollTop), div.scrollHeight - div.offsetHeight);
       }
     }
   };

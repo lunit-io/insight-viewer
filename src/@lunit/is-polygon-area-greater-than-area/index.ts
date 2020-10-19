@@ -1,7 +1,4 @@
-export function isPolygonAreaGreaterThanArea(
-  polygon: [number, number][],
-  isGreaterThanArea: number = 100,
-): boolean {
+export function isPolygonAreaGreaterThanArea(polygon: [number, number][], isGreaterThanArea: number = 100): boolean {
   // https://stackoverflow.com/questions/16285134/calculating-polygon-area
   // polygon의 면적을 계산해서 최소 면적 이상인 경우를 검증한다
 

@@ -15,9 +15,7 @@ export default () => {
       arrowDepth: 40,
     });
 
-    const context: CanvasRenderingContext2D | null = canvasRef.current.getContext(
-      '2d',
-    );
+    const context: CanvasRenderingContext2D | null = canvasRef.current.getContext('2d');
 
     if (!context) return;
 

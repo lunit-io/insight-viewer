@@ -11,9 +11,7 @@ interface ChildProps {
 export interface PanelExampleProps {
   width: number;
   height: number;
-  children: (
-    childProps: ChildProps,
-  ) => { viewer?: ReactNode; sidepanel?: ReactNode };
+  children: (childProps: ChildProps) => { viewer?: ReactNode; sidepanel?: ReactNode };
 }
 
 export function PanelExample({ width, height, children }: PanelExampleProps) {

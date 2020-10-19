@@ -24,9 +24,7 @@ import { SideBar } from '../sidebar/SideBar';
 
 installWADOImageLoader();
 
-interface ChildProps<T extends Contour>
-  extends OPTControlState,
-    ContourDrawingState<T> {
+interface ChildProps<T extends Contour> extends OPTControlState, ContourDrawingState<T> {
   cornerstoneRenderData: CornerstoneRenderData | null;
   viewerWidth: number;
   interactionElement: HTMLElement | null;
@@ -35,9 +33,7 @@ interface ChildProps<T extends Contour>
 interface AnnotationExampleProps<T extends Contour> {
   width: number;
   height: number;
-  children: (
-    childProps: ChildProps<T>,
-  ) => { viewer?: ReactNode; sidepanel?: ReactNode };
+  children: (childProps: ChildProps<T>) => { viewer?: ReactNode; sidepanel?: ReactNode };
   contourMode: 'contour' | 'point' | 'circle';
   initialContours?: Omit<T, 'id'>[];
 }
@@ -50,10 +46,7 @@ export function AnnotationExample<T extends Contour>({
   contourMode,
 }: AnnotationExampleProps<T>) {
   const image: CornerstoneImage = useMemo(
-    () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-      ),
+    () => new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`),
     [],
   );
 
@@ -61,25 +54,11 @@ export function AnnotationExample<T extends Contour>({
 
   const { resetTime, updateResetTime } = useResetTime();
 
-  const [
-    interactionElement,
-    setInteractionElement,
-  ] = useState<HTMLElement | null>(null);
+  const [interactionElement, setInteractionElement] = useState<HTMLElement | null>(null);
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
-  const {
-    control,
-    flip,
-    invert,
-    updateControl,
-    resetControl,
-    updateFlip,
-    updateInvert,
-  } = useControl({
+  const { control, flip, invert, updateControl, resetControl, updateFlip, updateInvert } = useControl({
     initialControl: 'pen',
   });
 
@@ -168,11 +147,7 @@ export function AnnotationExample<T extends Contour>({
           height,
         }}
       >
-        <InsightViewerContainer
-          ref={setInteractionElement}
-          width={viewerWidth}
-          height={height}
-        >
+        <InsightViewerContainer ref={setInteractionElement} width={viewerWidth} height={height}>
           <CornerstoneViewer
             width={viewerWidth}
             height={height}

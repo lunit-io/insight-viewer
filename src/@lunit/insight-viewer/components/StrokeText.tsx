@@ -1,12 +1,4 @@
-import React, {
-  cloneElement,
-  ReactElement,
-  SVGProps,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { cloneElement, ReactElement, SVGProps, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 export interface StrokeTextProps {
   fontFamily?: string;
@@ -24,10 +16,7 @@ export function StrokeText({
   children,
 }: StrokeTextProps) {
   const [width, setWidth] = useState<number>(100);
-  const height = useMemo<number>(() => fontSize + strokeWidth * 2, [
-    fontSize,
-    strokeWidth,
-  ]);
+  const height = useMemo<number>(() => fontSize + strokeWidth * 2, [fontSize, strokeWidth]);
   const textRef = useRef<SVGTextElement>(null);
 
   const text = useMemo(() => {
@@ -61,11 +50,7 @@ export function StrokeText({
   }, [strokeWidth, text]);
 
   return (
-    <svg
-      width={width}
-      height={height}
-      style={{ pointerEvents: 'none', userSelect: 'none', fontSize }}
-    >
+    <svg width={width} height={height} style={{ pointerEvents: 'none', userSelect: 'none', fontSize }}>
       {text}
     </svg>
   );

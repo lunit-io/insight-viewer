@@ -1,12 +1,5 @@
 import { SourceModule } from '@handbook/source';
-import React, {
-  ComponentType,
-  createElement,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ComponentType, createElement, ReactElement, ReactNode, useEffect, useState } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import slugify from 'slugify';
 import { HandbookTreeNode } from '../types';
@@ -28,9 +21,7 @@ function PageLoader({
 }
 
 function isPageContent(
-  content:
-    | HandbookTreeNode
-    | SourceModule<() => Promise<{ default: ComponentType }>>,
+  content: HandbookTreeNode | SourceModule<() => Promise<{ default: ComponentType }>>,
 ): content is SourceModule<() => Promise<{ default: ComponentType }>> {
   return 'module' in content && typeof content.module === 'function';
 }
@@ -57,10 +48,7 @@ export function List({
         const pathName: string = slugify(name, {
           lower: true,
         });
-        const content:
-          | HandbookTreeNode
-          | SourceModule<() => Promise<{ default: ComponentType }>> =
-          node[name];
+        const content: HandbookTreeNode | SourceModule<() => Promise<{ default: ComponentType }>> = node[name];
 
         if (isPageContent(content)) {
           routes.push(
@@ -70,10 +58,7 @@ export function List({
           );
           return (
             <li key={pathName}>
-              <NavLink
-                to={`${parentPath}/${pathName}`}
-                onClick={() => (document.documentElement.scrollTop = 0)}
-              >
+              <NavLink to={`${parentPath}/${pathName}`} onClick={() => (document.documentElement.scrollTop = 0)}>
                 {name}
               </NavLink>
             </li>
@@ -82,11 +67,7 @@ export function List({
           return (
             <li key={pathName}>
               {name}
-              <List
-                node={content}
-                parentPath={`${parentPath}/${pathName}`}
-                routes={routes}
-              />
+              <List node={content} parentPath={`${parentPath}/${pathName}`} routes={routes} />
             </li>
           );
         }

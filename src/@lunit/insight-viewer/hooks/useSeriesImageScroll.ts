@@ -73,12 +73,7 @@ export function useSeriesImageScroll({
     }
 
     function touchMove(event: TouchEvent) {
-      if (
-        event.targetTouches.length !== 2 ||
-        event.changedTouches.length !== 2 ||
-        !startPoint
-      )
-        return;
+      if (event.targetTouches.length !== 2 || event.changedTouches.length !== 2 || !startPoint) return;
 
       event.stopPropagation();
       event.stopImmediatePropagation();

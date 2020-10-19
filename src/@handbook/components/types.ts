@@ -2,9 +2,7 @@ import { SourceModule } from '@handbook/source';
 import { ComponentType } from 'react';
 
 export type HandbookTreeNode = {
-  [name: string]:
-    | HandbookTreeNode
-    | SourceModule<() => Promise<{ default: ComponentType }>>;
+  [name: string]: HandbookTreeNode | SourceModule<() => Promise<{ default: ComponentType }>>;
 };
 
 export interface HandbookConfig {

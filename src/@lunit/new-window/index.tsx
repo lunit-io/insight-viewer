@@ -62,9 +62,7 @@ export class NewWindow<T> extends Component<NewWindowProps<T>, {}> {
     const windowObject: Window | null = window.open(
       url,
       '_blank',
-      typeof features === 'string'
-        ? features
-        : `width=${features.width}, height=${features.height}`,
+      typeof features === 'string' ? features : `width=${features.width}, height=${features.height}`,
     );
 
     if (windowObject) {

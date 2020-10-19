@@ -4,9 +4,7 @@ import { dashStroke } from './animation/dashStroke';
 import { ContourDrawerBase } from './ContourDrawer';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const LineDrawer: new <T extends Contour>() => ContourDrawerBase<
-  T
-> = styled(ContourDrawerBase)`
+export const LineDrawer: new <T extends Contour>() => ContourDrawerBase<T> = styled(ContourDrawerBase)`
   position: absolute;
   top: 0;
   left: 0;

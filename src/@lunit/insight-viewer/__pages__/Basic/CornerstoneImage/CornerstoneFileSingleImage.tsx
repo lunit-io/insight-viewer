@@ -22,10 +22,7 @@ export default () => {
   const onDrop = useCallback((event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    if (
-      event.dataTransfer.files.length > 0 &&
-      /.dcm$/.test(event.dataTransfer.files[0].name)
-    ) {
+    if (event.dataTransfer.files.length > 0 && /.dcm$/.test(event.dataTransfer.files[0].name)) {
       setFiles(event.dataTransfer.files);
     }
   }, []);

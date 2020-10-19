@@ -2,9 +2,7 @@ import { Button as MuiButton, ButtonProps } from '@material-ui/core';
 import { ComponentType } from 'react';
 import styled from 'styled-components';
 
-export const Button: ComponentType<ButtonProps> = styled(MuiButton).attrs<
-  ButtonProps
->((props) => ({
+export const Button: ComponentType<ButtonProps> = styled(MuiButton).attrs<ButtonProps>((props) => ({
   variant: 'outlined',
   ...props,
 }))`

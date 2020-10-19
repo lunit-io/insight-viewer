@@ -23,29 +23,17 @@ const height: number = 500;
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
-  const {
-    contours,
-    focusedContour,
-    addContour,
-    removeContour,
-    focusContour,
-  } = useContour({
+  const { contours, focusedContour, addContour, removeContour, focusContour } = useContour({
     mode: 'contour',
     initialContours,
   });
@@ -97,9 +85,7 @@ export default () => {
             onMouseLeave={() => focusContour(null)}
             onClick={() => removeContour(contour)}
           >
-            {typeof contour.label === 'function'
-              ? contour.label(contour)
-              : contour.label || contour.id.toString()}
+            {typeof contour.label === 'function' ? contour.label(contour) : contour.label || contour.id.toString()}
           </Item>
         ))}
       </ul>

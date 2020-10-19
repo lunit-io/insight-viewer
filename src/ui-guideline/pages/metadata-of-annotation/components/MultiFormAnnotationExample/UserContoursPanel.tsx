@@ -1,30 +1,16 @@
-import {
-  panelClasses,
-  PanelToolbar,
-  PanelToolbarBadge,
-  SessionPanel,
-  WarningTooltip,
-} from '@lunit/opt-components';
+import { panelClasses, PanelToolbar, PanelToolbarBadge, SessionPanel, WarningTooltip } from '@lunit/opt-components';
 import { IconButton } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import {
-  Annotation,
-  AnnotationInfo,
-  LesionLabels,
-  SignificantLabels,
-} from './model';
+import { Annotation, AnnotationInfo, LesionLabels, SignificantLabels } from './model';
 import { useEditContourDialog } from './useEditContourDialog';
 
 export interface UserContoursPanelProps {
   contours: Annotation[];
   focusedContour: Annotation | null;
   onFocus: (contour: Annotation | null) => void;
-  onUpdate: (
-    contour: Annotation,
-    patch: Partial<Omit<Annotation, 'id'>>,
-  ) => void;
+  onUpdate: (contour: Annotation, patch: Partial<Omit<Annotation, 'id'>>) => void;
   onRemove: (contour: Annotation) => void;
   disabled: boolean;
 }
@@ -37,10 +23,7 @@ export function UserContoursPanel({
   onRemove,
   disabled,
 }: UserContoursPanelProps) {
-  const [
-    openEditContourDialog,
-    editContourDialogElement,
-  ] = useEditContourDialog();
+  const [openEditContourDialog, editContourDialogElement] = useEditContourDialog();
 
   const edit = useCallback(
     async (annotation: Annotation) => {
@@ -63,10 +46,7 @@ export function UserContoursPanel({
         disabled={disabled}
         icon={
           contours.length === 0 ? (
-            <WarningTooltip
-              placement="left"
-              title="Contour를 한 개 이상 그려야 합니다"
-            />
+            <WarningTooltip placement="left" title="Contour를 한 개 이상 그려야 합니다" />
           ) : undefined
         }
         defaultExpanded

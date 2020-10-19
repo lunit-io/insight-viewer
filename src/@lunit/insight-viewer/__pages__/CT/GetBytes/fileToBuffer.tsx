@@ -17,10 +17,7 @@ export default () => {
         if (typeof progressOrBytes === 'number') {
           setLog((prev) => [...prev, `[progress] ${progressOrBytes}`]);
         } else {
-          setLog((prev) => [
-            ...prev,
-            `[done] bytes: ${progressOrBytes.byteLength}`,
-          ]);
+          setLog((prev) => [...prev, `[done] bytes: ${progressOrBytes.byteLength}`]);
         }
       });
 
@@ -39,10 +36,7 @@ export default () => {
   const onDrop = useCallback((event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    if (
-      event.dataTransfer.files.length > 0 &&
-      /.npy$/.test(event.dataTransfer.files[0].name)
-    ) {
+    if (event.dataTransfer.files.length > 0 && /.npy$/.test(event.dataTransfer.files[0].name)) {
       setFiles(event.dataTransfer.files);
     }
   }, []);

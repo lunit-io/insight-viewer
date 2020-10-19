@@ -36,9 +36,7 @@ export const mapNpyBufferToImages = ({
 
         const axialImageDataLength: number = columns * rows;
         for (let i = 0; i < slices; i++) {
-          const axialImageData: Int16Array = new Int16Array(
-            axialImageDataLength,
-          );
+          const axialImageData: Int16Array = new Int16Array(axialImageDataLength);
           for (let j = 0; j < axialImageDataLength; j++) {
             axialImageData[j] = data[i * axialImageDataLength + j];
           }
@@ -70,9 +68,7 @@ export const mapNpyBufferToImages = ({
         const coronalRows: number = slices;
         const coronalColumns: number = columns;
         for (let i = 0; i < rows; i++) {
-          const coronalImageData: Int16Array = new Int16Array(
-            coronalRows * coronalColumns,
-          );
+          const coronalImageData: Int16Array = new Int16Array(coronalRows * coronalColumns);
           for (let x = 0; x < coronalColumns; x++) {
             for (let y = 0; y < coronalRows; y++) {
               // WARNING! row reversed
@@ -99,17 +95,14 @@ export const mapNpyBufferToImages = ({
             columnPixelSpacing: columnPixelSpacing,
             rowPixelSpacing: sliceSpacing,
             invert: false,
-            sizeInBytes:
-              coronalRows * coronalColumns * Int16Array.BYTES_PER_ELEMENT,
+            sizeInBytes: coronalRows * coronalColumns * Int16Array.BYTES_PER_ELEMENT,
             //@ts-ignore
             sliceSpacing: rowPixelSpacing,
           });
 
           const sagittalRows = slices;
           const sagittalColumns = rows;
-          const sagittalImageData = new Int16Array(
-            sagittalRows * sagittalColumns,
-          );
+          const sagittalImageData = new Int16Array(sagittalRows * sagittalColumns);
           for (let x = 0; x < sagittalColumns; x++) {
             for (let y = 0; y < sagittalRows; y++) {
               // WARNING! row reversed
@@ -136,8 +129,7 @@ export const mapNpyBufferToImages = ({
             columnPixelSpacing: rowPixelSpacing,
             rowPixelSpacing: sliceSpacing,
             invert: false,
-            sizeInBytes:
-              sagittalRows * sagittalColumns * Int16Array.BYTES_PER_ELEMENT,
+            sizeInBytes: sagittalRows * sagittalColumns * Int16Array.BYTES_PER_ELEMENT,
             //@ts-ignore
             sliceSpacing: columnPixelSpacing,
           });

@@ -9,12 +9,7 @@ export default () => {
       <Grid>
         {icons.map((icon, i) => {
           return (
-            <Button
-              key={'button' + i}
-              variant="contained"
-              color="primary"
-              startIcon={icon}
-            >
+            <Button key={'button' + i} variant="contained" color="primary" startIcon={icon}>
               Button
             </Button>
           );

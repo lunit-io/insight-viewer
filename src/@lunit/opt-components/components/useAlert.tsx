@@ -1,13 +1,7 @@
 import { DialogTemplate, OpenDialog, useDialog } from '@lunit/use-dialog';
 import React, { ReactNode } from 'react';
 import { Button } from './Button';
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from './Dialog';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from './Dialog';
 
 /**
  * const [openAlert, alertElement] = useAlert()
@@ -43,19 +37,11 @@ export const AlertDialogTemplate: DialogTemplate<AlertParams, void> = ({
       {title && <DialogTitle id="alert-dialog-title">{title}</DialogTitle>}
 
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {description}
-        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">{description}</DialogContentText>
       </DialogContent>
 
       <DialogActions>
-        <Button
-          autoFocus
-          layout="center"
-          label={agree}
-          style={{ width: 150 }}
-          onClick={() => closeDialog()}
-        />
+        <Button autoFocus layout="center" label={agree} style={{ width: 150 }} onClick={() => closeDialog()} />
       </DialogActions>
     </Dialog>
   );

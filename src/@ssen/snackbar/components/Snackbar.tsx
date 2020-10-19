@@ -18,11 +18,7 @@ export class SnackbarBase extends Component<SnackbarProps> {
 
   render() {
     return (
-      <div
-        className={this.props.className}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-      >
+      <div className={this.props.className} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
         {React.cloneElement(this.props.children, { onClose: this.onClose })}
       </div>
     );

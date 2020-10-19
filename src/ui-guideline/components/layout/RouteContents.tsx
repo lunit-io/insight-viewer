@@ -8,11 +8,7 @@ export function RouteContentsBase({ className }: { className?: string }) {
   return (
     <div className={className}>
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={require('../../pages/index/ko.mdx').default}
-        />
+        <Route exact path="/" component={require('../../pages/index/ko.mdx').default} />
         {routeConfig.map(({ id, component }) => (
           <Route key={id} path={`/${id}`} component={component} />
         ))}

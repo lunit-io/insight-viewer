@@ -2,13 +2,7 @@ import { PointViewer } from '@lunit/insight-viewer';
 import React from 'react';
 import { AnnotationExample } from '../../../components/examples/AnnotationExample';
 
-export function PointAnnotationExample({
-  width,
-  height,
-}: {
-  width: number;
-  height: number;
-}) {
+export function PointAnnotationExample({ width, height }: { width: number; height: number }) {
   return (
     <AnnotationExample width={width} height={height} contourMode="point">
       {({

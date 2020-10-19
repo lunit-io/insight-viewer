@@ -20,30 +20,18 @@ const height: number = 500;
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
   const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data and user drawing behaviors
-  const {
-    contours,
-    focusedContour,
-    addContour,
-    removeContour,
-    focusContour,
-  } = useContour();
+  const { contours, focusedContour, addContour, removeContour, focusContour } = useContour();
 
   return (
     <InsightViewerContainer ref={setDivElement} width={width} height={height}>

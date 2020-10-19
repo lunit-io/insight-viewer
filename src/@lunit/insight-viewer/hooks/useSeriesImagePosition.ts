@@ -9,15 +9,11 @@ interface SeriesImagePosition {
   end: number;
 }
 
-export function useSeriesImagePosition(
-  image: CornerstoneSequenceImage,
-): SeriesImagePosition {
-  const [result, setResult] = useState<{ current: number; end: number }>(
-    () => ({
-      current: image.getIndex(),
-      end: image.length() - 1,
-    }),
-  );
+export function useSeriesImagePosition(image: CornerstoneSequenceImage): SeriesImagePosition {
+  const [result, setResult] = useState<{ current: number; end: number }>(() => ({
+    current: image.getIndex(),
+    end: image.length() - 1,
+  }));
 
   useEffect(() => {
     const subscription = image.index.subscribe((current: number) => {

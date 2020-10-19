@@ -14,34 +14,25 @@ installWADOImageLoader();
 export default () => {
   const image1: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
   const image2: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000020.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000020.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
   const image3: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000030.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000030.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 

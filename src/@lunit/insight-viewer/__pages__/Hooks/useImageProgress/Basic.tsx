@@ -14,10 +14,7 @@ export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
       new CornerstoneSeriesImage(
-        series.map(
-          (p) =>
-            `wadouri:https://static.lunit.io/fixtures/dcm-files/series/${p}`,
-        ),
+        series.map((p) => `wadouri:https://static.lunit.io/fixtures/dcm-files/series/${p}`),
         { unload: unloadImage },
       ),
     [],

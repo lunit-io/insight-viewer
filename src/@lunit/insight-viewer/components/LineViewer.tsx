@@ -1,17 +1,10 @@
 import polylabel from 'polylabel';
-import React, {
-  Component,
-  createRef,
-  CSSProperties,
-  Fragment,
-  RefObject,
-} from 'react';
+import React, { Component, createRef, CSSProperties, Fragment, RefObject } from 'react';
 import styled from 'styled-components';
 import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 
-export interface LineViewerProps<T extends Contour>
-  extends InsightViewerGuestProps {
+export interface LineViewerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -41,10 +34,7 @@ function toLocal(element: HTMLElement, polygon: Point[]): Point[] {
   });
 }
 
-export class LineViewerBase<T extends Contour> extends Component<
-  LineViewerProps<T>,
-  {}
-> {
+export class LineViewerBase<T extends Contour> extends Component<LineViewerProps<T>, {}> {
   static defaultProps: Pick<LineViewerProps<Contour>, 'border'> = {
     border: true,
   };
@@ -66,14 +56,10 @@ export class LineViewerBase<T extends Contour> extends Component<
           cornerstoneRenderData &&
           cornerstoneRenderData.element &&
           contours.map((contour) => {
-            const polygon: number[][] = toLocal(
-              cornerstoneRenderData.element,
-              contour.polygon,
-            );
+            const polygon: number[][] = toLocal(cornerstoneRenderData.element, contour.polygon);
             const labelCenter: number[] = polylabel([polygon], 1);
             const focused: boolean = contour === focusedContour;
-            const dataAttrs: { [attr: string]: string } =
-              contour.dataAttrs || {};
+            const dataAttrs: { [attr: string]: string } = contour.dataAttrs || {};
 
             return (
               <Fragment key={'polygon' + contour.id}>
@@ -98,9 +84,7 @@ export class LineViewerBase<T extends Contour> extends Component<
                     data-border="border"
                     data-id={contour.id}
                     data-focused={focused || undefined}
-                    fontSize={
-                      14 * Math.max(1, cornerstoneRenderData.viewport.scale)
-                    }
+                    fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
                     x={labelCenter[0]}
                     y={labelCenter[1]}
                   >
@@ -115,9 +99,7 @@ export class LineViewerBase<T extends Contour> extends Component<
                   {...dataAttrs}
                   data-id={contour.id}
                   data-focused={focused || undefined}
-                  fontSize={
-                    14 * Math.max(1, cornerstoneRenderData.viewport.scale)
-                  }
+                  fontSize={14 * Math.max(1, cornerstoneRenderData.viewport.scale)}
                   x={labelCenter[0]}
                   y={labelCenter[1]}
                 >
@@ -136,9 +118,7 @@ export class LineViewerBase<T extends Contour> extends Component<
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const LineViewer: new <T extends Contour>() => LineViewerBase<
-  T
-> = styled(LineViewerBase)`
+export const LineViewer: new <T extends Contour>() => LineViewerBase<T> = styled(LineViewerBase)`
   position: absolute;
   top: 0;
   left: 0;
@@ -157,26 +137,16 @@ export const LineViewer: new <T extends Contour>() => LineViewerBase<
     fill: transparent;
 
     &[data-focused] {
-      stroke-width: var(
-        --contour-viewer-focused-stroke-width,
-        var(--focused-stroke-width)
-      );
+      stroke-width: var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width));
       stroke: var(--contour-viewer-focused-color, var(--focused-color));
     }
 
     &[data-border] {
-      stroke-width: calc(
-        var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px
-      );
+      stroke-width: calc(var(--contour-viewer-stroke-width, var(--stroke-width)) + 2px);
       stroke: #000000;
 
       &[data-focused] {
-        stroke-width: calc(
-          var(
-              --contour-viewer-focused-stroke-width,
-              var(--focused-stroke-width)
-            ) + 2px
-        );
+        stroke-width: calc(var(--contour-viewer-focused-stroke-width, var(--focused-stroke-width)) + 2px);
         stroke: #000000;
       }
     }

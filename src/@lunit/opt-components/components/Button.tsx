@@ -1,12 +1,7 @@
 import { ButtonBase as MuiButtonBase } from '@material-ui/core';
 import { ButtonBaseProps as MuiButtonBaseProps } from '@material-ui/core/ButtonBase';
 import CheckIcon from '@material-ui/icons/Done';
-import React, {
-  ComponentType,
-  MouseEvent,
-  ReactElement,
-  useCallback,
-} from 'react';
+import React, { ComponentType, MouseEvent, ReactElement, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 
 export interface ButtonProps extends Omit<MuiButtonBaseProps, 'onChange'> {
@@ -64,20 +59,14 @@ export function ButtonBase({
     >
       {icon && <span className={buttonClasses.icon}>{icon}</span>}
       {label && <span className={buttonClasses.label}>{label}</span>}
-      {hideCheck !== true && selected === true && (
-        <span className={buttonClasses.check}>{check}</span>
-      )}
+      {hideCheck !== true && selected === true && <span className={buttonClasses.check}>{check}</span>}
     </MuiButtonBase>
   );
 }
 
-export const IconAndLabelButton: ComponentType<ButtonProps> = styled(
-  ButtonBase,
-).attrs((props) => {
+export const IconAndLabelButton: ComponentType<ButtonProps> = styled(ButtonBase).attrs((props) => {
   if (!props.label || !props.icon) {
-    throw new Error(
-      `the props label and icon are required to <IconAndLabelButton>`,
-    );
+    throw new Error(`the props label and icon are required to <IconAndLabelButton>`);
   }
 
   if (props.layout === 'left') {

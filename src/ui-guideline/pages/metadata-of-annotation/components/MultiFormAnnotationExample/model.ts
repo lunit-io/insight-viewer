@@ -1,13 +1,7 @@
 import { Contour } from '@lunit/insight-viewer';
 
 export const significants = ['significant', 'non-significant'] as const;
-export const lesions = [
-  'none',
-  'cancer',
-  'active-tbc',
-  'pneumonia',
-  'other',
-] as const;
+export const lesions = ['none', 'cancer', 'active-tbc', 'pneumonia', 'other'] as const;
 
 export type Significant = typeof significants[number];
 export type Lesion = typeof lesions[number];

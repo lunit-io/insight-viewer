@@ -9,38 +9,19 @@ import {
 } from '@lunit/opt-components';
 import { DialogTemplate, OpenDialog, useDialog } from '@lunit/use-dialog';
 import React, { ReactNode, useState } from 'react';
-import {
-  AnnotationInfo,
-  Lesion,
-  LesionLabels,
-  lesions,
-  Significant,
-  SignificantLabels,
-  significants,
-} from './model';
+import { AnnotationInfo, Lesion, LesionLabels, lesions, Significant, SignificantLabels, significants } from './model';
 
-export function useAddContourDialog(): [
-  OpenDialog<{}, AnnotationInfo | null>,
-  ReactNode,
-] {
+export function useAddContourDialog(): [OpenDialog<{}, AnnotationInfo | null>, ReactNode] {
   return useDialog(AddContour);
 }
 
-const AddContour: DialogTemplate<{}, AnnotationInfo | null> = ({
-  closeDialog,
-}) => {
+const AddContour: DialogTemplate<{}, AnnotationInfo | null> = ({ closeDialog }) => {
   return <AddContourDialogComponent closeDialog={closeDialog} />;
 };
 
-function AddContourDialogComponent({
-  closeDialog,
-}: {
-  closeDialog: (result: AnnotationInfo | null) => void;
-}) {
+function AddContourDialogComponent({ closeDialog }: { closeDialog: (result: AnnotationInfo | null) => void }) {
   const [confidenceLevel, setConfidenceLevel] = useState<number>(0);
-  const [significant, setSignificant] = useState<Significant>(
-    'non-significant',
-  );
+  const [significant, setSignificant] = useState<Significant>('non-significant');
   const [lesion, setLesion] = useState<Lesion>('none');
 
   return (
@@ -51,9 +32,7 @@ function AddContourDialogComponent({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        Annotation에 부가 정보를 입력해주세요
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">Annotation에 부가 정보를 입력해주세요</DialogTitle>
 
       <DialogContent>
         <DialogContentText>병변의 확신을 입력하세요</DialogContentText>
@@ -70,9 +49,7 @@ function AddContourDialogComponent({
           ))}
         </ButtonLayout>
 
-        <DialogContentText style={{ marginTop: 15 }}>
-          임상적 중요성이 있습니까?
-        </DialogContentText>
+        <DialogContentText style={{ marginTop: 15 }}>임상적 중요성이 있습니까?</DialogContentText>
 
         <ButtonLayout direction="vertical">
           {significants.map((v) => (
@@ -86,9 +63,7 @@ function AddContourDialogComponent({
           ))}
         </ButtonLayout>
 
-        <DialogContentText style={{ marginTop: 15 }}>
-          의심되는 질환은 무엇입니까?
-        </DialogContentText>
+        <DialogContentText style={{ marginTop: 15 }}>의심되는 질환은 무엇입니까?</DialogContentText>
 
         <ButtonLayout direction="vertical">
           {lesions.map((v) => (

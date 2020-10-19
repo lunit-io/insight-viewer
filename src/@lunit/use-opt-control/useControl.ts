@@ -10,11 +10,7 @@ export interface ControlState {
   updateInvert: (value: boolean) => void;
   /** @deprecated use reset() */
   resetControl: () => void;
-  reset: (props?: {
-    control?: Control;
-    invert?: boolean;
-    flip?: boolean;
-  }) => void;
+  reset: (props?: { control?: Control; invert?: boolean; flip?: boolean }) => void;
 }
 
 export type OPTControlState = Omit<ControlState, 'reset'>;

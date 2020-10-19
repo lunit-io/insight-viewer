@@ -9,11 +9,7 @@ export interface ButtonLayoutProps {
   style?: CSSProperties;
 }
 
-export function ButtonLayoutBase({
-  className = '',
-  children,
-  style,
-}: ButtonLayoutProps) {
+export function ButtonLayoutBase({ className = '', children, style }: ButtonLayoutProps) {
   return (
     <div className={className} style={style}>
       {children}
@@ -43,9 +39,6 @@ const horizontalLayout = ({ gap = 2 }: ButtonLayoutProps) => css`
   }
 `;
 
-export const ButtonLayout: ComponentType<ButtonLayoutProps> = styled(
-  ButtonLayoutBase,
-)`
-  ${({ direction }) =>
-    direction === 'horizontal' ? horizontalLayout : verticalLayout};
+export const ButtonLayout: ComponentType<ButtonLayoutProps> = styled(ButtonLayoutBase)`
+  ${({ direction }) => (direction === 'horizontal' ? horizontalLayout : verticalLayout)};
 `;

@@ -7,10 +7,7 @@ export interface PanelToolbarProps {
   className?: string;
 }
 
-export function PanelToolbarBase({
-  children,
-  className = '',
-}: PanelToolbarProps) {
+export function PanelToolbarBase({ children, className = '' }: PanelToolbarProps) {
   return <div className={className}>{children}</div>;
 }
 

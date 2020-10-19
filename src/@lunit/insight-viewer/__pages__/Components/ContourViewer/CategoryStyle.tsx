@@ -30,9 +30,7 @@ const controllerOptions: InsightViewerControllerOptions = {
 
 const categoryStyle = (category: string) => {
   // focused color는 기본 color를 조금 밝게해서 사용한다
-  const focusedColor =
-    d3color(categoryColors[category])?.brighter(3).toString() ||
-    categoryColors[category];
+  const focusedColor = d3color(categoryColors[category])?.brighter(3).toString() || categoryColors[category];
 
   // data-category attribute 별로 색상을 지정해준다
   return css`
@@ -55,19 +53,13 @@ const CategoryStyleViewer = styled(ContourViewer)`
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data
   const { contours, focusedContour, focusContour } = useContour({
@@ -77,18 +69,7 @@ export default () => {
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({
-        width,
-        height,
-        invert,
-        flip,
-        control,
-        wheel,
-        resetTime,
-        interactions,
-        setElement,
-        element,
-      }) => (
+      {({ width, height, invert, flip, control, wheel, resetTime, interactions, setElement, element }) => (
         <InsightViewerContainer ref={setElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}

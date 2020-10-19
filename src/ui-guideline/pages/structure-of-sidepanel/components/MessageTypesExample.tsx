@@ -3,13 +3,7 @@ import { Help } from '@material-ui/icons';
 import React from 'react';
 import { PanelExample } from '../../../components/examples/PanelExample';
 
-export function MessageTypesExample({
-  width,
-  height,
-}: {
-  width: number;
-  height: number;
-}) {
+export function MessageTypesExample({ width, height }: { width: number; height: number }) {
   return (
     <PanelExample width={width} height={height}>
       {() => {
@@ -17,9 +11,7 @@ export function MessageTypesExample({
           sidepanel: (
             <>
               <Panel title="MESSAGE PANEL">
-                <PanelDescription>
-                  Panel 내에 이렇게 안내 메세지를 넣을 수 있습니다.
-                </PanelDescription>
+                <PanelDescription>Panel 내에 이렇게 안내 메세지를 넣을 수 있습니다.</PanelDescription>
                 <div>...</div>
               </Panel>
               <Panel title="TOOLTIP PANEL" icon={tooltip}>

@@ -3,8 +3,7 @@ import { InsightViewerGuestProps } from '../hooks/useInsightViewerSync';
 import { Contour, Point } from '../types';
 import { PointPin, PointPinProps } from './PointPin';
 
-export interface PointDrawerProps<T extends Contour>
-  extends InsightViewerGuestProps {
+export interface PointDrawerProps<T extends Contour> extends InsightViewerGuestProps {
   width: number;
   height: number;
 
@@ -42,10 +41,7 @@ function toLocal(element: HTMLElement, point: Point): { x: number; y: number } {
   return cornerstone.pixelToCanvas(element, { x: point[0], y: point[1] });
 }
 
-export class PointViewer<T extends Contour> extends Component<
-  PointDrawerProps<T>,
-  {}
-> {
+export class PointViewer<T extends Contour> extends Component<PointDrawerProps<T>, {}> {
   render() {
     return (
       <svg
@@ -76,24 +72,15 @@ export class PointViewer<T extends Contour> extends Component<
                 : this.props.pointPinComponent || PointPin;
 
             const text: string =
-              typeof label === 'function'
-                ? label(contour)
-                : typeof label === 'string'
-                ? label
-                : id.toString();
+              typeof label === 'function' ? label(contour) : typeof label === 'string' ? label : id.toString();
 
             return (
               <Pin
                 key={id}
-                {...toLocal(
-                  this.props.cornerstoneRenderData!.element,
-                  polygon[0],
-                )}
+                {...toLocal(this.props.cornerstoneRenderData!.element, polygon[0])}
                 {...dataAttrs}
                 data-id={id}
-                data-focused={
-                  contour === this.props.focusedContour || undefined
-                }
+                data-focused={contour === this.props.focusedContour || undefined}
                 label={text}
                 onEnter={() => this.onPointEnter(contour)}
                 onLeave={() => this.onPointLeave()}
@@ -112,11 +99,7 @@ export class PointViewer<T extends Contour> extends Component<
       this.props.cornerstoneRenderData.element
     ) {
       const element: HTMLElement = this.props.cornerstoneRenderData.element;
-      const { x, y } = cornerstone.pageToPixel(
-        element,
-        event.pageX,
-        event.pageY,
-      );
+      const { x, y } = cornerstone.pageToPixel(element, event.pageX, event.pageY);
       this.props.onAdd([[x, y]], event);
     }
   };

@@ -36,43 +36,20 @@ const CustomStyleDrawer = styled(ContourDrawer)`
 export default () => {
   const image: CornerstoneImage = useMemo(
     () =>
-      new CornerstoneSingleImage(
-        `wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`,
-        {
-          unload: unloadImage,
-        },
-      ),
+      new CornerstoneSingleImage(`wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm`, {
+        unload: unloadImage,
+      }),
     [],
   );
 
-  const {
-    cornerstoneRenderData,
-    updateCornerstoneRenderData,
-  } = useInsightViewerSync();
+  const { cornerstoneRenderData, updateCornerstoneRenderData } = useInsightViewerSync();
 
   // create contour data and user drawing behaviors
-  const {
-    contours,
-    focusedContour,
-    addContour,
-    removeContour,
-    focusContour,
-  } = useContour();
+  const { contours, focusedContour, addContour, removeContour, focusContour } = useContour();
 
   return (
     <InsightViewerTestController options={controllerOptions}>
-      {({
-        width,
-        height,
-        invert,
-        flip,
-        control,
-        wheel,
-        resetTime,
-        element,
-        setElement,
-        interactions,
-      }) => (
+      {({ width, height, invert, flip, control, wheel, resetTime, element, setElement, interactions }) => (
         <InsightViewerContainer ref={setElement} width={width} height={height}>
           <CornerstoneViewer
             width={width}
