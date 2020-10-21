@@ -64,7 +64,7 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
 
   get progress(): Observable<number> {
     return this._progressSubject.pipe<number>(
-      map<number[], number>(progress => progress.reduce((t, x) => t + x, 0) / progress.length),
+      map<number[], number>((progress) => progress.reduce((t, x) => t + x, 0) / progress.length),
     );
   }
 
@@ -95,7 +95,7 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
 
     cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
 
-    this._cancel.forEach(cancel => cancel());
+    this._cancel.forEach((cancel) => cancel());
 
     this._destoyed = true;
   };
@@ -155,7 +155,7 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
     try {
       this._images[index] = await this._loader.loadImage({
         imageId: imageId,
-        options: { loader: wadoImageLoaderXHRLoader(cancel => this._cancel.push(cancel)) },
+        options: { loader: wadoImageLoaderXHRLoader((cancel) => this._cancel.push(cancel)) },
       });
 
       const nextProgress: number[] = [...this._progressSubject.getValue()];
@@ -171,8 +171,7 @@ export class CornerstoneSeriesImage implements CornerstoneSequenceImage {
       }
     } catch (error) {
       if (!this._destoyed) {
-        console.warn(`It will retry loadImage(${imageId}):`, error);
-        this.loadImage(imageId, index);
+        console.error(`loadImage(${imageId}) failed:`, error);
       }
     }
   };

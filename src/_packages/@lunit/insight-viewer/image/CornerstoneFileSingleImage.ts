@@ -30,7 +30,7 @@ export class CornerstoneFileSingleImage implements CornerstoneImage {
   }
 
   get progress(): Observable<number> {
-    return this._imageSubject.pipe(map(image => (image ? 1 : 0)));
+    return this._imageSubject.pipe(map((image) => (image ? 1 : 0)));
   }
 
   destroy = () => {
@@ -52,8 +52,7 @@ export class CornerstoneFileSingleImage implements CornerstoneImage {
       }
     } catch (error) {
       if (!this._destoyed) {
-        console.warn(`It will retry loadImage(${this._imageId}):`, error);
-        this.loadImage();
+        console.error(`loadImage(${this._imageId}) failed:`, error);
       }
     }
   };

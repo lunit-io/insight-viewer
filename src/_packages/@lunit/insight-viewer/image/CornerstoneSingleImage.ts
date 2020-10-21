@@ -43,7 +43,7 @@ export class CornerstoneSingleImage implements CornerstoneImage {
 
     cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
 
-    this._cancel.forEach(cancel => cancel());
+    this._cancel.forEach((cancel) => cancel());
 
     this._destoyed = true;
   };
@@ -60,7 +60,7 @@ export class CornerstoneSingleImage implements CornerstoneImage {
     try {
       const image = await this._loader.loadImage({
         imageId,
-        options: { loader: wadoImageLoaderXHRLoader(cancel => this._cancel.push(cancel)) },
+        options: { loader: wadoImageLoaderXHRLoader((cancel) => this._cancel.push(cancel)) },
       });
 
       cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
@@ -71,8 +71,7 @@ export class CornerstoneSingleImage implements CornerstoneImage {
       }
     } catch (error) {
       if (!this._destoyed) {
-        console.warn(`It will retry loadImage(${imageId}):`, error);
-        this.loadImage(imageId);
+        console.error(`loadImage(${imageId}) failed:`, error);
       }
     }
   };

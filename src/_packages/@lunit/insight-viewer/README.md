@@ -12,6 +12,10 @@ npm install @lunit/insight-viewer@alpha
 
 # Changelog
 
+## 4.4.1
+### Fixed
+- `Cornerstone*Image`에서 `loadImage()` 실패시 무한 재시도하는 동작 제거
+
 ## 4.3.0
 ### Added
 - `<ArrowedContourViewer>` 추가
@@ -74,12 +78,12 @@ npm install @lunit/insight-viewer@alpha
 
 ### Fixed
 - Zoom 속도 보정 (`deltaY * 0.03` → `(deltaY > 0 ? 1 : -1) * 0.03`)
-- Cornerstone `loadImage()` 실패를 위한 Retry 추가 (5000ms) 
+- Cornerstone `loadImage()` 실패를 위한 Retry 추가 (5000ms)
 
 ### Breaking Changes
 - `ContourInfo` Type이 삭제됨
 - `Contour`를 사용하는 모든 `@lunit/insight-viewer` Component들이 `<T extends Contour>` 형태로 변경됨
-- `Contour` Type에 의한 문제는 JS의 경우 애초에 Type에 의한 제한이 없기 때문에 큰 문제가 없고, TS의 경우 Compile Error가 발생할 여지가 있음 
+- `Contour` Type에 의한 문제는 JS의 경우 애초에 Type에 의한 제한이 없기 때문에 큰 문제가 없고, TS의 경우 Compile Error가 발생할 여지가 있음
 - `useUserContour()` hook 의 `addContour()` arguments 가 `addContour: (polygon: Point[], contourInfo?: Omit<T, 'id' | 'polygon'>) => T | null;`로 변경됨
 - 기존 `addContour(polygon, 0, label...)`과 같이 사용하던 것을 `addContour(polygon, {label, dataAttrs...})`와 같이 변경해 줘야함
 - `addContour()`를 사용하지 않은 경우, 또는 2번째 이후의 인자를 넘기지 않는 형태로 사용한 경우 영향이 없음
@@ -107,11 +111,11 @@ npm install @lunit/insight-viewer@alpha
 
 ## 2.3.0
 ### Added
-- `Contour.dataAttrs` 속성 추가 
+- `Contour.dataAttrs` 속성 추가
 
 ## 2.2.0
 ### Fixed
-- `CornerstoneImage.destroy()`시에 모든 dcm image loading을 취소시킴 
+- `CornerstoneImage.destroy()`시에 모든 dcm image loading을 취소시킴
 
 ## 2.1.9
 ### Fixed
@@ -138,7 +142,7 @@ npm install @lunit/insight-viewer@alpha
 
 ## 2.1.1
 ### Added
-- `<UserContourViewer className="">`, `<UserContourDrawer className="">` Custom Style 
+- `<UserContourViewer className="">`, `<UserContourDrawer className="">` Custom Style
 
 ## 2.1.0
 ### Added
