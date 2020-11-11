@@ -9,8 +9,11 @@ interface Params {
   url?: string;
   imageId?: string;
 }
-
-export const wadoImageLoaderXHRLoader = (getCancel?: (cancel: () => void) => void) => (
+interface Options {
+  getCancel?: (cancel: () => void) => void;
+  beforeSend?: (xhr: XMLHttpRequest, imageId: String, headers: { [key: string]: string }, params: Params) => void;
+}
+export const wadoImageLoaderXHRLoader = (options: Options) => (
   url: string,
   imageId: string,
   headers: { [key: string]: string } = {},
@@ -23,7 +26,10 @@ export const wadoImageLoaderXHRLoader = (getCancel?: (cancel: () => void) => voi
     xhr.open('get', url, true);
     xhr.responseType = 'arraybuffer';
 
-    Object.keys(headers).forEach(key => {
+    if (typeof options.beforeSend === 'function') {
+      options.beforeSend(xhr, imageId, headers, params);
+    }
+    Object.keys(headers).forEach((key) => {
       xhr.setRequestHeader(key, headers[key]);
     });
 
@@ -40,8 +46,8 @@ export const wadoImageLoaderXHRLoader = (getCancel?: (cancel: () => void) => voi
       } catch (error) {}
     }
 
-    if (typeof getCancel === 'function') {
-      getCancel(cancel);
+    if (typeof options.getCancel === 'function') {
+      options.getCancel(cancel);
     }
 
     xhr.onreadystatechange = () => {

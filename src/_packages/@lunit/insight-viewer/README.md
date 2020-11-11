@@ -12,9 +12,13 @@ npm install @lunit/insight-viewer@alpha
 
 # Changelog
 
+## 4.5.0
+### Added
+- `CornerstoneImage`에 `headers` 옵션을 추가
+
 ## 4.4.1
 ### Fixed
-- `Cornerstone*Image`에서 `loadImage()` 실패시 무한 재시도하는 동작 제거
+- `CornerstoneImage`에서 `loadImage()` 실패시 무한 재시도하는 동작 제거
 
 ## 4.3.0
 ### Added

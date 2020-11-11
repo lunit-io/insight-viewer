@@ -8,6 +8,7 @@ interface Options {
   unload?: (imageId: string) => void;
   cancelTokenName?: string;
   loader?: ImageLoader;
+  headers?: { [key: string]: string };
 }
 
 const defaultLoader: ImageLoader = new ParallelImageLoader();
@@ -17,12 +18,14 @@ export class CornerstoneSingleImage implements CornerstoneImage {
   private readonly _progressSubject: BehaviorSubject<number>;
   private readonly _cancel: (() => void)[] = [];
   private readonly _loader: ImageLoader;
+  private readonly _headers: { [key: string]: string };
   private _destoyed: boolean = false;
 
   constructor(private readonly imageId: string, private readonly options: Options = {}) {
     this._imageSubject = new BehaviorSubject<cornerstone.Image | null>(null);
     this._progressSubject = new BehaviorSubject(0);
     this._loader = options.loader || defaultLoader;
+    this._headers = options.headers || {};
 
     cornerstone.events.addEventListener('cornerstoneimageloadprogress', this.onProgress);
     this.loadImage(imageId);
@@ -60,7 +63,17 @@ export class CornerstoneSingleImage implements CornerstoneImage {
     try {
       const image = await this._loader.loadImage({
         imageId,
-        options: { loader: wadoImageLoaderXHRLoader((cancel) => this._cancel.push(cancel)) },
+        options: {
+          loader: wadoImageLoaderXHRLoader({
+            getCancel: (cancel) => this._cancel.push(cancel),
+            beforeSend: (xhr) => {
+              const headers = this._headers;
+              Object.keys(headers).forEach(function (key: string) {
+                xhr.setRequestHeader(key, headers[key]);
+              });
+            },
+          }),
+        },
       });
 
       cornerstone.events.removeEventListener('cornerstoneimageloadprogress', this.onProgress);
