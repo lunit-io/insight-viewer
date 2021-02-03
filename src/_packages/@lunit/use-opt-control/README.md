@@ -16,7 +16,7 @@ function Component() {
 }
 ```
 
-<http://frontend-components-handbook.netlify.com/#/use-opt-control>
+<http://frontend-components.lunit.now.sh/#/use-opt-control>
 
 # Install
 

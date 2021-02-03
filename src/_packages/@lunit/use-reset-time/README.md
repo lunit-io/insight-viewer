@@ -12,7 +12,7 @@ function Component() {
 }
 ```
 
-<http://frontend-components-handbook.netlify.com/#/use-reset-time>
+<http://frontend-components.lunit.now.sh/#/use-reset-time>
 
 # Install
 

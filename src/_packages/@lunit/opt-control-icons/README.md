@@ -2,7 +2,7 @@
 
 Icons
 
-<http://frontend-components-handbook.netlify.com/#/opt-control-icons>
+<http://frontend-components.lunit.now.sh/#/opt-control-icons>
 
 # Install
 
