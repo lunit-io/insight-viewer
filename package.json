@@ -1,0 +1,9 @@
+{
+  "name": "frontend-components",
+  "version": "0.0.0",
+  "repository": "https://github.com/lunit-io/frontend-components.git",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
