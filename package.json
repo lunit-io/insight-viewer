@@ -7,6 +7,12 @@
     "packages/*",
     "apps/*"
   ],
+  "scripts": {
+    "build": "lerna run build",
+    "start": "lerna run start --stream",
+    "test": "lerna run test",
+    "test:watch": "jest --watch"
+  },
   "devDependencies": {
     "@types/eslint": "^7.2.8",
     "@types/jest": "^26.0.22",
