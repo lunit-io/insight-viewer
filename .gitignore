@@ -51,11 +51,11 @@ lerna-debug.log*
 
 # Yarn
 .yarn/*
-!.yarn/cache
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+.pnp.*
 
 # dotenv environment variables file
 .env
