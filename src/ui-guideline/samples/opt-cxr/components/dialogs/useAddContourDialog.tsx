@@ -25,13 +25,13 @@ function AddContourDialogComponent({ closeDialog }: { closeDialog: (result: Anno
 
       <DialogContent style={{ width: 270 }}>
         <ButtonLayout direction="horizontal">
-          {[1, 2, 3, 4, 5].map(v => (
+          {[1, 2, 3, 4, 5].map((v) => (
             <Button
               key={'item' + v}
               label={v.toString()}
               layout="center"
               selected={confidenceLevel === v}
-              onChange={selected => selected && setConfidenceLevel(v)}
+              onChange={(selected) => selected && setConfidenceLevel(v)}
             />
           ))}
         </ButtonLayout>

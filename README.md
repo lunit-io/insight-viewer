@@ -1,7 +1,5 @@
 # Lunit Front-End Packages
 
-[![Build Status](https://travis-ci.com/lunit-io/frontend-components.svg?branch=master)](https://travis-ci.com/lunit-io/frontend-components)
-
 # Links
 
 - [API](https://frontend-components.lunit.io/#/insight-viewer/getting-started)
@@ -13,28 +11,25 @@
 
 # Packages
 
-<!-- index src/_packages/**/README.md -->
+<!-- index src/**/README.md -->
 
-- [src/_packages/@handbook/code-block/README.md](src/_packages/@handbook/code-block/README.md)
-- [src/_packages/@handbook/source/README.md](src/_packages/@handbook/source/README.md)
-- [src/_packages/@lunit/handbook/README.md](src/_packages/@lunit/handbook/README.md)
-- [src/_packages/@lunit/heatmap/README.md](src/_packages/@lunit/heatmap/README.md)
-- [src/_packages/@lunit/insight-viewer/README.md](src/_packages/@lunit/insight-viewer/README.md)
-- [src/_packages/@lunit/is-complex-polygon/README.md](src/_packages/@lunit/is-complex-polygon/README.md)
-- [src/_packages/@lunit/is-intersection/README.md](src/_packages/@lunit/is-intersection/README.md)
-- [src/_packages/@lunit/is-polygon-area-greater-than-area/README.md](src/_packages/@lunit/is-polygon-area-greater-than-area/README.md)
-- [src/_packages/@lunit/is-touch-device/README.md](src/_packages/@lunit/is-touch-device/README.md)
-- [src/_packages/@lunit/new-window/README.md](src/_packages/@lunit/new-window/README.md)
-- [src/_packages/@lunit/opt-components/README.md](src/_packages/@lunit/opt-components/README.md)
-- [src/_packages/@lunit/opt-control-icons/README.md](src/_packages/@lunit/opt-control-icons/README.md)
-- [src/_packages/@lunit/opt-login-components/README.md](src/_packages/@lunit/opt-login-components/README.md)
-- [src/_packages/@lunit/screenshot/README.md](src/_packages/@lunit/screenshot/README.md)
-- [src/_packages/@lunit/timeout/README.md](src/_packages/@lunit/timeout/README.md)
-- [src/_packages/@lunit/use-control-log/README.md](src/_packages/@lunit/use-control-log/README.md)
-- [src/_packages/@lunit/use-dialog/README.md](src/_packages/@lunit/use-dialog/README.md)
-- [src/_packages/@lunit/use-opt-control/README.md](src/_packages/@lunit/use-opt-control/README.md)
-- [src/_packages/@lunit/use-reset-time/README.md](src/_packages/@lunit/use-reset-time/README.md)
-- [src/_packages/@lunit/use-shortcut/README.md](src/_packages/@lunit/use-shortcut/README.md)
-- [src/_packages/@ssen/snackbar/README.md](src/_packages/@ssen/snackbar/README.md)
-
-<!-- indexend -->
+- [\_packages/@lunit/new-window/README.md](src/_packages/@lunit/new-window/README.md)
+- [@lunit/handbook/README.md](src/@lunit/handbook/README.md)
+- [@lunit/heatmap/README.md](src/@lunit/heatmap/README.md)
+- [@lunit/insight-viewer/README.md](src/@lunit/insight-viewer/README.md)
+- [@lunit/is-complex-polygon/README.md](src/@lunit/is-complex-polygon/README.md)
+- [@lunit/is-intersection/README.md](src/@lunit/is-intersection/README.md)
+- [@lunit/is-polygon-area-greater-than-area/README.md](src/@lunit/is-polygon-area-greater-than-area/README.md)
+- [@lunit/is-touch-device/README.md](src/@lunit/is-touch-device/README.md)
+- [@lunit/new-window/README.md](src/@lunit/new-window/README.md)
+- [@lunit/opt-components/README.md](src/@lunit/opt-components/README.md)
+- [@lunit/opt-control-icons/README.md](src/@lunit/opt-control-icons/README.md)
+- [@lunit/opt-login-components/README.md](src/@lunit/opt-login-components/README.md)
+- [@lunit/screenshot/README.md](src/@lunit/screenshot/README.md)
+- [@lunit/timeout/README.md](src/@lunit/timeout/README.md)
+- [@lunit/use-control-log/README.md](src/@lunit/use-control-log/README.md)
+- [@lunit/use-dialog/README.md](src/@lunit/use-dialog/README.md)
+- [@lunit/use-opt-control/README.md](src/@lunit/use-opt-control/README.md)
+- [@lunit/use-reset-time/README.md](src/@lunit/use-reset-time/README.md)
+- [@lunit/use-shortcut/README.md](src/@lunit/use-shortcut/README.md)
+- [@ssen/snackbar/README.md](src/@ssen/snackbar/README.md)

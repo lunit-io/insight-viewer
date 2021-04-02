@@ -27,7 +27,7 @@ export function PointAnnotationExample({ width, height }: { width: number; heigh
                   focusedContour={focusedContour}
                   cornerstoneRenderData={cornerstoneRenderData}
                   onFocus={focusContour}
-                  onAdd={contour => addContour(contour)}
+                  onAdd={(contour) => addContour(contour)}
                   onRemove={removeContour}
                 />
               )}

@@ -3,7 +3,7 @@ import { IconButton } from '@material-ui/core';
 import { Clear, Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { ChangeEvent, CSSProperties, DetailedHTMLProps, Fragment, LiHTMLAttributes } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
 import { Annotation, CXRAnnotationCaseStatus } from '../../model/case';
 import { categorizeAnnotations, Lesion, OfLesion } from '../../model/lesion';
@@ -51,7 +51,7 @@ function Title({
       });
       return {};
     },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
@@ -76,10 +76,10 @@ function ListItem({
   annotation,
   removeContour,
   ...liProps
-}: { annotation: Annotation; removeContour: (contour: Annotation) => void } & DetailedHTMLProps<
-  LiHTMLAttributes<HTMLLIElement>,
-  HTMLLIElement
->) {
+}: {
+  annotation: Annotation;
+  removeContour: (contour: Annotation) => void;
+} & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>) {
   if (!annotation.lesion) {
     throw new Error('lesion은 null일 수 없다!');
   }
@@ -130,14 +130,14 @@ export function AnnotationsPanelBase({
             />
           </span>
         </SwitchRow>
-        {lesions.map(lesion => (
+        {lesions.map((lesion) => (
           <Fragment key={lesion.id}>
             <LesionHeader>
               <Title lesion={lesion} lesions={lesions} updateContour={onUpdate} />
             </LesionHeader>
             {annotations[lesion.id].length > 0 && (
               <List>
-                {annotations[lesion.id].map(annotation => (
+                {annotations[lesion.id].map((annotation) => (
                   <ListItem
                     key={lesion.id + ':' + annotation.id}
                     role="row"

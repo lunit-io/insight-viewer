@@ -92,7 +92,9 @@ export function LiveAnnotationExample<T extends Contour>({
     ],
   );
 
-  const interactions = useViewerInteractions(['pan', 'zoom'], { element: interactionElement });
+  const interactions = useViewerInteractions(['pan', 'zoom'], {
+    element: interactionElement,
+  });
 
   return (
     <div

@@ -1,0 +1,35 @@
+import { source } from '@handbook/source';
+import { Example } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
+
+# `<LineViewer>`
+
+`<ContourViewer>`와 유사하지만, Polygon 대신 Polyline 을 사용한다. 
+
+# API
+
+<Example example={source('@lunit/insight-viewer/components/LineViewer')} api />
+
+# Sample
+
+아래 모든 예제들은 이 Data를 사용하게 된다.
+
+<Example example={source('../../__fixtures__/line')}/>
+
+`Contour` 데이터를 넣어주면 화면에 Annotation을 그린다.
+
+<Example example={source(require('./LineViewer/Basic'))}>
+  <InsightViewerPreview height={720}/>
+</Example>
+
+# Styling
+
+CSS Variable을 통해서 색상을 변경할 수 있다.
+
+아래 File에서 `--contour-viewer-*`의 이름을 가진 항목들에 영향을 받는다.
+
+<Example example={source('../../theme/style')}/>
+
+<Example example={source(require('./LineViewer/CustomStyle'))}>
+  <InsightViewerPreview height={720}/>
+</Example>

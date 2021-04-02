@@ -56,13 +56,13 @@ function EditContourDialogComponent({
         <DialogContentText>병변의 확신을 입력하세요</DialogContentText>
 
         <ButtonLayout direction="horizontal">
-          {[1, 2, 3, 4, 5].map(v => (
+          {[1, 2, 3, 4, 5].map((v) => (
             <Button
               key={'item' + v}
               label={v.toString()}
               layout="center"
               selected={confidenceLevel === v}
-              onChange={selected => selected && setConfidenceLevel(v)}
+              onChange={(selected) => selected && setConfidenceLevel(v)}
             />
           ))}
         </ButtonLayout>
@@ -70,13 +70,13 @@ function EditContourDialogComponent({
         <DialogContentText style={{ marginTop: 15 }}>임상적 중요성이 있습니까?</DialogContentText>
 
         <ButtonLayout direction="vertical">
-          {significants.map(v => (
+          {significants.map((v) => (
             <Button
               key={v}
               label={SignificantLabels[v]}
               layout="left"
               selected={significant === v}
-              onChange={selected => selected && setSignificant(v)}
+              onChange={(selected) => selected && setSignificant(v)}
             />
           ))}
         </ButtonLayout>
@@ -84,13 +84,13 @@ function EditContourDialogComponent({
         <DialogContentText style={{ marginTop: 15 }}>의심되는 질환은 무엇입니까?</DialogContentText>
 
         <ButtonLayout direction="vertical">
-          {lesions.map(v => (
+          {lesions.map((v) => (
             <Button
               key={v}
               label={LesionLabels[v]}
               layout="left"
               selected={lesion === v}
-              onChange={selected => selected && setLesion(v)}
+              onChange={(selected) => selected && setLesion(v)}
             />
           ))}
         </ButtonLayout>

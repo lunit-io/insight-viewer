@@ -1,0 +1,12 @@
+'@handbook/*':
+  version: 0.2.0
+  tag: canary
+  module: esm
+'@lunit/*':
+  version: 5.0.0-alpha.7
+  tag: canary
+  module: esm
+'@ssen/*':
+  version: 0.2.0
+  tag: canary
+  module: esm

@@ -35,7 +35,7 @@ export function CircleAnnotationExample({ width, height }: { width: number; heig
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={contour => addContour(contour)}
+                  onAdd={(contour) => addContour(contour)}
                   onRemove={removeContour}
                   cornerstoneRenderData={cornerstoneRenderData}
                 />

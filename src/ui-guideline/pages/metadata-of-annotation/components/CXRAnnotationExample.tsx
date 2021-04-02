@@ -68,7 +68,7 @@ export function CXRAnnotationExample({ width, height }: { width: number; height:
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={async polygon => {
+                  onAdd={async (polygon) => {
                     const contour = addContour(polygon, { lesion: null });
 
                     if (!contour) return;
@@ -117,11 +117,9 @@ export function CXRAnnotationExample({ width, height }: { width: number; height:
 }
 
 const contourStyle = (lesion: string, color: string) => css`
-  [data-lesion="${lesion}"] {
+  [data-lesion='${lesion}'] {
     --contour-viewer-color: ${color};
-    --contour-viewer-focused-color: ${d3color(color)
-      ?.brighter(3)
-      .toString() || color};
+    --contour-viewer-focused-color: ${d3color(color)?.brighter(3).toString() || color};
     --contour-viewer-fill-color: ${color};
   }
 `;

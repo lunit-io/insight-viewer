@@ -27,7 +27,9 @@ export function UserContoursPanel({
 
   const edit = useCallback(
     async (annotation: Annotation) => {
-      const result: AnnotationInfo | null = await openEditContourDialog({ annotation });
+      const result: AnnotationInfo | null = await openEditContourDialog({
+        annotation,
+      });
 
       if (result) {
         onUpdate(annotation, result);

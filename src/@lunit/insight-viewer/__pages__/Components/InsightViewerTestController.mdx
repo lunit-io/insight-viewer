@@ -1,0 +1,72 @@
+import { source } from '@handbook/source';
+import { Example } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
+
+# `<InsightViewerTestController>`
+
+options의 상태를 관리해주고 이 상태들을 children인 `<CornerstoneViewer>`와 좌측 Controller panel인 `<Controller>`에게 전달한다.
+
+```ts
+function InsightViewerTestController({ children, options }: InsightViewerControllerProps) {
+  // code 생략...
+  return (
+    <Fragment>
+      {children(state)}
+      <Controller {...state} />
+    </Fragment>
+  );
+}
+```
+options의 값들은 2가지 형태가 될 수 있다.
+
+**Array 타입이 아닐경우 Controller가 비활성화 된다.**
+
+`{children(state)}`로 `<InsightViewer>`에게 state가 전달되기 때문에 정확한 default값으로 전달해야 한다. 기능을 끄는용으로 사용해서는 안된다.
+
+array의 index 마다 역할이 다르니 하단 interface선언문을 참고하자
+
+```js
+interface InsightViewerControllerProps {
+  children: (controllerState: InsightViewerControllerState) => ReactNode;
+  options: InsightViewerControllerOptions;
+}
+
+export interface InsightViewerControllerOptions {
+  /**
+  * [default, min, max]
+  * default는 사용자에게 보여줄 width와 height값, min과 max는 Controller의 최솟값과 최댓값
+  * number는 width Controller가 비활성화 된다.
+  */
+  width: [number, number, number] | number;
+  height: [number, number, number] | number;
+
+  /**
+  * Control 타입을 살펴보면,
+  * export const controls = ['none', 'pen', 'pan', 'adjust', 'magnify'] as const;
+  * export type Control = typeof controls[number];
+  *
+  * control: ['pan', ['none', 'pan', 'adjust']]
+  * [default, [사용자가 선택할 수 있는 options]]
+  * 'pan'과 'adjust'는 같이 사용할 수 없다.
+  */
+  control: [Control, Control[]] | Control;
+
+  /**
+   * type Wheel = 'none' | 'zoom' | 'scroll';
+   * wheel: ['zoom', ['none', 'zoom']]
+   * [default, [사용자가 선택할 수 있는 options]]
+   */
+  wheel: [Wheel, Wheel[]] | Wheel;
+
+  // 색상을 반전한다. [default]
+  invert: [boolean] | boolean;
+
+  // 이미지를 좌우로 뒤집는다. [default]
+  flip: [boolean] | boolean;
+}
+```
+
+
+<Example example={source(require('./InsightViewerTestController/Basic'))}>
+  <InsightViewerPreview height={720}/>
+</Example>

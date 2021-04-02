@@ -41,7 +41,7 @@ export function MultiFormAnnotationExample({ width, height }: { width: number; h
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={async polygon => {
+                  onAdd={async (polygon) => {
                     const contour = addContour(polygon, {
                       confidenceLevel: 0,
                       significant: 'non-significant',

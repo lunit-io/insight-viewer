@@ -128,7 +128,9 @@ export function AnnotationExample<T extends Contour>({
 
   const { viewer, sidepanel } = children(childProps);
 
-  const interactions = useViewerInteractions([control, 'zoom'], { element: interactionElement });
+  const interactions = useViewerInteractions([control, 'zoom'], {
+    element: interactionElement,
+  });
 
   return (
     <div

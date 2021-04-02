@@ -35,7 +35,7 @@ export function PolygonAnnotationExample({ width, height }: { width: number; hei
                   contours={contours}
                   draw={control === 'pen' && interactionElement}
                   onFocus={focusContour}
-                  onAdd={contour => addContour(contour)}
+                  onAdd={(contour) => addContour(contour)}
                   onRemove={removeContour}
                   cornerstoneRenderData={cornerstoneRenderData}
                 />

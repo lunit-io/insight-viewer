@@ -46,14 +46,14 @@ function AddAnnotationDialogComponent({ lesions, closeDialog }: Props) {
 
       <DialogContent style={{ width: 300 }}>
         <ButtonLayout direction="vertical">
-          {lesions.map(lesion => (
+          {lesions.map((lesion) => (
             <LesionButton
               key={lesion.id}
               lesion={lesion}
               layout="left"
               label={lesion.label}
               selected={selectedLesion === lesion}
-              onChange={nextSelected => nextSelected && setSelectedLesion(lesion)}
+              onChange={(nextSelected) => nextSelected && setSelectedLesion(lesion)}
             />
           ))}
         </ButtonLayout>

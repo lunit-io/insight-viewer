@@ -1,0 +1,31 @@
+import { source } from '@handbook/source';
+import { Example } from '@handbook/components';
+import { InsightViewerPreview } from '@lunit/handbook';
+
+# `<ContourDrawer>`
+
+Annotation Tool, OPT 와 같이 사용자의 Contour Drawing이 필요한 경우 사용된다.
+
+단순히 그리는 기능만 있고, 그려진 Contour 데이터들은 `<ContourViewer>`에서 처리해야 한다.
+
+# API
+
+<Example example={source('@lunit/insight-viewer/components/ContourDrawer')} api />
+
+# Sample
+
+<Example example={source(require('./ContourDrawer/Basic'))}>
+  <InsightViewerPreview height={720}/>
+</Example>
+
+# Styling
+
+CSS Variable을 통해서 색상을 변경할 수 있다.
+
+아래 File에서 `--contour-drawer-*`의 이름을 가진 항목들에 영향을 받는다.
+
+<Example example={source('../../theme/style')}/>
+
+<Example example={source(require('./ContourDrawer/CustomStyle'))}>
+  <InsightViewerPreview height={720}/>
+</Example>
