@@ -1461,6 +1461,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lunit/insight-viewer@workspace:packages/insight-viewer":
+  version: 0.0.0-use.local
+  resolution: "@lunit/insight-viewer@workspace:packages/insight-viewer"
+  languageName: unknown
+  linkType: soft
+
 "@nodelib/fs.scandir@npm:2.1.4":
   version: 2.1.4
   resolution: "@nodelib/fs.scandir@npm:2.1.4"
@@ -5635,12 +5641,6 @@ fsevents@^2.1.2:
   checksum: fa0cbd9594a04e04c5c10a806e9a86b23986acdc7d07c75afdbc03412ff03b1d201efa83d9d64929afe99a901a093bfc9ae7ab13560f8e557cb98eddbe5bf37d
   languageName: node
   linkType: hard
-
-"insight-viewer@workspace:packages/insight-viewer":
-  version: 0.0.0-use.local
-  resolution: "insight-viewer@workspace:packages/insight-viewer"
-  languageName: unknown
-  linkType: soft
 
 "internal-slot@npm:^1.0.3":
   version: 1.0.3

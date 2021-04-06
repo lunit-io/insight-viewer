@@ -1,16 +1,11 @@
 {
-  "name": "insight-viewer",
-  "version": "0.0.0",
+  "name": "@lunit/insight-viewer",
+  "version": "4.0.0",
   "description": "> TODO: description",
-  "homepage": "",
-  "license": "ISC",
-  "main": "src/index.js",
-  "directories": {
-    "lib": "src",
-    "test": "__tests__"
-  },
+  "main": "dist/index",
+  "types": "dist/index",
   "files": [
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
