@@ -15,9 +15,21 @@
     "build": "yarn run clean && yarn run compile",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "compile": "yarn run tsc -b tsconfig.build.json",
-    "test": "echo 'no test'"
+    "test": "echo 'no test'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-actions": "^6.2.3",
+    "@storybook/addon-docs": "^6.2.3",
+    "@storybook/addon-essentials": "^6.2.3",
+    "@storybook/addon-links": "^6.2.3",
+    "@storybook/react": "^6.2.3",
+    "babel-loader": "^8.2.2"
   }
 }
