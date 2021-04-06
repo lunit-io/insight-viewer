@@ -12,6 +12,9 @@
     "url": "git@github.com-work:lunit-io/frontend-components.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "yarn run clean && yarn run compile",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "compile": "yarn run tsc -b tsconfig.build.json",
+    "test": "echo 'no test'"
   }
 }

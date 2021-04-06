@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@lunit/*": ["packages/*/src"]
+    },
     "target": "es5",
     "lib": [
       "dom",
@@ -27,7 +31,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "packages/*/index.ts",
     "packages/*/src/**/*.ts",
     "packages/*/src/**/*.tsx",
     "packages/*/src/**/*.js",
@@ -35,5 +38,9 @@
     "apps/*/src/**/*.tsx",
     "apps/*/src/**/*.js"
   ],
-  "exclude": ["**/node_modules"]
+  "references": [
+    {
+      "path": "packages/insight-viewer"
+    }
+  ]
 }
