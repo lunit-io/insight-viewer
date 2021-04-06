@@ -16,5 +16,8 @@
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "compile": "yarn run tsc -b tsconfig.build.json",
     "test": "echo 'no test'"
+  },
+  "dependencies": {
+    "react": "^17.0.2"
   }
 }
