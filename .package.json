@@ -1,8 +1,0 @@
-{
-  "author": "Seoyeon Lee <seoyeon.lee@lunit.io>",
-  "repository": "lunit-io/frontend-components",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  }
-}
