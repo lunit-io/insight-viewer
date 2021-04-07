@@ -60,6 +60,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.10.0",
     "@mdx-js/react": "^1.6.18",
+    "@svgr/webpack": "^5.5.0",
     "csstype": "^3.0.3",
     "d3-color": "^2.0.0",
     "d3-ease": "^2.0.0",
