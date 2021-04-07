@@ -24,7 +24,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "react": "^17.0.2"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -35,10 +36,12 @@
     "@storybook/addon-links": "^6.2.3",
     "@storybook/react": "^6.2.3",
     "@types/jest": "^26.0.22",
+    "@types/react": "^17.0.3",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "^8.2.2",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",
+    "react-is": "^17.0.2",
     "styled-components": "^5.2.3",
     "ts-jest": "^26.5.4"
   }
