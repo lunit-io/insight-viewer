@@ -1,0 +1,6 @@
+.eslintrc.js
+next-env.d.ts
+public/
+dist/
+spec/
+*.config.js
