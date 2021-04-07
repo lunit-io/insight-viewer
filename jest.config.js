@@ -3,13 +3,12 @@ module.exports = {
   testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.test.json'
+      tsconfig: './tsconfig.test.json'
     }
   },
-  roots: [
-    '<rootDir>',
-  ],
+  roots: ['<rootDir>/src', '<rootDir>/test'],
   testMatch: [
-    "**/spec/**/*.+(ts|tsx|js|jsx)",
+    "**/*.spec.+(ts|tsx|js|jsx)",
   ],
+  projects: ['<rootDir>'],
 }
