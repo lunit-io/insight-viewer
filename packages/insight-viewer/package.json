@@ -2,10 +2,13 @@
   "name": "@lunit/insight-viewer",
   "version": "4.0.0",
   "description": "> TODO: description",
-  "main": "dist/index",
-  "types": "dist/index",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "repository": {
     "type": "git",
@@ -13,8 +16,9 @@
   },
   "scripts": {
     "build": "yarn run clean && yarn run compile",
+    "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
+    "compile": "microbundle -f esm --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-    "compile": "yarn run tsc -b tsconfig.build.json",
     "test": "echo 'no test'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
