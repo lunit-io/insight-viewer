@@ -1,0 +1,8 @@
+.vscode-test
+out
+dist
+node_modules
+.pnp.js
+storybook-static
+built-storybooks
+.storybook
