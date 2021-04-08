@@ -7,7 +7,6 @@ node_modules
 
 # testing
 coverage
-.husky
 
 # next.js
 .next
