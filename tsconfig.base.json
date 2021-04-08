@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@lunit/*": ["packages/*/src"]
+      "@lunit/*": ["packages/"]
     },
     "target": "es5",
     "lib": [
@@ -31,13 +31,10 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "packages/*/src/**/*.ts",
-    "packages/*/src/**/*.tsx",
-    "packages/*/docs/**/*.tsx",
-    "packages/*/src/**/*.js",
-    "apps/*/src/**/*.ts",
-    "apps/*/src/**/*.tsx",
-    "apps/*/src/**/*.js"
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "apps/**/*.ts",
+    "apps/**/*.tsx"
   ],
   "references": [
     {
