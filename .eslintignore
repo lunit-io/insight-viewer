@@ -1,6 +1,11 @@
 .eslintrc.js
 next-env.d.ts
-public/
-dist/
-spec/
+public
+dist
+spec
+node_modules
 *.config.js
+storybook-static
+built-storybooks
+.storybook
+.pnp.js
