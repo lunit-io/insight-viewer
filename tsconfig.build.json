@@ -9,6 +9,6 @@
     "node_modules",
     "spec",
     "dist",
-    "**/*spec.ts"
+    "test"
   ]
 }
