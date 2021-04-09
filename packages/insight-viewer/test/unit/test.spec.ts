@@ -1,4 +1,4 @@
-import Test from '../../src'
+import Test from '../../src/test'
 
 describe('Test tests', () => {
   it('Test should be equal test', () => {

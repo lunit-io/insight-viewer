@@ -1,3 +1,1 @@
-export default function test() {
-  return 'test'
-}
+export { default } from './Button'
