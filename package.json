@@ -11,7 +11,8 @@
     "build": "lerna run build",
     "start": "lerna run start --stream",
     "test": "lerna run test",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "handbook:build": ""
   },
   "devDependencies": {
     "@types/eslint": "^7.2.8",
