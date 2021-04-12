@@ -4,5 +4,14 @@
   ],
   "version": "independent",
   "npmClient": "yarn",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "stream": true,
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    },
+    "version": {
+			"message": "chore(release): Publish release %s"
+		}
+  }
 }
