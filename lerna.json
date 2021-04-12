@@ -8,7 +8,8 @@
   "stream": true,
   "command": {
     "publish": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "registry": "http://localhost:4873/"
     },
     "version": {
 			"message": "chore(release): Publish release"
