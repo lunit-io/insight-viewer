@@ -1,7 +1,7 @@
 {
   "name": "@lunit/insight-viewer",
   "version": "4.0.0",
-  "description": "> TODO: description",
+  "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -12,8 +12,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com-work:lunit-io/frontend-components.git"
+    "url": "https://github.com/lunit-io/frontend-components"
   },
+  "keywords": [
+    "dicom",
+    "dcm",
+    "cornerstone",
+    "react"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/lunit-io/frontend-components#readme",
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
