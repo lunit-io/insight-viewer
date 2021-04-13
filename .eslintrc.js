@@ -71,6 +71,16 @@ module.exports = {
         'react/prop-types': 'off',
         'react/require-default-props': 'off',
       },
-    }
+    },
+    {
+      // Turn off rule that are not necessary in Next.js
+      files: [
+        './apps/insight-viewer-demo/src/**/*.ts', 
+        './apps/insight-viewer-demo/src/**/*.tsx',
+      ],
+      rules: {
+        'react/react-in-jsx-scope': 'off',
+      },
+    },
   ]
 }
