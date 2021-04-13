@@ -1,11 +1,14 @@
 .eslintrc.js
-next-env.d.ts
 public
-dist
 spec
 node_modules
 *.config.js
 storybook-static
 built-storybooks
 .storybook
+.yarn
 .pnp.js
+**/*.d.ts
+**/.next/**
+**/_next/**
+**/dist/**
