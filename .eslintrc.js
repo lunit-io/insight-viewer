@@ -49,7 +49,6 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'tsx'] }],
     'react/jsx-props-no-spreading': 'off',
     'react/destructuring-assignment': 'off',
