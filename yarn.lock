@@ -9184,7 +9184,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:^0.3.4":
+"eslint-import-resolver-node@npm:*, eslint-import-resolver-node@npm:^0.3.4":
   version: 0.3.4
   resolution: "eslint-import-resolver-node@npm:0.3.4"
   dependencies:
@@ -10143,6 +10143,7 @@ __metadata:
     eslint: ^7.23.0
     eslint-config-airbnb: ^18.2.1
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-node: ^0.3.4
     eslint-plugin-import: ^2.22.1
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-prettier: ^3.3.1
@@ -10152,6 +10153,7 @@ __metadata:
     jest: ^26.6.3
     lerna: ^4.0.0
     lint-staged: ^10.0.8
+    node-filter-async: ^2.0.0
     prettier: ^2.2.1
     ts-jest: ^26.5.4
     typescript: ^4.2.3
@@ -14525,6 +14527,13 @@ fsevents@^1.2.7:
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
   checksum: cbb171635e538162b977eac5dfe7a1e07a9a02e991924377a6435502291e2f823d306b95aabc455caebf4a118ccf836868462bc70ccc3095af02bb9da61fda37
+  languageName: node
+  linkType: hard
+
+"node-filter-async@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "node-filter-async@npm:2.0.0"
+  checksum: c4fa69bf0833a6cee757f0e3584ba2c6bd8a6841cbed56e546edb175d7653967c7eb3316a33c0558af14e3bcd106f5a2125a0158d204291b898613f47aece61c
   languageName: node
   linkType: hard
 
