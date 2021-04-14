@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "5.0.1-alpha",
+  "version": "5.0.1-alpha.1",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -28,7 +28,8 @@
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "test": "yarn jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "doc": "yarn run build-storybook"
   },
   "dependencies": {
     "@storybook/addon-actions": "^6.2.5",
