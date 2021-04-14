@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "jsx": "react",
+    "lib": ["DOM", "ESNext"]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": []
+}

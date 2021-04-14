@@ -18,3 +18,13 @@ yarn install
 2. Search 'formatter'
 3. Configure default formatter and enable Format on Save
    ![](https://i.imgur.com/qwKZO8i.png)
+
+# Scripts
+## Build packages 
+```shell
+yarn build
+```
+## Run all your packages tests 
+```shell
+yarn test
+```

@@ -4,5 +4,5 @@ module.exports = {
     'yarn run eslint --cache',
     'yarn run prettier --write',
   ],
-  '{apps,packages}/**/*.js?(x)': ['eslint --cache', 'prettier --write'],
+  '{apps,packages}/**/*.js?(x)': ['yarn run eslint --cache', 'yarn run prettier --write'],
 }

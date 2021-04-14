@@ -4,5 +4,15 @@
   ],
   "version": "independent",
   "npmClient": "yarn",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "stream": true,
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "registry": "http://localhost:4873/"
+    },
+    "version": {
+			"message": "chore(release): Publish release"
+		}
+  }
 }

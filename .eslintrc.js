@@ -15,7 +15,8 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
-    'prettier'
+    'plugin:react/recommended',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -24,7 +25,7 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: './tsconfig.base.json',
+    project: './**/tsconfig.json',
   },
   plugins: [
     'react',
@@ -48,7 +49,6 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'tsx'] }],
     'react/jsx-props-no-spreading': 'off',
     'react/destructuring-assignment': 'off',

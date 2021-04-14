@@ -1,11 +1,8 @@
-.eslintrc.js
-next-env.d.ts
-public
+.vscode-test
+out
 dist
-spec
 node_modules
-*.config.js
+.pnp.js
 storybook-static
 built-storybooks
 .storybook
-.pnp.js
