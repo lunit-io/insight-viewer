@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
-    "doc": "yarn run build"
+    "doc": "yarn run build && yarn run export"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.0",

@@ -18,7 +18,8 @@
     "test": "lerna run test",
     "test:watch": "jest --watch",
     "handbook:build": "",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "doc": "lerna run doc"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.8",
