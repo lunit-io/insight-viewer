@@ -1,11 +1,12 @@
 {
-  "name": "insight-viewer-demo",
-  "version": "0.1.0",
+  "name": "@lunit/insight-viewer-demo",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "doc": "yarn run build"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.0",
