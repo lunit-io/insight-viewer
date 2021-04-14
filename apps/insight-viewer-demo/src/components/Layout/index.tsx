@@ -1,37 +1,38 @@
 import { ReactNode, FC } from 'react'
-import Head from 'next/head'
-import { Container, Flex, Heading, HStack } from '@chakra-ui/react'
+import { Flex, Heading, HStack, Box } from '@chakra-ui/react'
 import { Logo } from '../Logo'
+import Nav from '../Nav'
 
 type Props = {
   children?: ReactNode
   title?: string
 }
 
-export const Layout: FC<Props> = ({
-  children,
-  title = 'This is the default title',
-}) => (
+export const Layout: FC<Props> = ({ children }) => (
   <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <Container maxWidth="1200px">
+    <Flex
+      w="100%"
+      h="100%"
+      px="6"
+      justify="space-between"
+      flexDirection="column"
+    >
       <header>
-        <Flex py={4} justifyContent="space-between" alignItems="center" mb={8}>
-          <Flex justifyContent="space-between" alignItems="center">
-            <nav>
-              <HStack spacing={12}>
-                <Logo h="1.5rem" pointerEvents="none" />
-                <Heading size="lg">@lunit/insight-viewer demo</Heading>
-              </HStack>
-            </nav>
-          </Flex>
+        <Flex w="100%">
+          <Box p="4">
+            <HStack spacing={12}>
+              <Logo h="1.5rem" pointerEvents="none" />
+              <Heading size="md">@lunit/insight-viewer demo</Heading>
+            </HStack>
+          </Box>
         </Flex>
       </header>
-      {children}
-    </Container>
+      <Flex w="100%" h="100%">
+        <Nav />
+        <Box flex="1" p="12" align="flex-start">
+          {children}
+        </Box>
+      </Flex>
+    </Flex>
   </div>
 )

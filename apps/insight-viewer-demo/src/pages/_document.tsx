@@ -15,7 +15,14 @@ export default class Document extends NextDocument {
   render(): JSX.Element {
     return (
       <Html>
-        <Head />
+        <Head>
+          <title>@lunit/insight-viewer demo</title>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
