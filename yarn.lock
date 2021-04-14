@@ -3619,6 +3619,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lunit/insight-viewer-demo@workspace:apps/insight-viewer-demo":
+  version: 0.0.0-use.local
+  resolution: "@lunit/insight-viewer-demo@workspace:apps/insight-viewer-demo"
+  dependencies:
+    "@chakra-ui/react": ^1.5.0
+    "@emotion/react": ^11
+    "@emotion/styled": ^11
+    "@lunit/insight-viewer": 5.0.1-alpha
+    "@types/node": ^14.14.37
+    "@types/react": ^17.0.3
+    "@types/react-dom": ^17.0.3
+    framer-motion: ^4
+    next: 10.1.3
+    react: 17.0.2
+    react-dom: 17.0.2
+    typescript: ^4.2.4
+  languageName: unknown
+  linkType: soft
+
 "@lunit/insight-viewer@5.0.1-alpha, @lunit/insight-viewer@workspace:packages/insight-viewer":
   version: 0.0.0-use.local
   resolution: "@lunit/insight-viewer@workspace:packages/insight-viewer"
@@ -12959,25 +12978,6 @@ fsevents@^1.2.7:
   checksum: fa0cbd9594a04e04c5c10a806e9a86b23986acdc7d07c75afdbc03412ff03b1d201efa83d9d64929afe99a901a093bfc9ae7ab13560f8e557cb98eddbe5bf37d
   languageName: node
   linkType: hard
-
-"insight-viewer-demo@workspace:apps/insight-viewer-demo":
-  version: 0.0.0-use.local
-  resolution: "insight-viewer-demo@workspace:apps/insight-viewer-demo"
-  dependencies:
-    "@chakra-ui/react": ^1.5.0
-    "@emotion/react": ^11
-    "@emotion/styled": ^11
-    "@lunit/insight-viewer": 5.0.1-alpha
-    "@types/node": ^14.14.37
-    "@types/react": ^17.0.3
-    "@types/react-dom": ^17.0.3
-    framer-motion: ^4
-    next: 10.1.3
-    react: 17.0.2
-    react-dom: 17.0.2
-    typescript: ^4.2.4
-  languageName: unknown
-  linkType: soft
 
 "internal-slot@npm:^1.0.3":
   version: 1.0.3
