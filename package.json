@@ -17,7 +17,7 @@
     "dev:insight-viewer-demo": "lerna run --scope insight-viewer-demo dev",
     "test": "lerna run test",
     "test:watch": "jest --watch",
-    "handbook:build": "./doc.sh",
+    "handbook:build": "yarn run doc",
     "publish": "lerna publish",
     "doc": "lerna run doc"
   },

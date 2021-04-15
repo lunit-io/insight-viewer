@@ -28,7 +28,7 @@
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "test": "yarn jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o ../../out/handbook/src/insight-viewer",
     "doc": "yarn run build-storybook"
   },
   "dependencies": {

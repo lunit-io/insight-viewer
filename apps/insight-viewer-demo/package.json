@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next export",
+    "export": "next export -o ../../out/handbook/src/insight-viewer-demo",
     "start": "next start",
     "doc": "yarn run build && yarn run export"
   },
