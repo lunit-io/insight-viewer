@@ -1,0 +1,27 @@
+{
+  "name": "@lunit/insight-viewer-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "doc": "yarn run build"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.5.0",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@lunit/insight-viewer": "^5.0.1-alpha.1",
+    "framer-motion": "^4",
+    "next": "10.1.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "typescript": "^4.2.4"
+  }
+}

@@ -37,10 +37,5 @@
     "apps/**/*.ts",
     "apps/**/*.tsx",
     "apps/**/*.js"
-  ],
-  "references": [
-    {
-      "path": "packages/insight-viewer"
-    }
   ]
 }

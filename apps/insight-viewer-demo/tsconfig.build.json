@@ -8,8 +8,7 @@
     "rootDir": "./src",
     "baseUrl": "./src",
     "jsx": "react",
-    "lib": ["DOM", "ESNext"],
-    "composite": true
+    "lib": ["DOM", "ESNext"]
   },
   "include": [
     "src/**/*"
