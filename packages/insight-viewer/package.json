@@ -31,6 +31,9 @@
     "build-storybook": "build-storybook -o ../../out/handbook/src/insight-viewer",
     "doc": "yarn run build-storybook"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dependencies": {
     "@storybook/addon-actions": "^6.2.5",
     "react": "^17.0.2",
