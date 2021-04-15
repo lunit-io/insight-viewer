@@ -13,13 +13,11 @@
     "yarn": ">= 2.0.0"
   },
   "scripts": {
-    "build": "lerna run build",
-    "dev:insight-viewer-demo": "lerna run --scope insight-viewer-demo dev",
-    "test": "lerna run test",
-    "test:watch": "jest --watch",
+    "build": "yarn workspaces foreach -ti run build",
+    "dev:insight-viewer-demo": "yarn workspace @lunit/insight-viewer-demo run dev",
+    "test": "yarn workspaces foreach -pi run test",
     "handbook:build": "yarn run doc",
-    "publish": "lerna publish",
-    "doc": "lerna run doc"
+    "doc": "yarn workspaces foreach -ti run doc"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.8",
@@ -39,7 +37,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.2.3",
     "jest": "^26.6.3",
-    "lerna": "^4.0.0",
     "lint-staged": "^10.0.8",
     "node-filter-async": "^2.0.0",
     "prettier": "^2.2.1",
