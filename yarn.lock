@@ -3626,7 +3626,7 @@ __metadata:
     "@chakra-ui/react": ^1.5.0
     "@emotion/react": ^11
     "@emotion/styled": ^11
-    "@lunit/insight-viewer": "workspace:packages/insight-viewer"
+    "@lunit/insight-viewer": 5.0.1-alpha.1
     "@types/node": ^14.14.37
     "@types/react": ^17.0.3
     "@types/react-dom": ^17.0.3
@@ -3639,7 +3639,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@lunit/insight-viewer@workspace:packages/insight-viewer":
+"@lunit/insight-viewer@5.0.1-alpha.1, @lunit/insight-viewer@workspace:packages/insight-viewer":
   version: 0.0.0-use.local
   resolution: "@lunit/insight-viewer@workspace:packages/insight-viewer"
   dependencies:
