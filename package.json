@@ -13,11 +13,12 @@
     "yarn": ">= 2.0.0"
   },
   "scripts": {
-    "build": "yarn workspaces foreach -ti run build",
     "dev:insight-viewer-demo": "yarn workspace @lunit/insight-viewer-demo run dev",
+    "build": "yarn workspaces foreach -ti run build",
+    "build:insight-viewer": "yarn workspace @lunit/insight-viewer run build",
     "test": "yarn workspaces foreach -pi run test",
     "handbook:build": "yarn run doc",
-    "doc": "yarn workspaces foreach -ti run doc"
+    "doc": "yarn run build:insight-viewer && yarn workspaces foreach -pi run doc"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.8",
@@ -40,6 +41,7 @@
     "lint-staged": "^10.0.8",
     "node-filter-async": "^2.0.0",
     "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.4",
     "typescript": "^4.2.3"
   },
