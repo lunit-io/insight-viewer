@@ -24,7 +24,7 @@
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
-    "compile": "microbundle -f esm --jsx React.createElement --tsconfig tsconfig.build.json",
+    "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "clean:storybook": "rm -rf ../../out/handbook/src/insight-viewer",
     "test": "yarn jest",

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import InsightViewer from '@lunit/insight-viewer'
 import consola from 'consola'
 import { WithoutProp } from '../types'
