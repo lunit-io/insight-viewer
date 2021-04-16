@@ -9,8 +9,7 @@
   ],
   "engines": {
     "node": ">=14.0.0",
-    "npm": ">=6.0.0",
-    "yarn": ">= 2.0.0"
+    "npm": ">=6.0.0"
   },
   "scripts": {
     "dev:insight-viewer-demo": "yarn workspace @lunit/insight-viewer-demo run dev",
