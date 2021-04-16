@@ -17,7 +17,7 @@
     "build:insight-viewer": "lerna run --scope @lunit/insight-viewer build",
     "test": "lerna run test",
     "handbook:build": "yarn run doc",
-    "doc": "yarn run build:insight-viewer && lerna run doc",
+    "doc": "yarn run build:insight-viewer && lerna run clean:doc && lerna run doc",
     "publish": "lerna publish"
   },
   "devDependencies": {
