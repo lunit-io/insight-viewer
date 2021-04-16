@@ -25,16 +25,12 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: './**/tsconfig.json',
+    project: './tsconfig.base.json',
   },
-  plugins: [
-    'react',
-    'react-hooks',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', 'react-hooks', '@typescript-eslint'],
   settings: {
     react: {
-      "version": "17.0.2",
+      version: '17.0.2',
     },
   },
   rules: {
@@ -75,12 +71,12 @@ module.exports = {
     {
       // Turn off rule that are not necessary in Next.js
       files: [
-        './apps/insight-viewer-demo/src/**/*.ts', 
+        './apps/insight-viewer-demo/src/**/*.ts',
         './apps/insight-viewer-demo/src/**/*.tsx',
       ],
       rules: {
         'react/react-in-jsx-scope': 'off',
       },
     },
-  ]
+  ],
 }
