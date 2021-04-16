@@ -12,9 +12,9 @@
     "npm": ">=6.0.0"
   },
   "scripts": {
-    "dev:insight-viewer-demo": "lerna run --scope insight-viewer-demo dev",
+    "dev:insight-viewer-demo": "lerna run --scope @lunit/insight-viewer-demo dev",
     "build": "lerna run build",
-    "build:insight-viewer": "lerna run --scope insight-viewer build",
+    "build:insight-viewer": "lerna run --scope @lunit/insight-viewer build",
     "test": "lerna run test",
     "handbook:build": "yarn run doc",
     "doc": "yarn run build:insight-viewer && lerna run doc",
