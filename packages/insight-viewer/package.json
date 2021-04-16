@@ -26,10 +26,11 @@
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
     "compile": "microbundle -f esm --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "clean:storybook": "rm -rf ../../out/handbook/src/insight-viewer",
     "test": "yarn jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ../../out/handbook/src/insight-viewer --quiet",
-    "doc": "yarn run build-storybook"
+    "doc": "yarn run clean:storybook && yarn run build-storybook"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
