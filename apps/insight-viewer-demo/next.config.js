@@ -7,6 +7,7 @@ module.exports = {
   ) {
     return {
       '/': { page: '/' },
+      '/basic': { page: '/basic' },
     }
   },
 }
