@@ -2,6 +2,7 @@ import { ReactNode, FC } from 'react'
 import { Flex, Heading, HStack, Box } from '@chakra-ui/react'
 import { Logo } from '../Logo'
 import Nav from '../Nav'
+import { NextChakraLink } from '../NextChakraLink'
 
 type Props = {
   children?: ReactNode
@@ -21,7 +22,9 @@ export const Layout: FC<Props> = ({ children }) => (
         <Flex w="100%">
           <Box p="4">
             <HStack spacing={12}>
-              <Logo h="1.5rem" pointerEvents="none" />
+              <NextChakraLink href="/">
+                <Logo h="1.5rem" pointerEvents="none" />
+              </NextChakraLink>
               <Heading size="md">@lunit/insight-viewer demo</Heading>
             </HStack>
           </Box>
