@@ -1,5 +1,4 @@
-import { ChakraProvider, localStorageManager } from '@chakra-ui/react'
-import { GetServerSidePropsContext } from 'next'
+import { ChakraProvider } from '@chakra-ui/react'
 import { ReactNode, FC } from 'react'
 
 interface ChakraProps {
@@ -8,19 +7,5 @@ interface ChakraProps {
 }
 
 export const Chakra: FC<ChakraProps> = ({ children }) => (
-  <ChakraProvider colorModeManager={localStorageManager}>
-    {children}
-  </ChakraProvider>
+  <ChakraProvider>{children}</ChakraProvider>
 )
-
-export type ServerSideProps<T> = { props: T } | Promise<{ props: T }>
-
-export function getServerSideProps({
-  req,
-}: GetServerSidePropsContext): ServerSideProps<{ cookies?: string }> {
-  return {
-    props: {
-      cookies: req.headers.cookie ?? '',
-    },
-  }
-}

@@ -3,21 +3,26 @@
   "version": "1.0.0",
   "repository": "https://github.com/lunit-io/frontend-components.git",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "apps/*"
+    ],
+    "nohoist": [
+      "**/insight-viewer-demo"
+    ]
+  },
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0",
-    "yarn": ">= 2.0.0"
+    "node": ">=12.0.0",
+    "npm": ">=6.0.0"
   },
   "scripts": {
+    "dev:insight-viewer-demo": "lerna run --scope @lunit/insight-viewer-demo dev",
     "build": "lerna run build",
-    "dev:insight-viewer-demo": "lerna run --scope insight-viewer-demo dev",
+    "build:insight-viewer": "lerna run --scope @lunit/insight-viewer build",
     "test": "lerna run test",
-    "test:watch": "jest --watch",
-    "handbook:build": "",
+    "handbook:build": "yarn run doc",
+    "doc": "yarn run build:insight-viewer && lerna run clean:doc && lerna run doc",
     "publish": "lerna publish"
   },
   "devDependencies": {
@@ -38,10 +43,11 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.2.3",
     "jest": "^26.6.3",
-    "lerna": "^4.0.0",
+    "lerna": "4.0.0",
     "lint-staged": "^10.0.8",
     "node-filter-async": "^2.0.0",
     "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.4",
     "typescript": "^4.2.3"
   },
