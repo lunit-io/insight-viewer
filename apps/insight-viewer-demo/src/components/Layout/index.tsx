@@ -26,7 +26,9 @@ export const Layout: FC<Props> = ({ children }) => (
               <NextChakraLink href={`${config.HOST}`}>
                 <Logo h="1.5rem" pointerEvents="none" />
               </NextChakraLink>
-              <Heading size="md">@lunit/insight-viewer demo</Heading>
+              <Heading as="h1" size="md">
+                @lunit/insight-viewer demo
+              </Heading>
             </HStack>
           </Box>
         </Flex>
