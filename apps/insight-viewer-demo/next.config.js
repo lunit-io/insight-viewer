@@ -1,5 +1,6 @@
 module.exports = {
-  assetPrefix: './',
+  assetPrefix: process.env.HOST,
+  trailingSlash: true,
   productionBrowserSourceMaps: true,
   exportPathMap: async function (
     defaultPathMap,
@@ -7,6 +8,10 @@ module.exports = {
   ) {
     return {
       '/': { page: '/' },
+      '/basic': { page: '/basic' },
     }
+  },
+  env: {
+    HOST: process.env.HOST,
   },
 }

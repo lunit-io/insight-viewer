@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithoutProp } from '../../types'
+import config from '../../../config'
 
 const Nav: WithoutProp = () => (
   <>
@@ -23,11 +24,10 @@ const Nav: WithoutProp = () => (
       flexShrink={0}
       display={{ base: 'none', md: 'block' }}
     >
-      <NextChakraLink href="/basic" color="cyan.600">
+      <NextChakraLink href={`${config.HOST}/basic`} color="cyan.600">
         - Basic
       </NextChakraLink>
     </Box>
   </>
 )
-
 export default Nav
