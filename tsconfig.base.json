@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@lunit/*": ["packages/"]
+      "@lunit/*": ["packages/*/src"]
     },
     "target": "es5",
     "lib": [
