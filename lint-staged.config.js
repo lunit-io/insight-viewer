@@ -17,7 +17,7 @@ module.exports = {
     return [
       'yarn run tsc --p tsconfig.lint-staged.json',
       `yarn run eslint --max-warnings=0 --cache ${filesToLint}`,
-      `yarn run prettier --write`,
+      `yarn run prettier --write "**/*.ts?(x)"`,
     ]
   },
   '{apps,packages}/**/*.js?(x)': ['yarn run eslint --cache', 'yarn run prettier --write'],
