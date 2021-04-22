@@ -5,13 +5,14 @@
     "target": "ESNext",
     "module": "ESNext",
     "outDir": "./dist",
-    "rootDir": "./src",
     "baseUrl": "./src",
     "jsx": "react",
     "lib": ["DOM", "ESNext"]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "references": []
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../../packages/insight-viewer/tsconfig.build.json"
+    }
+  ]
 }

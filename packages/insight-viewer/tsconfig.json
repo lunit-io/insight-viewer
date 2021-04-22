@@ -1,7 +1,3 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "typeRoots": ["./@types"]
-  }
+  "extends": "../../tsconfig.base.json"
 }
