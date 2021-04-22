@@ -1,11 +1,35 @@
+import React, { forwardRef, ForwardRefRenderFunction } from 'react'
 import styled from 'styled-components'
+import { WithChildren, WidthHeight } from '../../types'
 
-const Wrapper = styled.div`
+export type Prop = WithChildren<
+  WidthHeight & {
+    ref?: React.RefObject<HTMLDivElement>
+  }
+>
+
+function getSize(size: number | '100%'): string {
+  if (typeof size === 'number') return `${size}px`
+  return size
+}
+
+const StyledWrapper = styled.div<WidthHeight>`
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: ${props => getSize(props.width)};
+  height: ${props => getSize(props.height)};
   background-color: #000;
   user-select: none;
 `
 
-export default Wrapper
+const Wrapper: ForwardRefRenderFunction<HTMLDivElement, Prop> = (
+  { width = '100%', height = '100%', children },
+  ref
+) => (
+  <StyledWrapper ref={ref} width={width} height={height}>
+    {children}
+  </StyledWrapper>
+)
+
+const Forwarded = forwardRef(Wrapper)
+
+export default Forwarded

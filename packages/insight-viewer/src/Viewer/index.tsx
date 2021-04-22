@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Wrapper from '../components/Wrapper'
-import { WithChildren } from '../types'
+import { WithChildren, WidthHeight } from '../types'
+import { init, loadImage } from '../modules/cornerstoneHelper'
 
-const DEFAULT_SIZE = '100%'
-
-export type Prop = WithChildren<{
-  size?:
-    | { width: number; height: number }
-    | { width: typeof DEFAULT_SIZE; height: typeof DEFAULT_SIZE }
+type Prop = WithChildren<{
+  imageId?: string
+  size?: WidthHeight
 }>
 
 export default function Viewer({
-  size: { width, height } = { width: DEFAULT_SIZE, height: DEFAULT_SIZE },
+  imageId,
+  size: { width, height } = { width: '100%', height: '100%' },
 }: Prop): JSX.Element {
-  return (
-    <Wrapper>
-      <canvas width={width} height={height} />
-    </Wrapper>
-  )
+  const elRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!imageId) return undefined
+    if (!elRef || !elRef.current) return undefined
+
+    init(elRef.current)
+    loadImage(elRef.current, imageId)
+    return () => {}
+  }, [imageId])
+
+  return <Wrapper width={width} height={height} ref={elRef} />
 }
