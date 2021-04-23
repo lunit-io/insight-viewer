@@ -17,7 +17,7 @@ export default function Viewer({
   useEffect(() => {
     if (!imageId) return undefined
     if (!elRef || !elRef.current) return undefined
-    const element = { ...elRef.current }
+    const element = elRef.current
 
     init(elRef.current)
     loadImage(elRef.current, imageId)
