@@ -1,31 +1,20 @@
 import React, { forwardRef, ForwardRefRenderFunction } from 'react'
 import styled from 'styled-components'
-import { WithChildren, WidthHeight } from '../../types'
+import { WithChildren } from '../../types'
 
-export type Prop = WithChildren<
-  WidthHeight & {
-    ref?: React.RefObject<HTMLDivElement>
-  }
->
-
-function getSize(size: number | '100%'): string {
-  if (typeof size === 'number') return `${size}px`
-  return size
-}
-
-const StyledWrapper = styled.div<WidthHeight>`
+const StyledWrapper = styled.div`
   position: relative;
-  width: ${props => getSize(props.width)};
-  height: ${props => getSize(props.height)};
+  width: 100%;
+  height: 100%;
   background-color: #000;
   user-select: none;
 `
 
-const Wrapper: ForwardRefRenderFunction<HTMLDivElement, Prop> = (
-  { width = '100%', height = '100%', children },
+const Wrapper: ForwardRefRenderFunction<HTMLDivElement, WithChildren> = (
+  { children },
   ref
 ) => (
-  <StyledWrapper ref={ref} width={width} height={height}>
+  <StyledWrapper ref={ref}>
     <canvas className="cornerstone-canvas" width="100%" height="100%" />
     {children}
   </StyledWrapper>

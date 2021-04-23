@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import Wrapper from '../components/Wrapper'
-import { WithChildren, WidthHeight } from '../types'
+import { WithChildren } from '../types'
 import { init, dispose, loadImage } from '../modules/cornerstoneHelper'
 
 type Prop = WithChildren<{
   imageId?: string
-  size?: WidthHeight
 }>
 
-export default function Viewer({
-  imageId,
-  size: { width, height } = { width: '100%', height: '100%' },
-}: Prop): JSX.Element {
+export default function Viewer({ imageId }: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -26,5 +22,5 @@ export default function Viewer({
     }
   }, [imageId])
 
-  return <Wrapper width={width} height={height} ref={elRef} />
+  return <Wrapper ref={elRef} />
 }
