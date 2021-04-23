@@ -1,0 +1,32 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks'
+import Viewer, { Prop } from '../src/Viewer'
+
+<Meta title="Viewer" component={Viewer} />
+
+# Default Viewer
+
+export const Template = args => <Viewer {...args} />
+
+export const WADO_URL =
+  'wadouri:https://raw.githubusercontent.com/cornerstonejs/cornerstoneWADOImageLoader/master/testImages/CT2_J2KR'
+
+export const WEB_URL =
+  'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
+
+<Preview>
+  <Story name="Default Viewer">
+    <div style={{ width: 500, height: 500 }}>
+      <Viewer imageId={WADO_URL} />
+    </div>
+  </Story>
+</Preview>
+
+# WebImage Viewer
+
+<Preview>
+  <Story name="WebImage Viewer">
+    <div style={{ width: 500, height: 500 }}>
+      <Viewer imageId={WEB_URL} type="web" />
+    </div>
+  </Story>
+</Preview>
