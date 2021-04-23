@@ -1,26 +1,24 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import Wrapper from '../components/Wrapper'
-import { WithChildren } from '../types'
-import { init, dispose, loadImage } from '../modules/cornerstoneHelper'
+import { WithChildren, ViewerType } from '../types'
+import useLoadImage from './useLoadImage'
 
-type Prop = WithChildren<{
+export type Prop = WithChildren<{
   imageId?: string
+  type?: ViewerType
 }>
 
-export default function Viewer({ imageId }: Prop): JSX.Element {
+export default function Viewer({
+  imageId = undefined,
+  type = 'wado',
+}: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!imageId) return undefined
-    if (!elRef || !elRef.current) return undefined
-    const element = elRef.current
-
-    init(elRef.current)
-    loadImage(elRef.current, imageId)
-    return () => {
-      dispose(element)
-    }
-  }, [imageId])
+  useLoadImage({
+    imageId,
+    type,
+    ref: elRef,
+  })
 
   return <Wrapper ref={elRef} />
 }
