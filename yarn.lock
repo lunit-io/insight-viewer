@@ -6580,6 +6580,11 @@ cornerstone-wado-image-loader@3.3.1:
     dicom-parser "^1.8.3"
     pako "^1.0.10"
 
+cornerstone-web-image-loader@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/cornerstone-web-image-loader/-/cornerstone-web-image-loader-2.1.1.tgz#531262668d3b44fb461161c67d58ebcaefbae73d"
+  integrity sha512-EYT7nLyXMFDeCCQhDkf6czFUm58EgqiTX+tOOLt79gPvbNRdEvPgQoXJgXOd5/3Xuc5QNqzTyOzYtf1v/KH0aA==
+
 cosmiconfig@^5.0.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.2.1.tgz#040f726809c591e77a17c0a3626ca45b4f168b1a"
