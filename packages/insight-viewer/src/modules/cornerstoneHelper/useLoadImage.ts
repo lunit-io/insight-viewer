@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect } from 'react'
-import { init, dispose } from '../modules/cornerstoneHelper'
-import { ViewerType } from '../types'
+import { init, dispose } from './lifeCycle'
+import { ViewerType } from '../../types'
 
 const cornerstone = require('cornerstone-core')
 
@@ -32,7 +32,7 @@ const initMap = {
   web: webImageInit,
 }
 
-const useLoadImage = ({ imageId, ref, type = 'wado' }: Prop): void => {
+export const useLoadImage = ({ imageId, ref, type = 'wado' }: Prop): void => {
   useEffect(() => {
     if (!imageId) return undefined
     if (!ref || !ref.current) return undefined
@@ -57,5 +57,3 @@ const useLoadImage = ({ imageId, ref, type = 'wado' }: Prop): void => {
     }
   }, [imageId, ref, type])
 }
-
-export default useLoadImage

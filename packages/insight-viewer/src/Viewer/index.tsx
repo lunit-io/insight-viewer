@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import Wrapper from '../components/Wrapper'
 import { WithChildren, ViewerType } from '../types'
-import useLoadImage from './useLoadImage'
+import { useLoadImage } from '../modules/cornerstoneHelper'
 
 export type Prop = WithChildren<{
   imageId?: string
