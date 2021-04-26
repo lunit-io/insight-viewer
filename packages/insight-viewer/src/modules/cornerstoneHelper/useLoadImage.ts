@@ -36,7 +36,7 @@ export const useLoadImage = ({ imageId, ref, type = 'wado' }: Prop): void => {
   useEffect(() => {
     if (!imageId) return undefined
     if (!ref || !ref.current) return undefined
-    const element = { ...ref.current }
+    const element = ref.current
 
     async function loadImage(): Promise<void> {
       initMap[type]()

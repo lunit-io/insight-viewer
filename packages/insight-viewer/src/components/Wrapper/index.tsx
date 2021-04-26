@@ -1,6 +1,6 @@
-import React, { forwardRef, ForwardRefRenderFunction } from 'react'
+import React, { forwardRef, useCallback } from 'react'
 import styled from 'styled-components'
-import ReactResizeDetector from 'react-resize-detector'
+import { useResizeDetector } from 'react-resize-detector'
 import { resize } from '../../modules/cornerstoneHelper'
 import { WithChildren } from '../../types'
 
@@ -12,28 +12,25 @@ const StyledWrapper = styled.div`
   user-select: none;
 `
 
-const Wrapper: ForwardRefRenderFunction<HTMLDivElement, WithChildren> = (
-  { children },
-  ref
-) => {
-  const handleResize = () => {
-    if (ref)
-      resize((ref as React.MutableRefObject<HTMLDivElement>).current)
-  }
+const Wrapper = forwardRef<HTMLDivElement, WithChildren>(({ children }, ref) => {
+  const element = (ref as React.MutableRefObject<HTMLDivElement | null>)?.current
+  const handleResize = useCallback(() => {
+    if (!element) return undefined
+    return resize(element)
+  }, [element])
+
+  const { ref: resizeRef } = useResizeDetector({ 
+    targetRef: ref as React.MutableRefObject<HTMLDivElement> ,
+    onResize: handleResize,
+    skipOnMount: false
+  })
 
   return (
-    <StyledWrapper ref={ref}>
-      <ReactResizeDetector
-        handleWidth
-        handleHeight
-        onResize={handleResize}
-      />
+    <StyledWrapper ref={resizeRef}>
       <canvas className="cornerstone-canvas" />
       {children}
     </StyledWrapper>
   )
-}
+})
 
-const Forwarded = forwardRef(Wrapper)
-
-export default Forwarded
+export default Wrapper
