@@ -1,5 +1,7 @@
 import React, { forwardRef, ForwardRefRenderFunction } from 'react'
 import styled from 'styled-components'
+import ReactResizeDetector from 'react-resize-detector'
+import { resize } from '../../modules/cornerstoneHelper'
 import { WithChildren } from '../../types'
 
 const StyledWrapper = styled.div`
@@ -13,12 +15,24 @@ const StyledWrapper = styled.div`
 const Wrapper: ForwardRefRenderFunction<HTMLDivElement, WithChildren> = (
   { children },
   ref
-) => (
-  <StyledWrapper ref={ref}>
-    <canvas className="cornerstone-canvas" />
-    {children}
-  </StyledWrapper>
-)
+) => {
+  const handleResize = () => {
+    if (ref)
+      resize((ref as React.MutableRefObject<HTMLDivElement>).current)
+  }
+
+  return (
+    <StyledWrapper ref={ref}>
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={handleResize}
+      />
+      <canvas className="cornerstone-canvas" />
+      {children}
+    </StyledWrapper>
+  )
+}
 
 const Forwarded = forwardRef(Wrapper)
 
