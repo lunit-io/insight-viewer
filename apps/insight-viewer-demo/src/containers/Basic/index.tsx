@@ -29,14 +29,16 @@ function Basic(): JSX.Element {
       <Box mb={6}>
         <Heading as="h3">InsightViewer</Heading>
       </Box>
-      <Box w={700}>
-        <Box mb={6}><ImageSelect /></Box>
+
+      <Box mb={6}><ImageSelect /></Box>
         
-        <Box w={500} h={500}>
-          <InsightViewer imageId={selected} />
-        </Box>
+      <div style={{ maxWidth: '100%', aspectRatio: '1 / 1' }}>
+        <InsightViewer imageId={selected} />
+      </div>
+      <Box w={700}>
         <CodeBlock code={insightViewerCode} />
       </Box>
+
       <Box mt={10} mb={6}>
         <Heading as="h3">WebImageViewer</Heading>
       </Box>
