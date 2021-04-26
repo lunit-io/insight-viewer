@@ -15,7 +15,7 @@ const Wrapper: ForwardRefRenderFunction<HTMLDivElement, WithChildren> = (
   ref
 ) => (
   <StyledWrapper ref={ref}>
-    <canvas className="cornerstone-canvas" width="100%" height="100%" />
+    <canvas className="cornerstone-canvas" />
     {children}
   </StyledWrapper>
 )

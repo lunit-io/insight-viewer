@@ -1,22 +1,30 @@
 import React, { useRef } from 'react'
 import Wrapper from '../components/Wrapper'
-import { WithChildren, ViewerType } from '../types'
+import { WithChildren } from '../types'
 import { useLoadImage } from '../modules/cornerstoneHelper'
 
 export type Prop = WithChildren<{
   imageId?: string
-  type?: ViewerType
 }>
 
-export default function Viewer({
-  imageId = undefined,
-  type = 'wado',
-}: Prop): JSX.Element {
+export default function Viewer({ imageId = undefined }: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
   useLoadImage({
     imageId,
-    type,
+    type: 'wado',
+    ref: elRef,
+  })
+
+  return <Wrapper ref={elRef} />
+}
+
+export function WebImageViewer({ imageId = undefined }: Prop): JSX.Element {
+  const elRef = useRef<HTMLDivElement>(null)
+
+  useLoadImage({
+    imageId,
+    type: 'web',
     ref: elRef,
   })
 
