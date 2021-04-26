@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import Wrapper from '../components/Wrapper'
+import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren } from '../types'
 import { useLoadImage } from '../modules/cornerstoneHelper'
 
@@ -16,7 +16,7 @@ export default function Viewer({ imageId = undefined }: Prop): JSX.Element {
     ref: elRef,
   })
 
-  return <Wrapper ref={elRef} />
+  return <ViewerWrapper ref={elRef} />
 }
 
 export function WebImageViewer({ imageId = undefined }: Prop): JSX.Element {
@@ -28,5 +28,5 @@ export function WebImageViewer({ imageId = undefined }: Prop): JSX.Element {
     ref: elRef,
   })
 
-  return <Wrapper ref={elRef} />
+  return <ViewerWrapper ref={elRef} />
 }

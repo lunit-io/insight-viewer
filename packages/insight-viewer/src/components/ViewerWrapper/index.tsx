@@ -12,7 +12,7 @@ const StyledWrapper = styled.div`
   user-select: none;
 `
 
-const Wrapper = forwardRef<HTMLDivElement, WithChildren>(({ children }, ref) => {
+const ViewerWrapper = forwardRef<HTMLDivElement, WithChildren>(({ children }, ref) => {
   const element = (ref as React.MutableRefObject<HTMLDivElement | null>)?.current
   const handleResize = useCallback(() => {
     if (!element) return undefined
@@ -33,4 +33,4 @@ const Wrapper = forwardRef<HTMLDivElement, WithChildren>(({ children }, ref) => 
   )
 })
 
-export default Wrapper
+export default ViewerWrapper
