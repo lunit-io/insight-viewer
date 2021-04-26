@@ -66,6 +66,7 @@ module.exports = {
       rules: {
         'react/prop-types': 'off',
         'react/require-default-props': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
       },
     },
     {

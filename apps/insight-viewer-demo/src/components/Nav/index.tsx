@@ -1,10 +1,9 @@
 import { Box } from '@chakra-ui/react'
 import { NextChakraLink } from '../NextChakraLink'
-import { WithoutProp } from '../../types'
 import config from '../../../config'
 
-const Nav: WithoutProp = () => (
-  <>
+function Nav(): JSX.Element {
+  return (
     <Box
       as="nav"
       aria-label="Main Navigation"
@@ -28,6 +27,7 @@ const Nav: WithoutProp = () => (
         - Basic
       </NextChakraLink>
     </Box>
-  </>
-)
+  )
+}
+
 export default Nav

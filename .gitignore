@@ -2,8 +2,6 @@
 
 # dependencies
 node_modules
-.pnp
-.pnp.js
 
 # testing
 coverage
@@ -49,15 +47,6 @@ lerna-debug.log*
 .rts2_cache_cjs/
 .rts2_cache_es/
 .rts2_cache_umd/
-
-# Yarn
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
 
 # dotenv environment variables file
 .env
