@@ -1,2 +1,2 @@
-export { init, dispose } from './lifeCycle'
+export { init, dispose, resize } from './utils'
 export { useLoadImage } from './useLoadImage'

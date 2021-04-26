@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect } from 'react'
-import { init, dispose } from './lifeCycle'
+import { init, dispose } from './utils'
 import { ViewerType } from '../../types'
 
 const cornerstone = require('cornerstone-core')

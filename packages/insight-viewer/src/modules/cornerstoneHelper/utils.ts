@@ -8,3 +8,7 @@ export function init(element: HTMLDivElement): void {
 export function dispose(element: HTMLDivElement): void {
   cornerstone.disable(element)
 }
+
+export function resize(element: HTMLDivElement): void {
+  cornerstone.resize(element)
+}
