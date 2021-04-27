@@ -1,2 +1,9 @@
-export { init, dispose, resize } from './utils'
+export {
+  init,
+  dispose,
+  resize,
+  displayImage,
+  loadImage,
+  getDefaultViewportForImage
+} from './utils'
 export { useLoadImage } from './useLoadImage'
