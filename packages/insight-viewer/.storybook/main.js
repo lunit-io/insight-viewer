@@ -5,7 +5,17 @@ module.exports = {
     '../doc/**/*.stories.mdx',
     '../doc/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        configureJSX: true,
+      },
+    },
+],
 
   // Fix for: 'Module not found: Error: Can't resolve 'fs' in '/frontend-components/node_modules/cornerstone-wado-image-loader/dist'
   // https://stackoverflow.com/questions/53325876/storyshot-for-storybook-vue-broken-with-error-module-not-found-error-cant-res/64246289#64246289
@@ -15,5 +25,15 @@ module.exports = {
       'fs': path.resolve(__dirname, 'fsMock.js')
     };
     return config
-  }
+  },
+
+  typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+    },
+  },
 }

@@ -13,11 +13,6 @@ function Nav(): JSX.Element {
       }}
       top="0"
       w="280px"
-      h="calc(((100vh - 1.5rem) - 64px) - 42px);"
-      pr="8"
-      pb="6"
-      pl="3"
-      pt="12"
       overflowY="auto"
       className="sidebar-content"
       flexShrink={0}

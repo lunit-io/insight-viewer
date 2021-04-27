@@ -1,26 +1,32 @@
-import React, { useEffect, useRef } from 'react'
-import Wrapper from '../components/Wrapper'
+import React, { useRef } from 'react'
+import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren } from '../types'
-import { init, dispose, loadImage } from '../modules/cornerstoneHelper'
+import { useLoadImage } from '../modules/cornerstoneHelper'
 
-type Prop = WithChildren<{
-  imageId?: string
+export type Prop = WithChildren<{
+  imageId: string
 }>
 
-export default function Viewer({ imageId }: Prop): JSX.Element {
+export function DICOMImageViewer({ imageId }: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!imageId) return undefined
-    if (!elRef || !elRef.current) return undefined
-    const element = elRef.current
+  useLoadImage({
+    imageId,
+    type: 'wado',
+    ref: elRef,
+  })
 
-    init(elRef.current)
-    loadImage(elRef.current, imageId)
-    return () => {
-      dispose(element)
-    }
-  }, [imageId])
+  return <ViewerWrapper ref={elRef} />
+}
 
-  return <Wrapper ref={elRef} />
+export function WebImageViewer({ imageId }: Prop): JSX.Element {
+  const elRef = useRef<HTMLDivElement>(null)
+
+  useLoadImage({
+    imageId,
+    type: 'web',
+    ref: elRef,
+  })
+
+  return <ViewerWrapper ref={elRef} />
 }

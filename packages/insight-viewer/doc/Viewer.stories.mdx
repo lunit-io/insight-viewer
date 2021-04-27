@@ -1,0 +1,46 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+  ArgsTable,
+} from '@storybook/addon-docs/blocks'
+import { DICOMImageViewer, WebImageViewer, Prop } from '../src/Viewer'
+
+<Meta
+  title="Viewer"
+  component={DICOMImageViewer}
+  argTypes={{
+    imageId: {
+      type: { imageId: 'string', required: true },
+    },
+  }}
+/>
+
+export const WADO_URL =
+  'wadouri:https://raw.githubusercontent.com/cornerstonejs/cornerstoneWADOImageLoader/master/testImages/CT2_J2KR'
+
+export const WEB_URL =
+  'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
+
+<ArgsTable of={DICOMImageViewer} />
+
+# DICOMImageViewer
+
+<Preview>
+  <Story name="DICOMImage Viewer">
+    <div style={{ width: 500, height: 500 }}>
+      <DICOMImageViewer imageId={WADO_URL} />
+    </div>
+  </Story>
+</Preview>
+
+# WebImage Viewer
+
+<Preview>
+  <Story name="WebImage Viewer">
+    <div style={{ width: 500, height: 500 }}>
+      <WebImageViewer imageId={WEB_URL} />
+    </div>
+  </Story>
+</Preview>
