@@ -4,10 +4,10 @@ import { WithChildren } from '../types'
 import { useLoadImage } from '../modules/cornerstoneHelper'
 
 export type Prop = WithChildren<{
-  imageId?: string
+  imageId: string
 }>
 
-export function DICOMImageViewer({ imageId = undefined }: Prop): JSX.Element {
+export function DICOMImageViewer({ imageId }: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
   useLoadImage({
@@ -19,7 +19,7 @@ export function DICOMImageViewer({ imageId = undefined }: Prop): JSX.Element {
   return <ViewerWrapper ref={elRef} />
 }
 
-export function WebImageViewer({ imageId = undefined }: Prop): JSX.Element {
+export function WebImageViewer({ imageId }: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
   useLoadImage({
