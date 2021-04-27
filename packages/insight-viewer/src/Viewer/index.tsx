@@ -7,7 +7,7 @@ export type Prop = WithChildren<{
   imageId?: string
 }>
 
-export default function Viewer({ imageId = undefined }: Prop): JSX.Element {
+export function DICOMImageViewer({ imageId = undefined }: Prop): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
 
   useLoadImage({

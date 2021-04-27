@@ -5,11 +5,11 @@ import {
   Props,
   ArgsTable,
 } from '@storybook/addon-docs/blocks'
-import Viewer, { WebImageViewer, Prop } from '../src/Viewer'
+import { DICOMImageViewer, WebImageViewer, Prop } from '../src/Viewer'
 
 <Meta
   title="Viewer"
-  component={Viewer}
+  component={DICOMImageViewer}
   argTypes={{
     imageId: {
       type: { imageId: 'string', required: true },
@@ -23,14 +23,14 @@ export const WADO_URL =
 export const WEB_URL =
   'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
 
-<ArgsTable of={Viewer} />
+<ArgsTable of={DICOMImageViewer} />
 
-# Default Viewer
+# DICOMImageViewer
 
 <Preview>
-  <Story name="Default Viewer">
+  <Story name="DICOMImage Viewer">
     <div style={{ width: 500, height: 500 }}>
-      <Viewer imageId={WADO_URL} />
+      <DICOMImageViewer imageId={WADO_URL} />
     </div>
   </Story>
 </Preview>

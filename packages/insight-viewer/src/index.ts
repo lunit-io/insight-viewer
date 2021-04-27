@@ -1,1 +1,1 @@
-export { default, WebImageViewer } from './Viewer'
+export { DICOMImageViewer, WebImageViewer } from './Viewer'
