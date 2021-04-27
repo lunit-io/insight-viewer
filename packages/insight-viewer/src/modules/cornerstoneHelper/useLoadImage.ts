@@ -1,12 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect } from 'react'
-import { init, dispose } from './utils'
+import {
+  init,
+  dispose,
+  displayImage,
+  loadImage as cornerstoneLoadImage,
+  getDefaultViewportForImage
+} from './utils'
 import { ViewerType } from '../../types'
 
 const cornerstone = require('cornerstone-core')
 
 interface Prop {
-  imageId?: string
+  imageId: string
   type?: ViewerType
   ref: React.RefObject<HTMLDivElement>
 }
@@ -27,33 +33,41 @@ function webImageInit() {
   cornerstoneWebImageLoader.external.cornerstone = cornerstone
 }
 
-const initMap = {
+const initImageLoaderMap = {
   wado: wadoInit,
   web: webImageInit,
 }
 
 export const useLoadImage = ({ imageId, ref, type = 'wado' }: Prop): void => {
   useEffect(() => {
-    if (!imageId) return undefined
     if (!ref || !ref.current) return undefined
     const element = ref.current
-
-    async function loadImage(): Promise<void> {
-      initMap[type]()
-
-      const image = await cornerstone.loadImage(imageId)
-      const viewport = cornerstone.getDefaultViewportForImage(
-        ref.current,
-        image
-      )
-      cornerstone.displayImage(ref.current, image, viewport)
-    }
-
-    init(ref.current)
-    loadImage()
+    init(element)
 
     return () => {
       dispose(element)
     }
-  }, [imageId, ref, type])
+  }, [ref, type])
+
+  useEffect(() => {
+    initImageLoaderMap[type]()
+  }, [type])
+
+  useEffect(() => {
+    if (!ref || !ref.current) return undefined
+    const element = ref.current
+
+    async function loadImage(): Promise<void> {
+      const image = await cornerstoneLoadImage(imageId)
+      const viewport = getDefaultViewportForImage(
+        element,
+        image
+      )
+
+      displayImage(element, image, viewport)
+    }
+
+    loadImage()
+    return undefined
+  }, [imageId, ref])
 }
