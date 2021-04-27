@@ -22,9 +22,27 @@ export default function useImageSelect(): {
   function ImageSelect(): JSX.Element {
     return (
       <Stack spacing={4} direction="row">
-        <Button colorScheme="blue" onClick={() => handleClick('image1')}>image 1</Button>
-        <Button colorScheme="blue" onClick={() => handleClick('image2')}>image 2</Button>
-        <Button colorScheme="blue" onClick={() => handleClick('image3')}>image 3</Button>
+        <Button 
+          colorScheme="blue" 
+          onClick={() => handleClick('image1')}
+          isActive={selected === 'image1'}
+        >
+          image 1
+        </Button>
+        <Button 
+          colorScheme="blue" 
+          onClick={() => handleClick('image2')}
+          isActive={selected === 'image2'}
+        >
+          image 2
+        </Button>
+        <Button 
+          colorScheme="blue" 
+          onClick={() => handleClick('image3')}
+          isActive={selected === 'image3'}
+        >
+          image 3
+        </Button>
       </Stack>
     )
   }
