@@ -6,7 +6,7 @@ import cornerstone from 'cornerstone-core'
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader'
 import dicomParser from 'dicom-parser'
 
-export default function useWADOImageLoader(): void {
+export function useWADOImageLoader(): void {
   useEffect(() => {
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser

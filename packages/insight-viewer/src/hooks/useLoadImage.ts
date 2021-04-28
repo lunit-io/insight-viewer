@@ -5,7 +5,7 @@ import {
   getDefaultViewportForImage
 } from '../modules/cornerstoneHelper'
 
-export default function useLoadImage(
+export function useLoadImage(
   imageId: string, 
   ref: React.RefObject<HTMLDivElement>
 ): void {

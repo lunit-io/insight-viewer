@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import cornerstone from 'cornerstone-core'
 import cornerstoneWebImageLoader from 'cornerstone-web-image-loader'
 
-export default function useWebImageLoader(): void {
+export function useWebImageLoader(): void {
   useEffect(() => {
     cornerstoneWebImageLoader.external.cornerstone = cornerstone
   }, [])
