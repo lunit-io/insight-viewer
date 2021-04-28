@@ -6,4 +6,3 @@ export {
   loadImage,
   getDefaultViewportForImage
 } from './utils'
-export { useLoadImage } from './useLoadImage'
