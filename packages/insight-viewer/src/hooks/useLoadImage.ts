@@ -3,7 +3,7 @@ import {
   displayImage,
   loadImage as cornerstoneLoadImage,
   getDefaultViewportForImage
-} from '../modules/cornerstoneHelper'
+} from '../utils/cornerstoneHelper'
 
 export function useLoadImage(
   imageId: string, 

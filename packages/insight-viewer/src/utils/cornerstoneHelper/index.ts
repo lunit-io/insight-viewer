@@ -4,5 +4,6 @@ export {
   resize,
   displayImage,
   loadImage,
-  getDefaultViewportForImage
+  getDefaultViewportForImage,
+  getCornerstone
 } from './utils'

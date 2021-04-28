@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback } from 'react'
 import styled from 'styled-components'
 import { useResizeDetector } from 'react-resize-detector'
-import { resize } from '../../modules/cornerstoneHelper'
+import { resize } from '../../utils/cornerstoneHelper'
 import { WithChildren } from '../../types'
 
 const StyledWrapper = styled.div`

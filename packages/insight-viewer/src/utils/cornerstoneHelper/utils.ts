@@ -12,6 +12,10 @@ export function resize(element: HTMLDivElement): void {
   cornerstone.resize(element)
 }
 
+export function getCornerstone(): typeof cornerstone {
+  return cornerstone
+}
+
 export function displayImage(
   element: HTMLDivElement,
   image: cornerstone.Image,
