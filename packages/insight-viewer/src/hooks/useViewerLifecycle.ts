@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { init, dispose } from '../utils/cornerstoneHelper'
 
-export function useViewerLifecycle(
+export default function useViewerLifecycle(
   ref: React.RefObject<HTMLDivElement>
 ): void {
   useEffect(() => {
