@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@storybook/addon-actions": "^6.2.5",
+    "consola": "2.15.3",
     "cornerstone-core": "2.3.0",
     "cornerstone-wado-image-loader": "3.3.1",
     "cornerstone-web-image-loader": "2.1.1",
@@ -58,7 +59,6 @@
     "@types/react": "^17.0.3",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "^8.2.2",
-    "consola": "^2.15.3",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",
