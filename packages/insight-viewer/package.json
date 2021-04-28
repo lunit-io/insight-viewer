@@ -8,7 +8,7 @@
   "unpkg": "dist/index.umd.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
