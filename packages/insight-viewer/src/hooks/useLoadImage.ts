@@ -4,6 +4,7 @@ import {
   loadImage as cornerstoneLoadImage,
   getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
+import { handleError } from '../utils/common'
 
 interface Prop {
   imageId: string
@@ -32,13 +33,17 @@ export default function useLoadImage({
     if (!element) return undefined
 
     async function loadImage(): Promise<void> {
-      const image = await cornerstoneLoadImage(imageId)
-      const viewport = getDefaultViewportForImage(
-        <HTMLDivElement>element,
-        image
-      )
+      try {
+        const image = await cornerstoneLoadImage(imageId)
+        const viewport = getDefaultViewportForImage(
+          <HTMLDivElement>element,
+          image
+        )
 
-      displayImage(<HTMLDivElement>element, image, viewport)
+        displayImage(<HTMLDivElement>element, image, viewport)
+      } catch (e) {
+        handleError(e)
+      }
     }
 
     loadImage()
