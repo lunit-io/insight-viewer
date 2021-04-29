@@ -1,4 +1,5 @@
-import { Flex, Heading, Box, Grid, GridItem } from '@chakra-ui/react'
+import { Flex, Heading, Box, Grid, GridItem, HStack } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { Logo } from '../Logo'
 import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
@@ -6,6 +7,8 @@ import config from '../../../config'
 import { WithChildren } from '../../types'
 
 export default function Layout({ children }: WithChildren): JSX.Element {
+  const router = useRouter()
+
   return (
     <Flex
       w="100%"
@@ -23,9 +26,12 @@ export default function Layout({ children }: WithChildren): JSX.Element {
               </NextChakraLink>
             </GridItem>
             <GridItem colSpan={4}>
-              <Heading as="h1" size="md">
-                @lunit/insight-viewer demo
-              </Heading>
+              <HStack>
+                <Heading as="h1" size="md">
+                  @lunit/insight-viewer-demo /
+                </Heading>
+                <Heading as="h2">{router.pathname.slice(1)}</Heading>
+              </HStack>
             </GridItem>
           </Grid>
         </Box>
