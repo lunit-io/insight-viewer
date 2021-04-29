@@ -19,14 +19,12 @@ export default function useLoadImage({
 }: Prop): void {
   const [hasLoader, setHasLoader] = useState(false)
 
-  useEffect(() => {
-    // eslint-disable-next-line no-extra-semi
-    ;(async function asyncLoad(): Promise<undefined> {
-      if (hasLoader) return undefined
-      setHasLoader(await setLoader())
-      return undefined
-    })()
-  }, [setLoader, hasLoader])
+  // eslint-disable-next-line no-extra-semi
+  ;(async function asyncLoad(): Promise<undefined> {
+    if (hasLoader) return undefined
+    setHasLoader(await setLoader())
+    return undefined
+  })()
 
   useEffect(() => {
     if (!hasLoader) return undefined
