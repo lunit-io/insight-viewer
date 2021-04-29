@@ -19,7 +19,7 @@ export function getCornerstone(): typeof cornerstone {
 export function displayImage(
   element: HTMLDivElement,
   image: cornerstone.Image,
-  viewport: cornerstone.Viewport,
+  viewport: cornerstone.Viewport
 ): ReturnType<typeof cornerstone.displayImage> {
   return cornerstone.displayImage(element, image, viewport)
 }

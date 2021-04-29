@@ -5,5 +5,5 @@ export {
   displayImage,
   loadImage,
   getDefaultViewportForImage,
-  getCornerstone
+  getCornerstone,
 } from './utils'
