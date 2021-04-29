@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react'
-import { 
+import {
   displayImage,
   loadImage as cornerstoneLoadImage,
-  getDefaultViewportForImage
+  getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
 
 interface Prop {
   imageId: string
-  ref: React.RefObject<HTMLDivElement>
+  element: HTMLDivElement | null
   setLoader: () => Promise<boolean>
 }
 
 export default function useLoadImage({
-  imageId, 
-  ref,
-  setLoader
+  imageId,
+  element,
+  setLoader,
 }: Prop): void {
   const [hasLoader, setHasLoader] = useState(false)
 
   useEffect(() => {
-    (async function asyncLoad(): Promise<undefined> {
+    // eslint-disable-next-line no-extra-semi
+    ;(async function asyncLoad(): Promise<undefined> {
       if (hasLoader) return undefined
       setHasLoader(await setLoader())
       return undefined
@@ -28,20 +29,19 @@ export default function useLoadImage({
 
   useEffect(() => {
     if (!hasLoader) return undefined
-    if (!ref || !ref.current) return undefined
-    const element = ref.current
+    if (!element) return undefined
 
     async function loadImage(): Promise<void> {
       const image = await cornerstoneLoadImage(imageId)
       const viewport = getDefaultViewportForImage(
-        element,
+        <HTMLDivElement>element,
         image
       )
 
-      displayImage(element, image, viewport)
+      displayImage(<HTMLDivElement>element, image, viewport)
     }
 
     loadImage()
     return undefined
-  }, [imageId, ref, hasLoader])
+  }, [imageId, element, hasLoader])
 }

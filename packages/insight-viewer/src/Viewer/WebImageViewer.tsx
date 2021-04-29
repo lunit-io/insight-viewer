@@ -3,11 +3,11 @@ import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren } from '../types'
 import useWebImageLoader from '../hooks/useWebImageLoader'
 
-export function WebImageViewer(
-  { imageId }: WithChildren<{ imageId: string }>
-): JSX.Element {
+export function WebImageViewer({
+  imageId,
+}: WithChildren<{ imageId: string }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useWebImageLoader(imageId, elRef)
+  useWebImageLoader(imageId, elRef.current)
 
   return <ViewerWrapper ref={elRef} />
 }

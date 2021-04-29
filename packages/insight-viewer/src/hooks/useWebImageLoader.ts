@@ -22,13 +22,13 @@ async function setLoader(): Promise<boolean> {
 
 export default async function useWebImageLoader(
   imageId: string,
-  ref: React.RefObject<HTMLDivElement>
+  element: HTMLDivElement | null
 ): Promise<void> {
-  useCornerstone(ref)
+  useCornerstone(element)
 
   useLoadImage({
     imageId,
-    ref,
+    element,
     setLoader,
   })
 }

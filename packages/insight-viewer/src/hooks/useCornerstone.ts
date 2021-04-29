@@ -1,16 +1,14 @@
 import { useEffect } from 'react'
 import { init, dispose } from '../utils/cornerstoneHelper'
 
-export default function useCornerstone(
-  ref: React.RefObject<HTMLDivElement>
-): void {
+export default function useCornerstone(element: HTMLDivElement | null): void {
   useEffect(() => {
-    if (!ref || !ref.current) return undefined
-    const element = ref.current
+    if (!element) return undefined
+
     init(element)
 
     return () => {
       dispose(element)
     }
-  }, [ref])
+  }, [element])
 }
