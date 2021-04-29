@@ -27,8 +27,12 @@
     "test": "yarn jest"
   },
   "devDependencies": {
+    "@types/axios": "0.14.0",
     "@types/jest": "26.0.23",
     "jest": "26.6.3",
     "microbundle": "0.13.0"
+  },
+  "dependencies": {
+    "axios": "0.21.1"
   }
 }
