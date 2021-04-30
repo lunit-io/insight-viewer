@@ -12,7 +12,7 @@ import {
   ResponseError,
 } from './types'
 
-export class AxiosClient {
+export default class AxiosClient {
   private readonly instance: AxiosInstance
 
   constructor(props: HTTPClientProps) {
