@@ -14,7 +14,7 @@
     "@chakra-ui/react": "^1.5.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@lunit/helper": "1.0.0",
+    "@lunit/axios-client": "1.0.0",
     "@lunit/insight-viewer": "5.0.1-alpha.1",
     "consola": "^2.15.3",
     "framer-motion": "^4",
