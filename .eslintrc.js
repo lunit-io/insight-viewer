@@ -56,6 +56,10 @@ module.exports = {
       'ignorePackages',
       { js: 'never', jsx: 'never', ts: 'never', tsx: 'never', json: 'never' },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.test.ts', '**/*.test.tsx', '**/mocks/*'] },
+    ],
     '@typescript-eslint/camelcase': 'off',
     camelcase: 'off',
   },
