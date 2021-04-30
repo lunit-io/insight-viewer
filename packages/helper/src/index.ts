@@ -1,1 +1,2 @@
-export { axios } from './axiosHelper'
+export { AxiosClient } from './AxiosClient'
+export type { APIResponse } from './types'
