@@ -5,10 +5,16 @@ import {
   AxiosResponse,
 } from 'axios'
 
-export type APIError = Pick<AxiosResponse, 'data'> & {
-  status: number
-  message: string
-}
+export type APIError =
+  | (Pick<AxiosResponse, 'data'> & {
+      message: string
+      status?: number
+    })
+  | {
+      message: string
+      status: undefined
+      data: undefined
+    }
 
 export type ResponseSuccess<D> = {
   data: D
@@ -16,7 +22,7 @@ export type ResponseSuccess<D> = {
 }
 export type ResponseError = {
   data: undefined
-  error?: APIError | Error
+  error?: APIError
 }
 
 export interface HTTPClientProps {
@@ -28,6 +34,7 @@ export interface HTTPClientProps {
   validateStatus?: (status: number) => boolean
   transformRequest?: AxiosTransformer[]
   transformResponse?: AxiosTransformer[]
+  paramsSerializer?: AxiosRequestConfig['paramsSerializer']
 }
 
 export type APIResponse<D> = ResponseSuccess<D> | ResponseError

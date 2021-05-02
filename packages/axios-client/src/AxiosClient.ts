@@ -25,6 +25,7 @@ export default class AxiosClient {
       transformRequest,
       transformResponse,
       validateStatus = status => status >= 200 && status < 300,
+      paramsSerializer,
     } = props
 
     this.instance = _axios.create({
@@ -40,6 +41,7 @@ export default class AxiosClient {
       transformRequest,
       transformResponse,
       validateStatus,
+      paramsSerializer,
     })
   }
 
@@ -52,7 +54,11 @@ export default class AxiosClient {
     if (!error.response) {
       return {
         data: undefined,
-        error,
+        error: {
+          message: error.message,
+          status: undefined,
+          data: undefined,
+        },
       }
     }
 

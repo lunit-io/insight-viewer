@@ -42,9 +42,11 @@ describe('AxiosClient', () => {
       const { error: postError } = await axiosClient.request('POST', '/api', {
         data: { username: 'lunit' },
       })
-      expect(getError instanceof Error).toBeTruthy()
+      expect(getError?.status).toBeUndefined()
+      expect(getError?.data).toBeUndefined()
       expect(getError?.message).toBe(ERROR_MESSAGE.Network)
-      expect(postError instanceof Error).toBeTruthy()
+      expect(postError?.status).toBeUndefined()
+      expect(postError?.data).toBeUndefined()
       expect(postError?.message).toBe(ERROR_MESSAGE.Network)
     })
   })
