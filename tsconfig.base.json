@@ -37,5 +37,11 @@
     "apps/**/*.ts",
     "apps/**/*.tsx",
     "apps/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "spec",
+    "dist",
+    "test"
   ]
 }

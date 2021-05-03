@@ -8,7 +8,7 @@
   "unpkg": "dist/index.umd.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -37,19 +37,20 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "@storybook/addon-actions": "^6.2.5",
-    "cornerstone-core": "2.3.0",
-    "cornerstone-wado-image-loader": "3.3.1",
-    "cornerstone-web-image-loader": "2.1.1",
-    "dicom-parser": "1.8.7",
+    "consola": "2.15.3",
+    "cornerstone-core": "^2.3.0",
+    "cornerstone-wado-image-loader": "^3.3.1",
+    "cornerstone-web-image-loader": "^2.1.1",
+    "dicom-parser": "^1.8.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-resize-detector": "6.7.0-rc.0",
+    "react-resize-detector": "^6.7.0",
     "styled-components": "^5.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
     "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-docs": "^6.2.3",
     "@storybook/addon-essentials": "^6.2.3",
     "@storybook/addon-links": "^6.2.3",
@@ -58,7 +59,6 @@
     "@types/react": "^17.0.3",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "^8.2.2",
-    "consola": "^2.15.3",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",

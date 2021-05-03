@@ -30,8 +30,10 @@ function Basic(): JSX.Element {
         <Heading as="h3">InsightViewer</Heading>
       </Box>
 
-      <Box mb={6}><ImageSelect /></Box>
-        
+      <Box mb={6}>
+        <ImageSelect />
+      </Box>
+
       <div style={{ maxWidth: '100%', aspectRatio: '1 / 1' }}>
         <DICOMImageViewer imageId={selected} />
       </div>
