@@ -34,11 +34,17 @@ export default function Test(): JSX.Element {
   })
 
   async function handleSuccess(): Promise<void> {
-    const { data } = await axiosClient.request<Model>('GET', '/api/success', {
-      params: {
-        username: 'lunit',
-      },
-    })
+    const { data } = await axiosClient.request<Model>(
+      'GET',
+      process.env.NODE_ENV !== 'production'
+        ? '/api/success'
+        : 'https://jsonplaceholder.typicode.com/users/1',
+      {
+        params: {
+          username: 'lunit',
+        },
+      }
+    )
 
     setState(prev => ({
       ...prev,
@@ -49,7 +55,9 @@ export default function Test(): JSX.Element {
   async function handleError(): Promise<void> {
     const { error } = await axiosClient.request<Model>(
       'POST',
-      '/api/error/503',
+      process.env.NODE_ENV !== 'production'
+        ? '/api/error/503'
+        : 'https://mock.codes/503',
       {
         data: {
           username: 'lunit',
