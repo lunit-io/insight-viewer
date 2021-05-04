@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useResizeDetector } from 'react-resize-detector'
 import { resize } from '../../utils/cornerstoneHelper'
 import { WithChildren } from '../../types'
+import LoadingProgress from '../LoadingProgress'
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -29,6 +30,7 @@ const ViewerWrapper = forwardRef<HTMLDivElement, WithChildren>(
 
     return (
       <StyledWrapper ref={resizeRef}>
+        <LoadingProgress />
         <canvas className="cornerstone-canvas" />
         {children}
       </StyledWrapper>

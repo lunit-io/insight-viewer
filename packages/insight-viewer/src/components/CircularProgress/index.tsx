@@ -10,7 +10,7 @@ export default function Progress({
     <CircularProgress
       value={progress}
       size={100}
-      style={{ height: 100, fontSize: 80 }}
+      style={{ height: 100, fontSize: 80, color: '#fff' }}
     >
       <CircularProgressLabel>{progress}%</CircularProgressLabel>
     </CircularProgress>
