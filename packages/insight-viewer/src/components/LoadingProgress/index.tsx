@@ -15,11 +15,11 @@ let subscription: Subscription
 
 export default function LoadingProgress(): JSX.Element {
   const [{ progress, hidden }, setState] = useState<{
-    progress: number
+    progress?: number
     hidden: boolean
   }>({
-    progress: 0,
-    hidden: false,
+    progress: undefined,
+    hidden: true,
   })
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function LoadingProgress(): JSX.Element {
 
   return (
     <ProgressWrapper hidden={hidden}>
-      <CircularProgress progress={progress} />
+      <CircularProgress progress={progress ?? 0} />
     </ProgressWrapper>
   )
 }
