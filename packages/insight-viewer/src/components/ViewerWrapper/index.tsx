@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
 import { WithChildren, ViewerType } from '../../types'
 import LoadingProgress from '../LoadingProgress'
 import Wrapper from './Wrapper'
@@ -14,11 +15,13 @@ const ViewerWrapper = forwardRef<
   const { resizeRef } = useResize(ref)
 
   return (
-    <Wrapper ref={resizeRef}>
-      {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
-      <canvas className="cornerstone-canvas" />
-      {children}
-    </Wrapper>
+    <ChakraProvider>
+      <Wrapper ref={resizeRef}>
+        {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
+        <canvas className="cornerstone-canvas" />
+        {children}
+      </Wrapper>
+    </ChakraProvider>
   )
 })
 
