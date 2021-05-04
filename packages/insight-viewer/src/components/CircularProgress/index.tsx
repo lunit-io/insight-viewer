@@ -1,0 +1,18 @@
+import React from 'react'
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/progress'
+
+export default function Progress({
+  progress = 0,
+}: {
+  progress: number
+}): JSX.Element {
+  return (
+    <CircularProgress
+      value={progress}
+      size={100}
+      style={{ height: 100, fontSize: 80 }}
+    >
+      <CircularProgressLabel>{progress}%</CircularProgressLabel>
+    </CircularProgress>
+  )
+}
