@@ -1,10 +1,9 @@
-import React, { forwardRef, useCallback } from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
-import { useResizeDetector } from 'react-resize-detector'
-import { resize } from '../../utils/cornerstoneHelper'
 import { WithChildren, ViewerType } from '../../types'
 import LoadingProgress from '../LoadingProgress'
 import { VIEWER_TYPE } from '../../const'
+import useResize from './useResize'
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -20,18 +19,7 @@ const ViewerWrapper = forwardRef<
     type: ViewerType
   }>
 >(({ type, children }, ref) => {
-  const element = (ref as React.MutableRefObject<HTMLDivElement | null>)
-    ?.current
-  const handleResize = useCallback(() => {
-    if (!element) return undefined
-    return resize(element)
-  }, [element])
-
-  const { ref: resizeRef } = useResizeDetector({
-    targetRef: ref as React.MutableRefObject<HTMLDivElement>,
-    onResize: handleResize,
-    skipOnMount: false,
-  })
+  const { resizeRef } = useResize(ref)
 
   return (
     <StyledWrapper ref={resizeRef}>
@@ -42,4 +30,5 @@ const ViewerWrapper = forwardRef<
   )
 })
 
+ViewerWrapper.displayName = 'ViewerWrapper'
 export default ViewerWrapper
