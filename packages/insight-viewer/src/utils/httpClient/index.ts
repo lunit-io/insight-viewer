@@ -1,5 +1,6 @@
 import ky from 'ky'
 import consola from 'consola'
+import { lodingProgressMessage } from '../messageService'
 
 export default async function httpClient(url: string): Promise<ArrayBuffer> {
   const http = ky.create({
@@ -29,7 +30,7 @@ export default async function httpClient(url: string): Promise<ArrayBuffer> {
       ],
     },
     onDownloadProgress: async progress => {
-      consola.log('load progress', progress.percent * 100)
+      lodingProgressMessage.sendMessage(Math.round(progress.percent * 100))
     },
   })
 
