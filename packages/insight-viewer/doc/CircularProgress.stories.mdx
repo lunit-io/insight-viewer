@@ -21,6 +21,10 @@ import { default as CircularProgress } from '../src/components/CircularProgress'
 
 <Canvas>
   <Story name="CircularProgress" args={{ progress: 50 }}>
-    {args => <CircularProgress {...args} />}
+    {args => (
+      <div style={{ background: '#000' }}>
+        <CircularProgress {...args} />
+      </div>
+    )}
   </Story>
 </Canvas>
