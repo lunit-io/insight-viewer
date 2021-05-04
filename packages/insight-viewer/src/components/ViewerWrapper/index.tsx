@@ -1,17 +1,9 @@
 import React, { forwardRef } from 'react'
-import styled from 'styled-components'
 import { WithChildren, ViewerType } from '../../types'
 import LoadingProgress from '../LoadingProgress'
+import Wrapper from './Wrapper'
 import { VIEWER_TYPE } from '../../const'
 import useResize from './useResize'
-
-const StyledWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  user-select: none;
-`
 
 const ViewerWrapper = forwardRef<
   HTMLDivElement,
@@ -22,11 +14,11 @@ const ViewerWrapper = forwardRef<
   const { resizeRef } = useResize(ref)
 
   return (
-    <StyledWrapper ref={resizeRef}>
+    <Wrapper ref={resizeRef}>
       {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
       <canvas className="cornerstone-canvas" />
       {children}
-    </StyledWrapper>
+    </Wrapper>
   )
 })
 
