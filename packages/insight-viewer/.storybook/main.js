@@ -15,6 +15,7 @@ module.exports = {
         configureJSX: true,
       },
     },
+    '@storybook/addon-controls'
 ],
 
   // Fix for: 'Module not found: Error: Can't resolve 'fs' in '/frontend-components/node_modules/cornerstone-wado-image-loader/dist'
