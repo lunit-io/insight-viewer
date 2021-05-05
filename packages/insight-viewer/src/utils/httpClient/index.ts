@@ -7,7 +7,7 @@ export default async function httpClient(url: string): Promise<ArrayBuffer> {
     hooks: {
       beforeRequest: [
         request => {
-          consola.log(request)
+          consola.info(request)
           // TODO: auth 사용여부에 따른 처리
           // if (isAuthenticated()) {
           //   request.headers.set('Authorization', `Bearer ${getAuthToken()}`)
@@ -21,12 +21,6 @@ export default async function httpClient(url: string): Promise<ArrayBuffer> {
         //   //   // Do something
         //   // }
         // },
-        (_request, _options, response) => {
-          if (!response || !response.ok) {
-            // toast
-            consola.error(new Error('An error has occured!'))
-          }
-        },
       ],
     },
     onDownloadProgress: async progress => {

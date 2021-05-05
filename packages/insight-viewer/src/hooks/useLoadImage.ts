@@ -6,6 +6,7 @@ import {
 } from '../utils/cornerstoneHelper'
 import { handleError } from '../utils/common'
 import httpClient from '../utils/httpClient'
+import { errorMessage } from '../utils/messageService'
 
 interface Prop {
   imageId: string
@@ -17,7 +18,7 @@ export default function useLoadImage({
   imageId,
   element,
   setLoader,
-}: Prop): void {
+}: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
 
   // eslint-disable-next-line no-extra-semi
@@ -43,11 +44,17 @@ export default function useLoadImage({
 
         displayImage(<HTMLDivElement>element, image, viewport)
       } catch (e) {
+        /**
+         * e
+         * https://github.com/sindresorhus/ky/blob/main/source/errors/HTTPError.ts
+         * { error: { name: 'HTTPError', options, request, response, message, stack }
+         */
+        errorMessage.sendMessage(e?.error?.message || 'An error has occured!')
         handleError(e)
       }
     }
 
     loadImage()
-    return undefined
   }, [imageId, element, hasLoader])
+  return hasLoader
 }

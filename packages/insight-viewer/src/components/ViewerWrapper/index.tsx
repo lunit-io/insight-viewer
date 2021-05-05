@@ -3,6 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { WithChildren, ViewerType } from '../../types'
 import LoadingProgress from '../LoadingProgress'
 import Wrapper from './Wrapper'
+import ErrorMessage from '../ErrorMessage'
 import { VIEWER_TYPE } from '../../const'
 import useResize from './useResize'
 
@@ -19,6 +20,7 @@ const ViewerWrapper = forwardRef<
       <Wrapper ref={resizeRef}>
         {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
         <canvas className="cornerstone-canvas" />
+        <ErrorMessage />
         {children}
       </Wrapper>
     </ChakraProvider>
