@@ -1,7 +1,9 @@
 import { Box, Heading } from '@chakra-ui/react'
-import { DICOMImageViewer } from '@lunit/insight-viewer'
+import useInsightViewer from '@lunit/insight-viewer'
 
 export default function Error(): JSX.Element {
+  const { DICOMImageViewer } = useInsightViewer()
+
   return (
     <>
       <Box mb={6}>
