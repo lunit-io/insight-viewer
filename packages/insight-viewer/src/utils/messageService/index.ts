@@ -1,1 +1,1 @@
-export { lodingProgressMessage } from './lodingProgress'
+export { loadingProgressMessage } from './loadingProgress'
