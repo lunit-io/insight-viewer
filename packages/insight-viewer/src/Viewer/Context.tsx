@@ -1,12 +1,13 @@
 import { createContext } from 'react'
-import { handleError } from '../utils/common/index'
+import { defaultHttpErrorHandler } from '../utils/common/index'
+import { HTTPError } from '../types'
 
 export interface ContextData {
-  onError: (e: Error) => void
+  onError: (e: HTTPError) => void
 }
 
 export const ContextDefaultValue: ContextData = {
-  onError: handleError,
+  onError: defaultHttpErrorHandler,
 }
 
 const Context = createContext<ContextData>(ContextDefaultValue)

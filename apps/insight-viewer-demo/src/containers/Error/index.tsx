@@ -1,8 +1,16 @@
+/* eslint-disable no-alert */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Heading } from '@chakra-ui/react'
-import useInsightViewer from '@lunit/insight-viewer'
+import useInsightViewer, { HTTPError } from '@lunit/insight-viewer'
+
+function customError(e: HTTPError): void {
+  alert(`!!! ${e?.error?.message}`)
+}
 
 export default function Error(): JSX.Element {
-  const { DICOMImageViewer } = useInsightViewer()
+  const { DICOMImageViewer } = useInsightViewer({
+    onError: customError,
+  })
 
   return (
     <>

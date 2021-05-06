@@ -49,7 +49,7 @@ export default function useLoadImage({
          * https://github.com/sindresorhus/ky/blob/main/source/errors/HTTPError.ts
          * { error: { name: 'HTTPError', options, request, response, message, stack }
          */
-        onError(e?.error?.message || 'An error has occured!')
+        onError(e)
       }
     }
 

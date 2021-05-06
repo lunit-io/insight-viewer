@@ -1,1 +1,2 @@
-export { DICOMImageViewer, WebImageViewer } from './Viewer'
+export type { HTTPError } from './types'
+export { default } from './useInsightViewer'

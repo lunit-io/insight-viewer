@@ -1,3 +1,4 @@
+import ky from 'ky'
 import { VIEWER_TYPE } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -5,3 +6,7 @@ export type WithChildren<T = Record<string, unknown>> = T & {
 }
 
 export type ViewerType = typeof VIEWER_TYPE[keyof typeof VIEWER_TYPE]
+
+export type HTTPError = {
+  error: ky.HTTPError & Error
+}
