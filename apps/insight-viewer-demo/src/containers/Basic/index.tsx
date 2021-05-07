@@ -1,7 +1,7 @@
 import { Box, Heading } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
-import useImageSelect from './useImageSelect'
+import SelectableImage from './SelectableImage'
 
 export const WEB_URL =
   'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
@@ -26,8 +26,7 @@ export default function() {
 `
 
 function Basic(): JSX.Element {
-  const { ImageSelect, selected } = useImageSelect()
-  const { DICOMImageViewer, WebImageViewer } = useInsightViewer()
+  const { WebImageViewer } = useInsightViewer()
 
   return (
     <>
@@ -35,13 +34,7 @@ function Basic(): JSX.Element {
         <Heading as="h3">InsightViewer</Heading>
       </Box>
 
-      <Box mb={6}>
-        <ImageSelect />
-      </Box>
-
-      <div style={{ maxWidth: '100%', aspectRatio: '1 / 1' }}>
-        <DICOMImageViewer imageId={selected} />
-      </div>
+      <SelectableImage />
       <Box w={700}>
         <CodeBlock code={insightViewerCode} />
       </Box>
