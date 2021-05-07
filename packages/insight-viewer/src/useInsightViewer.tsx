@@ -1,16 +1,15 @@
 import React from 'react'
 import { DICOMImageViewer, WebImageViewer, ViewContext } from './Viewer'
-import { defaultHttpErrorHandler } from './utils/common'
-import { HTTPError } from './types'
+import { handleError } from './utils/common'
 
 type Viewer = ({ imageId }: { imageId: string }) => JSX.Element
 
 interface Prop {
-  onError?: (e: HTTPError) => void
+  onError?: (e: Error) => void
 }
 
 export default function useInsightViewer({
-  onError = defaultHttpErrorHandler,
+  onError = handleError,
 }: Prop = {}): {
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer

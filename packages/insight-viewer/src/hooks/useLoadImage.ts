@@ -45,11 +45,11 @@ export default function useLoadImage({
         displayImage(<HTMLDivElement>element, image, viewport)
       } catch (e) {
         /**
-         * e
+         * ky HTTPError
          * https://github.com/sindresorhus/ky/blob/main/source/errors/HTTPError.ts
          * { error: { name: 'HTTPError', options, request, response, message, stack }
          */
-        onError(e)
+        onError(new Error(e?.error?.message || e.message))
       }
     }
 
