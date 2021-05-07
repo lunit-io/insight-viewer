@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
   getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
-import { handleError } from '../utils/common'
 import httpClient from '../utils/httpClient'
-import { errorMessage } from '../utils/messageService'
+import { ViewContext } from '../Viewer'
 
 interface Prop {
   imageId: string
@@ -20,6 +19,7 @@ export default function useLoadImage({
   setLoader,
 }: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
+  const { onError } = useContext(ViewContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {
@@ -45,16 +45,16 @@ export default function useLoadImage({
         displayImage(<HTMLDivElement>element, image, viewport)
       } catch (e) {
         /**
-         * e
+         * ky HTTPError
          * https://github.com/sindresorhus/ky/blob/main/source/errors/HTTPError.ts
          * { error: { name: 'HTTPError', options, request, response, message, stack }
          */
-        errorMessage.sendMessage(e?.error?.message || 'An error has occured!')
-        handleError(e)
+        onError(new Error(e?.error?.message || e.message))
       }
     }
 
     loadImage()
-  }, [imageId, element, hasLoader])
+    return undefined
+  }, [imageId, element, hasLoader, onError])
   return hasLoader
 }

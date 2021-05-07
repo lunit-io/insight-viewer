@@ -26,8 +26,8 @@ export default function() {
 `
 
 function Basic(): JSX.Element {
-  const { DICOMImageViewer, WebImageViewer } = useInsightViewer()
   const { ImageSelect, selected } = useImageSelect()
+  const { DICOMImageViewer, WebImageViewer } = useInsightViewer()
 
   return (
     <>

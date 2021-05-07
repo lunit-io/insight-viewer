@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/progress'
 
 export default function Progress({
   progress = 0,

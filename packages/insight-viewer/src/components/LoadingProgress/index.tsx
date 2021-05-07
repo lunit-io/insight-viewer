@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Subscription } from 'rxjs'
 import CircularProgress from '../CircularProgress'
-import { lodingProgressMessage } from '../../utils/messageService'
+import { loadingProgressMessage } from '../../utils/messageService'
 
 const ProgressWrapper = styled.div`
   position: absolute;
@@ -23,12 +23,14 @@ export default function LoadingProgress(): JSX.Element {
   })
 
   useEffect(() => {
-    subscription = lodingProgressMessage.getMessage().subscribe(message => {
-      setState(prev => ({
-        ...prev,
-        progress: message,
-      }))
-    })
+    subscription = loadingProgressMessage
+      .getMessage()
+      .subscribe((message: number) => {
+        setState(prev => ({
+          ...prev,
+          progress: message,
+        }))
+      })
 
     return () => {
       subscription.unsubscribe()
