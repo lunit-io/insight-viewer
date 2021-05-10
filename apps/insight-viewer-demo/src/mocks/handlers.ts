@@ -13,7 +13,6 @@ export const handlers = [
     }
     return res(
       ctx.set('Content-Length', imageBuffer.byteLength.toString()),
-      ctx.set('Content-Type', 'image/jpeg'),
       // Respond with the "ArrayBuffer".
       ctx.body(imageBuffer)
     )
@@ -30,8 +29,6 @@ export const handlers = [
     }
     return res(
       ctx.set('Content-Length', imageBuffer.byteLength.toString()),
-      ctx.set('Content-Type', 'image/jpeg'),
-      // Respond with the "ArrayBuffer".
       ctx.body(imageBuffer)
     )
   }),
