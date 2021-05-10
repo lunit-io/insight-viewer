@@ -4,7 +4,7 @@ import {
   loadImage as cornerstoneLoadImage,
   getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
-import httpClient from '../utils/httpClient'
+import getHttpClient from '../utils/httpClient'
 import ViewContext from '../Viewer/Context'
 
 interface Prop {
@@ -19,7 +19,7 @@ export default function useLoadImage({
   setLoader,
 }: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError } = useContext(ViewContext)
+  const { onError, setHeader } = useContext(ViewContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {
@@ -35,7 +35,7 @@ export default function useLoadImage({
     async function loadImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
-          loader: httpClient,
+          loader: getHttpClient(setHeader),
         })
         const viewport = getDefaultViewportForImage(
           <HTMLDivElement>element,
@@ -55,6 +55,6 @@ export default function useLoadImage({
 
     loadImage()
     return undefined
-  }, [imageId, element, hasLoader, onError])
+  }, [imageId, element, hasLoader, onError, setHeader])
   return hasLoader
 }
