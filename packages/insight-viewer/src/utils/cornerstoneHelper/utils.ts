@@ -25,9 +25,10 @@ export function displayImage(
 }
 
 export function loadImage(
-  imageId: string
+  imageId: string,
+  options?: Record<string, unknown>
 ): ReturnType<typeof cornerstone.loadImage> {
-  return cornerstone.loadImage(imageId)
+  return cornerstone.loadImage(imageId, options)
 }
 
 export function getDefaultViewportForImage(

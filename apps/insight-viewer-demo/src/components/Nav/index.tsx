@@ -1,8 +1,12 @@
-import { Box } from '@chakra-ui/react'
+import { Box, List, ListItem } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { NextChakraLink } from '../NextChakraLink'
 import config from '../../../config'
+import { LINKS } from './const'
 
 function Nav(): JSX.Element {
+  const router = useRouter()
+
   return (
     <Box
       as="nav"
@@ -18,9 +22,18 @@ function Nav(): JSX.Element {
       flexShrink={0}
       display={{ base: 'none', md: 'block' }}
     >
-      <NextChakraLink href={`${config.HOST}/basic`} color="cyan.600">
-        - Basic
-      </NextChakraLink>
+      <List>
+        {LINKS.map(({ name, href }) => (
+          <ListItem key={`link=${name}`}>
+            <NextChakraLink
+              href={`${config.HOST}/${href}`}
+              color={router.pathname.slice(1) === href ? 'cyan.600' : ''}
+            >
+              - {name}
+            </NextChakraLink>
+          </ListItem>
+        ))}
+      </List>
     </Box>
   )
 }

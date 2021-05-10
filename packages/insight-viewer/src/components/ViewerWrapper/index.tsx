@@ -1,39 +1,26 @@
-import React, { forwardRef, useCallback } from 'react'
-import styled from 'styled-components'
-import { useResizeDetector } from 'react-resize-detector'
-import { resize } from '../../utils/cornerstoneHelper'
-import { WithChildren } from '../../types'
+import React, { forwardRef } from 'react'
+import { WithChildren, ViewerType } from '../../types'
+import LoadingProgress from '../LoadingProgress'
+import Wrapper from './Wrapper'
+import { VIEWER_TYPE } from '../../const'
+import useResize from './useResize'
 
-const StyledWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  user-select: none;
-`
+const ViewerWrapper = forwardRef<
+  HTMLDivElement,
+  WithChildren<{
+    type: ViewerType
+  }>
+>(({ type, children }, ref) => {
+  const { resizeRef } = useResize(ref)
 
-const ViewerWrapper = forwardRef<HTMLDivElement, WithChildren>(
-  ({ children }, ref) => {
-    const element = (ref as React.MutableRefObject<HTMLDivElement | null>)
-      ?.current
-    const handleResize = useCallback(() => {
-      if (!element) return undefined
-      return resize(element)
-    }, [element])
+  return (
+    <Wrapper ref={resizeRef}>
+      {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
+      <canvas className="cornerstone-canvas" />
+      {children}
+    </Wrapper>
+  )
+})
 
-    const { ref: resizeRef } = useResizeDetector({
-      targetRef: ref as React.MutableRefObject<HTMLDivElement>,
-      onResize: handleResize,
-      skipOnMount: false,
-    })
-
-    return (
-      <StyledWrapper ref={resizeRef}>
-        <canvas className="cornerstone-canvas" />
-        {children}
-      </StyledWrapper>
-    )
-  }
-)
-
+ViewerWrapper.displayName = 'ViewerWrapper'
 export default ViewerWrapper
