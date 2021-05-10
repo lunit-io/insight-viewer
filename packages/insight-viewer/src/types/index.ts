@@ -5,3 +5,4 @@ export type WithChildren<T = Record<string, unknown>> = T & {
 }
 
 export type ViewerType = typeof VIEWER_TYPE[keyof typeof VIEWER_TYPE]
+export type OnError = (e: Error) => void

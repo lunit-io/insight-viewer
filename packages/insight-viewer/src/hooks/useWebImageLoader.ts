@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="../@types/cornerstone-core/index.d.ts" />
 /// <reference path="../@types/cornerstone-web-image-loader/index.d.ts" />
+import { useContext } from 'react'
 import { getCornerstone } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useLoadImage from './useLoadImage'
-import { handleError } from '../utils/common'
+import ViewContext from '../Viewer/Context'
+import { OnError } from '../types'
 
-async function setLoader(): Promise<boolean> {
+async function setLoader(onError: OnError): Promise<boolean> {
   try {
     const cornerstoneWebImageLoader = await import(
       'cornerstone-web-image-loader'
@@ -15,7 +17,7 @@ async function setLoader(): Promise<boolean> {
     cornerstoneWebImageLoader.external.cornerstone = getCornerstone()
     return true
   } catch (e) {
-    handleError(e)
+    onError(e)
     return false
   }
 }
@@ -24,11 +26,13 @@ export default async function useWebImageLoader(
   imageId: string,
   element: HTMLDivElement | null
 ): Promise<void> {
+  const { onError } = useContext(ViewContext)
+
   useCornerstone(element)
 
   useLoadImage({
     imageId,
     element,
-    setLoader,
+    setLoader: () => setLoader(onError),
   })
 }
