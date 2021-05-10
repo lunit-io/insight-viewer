@@ -41,9 +41,7 @@ export default function LoadingProgress(): JSX.Element {
 
   useEffect(() => {
     if (progress === 100) {
-      setTimeout(() => {
-        setState(prev => ({ ...prev, hidden: true }))
-      }, 500)
+      setState(prev => ({ ...prev, hidden: true }))
     }
 
     if (progress === 0) {
