@@ -5,7 +5,7 @@ import {
   getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
 import httpClient from '../utils/httpClient'
-import { ViewContext } from '../Viewer'
+import ViewContext from '../Viewer/Context'
 
 interface Prop {
   imageId: string
