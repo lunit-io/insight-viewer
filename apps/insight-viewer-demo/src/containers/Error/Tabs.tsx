@@ -3,7 +3,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Base from './Base'
 import Custom from './Custom'
 
-export default function CustomError(): JSX.Element {
+export default function ErrorTabs(): JSX.Element {
   const [active, setActive] = useState(0)
 
   function handleChange(index: number): void {
