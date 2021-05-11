@@ -5,9 +5,9 @@ import CodeBlock from '../../components/CodeBlock'
 const Code = `\
 import useInsightViewer from '@lunit/insight-viewer'
 
-const { DICOMImageViewer } = useInsightViewer()
+export default function Viewer() {
+  const { DICOMImageViewer } = useInsightViewer()
 
-export default function() {
   return <DICOMImageViewer imageId={IMAGE_ID} />
 }
 `

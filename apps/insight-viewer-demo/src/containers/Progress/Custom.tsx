@@ -5,11 +5,13 @@ import CodeBlock from '../../components/CodeBlock'
 const Code = `\
 import useInsightViewer from '@lunit/insight-viewer'
 
-const { DICOMImageViewer } = useInsightViewer({
-  Progress: <CustomProgress />
-})
+export default function Viewer() {
+  const { DICOMImageViewer } = useInsightViewer({
+    Progress: ({ progress }: { progress: number }) => (
+      <CustomProgressComponent value={progress} />
+    )
+  })
 
-export default function() {
   return <DICOMImageViewer imageId={IMAGE_ID} />
 }
 `
