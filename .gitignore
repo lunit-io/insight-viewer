@@ -61,3 +61,6 @@ lerna-debug.log*
 # storybook
 storybook-static
 built-storybooks
+
+# dcm binary
+*.dcm

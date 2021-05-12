@@ -1,1 +1,1 @@
-export { default } from './useInsightViewer'
+export { default } from './hooks/useInsightViewer'

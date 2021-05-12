@@ -5,7 +5,7 @@ export default function Error(): JSX.Element {
   return (
     <>
       <Box mb={6}>
-        <Heading as="h3">InsightViewer Error</Heading>
+        <Heading as="h3">InsightViewer Progress</Heading>
       </Box>
       <Box mb={6}>
         <Tabs />

@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Subscription } from 'rxjs'
-import CircularProgress from '../CircularProgress'
+import ViewContext from '../../Viewer/Context'
 import { loadingProgressMessage } from '../../utils/messageService'
 
 const ProgressWrapper = styled.div`
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  transform: translateY(-50%);
+  text-align: center;
 `
 
 let subscription: Subscription
 
 export default function LoadingProgress(): JSX.Element {
+  const { Progress } = useContext(ViewContext)
   const [{ progress, hidden }, setState] = useState<{
     progress?: number
     hidden: boolean
@@ -39,9 +41,7 @@ export default function LoadingProgress(): JSX.Element {
 
   useEffect(() => {
     if (progress === 100) {
-      setTimeout(() => {
-        setState(prev => ({ ...prev, hidden: true }))
-      }, 500)
+      setState(prev => ({ ...prev, hidden: true }))
     }
 
     if (progress === 0) {
@@ -51,7 +51,7 @@ export default function LoadingProgress(): JSX.Element {
 
   return (
     <ProgressWrapper hidden={hidden}>
-      <CircularProgress progress={progress ?? 0} />
+      <Progress progress={progress ?? 0} />
     </ProgressWrapper>
   )
 }

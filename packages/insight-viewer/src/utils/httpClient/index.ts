@@ -1,33 +1,27 @@
 import ky from 'ky'
-import consola from 'consola'
 import { loadingProgressMessage } from '../messageService'
+import { SetHeader } from '../../types'
 
-export default async function httpClient(url: string): Promise<ArrayBuffer> {
-  const http = ky.create({
-    hooks: {
-      beforeRequest: [
-        request => {
-          consola.info(request)
-          // TODO: auth 사용여부에 따른 처리
-          // if (isAuthenticated()) {
-          //   request.headers.set('Authorization', `Bearer ${getAuthToken()}`)
-          // }
-        },
-      ],
-      afterResponse: [
-        // TODO: auth 사용여부에 따른 처리 401/403
-        // async (_req, _opts, response) => {
-        //   // if (response.status === 401) {
-        //   //   // Do something
-        //   // }
-        // },
-      ],
-    },
-    onDownloadProgress: async progress => {
-      loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
-    },
-  })
+type HttpClient = (url: string) => Promise<ArrayBuffer>
 
-  const res = await http.get(url)
-  return res.arrayBuffer()
+export default function getHttpClient(setHeader: SetHeader): HttpClient {
+  const httpClient: HttpClient = async url => {
+    const http = ky.create({
+      hooks: {
+        beforeRequest: [
+          request => {
+            setHeader(request)
+          },
+        ],
+      },
+      onDownloadProgress: async progress => {
+        loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
+      },
+    })
+
+    const res = await http.get(url)
+    return res.arrayBuffer()
+  }
+
+  return httpClient
 }
