@@ -6,6 +6,7 @@ import {
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import ViewContext from '../Viewer/Context'
+import useMultiFrame from './useMultiFrame'
 
 interface Prop {
   imageId: string
@@ -19,7 +20,7 @@ export default function useLoadImage({
   setLoader,
 }: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError, setHeader } = useContext(ViewContext)
+  const { onError, setHeader, images } = useContext(ViewContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {
@@ -27,6 +28,8 @@ export default function useLoadImage({
     setHasLoader(await setLoader())
     return undefined
   })()
+
+  useMultiFrame(images)
 
   useEffect(() => {
     if (!hasLoader) return undefined
