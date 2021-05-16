@@ -1,6 +1,7 @@
 import { Box, Heading } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import config from '../../../config'
 
 const Code = `\
 import useInsightViewer from '@lunit/insight-viewer'
@@ -30,9 +31,11 @@ export default function WithJwt(): JSX.Element {
         <Heading as="h4">jwt header</Heading>
       </Box>
       <Box w={700}>
-        <Box w={500} h={500}>
-          <DICOMImageViewer imageId={IMAGE_ID} />
-        </Box>
+        {config.IS_DEV && (
+          <Box w={500} h={500}>
+            <DICOMImageViewer imageId={IMAGE_ID} />
+          </Box>
+        )}
         <CodeBlock code={Code} />
       </Box>
     </>
