@@ -5,6 +5,8 @@ import Wrapper from './Wrapper'
 import { VIEWER_TYPE } from '../../const'
 import useResize from './useResize'
 
+export const elementId = `cornerstone-element-${Date.now()}`
+
 const ViewerWrapper = forwardRef<
   HTMLDivElement,
   WithChildren<{
@@ -14,7 +16,7 @@ const ViewerWrapper = forwardRef<
   const { resizeRef } = useResize(ref)
 
   return (
-    <Wrapper ref={resizeRef}>
+    <Wrapper ref={resizeRef} id={elementId}>
       {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
       <canvas className="cornerstone-canvas" />
       {children}
