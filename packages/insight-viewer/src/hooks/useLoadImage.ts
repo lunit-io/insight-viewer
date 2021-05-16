@@ -5,6 +5,7 @@ import {
   getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
+import { loadingProgressMessage } from '../utils/messageService'
 import ViewContext from '../Viewer/Context'
 
 interface Prop {
@@ -37,6 +38,7 @@ export default function useLoadImage({
         const image = await cornerstoneLoadImage(imageId, {
           loader: getHttpClient(setHeader),
         })
+        loadingProgressMessage.sendMessage(100)
         const viewport = getDefaultViewportForImage(
           <HTMLDivElement>element,
           image
