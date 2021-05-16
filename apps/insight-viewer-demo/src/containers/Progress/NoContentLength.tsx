@@ -7,7 +7,7 @@ export default function NoContentLength(): JSX.Element {
   return (
     <>
       <Box mb={6}>
-        <DICOMImageViewer imageId="wadouri:/api/no-content-length" />
+        <DICOMImageViewer imageId="wadouri:/api/no-content-length/1" />
       </Box>
     </>
   )
