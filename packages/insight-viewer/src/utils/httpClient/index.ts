@@ -4,7 +4,10 @@ import { SetHeader } from '../../types'
 
 type HttpClient = (url: string) => Promise<ArrayBuffer>
 
-export default function getHttpClient(setHeader: SetHeader): HttpClient {
+export default function getHttpClient(
+  isSingle: boolean,
+  setHeader: SetHeader
+): HttpClient {
   const httpClient: HttpClient = async url => {
     const http = ky.create({
       hooks: {
@@ -15,7 +18,8 @@ export default function getHttpClient(setHeader: SetHeader): HttpClient {
         ],
       },
       onDownloadProgress: async progress => {
-        loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
+        if (isSingle)
+          loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
       },
     })
 
