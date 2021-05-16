@@ -8,7 +8,10 @@ import {
   Image,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
-import { prefetchMessage } from '../utils/messageService'
+import {
+  prefetchMessage,
+  loadingProgressMessage,
+} from '../utils/messageService'
 import ViewContext from '../Viewer/Context'
 import { SetHeader, OnError } from '../types'
 import { elementId } from '../components/ViewerWrapper'
@@ -22,14 +25,29 @@ interface Load {
 let imageObjects: Image[]
 let subscription: Subscription
 
+function PromiseAll(promiseArray: Promise<Image>[]): Promise<Image[]> {
+  let d = 0
+  loadingProgressMessage.sendMessage(0)
+
+  promiseArray.forEach(p => {
+    p.then(() => {
+      d += 1
+      loadingProgressMessage.sendMessage(
+        Math.round((d * 100) / promiseArray.length)
+      )
+    })
+  })
+  return Promise.all(promiseArray)
+}
+
 async function load({ imageIds, setHeader, onError }: Load) {
   try {
     const loaders = imageIds.map(imageId =>
       loadImage(imageId, {
-        loader: getHttpClient(setHeader),
+        loader: getHttpClient(false, setHeader),
       })
     )
-    return await Promise.all(loaders)
+    return PromiseAll(loaders)
   } catch (err) {
     onError(err)
     return undefined
