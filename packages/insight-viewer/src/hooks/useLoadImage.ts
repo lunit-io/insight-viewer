@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
-  getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
@@ -42,12 +41,7 @@ export default function useLoadImage({
 
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
 
-        const viewport = getDefaultViewportForImage(
-          <HTMLDivElement>element,
-          image
-        )
-
-        displayImage(<HTMLDivElement>element, image, viewport)
+        displayImage(<HTMLDivElement>element, image)
       } catch (e) {
         /**
          * ky HTTPError
