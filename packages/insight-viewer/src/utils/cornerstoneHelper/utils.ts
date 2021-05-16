@@ -37,3 +37,5 @@ export function getDefaultViewportForImage(
 ): ReturnType<typeof cornerstone.getDefaultViewportForImage> {
   return cornerstone.getDefaultViewportForImage(element, image)
 }
+
+export type Image = cornerstone.Image

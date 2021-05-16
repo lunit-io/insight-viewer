@@ -4,6 +4,7 @@ import { DICOMImageViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, OnError, Progress as ProgressType, SetHeader } from '../types'
+import useMultiFrame, { SetFrame } from './useMultiFrame'
 
 interface Prop {
   onError?: OnError
@@ -21,7 +22,10 @@ export default function useInsightViewer({
 }: Prop = {}): {
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
+  setFrame: SetFrame
 } {
+  const { setFrame } = useMultiFrame(images)
+
   const DICOMImageViewerWithContent: Viewer = ({ imageId }) => (
     <ViewContext.Provider value={{ onError, Progress, setHeader, images }}>
       <DICOMImageViewer imageId={imageId} />
@@ -37,5 +41,6 @@ export default function useInsightViewer({
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
+    setFrame,
   }
 }
