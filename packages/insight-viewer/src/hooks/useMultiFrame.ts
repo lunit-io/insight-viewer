@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs'
 import {
   loadImage,
   setWadoImageLoader,
-  getDefaultViewportForImage,
   displayImage,
   Image,
 } from '../utils/cornerstoneHelper'
@@ -25,7 +24,9 @@ interface Load {
 let imageObjects: Image[]
 let subscription: Subscription
 
-function PromiseAll(promiseArray: Promise<Image>[]): Promise<Image[]> {
+function PromiseAllWithProgress(
+  promiseArray: Promise<Image>[]
+): Promise<Image[]> {
   let d = 0
   loadingProgressMessage.sendMessage(0)
 
@@ -40,14 +41,14 @@ function PromiseAll(promiseArray: Promise<Image>[]): Promise<Image[]> {
   return Promise.all(promiseArray)
 }
 
-async function load({ imageIds, setHeader, onError }: Load) {
+async function prefetch({ imageIds, setHeader, onError }: Load) {
   try {
     const loaders = imageIds.map(imageId =>
       loadImage(imageId, {
         loader: getHttpClient(false, setHeader),
       })
     )
-    return PromiseAll(loaders)
+    return PromiseAllWithProgress(loaders)
   } catch (err) {
     onError(err)
     return undefined
@@ -57,16 +58,24 @@ async function load({ imageIds, setHeader, onError }: Load) {
 export type SetFrame = (frame: number) => void
 
 const setFrame: SetFrame = frame => {
-  const element = document.getElementById(elementId)
-  const image = imageObjects?.[frame]
-  if (image) {
-    const viewport = getDefaultViewportForImage(<HTMLDivElement>element, image)
-    displayImage(<HTMLDivElement>element, image, viewport)
+  if (subscription) {
+    const image = imageObjects?.[frame]
+    const element = document.getElementById(elementId)
+    displayImage(<HTMLDivElement>element, image)
+  } else {
+    subscription = prefetchMessage
+      .getMessage()
+      .subscribe((message: Image[]) => {
+        imageObjects = message
+        const image = message?.[frame]
+        const element = document.getElementById(elementId)
+        displayImage(<HTMLDivElement>element, image)
+      })
   }
 }
 
 export default function useMultiFrame(imageIds: string[]): {
-  setFrame: typeof setFrame
+  setFrame: SetFrame
 } {
   const { onError, setHeader } = useContext(ViewContext)
 
@@ -75,7 +84,7 @@ export default function useMultiFrame(imageIds: string[]): {
 
     setWadoImageLoader(onError)
       .then(async () => {
-        const images = await load({ imageIds, setHeader, onError })
+        const images = await prefetch({ imageIds, setHeader, onError })
         prefetchMessage.sendMessage(images ?? [])
       })
       .catch(err => {
@@ -86,6 +95,7 @@ export default function useMultiFrame(imageIds: string[]): {
   }, [imageIds, onError, setHeader])
 
   useEffect(() => {
+    if (subscription) return undefined
     subscription = prefetchMessage
       .getMessage()
       .subscribe((message: Image[]) => {
