@@ -36,4 +36,11 @@ export const handlers = [
       ctx.body(imageBuffer)
     )
   }),
+  rest.get('/api/no-content-length', async (_, res, ctx) => {
+    const imageBuffer = await fetch('/images/CT000009.dcm').then(r =>
+      r.arrayBuffer()
+    )
+
+    return res(ctx.body(imageBuffer))
+  }),
 ]
