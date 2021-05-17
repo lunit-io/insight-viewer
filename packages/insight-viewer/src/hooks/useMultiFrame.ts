@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   loadImage,
   setWadoImageLoader,
@@ -10,9 +10,18 @@ import ViewContext from '../Viewer/Context'
 import { SetHeader, OnError } from '../types'
 
 interface Load {
-  imageIds: string[]
+  images: string[]
   setHeader: SetHeader
   onError: OnError
+}
+
+interface ReturnUseMultiframe {
+  frame: number
+  setFrame: (n: number) => void
+}
+
+export interface ReturnCurriedUseMultiframe {
+  (initial?: number): ReturnUseMultiframe
 }
 
 function PromiseAllWithProgress(
@@ -32,10 +41,10 @@ function PromiseAllWithProgress(
   return Promise.all(promiseArray)
 }
 
-async function prefetch({ imageIds, setHeader, onError }: Load) {
+async function prefetch({ images, setHeader, onError }: Load) {
   try {
-    const loaders = imageIds.map(imageId =>
-      loadImage(imageId, {
+    const loaders = images.map(image =>
+      loadImage(image, {
         loader: getHttpClient(false, setHeader),
       })
     )
@@ -46,20 +55,38 @@ async function prefetch({ imageIds, setHeader, onError }: Load) {
   }
 }
 
-export default function useMultiFrame(imageIds: string[]): void {
+export function useMultiframe({
+  images = [],
+  initial = 0,
+}: {
+  images: string[]
+  initial?: number
+}): ReturnUseMultiframe {
   const { onError, setHeader } = useContext(ViewContext)
+  const [frame, setFrame] = useState(initial)
 
   useEffect(() => {
-    if (imageIds.length === 0) return undefined
+    if (images.length === 0) return undefined
 
     setWadoImageLoader(onError)
       .then(async () => {
-        await prefetch({ imageIds, setHeader, onError })
+        await prefetch({ images, setHeader, onError })
       })
       .catch(err => {
         onError(err)
       })
 
     return undefined
-  }, [imageIds, onError, setHeader])
+  }, [images, onError, setHeader])
+
+  return {
+    frame,
+    setFrame,
+  }
+}
+
+export function curriedUseMultiframe(
+  images: string[]
+): ReturnCurriedUseMultiframe {
+  return (initial = 0) => useMultiframe({ images, initial })
 }
