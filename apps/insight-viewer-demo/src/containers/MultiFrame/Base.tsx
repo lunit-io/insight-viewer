@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Box, Input } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
@@ -26,22 +27,26 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { DICOMImageViewer, setFrame } = useInsightViewer({
+  const [current, setCurrent] = useState(0)
+
+  const { DICOMImageViewer } = useInsightViewer({
     images: IMAGES,
   })
 
   function handleKeyDown() {
-    setFrame(5)
+    setCurrent(5)
   }
 
-  return <DICOMImageViewer imageId={IMAGES[0]} /> />
+  return <DICOMImageViewer imageId={IMAGES[current]} /> />
 }
 `
 
 export default function Base(): JSX.Element {
-  const { DICOMImageViewer, setFrame } = useInsightViewer({
+  const { DICOMImageViewer } = useInsightViewer({
     images: IMAGES,
   })
+
+  const [current, setCurrent] = useState(0)
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
     const { key, target } = e
@@ -50,7 +55,7 @@ export default function Base(): JSX.Element {
     if (frame < 0 || frame > IMAGES.length - 1) return alert('invalid input')
 
     if (key !== 'Enter') return undefined
-    setFrame(frame)
+    setCurrent(frame)
     return undefined
   }
 
@@ -63,7 +68,7 @@ export default function Base(): JSX.Element {
           onKeyDown={handleKeyDown}
         />
       </Box>
-      <DICOMImageViewer imageId={IMAGES[0]} />
+      <DICOMImageViewer imageId={IMAGES[current]} />
       <Box w={700}>
         <CodeBlock code={Code} />
       </Box>
