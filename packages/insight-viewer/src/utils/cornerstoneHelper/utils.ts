@@ -18,10 +18,10 @@ export function getCornerstone(): typeof cornerstone {
 
 export function displayImage(
   element: HTMLDivElement,
-  image: cornerstone.Image,
-  viewport: cornerstone.Viewport
-): ReturnType<typeof cornerstone.displayImage> {
-  return cornerstone.displayImage(element, image, viewport)
+  image: cornerstone.Image
+): void {
+  const viewport = cornerstone.getDefaultViewportForImage(element, image)
+  cornerstone.displayImage(element, image, viewport)
 }
 
 export function loadImage(
@@ -37,3 +37,5 @@ export function getDefaultViewportForImage(
 ): ReturnType<typeof cornerstone.getDefaultViewportForImage> {
   return cornerstone.getDefaultViewportForImage(element, image)
 }
+
+export type Image = cornerstone.Image

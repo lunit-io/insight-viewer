@@ -2,9 +2,9 @@ import { useEffect, useState, useContext } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
-  getDefaultViewportForImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
+import { loadingProgressMessage } from '../utils/messageService'
 import ViewContext from '../Viewer/Context'
 
 interface Prop {
@@ -19,7 +19,8 @@ export default function useLoadImage({
   setLoader,
 }: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError, setHeader } = useContext(ViewContext)
+  const { onError, setHeader, images } = useContext(ViewContext)
+  const isSingleImage = images.length === 0
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {
@@ -35,14 +36,12 @@ export default function useLoadImage({
     async function loadImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
-          loader: getHttpClient(setHeader),
+          loader: getHttpClient(isSingleImage, setHeader),
         })
-        const viewport = getDefaultViewportForImage(
-          <HTMLDivElement>element,
-          image
-        )
 
-        displayImage(<HTMLDivElement>element, image, viewport)
+        if (isSingleImage) loadingProgressMessage.sendMessage(100)
+
+        displayImage(<HTMLDivElement>element, image)
       } catch (e) {
         /**
          * ky HTTPError
@@ -55,6 +54,6 @@ export default function useLoadImage({
 
     loadImage()
     return undefined
-  }, [imageId, element, hasLoader, onError, setHeader])
+  }, [imageId, element, isSingleImage, hasLoader, onError, setHeader])
   return hasLoader
 }

@@ -7,6 +7,7 @@ export interface ContextData {
   onError: OnError
   Progress: Progress
   setHeader: SetHeader
+  images: string[]
 }
 
 export const ContextDefaultValue: ContextData = {
@@ -14,6 +15,7 @@ export const ContextDefaultValue: ContextData = {
   Progress: CircularProgress,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setHeader: _request => {},
+  images: [],
 }
 
 const Context = createContext<ContextData>(ContextDefaultValue)
