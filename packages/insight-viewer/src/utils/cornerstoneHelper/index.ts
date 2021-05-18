@@ -1,2 +1,2 @@
 export * from './utils'
-export { setWadoImageLoader } from './setWadoImageLoader'
+export { wadoImageLoader$ } from './setWadoImageLoader'

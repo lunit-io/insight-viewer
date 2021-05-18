@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
-import {
-  loadImage,
-  setWadoImageLoader,
-  Image,
-} from '../utils/cornerstoneHelper'
+import { loadImage, Image, wadoImageLoader$ } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
+import { handleError } from '../utils/common'
 import { loadingProgressMessage } from '../utils/messageService'
 import ViewContext from '../Viewer/Context'
 import { SetHeader, OnError } from '../types'
@@ -36,8 +33,11 @@ function PromiseAllWithProgress(
       loadingProgressMessage.sendMessage(
         Math.round((d * 100) / promiseArray.length)
       )
+    }).catch(e => {
+      handleError(e)
     })
   })
+
   return Promise.all(promiseArray)
 }
 
@@ -48,6 +48,7 @@ async function prefetch({ images, setHeader, onError }: Load) {
         loader: getHttpClient(false, setHeader),
       })
     )
+
     return PromiseAllWithProgress(loaders)
   } catch (err) {
     onError(err)
@@ -67,14 +68,9 @@ export function useMultiframe({
 
   useEffect(() => {
     if (images.length === 0) return undefined
-
-    setWadoImageLoader(onError)
-      .then(async () => {
-        await prefetch({ images, setHeader, onError })
-      })
-      .catch(err => {
-        onError(err)
-      })
+    wadoImageLoader$.subscribe(() => {
+      prefetch({ images, setHeader, onError })
+    })
 
     return undefined
   }, [images, onError, setHeader])

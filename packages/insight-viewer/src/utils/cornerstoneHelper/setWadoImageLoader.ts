@@ -1,19 +1,20 @@
-import { OnError } from '../../types'
+import { from } from 'rxjs'
+import { share } from 'rxjs/operators'
 import { getCornerstone } from './utils'
+import { handleError } from '../common'
 
-export async function setWadoImageLoader(onError: OnError): Promise<boolean> {
-  try {
-    const [cornerstoneWADOImageLoader, dicomParser] = await Promise.all([
-      import('cornerstone-wado-image-loader'),
-      import('dicom-parser'),
-    ])
+export const wadoImageLoader$ = from(
+  Promise.all([import('cornerstone-wado-image-loader'), import('dicom-parser')])
+).pipe(share())
+
+wadoImageLoader$.subscribe({
+  next: ([cornerstoneWADOImageLoader, dicomParser]) => {
     // eslint-disable-next-line no-param-reassign
     cornerstoneWADOImageLoader.external.cornerstone = getCornerstone()
     // eslint-disable-next-line no-param-reassign
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser
-    return true
-  } catch (e) {
-    onError(e)
-    return false
-  }
-}
+  },
+  error: err => {
+    handleError(err)
+  },
+})
