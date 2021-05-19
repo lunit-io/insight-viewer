@@ -11,16 +11,17 @@ interface Prop {
   imageId: string
   element: HTMLDivElement | null
   setLoader: () => Promise<boolean>
+  isSingleImage?: boolean
 }
 
 export default function useLoadImage({
   imageId,
   element,
   setLoader,
+  isSingleImage = true,
 }: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError, setHeader, images } = useContext(ViewContext)
-  const isSingleImage = images.length === 0
+  const { onError, setHeader } = useContext(ViewContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {
