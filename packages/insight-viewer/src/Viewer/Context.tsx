@@ -8,7 +8,6 @@ export const ContextDefaultValue: ContextProp = {
   Progress: CircularProgress,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setHeader: _request => {},
-  images: [],
 }
 
 const Context = createContext<ContextProp>(ContextDefaultValue)
