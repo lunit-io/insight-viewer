@@ -7,10 +7,17 @@ import useCornerstone from './useCornerstone'
 import useLoadImage from './useLoadImage'
 import ViewContext from '../Viewer/Context'
 
-export default async function useDICOMImageLoader(
-  imageId: string,
+interface Prop {
+  imageId: string
   element: HTMLDivElement | null
-): Promise<void> {
+  isSingleImage: boolean
+}
+
+export default async function useDICOMImageLoader({
+  imageId,
+  element,
+  isSingleImage,
+}: Prop): Promise<void> {
   const { onError } = useContext(ViewContext)
   useCornerstone(element)
 
@@ -18,5 +25,6 @@ export default async function useDICOMImageLoader(
     imageId,
     element,
     setLoader: () => setWadoImageLoader(onError),
+    isSingleImage,
   })
 }

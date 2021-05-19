@@ -8,7 +8,11 @@ export function DICOMImageViewer({
   imageId,
 }: WithChildren<{ imageId: string }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useDICOMImageLoader(imageId, elRef.current)
+  useDICOMImageLoader({
+    imageId,
+    element: elRef.current,
+    isSingleImage: true,
+  })
 
   return <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM} />
 }
