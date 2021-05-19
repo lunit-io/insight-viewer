@@ -1,20 +1,13 @@
 import React from 'react'
-import ViewContext from '../Viewer/Context'
+import ViewContext, { ContextDefaultValue } from '../Viewer/Context'
 import { DICOMImageViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import CircularProgress from '../components/CircularProgress'
-import { Viewer, OnError, Progress as ProgressType, SetHeader } from '../types'
+import { Viewer, ContextProp } from '../types'
 import {
   curriedUseMultiframe,
   ReturnCurriedUseMultiframe,
 } from './useMultiframe'
-
-interface Prop {
-  onError?: OnError
-  Progress?: ProgressType
-  setHeader?: SetHeader
-  images?: string[]
-}
 
 export default function useInsightViewer({
   onError = handleError,
@@ -22,7 +15,7 @@ export default function useInsightViewer({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setHeader = _request => {},
   images = [],
-}: Prop = {}): {
+}: ContextProp = ContextDefaultValue): {
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
   useMultiframe: ReturnCurriedUseMultiframe
