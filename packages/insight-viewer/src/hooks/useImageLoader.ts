@@ -14,7 +14,7 @@ interface Prop {
   isSingleImage?: boolean
 }
 
-export default function useLoadImage({
+export default function useImageLoader({
   imageId,
   element,
   setLoader,
