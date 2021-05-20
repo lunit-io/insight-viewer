@@ -1,7 +1,6 @@
 import { Box, Heading } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
-import config from '../../../config'
 
 const Code = `\
 import useInsightViewer from '@lunit/insight-viewer'
@@ -22,6 +21,7 @@ const IMAGE_ID = 'wadouri:http://localhost:3000/api/with-cookie'
 export default function WithCookie(): JSX.Element {
   const { DICOMImageViewer } = useInsightViewer({
     setHeader: () => {
+      // for local Test
       document.cookie =
         'authToken=test; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/'
     },
@@ -33,11 +33,9 @@ export default function WithCookie(): JSX.Element {
         <Heading as="h4">cookie header</Heading>
       </Box>
       <Box w={700}>
-        {config.IS_DEV && (
-          <Box w={500} h={500}>
-            <DICOMImageViewer imageId={IMAGE_ID} />
-          </Box>
-        )}
+        <Box w={500} h={500}>
+          <DICOMImageViewer imageId={IMAGE_ID} />
+        </Box>
         <CodeBlock code={Code} />
       </Box>
     </>
