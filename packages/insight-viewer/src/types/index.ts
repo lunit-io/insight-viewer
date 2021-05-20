@@ -14,5 +14,4 @@ export interface ContextProp {
   onError: OnError
   Progress: Progress
   setHeader: SetHeader
-  images?: string[]
 }

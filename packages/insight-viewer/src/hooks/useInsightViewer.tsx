@@ -4,18 +4,25 @@ import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp } from '../types'
-import useMultiframe, { UseMultiframe } from './useMultiframe'
+import useFrame, { UseFrame } from './useFrame'
 
-export default function useInsightViewer({
-  onError = handleError,
-  Progress = CircularProgress,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setHeader = _request => {},
-  images = [],
-}: ContextProp = ContextDefaultValue): {
+export default function useInsightViewer(
+  {
+    onError = handleError,
+    Progress = CircularProgress,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setHeader = _request => {},
+    images = [],
+  }: Partial<ContextProp> & {
+    images?: string[]
+  } = {
+    ...ContextDefaultValue,
+    images: [],
+  }
+): {
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
-  useMultiframe: UseMultiframe
+  useFrame: UseFrame
 } {
   const DICOMImageViewerWithContent: Viewer = ({ imageId }) => (
     <ViewContext.Provider value={{ onError, Progress, setHeader }}>
@@ -36,6 +43,6 @@ export default function useInsightViewer({
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
-    useMultiframe,
+    useFrame,
   }
 }
