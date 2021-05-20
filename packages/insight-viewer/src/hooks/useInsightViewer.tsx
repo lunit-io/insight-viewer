@@ -3,7 +3,7 @@ import ViewContext, { ContextDefaultValue } from '../Viewer/Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import CircularProgress from '../components/CircularProgress'
-import { Viewer, ContextProp } from '../types'
+import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
 
 export default function useInsightViewer(
@@ -24,21 +24,37 @@ export default function useInsightViewer(
   WebImageViewer: Viewer
   useFrame: UseFrame
 } {
-  const DICOMImageViewerWithContent: Viewer = ({ imageId }) => (
-    <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-      {images.length > 1 ? (
-        <DICOMImagesViewer imageId={imageId} images={images} />
-      ) : (
-        <DICOMImageViewer imageId={imageId} />
-      )}
-    </ViewContext.Provider>
-  )
+  function DICOMImageViewerWithContent({
+    imageId,
+    children,
+  }: WithChildren<{
+    imageId: string
+  }>): JSX.Element {
+    return (
+      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
+        {images.length > 1 ? (
+          <DICOMImagesViewer imageId={imageId} images={images}>
+            {children}
+          </DICOMImagesViewer>
+        ) : (
+          <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
+        )}
+      </ViewContext.Provider>
+    )
+  }
 
-  const WebImageViewerWithContent: Viewer = ({ imageId }) => (
-    <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-      <WebImageViewer imageId={imageId} />
-    </ViewContext.Provider>
-  )
+  function WebImageViewerWithContent({
+    imageId,
+    children,
+  }: WithChildren<{
+    imageId: string
+  }>): JSX.Element {
+    return (
+      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
+        <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
+      </ViewContext.Provider>
+    )
+  }
 
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,

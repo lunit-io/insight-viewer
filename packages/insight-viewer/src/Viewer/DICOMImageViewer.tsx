@@ -6,6 +6,7 @@ import { VIEWER_TYPE } from '../const'
 
 export function DICOMImageViewer({
   imageId,
+  children,
 }: WithChildren<{ imageId: string }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   useDICOMImageLoader({
@@ -14,5 +15,9 @@ export function DICOMImageViewer({
     isSingleImage: true,
   })
 
-  return <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM} />
+  return (
+    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM}>
+      {children}
+    </ViewerWrapper>
+  )
 }
