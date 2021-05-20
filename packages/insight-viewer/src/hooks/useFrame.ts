@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-export interface UseMultiframe {
+export interface UseFrame {
   (f?: number): {
     frame: number
     setFrame: (n: number) => void
   }
 }
 
-const useMultiframe: UseMultiframe = (initial = 0) => {
+const useFrame: UseFrame = (initial = 0) => {
   const [frame, setFrame] = useState(initial)
 
   return {
@@ -16,4 +16,4 @@ const useMultiframe: UseMultiframe = (initial = 0) => {
   }
 }
 
-export default useMultiframe
+export default useFrame

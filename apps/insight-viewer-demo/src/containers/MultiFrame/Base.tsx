@@ -26,10 +26,10 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { DICOMImageViewer, useMultiframe } = useInsightViewer({
+  const { DICOMImageViewer, useFrame } = useInsightViewer({
     images: IMAGES,
   })
-  const { frame, setFrame } = useMultiframe()
+  const { frame, setFrame } = useFrame()
 
   function handleKeyDown() {
     setFrame(5)
@@ -40,10 +40,10 @@ export default function Viewer() {
 `
 
 export default function Base(): JSX.Element {
-  const { DICOMImageViewer, useMultiframe } = useInsightViewer({
+  const { DICOMImageViewer, useFrame } = useInsightViewer({
     images: IMAGES,
   })
-  const { frame, setFrame } = useMultiframe()
+  const { frame, setFrame } = useFrame()
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
     const { key, target } = e
