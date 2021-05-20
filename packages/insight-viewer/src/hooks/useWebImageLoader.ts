@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { getCornerstone } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
-import ViewContext from '../Viewer/Context'
+import ViewContext from '../Context'
 import { OnError } from '../types'
 
 async function setLoader(onError: OnError): Promise<boolean> {

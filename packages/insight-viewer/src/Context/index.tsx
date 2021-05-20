@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 import { handleError } from '../utils/common/index'
 import CircularProgress from '../components/CircularProgress'
-import { ContextProp } from '../types'
+import { ContextProp } from './types'
 
 export const ContextDefaultValue: ContextProp = {
   onError: handleError,

@@ -1,5 +1,5 @@
 import React from 'react'
-import ViewContext, { ContextDefaultValue } from '../Viewer/Context'
+import ViewContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import CircularProgress from '../components/CircularProgress'

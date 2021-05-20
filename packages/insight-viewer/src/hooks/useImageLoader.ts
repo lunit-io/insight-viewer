@@ -5,7 +5,7 @@ import {
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
-import ViewContext from '../Viewer/Context'
+import ViewContext from '../Context'
 
 interface Prop {
   imageId: string
