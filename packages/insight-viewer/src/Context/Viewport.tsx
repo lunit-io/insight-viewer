@@ -1,13 +1,15 @@
 import React, { createContext } from 'react'
 import { WithChildren, Viewport } from '../types'
 
-export const ViewrportContextDefaultValue: Viewport = {
+export const ViewrportContextDefaultValue: Required<Viewport> = {
   invert: false,
   hflip: false,
   vflip: false,
 }
 
-const ViewportContext = createContext<Viewport>(ViewrportContextDefaultValue)
+const ViewportContext = createContext<Required<Viewport>>(
+  ViewrportContextDefaultValue
+)
 
 export function ViewportContextProvider({
   invert = ViewrportContextDefaultValue.invert,
