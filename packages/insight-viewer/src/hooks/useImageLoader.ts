@@ -21,6 +21,7 @@ export default function useImageLoader({
   isSingleImage = true,
 }: Prop): boolean {
   const [hasLoader, setHasLoader] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const { onError, setHeader } = useContext(ViewContext)
 
   // eslint-disable-next-line no-extra-semi
@@ -43,6 +44,7 @@ export default function useImageLoader({
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
 
         displayImage(<HTMLDivElement>element, image)
+        setIsLoaded(true)
       } catch (e) {
         /**
          * ky HTTPError
@@ -54,7 +56,9 @@ export default function useImageLoader({
     }
 
     loadImage()
+
     return undefined
   }, [imageId, element, isSingleImage, hasLoader, onError, setHeader])
-  return hasLoader
+
+  return isLoaded
 }
