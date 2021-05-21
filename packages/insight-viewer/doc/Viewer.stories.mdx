@@ -5,7 +5,12 @@ import {
   Props,
   ArgsTable,
 } from '@storybook/addon-docs/blocks'
-import { DICOMImageViewer, WebImageViewer, Prop } from '../src/Viewer'
+import {
+  DICOMImageViewer,
+  DICOMImagesViewer,
+  WebImageViewer,
+  Prop,
+} from '../src/Viewer'
 
 <Meta
   title="Viewer"
@@ -13,6 +18,14 @@ import { DICOMImageViewer, WebImageViewer, Prop } from '../src/Viewer'
   argTypes={{
     imageId: {
       type: { imageId: 'string', required: true },
+    },
+    frame: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 10,
+        step: 1,
+      },
     },
   }}
 />
@@ -23,6 +36,20 @@ export const WADO_URL =
 export const WEB_URL =
   'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
 
+export const IMAGES = [
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000003.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000004.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000005.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000006.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000007.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000008.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm',
+  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
+]
+
 <ArgsTable of={DICOMImageViewer} />
 
 # DICOMImageViewer
@@ -32,6 +59,18 @@ export const WEB_URL =
     <div style={{ width: 500, height: 500 }}>
       <DICOMImageViewer imageId={WADO_URL} />
     </div>
+  </Story>
+</Preview>
+
+# Multiframe DICOMImageViewer
+
+<Preview>
+  <Story name="Multiframe DICOMImageViewer" args={{ frame: 0 }}>
+    {args => (
+      <div style={{ width: 500, height: 500 }}>
+        <DICOMImagesViewer imageId={IMAGES[args.frame]} images={IMAGES} />
+      </div>
+    )}
   </Story>
 </Preview>
 

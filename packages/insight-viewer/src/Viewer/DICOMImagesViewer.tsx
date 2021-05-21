@@ -2,16 +2,19 @@ import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren } from '../types'
 import useDICOMImageLoader from '../hooks/useDICOMImageLoader'
+import usePrefetch from '../hooks/usePrefetch'
 import { VIEWER_TYPE } from '../const'
 
-export function DICOMImageViewer({
+export function DICOMImagesViewer({
   imageId,
-}: WithChildren<{ imageId: string }>): JSX.Element {
+  images,
+}: WithChildren<{ imageId: string; images: string[] }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
+  usePrefetch(images)
   useDICOMImageLoader({
     imageId,
     element: elRef.current,
-    isSingleImage: true,
+    isSingleImage: false,
   })
 
   return <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM} />

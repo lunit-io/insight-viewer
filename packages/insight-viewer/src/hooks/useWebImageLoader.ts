@@ -4,7 +4,7 @@
 import { useContext } from 'react'
 import { getCornerstone } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
-import useLoadImage from './useLoadImage'
+import useImageLoader from './useImageLoader'
 import ViewContext from '../Viewer/Context'
 import { OnError } from '../types'
 
@@ -30,7 +30,7 @@ export default async function useWebImageLoader(
 
   useCornerstone(element)
 
-  useLoadImage({
+  useImageLoader({
     imageId,
     element,
     setLoader: () => setLoader(onError),

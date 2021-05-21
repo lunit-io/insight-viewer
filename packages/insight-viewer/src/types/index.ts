@@ -9,3 +9,9 @@ export type OnError = (e: Error) => void
 export type Progress = ({ progress }: { progress: number }) => JSX.Element
 export type Viewer = ({ imageId }: { imageId: string }) => JSX.Element
 export type SetHeader = (request: Request) => void
+
+export interface ContextProp {
+  onError: OnError
+  Progress: Progress
+  setHeader: SetHeader
+}
