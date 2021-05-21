@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Subscription } from 'rxjs'
-import ViewContext from '../../Viewer/Context'
+import ViewContext from '../../Context'
 import { loadingProgressMessage } from '../../utils/messageService'
 
 const ProgressWrapper = styled.div`

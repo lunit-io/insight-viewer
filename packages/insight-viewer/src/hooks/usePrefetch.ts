@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import ViewContext from '../Viewer/Context'
+import ViewContext from '../Context'
 import {
   loadImage,
   setWadoImageLoader,
