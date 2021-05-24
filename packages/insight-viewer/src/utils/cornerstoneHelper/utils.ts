@@ -45,3 +45,8 @@ export function setViewport(
 }
 
 export type Image = cornerstone.Image
+export type CornerstoneViewport = cornerstone.Viewport
+
+export const EVENT = {
+  IMAGE_RENDERED: 'cornerstoneimagerendered',
+}
