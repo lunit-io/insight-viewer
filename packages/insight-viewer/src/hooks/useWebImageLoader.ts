@@ -5,7 +5,6 @@ import { useContext } from 'react'
 import { getCornerstone } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
-import useViewportUpdate from './useViewportUpdate'
 import ViewContext from '../Context'
 import { OnError } from '../types'
 
@@ -31,14 +30,9 @@ export default async function useWebImageLoader(
 
   useCornerstone(element)
 
-  const isImageLoaded = useImageLoader({
+  useImageLoader({
     imageId,
     element,
     setLoader: () => setLoader(onError),
-  })
-
-  useViewportUpdate({
-    element,
-    isLoaded: isImageLoaded,
   })
 }

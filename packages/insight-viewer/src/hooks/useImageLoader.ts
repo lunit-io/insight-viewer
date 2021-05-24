@@ -6,6 +6,7 @@ import {
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
 import ViewContext from '../Context'
+import useViewportUpdate from './useViewportUpdate'
 
 interface Prop {
   imageId: string
@@ -19,9 +20,8 @@ export default function useImageLoader({
   element,
   setLoader,
   isSingleImage = true,
-}: Prop): boolean {
+}: Prop): void {
   const [hasLoader, setHasLoader] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
   const { onError, setHeader } = useContext(ViewContext)
 
   // eslint-disable-next-line no-extra-semi
@@ -30,6 +30,8 @@ export default function useImageLoader({
     setHasLoader(await setLoader())
     return undefined
   })()
+
+  useViewportUpdate(<HTMLDivElement>element)
 
   useEffect(() => {
     if (!hasLoader) return undefined
@@ -44,7 +46,6 @@ export default function useImageLoader({
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
 
         displayImage(<HTMLDivElement>element, image)
-        setIsLoaded(true)
       } catch (e) {
         /**
          * ky HTTPError
@@ -56,9 +57,7 @@ export default function useImageLoader({
     }
 
     loadImage()
-
     return undefined
   }, [imageId, element, isSingleImage, hasLoader, onError, setHeader])
-
-  return isLoaded
+  return undefined
 }

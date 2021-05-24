@@ -4,16 +4,13 @@ import ViewportContext, {
   ViewrportContextDefaultValue,
 } from '../Context/Viewport'
 
-interface Prop {
+export default function useViewportUpdate(
   element: HTMLDivElement | null
-  isLoaded: boolean
-}
-
-export default function useViewportUpdate({ element, isLoaded }: Prop): void {
+): void {
   const { invert, hflip, vflip } = useContext(ViewportContext)
 
   useEffect(() => {
-    if (!element || !isLoaded) return undefined
+    if (!element) return undefined
 
     const viewport = getViewport(element)
     if (!viewport) return undefined
@@ -24,5 +21,5 @@ export default function useViewportUpdate({ element, isLoaded }: Prop): void {
       vflip: vflip ?? ViewrportContextDefaultValue.vflip,
     })
     return undefined
-  }, [element, isLoaded, invert, hflip, vflip])
+  }, [element, invert, hflip, vflip])
 }
