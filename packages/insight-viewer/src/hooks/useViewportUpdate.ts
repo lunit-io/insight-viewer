@@ -21,6 +21,15 @@ function format(
       },
     }
   }
+  if (key === 'windowWidth' || key === 'windowCenter') {
+    return {
+      voi: {
+        ...viewport.voi,
+        [key]: value,
+      },
+    }
+  }
+
   return {
     [key]: value,
   }
