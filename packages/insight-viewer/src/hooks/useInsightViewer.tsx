@@ -3,11 +3,10 @@ import ViewContext, { ContextDefaultValue } from '../Context'
 import { ViewportContextProvider } from '../Context/Viewport'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
-import { cornerstoneMessage } from '../utils/messageService/cornerstone'
+import { cornerstoneMessage, viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren, Viewport } from '../types'
 import useFrame, { UseFrame } from './useFrame'
-import useViewport, { UseViewport } from './useViewport'
 
 export default function useInsightViewer(
   {
@@ -26,11 +25,10 @@ export default function useInsightViewer(
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
   useFrame: UseFrame
-  useViewport: UseViewport
+  setViewport: typeof viewportMessage.sendMessage
 } {
   function DICOMImageViewerWithContent({
     imageId,
-    viewport,
     children,
   }: WithChildren<{
     imageId: string
@@ -38,22 +36,19 @@ export default function useInsightViewer(
   }>): JSX.Element {
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-        <ViewportContextProvider viewport={viewport}>
-          {images.length > 1 ? (
-            <DICOMImagesViewer imageId={imageId} images={images}>
-              {children}
-            </DICOMImagesViewer>
-          ) : (
-            <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
-          )}
-        </ViewportContextProvider>
+        {images.length > 1 ? (
+          <DICOMImagesViewer imageId={imageId} images={images}>
+            {children}
+          </DICOMImagesViewer>
+        ) : (
+          <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
+        )}
       </ViewContext.Provider>
     )
   }
 
   function WebImageViewerWithContent({
     imageId,
-    viewport,
     children,
   }: WithChildren<{
     imageId: string
@@ -61,9 +56,7 @@ export default function useInsightViewer(
   }>): JSX.Element {
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-        <ViewportContextProvider viewport={viewport}>
-          <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
-        </ViewportContextProvider>
+        <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
       </ViewContext.Provider>
     )
   }
@@ -80,6 +73,6 @@ export default function useInsightViewer(
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
     useFrame,
-    useViewport,
+    setViewport: viewportMessage.sendMessage,
   }
 }

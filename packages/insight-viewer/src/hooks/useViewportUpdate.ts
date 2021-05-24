@@ -1,25 +1,55 @@
-import { useEffect, useContext } from 'react'
-import { getViewport, setViewport } from '../utils/cornerstoneHelper'
-import ViewportContext, {
-  ViewrportContextDefaultValue,
-} from '../Context/Viewport'
+import { useEffect } from 'react'
+import {
+  getViewport,
+  setViewport,
+  EVENT,
+  CornerstoneViewport,
+} from '../utils/cornerstoneHelper'
+import { viewportMessage } from '../utils/messageService'
+import { ViewportMessageProp } from '../utils/messageService/viewport'
+
+function format(
+  key: string,
+  value: unknown,
+  viewport: CornerstoneViewport
+): Record<string, unknown> {
+  if (key === 'x' || key === 'y') {
+    return {
+      translation: {
+        ...viewport.translation,
+        [key]: value,
+      },
+    }
+  }
+  return {
+    [key]: value,
+  }
+}
 
 export default function useViewportUpdate(
   element: HTMLDivElement | null
 ): void {
-  const { invert, hflip, vflip } = useContext(ViewportContext)
-
   useEffect(() => {
     if (!element) return undefined
 
-    const viewport = getViewport(element)
-    if (!viewport) return undefined
-    setViewport(element, {
-      ...viewport,
-      invert: invert ?? ViewrportContextDefaultValue.invert,
-      hflip: hflip ?? ViewrportContextDefaultValue.hflip,
-      vflip: vflip ?? ViewrportContextDefaultValue.vflip,
-    })
-    return undefined
-  }, [element, invert, hflip, vflip])
+    function onRender(): void {
+      viewportMessage
+        .getMessage()
+        .subscribe(({ key, value }: ViewportMessageProp) => {
+          const viewport = getViewport(<HTMLDivElement>element)
+
+          if (viewport)
+            setViewport(<HTMLDivElement>element, {
+              ...viewport,
+              ...format(key, value, viewport),
+            })
+        })
+    }
+
+    element.addEventListener(EVENT.IMAGE_RENDERED, onRender)
+
+    return () => {
+      element.removeEventListener(EVENT.IMAGE_RENDERED, onRender)
+    }
+  }, [element])
 }
