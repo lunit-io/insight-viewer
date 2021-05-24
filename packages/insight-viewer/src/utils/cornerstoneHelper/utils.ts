@@ -1,10 +1,10 @@
 import cornerstone from 'cornerstone-core'
 
-export function init(element: HTMLDivElement): void {
+export function enable(element: HTMLDivElement): void {
   cornerstone.enable(element)
 }
 
-export function dispose(element: HTMLDivElement): void {
+export function disable(element: HTMLDivElement): void {
   cornerstone.disable(element)
 }
 
