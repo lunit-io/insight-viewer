@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import ViewContext, { ContextDefaultValue } from '../Context'
-import { ViewportContextProvider } from '../Context/Viewport'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import { cornerstoneMessage, viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
-import { Viewer, ContextProp, WithChildren, Viewport } from '../types'
+import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
 
 export default function useInsightViewer(
@@ -32,7 +31,6 @@ export default function useInsightViewer(
     children,
   }: WithChildren<{
     imageId: string
-    viewport?: Viewport
   }>): JSX.Element {
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
@@ -52,7 +50,6 @@ export default function useInsightViewer(
     children,
   }: WithChildren<{
     imageId: string
-    viewport?: Viewport
   }>): JSX.Element {
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
