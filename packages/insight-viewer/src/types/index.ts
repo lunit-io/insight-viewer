@@ -15,15 +15,12 @@ export type OnError = (e: Error) => void
 export type Progress = ({ progress }: { progress: number }) => JSX.Element
 export type Viewer = ({
   imageId,
-  invert,
-  hflip,
-  vflip,
+  viewport,
   children,
-}: WithChildren<
-  {
-    imageId: string
-  } & Viewport
->) => JSX.Element
+}: WithChildren<{
+  imageId: string
+  viewport?: Viewport
+}>) => JSX.Element
 export type SetHeader = (request: Request) => void
 
 export interface ContextProp {

@@ -7,18 +7,14 @@ export const ViewrportContextDefaultValue: Required<Viewport> = {
   vflip: false,
 }
 
-const ViewportContext = createContext<Required<Viewport>>(
-  ViewrportContextDefaultValue
-)
+const ViewportContext = createContext<Viewport>(ViewrportContextDefaultValue)
 
 export function ViewportContextProvider({
-  invert = ViewrportContextDefaultValue.invert,
-  hflip = ViewrportContextDefaultValue.hflip,
-  vflip = ViewrportContextDefaultValue.vflip,
+  viewport = ViewrportContextDefaultValue,
   children,
-}: WithChildren<Viewport>): JSX.Element {
+}: WithChildren<{ viewport?: Viewport }>): JSX.Element {
   return (
-    <ViewportContext.Provider value={{ invert, hflip, vflip }}>
+    <ViewportContext.Provider value={viewport}>
       {children}
     </ViewportContext.Provider>
   )

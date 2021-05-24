@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { Viewport } from '../types'
+import { ViewrportContextDefaultValue } from '../Context/Viewport'
 
 type HandleViewport = (key: string, value: unknown) => void
 
 export interface UseViewport {
-  (): Viewport & {
+  (): {
+    viewport: Viewport
     setViewport: HandleViewport
   }
 }
 
 const useViewport: UseViewport = () => {
-  const [{ invert, hflip, vflip }, setViewport] = useState({
-    invert: false,
-    hflip: false,
-    vflip: false,
-  })
+  const [{ invert, hflip, vflip }, setViewport] = useState(
+    ViewrportContextDefaultValue
+  )
 
   const handleViewport: HandleViewport = (name, value) => {
     setViewport(prev => ({
@@ -24,9 +24,11 @@ const useViewport: UseViewport = () => {
   }
 
   return {
-    invert,
-    hflip,
-    vflip,
+    viewport: {
+      invert,
+      hflip,
+      vflip,
+    },
     setViewport: handleViewport,
   }
 }

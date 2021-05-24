@@ -7,7 +7,6 @@ import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
 import useViewportUpdate from './useViewportUpdate'
 import ViewContext from '../Context'
-import ViewportContext from '../Context/Viewport'
 import { OnError } from '../types'
 
 async function setLoader(onError: OnError): Promise<boolean> {
@@ -29,7 +28,6 @@ export default async function useWebImageLoader(
   element: HTMLDivElement | null
 ): Promise<void> {
   const { onError } = useContext(ViewContext)
-  const { invert, hflip, vflip } = useContext(ViewportContext)
 
   useCornerstone(element)
 
@@ -42,10 +40,5 @@ export default async function useWebImageLoader(
   useViewportUpdate({
     element,
     isLoaded: isImageLoaded,
-    viewport: {
-      invert,
-      hflip,
-      vflip,
-    },
   })
 }

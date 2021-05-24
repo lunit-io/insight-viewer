@@ -30,18 +30,15 @@ export default function useInsightViewer(
 } {
   function DICOMImageViewerWithContent({
     imageId,
-    invert,
-    hflip,
-    vflip,
+    viewport,
     children,
-  }: WithChildren<
-    {
-      imageId: string
-    } & Viewport
-  >): JSX.Element {
+  }: WithChildren<{
+    imageId: string
+    viewport?: Viewport
+  }>): JSX.Element {
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-        <ViewportContextProvider invert={invert} hflip={hflip} vflip={vflip}>
+        <ViewportContextProvider viewport={viewport}>
           {images.length > 1 ? (
             <DICOMImagesViewer imageId={imageId} images={images}>
               {children}
@@ -56,18 +53,15 @@ export default function useInsightViewer(
 
   function WebImageViewerWithContent({
     imageId,
-    invert,
-    hflip,
-    vflip,
+    viewport,
     children,
-  }: WithChildren<
-    {
-      imageId: string
-    } & Viewport
-  >): JSX.Element {
+  }: WithChildren<{
+    imageId: string
+    viewport?: Viewport
+  }>): JSX.Element {
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-        <ViewportContextProvider invert={invert} hflip={hflip} vflip={vflip}>
+        <ViewportContextProvider viewport={viewport}>
           <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
         </ViewportContextProvider>
       </ViewContext.Provider>

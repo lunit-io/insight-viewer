@@ -1,32 +1,28 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { getViewport, setViewport } from '../utils/cornerstoneHelper'
-import { Viewport } from '../types'
-import { ViewrportContextDefaultValue } from '../Context/Viewport'
+import ViewportContext, {
+  ViewrportContextDefaultValue,
+} from '../Context/Viewport'
 
 interface Prop {
   element: HTMLDivElement | null
   isLoaded: boolean
-  viewport: Required<Viewport>
 }
 
-export default function useViewportUpdate({
-  element,
-  isLoaded,
-  viewport: { invert, hflip, vflip } = ViewrportContextDefaultValue,
-}: Prop): void {
+export default function useViewportUpdate({ element, isLoaded }: Prop): void {
+  const { invert, hflip, vflip } = useContext(ViewportContext)
+
   useEffect(() => {
     if (!element || !isLoaded) return undefined
 
     const viewport = getViewport(element)
     if (!viewport) return undefined
-
     setViewport(element, {
       ...viewport,
-      invert,
-      hflip,
-      vflip,
+      invert: invert ?? ViewrportContextDefaultValue.invert,
+      hflip: hflip ?? ViewrportContextDefaultValue.hflip,
+      vflip: vflip ?? ViewrportContextDefaultValue.vflip,
     })
-
-    return () => {}
+    return undefined
   }, [element, isLoaded, invert, hflip, vflip])
 }

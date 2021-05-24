@@ -7,7 +7,6 @@ import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
 import useViewportUpdate from './useViewportUpdate'
 import ViewContext from '../Context'
-import ViewportContext from '../Context/Viewport'
 
 interface Prop {
   imageId: string
@@ -21,7 +20,6 @@ export default async function useDICOMImageLoader({
   isSingleImage,
 }: Prop): Promise<void> {
   const { onError } = useContext(ViewContext)
-  const { invert, hflip, vflip } = useContext(ViewportContext)
   useCornerstone(element)
 
   const isImageLoaded = useImageLoader({
@@ -34,10 +32,5 @@ export default async function useDICOMImageLoader({
   useViewportUpdate({
     element,
     isLoaded: isImageLoaded,
-    viewport: {
-      invert,
-      hflip,
-      vflip,
-    },
   })
 }

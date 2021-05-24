@@ -6,7 +6,10 @@ const IMAGE_ID =
 
 function Viewport(): JSX.Element {
   const { DICOMImageViewer, useViewport } = useInsightViewer()
-  const { invert, hflip, vflip, setViewport } = useViewport()
+  const {
+    viewport: { invert, hflip, vflip },
+    setViewport,
+  } = useViewport()
 
   return (
     <>
@@ -31,9 +34,7 @@ function Viewport(): JSX.Element {
         <Box w={500} h={500}>
           <DICOMImageViewer
             imageId={IMAGE_ID}
-            invert={invert}
-            hflip={hflip}
-            vflip={vflip}
+            viewport={{ invert, hflip, vflip }}
           />
         </Box>
       </Box>
