@@ -8,6 +8,7 @@ import { VIEWER_TYPE } from '../const'
 export function DICOMImagesViewer({
   imageId,
   images,
+  children,
 }: WithChildren<{ imageId: string; images: string[] }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   usePrefetch(images)
@@ -17,5 +18,9 @@ export function DICOMImagesViewer({
     isSingleImage: false,
   })
 
-  return <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM} />
+  return (
+    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM}>
+      {children}
+    </ViewerWrapper>
+  )
 }

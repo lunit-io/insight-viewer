@@ -4,4 +4,5 @@ export const LINKS = [
   { href: 'error', name: 'Error' },
   { href: 'progress', name: 'Progress' },
   { href: 'http-header', name: 'Http header' },
+  { href: 'viewport', name: 'Viewport' },
 ]

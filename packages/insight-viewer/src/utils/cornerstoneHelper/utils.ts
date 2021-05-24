@@ -31,11 +31,17 @@ export function loadImage(
   return cornerstone.loadImage(imageId, options)
 }
 
-export function getDefaultViewportForImage(
+export function getViewport(
+  element: HTMLDivElement
+): ReturnType<typeof cornerstone.getViewport> {
+  return cornerstone.getViewport(element)
+}
+
+export function setViewport(
   element: HTMLDivElement,
-  image: cornerstone.Image
-): ReturnType<typeof cornerstone.getDefaultViewportForImage> {
-  return cornerstone.getDefaultViewportForImage(element, image)
+  viewport: cornerstone.Viewport
+): ReturnType<typeof cornerstone.setViewport> {
+  return cornerstone.setViewport(element, viewport)
 }
 
 export type Image = cornerstone.Image

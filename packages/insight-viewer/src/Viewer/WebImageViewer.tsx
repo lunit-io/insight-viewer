@@ -6,9 +6,14 @@ import { VIEWER_TYPE } from '../const'
 
 export function WebImageViewer({
   imageId,
+  children,
 }: WithChildren<{ imageId: string }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   useWebImageLoader(imageId, elRef.current)
 
-  return <ViewerWrapper ref={elRef} type={VIEWER_TYPE.WEB} />
+  return (
+    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.WEB}>
+      {children}
+    </ViewerWrapper>
+  )
 }
