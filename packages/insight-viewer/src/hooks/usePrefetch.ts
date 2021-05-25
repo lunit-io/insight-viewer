@@ -15,8 +15,6 @@ interface Load {
   onError: OnError
 }
 
-let loaded = false
-
 function PromiseAllWithProgress(
   promiseArray: Promise<Image>[]
 ): Promise<Image[]> {
@@ -53,6 +51,7 @@ export default function usePrefetch(images: string[]): void {
   const { onError, setHeader } = useContext(ViewContext)
 
   useEffect(() => {
+    let loaded = false
     if (images.length === 0 || loaded) return undefined
 
     setWadoImageLoader(onError).then(async () => {
