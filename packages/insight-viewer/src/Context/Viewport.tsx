@@ -1,18 +1,35 @@
-import React, { createContext } from 'react'
-import { WithChildren, Viewport } from '../types'
+import React, { createContext, useEffect, useState } from 'react'
+import { WithChildren } from '../types'
+import {
+  getViewport,
+  EVENT,
+  CornerstoneViewport,
+} from '../utils/cornerstoneHelper'
 
-export const ViewrportContextDefaultValue: Required<Viewport> = {
-  invert: false,
-  hflip: false,
-  vflip: false,
-}
+const ViewportContext =
+  createContext<CornerstoneViewport | undefined>(undefined)
 
-const ViewportContext = createContext<Viewport>(ViewrportContextDefaultValue)
+export type Viewport = CornerstoneViewport | undefined
 
 export function ViewportContextProvider({
-  viewport = ViewrportContextDefaultValue,
+  element,
   children,
-}: WithChildren<{ viewport?: Viewport }>): JSX.Element {
+}: WithChildren<{ element: HTMLDivElement | null }>): JSX.Element {
+  const [viewport, setViewport] = useState<Viewport>(undefined)
+
+  useEffect(() => {
+    if (!element) return undefined
+
+    function onRender(): void {
+      setViewport(getViewport(element as HTMLDivElement))
+    }
+
+    element.addEventListener(EVENT.IMAGE_RENDERED, onRender)
+
+    return () => {
+      element.removeEventListener(EVENT.IMAGE_RENDERED, onRender)
+    }
+  }, [element])
   return (
     <ViewportContext.Provider value={viewport}>
       {children}
