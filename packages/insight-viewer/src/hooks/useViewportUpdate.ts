@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
+import { Subscription } from 'rxjs'
 import {
   getViewport,
   setViewport,
-  EVENT,
   CornerstoneViewport,
 } from '../utils/cornerstoneHelper'
 import { viewportMessage } from '../utils/messageService'
@@ -35,30 +35,29 @@ function format(
   }
 }
 
+let subscription: Subscription
+
 export default function useViewportUpdate(
   element: HTMLDivElement | null
 ): void {
   useEffect(() => {
     if (!element) return undefined
 
-    function onRender(): void {
-      viewportMessage
-        .getMessage()
-        .subscribe(({ key, value }: ViewportMessageProp) => {
-          const viewport = getViewport(<HTMLDivElement>element)
+    subscription = viewportMessage
+      .getMessage()
 
-          if (viewport)
-            setViewport(<HTMLDivElement>element, {
-              ...viewport,
-              ...format(key, value, viewport),
-            })
-        })
-    }
+      .subscribe(({ key, value }: ViewportMessageProp) => {
+        const viewport = getViewport(<HTMLDivElement>element)
 
-    element.addEventListener(EVENT.IMAGE_RENDERED, onRender)
+        if (viewport)
+          setViewport(<HTMLDivElement>element, {
+            ...viewport,
+            ...format(key, value, viewport),
+          })
+      })
 
     return () => {
-      element.removeEventListener(EVENT.IMAGE_RENDERED, onRender)
+      subscription.unsubscribe()
     }
   }, [element])
 }
