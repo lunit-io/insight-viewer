@@ -37,9 +37,7 @@ function format(
 
 let subscription: Subscription
 
-export default function useViewportUpdate(
-  element: HTMLDivElement | null
-): void {
+export default function useViewport(element: HTMLDivElement | null): void {
   useEffect(() => {
     if (!element) return undefined
 
