@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Switch } from '@chakra-ui/react'
+import { Box, HStack, Switch } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
@@ -31,10 +31,6 @@ function Viewport(): JSX.Element {
 
   return (
     <>
-      <Box mb={6}>
-        <Heading as="h3">Viewport</Heading>
-      </Box>
-
       <Box w={700}>
         <Box mb={6}>
           <HStack spacing="24px">

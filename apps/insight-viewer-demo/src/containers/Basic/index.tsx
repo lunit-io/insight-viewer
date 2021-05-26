@@ -30,10 +30,6 @@ function Basic(): JSX.Element {
 
   return (
     <>
-      <Box mb={6}>
-        <Heading as="h3">InsightViewer</Heading>
-      </Box>
-
       <SelectableImage />
       <Box w={700}>
         <CodeBlock code={insightViewerCode} />

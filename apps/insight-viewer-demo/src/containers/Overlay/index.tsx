@@ -1,4 +1,4 @@
-import { Box, Heading, UnorderedList, ListItem } from '@chakra-ui/react'
+import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
 import useInsightViewer, { Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { WithChildren } from '../../types'
@@ -76,24 +76,18 @@ function Overlay(): JSX.Element {
   const { DICOMImageViewer, ViewportConsumer } = useInsightViewer()
 
   return (
-    <>
-      <Box mb={6}>
-        <Heading as="h3">Overlay</Heading>
+    <Box w={700}>
+      <Box w={500} h={500}>
+        <DICOMImageViewer imageId={IMAGE_ID}>
+          <ViewportConsumer>
+            {viewport => <Nested viewport={viewport} />}
+          </ViewportConsumer>
+        </DICOMImageViewer>
       </Box>
-
       <Box w={700}>
-        <Box w={500} h={500}>
-          <DICOMImageViewer imageId={IMAGE_ID}>
-            <ViewportConsumer>
-              {viewport => <Nested viewport={viewport} />}
-            </ViewportConsumer>
-          </DICOMImageViewer>
-        </Box>
-        <Box w={700}>
-          <CodeBlock code={Code} />
-        </Box>
+        <CodeBlock code={Code} />
       </Box>
-    </>
+    </Box>
   )
 }
 
