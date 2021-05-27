@@ -7,10 +7,11 @@ import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
 import ViewContext from '../Context'
 import useViewport from './useViewport'
+import { Element } from '../types'
 
 interface Prop {
   imageId: string
-  element: HTMLDivElement | null
+  element: Element
   setLoader: () => Promise<boolean>
   isSingleImage?: boolean
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { WithChildren } from '../types'
+import { WithChildren, Element } from '../types'
 import {
   getViewport,
   EVENT,
@@ -14,7 +14,7 @@ export type Viewport = CornerstoneViewport | undefined
 export function ViewportContextProvider({
   element,
   children,
-}: WithChildren<{ element: HTMLDivElement | null }>): JSX.Element {
+}: WithChildren<{ element: Element }>): JSX.Element {
   const [viewport, setViewport] = useState<Viewport>(undefined)
 
   useEffect(() => {

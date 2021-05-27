@@ -6,10 +6,11 @@ import { setWadoImageLoader } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
 import ViewContext from '../Context'
+import { Element } from '../types'
 
 interface Prop {
   imageId: string
-  element: HTMLDivElement | null
+  element: Element
   isSingleImage: boolean
 }
 

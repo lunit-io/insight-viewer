@@ -7,6 +7,7 @@ import {
 } from '../utils/cornerstoneHelper'
 import { viewportMessage } from '../utils/messageService'
 import { ViewportMessageProp } from '../utils/messageService/viewport'
+import { Element } from '../types'
 
 function format(
   key: string,
@@ -37,7 +38,7 @@ function format(
 
 let subscription: Subscription
 
-export default function useViewport(element: HTMLDivElement | null): void {
+export default function useViewport(element: Element): void {
   useEffect(() => {
     if (!element) return undefined
 

@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 import { Subscription } from 'rxjs'
 import { enable, disable } from '../utils/cornerstoneHelper'
 import { cornerstoneMessage } from '../utils/messageService'
+import { Element } from '../types'
 
 let subscription: Subscription
 
-export default function useCornerstone(element: HTMLDivElement | null): void {
+export default function useCornerstone(element: Element): void {
   useEffect(() => {
     if (!element) return undefined
 

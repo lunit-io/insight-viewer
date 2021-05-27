@@ -6,7 +6,7 @@ import { getCornerstone } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
 import ViewContext from '../Context'
-import { OnError } from '../types'
+import { OnError, Element } from '../types'
 
 async function setLoader(onError: OnError): Promise<boolean> {
   try {
@@ -24,7 +24,7 @@ async function setLoader(onError: OnError): Promise<boolean> {
 
 export default async function useWebImageLoader(
   imageId: string,
-  element: HTMLDivElement | null
+  element: Element
 ): Promise<void> {
   const { onError } = useContext(ViewContext)
 
