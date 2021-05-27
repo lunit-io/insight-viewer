@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ViewContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
-import { cornerstoneMessage, viewportMessage } from '../utils/messageService'
+import { viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
@@ -59,14 +59,6 @@ export default function useInsightViewer(
       </ViewContext.Provider>
     )
   }
-
-  useEffect(() => {
-    cornerstoneMessage.sendMessage(true)
-
-    return () => {
-      cornerstoneMessage.sendMessage(false)
-    }
-  }, [])
 
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
