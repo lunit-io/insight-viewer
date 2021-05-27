@@ -7,6 +7,7 @@ import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
 import ViewportContext from '../Context/Viewport'
+import usePrefetch from './usePrefetch'
 
 export default function useInsightViewer(
   {
@@ -37,9 +38,7 @@ export default function useInsightViewer(
     return (
       <ViewContext.Provider value={{ onError, Progress, setHeader }}>
         {images.length > 1 ? (
-          <DICOMImagesViewer imageId={imageId} images={images}>
-            {children}
-          </DICOMImagesViewer>
+          <DICOMImagesViewer imageId={imageId}>{children}</DICOMImagesViewer>
         ) : (
           <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
         )}
@@ -59,6 +58,8 @@ export default function useInsightViewer(
       </ViewContext.Provider>
     )
   }
+
+  usePrefetch(images)
 
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
