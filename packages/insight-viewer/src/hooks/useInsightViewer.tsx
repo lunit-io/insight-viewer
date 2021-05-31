@@ -6,7 +6,6 @@ import { viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
-import ViewportContext from '../Context/Viewport'
 import usePrefetch from './usePrefetch'
 
 export default function useInsightViewer(
@@ -27,7 +26,6 @@ export default function useInsightViewer(
   WebImageViewer: Viewer
   useFrame: UseFrame
   setViewport: typeof viewportMessage.sendMessage
-  ViewportConsumer: typeof ViewportContext.Consumer
 } {
   function DICOMImageViewerWithContent({
     imageId,
@@ -66,6 +64,5 @@ export default function useInsightViewer(
     WebImageViewer: WebImageViewerWithContent,
     useFrame,
     setViewport: viewportMessage.sendMessage,
-    ViewportConsumer: ViewportContext.Consumer,
   }
 }
