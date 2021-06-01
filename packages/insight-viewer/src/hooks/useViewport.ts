@@ -8,7 +8,7 @@ import {
 import { viewportMessage } from '../utils/messageService'
 import { formatCornerstoneViewport } from '../utils/common/formatViewport'
 import { Element } from '../types'
-import { Viewport } from '../Context/Viewport'
+import { Viewport } from '../Context/Viewport/types'
 
 let subscription: Subscription
 

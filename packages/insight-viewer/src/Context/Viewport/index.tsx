@@ -1,29 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { WithChildren, Element } from '../types'
-import { getViewport, EVENT } from '../utils/cornerstoneHelper'
-import { formatViewport } from '../utils/common/formatViewport'
-
-export interface Viewport {
-  scale: number
-  invert: boolean
-  hflip: boolean
-  vflip: boolean
-  x: number
-  y: number
-  windowWidth: number
-  windowCenter: number
-}
-
-export const ViewportContextDefaultValue: Viewport = {
-  scale: 1,
-  invert: false,
-  hflip: false,
-  vflip: false,
-  x: 0,
-  y: 0,
-  windowWidth: 127,
-  windowCenter: 256,
-}
+import { WithChildren, Element } from '../../types'
+import { getViewport, EVENT } from '../../utils/cornerstoneHelper'
+import { formatViewport } from '../../utils/common/formatViewport'
+import { Viewport } from './types'
+import { ViewportContextDefaultValue } from './const'
 
 const ViewportContext = createContext<Viewport>(ViewportContextDefaultValue)
 
@@ -39,8 +19,8 @@ export function ViewportContextProvider({
     if (!element) return undefined
 
     function onRender(): void {
-      const v = getViewport(element as HTMLDivElement)
-      setViewport(formatViewport(v))
+      const currentViewport = getViewport(element as HTMLDivElement)
+      setViewport(formatViewport(currentViewport))
     }
 
     element.addEventListener(EVENT.IMAGE_RENDERED, onRender)

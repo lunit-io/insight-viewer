@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs'
-import { Viewport } from '../../Context/Viewport'
+import { Viewport } from '../../Context/Viewport/types'
 
 export interface ViewportMessageProp<K extends keyof Viewport> {
   key: K
