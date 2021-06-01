@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { WithChildren, ViewerType } from '../../types'
+import { WithChildren, ViewerType, Element } from '../../types'
 import LoadingProgress from '../LoadingProgress'
 import Wrapper from './Wrapper'
 import { VIEWER_TYPE } from '../../const'
@@ -19,7 +19,7 @@ const ViewerWrapper = forwardRef<
       {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
       <canvas className="cornerstone-canvas" />
       <ViewportContextProvider
-        element={(ref as React.MutableRefObject<HTMLDivElement | null>).current}
+        element={(ref as React.MutableRefObject<Element>).current}
       >
         {children}
       </ViewportContextProvider>

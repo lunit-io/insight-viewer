@@ -5,4 +5,5 @@ module.exports = {
   ...baseConfig,
   name: packageJson.name,
   displayName: packageJson.name,
+  roots: ['<rootDir>/src'],
 }

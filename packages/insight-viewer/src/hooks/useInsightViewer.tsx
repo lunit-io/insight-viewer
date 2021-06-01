@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
-import ViewContext, { ContextDefaultValue } from '../Context'
+import React from 'react'
+import LoaderContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
-import { cornerstoneMessage, viewportMessage } from '../utils/messageService'
+import { viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
-import ViewportContext from '../Context/Viewport'
+import usePrefetch from './usePrefetch'
 
 export default function useInsightViewer(
   {
@@ -26,7 +26,6 @@ export default function useInsightViewer(
   WebImageViewer: Viewer
   useFrame: UseFrame
   setViewport: typeof viewportMessage.sendMessage
-  ViewportConsumer: typeof ViewportContext.Consumer
 } {
   function DICOMImageViewerWithContent({
     imageId,
@@ -35,15 +34,13 @@ export default function useInsightViewer(
     imageId: string
   }>): JSX.Element {
     return (
-      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
         {images.length > 1 ? (
-          <DICOMImagesViewer imageId={imageId} images={images}>
-            {children}
-          </DICOMImagesViewer>
+          <DICOMImagesViewer imageId={imageId}>{children}</DICOMImagesViewer>
         ) : (
           <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
         )}
-      </ViewContext.Provider>
+      </LoaderContext.Provider>
     )
   }
 
@@ -54,25 +51,18 @@ export default function useInsightViewer(
     imageId: string
   }>): JSX.Element {
     return (
-      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
         <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
-      </ViewContext.Provider>
+      </LoaderContext.Provider>
     )
   }
 
-  useEffect(() => {
-    cornerstoneMessage.sendMessage(true)
-
-    return () => {
-      cornerstoneMessage.sendMessage(false)
-    }
-  }, [])
+  usePrefetch(images)
 
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
     useFrame,
     setViewport: viewportMessage.sendMessage,
-    ViewportConsumer: ViewportContext.Consumer,
   }
 }

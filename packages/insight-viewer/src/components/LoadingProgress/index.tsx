@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Subscription } from 'rxjs'
-import ViewContext from '../../Context'
+import LoaderContext from '../../Context'
 import { loadingProgressMessage } from '../../utils/messageService'
 
 const ProgressWrapper = styled.div`
@@ -15,7 +15,7 @@ const ProgressWrapper = styled.div`
 let subscription: Subscription
 
 export default function LoadingProgress(): JSX.Element {
-  const { Progress } = useContext(ViewContext)
+  const { Progress } = useContext(LoaderContext)
   const [{ progress, hidden }, setState] = useState<{
     progress?: number
     hidden: boolean

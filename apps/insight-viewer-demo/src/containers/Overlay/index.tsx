@@ -1,48 +1,51 @@
-import { Box, Heading, UnorderedList, ListItem } from '@chakra-ui/react'
-import useInsightViewer, { Viewport } from '@lunit/insight-viewer'
+import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
+import useInsightViewer, { useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
-import { WithChildren } from '../../types'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import useInsightViewer, { Viewport } from '@lunit/insight-viewer'
+  import useInsightViewer, { Viewport, useViewport } from '@lunit/insight-viewer'
 
   function Nested({ viewport }: {viewport: Viewport }) {
+    const { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter } =
+    useViewport()
+
     return (
       <ul>
-        <li>scale: {viewport?.scale}</li>
-        <li>
-          hflip/vflip: {viewport?.hflip} / {viewport?.vflip}
-        </li>
-        <li>
-          translation: {viewport?.translation?.x} / {viewport?.translation?.y}
-        </li>
-        <li>invert: {viewport?.invert}</li>
-        <li>
-          voi: {viewport?.voi?.windowWidth} / {viewport?.voi?.windowCenter}
-        </li>
+        <li>scale: {scale}</li>
+        <li>hflip/vflip: {hflip} / {vflip}</li>
+        <li>translation: {x} / {y}</li>
+        <li>invert: {invert}</li>
+        <li>voi: {windowWidth} / {windowCenter}</li>
       </ul>
     )
   }
 
   export default function Viewer() {
-    const { DICOMImageViewer, ViewportConsumer } = useInsightViewer()
+    const { DICOMImageViewer } = useInsightViewer()
 
     return (
       <DICOMImageViewer imageId={IMAGE_ID}>
-        <ViewportConsumer>
-          {viewport => <Nested viewport={viewport} />}
-        </ViewportConsumer>
+        <Nested />
       </DICOMImageViewer>
     )
   }
   `
 
-function Nested({
-  viewport,
-}: WithChildren<{ viewport?: Viewport }>): JSX.Element {
+function Nested(): JSX.Element {
+  const {
+    scale,
+    invert,
+    hflip,
+    vflip,
+    x,
+    y,
+    windowWidth,
+    windowCenter,
+  } = useViewport()
+
   return (
     <Box
       position="absolute"
@@ -56,16 +59,16 @@ function Nested({
       textShadow="1px 1px 1px black"
     >
       <UnorderedList>
-        <ListItem>scale: {viewport?.scale}</ListItem>
+        <ListItem>scale: {scale}</ListItem>
         <ListItem>
-          hflip/vflip: {`${viewport?.hflip}`} / {`${viewport?.vflip}`}
+          hflip/vflip: {`${hflip}`} / {`${vflip}`}
         </ListItem>
         <ListItem>
-          translation: {viewport?.translation?.x} / {viewport?.translation?.y}
+          translation: {x} / {y}
         </ListItem>
-        <ListItem>invert: {`${viewport?.invert}`}</ListItem>
+        <ListItem>invert: {`${invert}`}</ListItem>
         <ListItem>
-          voi: {viewport?.voi?.windowWidth} / {viewport?.voi?.windowCenter}
+          voi: {windowWidth} / {windowCenter}
         </ListItem>
       </UnorderedList>
     </Box>
@@ -73,27 +76,19 @@ function Nested({
 }
 
 function Overlay(): JSX.Element {
-  const { DICOMImageViewer, ViewportConsumer } = useInsightViewer()
+  const { DICOMImageViewer } = useInsightViewer()
 
   return (
-    <>
-      <Box mb={6}>
-        <Heading as="h3">Overlay</Heading>
+    <Box w={700}>
+      <Box w={500} h={500}>
+        <DICOMImageViewer imageId={IMAGE_ID}>
+          <Nested />
+        </DICOMImageViewer>
       </Box>
-
       <Box w={700}>
-        <Box w={500} h={500}>
-          <DICOMImageViewer imageId={IMAGE_ID}>
-            <ViewportConsumer>
-              {viewport => <Nested viewport={viewport} />}
-            </ViewportConsumer>
-          </DICOMImageViewer>
-        </Box>
-        <Box w={700}>
-          <CodeBlock code={Code} />
-        </Box>
+        <CodeBlock code={Code} />
       </Box>
-    </>
+    </Box>
   )
 }
 

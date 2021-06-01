@@ -1,5 +1,6 @@
-import { Box, Input } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
+import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 
 const IMAGES = [
@@ -45,26 +46,26 @@ export default function Base(): JSX.Element {
   })
   const { frame, setFrame } = useFrame()
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
-    const { key, target } = e
-    const current = Number((target as HTMLInputElement).value)
+  function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
+    const {
+      target: { value },
+    } = e
 
-    if (current < 0 || current > IMAGES.length - 1)
-      // eslint-disable-next-line no-alert
-      return alert('invalid input')
-
-    if (key !== 'Enter') return undefined
-    setFrame(current)
-    return undefined
+    setFrame(Number(value))
   }
 
   return (
     <Box w={500} h={500}>
       <Box mb={6}>
-        <Input
-          placeholder="Press 'enter' after typing frame index (range 0-10)"
-          variant="outline"
-          onKeyDown={handleKeyDown}
+        <input
+          type="range"
+          id="frame"
+          name="frame"
+          min="0"
+          max="10"
+          step="1"
+          defaultValue={0}
+          onChange={changeFrame}
         />
       </Box>
       <DICOMImageViewer imageId={IMAGES[frame]} />

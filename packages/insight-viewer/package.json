@@ -59,7 +59,7 @@
     "@storybook/addon-essentials": "^6.2.3",
     "@storybook/addon-links": "^6.2.3",
     "@storybook/react": "^6.2.3",
-    "@types/jest": "^26.0.22",
+    "@types/jest": "^26.0.23",
     "@types/react": "^17.0.3",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "^8.2.2",

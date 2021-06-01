@@ -5,11 +5,12 @@ import { useContext } from 'react'
 import { setWadoImageLoader } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
-import ViewContext from '../Context'
+import LoaderContext from '../Context'
+import { Element } from '../types'
 
 interface Prop {
   imageId: string
-  element: HTMLDivElement | null
+  element: Element
   isSingleImage: boolean
 }
 
@@ -18,7 +19,7 @@ export default async function useDICOMImageLoader({
   element,
   isSingleImage,
 }: Prop): Promise<void> {
-  const { onError } = useContext(ViewContext)
+  const { onError } = useContext(LoaderContext)
   useCornerstone(element)
 
   useImageLoader({

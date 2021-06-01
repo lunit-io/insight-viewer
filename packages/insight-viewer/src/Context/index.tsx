@@ -10,6 +10,6 @@ export const ContextDefaultValue: ContextProp = {
   setHeader: _request => {},
 }
 
-const Context = createContext<ContextProp>(ContextDefaultValue)
+const LoaderContext = createContext<ContextProp>(ContextDefaultValue)
 
-export default Context
+export default LoaderContext

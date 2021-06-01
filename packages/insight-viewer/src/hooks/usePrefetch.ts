@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import ViewContext from '../Context'
+import LoaderContext from '../Context'
 import {
   loadImage,
   setWadoImageLoader,
@@ -48,7 +48,7 @@ async function prefetch({ images, setHeader, onError }: Load) {
 }
 
 export default function usePrefetch(images: string[]): void {
-  const { onError, setHeader } = useContext(ViewContext)
+  const { onError, setHeader } = useContext(LoaderContext)
 
   useEffect(() => {
     let loaded = false
