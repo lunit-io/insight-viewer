@@ -7,11 +7,11 @@ const IMAGE_ID =
 
 const Code = `\
   import useInsightViewer from '@lunit/insight-viewer'
-  
-  export default function Viewer() {
+
+  export default function App() {
     const { DICOMImageViewer, setViewport } = useInsightViewer()
 
-    function handleViewport() {
+    function updateViewport() {
       setViewport({ invert: true })
       setViewport({ hflip: false })
       setViewport({ vflip: true })
@@ -27,8 +27,13 @@ const Code = `\
         windowCenter: 256 
       })
     }
-  
-    return <DICOMImageViewer imageId={IMAGE_ID} />
+
+    return (
+      <>
+        <button type="button" onClick={updateViewport}>update viewport</button>
+        <DICOMImageViewer imageId={IMAGE_ID} />
+      </>
+    )
   }
   `
 
