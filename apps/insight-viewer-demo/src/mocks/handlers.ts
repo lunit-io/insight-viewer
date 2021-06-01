@@ -3,9 +3,9 @@ import { rest } from 'msw'
 export const handlers = [
   rest.get('/api/with-cookie', async (req, res, ctx) => {
     const { authToken } = req.cookies
-    const imageBuffer = await fetch('/images/CT000002.dcm').then(r =>
-      r.arrayBuffer()
-    )
+    const imageBuffer = await fetch(
+      'https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm'
+    ).then(r => r.arrayBuffer())
 
     if (!authToken) {
       return res(
@@ -21,9 +21,9 @@ export const handlers = [
   }),
   rest.get('/api/with-jwt', async (req, res, ctx) => {
     const authHeader = req.headers.get('Authorization')
-    const imageBuffer = await fetch('/images/CT000009.dcm').then(r =>
-      r.arrayBuffer()
-    )
+    const imageBuffer = await fetch(
+      'https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm'
+    ).then(r => r.arrayBuffer())
 
     if (!authHeader) {
       return res(
@@ -37,23 +37,22 @@ export const handlers = [
     )
   }),
   rest.get('/api/no-content-length/1', async (_, res, ctx) => {
-    const imageBuffer = await fetch('/images/CT000001.dcm').then(r =>
-      r.arrayBuffer()
-    )
-
+    const imageBuffer = await fetch(
+      'https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
+    ).then(r => r.arrayBuffer())
     return res(ctx.body(imageBuffer))
   }),
   rest.get('/api/no-content-length/2', async (_, res, ctx) => {
-    const imageBuffer = await fetch('/images/CT000002.dcm').then(r =>
-      r.arrayBuffer()
-    )
+    const imageBuffer = await fetch(
+      'https://static.lunit.io/fixtures/dcm-files/series/CT000012.dcm'
+    ).then(r => r.arrayBuffer())
 
     return res(ctx.body(imageBuffer))
   }),
   rest.get('/api/no-content-length/3', async (_, res, ctx) => {
-    const imageBuffer = await fetch('/images/CT000003.dcm').then(r =>
-      r.arrayBuffer()
-    )
+    const imageBuffer = await fetch(
+      'https://static.lunit.io/fixtures/dcm-files/series/CT000013.dcm'
+    ).then(r => r.arrayBuffer())
 
     return res(ctx.body(imageBuffer))
   }),

@@ -5,11 +5,13 @@ import {
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
-import ViewContext from '../Context'
+import LoaderContext from '../Context'
+import useViewport from './useViewport'
+import { Element } from '../types'
 
 interface Prop {
   imageId: string
-  element: HTMLDivElement | null
+  element: Element
   setLoader: () => Promise<boolean>
   isSingleImage?: boolean
 }
@@ -19,10 +21,9 @@ export default function useImageLoader({
   element,
   setLoader,
   isSingleImage = true,
-}: Prop): boolean {
+}: Prop): void {
   const [hasLoader, setHasLoader] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const { onError, setHeader } = useContext(ViewContext)
+  const { onError, setHeader } = useContext(LoaderContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {
@@ -30,6 +31,8 @@ export default function useImageLoader({
     setHasLoader(await setLoader())
     return undefined
   })()
+
+  useViewport(<HTMLDivElement>element)
 
   useEffect(() => {
     if (!hasLoader) return undefined
@@ -44,7 +47,6 @@ export default function useImageLoader({
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
 
         displayImage(<HTMLDivElement>element, image)
-        setIsLoaded(true)
       } catch (e) {
         /**
          * ky HTTPError
@@ -56,9 +58,7 @@ export default function useImageLoader({
     }
 
     loadImage()
-
     return undefined
   }, [imageId, element, isSingleImage, hasLoader, onError, setHeader])
-
-  return isLoaded
+  return undefined
 }

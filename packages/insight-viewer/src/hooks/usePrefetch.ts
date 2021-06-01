@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import ViewContext from '../Context'
+import LoaderContext from '../Context'
 import {
   loadImage,
   setWadoImageLoader,
@@ -14,8 +14,6 @@ interface Load {
   setHeader: SetHeader
   onError: OnError
 }
-
-let loaded = false
 
 function PromiseAllWithProgress(
   promiseArray: Promise<Image>[]
@@ -50,9 +48,10 @@ async function prefetch({ images, setHeader, onError }: Load) {
 }
 
 export default function usePrefetch(images: string[]): void {
-  const { onError, setHeader } = useContext(ViewContext)
+  const { onError, setHeader } = useContext(LoaderContext)
 
   useEffect(() => {
+    let loaded = false
     if (images.length === 0 || loaded) return undefined
 
     setWadoImageLoader(onError).then(async () => {

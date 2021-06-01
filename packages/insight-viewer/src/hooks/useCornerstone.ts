@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
-import { init, dispose } from '../utils/cornerstoneHelper'
+import { enable, disable } from '../utils/cornerstoneHelper'
+import { Element } from '../types'
 
-export default function useCornerstone(element: HTMLDivElement | null): void {
+export default function useCornerstone(element: Element): void {
   useEffect(() => {
     if (!element) return undefined
-    init(element)
+    enable(element)
 
     return () => {
-      dispose(element)
+      disable(element)
     }
   }, [element])
 }

@@ -1,34 +1,38 @@
-import { useState } from 'react'
-import { Viewport } from '../types'
+import { useEffect } from 'react'
+import { Subscription } from 'rxjs'
+import {
+  getViewport,
+  setViewport,
+  CornerstoneViewport,
+} from '../utils/cornerstoneHelper'
+import { viewportMessage } from '../utils/messageService'
+import { formatCornerstoneViewport } from '../utils/common/formatViewport'
+import { Element } from '../types'
+import { Viewport } from '../Context/Viewport/types'
 
-type HandleViewport = (key: string, value: unknown) => void
+let subscription: Subscription
 
-export interface UseViewport {
-  (): Viewport & {
-    setViewport: HandleViewport
-  }
+export default function useViewport(element: Element): void {
+  useEffect(() => {
+    if (!element) return undefined
+
+    subscription = viewportMessage
+      .getMessage()
+
+      .subscribe((message: Partial<Viewport>) => {
+        const viewport = getViewport(
+          <HTMLDivElement>element
+        ) as CornerstoneViewport
+
+        if (viewport)
+          setViewport(
+            <HTMLDivElement>element,
+            formatCornerstoneViewport(viewport, message)
+          )
+      })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [element])
 }
-
-const useViewport: UseViewport = () => {
-  const [{ invert, hflip, vflip }, setViewport] = useState({
-    invert: false,
-    hflip: false,
-    vflip: false,
-  })
-
-  const handleViewport: HandleViewport = (name, value) => {
-    setViewport(prev => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  return {
-    invert,
-    hflip,
-    vflip,
-    setViewport: handleViewport,
-  }
-}
-
-export default useViewport

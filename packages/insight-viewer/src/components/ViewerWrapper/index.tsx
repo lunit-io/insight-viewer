@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react'
-import { WithChildren, ViewerType } from '../../types'
+import { WithChildren, ViewerType, Element } from '../../types'
 import LoadingProgress from '../LoadingProgress'
 import Wrapper from './Wrapper'
 import { VIEWER_TYPE } from '../../const'
 import useResize from './useResize'
+import { ViewportContextProvider } from '../../Context/Viewport'
 
 const ViewerWrapper = forwardRef<
   HTMLDivElement,
@@ -17,7 +18,11 @@ const ViewerWrapper = forwardRef<
     <Wrapper ref={resizeRef}>
       {type === VIEWER_TYPE.DICOM && <LoadingProgress />}
       <canvas className="cornerstone-canvas" />
-      {children}
+      <ViewportContextProvider
+        element={(ref as React.MutableRefObject<Element>).current}
+      >
+        {children}
+      </ViewportContextProvider>
     </Wrapper>
   )
 })

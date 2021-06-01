@@ -1,10 +1,13 @@
 import cornerstone from 'cornerstone-core'
 
-export function init(element: HTMLDivElement): void {
+export type Image = cornerstone.Image
+export type CornerstoneViewport = cornerstone.Viewport
+
+export function enable(element: HTMLDivElement): void {
   cornerstone.enable(element)
 }
 
-export function dispose(element: HTMLDivElement): void {
+export function disable(element: HTMLDivElement): void {
   cornerstone.disable(element)
 }
 
@@ -33,7 +36,7 @@ export function loadImage(
 
 export function getViewport(
   element: HTMLDivElement
-): ReturnType<typeof cornerstone.getViewport> {
+): cornerstone.Viewport | undefined {
   return cornerstone.getViewport(element)
 }
 
@@ -44,4 +47,6 @@ export function setViewport(
   return cornerstone.setViewport(element, viewport)
 }
 
-export type Image = cornerstone.Image
+export const EVENT = {
+  IMAGE_RENDERED: 'cornerstoneimagerendered',
+}

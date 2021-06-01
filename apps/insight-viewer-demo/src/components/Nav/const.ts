@@ -5,4 +5,5 @@ export const LINKS = [
   { href: 'progress', name: 'Progress' },
   { href: 'http-header', name: 'Http header' },
   { href: 'viewport', name: 'Viewport' },
+  { href: 'overlay', name: 'Overlay' },
 ]

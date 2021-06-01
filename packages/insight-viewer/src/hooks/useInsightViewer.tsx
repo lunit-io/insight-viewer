@@ -1,12 +1,12 @@
 import React from 'react'
-import ViewContext, { ContextDefaultValue } from '../Context'
-import { ViewportContextProvider } from '../Context/Viewport'
+import LoaderContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
+import { viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
-import { Viewer, ContextProp, WithChildren, Viewport } from '../types'
+import { Viewer, ContextProp, WithChildren } from '../types'
 import useFrame, { UseFrame } from './useFrame'
-import useViewport, { UseViewport } from './useViewport'
+import usePrefetch from './usePrefetch'
 
 export default function useInsightViewer(
   {
@@ -25,58 +25,44 @@ export default function useInsightViewer(
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
   useFrame: UseFrame
-  useViewport: UseViewport
+  setViewport: typeof viewportMessage.sendMessage
 } {
   function DICOMImageViewerWithContent({
     imageId,
-    invert,
-    hflip,
-    vflip,
     children,
-  }: WithChildren<
-    {
-      imageId: string
-    } & Viewport
-  >): JSX.Element {
+  }: WithChildren<{
+    imageId: string
+  }>): JSX.Element {
     return (
-      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-        <ViewportContextProvider invert={invert} hflip={hflip} vflip={vflip}>
-          {images.length > 1 ? (
-            <DICOMImagesViewer imageId={imageId} images={images}>
-              {children}
-            </DICOMImagesViewer>
-          ) : (
-            <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
-          )}
-        </ViewportContextProvider>
-      </ViewContext.Provider>
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
+        {images.length > 1 ? (
+          <DICOMImagesViewer imageId={imageId}>{children}</DICOMImagesViewer>
+        ) : (
+          <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
+        )}
+      </LoaderContext.Provider>
     )
   }
 
   function WebImageViewerWithContent({
     imageId,
-    invert,
-    hflip,
-    vflip,
     children,
-  }: WithChildren<
-    {
-      imageId: string
-    } & Viewport
-  >): JSX.Element {
+  }: WithChildren<{
+    imageId: string
+  }>): JSX.Element {
     return (
-      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
-        <ViewportContextProvider invert={invert} hflip={hflip} vflip={vflip}>
-          <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
-        </ViewportContextProvider>
-      </ViewContext.Provider>
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
+        <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
+      </LoaderContext.Provider>
     )
   }
+
+  usePrefetch(images)
 
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
     useFrame,
-    useViewport,
+    setViewport: viewportMessage.sendMessage,
   }
 }

@@ -5,10 +5,16 @@ import Head from 'next/head'
 import Layout from '../components/Layout'
 import { Chakra } from '../components/Chakra'
 import '../styles/globals.css'
+import config from '../../config'
 
-if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined') {
+if (typeof window !== 'undefined') {
   const { worker } = require('../mocks/browser')
-  worker.start()
+
+  worker.start({
+    serviceWorker: {
+      url: `${config.HOST}/mockServiceWorker.js`,
+    },
+  })
 }
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
