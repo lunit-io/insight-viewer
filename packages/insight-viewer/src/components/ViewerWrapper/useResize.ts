@@ -3,7 +3,9 @@ import { useResizeDetector } from 'react-resize-detector'
 import { resize } from '../../utils/cornerstoneHelper'
 import { Element } from '../../types'
 
-export default function useResize(ref: React.ForwardedRef<HTMLDivElement>): {
+export default function useResize(
+  ref: React.ForwardedRef<HTMLDivElement>
+): {
   resizeRef: React.RefObject<HTMLDivElement>
 } {
   const element = (ref as React.MutableRefObject<Element>)?.current
