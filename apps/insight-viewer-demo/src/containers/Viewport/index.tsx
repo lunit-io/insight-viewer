@@ -46,13 +46,13 @@ function Viewport(): JSX.Element {
         <Box mb={6}>
           <HStack spacing="24px">
             <Box>
-              Invert{' '}
+              invert{' '}
               <Switch
                 onChange={e => setViewport({ invert: e.target.checked })}
               />
             </Box>
             <Box>
-              Hflip{' '}
+              hflip{' '}
               <Switch
                 onChange={e => setViewport({ hflip: e.target.checked })}
               />
