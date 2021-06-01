@@ -1,16 +1,16 @@
 import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
-import useInsightViewer, { useViewportContext } from '@lunit/insight-viewer'
+import useInsightViewer, { useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import useInsightViewer, { Viewport, useViewportContext } from '@lunit/insight-viewer'
+  import useInsightViewer, { Viewport, useViewport } from '@lunit/insight-viewer'
 
   function Nested({ viewport }: {viewport: Viewport }) {
     const { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter } =
-      useViewportContext()
+    useViewport()
 
     return (
       <ul>
@@ -44,7 +44,7 @@ function Nested(): JSX.Element {
     y,
     windowWidth,
     windowCenter,
-  } = useViewportContext()
+  } = useViewport()
 
   return (
     <Box
