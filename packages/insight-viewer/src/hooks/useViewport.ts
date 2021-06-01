@@ -6,35 +6,9 @@ import {
   CornerstoneViewport,
 } from '../utils/cornerstoneHelper'
 import { viewportMessage } from '../utils/messageService'
-import { ViewportMessageProp } from '../utils/messageService/viewport'
+import { formatCornerstoneViewport } from '../utils/common/formatViewport'
 import { Element } from '../types'
-
-function format(
-  key: string,
-  value: unknown,
-  viewport: CornerstoneViewport
-): Record<string, unknown> {
-  if (key === 'x' || key === 'y') {
-    return {
-      translation: {
-        ...viewport.translation,
-        [key]: value,
-      },
-    }
-  }
-  if (key === 'windowWidth' || key === 'windowCenter') {
-    return {
-      voi: {
-        ...viewport.voi,
-        [key]: value,
-      },
-    }
-  }
-
-  return {
-    [key]: value,
-  }
-}
+import { Viewport } from '../Context/Viewport'
 
 let subscription: Subscription
 
@@ -45,14 +19,16 @@ export default function useViewport(element: Element): void {
     subscription = viewportMessage
       .getMessage()
 
-      .subscribe(({ key, value }: ViewportMessageProp) => {
-        const viewport = getViewport(<HTMLDivElement>element)
+      .subscribe((message: Partial<Viewport>) => {
+        const viewport = getViewport(
+          <HTMLDivElement>element
+        ) as CornerstoneViewport
 
         if (viewport)
-          setViewport(<HTMLDivElement>element, {
-            ...viewport,
-            ...format(key, value, viewport),
-          })
+          setViewport(
+            <HTMLDivElement>element,
+            formatCornerstoneViewport(viewport, message)
+          )
       })
 
     return () => {
