@@ -5,7 +5,7 @@ import {
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
-import ViewContext from '../Context'
+import LoaderContext from '../Context'
 import useViewport from './useViewport'
 import { Element } from '../types'
 
@@ -23,7 +23,7 @@ export default function useImageLoader({
   isSingleImage = true,
 }: Prop): void {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError, setHeader } = useContext(ViewContext)
+  const { onError, setHeader } = useContext(LoaderContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<undefined> {

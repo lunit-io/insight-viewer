@@ -1,5 +1,5 @@
 import React from 'react'
-import ViewContext, { ContextDefaultValue } from '../Context'
+import LoaderContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import { viewportMessage } from '../utils/messageService'
@@ -34,13 +34,13 @@ export default function useInsightViewer(
     imageId: string
   }>): JSX.Element {
     return (
-      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
         {images.length > 1 ? (
           <DICOMImagesViewer imageId={imageId}>{children}</DICOMImagesViewer>
         ) : (
           <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
         )}
-      </ViewContext.Provider>
+      </LoaderContext.Provider>
     )
   }
 
@@ -51,9 +51,9 @@ export default function useInsightViewer(
     imageId: string
   }>): JSX.Element {
     return (
-      <ViewContext.Provider value={{ onError, Progress, setHeader }}>
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
         <WebImageViewer imageId={imageId}>{children}</WebImageViewer>
-      </ViewContext.Provider>
+      </LoaderContext.Provider>
     )
   }
 
