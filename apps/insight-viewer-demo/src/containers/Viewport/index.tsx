@@ -12,14 +12,20 @@ const Code = `\
     const { DICOMImageViewer, setViewport } = useInsightViewer()
 
     function handleViewport() {
-      setViewport('invert', true)
-      setViewport('hflip', false)
-      setViewport('vflip', true)
-      setViewport('x', 0)
-      setViewport('y', 10)
-      setViewport('scale', 1)
-      setViewport('windowWidth', 128)
-      setViewport('windowCenter', 256)
+      setViewport({ invert: true })
+      setViewport({ hflip: false })
+      setViewport({ vflip: true })
+      setViewport({ x: 0 })
+      setViewport({ y: 10 })
+      setViewport({ scale: 1 })
+      setViewport({ windowWidth: 128 })
+      setViewport({ windowCenter: 256 })
+      // or
+      setViewport({
+        invert: false,
+        x: 10,
+        windowCenter: 256 
+      })
     }
   
     return <DICOMImageViewer imageId={IMAGE_ID} />
@@ -36,15 +42,21 @@ function Viewport(): JSX.Element {
           <HStack spacing="24px">
             <Box>
               Invert{' '}
-              <Switch onChange={e => setViewport('invert', e.target.checked)} />
+              <Switch
+                onChange={e => setViewport({ invert: e.target.checked })}
+              />
             </Box>
             <Box>
               Hflip{' '}
-              <Switch onChange={e => setViewport('hflip', e.target.checked)} />
+              <Switch
+                onChange={e => setViewport({ hflip: e.target.checked })}
+              />
             </Box>
             <Box>
               vflip{' '}
-              <Switch onChange={e => setViewport('vflip', e.target.checked)} />
+              <Switch
+                onChange={e => setViewport({ vflip: e.target.checked })}
+              />
             </Box>
           </HStack>
           <HStack spacing="24px" mt={3}>
@@ -60,7 +72,7 @@ function Viewport(): JSX.Element {
                   step="10"
                   defaultValue={0}
                   onChange={e => {
-                    setViewport('x', Number(e.target.value))
+                    setViewport({ x: Number(e.target.value) })
                   }}
                 />
               </Box>
@@ -77,7 +89,7 @@ function Viewport(): JSX.Element {
                   step="10"
                   defaultValue={0}
                   onChange={e => {
-                    setViewport('y', Number(e.target.value))
+                    setViewport({ y: Number(e.target.value) })
                   }}
                 />
               </Box>
@@ -95,7 +107,7 @@ function Viewport(): JSX.Element {
               step="0.1"
               defaultValue={1}
               onChange={e => {
-                setViewport('scale', Number(e.target.value))
+                setViewport({ scale: Number(e.target.value) })
               }}
             />
           </Box>
@@ -112,7 +124,7 @@ function Viewport(): JSX.Element {
                   step="25.6"
                   defaultValue={128}
                   onChange={e => {
-                    setViewport('windowWidth', Number(e.target.value))
+                    setViewport({ windowWidth: Number(e.target.value) })
                   }}
                 />
               </Box>
@@ -129,7 +141,7 @@ function Viewport(): JSX.Element {
                   step="25.6"
                   defaultValue={128}
                   onChange={e => {
-                    setViewport('windowCenter', Number(e.target.value))
+                    setViewport({ windowCenter: Number(e.target.value) })
                   }}
                 />
               </Box>
