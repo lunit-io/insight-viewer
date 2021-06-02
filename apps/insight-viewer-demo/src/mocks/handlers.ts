@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 
 export const handlers = [
-  rest.get('/api/with-jwt', async (req, res, ctx) => {
+  rest.get('/msw/with-jwt', async (req, res, ctx) => {
     const authHeader = req.headers.get('Authorization')
     const imageBuffer = await fetch(
       'https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm'
