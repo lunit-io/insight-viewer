@@ -1,3 +1,4 @@
+import { rest } from 'msw'
 import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks'
 import { DICOMImageViewer, Prop } from '../src/Viewer'
 
@@ -9,7 +10,7 @@ export const WADO_URL =
 # Basic
 
 <Canvas>
-  <Story name="Progress">
+  <Story name="Basic Progress">
     <div style={{ width: 500, height: 500 }}>
       <DICOMImageViewer imageId={WADO_URL} />
     </div>
