@@ -1,10 +1,10 @@
 import { Box } from '@chakra-ui/react'
-import Tabs from './Tabs'
+import Base from './Base'
 
 export default function MultiFrame(): JSX.Element {
   return (
     <Box mb={6}>
-      <Tabs />
+      <Base />
     </Box>
   )
 }
