@@ -29,8 +29,9 @@
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "clean:doc": "rm -rf ../../out/handbook/src/insight-viewer",
     "test": "yarn jest",
+    "export-msw": "cp ./public/mockServiceWorker.js ../../out/handbook/src/insight-viewer/",
     "storybook": "start-storybook -s public -p 6006",
-    "build-storybook": "build-storybook -o ../../out/handbook/src/insight-viewer --quiet",
+    "build-storybook": "build-storybook -o ../../out/handbook/src/insight-viewer --quiet && yarn run export-msw",
     "doc": "yarn run build-storybook"
   },
   "publishConfig": {
@@ -72,6 +73,6 @@
     "ts-jest": "^26.5.4"
   },
   "msw": {
-    "workerDirectory": "public"
+    "workerDirectory": "doc"
   }
 }
