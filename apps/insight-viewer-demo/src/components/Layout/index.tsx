@@ -21,7 +21,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
         <Box p="6">
           <Grid templateColumns="repeat(5, 1fr)">
             <GridItem colSpan={1}>
-              <NextChakraLink href={`${config.HOST}`}>
+              <NextChakraLink href={`${config.HOST}/basic`}>
                 <Logo h="1.5rem" pointerEvents="none" />
               </NextChakraLink>
             </GridItem>
