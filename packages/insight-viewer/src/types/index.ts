@@ -13,6 +13,14 @@ export type Viewer = ({
 }: WithChildren<{
   imageId: string
 }>) => JSX.Element
+export type MultiframeViewer = ({
+  imageIds,
+  initial,
+  children,
+}: WithChildren<{
+  imageIds: string[]
+  initial?: number
+}>) => JSX.Element
 export type SetHeader = (request: Request) => void
 
 export interface ContextProp {

@@ -2,11 +2,9 @@ import React from 'react'
 import LoaderContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
-import { viewportMessage } from '../utils/messageService'
+import { viewportMessage, multiframeMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
-import { Viewer, ContextProp, WithChildren } from '../types'
-import useFrame, { UseFrame } from './useFrame'
-import usePrefetch from './usePrefetch'
+import { Viewer, MultiframeViewer, ContextProp, WithChildren } from '../types'
 
 export default function useInsightViewer(
   {
@@ -14,18 +12,15 @@ export default function useInsightViewer(
     Progress = CircularProgress,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setHeader = _request => {},
-    images = [],
-  }: Partial<ContextProp> & {
-    images?: string[]
-  } = {
+  }: Partial<ContextProp> = {
     ...ContextDefaultValue,
-    images: [],
   }
 ): {
   DICOMImageViewer: Viewer
+  DICOMImagesViewer: MultiframeViewer
   WebImageViewer: Viewer
-  useFrame: UseFrame
   setViewport: typeof viewportMessage.sendMessage
+  setFrame: typeof multiframeMessage.sendMessage
 } {
   function DICOMImageViewerWithContent({
     imageId,
@@ -35,11 +30,24 @@ export default function useInsightViewer(
   }>): JSX.Element {
     return (
       <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
-        {images.length > 1 ? (
-          <DICOMImagesViewer imageId={imageId}>{children}</DICOMImagesViewer>
-        ) : (
-          <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
-        )}
+        <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
+      </LoaderContext.Provider>
+    )
+  }
+
+  function DICOMImagesViewerWithContent({
+    imageIds = [],
+    initial = 0,
+    children,
+  }: WithChildren<{
+    imageIds: string[]
+    initial?: number
+  }>): JSX.Element {
+    return (
+      <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
+        <DICOMImagesViewer imageIds={imageIds} initial={initial}>
+          {children}
+        </DICOMImagesViewer>
       </LoaderContext.Provider>
     )
   }
@@ -57,12 +65,11 @@ export default function useInsightViewer(
     )
   }
 
-  usePrefetch(images)
-
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
+    DICOMImagesViewer: DICOMImagesViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
-    useFrame,
     setViewport: viewportMessage.sendMessage,
+    setFrame: multiframeMessage.sendMessage,
   }
 }
