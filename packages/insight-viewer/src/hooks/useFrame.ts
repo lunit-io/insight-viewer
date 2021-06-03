@@ -1,4 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useContext } from 'react'
+import { Subscription } from 'rxjs'
+import { multiframeMessage } from '../utils/messageService'
+import loadAndDisplayImage from '../utils/cornerstoneHelper/loadAndDisplayImage'
+import LoaderContext from '../Context'
+import { Element } from '../types'
 
 export interface UseFrame {
   (f?: number): {
@@ -7,13 +12,24 @@ export interface UseFrame {
   }
 }
 
-const useFrame: UseFrame = (initial = 0) => {
-  const [frame, setFrame] = useState(initial)
+let subscription: Subscription
 
-  return {
-    frame,
-    setFrame,
-  }
+export default function useFrame(element: Element, imageIds: string[]): void {
+  const { onError, setHeader } = useContext(LoaderContext)
+
+  useEffect(() => {
+    subscription = multiframeMessage.getMessage().subscribe(message => {
+      loadAndDisplayImage({
+        imageId: imageIds[message],
+        element,
+        onError,
+        setHeader,
+        isSingleImage: false,
+      })
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [imageIds, element, onError, setHeader])
 }
-
-export default useFrame
