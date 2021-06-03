@@ -15,7 +15,7 @@ export default function() {
   return <DICOMImageViewer imageId={IMAGE_ID} />
 }
 `
-const IMAGE_ID = 'wadouri:/api/with-jwt'
+const IMAGE_ID = 'wadouri:/msw/with-jwt'
 
 export default function WithJwt(): JSX.Element {
   const { DICOMImageViewer } = useInsightViewer({

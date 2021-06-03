@@ -1,0 +1,28 @@
+import { rest } from 'msw'
+import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks'
+import { DICOMImageViewer, Prop } from '../src/Viewer'
+
+<Meta title="Progress" component={DICOMImageViewer} />
+
+export const WADO_URL =
+  'wadouri:https://raw.githubusercontent.com/cornerstonejs/cornerstoneWADOImageLoader/master/testImages/CT2_J2KR'
+
+# Basic
+
+<Canvas>
+  <Story name="Basic Progress">
+    <div style={{ width: 500, height: 500 }}>
+      <DICOMImageViewer imageId={WADO_URL} />
+    </div>
+  </Story>
+</Canvas>
+
+# No content-length
+
+<Canvas>
+  <Story name="No content-length">
+    <div style={{ width: 500, height: 500 }}>
+      <DICOMImageViewer imageId="wadouri:/api/no-content-length" />
+    </div>
+  </Story>
+</Canvas>
