@@ -27,24 +27,27 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { DICOMImageViewer, useFrame } = useInsightViewer({
-    images: IMAGES,
-  })
-  const { frame, setFrame } = useFrame()
+  const { DICOMImagesViewer, setFrame } = useInsightViewer()
 
-  function handleKeyDown() {
-    setFrame(5)
+  function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
+    const {
+      target: { value },
+    } = e
+
+    setFrame(Number(value))
   }
 
-  return <DICOMImageViewer imageId={IMAGES[frame]} /> />
+  return (
+    <>
+      <input type="range" onChange={changeFrame} />
+      <DICOMImagesViewer imageIds={IMAGES} />
+    </>
+  )
 }
 `
 
 export default function Base(): JSX.Element {
-  const { DICOMImageViewer, useFrame } = useInsightViewer({
-    images: IMAGES,
-  })
-  const { frame, setFrame } = useFrame()
+  const { DICOMImagesViewer, setFrame } = useInsightViewer()
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -68,7 +71,7 @@ export default function Base(): JSX.Element {
           onChange={changeFrame}
         />
       </Box>
-      <DICOMImageViewer imageId={IMAGES[frame]} />
+      <DICOMImagesViewer imageIds={IMAGES} />
       <Box w={700}>
         <CodeBlock code={Code} />
       </Box>
