@@ -7,7 +7,7 @@ import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
 import LoaderContext from '../Context'
 import useViewport from './useViewport'
-import { Element } from '../types'
+import { Element, HTTPError } from '../types'
 
 interface Prop {
   imageId: string
@@ -53,7 +53,9 @@ export default function useImageLoader({
          * https://github.com/sindresorhus/ky/blob/main/source/errors/HTTPError.ts
          * { error: { name: 'HTTPError', options, request, response, message, stack }
          */
-        onError(new Error(e?.error?.message || e.message))
+        const err: HTTPError = new Error(e.error.message || e.message)
+        err.status = e.error.response.status
+        onError(err)
       }
     }
 
