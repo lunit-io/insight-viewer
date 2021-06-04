@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import useInsightViewer, { HTTPError } from '@lunit/insight-viewer'
+import useInsightViewer, { ViewerError } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
 const code = `\
@@ -14,7 +14,7 @@ export default function() {
 }
 `
 
-function customError(e: HTTPError): void {
+function customError(e: ViewerError): void {
   // eslint-disable-next-line no-alert
   alert(`!!! ${e.message} ${e.status}`)
 }

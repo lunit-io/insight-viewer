@@ -5,8 +5,8 @@ export type WithChildren<T = Record<string, unknown>> = T & {
 }
 export type Element = HTMLDivElement | null
 export type ViewerType = typeof VIEWER_TYPE[keyof typeof VIEWER_TYPE]
-export type HTTPError = Error & { status?: number }
-export type OnError = (e: HTTPError) => void
+export type ViewerError = Error & { status?: number }
+export type OnError = (e: ViewerError) => void
 export type Progress = ({ progress }: { progress: number }) => JSX.Element
 export type Viewer = ({
   imageId,
