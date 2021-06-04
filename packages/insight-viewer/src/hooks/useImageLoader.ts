@@ -53,8 +53,8 @@ export default function useImageLoader({
          * https://github.com/sindresorhus/ky/blob/main/source/errors/HTTPError.ts
          * { error: { name: 'HTTPError', options, request, response, message, stack }
          */
-        const err: HTTPError = new Error(e.error.message || e.message)
-        err.status = e.error.response.status
+        const err: HTTPError = new Error(e?.error?.message ?? e.message)
+        err.status = e?.error?.response?.status
         onError(err)
       }
     }
