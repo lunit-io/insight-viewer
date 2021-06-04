@@ -1,17 +1,8 @@
-import { useRef } from 'react'
 import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
 import { useViewport } from '@lunit/insight-viewer'
-
-const style: React.CSSProperties = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-}
+import Canvas from './Canvas'
 
 export default function Overlay(): JSX.Element {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const {
     scale,
     invert,
@@ -48,7 +39,7 @@ export default function Overlay(): JSX.Element {
           voi: {windowWidth} / {windowCenter}
         </ListItem>
       </UnorderedList>
-      <canvas ref={canvasRef} style={style} />
+      <Canvas />
     </Box>
   )
 }
