@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, MouseEvent } from 'react'
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+  MouseEvent,
+} from 'react'
+import Context, { EVENT_TYPE } from './Context'
 
 const style: React.CSSProperties = {
   position: 'absolute',
@@ -13,22 +20,30 @@ export default function Canvas(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false)
+  const { eventType } = useContext(Context)
 
   function startDrawing({ nativeEvent: { offsetX, offsetY } }: MouseEvent) {
     setIsMouseDown(true)
-    context?.beginPath()
-    context?.moveTo(offsetX, offsetY)
+
+    if (eventType === EVENT_TYPE.draw) {
+      context?.beginPath()
+      context?.moveTo(offsetX, offsetY)
+    }
   }
 
   function stopDrawing() {
     setIsMouseDown(false)
-    context?.closePath()
+    if (eventType === EVENT_TYPE.draw) {
+      context?.closePath()
+    }
   }
 
   function draw({ nativeEvent: { offsetX, offsetY } }: MouseEvent) {
     if (!isMouseDown) return
-    context?.lineTo(offsetX, offsetY)
-    context?.stroke()
+    if (eventType === EVENT_TYPE.draw) {
+      context?.lineTo(offsetX, offsetY)
+      context?.stroke()
+    }
   }
 
   useEffect(() => {
