@@ -1,4 +1,4 @@
-import { fromEvent } from 'rxjs'
+import { fromEvent, Subscription } from 'rxjs'
 import { switchMap, map, takeUntil } from 'rxjs/operators'
 import { Element } from '../../types'
 import { formatCornerstoneViewport } from '../../utils/common/formatViewport'
@@ -7,13 +7,23 @@ import {
   setViewport,
   CornerstoneViewport,
 } from '../../utils/cornerstoneHelper'
+import { MouseDown } from '../../Context/Viewport/types'
 
-export default function triggerMouseDown(element: Element): void {
+let subscription: Subscription
+
+export default function triggerMouseDown(
+  element: Element,
+  eventType: MouseDown
+): void {
   const mousedown$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousedown')
   const mousemove$ = fromEvent<MouseEvent>(document, 'mousemove')
   const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
 
-  mousedown$
+  if (subscription && eventType === undefined) {
+    subscription.unsubscribe()
+    return undefined
+  }
+  subscription = mousedown$
     .pipe(
       switchMap(start => {
         let lastX = start.pageX
@@ -49,4 +59,5 @@ export default function triggerMouseDown(element: Element): void {
           })
         )
     })
+  return undefined
 }

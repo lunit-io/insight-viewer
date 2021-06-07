@@ -30,9 +30,7 @@ export default function useViewport(element: Element): void {
     subscription = viewportMessage
       .getMessage()
       .subscribe((message: Partial<Viewport>) => {
-        if (message.mouseDown) {
-          triggerMouseDown(element)
-        }
+        triggerMouseDown(element, message.mouseDown)
         updateViewport(element, message)
       })
 
