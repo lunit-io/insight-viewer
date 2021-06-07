@@ -2,6 +2,7 @@ import { Flex, Heading, Box, Grid, GridItem, HStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Logo } from '../Logo'
 import Nav from '../Nav'
+import { LINKS } from '../Nav/const'
 import { NextChakraLink } from '../NextChakraLink'
 import config from '../../../config'
 import { WithChildren } from '../../types'
@@ -28,9 +29,15 @@ export default function Layout({ children }: WithChildren): JSX.Element {
             <GridItem colSpan={4}>
               <HStack>
                 <Heading as="h1" size="md">
-                  @lunit/insight-viewer-demo /
+                  @lunit/insight-viewer-demo |
                 </Heading>
-                <Heading as="h2">{router.pathname.slice(1)}</Heading>
+                <Heading as="h2">
+                  {
+                    LINKS.filter(
+                      link => link.href === router.pathname.slice(1)
+                    )?.[0]?.name
+                  }
+                </Heading>
               </HStack>
             </GridItem>
           </Grid>
