@@ -9,4 +9,5 @@ export const ViewportContextDefaultValue: Viewport = {
   y: 0,
   windowWidth: 127,
   windowCenter: 256,
+  mouseDown: undefined,
 }

@@ -18,6 +18,7 @@ export function formatViewport(
     y: translation.y,
     windowWidth: voi.windowWidth,
     windowCenter: voi.windowCenter,
+    mouseDown: undefined,
   }
 }
 

@@ -7,4 +7,5 @@ export interface Viewport {
   y: number
   windowWidth: number
   windowCenter: number
+  mouseDown: 'pan' | undefined
 }

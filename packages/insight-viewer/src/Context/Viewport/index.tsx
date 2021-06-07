@@ -48,7 +48,18 @@ export function useViewportContext(): Viewport {
     y,
     windowWidth,
     windowCenter,
+    mouseDown,
   } = useContext(ViewportContext)
 
-  return { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter }
+  return {
+    scale,
+    invert,
+    hflip,
+    vflip,
+    x,
+    y,
+    windowWidth,
+    windowCenter,
+    mouseDown,
+  }
 }
