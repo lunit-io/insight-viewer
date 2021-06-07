@@ -4,11 +4,11 @@ import {
   getViewport,
   setViewport,
   CornerstoneViewport,
-} from '../utils/cornerstoneHelper'
-import { viewportMessage } from '../utils/messageService'
-import { formatCornerstoneViewport } from '../utils/common/formatViewport'
-import { Element } from '../types'
-import { Viewport } from '../Context/Viewport/types'
+} from '../../utils/cornerstoneHelper'
+import { viewportMessage } from '../../utils/messageService'
+import { formatCornerstoneViewport } from '../../utils/common/formatViewport'
+import { Element } from '../../types'
+import { Viewport } from '../../Context/Viewport/types'
 
 let subscription: Subscription
 
