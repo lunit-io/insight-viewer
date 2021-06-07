@@ -3,16 +3,7 @@ import { useViewport } from '@lunit/insight-viewer'
 import Canvas from './Canvas'
 
 export default function Overlay(): JSX.Element {
-  const {
-    scale,
-    invert,
-    hflip,
-    vflip,
-    x,
-    y,
-    windowWidth,
-    windowCenter,
-  } = useViewport()
+  const { x, y } = useViewport()
 
   return (
     <Box
@@ -27,17 +18,8 @@ export default function Overlay(): JSX.Element {
       textShadow="1px 1px 1px black"
     >
       <UnorderedList>
-        <ListItem>scale: {scale}</ListItem>
-        <ListItem>
-          hflip/vflip: {`${hflip}`} / {`${vflip}`}
-        </ListItem>
-        <ListItem>
-          translation: {x} / {y}
-        </ListItem>
-        <ListItem>invert: {`${invert}`}</ListItem>
-        <ListItem>
-          voi: {windowWidth} / {windowCenter}
-        </ListItem>
+        <ListItem>x: {x}</ListItem>
+        <ListItem>y: {y}</ListItem>
       </UnorderedList>
       <Canvas />
     </Box>

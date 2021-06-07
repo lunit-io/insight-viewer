@@ -38,13 +38,13 @@ const Code = `\
   `
 
 function OverlayEvent(): JSX.Element {
-  const { DICOMImageViewer } = useInsightViewer()
+  const { DICOMImageViewer, setViewport } = useInsightViewer()
 
   return (
     <Box w={700}>
       <ContextProvider>
         <Box mb={6}>
-          <Buttons />
+          <Buttons setViewport={setViewport} />
         </Box>
         <Box w={500} h={500}>
           <DICOMImageViewer imageId={IMAGE_ID}>
