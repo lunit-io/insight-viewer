@@ -40,7 +40,7 @@ function OverlayEvent(): JSX.Element {
         <Box mb={6}>
           <Buttons setViewport={setViewport} />
         </Box>
-        <Box w={500} h={500}>
+        <Box w={500} h={500} overflow="hidden">
           <DICOMImageViewer imageId={IMAGE_ID}>
             <Overlay />
           </DICOMImageViewer>

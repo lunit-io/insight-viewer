@@ -5,6 +5,7 @@ import React, {
   useContext,
   MouseEvent,
 } from 'react'
+import { useViewport } from '@lunit/insight-viewer'
 import Context, { EVENT_TYPE } from './Context'
 
 const style: React.CSSProperties = {
@@ -21,6 +22,7 @@ export default function Canvas(): JSX.Element {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false)
   const { eventType } = useContext(Context)
+  const { x, y } = useViewport()
 
   function startDrawing({ nativeEvent: { offsetX, offsetY } }: MouseEvent) {
     setIsMouseDown(true)
@@ -53,6 +55,17 @@ export default function Canvas(): JSX.Element {
     canvas.width = canvas.clientWidth
     canvas.height = canvas.clientHeight
   }, [])
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+
+    function moveCanvas() {
+      if (canvas) {
+        canvas.style.transform = `translate(${x}px, ${y}px)`
+      }
+    }
+    moveCanvas()
+  }, [x, y, context])
 
   return (
     <canvas
