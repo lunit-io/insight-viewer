@@ -1,3 +1,4 @@
+export type MouseDown = 'pan' | undefined
 export interface Viewport {
   scale: number
   invert: boolean
@@ -7,6 +8,6 @@ export interface Viewport {
   y: number
   windowWidth: number
   windowCenter: number
-  mouseDown: 'pan' | undefined // TODO: adjust
+  mouseDown: MouseDown // TODO: adjust
 }
 export type SetViewport = (message: Partial<Viewport>) => void
