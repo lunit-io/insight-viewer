@@ -9,30 +9,24 @@ const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import useInsightViewer, { Viewport, useViewport } from '@lunit/insight-viewer'
+  import useInsightViewer from '@lunit/insight-viewer'
 
-  function Nested({ viewport }: {viewport: Viewport }) {
-    const { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter } =
-    useViewport()
-
-    return (
-      <ul>
-        <li>scale: {scale}</li>
-        <li>hflip/vflip: {hflip} / {vflip}</li>
-        <li>translation: {x} / {y}</li>
-        <li>invert: {invert}</li>
-        <li>voi: {windowWidth} / {windowCenter}</li>
-      </ul>
-    )
-  }
-
-  export default function Viewer() {
-    const { DICOMImageViewer } = useInsightViewer()
+  export default function App() {
+    const { DICOMImageViewer, setViewport } = useInsightViewer()
 
     return (
-      <DICOMImageViewer imageId={IMAGE_ID}>
-        <Nested />
-      </DICOMImageViewer>
+      <>
+        <button onClick={setViewport({ mouseDown: 'pan' })}>pan</button>
+        <button onClick={setViewport({ mouseDown: undefined })}>drawing</button>
+
+        <DICOMImageViewer imageId={IMAGE_ID}>
+          <OverlayCanvas
+            onMouseDown={startDrawing}
+            onMouseUp={stopDrawing}
+            onMouseMove={draw}
+          />
+        </DICOMImageViewer>
+      </>
     )
   }
   `
