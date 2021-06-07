@@ -9,6 +9,7 @@ import { viewportMessage } from '../../utils/messageService'
 import { formatCornerstoneViewport } from '../../utils/common/formatViewport'
 import { Element } from '../../types'
 import { Viewport } from '../../Context/Viewport/types'
+import triggerMouseDown from './triggerMouseDown'
 
 let subscription: Subscription
 
@@ -29,6 +30,9 @@ export default function useViewport(element: Element): void {
     subscription = viewportMessage
       .getMessage()
       .subscribe((message: Partial<Viewport>) => {
+        if (message.mouseDown) {
+          triggerMouseDown(element)
+        }
         updateViewport(element, message)
       })
 
