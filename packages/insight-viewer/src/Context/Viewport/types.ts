@@ -7,5 +7,6 @@ export interface Viewport {
   y: number
   windowWidth: number
   windowCenter: number
-  mouseDown: 'pan' | undefined
+  mouseDown: 'pan' | undefined // TODO: adjust
 }
+export type SetViewport = (message: Partial<Viewport>) => void
