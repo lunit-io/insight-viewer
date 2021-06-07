@@ -20,11 +20,13 @@ const Code = `\
       setViewport({ scale: 1 })
       setViewport({ windowWidth: 128 })
       setViewport({ windowCenter: 256 })
+      setViewport({ mouseDown: 'pan' })
       // or
       setViewport({
         invert: false,
         x: 10,
-        windowCenter: 256 
+        windowCenter: 256
+        // ...
       })
     }
 
@@ -99,23 +101,25 @@ function Viewport(): JSX.Element {
                 />
               </Box>
             </Box>
+            <Box>
+              <Box>zoom</Box>
+              <Box>
+                <input
+                  type="range"
+                  id="scale"
+                  name="scale"
+                  min="1"
+                  max="2"
+                  step="0.1"
+                  defaultValue={1}
+                  onChange={e => {
+                    setViewport({ scale: Number(e.target.value) })
+                  }}
+                />
+              </Box>
+            </Box>
           </HStack>
 
-          <Box>zoom</Box>
-          <Box>
-            <input
-              type="range"
-              id="scale"
-              name="scale"
-              min="1"
-              max="2"
-              step="0.1"
-              defaultValue={1}
-              onChange={e => {
-                setViewport({ scale: Number(e.target.value) })
-              }}
-            />
-          </Box>
           <HStack spacing="24px" mt={3}>
             <Box>
               <Box>windowWidth</Box>
@@ -148,6 +152,18 @@ function Viewport(): JSX.Element {
                   onChange={e => {
                     setViewport({ windowCenter: Number(e.target.value) })
                   }}
+                />
+              </Box>
+            </Box>
+            <Box>
+              <Box>
+                MouseMove: pan{' '}
+                <Switch
+                  onChange={e =>
+                    setViewport({
+                      mouseDown: e.target.checked ? 'pan' : undefined,
+                    })
+                  }
                 />
               </Box>
             </Box>
