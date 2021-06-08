@@ -6,7 +6,7 @@ import {
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
 import LoaderContext from '../Context'
-import useViewport from './useViewport'
+import useViewportUpdate from './useViewportUpdate'
 import { Element } from '../types'
 
 interface Prop {
@@ -32,7 +32,7 @@ export default function useImageLoader({
     return undefined
   })()
 
-  useViewport(<HTMLDivElement>element)
+  useViewportUpdate(<HTMLDivElement>element)
 
   useEffect(() => {
     if (!hasLoader) return undefined

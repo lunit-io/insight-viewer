@@ -23,7 +23,7 @@ function updateViewport(element: Element, value: Partial<Viewport>) {
     )
 }
 
-export default function useViewport(element: Element): void {
+export default function useViewportUpdate(element: Element): void {
   useEffect(() => {
     if (!element) return undefined
 
