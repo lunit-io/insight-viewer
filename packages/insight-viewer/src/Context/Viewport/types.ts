@@ -1,6 +1,6 @@
 export type MouseDown = 'pan' | undefined
 export interface Viewport {
-  scale: number
+  scale?: number
   invert: boolean
   hflip: boolean
   vflip: boolean
