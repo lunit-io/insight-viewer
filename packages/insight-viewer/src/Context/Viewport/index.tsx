@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { WithChildren, Element } from '../../types'
 import { getViewport, EVENT } from '../../utils/cornerstoneHelper'
 import { formatViewport } from '../../utils/common/formatViewport'
@@ -37,29 +37,3 @@ export function ViewportContextProvider({
 }
 
 export default ViewportContext
-
-export function useViewportContext(): Viewport {
-  const {
-    scale,
-    invert,
-    hflip,
-    vflip,
-    x,
-    y,
-    windowWidth,
-    windowCenter,
-    mouseDown,
-  } = useContext(ViewportContext)
-
-  return {
-    scale,
-    invert,
-    hflip,
-    vflip,
-    x,
-    y,
-    windowWidth,
-    windowCenter,
-    mouseDown,
-  }
-}
