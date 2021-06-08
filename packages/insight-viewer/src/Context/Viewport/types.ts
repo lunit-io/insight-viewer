@@ -12,3 +12,4 @@ export interface Viewport {
 }
 
 export type UpdateViewport = (viewport: Viewport) => Viewport
+export type SetViewport = (message: Partial<Viewport>) => void
