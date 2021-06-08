@@ -10,3 +10,5 @@ export interface Viewport {
   windowCenter?: number
   mouseDown: MouseDown // TODO: adjust
 }
+
+export type UpdateViewport = (viewport: Viewport) => Viewport
