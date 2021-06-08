@@ -6,8 +6,7 @@ export interface Viewport {
   vflip: boolean
   x: number
   y: number
-  windowWidth: number
-  windowCenter: number
+  windowWidth?: number
+  windowCenter?: number
   mouseDown: MouseDown // TODO: adjust
 }
-export type SetViewport = (message: Partial<Viewport>) => void

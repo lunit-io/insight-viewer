@@ -7,7 +7,7 @@ export const ViewportContextDefaultValue: Viewport = {
   vflip: false,
   x: 0,
   y: 0,
-  windowWidth: 127,
-  windowCenter: 256,
+  windowWidth: undefined,
+  windowCenter: undefined,
   mouseDown: undefined,
 }
