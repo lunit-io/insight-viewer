@@ -6,11 +6,12 @@ const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import useInsightViewer, { Viewport, useViewport } from '@lunit/insight-viewer'
+  import useInsightViewer, { useViewport } from '@lunit/insight-viewer'
 
-  function Nested({ viewport }: {viewport: Viewport }) {
-    const { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter } =
-    useViewport()
+  function OverlayLayer() {
+    const {
+      viewport: { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter },
+    } = useViewport()
 
     return (
       <ul>
@@ -28,22 +29,15 @@ const Code = `\
 
     return (
       <DICOMImageViewer imageId={IMAGE_ID}>
-        <Nested />
+        <OverlayLayer />
       </DICOMImageViewer>
     )
   }
   `
 
-function Nested(): JSX.Element {
+function OverlayLayer(): JSX.Element {
   const {
-    scale,
-    invert,
-    hflip,
-    vflip,
-    x,
-    y,
-    windowWidth,
-    windowCenter,
+    viewport: { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter },
   } = useViewport()
 
   return (
@@ -82,7 +76,7 @@ function Overlay(): JSX.Element {
     <Box w={700}>
       <Box w={500} h={500}>
         <DICOMImageViewer imageId={IMAGE_ID}>
-          <Nested />
+          <OverlayLayer />
         </DICOMImageViewer>
       </Box>
       <Box w={700}>
