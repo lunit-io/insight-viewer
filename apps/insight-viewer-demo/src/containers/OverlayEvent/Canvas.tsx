@@ -22,7 +22,9 @@ export default function Canvas(): JSX.Element {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false)
   const { eventType } = useContext(Context)
-  const { x, y } = useViewport()
+  const {
+    viewport: { x, y },
+  } = useViewport()
 
   function startDrawing({ nativeEvent: { offsetX, offsetY } }: MouseEvent) {
     setIsMouseDown(true)

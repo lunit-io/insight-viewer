@@ -1,9 +1,35 @@
+import { useEffect } from 'react'
 import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
-import { useViewport } from '@lunit/insight-viewer'
+import { useViewport, Viewport } from '@lunit/insight-viewer'
 import Canvas from './Canvas'
 
 export default function Overlay(): JSX.Element {
-  const { x, y } = useViewport()
+  const {
+    viewport: { x, y },
+    setViewport,
+  } = useViewport()
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'ArrowDown') {
+        setViewport((prev: Viewport) => ({
+          ...prev,
+          y: prev.y + 10,
+        }))
+      }
+      if (e.key === 'ArrowUp') {
+        setViewport((prev: Viewport) => ({
+          ...prev,
+          y: prev.y - 10,
+        }))
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [setViewport])
 
   return (
     <Box
