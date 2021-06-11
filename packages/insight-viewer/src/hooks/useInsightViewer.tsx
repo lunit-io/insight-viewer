@@ -2,7 +2,6 @@ import React from 'react'
 import LoaderContext, { ContextDefaultValue } from '../Context'
 import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
-import { viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
 import usePrefetch from './usePrefetch'
@@ -23,7 +22,6 @@ export default function useInsightViewer(
 ): {
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
-  setViewport: typeof viewportMessage.sendMessage
 } {
   function DICOMImageViewerWithContent({
     imageId,
@@ -60,6 +58,5 @@ export default function useInsightViewer(
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
-    setViewport: viewportMessage.sendMessage,
   }
 }
