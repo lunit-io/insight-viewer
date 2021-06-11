@@ -26,10 +26,8 @@ export default function useImageLoader({
   const { onError, setHeader } = useContext(LoaderContext)
 
   // eslint-disable-next-line no-extra-semi
-  ;(async function asyncLoad(): Promise<undefined> {
-    if (hasLoader) return undefined
-    setHasLoader(await setLoader())
-    return undefined
+  ;(async function asyncLoad(): Promise<void> {
+    if (!hasLoader) setHasLoader(await setLoader())
   })()
 
   useViewport(<HTMLDivElement>element)
