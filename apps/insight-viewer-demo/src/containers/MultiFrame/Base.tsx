@@ -55,7 +55,7 @@ export default function Base(): JSX.Element {
     setFrame(Number(value))
   }
 
-  const throttleOnChange = useThrottle(changeFrame, 150)
+  const throttleOnChange = useThrottle(changeFrame, 30)
 
   return (
     <Box w={500} h={500}>
