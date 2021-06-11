@@ -6,11 +6,9 @@ import { VIEWER_TYPE } from '../../const'
 import useResize from './useResize'
 import { ViewportContextProvider } from '../../Context/Viewport'
 
-const ViewerWrapper = forwardRef<
+const Forwarded = forwardRef<
   HTMLDivElement,
-  WithChildren<{
-    type: ViewerType
-  }>
+  WithChildren<{ type: ViewerType }>
 >(({ type, children }, ref) => {
   const { resizeRef } = useResize(ref)
 
@@ -27,5 +25,9 @@ const ViewerWrapper = forwardRef<
   )
 })
 
+const ViewerWrapper = React.memo(Forwarded)
+// for eslintr(eact/display-name)
+Forwarded.displayName = 'Forwarded'
 ViewerWrapper.displayName = 'ViewerWrapper'
+
 export default ViewerWrapper
