@@ -5,7 +5,6 @@ import { handleError } from '../utils/common'
 import { viewportMessage } from '../utils/messageService'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
-import useFrame, { UseFrame } from './useFrame'
 import usePrefetch from './usePrefetch'
 
 export default function useInsightViewer(
@@ -24,7 +23,6 @@ export default function useInsightViewer(
 ): {
   DICOMImageViewer: Viewer
   WebImageViewer: Viewer
-  useFrame: UseFrame
   setViewport: typeof viewportMessage.sendMessage
 } {
   function DICOMImageViewerWithContent({
@@ -62,7 +60,6 @@ export default function useInsightViewer(
   return {
     DICOMImageViewer: DICOMImageViewerWithContent,
     WebImageViewer: WebImageViewerWithContent,
-    useFrame,
     setViewport: viewportMessage.sendMessage,
   }
 }
