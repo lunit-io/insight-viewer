@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import useInsightViewer from '@lunit/insight-viewer'
+import useInsightViewer, { useFrame } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import useThrottle from './useThrottle'
@@ -19,7 +19,7 @@ const IMAGES = [
 ]
 
 const Code = `\
-import useInsightViewer from '@lunit/insight-viewer'
+import useInsightViewer, { useFrame } from '@lunit/insight-viewer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -28,7 +28,7 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { DICOMImageViewer, useFrame } = useInsightViewer({
+  const { DICOMImageViewer } = useInsightViewer({
     images: IMAGES,
   })
   const { frame, setFrame } = useFrame()
@@ -42,7 +42,7 @@ export default function Viewer() {
 `
 
 export default function Base(): JSX.Element {
-  const { DICOMImageViewer, useFrame } = useInsightViewer({
+  const { DICOMImageViewer } = useInsightViewer({
     images: IMAGES,
   })
   const { frame, setFrame } = useFrame()
