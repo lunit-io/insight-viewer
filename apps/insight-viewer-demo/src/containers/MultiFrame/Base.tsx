@@ -2,6 +2,7 @@ import { Box } from '@chakra-ui/react'
 import useInsightViewer from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
+import useThrottle from './useThrottle'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -54,6 +55,8 @@ export default function Base(): JSX.Element {
     setFrame(Number(value))
   }
 
+  const throttleOnChange = useThrottle(changeFrame, 150)
+
   return (
     <Box w={500} h={500}>
       <Box mb={6}>
@@ -65,7 +68,7 @@ export default function Base(): JSX.Element {
           max="10"
           step="1"
           defaultValue={0}
-          onChange={changeFrame}
+          onChange={throttleOnChange}
         />
       </Box>
       <DICOMImageViewer imageId={IMAGES[frame]} />
