@@ -6,13 +6,15 @@ import { VIEWER_TYPE } from '../const'
 
 export function DICOMImageViewer({
   imageId,
+  single = true,
   children,
-}: WithChildren<{ imageId: string }>): JSX.Element {
+}: WithChildren<{ imageId: string; single?: boolean }>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
+
   useDICOMImageLoader({
     imageId,
     element: elRef.current,
-    isSingleImage: true,
+    isSingleImage: single,
   })
 
   return (

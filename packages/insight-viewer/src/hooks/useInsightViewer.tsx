@@ -1,6 +1,6 @@
 import React from 'react'
 import LoaderContext, { ContextDefaultValue } from '../Context'
-import { DICOMImageViewer, DICOMImagesViewer, WebImageViewer } from '../Viewer'
+import { DICOMImageViewer, WebImageViewer } from '../Viewer'
 import { handleError } from '../utils/common'
 import CircularProgress from '../components/CircularProgress'
 import { Viewer, ContextProp, WithChildren } from '../types'
@@ -31,11 +31,9 @@ export default function useInsightViewer(
   }>): JSX.Element {
     return (
       <LoaderContext.Provider value={{ onError, Progress, setHeader }}>
-        {images.length > 1 ? (
-          <DICOMImagesViewer imageId={imageId}>{children}</DICOMImagesViewer>
-        ) : (
-          <DICOMImageViewer imageId={imageId}>{children}</DICOMImageViewer>
-        )}
+        <DICOMImageViewer imageId={imageId} single={images.length <= 1}>
+          {children}
+        </DICOMImageViewer>
       </LoaderContext.Provider>
     )
   }
