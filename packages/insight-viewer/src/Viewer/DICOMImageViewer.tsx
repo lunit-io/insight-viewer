@@ -1,7 +1,8 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren } from '../types'
-import useDICOMImageLoader from '../hooks/useDICOMImageLoader'
+import useImageLoader from '../hooks/useImageLoader'
+import { enable, disable, setWadoImageLoader } from '../utils/cornerstoneHelper'
 import { VIEWER_TYPE } from '../const'
 
 export function DICOMImageViewer({
@@ -9,16 +10,25 @@ export function DICOMImageViewer({
   single = true,
   children,
 }: WithChildren<{ imageId: string; single?: boolean }>): JSX.Element {
-  const elRef = useRef<HTMLDivElement>(null)
-
-  useDICOMImageLoader({
+  const enabledElementRef = useRef<HTMLDivElement | null>(null)
+  const viewerRefCallback = useCallback((node: HTMLDivElement | null) => {
+    if (node !== null) {
+      enabledElementRef.current = node
+      enable(enabledElementRef.current)
+    } else if (enabledElementRef.current !== null) {
+      disable(enabledElementRef.current)
+    }
+  }, [])
+  useImageLoader({
     imageId,
-    element: elRef.current,
+    element: enabledElementRef.current,
+    setLoader: () => setWadoImageLoader(() => {}),
     isSingleImage: single,
   })
 
   return (
-    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM}>
+    <ViewerWrapper ref={viewerRefCallback} type={VIEWER_TYPE.DICOM}>
+      <canvas className="cornerstone-canvas" />
       {children}
     </ViewerWrapper>
   )

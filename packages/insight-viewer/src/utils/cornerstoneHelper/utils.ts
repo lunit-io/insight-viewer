@@ -5,10 +5,14 @@ export type CornerstoneViewport = cornerstone.Viewport
 
 export function enable(element: HTMLDivElement): void {
   cornerstone.enable(element)
+  // eslint-disable-next-line no-console
+  console.log('enabled')
 }
 
 export function disable(element: HTMLDivElement): void {
   cornerstone.disable(element)
+  // eslint-disable-next-line no-console
+  console.log('disabled')
 }
 
 export function resize(element: HTMLDivElement): void {
