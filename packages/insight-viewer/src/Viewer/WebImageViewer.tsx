@@ -1,14 +1,13 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren, ViewerProp } from '../types'
-import { handleError } from '../utils/common'
 import useWebImageLoader from '../hooks/useWebImageLoader'
+import { DefaultProp } from './const'
 
 export function WebImageViewer({
   imageId,
-  onError = handleError,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setHeader = _request => {},
+  onError = DefaultProp.onError,
+  setHeader = DefaultProp.setHeader,
   children,
 }: WithChildren<Partial<ViewerProp>> & {
   imageId: string
