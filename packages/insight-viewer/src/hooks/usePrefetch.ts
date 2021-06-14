@@ -1,5 +1,4 @@
-import { useEffect, useContext } from 'react'
-import LoaderContext from '../Context'
+import { useEffect } from 'react'
 import {
   loadImage,
   setWadoImageLoader,
@@ -8,6 +7,7 @@ import {
 import { loadingProgressMessage } from '../utils/messageService'
 import getHttpClient from '../utils/httpClient'
 import { SetHeader, OnError } from '../types'
+import { handleError } from '../utils/common'
 
 interface Load {
   images: string[]
@@ -47,9 +47,16 @@ async function prefetch({ images, setHeader, onError }: Load) {
   }
 }
 
-export default function usePrefetch(images: string[]): void {
-  const { onError, setHeader } = useContext(LoaderContext)
-
+export default function usePrefetch({
+  images,
+  onError = handleError,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setHeader = _request => {},
+}: {
+  images: string[]
+  onError?: OnError
+  setHeader?: SetHeader
+}): void {
   useEffect(() => {
     let loaded = false
     if (images.length === 0 || loaded) return undefined
