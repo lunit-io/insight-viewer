@@ -5,16 +5,11 @@ import {
   Props,
   ArgsTable,
 } from '@storybook/addon-docs/blocks'
-import {
-  DICOMImageViewer,
-  DICOMImagesViewer,
-  WebImageViewer,
-  Prop,
-} from '../src/Viewer'
+import Viewer, { Prop } from '../src/Viewer'
 
 <Meta
   title="Viewer"
-  component={DICOMImageViewer}
+  component={Viewer.Dicom}
   argTypes={{
     imageId: {
       type: { imageId: 'string', required: true },
@@ -50,14 +45,14 @@ export const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
 ]
 
-<ArgsTable of={DICOMImageViewer} />
+<ArgsTable of={Viewer.Dicom} />
 
-# DICOMImageViewer
+# Viewer.Dicom
 
 <Preview>
   <Story name="DICOMImage Viewer">
     <div style={{ width: 500, height: 500 }}>
-      <DICOMImageViewer imageId={WADO_URL} />
+      <Viewer.Dicom imageId={WADO_URL} />
     </div>
   </Story>
 </Preview>
@@ -68,7 +63,7 @@ export const IMAGES = [
   <Story name="Multiframe DICOMImageViewer" args={{ frame: 0 }}>
     {args => (
       <div style={{ width: 500, height: 500 }}>
-        <DICOMImagesViewer imageId={IMAGES[args.frame]} images={IMAGES} />
+        <Viewer.Dicom imageId={IMAGES[args.frame]} />
       </div>
     )}
   </Story>
@@ -79,7 +74,7 @@ export const IMAGES = [
 <Preview>
   <Story name="WebImage Viewer">
     <div style={{ width: 500, height: 500 }}>
-      <WebImageViewer imageId={WEB_URL} />
+      <Viewer.Web imageId={WEB_URL} />
     </div>
   </Story>
 </Preview>
