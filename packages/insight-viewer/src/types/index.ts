@@ -14,6 +14,6 @@ export type Viewer = ({
 export type SetHeader = (request: Request) => void
 export interface ViewerProp {
   imageId: string
-  onError: OnError
-  setHeader: SetHeader
+  onError?: OnError
+  setHeader?: SetHeader
 }

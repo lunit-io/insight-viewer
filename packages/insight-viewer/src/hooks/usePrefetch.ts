@@ -6,14 +6,8 @@ import {
 } from '../utils/cornerstoneHelper'
 import { loadingProgressMessage } from '../utils/messageService'
 import getHttpClient from '../utils/httpClient'
-import { SetHeader, OnError } from '../types'
-import { handleError } from '../utils/common'
-
-interface Load {
-  images: string[]
-  setHeader: SetHeader
-  onError: OnError
-}
+import { ViewerProp } from '../types'
+import { DefaultProp } from '../Viewer/const'
 
 function PromiseAllWithProgress(
   promiseArray: Promise<Image>[]
@@ -33,7 +27,13 @@ function PromiseAllWithProgress(
   return Promise.all(promiseArray)
 }
 
-async function prefetch({ images, setHeader, onError }: Load) {
+async function prefetch({
+  images,
+  setHeader,
+  onError,
+}: Pick<Required<ViewerProp>, 'onError' | 'setHeader'> & {
+  images: string[]
+}) {
   try {
     const loaders = images.map(image =>
       loadImage(image, {
@@ -49,13 +49,10 @@ async function prefetch({ images, setHeader, onError }: Load) {
 
 export default function usePrefetch({
   images,
-  onError = handleError,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setHeader = _request => {},
-}: {
+  onError = DefaultProp.onError,
+  setHeader = DefaultProp.setHeader,
+}: Pick<ViewerProp, 'onError' | 'setHeader'> & {
   images: string[]
-  onError?: OnError
-  setHeader?: SetHeader
 }): void {
   useEffect(() => {
     let loaded = false

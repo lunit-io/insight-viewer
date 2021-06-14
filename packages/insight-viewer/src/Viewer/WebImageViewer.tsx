@@ -1,7 +1,9 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren, ViewerProp } from '../types'
-import useWebImageLoader from '../hooks/useWebImageLoader'
+import useCornerstone from '../hooks/useCornerstone'
+import useImageLoader from '../hooks/useImageLoader'
+import { setWebImageLoader } from '../utils/cornerstoneHelper'
 import { DefaultProp } from './const'
 
 export function WebImageViewer({
@@ -9,15 +11,15 @@ export function WebImageViewer({
   onError = DefaultProp.onError,
   setHeader = DefaultProp.setHeader,
   children,
-}: WithChildren<Partial<ViewerProp>> & {
-  imageId: string
-}): JSX.Element {
+}: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useWebImageLoader({
+  useCornerstone(elRef.current)
+  useImageLoader({
     imageId,
     element: elRef.current,
     onError,
     setHeader,
+    setLoader: () => setWebImageLoader(onError),
   })
 
   return <ViewerWrapper ref={elRef}>{children}</ViewerWrapper>

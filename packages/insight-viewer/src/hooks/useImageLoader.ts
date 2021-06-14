@@ -14,7 +14,7 @@ export default function useImageLoader({
   setLoader,
   onError,
   setHeader,
-}: ViewerProp & {
+}: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
 }): void {
