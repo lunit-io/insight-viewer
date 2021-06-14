@@ -1,16 +1,14 @@
 import { Box, HStack, Switch } from '@chakra-ui/react'
-import useInsightViewer from '@lunit/insight-viewer'
+import Viewer, { setViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import useInsightViewer from '@lunit/insight-viewer'
+  import Viewer, { setViewport } from '@lunit/insight-viewer'
 
   export default function App() {
-    const { DICOMImageViewer, setViewport } = useInsightViewer()
-
     function updateViewport() {
       setViewport({ invert: true })
       setViewport({ hflip: false })
@@ -31,15 +29,13 @@ const Code = `\
     return (
       <>
         <button type="button" onClick={updateViewport}>update viewport</button>
-        <DICOMImageViewer imageId={IMAGE_ID} />
+        <Viewer.Dicom imageId={IMAGE_ID} />
       </>
     )
   }
   `
 
 function Viewport(): JSX.Element {
-  const { DICOMImageViewer, setViewport } = useInsightViewer()
-
   return (
     <>
       <Box w={700}>
@@ -154,7 +150,7 @@ function Viewport(): JSX.Element {
           </HStack>
         </Box>
         <Box w={500} h={500}>
-          <DICOMImageViewer imageId={IMAGE_ID} />
+          <Viewer.Dicom imageId={IMAGE_ID} />
         </Box>
         <Box w={700}>
           <CodeBlock code={Code} />

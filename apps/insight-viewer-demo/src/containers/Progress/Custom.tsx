@@ -1,13 +1,13 @@
 import { Box, Progress } from '@chakra-ui/react'
-import { DICOMImageViewer } from '@lunit/insight-viewer'
+import Viewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
 const Code = `\
-import { DICOMImageViewer } from '@lunit/insight-viewer'
+import Viewer from '@lunit/insight-viewer'
 
 export default function Viewer() {
   return (
-    <DICOMImageViewer 
+    <Viewer.Dicom 
       imageId={IMAGE_ID} 
       Progress={CustomProgress} 
     />
@@ -25,7 +25,7 @@ export default function Custom(): JSX.Element {
   return (
     <>
       <Box mb={6}>
-        <DICOMImageViewer imageId={IMAGE_ID} Progress={CustomProgress} />
+        <Viewer.Dicom imageId={IMAGE_ID} Progress={CustomProgress} />
       </Box>
       <Box w={700}>
         <CodeBlock code={Code} />

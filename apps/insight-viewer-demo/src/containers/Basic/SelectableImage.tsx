@@ -1,9 +1,8 @@
 import { Box } from '@chakra-ui/react'
-import useInsightViewer from '@lunit/insight-viewer'
+import Viewer from '@lunit/insight-viewer'
 import useImageSelect from './useImageSelect'
 
 export default function SelectableImage(): JSX.Element {
-  const { DICOMImageViewer } = useInsightViewer()
   const { ImageSelect, selected } = useImageSelect()
 
   return (
@@ -13,7 +12,7 @@ export default function SelectableImage(): JSX.Element {
       </Box>
 
       <div style={{ maxWidth: '100%', aspectRatio: '1 / 1' }}>
-        <DICOMImageViewer imageId={selected} />
+        <Viewer.Dicom imageId={selected} />
       </div>
     </>
   )

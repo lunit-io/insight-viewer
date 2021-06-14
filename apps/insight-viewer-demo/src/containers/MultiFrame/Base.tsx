@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import useInsightViewer from '@lunit/insight-viewer'
+import Viewer, { usePrefetch, useFrame } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 
@@ -18,7 +18,7 @@ const IMAGES = [
 ]
 
 const Code = `\
-import useInsightViewer from '@lunit/insight-viewer'
+import Viewer, { usePrefetch, useFrame } from '@lunit/insight-viewer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -27,24 +27,34 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { DICOMImageViewer, useFrame } = useInsightViewer({
-    images: IMAGES,
-  })
-  const { frame, setFrame } = useFrame()
+  const { frame, setFrame } = useFrame(/* initialValue or default 0 */)
+  usePrefetch({ images: IMAGES })
 
-  function handleKeyDown() {
-    setFrame(5)
+  function changeFrame(e) {
+    setFrame(Number(e.target.value))
   }
 
-  return <DICOMImageViewer imageId={IMAGES[frame]} /> />
+  return (
+    <>
+      <input
+        type="range"
+        id="frame"
+        name="frame"
+        min="0"
+        max="10"
+        step="1"
+        defaultValue={0}
+        onChange={changeFrame}
+      />
+      <Viewer.Dicom imageId={IMAGES[frame]} />
+    </>
+  )
 }
 `
 
 export default function Base(): JSX.Element {
-  const { DICOMImageViewer, useFrame } = useInsightViewer({
-    images: IMAGES,
-  })
   const { frame, setFrame } = useFrame()
+  usePrefetch({ images: IMAGES })
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -68,8 +78,8 @@ export default function Base(): JSX.Element {
           onChange={changeFrame}
         />
       </Box>
-      <DICOMImageViewer imageId={IMAGES[frame]} />
-      <Box w={700}>
+      <Viewer.Dicom imageId={IMAGES[frame]} />
+      <Box w={900}>
         <CodeBlock code={Code} />
       </Box>
     </Box>

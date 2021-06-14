@@ -1,12 +1,12 @@
 import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
-import useInsightViewer, { useViewport } from '@lunit/insight-viewer'
+import Viewer, { useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import useInsightViewer, { Viewport, useViewport } from '@lunit/insight-viewer'
+  import Viewer, { Viewport, useViewport } from '@lunit/insight-viewer'
 
   function Nested({ viewport }: {viewport: Viewport }) {
     const { scale, invert, hflip, vflip, x, y, windowWidth, windowCenter } =
@@ -24,12 +24,10 @@ const Code = `\
   }
 
   export default function Viewer() {
-    const { DICOMImageViewer } = useInsightViewer()
-
     return (
-      <DICOMImageViewer imageId={IMAGE_ID}>
+      <Viewer.Dicom imageId={IMAGE_ID}>
         <Nested />
-      </DICOMImageViewer>
+      </Viewer.Dicom>
     )
   }
   `
@@ -76,14 +74,12 @@ function Nested(): JSX.Element {
 }
 
 function Overlay(): JSX.Element {
-  const { DICOMImageViewer } = useInsightViewer()
-
   return (
     <Box w={700}>
       <Box w={500} h={500}>
-        <DICOMImageViewer imageId={IMAGE_ID}>
+        <Viewer.Dicom imageId={IMAGE_ID}>
           <Nested />
-        </DICOMImageViewer>
+        </Viewer.Dicom>
       </Box>
       <Box w={700}>
         <CodeBlock code={Code} />
