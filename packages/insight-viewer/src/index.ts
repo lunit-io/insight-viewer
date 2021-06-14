@@ -1,4 +1,6 @@
 export { default } from './hooks/useInsightViewer'
+export { DICOMImageViewer } from './Viewer/DICOMImageViewer'
+export { WebImageViewer } from './Viewer/WebImageViewer'
 export type { Viewport } from './Context/Viewport/types'
 export type { ViewerError } from './types'
 export { useViewportContext as useViewport } from './Context/Viewport'
