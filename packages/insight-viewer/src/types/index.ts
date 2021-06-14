@@ -12,13 +12,6 @@ export type Viewer = ({
   imageId: string
 }>) => JSX.Element
 export type SetHeader = (request: Request) => void
-
-export interface ContextProp {
-  onError: OnError
-  Progress: Progress
-  setHeader: SetHeader
-}
-
 export interface ViewerProp {
   imageId: string
   onError: OnError
