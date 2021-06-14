@@ -1,22 +1,35 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren } from '../types'
+import { WithChildren, ViewerProp, Progress as ProgressType } from '../types'
 import useDICOMImageLoader from '../hooks/useDICOMImageLoader'
-import { VIEWER_TYPE } from '../const'
+import { handleError } from '../utils/common'
+import CircularProgress from '../components/CircularProgress'
 
 export function DICOMImageViewer({
   imageId,
+  onError = handleError,
+  Progress = CircularProgress,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setHeader = _request => {},
   children,
-}: WithChildren<{ imageId: string }>): JSX.Element {
+}: WithChildren<
+  Partial<ViewerProp> & {
+    Progress?: ProgressType
+  }
+> & {
+  imageId: string
+}): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   useDICOMImageLoader({
     imageId,
     element: elRef.current,
     isSingleImage: true,
+    onError,
+    setHeader,
   })
 
   return (
-    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM}>
+    <ViewerWrapper ref={elRef} Progress={Progress}>
       {children}
     </ViewerWrapper>
   )

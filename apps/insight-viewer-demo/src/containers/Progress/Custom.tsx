@@ -1,18 +1,17 @@
 import { Box, Progress } from '@chakra-ui/react'
-import useInsightViewer from '@lunit/insight-viewer'
+import { DICOMImageViewer } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 
 const Code = `\
-import useInsightViewer from '@lunit/insight-viewer'
+import { DICOMImageViewer } from '@lunit/insight-viewer'
 
 export default function Viewer() {
-  const { DICOMImageViewer } = useInsightViewer({
-    Progress: ({ progress }: { progress: number }) => (
-      <CustomProgressComponent value={progress} />
-    )
-  })
-
-  return <DICOMImageViewer imageId={IMAGE_ID} />
+  return (
+    <DICOMImageViewer 
+      imageId={IMAGE_ID} 
+      Progress={CustomProgress} 
+    />
+  )
 }
 `
 const IMAGE_ID =
@@ -23,14 +22,10 @@ function CustomProgress({ progress }: { progress: number }): JSX.Element {
 }
 
 export default function Custom(): JSX.Element {
-  const { DICOMImageViewer } = useInsightViewer({
-    Progress: CustomProgress,
-  })
-
   return (
     <>
       <Box mb={6}>
-        <DICOMImageViewer imageId={IMAGE_ID} />
+        <DICOMImageViewer imageId={IMAGE_ID} Progress={CustomProgress} />
       </Box>
       <Box w={700}>
         <CodeBlock code={Code} />

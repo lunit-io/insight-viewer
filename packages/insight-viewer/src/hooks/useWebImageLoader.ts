@@ -6,7 +6,7 @@ import { getCornerstone } from '../utils/cornerstoneHelper'
 import useCornerstone from './useCornerstone'
 import useImageLoader from './useImageLoader'
 import LoaderContext from '../Context'
-import { OnError, Element } from '../types'
+import { OnError, Element, ViewerProp } from '../types'
 
 async function setLoader(onError: OnError): Promise<boolean> {
   try {
@@ -22,17 +22,23 @@ async function setLoader(onError: OnError): Promise<boolean> {
   }
 }
 
-export default async function useWebImageLoader(
-  imageId: string,
+export default async function useWebImageLoader({
+  imageId,
+  element,
+}: ViewerProp & {
   element: Element
-): Promise<void> {
+}): Promise<void> {
   const { onError } = useContext(LoaderContext)
 
   useCornerstone(element)
 
+  // TODO: 불필요한 매개변수 제거.
   useImageLoader({
     imageId,
     element,
+    isSingleImage: true,
+    onError,
+    setHeader: () => {},
     setLoader: () => setLoader(onError),
   })
 }

@@ -1,19 +1,25 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren } from '../types'
+import { WithChildren, ViewerProp } from '../types'
+import { handleError } from '../utils/common'
 import useWebImageLoader from '../hooks/useWebImageLoader'
-import { VIEWER_TYPE } from '../const'
 
 export function WebImageViewer({
   imageId,
+  onError = handleError,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setHeader = _request => {},
   children,
-}: WithChildren<{ imageId: string }>): JSX.Element {
+}: WithChildren<Partial<ViewerProp>> & {
+  imageId: string
+}): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useWebImageLoader(imageId, elRef.current)
+  useWebImageLoader({
+    imageId,
+    element: elRef.current,
+    onError,
+    setHeader,
+  })
 
-  return (
-    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.WEB}>
-      {children}
-    </ViewerWrapper>
-  )
+  return <ViewerWrapper ref={elRef}>{children}</ViewerWrapper>
 }

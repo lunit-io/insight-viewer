@@ -1,29 +1,26 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
-import LoaderContext from '../Context'
 import useViewport from './useViewport'
-import { Element, ViewerError } from '../types'
-
-interface Prop {
-  imageId: string
-  element: Element
-  setLoader: () => Promise<boolean>
-  isSingleImage?: boolean
-}
+import { Element, ViewerError, ViewerProp } from '../types'
 
 export default function useImageLoader({
   imageId,
   element,
   setLoader,
+  onError,
+  setHeader,
   isSingleImage = true,
-}: Prop): void {
+}: ViewerProp & {
+  element: Element
+  isSingleImage?: boolean
+  setLoader: () => Promise<boolean>
+}): void {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError, setHeader } = useContext(LoaderContext)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
