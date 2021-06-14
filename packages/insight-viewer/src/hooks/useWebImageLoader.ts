@@ -36,7 +36,6 @@ export default async function useWebImageLoader({
   useImageLoader({
     imageId,
     element,
-    isSingleImage: true,
     onError,
     setHeader: () => {},
     setLoader: () => setLoader(onError),

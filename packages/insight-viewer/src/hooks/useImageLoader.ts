@@ -14,10 +14,8 @@ export default function useImageLoader({
   setLoader,
   onError,
   setHeader,
-  isSingleImage = true,
 }: ViewerProp & {
   element: Element
-  isSingleImage?: boolean
   setLoader: () => Promise<boolean>
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
@@ -32,6 +30,9 @@ export default function useImageLoader({
   useEffect(() => {
     if (!hasLoader) return undefined
     if (!element) return undefined
+
+    // TODO: multiframe viewer에서는 이 값이 false여야 한다.
+    const isSingleImage = true
 
     async function loadImage(): Promise<void> {
       try {
@@ -56,6 +57,6 @@ export default function useImageLoader({
 
     loadImage()
     return undefined
-  }, [imageId, element, isSingleImage, hasLoader, onError, setHeader])
+  }, [imageId, element, hasLoader, onError, setHeader])
   return undefined
 }

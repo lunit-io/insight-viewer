@@ -23,7 +23,6 @@ export function DICOMImageViewer({
   useDICOMImageLoader({
     imageId,
     element: elRef.current,
-    isSingleImage: true,
     onError,
     setHeader,
   })
