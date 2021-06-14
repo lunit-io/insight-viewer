@@ -11,16 +11,13 @@ export default async function useDICOMImageLoader({
   element,
   onError,
   setHeader,
-  isSingleImage,
 }: ViewerProp & {
   element: Element
-  isSingleImage: boolean
 }): Promise<void> {
   useCornerstone(element)
   useImageLoader({
     imageId,
     element,
-    isSingleImage,
     onError,
     setHeader,
     setLoader: () => setWadoImageLoader(onError),
