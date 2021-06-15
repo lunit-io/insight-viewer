@@ -4,7 +4,11 @@ export type WithChildren<T = Record<string, unknown>> = T & {
 export type Element = HTMLDivElement | null
 export type ViewerError = Error & { status?: number }
 export type OnError = (e: ViewerError) => void
-export type Progress = ({ progress }: { progress: number }) => JSX.Element
+export type ProgressComponent = ({
+  progress,
+}: {
+  progress: number
+}) => JSX.Element
 export type Viewer = ({
   imageId,
   children,

@@ -1,8 +1,8 @@
 import React from 'react'
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/progress'
-import { Progress as ProgressType } from '../../types'
+import { ProgressComponent } from '../../types'
 
-const Progress: ProgressType = ({ progress = 0 }) => (
+const Progress: ProgressComponent = ({ progress = 0 }) => (
   <CircularProgress
     value={progress}
     size={100}

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren, ViewerProp, Progress as ProgressType } from '../types'
+import { WithChildren, ViewerProp, ProgressComponent } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageLoader from '../hooks/useImageLoader'
 import { setWadoImageLoader } from '../utils/cornerstoneHelper'
@@ -14,7 +14,7 @@ export function DICOMImageViewer({
   children,
 }: WithChildren<
   ViewerProp & {
-    Progress?: ProgressType
+    Progress?: ProgressComponent
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)

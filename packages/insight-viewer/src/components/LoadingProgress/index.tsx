@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Subscription } from 'rxjs'
 import { loadingProgressMessage } from '../../utils/messageService'
-import { Progress as ProgressType } from '../../types'
+import { ProgressComponent } from '../../types'
 
 const ProgressWrapper = styled.div`
   position: absolute;
@@ -17,7 +17,7 @@ let subscription: Subscription
 export default function LoadingProgress({
   Progress,
 }: {
-  Progress: ProgressType
+  Progress: ProgressComponent
 }): JSX.Element {
   const [{ progress, hidden }, setState] = useState<{
     progress?: number
