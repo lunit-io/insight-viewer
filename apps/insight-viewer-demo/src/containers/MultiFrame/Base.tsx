@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Viewer, { usePrefetch, useFrame } from '@lunit/insight-viewer'
+import Viewer, { useMultiframe } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 
@@ -18,7 +18,7 @@ const IMAGES = [
 ]
 
 const Code = `\
-import Viewer, { usePrefetch, useFrame } from '@lunit/insight-viewer'
+import Viewer, { useMultiframe } from '@lunit/insight-viewer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -27,8 +27,15 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { frame, setFrame } = useFrame(/* initialValue or default 0 */)
-  usePrefetch({ images: IMAGES })
+  const { image, frame, setFrame } = useMultiframe(
+    IMAGES, 
+    {
+      initialFrame,       // optional: initialValue or default 0
+      prefetch,           // optional: default true
+      onError,            // optional
+      requestInterceptor, // optional
+    } // optional
+  )
 
   function changeFrame(e) {
     setFrame(Number(e.target.value))
@@ -46,15 +53,14 @@ export default function Viewer() {
         defaultValue={0}
         onChange={changeFrame}
       />
-      <Viewer.Dicom imageId={IMAGES[frame]} />
+      <Viewer.Dicom imageId={image} /* or imageId={IMAGES[frame]} */ />
     </>
   )
 }
 `
 
 export default function Base(): JSX.Element {
-  const { frame, setFrame } = useFrame()
-  usePrefetch({ images: IMAGES })
+  const { image, setFrame } = useMultiframe(IMAGES)
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -78,7 +84,7 @@ export default function Base(): JSX.Element {
           onChange={changeFrame}
         />
       </Box>
-      <Viewer.Dicom imageId={IMAGES[frame]} />
+      <Viewer.Dicom imageId={image} />
       <Box w={900}>
         <CodeBlock code={Code} />
       </Box>
