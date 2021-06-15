@@ -3,11 +3,12 @@ import {
   loadImage,
   setWadoImageLoader,
   Image,
-} from '../utils/cornerstoneHelper'
-import { loadingProgressMessage } from '../utils/messageService'
-import getHttpClient from '../utils/httpClient'
-import { ViewerProp } from '../types'
-import { DefaultProp } from '../Viewer/const'
+} from '../../utils/cornerstoneHelper'
+import { loadingProgressMessage } from '../../utils/messageService'
+import getHttpClient from '../../utils/httpClient'
+import { ViewerProp } from '../../types'
+
+type HTTP = Pick<Required<ViewerProp>, 'onError' | 'requestInterceptor'>
 
 function PromiseAllWithProgress(
   promiseArray: Promise<Image>[]
@@ -31,7 +32,7 @@ async function prefetch({
   images,
   requestInterceptor,
   onError,
-}: Pick<Required<ViewerProp>, 'onError' | 'requestInterceptor'> & {
+}: HTTP & {
   images: string[]
 }) {
   try {
@@ -49,12 +50,15 @@ async function prefetch({
 
 export default function usePrefetch({
   images,
-  onError = DefaultProp.onError,
-  requestInterceptor = DefaultProp.requestInterceptor,
-}: Pick<ViewerProp, 'onError' | 'requestInterceptor'> & {
+  onError,
+  requestInterceptor,
+  prefetch: prefetchEnabled,
+}: HTTP & {
   images: string[]
+  prefetch: boolean
 }): void {
   useEffect(() => {
+    if (!prefetchEnabled) return undefined
     let loaded = false
     if (images.length === 0 || loaded) return undefined
 
@@ -64,5 +68,5 @@ export default function usePrefetch({
     })
 
     return undefined
-  }, [images, onError, requestInterceptor])
+  }, [images, onError, requestInterceptor, prefetchEnabled])
 }
