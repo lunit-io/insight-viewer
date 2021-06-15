@@ -5,7 +5,7 @@ import CodeBlock from '../../components/CodeBlock'
 const Code = `\
 import Viewer from '@lunit/insight-viewer'
 
-const setHeader = (request: Request) => {
+const requestInterceptor = (request: Request) => {
   request.headers.set('Authorization', 'Bearer blahblah')
 }
 
@@ -13,7 +13,7 @@ export default function() {
   return (
     <Viewer.Dicom 
       imageId={IMAGE_ID} 
-      setHeader={setHeader} 
+      requestInterceptor={requestInterceptor} 
     />
   )
 }
@@ -21,7 +21,7 @@ export default function() {
 const IMAGE_ID = 'wadouri:/msw/with-jwt'
 
 export default function WithJwt(): JSX.Element {
-  const setHeader = (request: Request) => {
+  const requestInterceptor = (request: Request) => {
     request.headers.set('Authorization', 'Bearer blahblah')
   }
 
@@ -32,7 +32,10 @@ export default function WithJwt(): JSX.Element {
       </Box>
       <Box w={700}>
         <Box w={500} h={500}>
-          <Viewer.Dicom imageId={IMAGE_ID} setHeader={setHeader} />
+          <Viewer.Dicom
+            imageId={IMAGE_ID}
+            requestInterceptor={requestInterceptor}
+          />
         </Box>
         <CodeBlock code={Code} />
       </Box>
