@@ -10,7 +10,7 @@ export function DICOMImageViewer({
   imageId,
   onError = DefaultProp.onError,
   Progress = DefaultProp.Progress,
-  setHeader = DefaultProp.setHeader,
+  requestInterceptor = DefaultProp.requestInterceptor,
   children,
 }: WithChildren<
   ViewerProp & {
@@ -24,7 +24,7 @@ export function DICOMImageViewer({
     imageId,
     element: elRef.current,
     onError,
-    setHeader,
+    requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
   })
 

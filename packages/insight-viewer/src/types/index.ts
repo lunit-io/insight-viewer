@@ -15,9 +15,9 @@ export type Viewer = ({
 }: WithChildren<{
   imageId: string
 }>) => JSX.Element
-export type SetHeader = (request: Request) => void
+export type RequestInterceptor = (request: Request) => void
 export interface ViewerProp {
   imageId: string
   onError?: OnError
-  setHeader?: SetHeader
+  requestInterceptor?: RequestInterceptor
 }

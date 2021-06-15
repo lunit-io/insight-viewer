@@ -5,5 +5,5 @@ export const DefaultProp = {
   onError: handleError,
   Progress: CircularProgress,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setHeader: (_request: Request): void => {},
+  requestInterceptor: (_request: Request): void => {},
 }

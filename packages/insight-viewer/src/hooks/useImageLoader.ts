@@ -13,7 +13,7 @@ export default function useImageLoader({
   element,
   setLoader,
   onError,
-  setHeader,
+  requestInterceptor,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
@@ -37,7 +37,7 @@ export default function useImageLoader({
     async function loadImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
-          loader: getHttpClient(isSingleImage, setHeader),
+          loader: getHttpClient(isSingleImage, requestInterceptor),
         })
 
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
@@ -57,6 +57,6 @@ export default function useImageLoader({
 
     loadImage()
     return undefined
-  }, [imageId, element, hasLoader, onError, setHeader])
+  }, [imageId, element, hasLoader, onError, requestInterceptor])
   return undefined
 }

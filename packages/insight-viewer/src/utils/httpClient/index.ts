@@ -1,19 +1,19 @@
 import ky from 'ky'
 import { loadingProgressMessage } from '../messageService'
-import { SetHeader } from '../../types'
+import { RequestInterceptor } from '../../types'
 
 type HttpClient = (url: string) => Promise<ArrayBuffer>
 
 export default function getHttpClient(
   isSingle: boolean,
-  setHeader: SetHeader
+  requestInterceptor: RequestInterceptor
 ): HttpClient {
   const httpClient: HttpClient = async url => {
     const http = ky.create({
       hooks: {
         beforeRequest: [
           request => {
-            setHeader(request)
+            requestInterceptor(request)
           },
         ],
       },

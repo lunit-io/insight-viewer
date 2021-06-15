@@ -9,7 +9,7 @@ import { DefaultProp } from './const'
 export function WebImageViewer({
   imageId,
   onError = DefaultProp.onError,
-  setHeader = DefaultProp.setHeader,
+  requestInterceptor = DefaultProp.requestInterceptor,
   children,
 }: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
@@ -18,7 +18,7 @@ export function WebImageViewer({
     imageId,
     element: elRef.current,
     onError,
-    setHeader,
+    requestInterceptor,
     setLoader: () => setWebImageLoader(onError),
   })
 

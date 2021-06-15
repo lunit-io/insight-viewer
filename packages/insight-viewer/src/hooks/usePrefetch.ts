@@ -29,15 +29,15 @@ function PromiseAllWithProgress(
 
 async function prefetch({
   images,
-  setHeader,
+  requestInterceptor,
   onError,
-}: Pick<Required<ViewerProp>, 'onError' | 'setHeader'> & {
+}: Pick<Required<ViewerProp>, 'onError' | 'requestInterceptor'> & {
   images: string[]
 }) {
   try {
     const loaders = images.map(image =>
       loadImage(image, {
-        loader: getHttpClient(false, setHeader),
+        loader: getHttpClient(false, requestInterceptor),
       })
     )
     return PromiseAllWithProgress(loaders)
@@ -50,8 +50,8 @@ async function prefetch({
 export default function usePrefetch({
   images,
   onError = DefaultProp.onError,
-  setHeader = DefaultProp.setHeader,
-}: Pick<ViewerProp, 'onError' | 'setHeader'> & {
+  requestInterceptor = DefaultProp.requestInterceptor,
+}: Pick<ViewerProp, 'onError' | 'requestInterceptor'> & {
   images: string[]
 }): void {
   useEffect(() => {
@@ -59,10 +59,10 @@ export default function usePrefetch({
     if (images.length === 0 || loaded) return undefined
 
     setWadoImageLoader(onError).then(async () => {
-      await prefetch({ images, setHeader, onError })
+      await prefetch({ images, requestInterceptor, onError })
       loaded = true
     })
 
     return undefined
-  }, [images, onError, setHeader])
+  }, [images, onError, requestInterceptor])
 }
