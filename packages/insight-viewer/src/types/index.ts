@@ -16,8 +16,11 @@ export type Viewer = ({
   imageId: string
 }>) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
-export interface ViewerProp {
-  imageId: string
-  onError?: OnError
-  requestInterceptor?: RequestInterceptor
+export interface HTTP {
+  onError: OnError
+  requestInterceptor: RequestInterceptor
 }
+
+export type ViewerProp = {
+  imageId: string
+} & Partial<HTTP>

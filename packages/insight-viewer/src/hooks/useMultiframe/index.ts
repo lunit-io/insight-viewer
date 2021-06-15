@@ -1,12 +1,12 @@
 import usePrefetch from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
-import { ViewerProp } from '../../types'
+import { HTTP } from '../../types'
 import { DefaultProp } from '../../Viewer/const'
 
 type Prop = {
   initialFrame?: number
   prefetch?: boolean
-} & Partial<Pick<ViewerProp, 'onError' | 'requestInterceptor'>>
+} & Partial<HTTP>
 
 export default function useMultiframe(
   IMAGES: string[],

@@ -6,9 +6,7 @@ import {
 } from '../../utils/cornerstoneHelper'
 import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
-import { ViewerProp } from '../../types'
-
-type HTTP = Pick<Required<ViewerProp>, 'onError' | 'requestInterceptor'>
+import { HTTP } from '../../types'
 
 function PromiseAllWithProgress(
   promiseArray: Promise<Image>[]
