@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
+export type SetFrame = (n: number) => void
+
 export interface UseFrame {
-  (f?: number): {
+  (f: number): {
     frame: number
-    setFrame: (n: number) => void
+    setFrame: SetFrame
   }
 }
 
-const useFrame: UseFrame = (initial = 0) => {
+const useFrame: UseFrame = initial => {
   const [frame, setFrame] = useState(initial)
 
   return {

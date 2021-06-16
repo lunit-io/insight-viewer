@@ -1,19 +1,12 @@
-import { useEffect, useContext } from 'react'
-import LoaderContext from '../Context'
+import { useEffect } from 'react'
 import {
   loadImage,
   setWadoImageLoader,
   Image,
-} from '../utils/cornerstoneHelper'
-import { loadingProgressMessage } from '../utils/messageService'
-import getHttpClient from '../utils/httpClient'
-import { SetHeader, OnError } from '../types'
-
-interface Load {
-  images: string[]
-  setHeader: SetHeader
-  onError: OnError
-}
+} from '../../utils/cornerstoneHelper'
+import { loadingProgressMessage } from '../../utils/messageService'
+import getHttpClient from '../../utils/httpClient'
+import { HTTP } from '../../types'
 
 function PromiseAllWithProgress(
   promiseArray: Promise<Image>[]
@@ -33,11 +26,17 @@ function PromiseAllWithProgress(
   return Promise.all(promiseArray)
 }
 
-async function prefetch({ images, setHeader, onError }: Load) {
+async function prefetch({
+  images,
+  requestInterceptor,
+  onError,
+}: HTTP & {
+  images: string[]
+}) {
   try {
     const loaders = images.map(image =>
       loadImage(image, {
-        loader: getHttpClient(false, setHeader),
+        loader: getHttpClient(false, requestInterceptor),
       })
     )
     return PromiseAllWithProgress(loaders)
@@ -47,18 +46,25 @@ async function prefetch({ images, setHeader, onError }: Load) {
   }
 }
 
-export default function usePrefetch(images: string[]): void {
-  const { onError, setHeader } = useContext(LoaderContext)
-
+export default function usePrefetch({
+  images,
+  onError,
+  requestInterceptor,
+  prefetch: prefetchEnabled,
+}: HTTP & {
+  images: string[]
+  prefetch: boolean
+}): void {
   useEffect(() => {
+    if (!prefetchEnabled) return undefined
     let loaded = false
     if (images.length === 0 || loaded) return undefined
 
     setWadoImageLoader(onError).then(async () => {
-      await prefetch({ images, setHeader, onError })
+      await prefetch({ images, requestInterceptor, onError })
       loaded = true
     })
 
     return undefined
-  }, [images, onError, setHeader])
+  }, [images, onError, requestInterceptor, prefetchEnabled])
 }

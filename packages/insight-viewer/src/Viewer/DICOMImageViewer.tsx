@@ -1,22 +1,35 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren } from '../types'
-import useDICOMImageLoader from '../hooks/useDICOMImageLoader'
-import { VIEWER_TYPE } from '../const'
+import { WithChildren, ViewerProp, ProgressComponent } from '../types'
+import useCornerstone from '../hooks/useCornerstone'
+import useImageLoader from '../hooks/useImageLoader'
+import { setWadoImageLoader } from '../utils/cornerstoneHelper'
+import { DefaultProp } from './const'
 
 export function DICOMImageViewer({
   imageId,
+  onError = DefaultProp.onError,
+  Progress = DefaultProp.Progress,
+  requestInterceptor = DefaultProp.requestInterceptor,
   children,
-}: WithChildren<{ imageId: string }>): JSX.Element {
+}: WithChildren<
+  ViewerProp & {
+    Progress?: ProgressComponent
+  }
+>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useDICOMImageLoader({
+  useCornerstone(elRef.current)
+  // TODO: 불필요한 매개변수 제거.
+  useImageLoader({
     imageId,
     element: elRef.current,
-    isSingleImage: true,
+    onError,
+    requestInterceptor,
+    setLoader: () => setWadoImageLoader(onError),
   })
 
   return (
-    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.DICOM}>
+    <ViewerWrapper ref={elRef} Progress={Progress}>
       {children}
     </ViewerWrapper>
   )

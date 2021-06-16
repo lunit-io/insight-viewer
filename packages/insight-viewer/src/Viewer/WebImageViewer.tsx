@@ -1,19 +1,26 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren } from '../types'
-import useWebImageLoader from '../hooks/useWebImageLoader'
-import { VIEWER_TYPE } from '../const'
+import { WithChildren, ViewerProp } from '../types'
+import useCornerstone from '../hooks/useCornerstone'
+import useImageLoader from '../hooks/useImageLoader'
+import { setWebImageLoader } from '../utils/cornerstoneHelper'
+import { DefaultProp } from './const'
 
 export function WebImageViewer({
   imageId,
+  onError = DefaultProp.onError,
+  requestInterceptor = DefaultProp.requestInterceptor,
   children,
-}: WithChildren<{ imageId: string }>): JSX.Element {
+}: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useWebImageLoader(imageId, elRef.current)
+  useCornerstone(elRef.current)
+  useImageLoader({
+    imageId,
+    element: elRef.current,
+    onError,
+    requestInterceptor,
+    setLoader: () => setWebImageLoader(onError),
+  })
 
-  return (
-    <ViewerWrapper ref={elRef} type={VIEWER_TYPE.WEB}>
-      {children}
-    </ViewerWrapper>
-  )
+  return <ViewerWrapper ref={elRef}>{children}</ViewerWrapper>
 }

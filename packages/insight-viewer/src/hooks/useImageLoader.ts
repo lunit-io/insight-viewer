@@ -1,35 +1,28 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
-import LoaderContext from '../Context'
 import useViewport from './useViewport'
-import { Element, ViewerError } from '../types'
-
-interface Prop {
-  imageId: string
-  element: Element
-  setLoader: () => Promise<boolean>
-  isSingleImage?: boolean
-}
+import { Element, ViewerError, ViewerProp } from '../types'
 
 export default function useImageLoader({
   imageId,
   element,
   setLoader,
-  isSingleImage = true,
-}: Prop): void {
+  onError,
+  requestInterceptor,
+}: Required<ViewerProp> & {
+  element: Element
+  setLoader: () => Promise<boolean>
+}): void {
   const [hasLoader, setHasLoader] = useState(false)
-  const { onError, setHeader } = useContext(LoaderContext)
 
   // eslint-disable-next-line no-extra-semi
-  ;(async function asyncLoad(): Promise<undefined> {
-    if (hasLoader) return undefined
-    setHasLoader(await setLoader())
-    return undefined
+  ;(async function asyncLoad(): Promise<void> {
+    if (!hasLoader) setHasLoader(await setLoader())
   })()
 
   useViewport(<HTMLDivElement>element)
@@ -38,10 +31,13 @@ export default function useImageLoader({
     if (!hasLoader) return undefined
     if (!element) return undefined
 
+    // TODO: multiframe viewer에서는 이 값이 false여야 한다.
+    const isSingleImage = true
+
     async function loadImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
-          loader: getHttpClient(isSingleImage, setHeader),
+          loader: getHttpClient(isSingleImage, requestInterceptor),
         })
 
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
@@ -61,6 +57,6 @@ export default function useImageLoader({
 
     loadImage()
     return undefined
-  }, [imageId, element, isSingleImage, hasLoader, onError, setHeader])
+  }, [imageId, element, hasLoader, onError, requestInterceptor])
   return undefined
 }
