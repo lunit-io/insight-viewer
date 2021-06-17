@@ -4,7 +4,7 @@ import {
   WithChildren,
   ViewerProp,
   ProgressComponent,
-  SetViewport,
+  OnViewportChange,
 } from '../types'
 import { Viewport } from '../Context/Viewport/types'
 import useCornerstone from '../hooks/useCornerstone'
@@ -19,13 +19,13 @@ export function DICOMImageViewer({
   Progress = DefaultProp.Progress,
   requestInterceptor = DefaultProp.requestInterceptor,
   viewport,
-  setViewport,
+  onViewportChange,
   children,
 }: WithChildren<
   ViewerProp & {
     Progress?: ProgressComponent
     viewport?: Viewport
-    setViewport?: SetViewport
+    onViewportChange?: OnViewportChange
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
@@ -37,7 +37,7 @@ export function DICOMImageViewer({
     onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
-    setViewport,
+    onViewportChange,
   })
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
 import useViewportUpdate from './useViewportUpdate'
-import { Element, ViewerError, ViewerProp, SetViewport } from '../types'
+import { Element, ViewerError, ViewerProp, OnViewportChange } from '../types'
 
 export default function useImageLoader({
   imageId,
@@ -15,11 +15,11 @@ export default function useImageLoader({
   setLoader,
   onError,
   requestInterceptor,
-  setViewport,
+  onViewportChange,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
-  setViewport?: SetViewport
+  onViewportChange?: OnViewportChange
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
 
@@ -47,7 +47,7 @@ export default function useImageLoader({
 
         const { viewport } = displayImage(<HTMLDivElement>element, image)
 
-        if (setViewport) setViewport(formatViewport(viewport))
+        if (onViewportChange) onViewportChange(formatViewport(viewport))
       } catch (e) {
         /**
          * ky HTTPError
@@ -62,6 +62,13 @@ export default function useImageLoader({
 
     loadImage()
     return undefined
-  }, [imageId, element, hasLoader, onError, setViewport, requestInterceptor])
+  }, [
+    imageId,
+    element,
+    hasLoader,
+    onError,
+    onViewportChange,
+    requestInterceptor,
+  ])
   return undefined
 }

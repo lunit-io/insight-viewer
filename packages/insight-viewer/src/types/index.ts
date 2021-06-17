@@ -24,7 +24,7 @@ export interface HTTP {
   requestInterceptor: RequestInterceptor
 }
 
-export type SetViewport = Dispatch<SetStateAction<Viewport>>
+export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 
 export type ViewerProp = {
   imageId: string
