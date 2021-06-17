@@ -3,7 +3,7 @@ import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren, ViewerProp } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageLoader from '../hooks/useImageLoader'
-import { setWebImageLoader } from '../utils/cornerstoneHelper'
+import setWebImageLoader from '../utils/cornerstoneHelper/setWebImageLoader'
 import { DefaultProp } from './const'
 
 export function WebImageViewer({
