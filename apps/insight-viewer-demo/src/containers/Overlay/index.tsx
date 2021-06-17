@@ -10,10 +10,14 @@ const Code = `\
   import Viewer, { useViewport } from '@lunit/insight-viewer'
 
   export default function Viewer() {
-    const { viewport } = useViewport()
+    const { viewport, setViewport } = useViewport()
 
     return (
-      <Viewer.Dicom imageId={IMAGE_ID}>
+      <Viewer.Dicom 
+        imageId={IMAGE_ID} 
+        viewport={viewport}
+        onViewportChange={setViewport}
+      >
         <OverlayLayer viewport={viewport} />
       </Viewer.Dicom>
     )
@@ -21,12 +25,16 @@ const Code = `\
   `
 
 function Overlay(): JSX.Element {
-  const { viewport } = useViewport()
+  const { viewport, setViewport } = useViewport()
 
   return (
     <Box w={700}>
       <Box w={500} h={500}>
-        <Viewer.Dicom imageId={IMAGE_ID}>
+        <Viewer.Dicom
+          imageId={IMAGE_ID}
+          viewport={viewport}
+          onViewportChange={setViewport}
+        >
           <OverlayLayer viewport={viewport} />
         </Viewer.Dicom>
       </Box>
