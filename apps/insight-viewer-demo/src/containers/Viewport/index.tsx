@@ -42,16 +42,28 @@ const Code = `\
     // update viewport with keyboard event
     useEffect(() => {
       function handleKeyDown(e: KeyboardEvent) {
-        if (e.key === 'ArrowDown') {
+        if (e.key === 's') {
           setViewport((prev: Viewport) => ({
             ...prev,
             y: prev.y + 10,
           }))
         }
-        if (e.key === 'ArrowUp') {
+        if (e.key === 'w') {
           setViewport((prev: Viewport) => ({
             ...prev,
             y: prev.y - 10,
+          }))
+        }
+        if (e.key === 'd') {
+          setViewport((prev: Viewport) => ({
+            ...prev,
+            x: prev.x + 10,
+          }))
+        }
+        if (e.key === 'a') {
+          setViewport((prev: Viewport) => ({
+            ...prev,
+            x: prev.x - 10,
           }))
         }
       }
