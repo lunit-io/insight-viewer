@@ -29,6 +29,8 @@ export function DICOMImageViewer({
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
+  // eslint-disable-next-line no-underscore-dangle
+  const initialViewportRef = useRef(viewport?._initial)
 
   useCornerstone(elRef.current)
   useImageLoader({
@@ -37,7 +39,7 @@ export function DICOMImageViewer({
     onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
-    viewport,
+    initialViewportRef,
     onViewportChange,
   })
   useViewportUpdate(elRef.current, viewport)
