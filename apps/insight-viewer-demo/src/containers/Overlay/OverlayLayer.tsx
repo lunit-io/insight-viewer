@@ -14,7 +14,6 @@ export default function OverlayLayer({
       w="100%"
       h="100%"
       p="4"
-      bg="rgba(255, 255, 255, .3)"
       color="blue.200"
       textShadow="1px 1px 1px black"
     >
@@ -28,7 +27,7 @@ export default function OverlayLayer({
         </ListItem>
         <ListItem>invert: {`${invert}`}</ListItem>
         <ListItem>
-          voi: {windowWidth} / {windowCenter}
+          WW / WC: {windowWidth} / {windowCenter}
         </ListItem>
       </UnorderedList>
     </Box>
