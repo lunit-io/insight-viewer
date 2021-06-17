@@ -1,41 +1,47 @@
 import { Box, HStack, Switch } from '@chakra-ui/react'
-import Viewer, { setViewport } from '@lunit/insight-viewer'
+import Viewer, { useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import OverlayLayer from '../Overlay/OverlayLayer'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import Viewer, { setViewport } from '@lunit/insight-viewer'
+  import Viewer, { useViewport } from '@lunit/insight-viewer'
 
   export default function App() {
+    const { viewport, setViewport } = useViewport()
+
     function updateViewport() {
-      setViewport({ invert: true })
-      setViewport({ hflip: false })
-      setViewport({ vflip: true })
-      setViewport({ x: 0 })
-      setViewport({ y: 10 })
-      setViewport({ scale: 1 })
-      setViewport({ windowWidth: 128 })
-      setViewport({ windowCenter: 256 })
-      // or
-      setViewport({
+      setViewport(prev => ({
+        ...prev,
         invert: false,
+        hflip: false,
+        vflip: true,
         x: 10,
-        windowCenter: 256 
-      })
+        y: 0,
+        scale: 1,
+        windowWidth: 128,
+        windowCenter: 256
+      }))
     }
 
     return (
       <>
         <button type="button" onClick={updateViewport}>update viewport</button>
-        <Viewer.Dicom imageId={IMAGE_ID} />
+        <Viewer.Dicom
+          imageId={IMAGE_ID}
+          viewport={viewport}
+          setViewport={setViewport}
+        />
       </>
     )
   }
   `
 
-function Viewport(): JSX.Element {
+export default function App(): JSX.Element {
+  const { viewport, setViewport } = useViewport()
+
   return (
     <>
       <Box w={700}>
@@ -44,19 +50,34 @@ function Viewport(): JSX.Element {
             <Box>
               invert{' '}
               <Switch
-                onChange={e => setViewport({ invert: e.target.checked })}
+                onChange={e =>
+                  setViewport(prev => ({
+                    ...prev,
+                    invert: e.target.checked,
+                  }))
+                }
               />
             </Box>
             <Box>
               hflip{' '}
               <Switch
-                onChange={e => setViewport({ hflip: e.target.checked })}
+                onChange={e =>
+                  setViewport(prev => ({
+                    ...prev,
+                    hflip: e.target.checked,
+                  }))
+                }
               />
             </Box>
             <Box>
               vflip{' '}
               <Switch
-                onChange={e => setViewport({ vflip: e.target.checked })}
+                onChange={e =>
+                  setViewport(prev => ({
+                    ...prev,
+                    vflip: e.target.checked,
+                  }))
+                }
               />
             </Box>
           </HStack>
@@ -73,7 +94,10 @@ function Viewport(): JSX.Element {
                   step="10"
                   defaultValue={0}
                   onChange={e => {
-                    setViewport({ x: Number(e.target.value) })
+                    setViewport(prev => ({
+                      ...prev,
+                      x: Number(e.target.value),
+                    }))
                   }}
                 />
               </Box>
@@ -90,7 +114,10 @@ function Viewport(): JSX.Element {
                   step="10"
                   defaultValue={0}
                   onChange={e => {
-                    setViewport({ y: Number(e.target.value) })
+                    setViewport(prev => ({
+                      ...prev,
+                      y: Number(e.target.value),
+                    }))
                   }}
                 />
               </Box>
@@ -108,7 +135,10 @@ function Viewport(): JSX.Element {
               step="0.1"
               defaultValue={1}
               onChange={e => {
-                setViewport({ scale: Number(e.target.value) })
+                setViewport(prev => ({
+                  ...prev,
+                  scale: Number(e.target.value),
+                }))
               }}
             />
           </Box>
@@ -125,7 +155,10 @@ function Viewport(): JSX.Element {
                   step="25.6"
                   defaultValue={128}
                   onChange={e => {
-                    setViewport({ windowWidth: Number(e.target.value) })
+                    setViewport(prev => ({
+                      ...prev,
+                      windowWidth: Number(e.target.value),
+                    }))
                   }}
                 />
               </Box>
@@ -142,7 +175,10 @@ function Viewport(): JSX.Element {
                   step="25.6"
                   defaultValue={128}
                   onChange={e => {
-                    setViewport({ windowCenter: Number(e.target.value) })
+                    setViewport(prev => ({
+                      ...prev,
+                      windowCenter: Number(e.target.value),
+                    }))
                   }}
                 />
               </Box>
@@ -150,14 +186,18 @@ function Viewport(): JSX.Element {
           </HStack>
         </Box>
         <Box w={500} h={500}>
-          <Viewer.Dicom imageId={IMAGE_ID} />
+          <Viewer.Dicom
+            imageId={IMAGE_ID}
+            viewport={viewport}
+            setViewport={setViewport}
+          >
+            <OverlayLayer viewport={viewport} />
+          </Viewer.Dicom>
         </Box>
-        <Box w={700}>
+        <Box w={900}>
           <CodeBlock code={Code} />
         </Box>
       </Box>
     </>
   )
 }
-
-export default Viewport
