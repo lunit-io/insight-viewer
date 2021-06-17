@@ -90,16 +90,28 @@ export default function App(): JSX.Element {
   })
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'ArrowDown') {
+      if (e.key === 's') {
         setViewport((prev: Viewport) => ({
           ...prev,
           y: prev.y + 10,
         }))
       }
-      if (e.key === 'ArrowUp') {
+      if (e.key === 'w') {
         setViewport((prev: Viewport) => ({
           ...prev,
           y: prev.y - 10,
+        }))
+      }
+      if (e.key === 'd') {
+        setViewport((prev: Viewport) => ({
+          ...prev,
+          x: prev.x + 10,
+        }))
+      }
+      if (e.key === 'a') {
+        setViewport((prev: Viewport) => ({
+          ...prev,
+          x: prev.x - 10,
         }))
       }
     }
@@ -303,7 +315,7 @@ export default function App(): JSX.Element {
 
         <Box mb={6}>
           <Text fontSize="md" color="red.500">
-            Move image with ↑ ↓ arrow keys
+            Move image with w,a,s,d keys
           </Text>
         </Box>
         <Box>
