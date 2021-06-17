@@ -1,7 +1,7 @@
 import { Viewport } from './types'
 
 export const ViewportContextDefaultValue: Viewport = {
-  scale: 1,
+  scale: 0,
   invert: false,
   hflip: false,
   vflip: false,
