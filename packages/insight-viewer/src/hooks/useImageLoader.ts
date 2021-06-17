@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react'
+import { Subscription } from 'rxjs'
+import { first } from 'rxjs/operators'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
-import { loadingProgressMessage } from '../utils/messageService'
+import {
+  loadingProgressMessage,
+  shouldSetInitialViewportMessage,
+} from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
 import useViewportUpdate from './useViewportUpdate'
 import { Element, ViewerError, ViewerProp, OnViewportChange } from '../types'
+import { Viewport } from '../Context/Viewport/types'
+
+let subscription: Subscription
+let initialViewport: Viewport | undefined
 
 export default function useImageLoader({
   imageId,
@@ -16,12 +25,18 @@ export default function useImageLoader({
   onError,
   requestInterceptor,
   onViewportChange,
+  viewport: initial,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
+  viewport?: Viewport
   onViewportChange?: OnViewportChange
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
+  const [shouldSetInitialViewport, setShouldSetInitialViewport] = useState(
+    false
+  )
+  initialViewport = initial
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
@@ -29,6 +44,19 @@ export default function useImageLoader({
   })()
 
   useViewportUpdate(<HTMLDivElement>element)
+
+  useEffect(() => {
+    subscription = shouldSetInitialViewportMessage
+      .getMessage()
+      .pipe(first())
+      .subscribe(() => {
+        setShouldSetInitialViewport(true)
+      })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     if (!hasLoader) return undefined
@@ -39,12 +67,18 @@ export default function useImageLoader({
         const image = await cornerstoneLoadImage(imageId, {
           loader: getHttpClient(requestInterceptor),
         })
-
         loadingProgressMessage.sendMessage(100)
 
         const { viewport } = displayImage(<HTMLDivElement>element, image)
 
-        if (onViewportChange) onViewportChange(formatViewport(viewport))
+        if (onViewportChange)
+          onViewportChange(
+            formatViewport(
+              shouldSetInitialViewport
+                ? { ...viewport, ...initialViewport }
+                : viewport
+            )
+          )
       } catch (e) {
         /**
          * ky HTTPError
@@ -66,6 +100,7 @@ export default function useImageLoader({
     onError,
     onViewportChange,
     requestInterceptor,
+    shouldSetInitialViewport,
   ])
   return undefined
 }

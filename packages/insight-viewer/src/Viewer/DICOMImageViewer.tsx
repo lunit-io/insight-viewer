@@ -37,6 +37,7 @@ export function DICOMImageViewer({
     onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
+    viewport,
     onViewportChange,
   })
 
