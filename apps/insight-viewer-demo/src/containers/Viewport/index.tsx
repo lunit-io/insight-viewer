@@ -11,7 +11,11 @@ const Code = `\
   import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 
   export default function App() {
-    const { viewport, setViewport } = useViewport()
+    const { viewport, setViewport } = useViewport({
+      scale: 0.5,
+      windowWidth: 25.6,
+      windowCenter: 102.4,
+    })
 
     function updateViewport() {
       setViewport(prev => ({
