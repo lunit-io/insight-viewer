@@ -1,22 +1,17 @@
-import { useState, useEffect } from 'react'
-import { Viewport } from '../Context/Viewport/types'
+import { useState } from 'react'
+import { Viewport, BasicViewport } from '../Context/Viewport/types'
 import { ViewportContextDefaultValue } from '../Context/Viewport/const'
-import { shouldSetInitialViewportMessage } from '../utils/messageService'
 
 export default function useViewport(
-  initial?: Partial<Viewport>
+  initial?: Partial<BasicViewport>
 ): {
   viewport: Viewport
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 } {
   const [viewport, setViewport] = useState({
     ...ViewportContextDefaultValue,
-    ...(initial ?? {}),
+    ...(initial ? { _initial: initial } : {}),
   })
-
-  useEffect(() => {
-    shouldSetInitialViewportMessage.sendMessage(true)
-  }, [])
 
   return {
     viewport,
