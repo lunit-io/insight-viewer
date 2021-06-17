@@ -1,21 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Subscription } from 'rxjs'
-import { first } from 'rxjs/operators'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
-import {
-  loadingProgressMessage,
-  shouldSetInitialViewportMessage,
-} from '../utils/messageService'
+import { loadingProgressMessage } from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
 import { Element, ViewerError, ViewerProp, OnViewportChange } from '../types'
 import { Viewport } from '../Context/Viewport/types'
-
-let subscription: Subscription
-let initialViewport: Viewport | undefined
 
 export default function useImageLoader({
   imageId,
@@ -24,36 +16,19 @@ export default function useImageLoader({
   onError,
   requestInterceptor,
   onViewportChange,
-  viewport: initial,
+  initialViewportRef,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
-  viewport?: Viewport
+  initialViewportRef?: React.MutableRefObject<Partial<Viewport> | undefined>
   onViewportChange?: OnViewportChange
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
-  const [shouldSetInitialViewport, setShouldSetInitialViewport] = useState(
-    false
-  )
-  initialViewport = initial
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
     if (!hasLoader) setHasLoader(await setLoader())
   })()
-
-  useEffect(() => {
-    subscription = shouldSetInitialViewportMessage
-      .getMessage()
-      .pipe(first())
-      .subscribe(() => {
-        setShouldSetInitialViewport(true)
-      })
-
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [])
 
   useEffect(() => {
     if (!hasLoader) return undefined
@@ -72,8 +47,8 @@ export default function useImageLoader({
           const formatted = formatViewport(viewport)
 
           onViewportChange(
-            shouldSetInitialViewport
-              ? { ...formatted, ...initialViewport }
+            initialViewportRef?.current
+              ? { ...formatted, ...initialViewportRef?.current }
               : formatted
           )
         }
@@ -98,7 +73,7 @@ export default function useImageLoader({
     onError,
     onViewportChange,
     requestInterceptor,
-    shouldSetInitialViewport,
+    initialViewportRef,
   ])
   return undefined
 }
