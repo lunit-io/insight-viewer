@@ -10,6 +10,8 @@ const Code = `\
   import Viewer, { useViewport } from '@lunit/insight-viewer'
 
   export default function Viewer() {
+    const { viewport } = useViewport()
+
     return (
       <Viewer.Dicom imageId={IMAGE_ID}>
         <OverlayLayer viewport={viewport} />
