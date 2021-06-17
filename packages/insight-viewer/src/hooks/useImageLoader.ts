@@ -11,7 +11,6 @@ import {
   shouldSetInitialViewportMessage,
 } from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
-import useViewportUpdate from './useViewportUpdate'
 import { Element, ViewerError, ViewerProp, OnViewportChange } from '../types'
 import { Viewport } from '../Context/Viewport/types'
 
@@ -42,8 +41,6 @@ export default function useImageLoader({
   ;(async function asyncLoad(): Promise<void> {
     if (!hasLoader) setHasLoader(await setLoader())
   })()
-
-  useViewportUpdate(<HTMLDivElement>element)
 
   useEffect(() => {
     subscription = shouldSetInitialViewportMessage
