@@ -33,7 +33,7 @@ async function prefetch({
   try {
     const loaders = images.map(image =>
       loadImage(image, {
-        loader: getHttpClient(false, requestInterceptor),
+        loader: getHttpClient(requestInterceptor),
       })
     )
     return PromiseAllWithProgress(loaders)

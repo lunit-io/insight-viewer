@@ -5,7 +5,6 @@ import { RequestInterceptor } from '../../types'
 type HttpClient = (url: string) => Promise<ArrayBuffer>
 
 export default function getHttpClient(
-  isSingle: boolean,
   requestInterceptor: RequestInterceptor
 ): HttpClient {
   const httpClient: HttpClient = async url => {
@@ -18,8 +17,7 @@ export default function getHttpClient(
         ],
       },
       onDownloadProgress: async progress => {
-        if (isSingle)
-          loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
+        loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
       },
     })
 

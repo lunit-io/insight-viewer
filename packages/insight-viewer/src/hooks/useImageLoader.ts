@@ -34,16 +34,13 @@ export default function useImageLoader({
     if (!hasLoader) return undefined
     if (!element) return undefined
 
-    // TODO: multiframe viewer에서는 이 값이 false여야 한다.
-    const isSingleImage = true
-
     async function loadImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
-          loader: getHttpClient(isSingleImage, requestInterceptor),
+          loader: getHttpClient(requestInterceptor),
         })
 
-        if (isSingleImage) loadingProgressMessage.sendMessage(100)
+        loadingProgressMessage.sendMessage(100)
 
         const { viewport } = displayImage(<HTMLDivElement>element, image)
 
