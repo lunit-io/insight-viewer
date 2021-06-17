@@ -25,6 +25,12 @@ const Code = `\
         windowWidth: 128,
         windowCenter: 256
       }))
+
+      // or
+      setViewport({
+        ...viewport,
+        hflip: e.target.checked,
+      })
     }
 
     // update viewport with keyboard event
@@ -103,10 +109,10 @@ export default function App(): JSX.Element {
               invert{' '}
               <Switch
                 onChange={e =>
-                  setViewport(prev => ({
-                    ...prev,
+                  setViewport({
+                    ...viewport,
                     invert: e.target.checked,
-                  }))
+                  })
                 }
               />
             </Box>
@@ -114,10 +120,10 @@ export default function App(): JSX.Element {
               hflip{' '}
               <Switch
                 onChange={e =>
-                  setViewport(prev => ({
-                    ...prev,
+                  setViewport({
+                    ...viewport,
                     hflip: e.target.checked,
-                  }))
+                  })
                 }
               />
             </Box>
