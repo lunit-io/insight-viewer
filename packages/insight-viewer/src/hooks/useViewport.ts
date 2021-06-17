@@ -16,7 +16,7 @@ export default function useViewport(
 
   useEffect(() => {
     shouldSetInitialViewportMessage.sendMessage(true)
-  }, [viewport])
+  }, [])
 
   return {
     viewport,

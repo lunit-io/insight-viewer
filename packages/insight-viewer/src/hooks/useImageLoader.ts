@@ -71,14 +71,15 @@ export default function useImageLoader({
 
         const { viewport } = displayImage(<HTMLDivElement>element, image)
 
-        if (onViewportChange)
+        if (onViewportChange) {
+          const formatted = formatViewport(viewport)
+
           onViewportChange(
-            formatViewport(
-              shouldSetInitialViewport
-                ? { ...viewport, ...initialViewport }
-                : viewport
-            )
+            shouldSetInitialViewport
+              ? { ...formatted, ...initialViewport }
+              : formatted
           )
+        }
       } catch (e) {
         /**
          * ky HTTPError
