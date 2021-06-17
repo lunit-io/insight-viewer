@@ -67,6 +67,8 @@ const Code = `\
 export default function App(): JSX.Element {
   const { viewport, setViewport } = useViewport({
     scale: 0.5,
+    windowWidth: 25.6,
+    windowCenter: 102.4,
   })
 
   useEffect(() => {
