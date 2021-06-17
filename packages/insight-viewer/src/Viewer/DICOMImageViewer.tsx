@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import {
   WithChildren,
@@ -9,8 +9,8 @@ import {
 import { Viewport } from '../Context/Viewport/types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageLoader from '../hooks/useImageLoader'
+import useViewportUpdate from '../hooks/useViewportUpdate'
 import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
-import { viewportMessage } from '../utils/messageService/viewport'
 import { DefaultProp } from './const'
 
 export function DICOMImageViewer({
@@ -29,8 +29,8 @@ export function DICOMImageViewer({
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  useCornerstone(elRef.current)
 
+  useCornerstone(elRef.current)
   useImageLoader({
     imageId,
     element: elRef.current,
@@ -40,10 +40,7 @@ export function DICOMImageViewer({
     viewport,
     onViewportChange,
   })
-
-  useEffect(() => {
-    if (viewport) viewportMessage.sendMessage(viewport)
-  }, [viewport])
+  useViewportUpdate(elRef.current, viewport)
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress}>
