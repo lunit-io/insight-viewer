@@ -1,16 +1,13 @@
 import { useEffect } from 'react'
-import {
-  loadImage,
-  setWadoImageLoader,
-  Image,
-} from '../../utils/cornerstoneHelper'
+import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
+import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
 import { HTTP } from '../../types'
 
 function PromiseAllWithProgress(
-  promiseArray: Promise<Image>[]
-): Promise<Image[]> {
+  promiseArray: Promise<CornerstoneImage>[]
+): Promise<CornerstoneImage[]> {
   let d = 0
 
   loadingProgressMessage.sendMessage(0)
