@@ -57,7 +57,7 @@ const Code = `\
         <Viewer.Dicom
           imageId={IMAGE_ID}
           viewport={viewport}
-          setViewport={setViewport}
+          onViewportChange={setViewport}
         />
       </>
     )
@@ -244,7 +244,7 @@ export default function App(): JSX.Element {
           <Viewer.Dicom
             imageId={IMAGE_ID}
             viewport={viewport}
-            setViewport={setViewport}
+            onViewportChange={setViewport}
           >
             <OverlayLayer viewport={viewport} />
           </Viewer.Dicom>
