@@ -15,8 +15,8 @@ const Code = `\
   export default function App() {
     const { viewport, setViewport } = useViewport({
       scale: 0.5,
-      windowWidth: 25.6,
-      windowCenter: 102.4,
+      windowWidth: 90,
+      windowCenter: 32,
     })
 
     function updateViewport() {
@@ -79,14 +79,14 @@ const Code = `\
 export default function App(): JSX.Element {
   const { viewport, setViewport } = useViewport({
     scale: 0.5,
-    windowWidth: 25.6,
-    windowCenter: 102.4,
+    windowWidth: 90,
+    windowCenter: 32,
   })
 
   const { viewport: viewport2, setViewport: setViewport2 } = useViewport({
     scale: 1,
-    windowWidth: 50,
-    windowCenter: 150,
+    windowWidth: 150,
+    windowCenter: 50,
   })
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -200,7 +200,7 @@ export default function App(): JSX.Element {
                 type="range"
                 id="scale"
                 name="scale"
-                min="1"
+                min="0.5"
                 max="2"
                 step="0.1"
                 defaultValue={1}
@@ -220,10 +220,10 @@ export default function App(): JSX.Element {
                     type="range"
                     id="windowWidth"
                     name="windowWidth"
-                    min="0"
-                    max="256"
-                    step="25.6"
-                    defaultValue={128}
+                    min="9"
+                    max="171"
+                    step="9"
+                    defaultValue={90}
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
@@ -240,10 +240,10 @@ export default function App(): JSX.Element {
                     type="range"
                     id="windowCenter"
                     name="windowCenter"
-                    min="0"
-                    max="256"
-                    step="25.6"
-                    defaultValue={128}
+                    min="-48"
+                    max="112"
+                    step="16"
+                    defaultValue={32}
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
