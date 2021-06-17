@@ -5,8 +5,9 @@ import {
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
-import useViewport from './useViewport'
-import { Element, ViewerError, ViewerProp } from '../types'
+import { formatViewport } from '../utils/common/formatViewport'
+import useViewportUpdate from './useViewportUpdate'
+import { Element, ViewerError, ViewerProp, SetViewport } from '../types'
 
 export default function useImageLoader({
   imageId,
@@ -14,9 +15,11 @@ export default function useImageLoader({
   setLoader,
   onError,
   requestInterceptor,
+  setViewport,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
+  setViewport?: SetViewport
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
 
@@ -25,7 +28,7 @@ export default function useImageLoader({
     if (!hasLoader) setHasLoader(await setLoader())
   })()
 
-  useViewport(<HTMLDivElement>element)
+  useViewportUpdate(<HTMLDivElement>element)
 
   useEffect(() => {
     if (!hasLoader) return undefined
@@ -42,7 +45,9 @@ export default function useImageLoader({
 
         if (isSingleImage) loadingProgressMessage.sendMessage(100)
 
-        displayImage(<HTMLDivElement>element, image)
+        const { viewport } = displayImage(<HTMLDivElement>element, image)
+
+        if (setViewport) setViewport(formatViewport(viewport))
       } catch (e) {
         /**
          * ky HTTPError
@@ -57,6 +62,6 @@ export default function useImageLoader({
 
     loadImage()
     return undefined
-  }, [imageId, element, hasLoader, onError, requestInterceptor])
+  }, [imageId, element, hasLoader, onError, setViewport, requestInterceptor])
   return undefined
 }
