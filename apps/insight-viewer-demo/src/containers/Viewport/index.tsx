@@ -1,5 +1,6 @@
-import { Box, HStack, Switch } from '@chakra-ui/react'
-import Viewer, { useViewport } from '@lunit/insight-viewer'
+import { useEffect } from 'react'
+import { Box, Text, HStack, Switch } from '@chakra-ui/react'
+import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../Overlay/OverlayLayer'
 
@@ -7,7 +8,7 @@ const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import Viewer, { useViewport } from '@lunit/insight-viewer'
+  import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 
   export default function App() {
     const { viewport, setViewport } = useViewport()
@@ -26,6 +27,30 @@ const Code = `\
       }))
     }
 
+    // update viewport with keyboard event
+    useEffect(() => {
+      function handleKeyDown(e: KeyboardEvent) {
+        if (e.key === 'ArrowDown') {
+          setViewport((prev: Viewport) => ({
+            ...prev,
+            y: prev.y + 10,
+          }))
+        }
+        if (e.key === 'ArrowUp') {
+          setViewport((prev: Viewport) => ({
+            ...prev,
+            y: prev.y - 10,
+          }))
+        }
+      }
+
+      window.addEventListener('keydown', handleKeyDown)
+
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown)
+      }
+    }, [setViewport])
+
     return (
       <>
         <button type="button" onClick={updateViewport}>update viewport</button>
@@ -40,7 +65,32 @@ const Code = `\
   `
 
 export default function App(): JSX.Element {
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    scale: 0.5,
+  })
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'ArrowDown') {
+        setViewport((prev: Viewport) => ({
+          ...prev,
+          y: prev.y + 10,
+        }))
+      }
+      if (e.key === 'ArrowUp') {
+        setViewport((prev: Viewport) => ({
+          ...prev,
+          y: prev.y - 10,
+        }))
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [setViewport])
 
   return (
     <>
@@ -184,6 +234,11 @@ export default function App(): JSX.Element {
               </Box>
             </Box>
           </HStack>
+        </Box>
+        <Box mb={6}>
+          <Text fontSize="md" color="red.500">
+            Move image with ↑ ↓ arrow keys
+          </Text>
         </Box>
         <Box w={500} h={500}>
           <Viewer.Dicom
