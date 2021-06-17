@@ -8,11 +8,10 @@ export default function useViewport(
   viewport: Viewport
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 } {
-  const [viewport, setViewport] = useState(
-    initial
-      ? { ...ViewportContextDefaultValue, ...initial }
-      : ViewportContextDefaultValue
-  )
+  const [viewport, setViewport] = useState({
+    ...ViewportContextDefaultValue,
+    ...(initial ?? {}),
+  })
 
   return {
     viewport,
