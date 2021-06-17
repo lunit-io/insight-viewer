@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Viewport } from '../Context/Viewport/types'
 import { ViewportContextDefaultValue } from '../Context/Viewport/const'
+import { shouldSetInitialViewportMessage } from '../utils/messageService'
 
 export default function useViewport(
   initial?: Partial<Viewport>
@@ -12,6 +13,10 @@ export default function useViewport(
     ...ViewportContextDefaultValue,
     ...(initial ?? {}),
   })
+
+  useEffect(() => {
+    shouldSetInitialViewportMessage.sendMessage(true)
+  }, [viewport])
 
   return {
     viewport,
