@@ -4,7 +4,9 @@
 import { OnError } from '../../types'
 import { getCornerstone } from './utils'
 
-export async function setWadoImageLoader(onError: OnError): Promise<boolean> {
+export default async function setWadoImageLoader(
+  onError: OnError
+): Promise<boolean> {
   try {
     const [cornerstoneWADOImageLoader, dicomParser] = await Promise.all([
       import('cornerstone-wado-image-loader'),

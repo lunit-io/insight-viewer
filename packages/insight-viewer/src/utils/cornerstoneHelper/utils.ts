@@ -1,6 +1,6 @@
 import cornerstone from 'cornerstone-core'
 
-export type Image = cornerstone.Image
+export type CornerstoneImage = cornerstone.Image
 export type CornerstoneViewport = cornerstone.Viewport
 
 export function enable(element: HTMLDivElement): void {
@@ -22,9 +22,17 @@ export function getCornerstone(): typeof cornerstone {
 export function displayImage(
   element: HTMLDivElement,
   image: cornerstone.Image
-): void {
+): {
+  viewport: CornerstoneViewport
+  image: CornerstoneImage
+} {
   const viewport = cornerstone.getDefaultViewportForImage(element, image)
   cornerstone.displayImage(element, image, viewport)
+
+  return {
+    viewport,
+    image,
+  }
 }
 
 export function loadImage(

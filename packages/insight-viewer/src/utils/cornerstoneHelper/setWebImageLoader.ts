@@ -4,7 +4,9 @@
 import { OnError } from '../../types'
 import { getCornerstone } from './utils'
 
-export async function setWebImageLoader(onError: OnError): Promise<boolean> {
+export default async function setWebImageLoader(
+  onError: OnError
+): Promise<boolean> {
   try {
     const cornerstoneWebImageLoader = await import(
       'cornerstone-web-image-loader'

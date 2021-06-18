@@ -69,6 +69,9 @@ module.exports = {
     ],
     '@typescript-eslint/camelcase': 'off',
     camelcase: 'off',
+    // 'React' was used before it was defined
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
   },
   overrides: [
     {

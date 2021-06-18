@@ -1,16 +1,13 @@
 import { useEffect } from 'react'
-import {
-  loadImage,
-  setWadoImageLoader,
-  Image,
-} from '../../utils/cornerstoneHelper'
+import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
+import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
 import { HTTP } from '../../types'
 
 function PromiseAllWithProgress(
-  promiseArray: Promise<Image>[]
-): Promise<Image[]> {
+  promiseArray: Promise<CornerstoneImage>[]
+): Promise<CornerstoneImage[]> {
   let d = 0
 
   loadingProgressMessage.sendMessage(0)
@@ -36,7 +33,7 @@ async function prefetch({
   try {
     const loaders = images.map(image =>
       loadImage(image, {
-        loader: getHttpClient(false, requestInterceptor),
+        loader: getHttpClient(requestInterceptor),
       })
     )
     return PromiseAllWithProgress(loaders)

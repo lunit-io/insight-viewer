@@ -1,4 +1,4 @@
-export interface Viewport {
+export interface BasicViewport {
   scale: number
   invert: boolean
   hflip: boolean
@@ -7,4 +7,8 @@ export interface Viewport {
   y: number
   windowWidth: number
   windowCenter: number
+}
+
+export type Viewport = BasicViewport & {
+  _initial?: Partial<BasicViewport>
 }

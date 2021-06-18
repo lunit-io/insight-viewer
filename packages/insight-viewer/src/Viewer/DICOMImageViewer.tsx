@@ -1,9 +1,16 @@
 import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren, ViewerProp, ProgressComponent } from '../types'
+import {
+  WithChildren,
+  ViewerProp,
+  ProgressComponent,
+  OnViewportChange,
+} from '../types'
+import { Viewport } from '../Context/Viewport/types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageLoader from '../hooks/useImageLoader'
-import { setWadoImageLoader } from '../utils/cornerstoneHelper'
+import useViewportUpdate from '../hooks/useViewportUpdate'
+import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
 import { DefaultProp } from './const'
 
 export function DICOMImageViewer({
@@ -11,22 +18,31 @@ export function DICOMImageViewer({
   onError = DefaultProp.onError,
   Progress = DefaultProp.Progress,
   requestInterceptor = DefaultProp.requestInterceptor,
+  viewport,
+  onViewportChange,
   children,
 }: WithChildren<
   ViewerProp & {
     Progress?: ProgressComponent
+    viewport?: Viewport
+    onViewportChange?: OnViewportChange
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
+  // eslint-disable-next-line no-underscore-dangle
+  const initialViewportRef = useRef(viewport?._initial)
+
   useCornerstone(elRef.current)
-  // TODO: 불필요한 매개변수 제거.
   useImageLoader({
     imageId,
     element: elRef.current,
     onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
+    initialViewportRef,
+    onViewportChange,
   })
+  useViewportUpdate(elRef.current, viewport)
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress}>

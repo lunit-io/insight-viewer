@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from 'react'
+import { Viewport } from '../Context/Viewport/types'
+
 export type WithChildren<T = Record<string, unknown>> = T & {
   children?: React.ReactNode
 }
@@ -20,6 +23,8 @@ export interface HTTP {
   onError: OnError
   requestInterceptor: RequestInterceptor
 }
+
+export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 
 export type ViewerProp = {
   imageId: string
