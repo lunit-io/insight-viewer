@@ -22,15 +22,14 @@ const Code = `\
     }
 
     return (
-      <Viewer.Dicom imageId={IMAGE_ID}>
-        <OverlayLayer 
-          viewport={viewport}
-          interaction={interaction}
-        />
+      <>
         <input type="radio" value="none" onChange={handleChange} />
-        <input type="radio" value="pan" onChange={handleChange}  />
-        <input type="radio" value="adjust" onChange={handleChange}  />
-      </Viewer.Dicom>
+        <input type="radio" value="pan" onChange={handleChange} />
+        <input type="radio" value="adjust" onChange={handleChange} />
+        <Viewer.Dicom imageId={IMAGE_ID} interaction={interaction}>
+          <OverlayLayer viewport={viewport} />
+        </Viewer.Dicom>
+      </>
     )
   }
   `
