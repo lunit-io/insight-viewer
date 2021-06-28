@@ -1,5 +1,5 @@
 import { fromEvent, Subscription } from 'rxjs'
-import { filter, switchMap, map, takeUntil } from 'rxjs/operators'
+import { filter, tap, switchMap, map, takeUntil } from 'rxjs/operators'
 import { Element } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
 import {
@@ -19,6 +19,18 @@ function hasDragType(value: unknown): value is DragType {
   return value === PRIMARY_DRAG || value === SECONDARY_DRAG
 }
 
+function preventContextMenu(e: Event) {
+  e.preventDefault()
+}
+
+function hasInteraction(interaction: Interaction) {
+  return interaction?.[PRIMARY_DRAG] || interaction?.[SECONDARY_DRAG]
+}
+
+function removeListener(element: Element) {
+  element?.removeEventListener('contextmenu', preventContextMenu)
+}
+
 export default function handleDrag(
   element: Element,
   interaction: Interaction
@@ -27,21 +39,26 @@ export default function handleDrag(
   const mousemove$ = fromEvent<MouseEvent>(document, 'mousemove')
   const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
   let dragType: DragType | undefined
-  if (interaction?.[PRIMARY_DRAG]) dragType = PRIMARY_DRAG
-  if (interaction?.[SECONDARY_DRAG]) dragType = SECONDARY_DRAG
 
+  removeListener(element)
   if (subscription) subscription.unsubscribe()
-  if (!dragType) {
-    return undefined
-  }
+  if (!hasInteraction(interaction)) return undefined
 
   subscription = mousedown$
     .pipe(
-      filter(
-        ({ button }) =>
-          (button === MOUSE_BUTTON.primary && dragType === PRIMARY_DRAG) ||
-          (button === MOUSE_BUTTON.secondary && dragType === SECONDARY_DRAG)
-      ),
+      tap(({ button }) => {
+        if (button === MOUSE_BUTTON.primary) dragType = PRIMARY_DRAG
+        if (button === MOUSE_BUTTON.secondary) dragType = SECONDARY_DRAG
+      }),
+      filter(() => hasDragType(dragType)),
+      tap(({ button }) => {
+        if (
+          button === MOUSE_BUTTON.secondary &&
+          interaction[dragType as DragType]
+        ) {
+          element?.addEventListener('contextmenu', preventContextMenu)
+        }
+      }),
       switchMap(start => {
         let lastX = start.pageX
         let lastY = start.pageY
