@@ -5,25 +5,30 @@ export interface Coord {
   x: number
   y: number
 }
-
-export type Pan = (viewport: CornerstoneViewport, delta: Coord) => Coord
-export type Adjust = (
+export type BasicPan = (viewport: CornerstoneViewport, delta: Coord) => Coord
+export type Pan =
+  | BasicPan
+  | ((viewport: CornerstoneViewport, delta: Coord) => void)
+export type BasicAdjust = (
   viewport: CornerstoneViewport,
   delta: Coord
 ) => {
   windowWidth: number
   windowCenter: number
 }
-export type Drag = keyof typeof DRAG | Pan
-export type MouseWheel = keyof typeof MOUSE_WHEEL | Adjust
+export type Adjust =
+  | BasicAdjust
+  | ((viewport: CornerstoneViewport, delta: Coord) => void)
+export type Drag = keyof typeof DRAG
+export type MouseWheel = keyof typeof MOUSE_WHEEL
 
 export interface DragInteraction {
-  [EVENT.primaryDrag]: Drag | undefined
-  [EVENT.secondaryDrag]: Drag | undefined
+  [EVENT.primaryDrag]: Drag | Pan | undefined
+  [EVENT.secondaryDrag]: Drag | Adjust | undefined
 }
 
 export interface WheelInteraction {
-  [EVENT.mouseWheel]: MouseWheel
+  [EVENT.mouseWheel]: MouseWheel | undefined
 }
 
 export type Interaction = DragInteraction & WheelInteraction

@@ -9,3 +9,4 @@ export type {
   MouseWheel,
 } from './hooks/useInteraction/types'
 export type { ViewerError } from './types'
+export type { Drag, Pan, Adjust } from './hooks/useInteraction/types'
