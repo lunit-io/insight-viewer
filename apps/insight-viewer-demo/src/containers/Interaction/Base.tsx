@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Viewer, { useInteraction } from '@lunit/insight-viewer'
+import Viewer, { useInteraction, Interaction } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
 
@@ -46,12 +46,21 @@ const Code = `\
   }
   `
 
-function Interaction(): JSX.Element {
+export default function App(): JSX.Element {
   const { interaction, setInteraction } = useInteraction()
+
+  function handleChange(type: string) {
+    return (value: string) => {
+      setInteraction((prev: Interaction) => ({
+        ...prev,
+        [type]: value === 'none' ? undefined : value,
+      }))
+    }
+  }
 
   return (
     <Box w={700}>
-      <Control setInteraction={setInteraction} />
+      <Control onChange={handleChange} />
       <Box w={500} h={500}>
         <Viewer.Dicom imageId={IMAGE_ID} interaction={interaction} />
       </Box>
@@ -61,5 +70,3 @@ function Interaction(): JSX.Element {
     </Box>
   )
 }
-
-export default Interaction
