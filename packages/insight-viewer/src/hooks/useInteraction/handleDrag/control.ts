@@ -1,6 +1,6 @@
 import { CornerstoneViewport } from '../../../utils/cornerstoneHelper'
 import { Coord } from './types'
-import { MOUSE_MOVE_DOWN } from '../const'
+import { Drag } from '../types'
 
 function pan(viewport: CornerstoneViewport, delta: Coord): Coord {
   return {
@@ -22,27 +22,12 @@ function adjust(
   }
 }
 
-// TODO
-function contour(
-  viewport: CornerstoneViewport,
-  delta: Coord
-): {
-  windowWidth: number
-  windowCenter: number
-} {
-  return {
-    windowWidth: viewport.voi.windowWidth + delta.x / viewport.scale,
-    windowCenter: viewport.voi.windowCenter + delta.y / viewport.scale,
-  }
-}
+// TODO: 추가하면서 정리
+type Control = Record<Drag, typeof pan | typeof adjust>
 
-const control: Record<
-  keyof typeof MOUSE_MOVE_DOWN,
-  typeof pan | typeof adjust | typeof contour
-> = {
+const control: Control = {
   pan,
   adjust,
-  contour,
 }
 
 export default control

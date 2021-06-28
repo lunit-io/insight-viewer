@@ -1,6 +1,6 @@
 import { Element } from '../../types'
 import { Interaction } from './types'
-import handleMouseDown from './handleMouseDown'
+import handleDrag from './handleDrag'
 
 export default function useViewportInteraction(
   element: Element,
@@ -8,5 +8,5 @@ export default function useViewportInteraction(
 ): void {
   if (!element || !interaction) return
 
-  handleMouseDown(element, interaction.mouseDownMove)
+  handleDrag(element, interaction)
 }
