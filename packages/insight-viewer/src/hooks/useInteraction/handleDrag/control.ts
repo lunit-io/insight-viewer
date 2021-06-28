@@ -1,6 +1,5 @@
 import { CornerstoneViewport } from '../../../utils/cornerstoneHelper'
-import { Coord } from './types'
-import { Drag } from '../types'
+import { Coord, Drag } from '../types'
 
 function pan(viewport: CornerstoneViewport, delta: Coord): Coord {
   return {

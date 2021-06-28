@@ -1,5 +1,10 @@
 import { DRAG, MOUSE_WHEEL, EVENT } from './const'
 
+export interface Coord {
+  x: number
+  y: number
+}
+
 export type Drag = keyof typeof DRAG
 export type MouseWheel = keyof typeof MOUSE_WHEEL
 
