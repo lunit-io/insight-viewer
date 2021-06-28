@@ -1,12 +1,21 @@
 import { DRAG, MOUSE_WHEEL, EVENT } from './const'
+import { CornerstoneViewport } from '../../utils/cornerstoneHelper'
 
 export interface Coord {
   x: number
   y: number
 }
 
-export type Drag = keyof typeof DRAG
-export type MouseWheel = keyof typeof MOUSE_WHEEL
+export type Pan = (viewport: CornerstoneViewport, delta: Coord) => Coord
+export type Adjust = (
+  viewport: CornerstoneViewport,
+  delta: Coord
+) => {
+  windowWidth: number
+  windowCenter: number
+}
+export type Drag = keyof typeof DRAG | Pan
+export type MouseWheel = keyof typeof MOUSE_WHEEL | Adjust
 
 export interface DragInteraction {
   [EVENT.primaryDrag]: Drag | undefined
