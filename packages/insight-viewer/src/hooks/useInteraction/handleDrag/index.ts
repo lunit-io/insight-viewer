@@ -1,5 +1,6 @@
 import { fromEvent, Subscription } from 'rxjs'
 import { filter, tap, switchMap, map, takeUntil } from 'rxjs/operators'
+import { Viewport } from 'cornerstone-core'
 import { Element } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
 import {
@@ -7,7 +8,7 @@ import {
   setViewport,
   CornerstoneViewport,
 } from '../../../utils/cornerstoneHelper'
-import { Interaction, Drag } from '../types'
+import { Interaction, BasicPan, BasicAdjust } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import control from './control'
 
@@ -31,6 +32,46 @@ function removeListener(element: Element) {
   element?.removeEventListener('contextmenu', preventContextMenu)
 }
 
+function handleInteraction({
+  interaction,
+  dragType,
+  element,
+  viewport,
+  dragged,
+}: {
+  interaction: Interaction
+  dragType: DragType
+  element: Element
+  viewport: Viewport
+  dragged: {
+    x: number
+    y: number
+    buttonType: number
+  }
+}): void {
+  const interactonType = interaction[dragType]
+
+  switch (typeof interactonType) {
+    case 'string':
+      setViewport(
+        <HTMLDivElement>element,
+        formatCornerstoneViewport(
+          viewport,
+          (control[interactonType] as BasicPan | BasicAdjust)?.(
+            viewport,
+            dragged
+          )
+        )
+      )
+      break
+    case 'function':
+      interactonType(viewport, dragged)
+      break
+    default:
+      break
+  }
+}
+
 export default function handleDrag(
   element: Element,
   interaction: Interaction
@@ -47,6 +88,7 @@ export default function handleDrag(
   subscription = mousedown$
     .pipe(
       tap(({ button }) => {
+        // tap operator for side effect
         if (button === MOUSE_BUTTON.primary) dragType = PRIMARY_DRAG
         if (button === MOUSE_BUTTON.secondary) dragType = SECONDARY_DRAG
       }),
@@ -85,15 +127,14 @@ export default function handleDrag(
         <HTMLDivElement>element
       ) as CornerstoneViewport
 
-      if (viewport && hasDragType(dragType)) {
-        const interactonType = interaction[dragType] as Drag
-        setViewport(
-          <HTMLDivElement>element,
-          formatCornerstoneViewport(
-            viewport,
-            control[interactonType]?.(viewport, dragged)
-          )
-        )
+      if (viewport && hasDragType(dragType) && interaction[dragType]) {
+        handleInteraction({
+          interaction,
+          dragType,
+          element,
+          viewport,
+          dragged,
+        })
       }
     })
   return undefined
