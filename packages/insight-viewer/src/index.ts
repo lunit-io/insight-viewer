@@ -6,7 +6,6 @@ export type { Viewport } from './Context/Viewport/types'
 export type {
   Interaction,
   SetInteraction,
-  MouseDownMove,
   MouseWheel,
 } from './hooks/useInteraction/types'
 export type { ViewerError } from './types'

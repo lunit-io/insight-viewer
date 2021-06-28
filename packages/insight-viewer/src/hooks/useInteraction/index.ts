@@ -6,7 +6,8 @@ export default function useInteraction(): {
   setInteraction: React.Dispatch<React.SetStateAction<Interaction>>
 } {
   const [interaction, setInteraction] = useState<Interaction>({
-    mouseDownMove: undefined,
+    primaryDrag: undefined,
+    secondaryDrag: undefined,
     mouseWheel: undefined,
   })
 

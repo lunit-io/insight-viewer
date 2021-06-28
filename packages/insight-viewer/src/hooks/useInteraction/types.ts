@@ -1,11 +1,17 @@
-import { MOUSE_MOVE_DOWN, MOUSE_WHEEL } from './const'
+import { DRAG, MOUSE_WHEEL, EVENT } from './const'
 
-export type MouseDownMove = keyof typeof MOUSE_MOVE_DOWN | undefined
-export type MouseWheel = keyof typeof MOUSE_WHEEL | undefined
+export type Drag = keyof typeof DRAG
+export type MouseWheel = keyof typeof MOUSE_WHEEL
 
-export type Interaction = {
-  mouseDownMove: MouseDownMove
-  mouseWheel: MouseWheel
+export interface DragInteraction {
+  [EVENT.primaryDrag]: Drag | undefined
+  [EVENT.secondaryDrag]: Drag | undefined
 }
+
+export interface WheelInteraction {
+  [EVENT.mouseWheel]: MouseWheel
+}
+
+export type Interaction = DragInteraction & WheelInteraction
 
 export type SetInteraction = React.Dispatch<React.SetStateAction<Interaction>>
