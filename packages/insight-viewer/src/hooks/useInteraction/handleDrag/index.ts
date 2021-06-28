@@ -46,7 +46,6 @@ function handleInteraction({
   dragged: {
     x: number
     y: number
-    buttonType: number
   }
 }): void {
   const interactonType = interaction[dragType]
@@ -115,7 +114,6 @@ export default function handleDrag(
             return {
               x: deltaX,
               y: deltaY,
-              buttonType: start.button,
             }
           }),
           takeUntil(mouseup$)
