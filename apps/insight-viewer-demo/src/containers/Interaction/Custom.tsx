@@ -1,5 +1,12 @@
 import { Box } from '@chakra-ui/react'
-import Viewer, { useInteraction, Interaction } from '@lunit/insight-viewer'
+import consola from 'consola'
+import Viewer, {
+  useInteraction,
+  Interaction,
+  Drag,
+  Pan,
+  Adjust,
+} from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
 
@@ -9,23 +16,47 @@ const IMAGE_ID =
 const Code = `\
   import Viewer, { useInteraction, Interaction } from '@lunit/insight-viewer'
 
-  export default function Viewer() {
+  const customPan: Pan = (viewport, delta) => {
+    console.log(
+      'pan',
+      viewport.translation.x,
+      viewport.translation.y,
+      delta.x,
+      delta.y
+    )
+  }
+  
+  const customAdjust: Adjust = (viewport, delta) => {
+    console.log(
+      'adjust',
+      viewport.voi.windowWidth,
+      viewport.voi.windowCenter,
+      delta.x,
+      delta.y
+    )
+  }
+
+  export default function App() {
     const { interaction, setInteraction } = useInteraction()
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-      const v = e.target.value
-
+    function handleCustomPan(e: React.ChangeEvent<HTMLInputElement>) {
       setInteraction((prev: Interaction) => ({
         ...prev,
-        DRAG: v === 'none' ? undefined : v,
+        primaryDrag: e.target.value === 'none' ? undefined : customPan,
+      }))
+    }
+
+    function handleCustomAdjust(e: React.ChangeEvent<HTMLInputElement>) {
+      setInteraction((prev: Interaction) => ({
+        ...prev,
+        secondaryDrag: e.target.value === 'none' ? undefined : customAdjust,
       }))
     }
 
     return (
       <>
-        <input type="radio" value="none" onChange={handleChange} />
-        <input type="radio" value="pan" onChange={handleChange} />
-        <input type="radio" value="adjust" onChange={handleChange} />
+        <input type="radio" value="pan" onChange={handleCustomPan} />
+        <input type="radio" value="adjust" onChange={handleCustomAdjust} />
         <Viewer.Dicom imageId={IMAGE_ID} interaction={interaction}>
           <OverlayLayer viewport={viewport} />
         </Viewer.Dicom>
@@ -34,14 +65,39 @@ const Code = `\
   }
   `
 
+const customPan: Pan = (viewport, delta) => {
+  consola.info(
+    'pan',
+    viewport.translation.x,
+    viewport.translation.y,
+    delta.x,
+    delta.y
+  )
+}
+
+const customAdjust: Adjust = (viewport, delta) => {
+  consola.info(
+    'adjust',
+    viewport.voi.windowWidth,
+    viewport.voi.windowCenter,
+    delta.x,
+    delta.y
+  )
+}
+
+const customAction = {
+  pan: customPan,
+  adjust: customAdjust,
+}
+
 export default function App(): JSX.Element {
   const { interaction, setInteraction } = useInteraction()
 
   function handleChange(type: string) {
-    return (value: string) => {
+    return (value: Drag | 'none') => {
       setInteraction((prev: Interaction) => ({
         ...prev,
-        [type]: value === 'none' ? undefined : value,
+        [type]: value === 'none' ? undefined : customAction[value],
       }))
     }
   }
