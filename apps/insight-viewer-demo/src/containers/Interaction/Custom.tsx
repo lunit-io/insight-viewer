@@ -3,9 +3,8 @@ import consola from 'consola'
 import Viewer, {
   useInteraction,
   Interaction,
+  DragEvent,
   Drag,
-  Pan,
-  Adjust,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -14,9 +13,9 @@ const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 const Code = `\
-  import Viewer, { useInteraction, Interaction } from '@lunit/insight-viewer'
+  import Viewer, { useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
 
-  const customPan: Pan = (viewport, delta) => {
+  const customPan: Drag = ({ viewport, delta, updateViewport }) => {
     console.log(
       'pan',
       viewport.translation.x,
@@ -24,9 +23,10 @@ const Code = `\
       delta.x,
       delta.y
     )
+    updateViewport('pan')
   }
   
-  const customAdjust: Adjust = (viewport, delta) => {
+  const customAdjust: Drag = ({ viewport, delta, updateViewport }) => {
     console.log(
       'adjust',
       viewport.voi.windowWidth,
@@ -34,6 +34,7 @@ const Code = `\
       delta.x,
       delta.y
     )
+    updateViewport('adjust')
   }
 
   export default function App() {
@@ -65,36 +66,38 @@ const Code = `\
   }
   `
 
-const customPan: Pan = (viewport, delta) => {
-  consola.info(
-    'pan',
-    viewport.translation.x,
-    viewport.translation.y,
-    delta.x,
-    delta.y
-  )
-}
-
-const customAdjust: Adjust = (viewport, delta) => {
-  consola.info(
-    'adjust',
-    viewport.voi.windowWidth,
-    viewport.voi.windowCenter,
-    delta.x,
-    delta.y
-  )
-}
-
-const customAction = {
-  pan: customPan,
-  adjust: customAdjust,
-}
-
 export default function App(): JSX.Element {
   const { interaction, setInteraction } = useInteraction()
 
+  const customPan: Drag = ({ viewport, delta, updateViewport }) => {
+    consola.info(
+      'pan',
+      viewport.translation.x,
+      viewport.translation.y,
+      delta.x,
+      delta.y
+    )
+    updateViewport('pan')
+  }
+
+  const customAdjust: Drag = ({ viewport, delta, updateViewport }) => {
+    consola.info(
+      'adjust',
+      viewport.voi.windowWidth,
+      viewport.voi.windowCenter,
+      delta.x,
+      delta.y
+    )
+    updateViewport('adjust')
+  }
+
+  const customAction = {
+    pan: customPan,
+    adjust: customAdjust,
+  }
+
   function handleChange(type: string) {
-    return (value: Drag | 'none') => {
+    return (value: DragEvent | 'none') => {
       setInteraction((prev: Interaction) => ({
         ...prev,
         [type]: value === 'none' ? undefined : customAction[value],

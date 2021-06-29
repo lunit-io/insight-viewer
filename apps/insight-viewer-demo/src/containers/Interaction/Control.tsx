@@ -1,10 +1,10 @@
 import { Box, RadioGroup, Radio, Stack, HStack } from '@chakra-ui/react'
-import { Drag } from '@lunit/insight-viewer'
+import { DragEvent } from '@lunit/insight-viewer'
 
 export default function Control({
   onChange,
 }: {
-  onChange: (type: string) => (value: Drag | 'none') => void
+  onChange: (type: string) => (value: DragEvent | 'none') => void
 }): JSX.Element {
   return (
     <Box mb={6}>
