@@ -8,7 +8,7 @@ import {
   setViewport,
   CornerstoneViewport,
 } from '../../../utils/cornerstoneHelper'
-import { Interaction, BasicPan, BasicAdjust } from '../types'
+import { Interaction, Pan, Adjust } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import control from './control'
 
@@ -56,10 +56,7 @@ function handleInteraction({
         <HTMLDivElement>element,
         formatCornerstoneViewport(
           viewport,
-          (control[interactonType] as BasicPan | BasicAdjust)?.(
-            viewport,
-            dragged
-          )
+          (control[interactonType] as Pan | Adjust)?.(viewport, dragged)
         )
       )
       break

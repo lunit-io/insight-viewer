@@ -6,7 +6,7 @@ export type { Viewport } from './Context/Viewport/types'
 export type {
   Interaction,
   SetInteraction,
-  MouseWheel,
+  WheelEvent,
 } from './hooks/useInteraction/types'
 export type { ViewerError } from './types'
-export type { Drag, Pan, Adjust } from './hooks/useInteraction/types'
+export type { DragEvent, Drag } from './hooks/useInteraction/types'

@@ -1,4 +1,4 @@
-import { Drag, Pan, Adjust } from '../types'
+import { DragEvent, Pan, Adjust } from '../types'
 
 const pan: Pan = (viewport, delta) => ({
   x: viewport.translation.x + delta.x / viewport.scale,
@@ -11,7 +11,7 @@ const adjust: Adjust = (viewport, delta) => ({
 })
 
 // TODO: 추가하면서 정리
-type Control = Record<Drag, typeof pan | typeof adjust>
+type Control = Record<DragEvent, typeof pan | typeof adjust>
 
 const control: Control = {
   pan,
