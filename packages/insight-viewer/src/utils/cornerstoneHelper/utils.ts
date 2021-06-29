@@ -54,7 +54,3 @@ export function setViewport(
 ): ReturnType<typeof cornerstone.setViewport> {
   return cornerstone.setViewport(element, viewport)
 }
-
-export const EVENT = {
-  IMAGE_RENDERED: 'cornerstoneimagerendered',
-}

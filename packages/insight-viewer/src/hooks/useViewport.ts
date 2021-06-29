@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Viewport, BasicViewport } from '../Context/Viewport/types'
-import { ViewportContextDefaultValue } from '../Context/Viewport/const'
+import { Viewport, BasicViewport } from '../types'
+import { DefaultViewport } from '../const'
 
 export default function useViewport(
   initial?: Partial<BasicViewport>
@@ -9,7 +9,7 @@ export default function useViewport(
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 } {
   const [viewport, setViewport] = useState({
-    ...ViewportContextDefaultValue,
+    ...DefaultViewport,
     ...(initial ? { _initial: initial } : {}),
   })
 
