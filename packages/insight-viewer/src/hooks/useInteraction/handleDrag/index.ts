@@ -8,7 +8,7 @@ import {
   setViewport,
   CornerstoneViewport,
 } from '../../../utils/cornerstoneHelper'
-import { Interaction, Pan, Adjust } from '../types'
+import { Interaction, Pan, Adjust, DragEvent } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import control from './control'
 
@@ -48,20 +48,25 @@ function handleInteraction({
     y: number
   }
 }): void {
-  const interactonType = interaction[dragType]
+  const handler = interaction[dragType]
 
-  switch (typeof interactonType) {
-    case 'string':
-      setViewport(
-        <HTMLDivElement>element,
-        formatCornerstoneViewport(
-          viewport,
-          (control[interactonType] as Pan | Adjust)?.(viewport, dragged)
-        )
+  function updateViewport(eventType?: DragEvent): void {
+    if (!eventType) return
+    setViewport(
+      <HTMLDivElement>element,
+      formatCornerstoneViewport(
+        viewport,
+        (control[eventType] as Pan | Adjust)?.(viewport, dragged)
       )
+    )
+  }
+
+  switch (typeof handler) {
+    case 'string':
+      updateViewport(handler)
       break
     case 'function':
-      interactonType(viewport, dragged)
+      handler({ viewport, delta: dragged, updateViewport })
       break
     default:
       break
