@@ -1,5 +1,5 @@
 import { fromEvent, Subscription } from 'rxjs'
-import { filter, tap, switchMap, map, takeUntil } from 'rxjs/operators'
+import { tap, switchMap, map, takeUntil } from 'rxjs/operators'
 import { Viewport } from 'cornerstone-core'
 import { Element } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
@@ -10,6 +10,7 @@ import {
 } from '../../../utils/cornerstoneHelper'
 import { Interaction, Pan, Adjust, DragEvent } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
+import { preventContextMenu, hasInteraction } from '../utils'
 import control from './control'
 
 let subscription: Subscription
@@ -18,18 +19,6 @@ type DragType = typeof PRIMARY_DRAG | typeof SECONDARY_DRAG
 
 function hasDragType(value: unknown): value is DragType {
   return value === PRIMARY_DRAG || value === SECONDARY_DRAG
-}
-
-function preventContextMenu(e: Event) {
-  e.preventDefault()
-}
-
-function hasInteraction(interaction: Interaction) {
-  return interaction?.[PRIMARY_DRAG] || interaction?.[SECONDARY_DRAG]
-}
-
-function removeListener(element: Element) {
-  element?.removeEventListener('contextmenu', preventContextMenu)
 }
 
 function handleInteraction({
@@ -82,9 +71,10 @@ export default function handleDrag(
   const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
   let dragType: DragType | undefined
 
-  removeListener(element)
+  element?.removeEventListener('contextmenu', preventContextMenu)
   if (subscription) subscription.unsubscribe()
-  if (!hasInteraction(interaction)) return undefined
+  if (!hasInteraction(interaction, [PRIMARY_DRAG, SECONDARY_DRAG]))
+    return undefined
 
   subscription = mousedown$
     .pipe(
@@ -93,7 +83,6 @@ export default function handleDrag(
         if (button === MOUSE_BUTTON.primary) dragType = PRIMARY_DRAG
         if (button === MOUSE_BUTTON.secondary) dragType = SECONDARY_DRAG
       }),
-      filter(() => hasDragType(dragType)),
       tap(({ button }) => {
         if (
           button === MOUSE_BUTTON.secondary &&

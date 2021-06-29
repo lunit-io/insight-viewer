@@ -10,7 +10,6 @@ const adjust: Adjust = (viewport, delta) => ({
   windowCenter: viewport.voi.windowCenter + delta.y / viewport.scale,
 })
 
-// TODO: 추가하면서 정리
 type Control = Record<DragEvent, typeof pan | typeof adjust>
 
 const control: Control = {
