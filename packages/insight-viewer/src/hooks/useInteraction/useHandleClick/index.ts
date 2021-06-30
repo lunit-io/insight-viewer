@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
-import { filter, tap } from 'rxjs/operators'
+import { map, filter, tap } from 'rxjs/operators'
 import { ViewportInteraction } from '../types'
 import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
@@ -72,13 +72,23 @@ export default function useHandleClick({
           ) {
             element?.addEventListener('contextmenu', preventContextMenu)
           }
-        })
+        }),
+        // for persisting currentTarget https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget
+        map(({ clientX, clientY, currentTarget }) => ({
+          clientX,
+          clientY,
+          currentTarget,
+        }))
       )
-      .subscribe(({ offsetX, offsetY }) => {
+      .subscribe(({ clientX, clientY, currentTarget }) => {
+        const currentTargetRect = (currentTarget as Element).getBoundingClientRect()
         const { x, y } = getCoord(element, viewport)
 
         if (hasClickType(clickType)) {
-          interaction[clickType]?.(-x + offsetX, -y + offsetY)
+          interaction[clickType]?.(
+            -x + clientX - currentTargetRect.left,
+            -y + clientY - currentTargetRect.top
+          )
         }
       })
     return undefined
