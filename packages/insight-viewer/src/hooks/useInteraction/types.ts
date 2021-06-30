@@ -12,7 +12,7 @@ import { Element, OnViewportChange } from '../../types'
 
 export type DragEvent = keyof typeof DRAG
 export type WheelEvent = keyof typeof MOUSE_WHEEL
-export type ClickEvent = (offsetX: number, offsetY: number) => void
+export type Click = (offsetX: number, offsetY: number) => void
 export interface Coord {
   x: number
   y: number
@@ -38,8 +38,8 @@ export interface DragInteraction {
 }
 
 export interface ClickInteraction {
-  [PRIMARY_CLICK]: ClickEvent | undefined
-  [SECONDARY_CLICK]: ClickEvent | undefined
+  [PRIMARY_CLICK]: Click | undefined
+  [SECONDARY_CLICK]: Click | undefined
 }
 
 export interface WheelInteraction {

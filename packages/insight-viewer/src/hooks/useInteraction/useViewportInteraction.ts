@@ -1,5 +1,6 @@
 import { ViewportInteraction } from './types'
 import useHandleDrag from './useHandleDrag'
+import useHandleClick from './useHandleClick'
 
 export default function useViewportInteraction({
   element,
@@ -11,4 +12,5 @@ export default function useViewportInteraction({
     interaction,
     onViewportChange,
   })
+  useHandleClick(element, interaction)
 }
