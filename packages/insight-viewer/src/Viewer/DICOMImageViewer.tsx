@@ -50,6 +50,7 @@ export function DICOMImageViewer({
   useViewportInteraction({
     element: elRef.current,
     interaction,
+    viewport,
     onViewportChange,
   })
 

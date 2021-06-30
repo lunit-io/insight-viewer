@@ -5,6 +5,7 @@ import useHandleClick from './useHandleClick'
 export default function useViewportInteraction({
   element,
   interaction,
+  viewport,
   onViewportChange,
 }: ViewportInteraction): void {
   useHandleDrag({
@@ -12,5 +13,9 @@ export default function useViewportInteraction({
     interaction,
     onViewportChange,
   })
-  useHandleClick(element, interaction)
+  useHandleClick({
+    element,
+    interaction,
+    viewport,
+  })
 }

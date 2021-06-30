@@ -8,7 +8,7 @@ import {
   MOUSEWHEEL,
 } from './const'
 import { CornerstoneViewport } from '../../utils/cornerstoneHelper'
-import { Element, OnViewportChange } from '../../types'
+import { Element, Viewport, OnViewportChange } from '../../types'
 
 export type DragEvent = keyof typeof DRAG
 export type WheelEvent = keyof typeof MOUSE_WHEEL
@@ -53,5 +53,6 @@ export type SetInteraction = React.Dispatch<React.SetStateAction<Interaction>>
 export interface ViewportInteraction {
   element: Element
   interaction?: Interaction
+  viewport?: Viewport
   onViewportChange?: OnViewportChange
 }
