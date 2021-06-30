@@ -51,7 +51,6 @@ export default function useHandleClick({
     let clickType: ClickType | undefined
     if (!interaction) return undefined
 
-    if (subscription) subscription.unsubscribe()
     if (!hasInteraction(interaction, [PRIMARY_CLICK, SECONDARY_CLICK]))
       return undefined
 
@@ -91,7 +90,9 @@ export default function useHandleClick({
           )
         }
       })
-    return undefined
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [element, interaction, viewport])
 
   return undefined

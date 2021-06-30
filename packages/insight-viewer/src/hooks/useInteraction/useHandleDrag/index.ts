@@ -96,7 +96,6 @@ export default function useHandleDrag({
     let dragType: DragType | undefined
 
     element?.removeEventListener('contextmenu', preventContextMenu)
-    if (subscription) subscription.unsubscribe()
     if (!hasInteraction(interaction, [PRIMARY_DRAG, SECONDARY_DRAG]))
       return undefined
 
@@ -152,6 +151,8 @@ export default function useHandleDrag({
         }
       })
 
-    return undefined
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [element, interaction, onViewportChange])
 }
