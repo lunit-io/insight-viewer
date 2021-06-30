@@ -1,12 +1,14 @@
-import { Element } from '../../types'
-import { Interaction } from './types'
-import handleMouseDown from './handleMouseDown'
+import { ViewportInteraction } from './types'
+import useHandleDrag from './useHandleDrag'
 
-export default function useViewportInteraction(
-  element: Element,
-  interaction?: Interaction
-): void {
-  if (!element || !interaction) return
-
-  handleMouseDown(element, interaction.mouseDownMove)
+export default function useViewportInteraction({
+  element,
+  interaction,
+  onViewportChange,
+}: ViewportInteraction): void {
+  useHandleDrag({
+    element,
+    interaction,
+    onViewportChange,
+  })
 }

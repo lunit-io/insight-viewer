@@ -2,11 +2,11 @@ import React, { useRef } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import {
   WithChildren,
+  Viewport,
   ViewerProp,
   ProgressComponent,
   OnViewportChange,
 } from '../types'
-import { Viewport } from '../Context/Viewport/types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageLoader from '../hooks/useImageLoader'
 import useViewportUpdate from '../hooks/useViewportUpdate'
@@ -47,7 +47,11 @@ export function DICOMImageViewer({
     onViewportChange,
   })
   useViewportUpdate(elRef.current, viewport)
-  useViewportInteraction(elRef.current, interaction)
+  useViewportInteraction({
+    element: elRef.current,
+    interaction,
+    onViewportChange,
+  })
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress}>

@@ -5,8 +5,7 @@ import {
   CornerstoneViewport,
 } from '../utils/cornerstoneHelper'
 import { formatCornerstoneViewport } from '../utils/common/formatViewport'
-import { Element } from '../types'
-import { Viewport } from '../Context/Viewport/types'
+import { Element, Viewport } from '../types'
 
 export default function useViewportUpdate(
   element: Element,

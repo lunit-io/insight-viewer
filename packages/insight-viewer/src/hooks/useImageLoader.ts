@@ -6,8 +6,13 @@ import {
 import getHttpClient from '../utils/httpClient'
 import { loadingProgressMessage } from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
-import { Element, ViewerError, ViewerProp, OnViewportChange } from '../types'
-import { Viewport } from '../Context/Viewport/types'
+import {
+  Element,
+  Viewport,
+  ViewerError,
+  ViewerProp,
+  OnViewportChange,
+} from '../types'
 
 export default function useImageLoader({
   imageId,
