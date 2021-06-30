@@ -1,10 +1,14 @@
 import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { filter, tap } from 'rxjs/operators'
-import { Element } from '../../../types'
-import { Interaction } from '../types'
+import { ViewportInteraction } from '../types'
+import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
 import { preventContextMenu, hasInteraction } from '../utils'
+import {
+  getViewport,
+  CornerstoneViewport,
+} from '../../../utils/cornerstoneHelper'
 
 let subscription: Subscription
 
@@ -14,10 +18,29 @@ function hasClickType(value: unknown): value is ClickType {
   return value === PRIMARY_CLICK || value === SECONDARY_CLICK
 }
 
-export default function useHandleClick(
-  element: Element,
-  interaction?: Interaction
-): void {
+function getCoord(element: Element, viewport?: Viewport) {
+  if (viewport) {
+    const { x, y } = viewport
+
+    return {
+      x,
+      y,
+    }
+  }
+  const {
+    translation: { x, y },
+  } = getViewport(<HTMLDivElement>element) as CornerstoneViewport
+  return {
+    x,
+    y,
+  }
+}
+
+export default function useHandleClick({
+  element,
+  interaction,
+  viewport,
+}: ViewportInteraction): void {
   useEffect(() => {
     if (!interaction || !element) return undefined
 
@@ -52,12 +75,14 @@ export default function useHandleClick(
         })
       )
       .subscribe(({ offsetX, offsetY }) => {
+        const { x, y } = getCoord(element, viewport)
+
         if (hasClickType(clickType)) {
-          interaction[clickType]?.(offsetX, offsetY)
+          interaction[clickType]?.(-x + offsetX, -y + offsetY)
         }
       })
     return undefined
-  }, [element, interaction])
+  }, [element, interaction, viewport])
 
   return undefined
 }
