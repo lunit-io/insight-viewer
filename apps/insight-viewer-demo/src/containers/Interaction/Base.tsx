@@ -13,10 +13,10 @@ const IMAGE_ID =
 
 const Code = `\
   import Viewer, { useInteraction, useViewport, Interaction } from '@lunit/insight-viewer'
-  const { viewport, setViewport } = useViewport()
 
   export default function App() {
     const { interaction, setInteraction } = useInteraction()
+    const { viewport, setViewport } = useViewport()
 
     function handlePrimaryDrag(e: React.ChangeEvent<HTMLInputElement>) {
       const v = e.target.value
