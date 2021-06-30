@@ -47,7 +47,11 @@ export function DICOMImageViewer({
     onViewportChange,
   })
   useViewportUpdate(elRef.current, viewport)
-  useViewportInteraction(elRef.current, interaction)
+  useViewportInteraction({
+    element: elRef.current,
+    interaction,
+    onViewportChange,
+  })
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress}>
