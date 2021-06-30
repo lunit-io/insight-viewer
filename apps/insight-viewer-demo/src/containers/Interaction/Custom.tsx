@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Box, Text } from '@chakra-ui/react'
 import consola from 'consola'
 import Viewer, {
   useInteraction,
@@ -6,9 +7,11 @@ import Viewer, {
   Interaction,
   DragEvent,
   Drag,
+  Click,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
+import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 
 const IMAGE_ID =
@@ -65,10 +68,25 @@ const Code = `\
       }))
     }
 
+    function handleClick(e) {
+      if (e.target.checked) {
+        setInteraction((prev: Interaction) => ({
+          ...prev,
+          primaryClick: // or secondaryClick
+            value === 'none'
+              ? undefined
+              : (offsetX, offsetY) => {
+                console.log(offsetX, offsetY)
+              },
+        }))
+      }
+    }
+
     return (
       <>
         <input type="radio" value="pan" onChange={handleCustomPan} />
         <input type="radio" value="adjust" onChange={handleCustomAdjust} />
+        <input type="checkbox" value="adjust" onChange={handleClick} />
         <Viewer.Dicom 
           imageId={IMAGE_ID}
           interaction={interaction}
@@ -83,6 +101,7 @@ const Code = `\
   `
 
 export default function App(): JSX.Element {
+  const [{ x, y }, setCoord] = useState({ x: 0, y: 0 })
   const { interaction, setInteraction } = useInteraction()
   const { viewport: viewerViewport, setViewport } = useViewport()
 
@@ -117,23 +136,60 @@ export default function App(): JSX.Element {
     }))
   }
 
-  const customAction = {
+  const primaryClick: Click = (offsetX, offsetY) => {
+    setCoord({
+      x: offsetX,
+      y: offsetY,
+    })
+  }
+
+  const secondaryClick: Click = (offsetX, offsetY) => {
+    setCoord({
+      x: offsetX,
+      y: offsetY,
+    })
+  }
+
+  const customDrag = {
     pan: customPan,
     adjust: customAdjust,
   }
 
-  function handleChange(type: string) {
+  const customClick = {
+    primaryClick,
+    secondaryClick,
+  }
+
+  function handleDrag(type: string) {
     return (value: DragEvent | 'none') => {
       setInteraction((prev: Interaction) => ({
         ...prev,
-        [type]: value === 'none' ? undefined : customAction[value],
+        [type]: value === 'none' ? undefined : customDrag[value],
+      }))
+    }
+  }
+
+  function handleClick(type: string) {
+    return (value: string) => {
+      setInteraction((prev: Interaction) => ({
+        ...prev,
+        [type]:
+          value === 'none'
+            ? undefined
+            : customClick[type as keyof typeof customClick],
       }))
     }
   }
 
   return (
     <Box w={700}>
-      <Control onChange={handleChange} />
+      <Control onChange={handleDrag} />
+      <ClickControl onChange={handleClick} />
+      <Box mb={6}>
+        <Text>
+          offset: {x.toFixed(2)} / {y.toFixed(2)}
+        </Text>
+      </Box>
       <Box w={500} h={500}>
         <Viewer.Dicom
           imageId={IMAGE_ID}

@@ -8,4 +8,4 @@ export type {
   WheelEvent,
 } from './hooks/useInteraction/types'
 export type { Viewport, ViewerError } from './types'
-export type { DragEvent, Drag } from './hooks/useInteraction/types'
+export type { DragEvent, Click, Drag } from './hooks/useInteraction/types'
