@@ -9,6 +9,7 @@ import {
 } from './const'
 import { CornerstoneViewport } from '../../utils/cornerstoneHelper'
 import { Element, Viewport, OnViewportChange } from '../../types'
+import { SetFrame } from '../useMultiframe/useFrame'
 
 export type DragEvent = keyof typeof DRAG
 export type WheelEvent = keyof typeof MOUSE_WHEEL
@@ -55,4 +56,5 @@ export interface ViewportInteraction {
   interaction?: Interaction
   viewport?: Viewport
   onViewportChange?: OnViewportChange
+  onFrameChange?: SetFrame
 }
