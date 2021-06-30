@@ -23,11 +23,11 @@ export default function OverlayLayer({
           hflip/vflip: {`${hflip}`} / {`${vflip}`}
         </ListItem>
         <ListItem>
-          translation: {x} / {y}
+          translation: {x.toFixed(2)} / {y.toFixed(2)}
         </ListItem>
         <ListItem>invert: {`${invert}`}</ListItem>
         <ListItem>
-          WW / WC: {windowWidth} / {windowCenter}
+          WW / WC: {windowWidth.toFixed(2)} / {windowCenter.toFixed(2)}
         </ListItem>
       </UnorderedList>
     </Box>
