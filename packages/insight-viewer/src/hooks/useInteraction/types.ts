@@ -20,11 +20,9 @@ export interface Coord {
 export type Drag = ({
   viewport,
   delta,
-  updateViewport,
 }: {
   viewport: CornerstoneViewport
   delta: Coord
-  updateViewport: (e?: DragEvent) => void
 }) => void
 export type Pan = (viewport: CornerstoneViewport, delta: Coord) => Coord
 export type Adjust = (

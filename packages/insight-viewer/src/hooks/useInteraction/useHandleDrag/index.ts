@@ -72,7 +72,7 @@ function handleInteraction({
       updateViewport(handler)
       break
     case 'function':
-      handler({ viewport, delta: dragged, updateViewport })
+      handler({ viewport, delta: dragged })
       break
     default:
       break
