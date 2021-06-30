@@ -67,10 +67,25 @@ const Code = `\
       }))
     }
 
+    function handleClick(e) {
+      if (e.target.checked) {
+        setInteraction((prev: Interaction) => ({
+          ...prev,
+          primaryClick: // or secondaryClick
+            value === 'none'
+              ? undefined
+              : (offsetX, offsetY) => {
+                console.log(offsetX, offsetY)
+              },
+        }))
+      }
+    }
+
     return (
       <>
         <input type="radio" value="pan" onChange={handleCustomPan} />
         <input type="radio" value="adjust" onChange={handleCustomAdjust} />
+        <input type="checkbox" value="adjust" onChange={handleClick} />
         <Viewer.Dicom 
           imageId={IMAGE_ID}
           interaction={interaction}
