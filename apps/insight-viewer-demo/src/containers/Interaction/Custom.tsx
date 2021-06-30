@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Box, Text } from '@chakra-ui/react'
 import consola from 'consola'
 import Viewer, {
   useInteraction,
@@ -100,6 +101,7 @@ const Code = `\
   `
 
 export default function App(): JSX.Element {
+  const [{ x, y }, setCoord] = useState({ x: 0, y: 0 })
   const { interaction, setInteraction } = useInteraction()
   const { viewport: viewerViewport, setViewport } = useViewport()
 
@@ -135,11 +137,17 @@ export default function App(): JSX.Element {
   }
 
   const primaryClick: Click = (offsetX, offsetY) => {
-    consola.info('primaryClick', offsetX, offsetY)
+    setCoord({
+      x: offsetX,
+      y: offsetY,
+    })
   }
 
   const secondaryClick: Click = (offsetX, offsetY) => {
-    consola.info('secondaryClick', offsetX, offsetY)
+    setCoord({
+      x: offsetX,
+      y: offsetY,
+    })
   }
 
   const customDrag = {
@@ -177,6 +185,11 @@ export default function App(): JSX.Element {
     <Box w={700}>
       <Control onChange={handleDrag} />
       <ClickControl onChange={handleClick} />
+      <Box mb={6}>
+        <Text>
+          offset: {x.toFixed(2)} / {y.toFixed(2)}
+        </Text>
+      </Box>
       <Box w={500} h={500}>
         <Viewer.Dicom
           imageId={IMAGE_ID}
