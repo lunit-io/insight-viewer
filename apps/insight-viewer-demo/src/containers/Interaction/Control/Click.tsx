@@ -1,7 +1,7 @@
 import { Box, RadioGroup, Radio, Stack, HStack } from '@chakra-ui/react'
 import { DragEvent } from '@lunit/insight-viewer'
 
-export default function Control({
+export default function Click({
   onChange,
 }: {
   onChange: (type: string) => (value: DragEvent | 'none') => void
@@ -10,22 +10,20 @@ export default function Control({
     <Box mb={6}>
       <HStack spacing="80px">
         <Box w={200}>
-          <Box>Primary Drag</Box>
-          <RadioGroup defaultValue="none" onChange={onChange('primaryDrag')}>
+          <Box>Primary Click</Box>
+          <RadioGroup defaultValue="none" onChange={onChange('primaryClick')}>
             <Stack direction="row">
               <Radio value="none">none</Radio>
-              <Radio value="pan">pan</Radio>
-              <Radio value="adjust">adjust</Radio>
+              <Radio value="click">click</Radio>
             </Stack>
           </RadioGroup>
         </Box>
         <Box>
-          <Box>Secondary Drag</Box>
-          <RadioGroup defaultValue="none" onChange={onChange('secondaryDrag')}>
+          <Box>Secondary Click</Box>
+          <RadioGroup defaultValue="none" onChange={onChange('secondaryClick')}>
             <Stack direction="row">
               <Radio value="none">none</Radio>
-              <Radio value="pan">pan</Radio>
-              <Radio value="adjust">adjust</Radio>
+              <Radio value="click">click</Radio>
             </Stack>
           </RadioGroup>
         </Box>

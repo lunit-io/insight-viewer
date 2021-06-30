@@ -6,9 +6,11 @@ import Viewer, {
   Interaction,
   DragEvent,
   Drag,
+  Click,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
+import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 
 const IMAGE_ID =
@@ -117,23 +119,49 @@ export default function App(): JSX.Element {
     }))
   }
 
-  const customAction = {
+  const primaryClick: Click = (offsetX, offsetY) => {
+    consola.info('primaryClick', offsetX, offsetY)
+  }
+
+  const secondaryClick: Click = (offsetX, offsetY) => {
+    consola.info('secondaryClick', offsetX, offsetY)
+  }
+
+  const customDrag = {
     pan: customPan,
     adjust: customAdjust,
   }
 
-  function handleChange(type: string) {
+  const customClick = {
+    primaryClick,
+    secondaryClick,
+  }
+
+  function handleDrag(type: string) {
     return (value: DragEvent | 'none') => {
       setInteraction((prev: Interaction) => ({
         ...prev,
-        [type]: value === 'none' ? undefined : customAction[value],
+        [type]: value === 'none' ? undefined : customDrag[value],
+      }))
+    }
+  }
+
+  function handleClick(type: string) {
+    return (value: string) => {
+      setInteraction((prev: Interaction) => ({
+        ...prev,
+        [type]:
+          value === 'none'
+            ? undefined
+            : customClick[type as keyof typeof customClick],
       }))
     }
   }
 
   return (
     <Box w={700}>
-      <Control onChange={handleChange} />
+      <Control onChange={handleDrag} />
+      <ClickControl onChange={handleClick} />
       <Box w={500} h={500}>
         <Viewer.Dicom
           imageId={IMAGE_ID}
