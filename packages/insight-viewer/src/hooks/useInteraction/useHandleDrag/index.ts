@@ -2,9 +2,11 @@ import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { tap, switchMap, map, takeUntil } from 'rxjs/operators'
 import { Viewport } from 'cornerstone-core'
-import { OnViewportChange } from '../../../types'
+import { Element, OnViewportChange } from '../../../types'
+import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
 import {
   getViewport,
+  setViewport,
   CornerstoneViewport,
 } from '../../../utils/cornerstoneHelper'
 import {
@@ -29,12 +31,14 @@ function hasDragType(value: unknown): value is DragType {
 function handleInteraction({
   interaction,
   dragType,
+  element,
   viewport,
   dragged,
   onViewportChange,
 }: {
   interaction: Interaction
   dragType: DragType
+  element: Element
   viewport: Viewport
   dragged: {
     x: number
@@ -47,11 +51,20 @@ function handleInteraction({
   function updateViewport(eventType?: DragEvent): void {
     if (!eventType) return
 
-    if (onViewportChange)
+    if (onViewportChange) {
       onViewportChange(prev => ({
         ...prev,
         ...(control[eventType] as Pan | Adjust)?.(viewport, dragged),
       }))
+    } else {
+      setViewport(
+        <HTMLDivElement>element,
+        formatCornerstoneViewport(
+          viewport,
+          (control[eventType] as Pan | Adjust)?.(viewport, dragged)
+        )
+      )
+    }
   }
 
   switch (typeof handler) {
@@ -131,6 +144,7 @@ export default function useHandleDrag({
           handleInteraction({
             interaction,
             dragType,
+            element,
             viewport,
             dragged,
             onViewportChange,
