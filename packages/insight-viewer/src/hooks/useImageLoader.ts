@@ -46,16 +46,14 @@ export default function useImageLoader({
         })
         loadingProgressMessage.sendMessage(100)
 
-        const { viewport } = displayImage(<HTMLDivElement>element, image)
+        const { viewport } = displayImage(
+          <HTMLDivElement>element,
+          image,
+          initialViewportRef?.current
+        )
 
         if (onViewportChange) {
-          const formatted = formatViewport(viewport)
-
-          onViewportChange(
-            initialViewportRef?.current
-              ? { ...formatted, ...initialViewportRef?.current }
-              : formatted
-          )
+          onViewportChange(formatViewport(viewport))
         }
       } catch (e) {
         /**
