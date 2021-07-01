@@ -1,8 +1,6 @@
 import cornerstone, { Viewport } from 'cornerstone-core'
+import { CornerstoneImage, CornerstoneViewport } from './types'
 import { formatCornerstoneViewport } from '../common/formatViewport'
-
-export type CornerstoneImage = cornerstone.Image
-export type CornerstoneViewport = cornerstone.Viewport
 
 export function enable(element: HTMLDivElement): void {
   cornerstone.enable(element)
