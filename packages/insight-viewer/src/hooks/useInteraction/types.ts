@@ -1,6 +1,5 @@
 import {
   DRAG,
-  MOUSE_WHEEL,
   PRIMARY_DRAG,
   SECONDARY_DRAG,
   PRIMARY_CLICK,
@@ -9,10 +8,8 @@ import {
 } from './const'
 import { CornerstoneViewport } from '../../utils/cornerstoneHelper'
 import { Element, Viewport, OnViewportChange } from '../../types'
-import { SetFrame } from '../useMultiframe/useFrame'
 
 export type DragEvent = keyof typeof DRAG
-export type WheelEvent = keyof typeof MOUSE_WHEEL
 export type Click = (offsetX: number, offsetY: number) => void
 export interface Coord {
   x: number
@@ -33,6 +30,7 @@ export type Adjust = (
   windowWidth: number
   windowCenter: number
 }
+export type Wheel = (deltaX: number, deltaY: number) => void
 export interface DragInteraction {
   [PRIMARY_DRAG]: DragEvent | Drag | undefined
   [SECONDARY_DRAG]: DragEvent | Drag | undefined
@@ -44,7 +42,7 @@ export interface ClickInteraction {
 }
 
 export interface WheelInteraction {
-  [MOUSEWHEEL]: WheelEvent | undefined
+  [MOUSEWHEEL]: Wheel | undefined
 }
 
 export type Interaction = DragInteraction & ClickInteraction & WheelInteraction
@@ -56,5 +54,4 @@ export interface ViewportInteraction {
   interaction?: Interaction
   viewport?: Viewport
   onViewportChange?: OnViewportChange
-  onFrameChange?: SetFrame
 }

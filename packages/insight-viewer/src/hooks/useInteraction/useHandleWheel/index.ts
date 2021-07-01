@@ -8,7 +8,7 @@ let subscription: Subscription
 export default function useHandleWheel({
   element,
   interaction,
-  onFrameChange,
+  onViewportChange,
 }: ViewportInteraction): void {
   useEffect(() => {
     if (!element) return undefined
@@ -16,17 +16,16 @@ export default function useHandleWheel({
 
     subscription = wheel$
       .pipe(
-        filter(() => onFrameChange !== undefined),
         filter(({ deltaY }) => deltaY !== 0),
         tap(e => {
           e.preventDefault()
         })
       )
-      .subscribe(({ deltaY }) => {
-        if (onFrameChange) onFrameChange(prev => prev + (deltaY > 0 ? 1 : -1))
+      .subscribe(({ deltaX, deltaY }) => {
+        if (interaction?.mouseWheel) interaction?.mouseWheel(deltaX, deltaY)
       })
     return () => {
       subscription.unsubscribe()
     }
-  }, [interaction, element, onFrameChange])
+  }, [interaction, element, onViewportChange])
 }

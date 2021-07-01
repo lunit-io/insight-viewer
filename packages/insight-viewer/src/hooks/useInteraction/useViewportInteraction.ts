@@ -8,12 +8,11 @@ export default function useViewportInteraction({
   interaction,
   viewport,
   onViewportChange,
-  onFrameChange,
 }: ViewportInteraction): void {
   useHandleWheel({
     element,
     interaction,
-    onFrameChange,
+    onViewportChange,
   })
 
   useHandleDrag({

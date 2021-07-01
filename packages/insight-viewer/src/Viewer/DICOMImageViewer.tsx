@@ -24,7 +24,6 @@ export function DICOMImageViewer({
   viewport,
   interaction,
   onViewportChange,
-  onFrameChange,
   children,
 }: WithChildren<
   ViewerProp & {
@@ -58,7 +57,6 @@ export function DICOMImageViewer({
     interaction,
     viewport,
     onViewportChange,
-    onFrameChange,
   })
 
   return (
