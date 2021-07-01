@@ -1,6 +1,14 @@
 import { Box, Text } from '@chakra-ui/react'
-import Viewer, { useMultiframe } from '@lunit/insight-viewer'
+import Viewer, {
+  useMultiframe,
+  useViewport,
+  useInteraction,
+  Interaction,
+  Wheel,
+} from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import WheelControl from './Control/Wheel'
+import OverlayLayer from '../../components/OverlayLayer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -21,26 +29,72 @@ const Code = `\
 
   export default function App(): JSX.Element {
     const { image, frame, setFrame } = useMultiframe(IMAGES)
-  
+
     return (
       <>
         <Text>frame: {frame}</Text>
-        <Viewer.Dicom imageId={image} onFrameChange={setFrame} />
+        <Viewer.Dicom imageId={image} />
       </>
     )
   }
 `
 
+const MIN_FRAME = 0
+const MAX_FRAME = IMAGES.length - 1
+const MIN_SCALE = 0.178
+const MAX_SCALE = 3
+
 export default function App(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { viewport, setViewport } = useViewport()
+  const { interaction, setInteraction } = useInteraction()
+
+  const handleFrame: Wheel = (_, deltaY) => {
+    if (deltaY !== 0)
+      setFrame(prev =>
+        Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME)
+      )
+  }
+
+  const handleZoom: Wheel = (_, deltaY) => {
+    if (deltaY !== 0)
+      setViewport(prev => ({
+        ...prev,
+        scale: Math.min(
+          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
+          MAX_SCALE
+        ),
+      }))
+  }
+
+  const zoom = {
+    frame: handleFrame,
+    zoom: handleZoom,
+  }
+
+  function handleWheel(value: string) {
+    setInteraction((prev: Interaction) => ({
+      ...prev,
+      mouseWheel:
+        value === 'none' ? undefined : zoom[value as keyof typeof zoom],
+    }))
+  }
 
   return (
     <Box w={700}>
+      <WheelControl onChange={handleWheel} />
       <Box mb={6}>
         <Text>frame: {frame}</Text>
       </Box>
       <Box w={500} h={500}>
-        <Viewer.Dicom imageId={image} onFrameChange={setFrame} />
+        <Viewer.Dicom
+          imageId={image}
+          interaction={interaction}
+          onViewportChange={setViewport}
+          viewport={viewport}
+        >
+          <OverlayLayer viewport={viewport} />
+        </Viewer.Dicom>
       </Box>
       <Box w={900}>
         <CodeBlock code={Code} />

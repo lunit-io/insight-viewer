@@ -1,10 +1,9 @@
 import { Box, RadioGroup, Radio, Stack, HStack } from '@chakra-ui/react'
-import { DragEvent } from '@lunit/insight-viewer'
 
 export default function Click({
   onChange,
 }: {
-  onChange: (type: string) => (value: DragEvent | 'none') => void
+  onChange: (type: string) => (value: 'click' | 'none') => void
 }): JSX.Element {
   return (
     <Box mb={6}>

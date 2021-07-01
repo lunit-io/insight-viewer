@@ -38,7 +38,7 @@ const Code = `\
         y: prev.y + delta.y / prev.scale,
       }))
     }
-    
+
     const customAdjust: Drag = ({ viewport, delta }) => {
       console.log(
         'adjust',
@@ -87,7 +87,7 @@ const Code = `\
         <input type="radio" value="pan" onChange={handleCustomPan} />
         <input type="radio" value="adjust" onChange={handleCustomAdjust} />
         <input type="checkbox" value="adjust" onChange={handleClick} />
-        <Viewer.Dicom 
+        <Viewer.Dicom
           imageId={IMAGE_ID}
           interaction={interaction}
           viewport={viewport}
