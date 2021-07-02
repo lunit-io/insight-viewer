@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
@@ -21,14 +21,15 @@ export default function useImageLoader({
   onError,
   requestInterceptor,
   onViewportChange,
-  initialViewportRef,
+  viewportRef,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
-  initialViewportRef?: React.MutableRefObject<Partial<Viewport> | undefined>
+  viewportRef?: React.MutableRefObject<Viewport | undefined>
   onViewportChange?: OnViewportChange
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
+  const loadCountRef = useRef(0)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
@@ -38,6 +39,9 @@ export default function useImageLoader({
   useEffect(() => {
     if (!hasLoader) return undefined
     if (!element) return undefined
+
+    // determine whether it is first load or subsequent load(multiframe viewer)
+    loadCountRef.current += 1
 
     async function loadImage(): Promise<void> {
       try {
@@ -49,7 +53,11 @@ export default function useImageLoader({
         const { viewport } = displayImage(
           <HTMLDivElement>element,
           image,
-          initialViewportRef?.current
+
+          loadCountRef.current === 1
+            ? // eslint-disable-next-line no-underscore-dangle
+              viewportRef?.current?._initial
+            : viewportRef?.current
         )
 
         if (onViewportChange) {
@@ -76,7 +84,7 @@ export default function useImageLoader({
     onError,
     onViewportChange,
     requestInterceptor,
-    initialViewportRef,
+    viewportRef,
   ])
   return undefined
 }
