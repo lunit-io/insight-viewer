@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import {
   WithChildren,
@@ -36,7 +36,7 @@ export function DICOMImageViewer({
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line no-underscore-dangle
-  const initialViewportRef = useRef(viewport?._initial)
+  const viewportRef = useRef(viewport)
   // enable/disable cornerstone.js
   useCornerstone(elRef.current)
   // enable cornerstone.js image loader and load/display image
@@ -46,7 +46,7 @@ export function DICOMImageViewer({
     onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
-    initialViewportRef,
+    viewportRef,
     onViewportChange,
   })
   // update cornerstone viewport when viewport prop changes
@@ -58,6 +58,10 @@ export function DICOMImageViewer({
     viewport,
     onViewportChange,
   })
+
+  useEffect(() => {
+    if (viewport) viewportRef.current = viewport
+  }, [viewport])
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress}>
