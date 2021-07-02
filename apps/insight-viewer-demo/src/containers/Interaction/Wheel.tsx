@@ -8,6 +8,7 @@ import Viewer, {
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import WheelControl from './Control/Wheel'
+import Control from './Control'
 import OverlayLayer from '../../components/OverlayLayer'
 
 const IMAGES = [
@@ -46,7 +47,9 @@ const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    scale: 0.5,
+  })
   const { interaction, setInteraction } = useInteraction()
 
   const handleFrame: Wheel = (_, deltaY) => {
@@ -80,9 +83,19 @@ export default function App(): JSX.Element {
     }))
   }
 
+  function handleChange(type: string) {
+    return (value: string) => {
+      setInteraction((prev: Interaction) => ({
+        ...prev,
+        [type]: value === 'none' ? undefined : value,
+      }))
+    }
+  }
+
   return (
     <Box w={700}>
       <WheelControl onChange={handleWheel} />
+      <Control onChange={handleChange} />
       <Box mb={6}>
         <Text>frame: {frame}</Text>
       </Box>
