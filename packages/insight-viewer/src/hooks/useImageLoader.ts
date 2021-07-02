@@ -43,7 +43,7 @@ export default function useImageLoader({
     // determine whether it is first load or subsequent load(multiframe viewer)
     loadCountRef.current += 1
 
-    async function loadImage(): Promise<void> {
+    async function loadAndDisplayImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
           loader: getHttpClient(requestInterceptor),
@@ -75,7 +75,7 @@ export default function useImageLoader({
       }
     }
 
-    loadImage()
+    loadAndDisplayImage()
     return undefined
   }, [
     imageId,
