@@ -1,4 +1,4 @@
-import { CornerstoneViewport } from '../cornerstoneHelper'
+import { CornerstoneViewport } from '../cornerstoneHelper/types'
 import { Viewport } from '../../types'
 import { DefaultViewport } from '../../const'
 

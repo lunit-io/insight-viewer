@@ -1,3 +1,4 @@
+import { SetStateAction } from 'react'
 import usePrefetch from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP } from '../../types'
@@ -24,9 +25,22 @@ export default function useMultiframe(
   })
   const { frame, setFrame } = useFrame(initialFrame ?? 0)
 
+  function handleFrame(arg: SetStateAction<number>) {
+    let frameIndex = 0
+
+    if (typeof arg === 'number') {
+      frameIndex = arg
+    } else {
+      frameIndex = arg(frame)
+    }
+
+    if (frameIndex < 0 || frameIndex > IMAGES.length - 1) return
+    setFrame(arg)
+  }
+
   return {
     image: IMAGES[frame],
     frame,
-    setFrame,
+    setFrame: handleFrame,
   }
 }

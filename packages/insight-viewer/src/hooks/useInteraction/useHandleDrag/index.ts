@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { tap, switchMap, map, takeUntil } from 'rxjs/operators'
-import { Viewport } from 'cornerstone-core'
 import { Element, OnViewportChange } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
 import {
@@ -9,13 +8,7 @@ import {
   setViewport,
   CornerstoneViewport,
 } from '../../../utils/cornerstoneHelper'
-import {
-  Interaction,
-  Pan,
-  Adjust,
-  DragEvent,
-  ViewportInteraction,
-} from '../types'
+import { Interaction, DragEvent, ViewportInteraction } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import { preventContextMenu, hasInteraction } from '../utils'
 import control from './control'
@@ -39,7 +32,7 @@ function handleInteraction({
   interaction: Interaction
   dragType: DragType
   element: Element
-  viewport: Viewport
+  viewport: CornerstoneViewport
   dragged: {
     x: number
     y: number
@@ -54,14 +47,14 @@ function handleInteraction({
     if (onViewportChange) {
       onViewportChange(prev => ({
         ...prev,
-        ...(control[eventType] as Pan | Adjust)?.(viewport, dragged),
+        ...control[eventType]?.(viewport, dragged),
       }))
     } else {
       setViewport(
         <HTMLDivElement>element,
         formatCornerstoneViewport(
           viewport,
-          (control[eventType] as Pan | Adjust)?.(viewport, dragged)
+          control[eventType]?.(viewport, dragged)
         )
       )
     }
@@ -96,7 +89,6 @@ export default function useHandleDrag({
     let dragType: DragType | undefined
 
     element?.removeEventListener('contextmenu', preventContextMenu)
-    if (subscription) subscription.unsubscribe()
     if (!hasInteraction(interaction, [PRIMARY_DRAG, SECONDARY_DRAG]))
       return undefined
 
@@ -136,9 +128,7 @@ export default function useHandleDrag({
         })
       )
       .subscribe(dragged => {
-        const viewport = getViewport(
-          <HTMLDivElement>element
-        ) as CornerstoneViewport
+        const viewport = getViewport(<HTMLDivElement>element)
 
         if (viewport && hasDragType(dragType) && interaction[dragType]) {
           handleInteraction({
@@ -152,6 +142,8 @@ export default function useHandleDrag({
         }
       })
 
-    return undefined
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [element, interaction, onViewportChange])
 }

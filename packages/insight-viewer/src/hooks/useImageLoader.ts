@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
@@ -21,14 +21,15 @@ export default function useImageLoader({
   onError,
   requestInterceptor,
   onViewportChange,
-  initialViewportRef,
+  viewportRef,
 }: Required<ViewerProp> & {
   element: Element
   setLoader: () => Promise<boolean>
-  initialViewportRef?: React.MutableRefObject<Partial<Viewport> | undefined>
+  viewportRef?: React.MutableRefObject<Viewport | undefined>
   onViewportChange?: OnViewportChange
 }): void {
   const [hasLoader, setHasLoader] = useState(false)
+  const loadCountRef = useRef(0)
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
@@ -39,23 +40,28 @@ export default function useImageLoader({
     if (!hasLoader) return undefined
     if (!element) return undefined
 
-    async function loadImage(): Promise<void> {
+    // determine whether it is first load or subsequent load(multiframe viewer)
+    loadCountRef.current += 1
+
+    async function loadAndDisplayImage(): Promise<void> {
       try {
         const image = await cornerstoneLoadImage(imageId, {
           loader: getHttpClient(requestInterceptor),
         })
         loadingProgressMessage.sendMessage(100)
 
-        const { viewport } = displayImage(<HTMLDivElement>element, image)
+        const { viewport } = displayImage(
+          <HTMLDivElement>element,
+          image,
+
+          loadCountRef.current === 1
+            ? // eslint-disable-next-line no-underscore-dangle
+              viewportRef?.current?._initial
+            : viewportRef?.current
+        )
 
         if (onViewportChange) {
-          const formatted = formatViewport(viewport)
-
-          onViewportChange(
-            initialViewportRef?.current
-              ? { ...formatted, ...initialViewportRef?.current }
-              : formatted
-          )
+          onViewportChange(formatViewport(viewport))
         }
       } catch (e) {
         /**
@@ -69,7 +75,7 @@ export default function useImageLoader({
       }
     }
 
-    loadImage()
+    loadAndDisplayImage()
     return undefined
   }, [
     imageId,
@@ -78,7 +84,7 @@ export default function useImageLoader({
     onError,
     onViewportChange,
     requestInterceptor,
-    initialViewportRef,
+    viewportRef,
   ])
   return undefined
 }
