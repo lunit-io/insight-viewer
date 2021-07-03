@@ -31,11 +31,13 @@ async function prefetch({
   images: string[]
 }) {
   try {
-    const loaders = images.map(image =>
-      loadImage(image, {
-        loader: getHttpClient(requestInterceptor),
-      })
-    )
+    const loaders = images
+      .map(image =>
+        loadImage(image, {
+          loader: getHttpClient(requestInterceptor),
+        }).catch(err => onError(err))
+      )
+      .filter((p): p is Promise<CornerstoneImage> => p !== undefined)
     return PromiseAllWithProgress(loaders)
   } catch (err) {
     onError(err)
