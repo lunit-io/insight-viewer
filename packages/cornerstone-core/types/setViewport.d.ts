@@ -1,3 +1,5 @@
+import { Viewport } from "./enabledElements";
+
 /**
  * Sets/updates viewport of a given enabled element
  *
@@ -6,4 +8,4 @@
  * @returns {void}
  * @memberof ViewportSettings
  */
-export default function _default(element: HTMLElement, viewport?: any): void;
+export default function _default(element: HTMLElement, viewport?: Viewport): void;

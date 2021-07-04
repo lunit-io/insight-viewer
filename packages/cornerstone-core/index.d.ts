@@ -3,8 +3,6 @@
 // Definitions by: SangYeob Yu <https://github.com/deminoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace cornerstone;
-
 export default cornerstone;
 import { default as drawImage } from "./types/internal/drawImage.js";
 import { default as generateLut } from "./types/internal/generateLut.js";
@@ -33,7 +31,7 @@ import { removeElementData } from "./types/enabledElementData.js";
 import { getEnabledElement } from "./types/enabledElements.js";
 import { addEnabledElement } from "./types/enabledElements.js";
 import { getEnabledElementsByImageId } from "./types/enabledElements.js";
-import { getEnabledElements } from "./types/enabledElements.js";
+import { getEnabledElements, Image, Viewport } from "./types/enabledElements.js";
 import { addLayer } from "./types/layers.js";
 import { removeLayer } from "./types/layers.js";
 import { getLayer } from "./types/layers.js";
@@ -143,5 +141,10 @@ declare namespace cornerstone {
     export { EVENTS };
     export { events };
     export { triggerEvent };
+    export { Image };
+    export { Viewport };
 }
 export { drawImage, generateLut, getDefaultViewport, setDefaultViewport, requestAnimationFrame, storedPixelDataToCanvasImageData, storedColorPixelDataToCanvasImageData, storedPixelDataToCanvasImageDataColorLUT, storedPixelDataToCanvasImageDataPseudocolorLUT, internal, renderLabelMapImage, renderPseudoColorImage, renderColorImage, renderGrayscaleImage, renderWebImage, renderToCanvas, canvasToPixel, disable, displayImage, draw, drawInvalidated, enable, getElementData, removeElementData, getEnabledElement, addEnabledElement, getEnabledElementsByImageId, getEnabledElements, addLayer, removeLayer, getLayer, getLayers, getVisibleLayers, setActiveLayer, getActiveLayer, purgeLayers, setLayerImage, fitToWindow, getDefaultViewportForImage, getImage, getPixels, getStoredPixels, getViewport, loadImage, loadAndCacheImage, registerImageLoader, registerUnknownImageLoader, invalidate, invalidateImageId, pageToPixel, pixelToCanvas, reset, resize, setToPixelCoordinateSystem, setViewport, updateImage, pixelDataToFalseColorData, rendering, imageCache, metaData, webGL, colors, convertImageToFalseColorImage, convertToFalseColorImage, restoreImage, EVENTS, events, triggerEvent };
+
+export as namespace cornerstone;
+

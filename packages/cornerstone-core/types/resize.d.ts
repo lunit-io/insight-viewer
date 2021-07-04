@@ -5,4 +5,4 @@
  * @param {Boolean} forceFitToWindow true to to force a refit, false to rescale accordingly
  * @returns {void}
  */
-export default function _default(element: HTMLElement, forceFitToWindow: boolean): void;
+export default function _default(element: HTMLElement, forceFitToWindow?: boolean): void;

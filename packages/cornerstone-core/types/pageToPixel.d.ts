@@ -1,3 +1,5 @@
+import { PixelCoordinate } from "./CoordinateSystem";
+
 /**
  * Converts a point in the page coordinate system to the pixel coordinate
  * system
@@ -8,7 +10,4 @@
  *
  * @returns {{x: Number, y: Number}} The transformed point in the pixel coordinate system
  */
-export default function _default(element: HTMLElement, pageX: number, pageY: number): {
-    x: number;
-    y: number;
-};
+export default function _default(element: HTMLElement, pageX: number, pageY: number): PixelCoordinate;

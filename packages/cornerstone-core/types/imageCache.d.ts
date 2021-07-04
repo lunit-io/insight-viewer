@@ -1,3 +1,5 @@
+import { ImageLoadObject } from "./enabledElements";
+
 /** Sets the maximum size of cache and purges cache contents if necessary.
  *
  * @param {number} numBytes The maximun size that the cache should occupy.
@@ -11,7 +13,7 @@ export function setMaximumSizeBytes(numBytes: number): void;
  * @param {Object} imageLoadObject The object that is loading or loaded the image
  * @returns {void}
  */
-export function putImageLoadObject(imageId: string, imageLoadObject: any): void;
+export function putImageLoadObject(imageId: string, imageLoadObject: ImageLoadObject): void;
 /**
  * Retuns the object that is loading a given imageId
  *

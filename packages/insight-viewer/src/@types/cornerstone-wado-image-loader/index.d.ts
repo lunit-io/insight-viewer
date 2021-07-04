@@ -1,9 +1,7 @@
-/// <reference path="../cornerstone-core/index.d.ts"/>
-declare module 'cornerstone-wado-image-loader' {
-
+declare module "cornerstone-wado-image-loader" {
   const external: {
-    cornerstone: typeof cornerstone;
-    dicomParser: typeof dicomParser;
+    cornerstone;
+    dicomParser;
   }
 
   const webWorkerManager: {

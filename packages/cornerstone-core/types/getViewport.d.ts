@@ -1,3 +1,5 @@
+import { Viewport } from "./enabledElements";
+
 /**
  * Retrieves the viewport for the specified enabled element
  *
@@ -5,4 +7,4 @@
  * @returns {Viewport|undefined} The Cornerstone Viewport settings for this element, if they exist. Otherwise, undefined
  * @memberof ViewportSettings
  */
-export default function _default(element: HTMLElement): any | undefined;
+export default function _default(element: HTMLElement): Viewport | undefined;

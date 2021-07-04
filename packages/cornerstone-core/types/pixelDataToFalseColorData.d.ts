@@ -1,3 +1,5 @@
+import { Image } from "./enabledElements";
+
 /**
  * Converts the image pixel data into a false color data
  *
@@ -8,4 +10,4 @@
  * @deprecated This function is superseded by the ability to set the Viewport parameters
  * to include colormaps.
  */
-export default function pixelDataToFalseColorData(image: new (width?: number, height?: number) => HTMLImageElement, lookupTable: any): void;
+export default function pixelDataToFalseColorData(image: Image, lookupTable: any): void;

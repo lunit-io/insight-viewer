@@ -1,3 +1,7 @@
+import { ImageLoadObject, Image } from "./enabledElements";
+
+export type ImageLoaderOptions = any
+export type ImageLoader = (imageId: string, options?: ImageLoaderOptions) => ImageLoadObject
 /**
  * Loads an image given an imageId and optional priority and returns a promise which will resolve to
  * the loaded image object or fail if an error occurred.  The loaded image is not stored in the cache.
@@ -8,7 +12,7 @@
  * @returns {ImageLoadObject} An Object which can be used to act after an image is loaded or loading fails
  * @memberof ImageLoader
  */
-export function loadImage(imageId: string, options?: any): any;
+export function loadImage(imageId: string, options?: ImageLoaderOptions): Promise<Image>;
 /**
  * Loads an image given an imageId and optional priority and returns a promise which will resolve to
  * the loaded image object or fail if an error occurred. The image is stored in the cache.
@@ -19,7 +23,7 @@ export function loadImage(imageId: string, options?: any): any;
  * @returns {ImageLoadObject} Image Loader Object
  * @memberof ImageLoader
  */
-export function loadAndCacheImage(imageId: string, options?: any): any;
+export function loadAndCacheImage(imageId: string, options?: ImageLoaderOptions): Promise<Image>;
 /**
  * Registers an imageLoader plugin with cornerstone for the specified scheme
  *
@@ -28,7 +32,7 @@ export function loadAndCacheImage(imageId: string, options?: any): any;
  * @returns {void}
  * @memberof ImageLoader
  */
-export function registerImageLoader(scheme: string, imageLoader: Function): void;
+export function registerImageLoader(scheme: string, imageLoader: ImageLoader): void;
 /**
  * Registers a new unknownImageLoader and returns the previous one
  *
@@ -37,4 +41,4 @@ export function registerImageLoader(scheme: string, imageLoader: Function): void
  * @returns {Function|Undefined} The previous Unknown Image Loader
  * @memberof ImageLoader
  */
-export function registerUnknownImageLoader(imageLoader: Function): Function | undefined;
+export function registerUnknownImageLoader(imageLoader: ImageLoader): ImageLoader | undefined;

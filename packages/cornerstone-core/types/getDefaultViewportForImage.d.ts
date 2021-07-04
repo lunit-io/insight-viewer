@@ -1,3 +1,4 @@
+import { Image, Viewport } from "./enabledElements";
 /**
  * Returns a default viewport for display the specified image on the specified
  * enabled element.  The default viewport is fit to window
@@ -7,4 +8,4 @@
  *
  * @returns {Viewport} The default viewport for the image
  */
-export default function _default(element: HTMLElement, image: new (width?: number, height?: number) => HTMLImageElement): any;
+export default function _default(element: HTMLElement, image: Image): Viewport;

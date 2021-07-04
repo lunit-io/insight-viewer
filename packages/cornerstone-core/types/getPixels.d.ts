@@ -8,4 +8,4 @@
  * @param {Number} height The height of the of the sampling rectangle in image coordinates
  * @returns {Array} The modality pixel value of the pixels in the sampling rectangle
  */
-export default function _default(element: HTMLElement, x: number, y: number, width: number, height: number): any[];
+export default function _default(element: HTMLElement, x: number, y: number, width: number, height: number): number[];

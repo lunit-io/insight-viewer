@@ -1,3 +1,6 @@
+import { PixelCoordinate } from "./CoordinateSystem";
+import { CanvasCoordinate } from "./CoordinateSystem";
+
 /**
  * Converts a point in the canvas coordinate system to the pixel coordinate system
  * system.  This can be used to reset tools' image coordinates after modifications
@@ -10,10 +13,4 @@
  * @returns {{x: Number, y: Number}} The transformed point in the pixel coordinate system
  * @memberof PixelCoordinateSystem
  */
-export default function _default(element: HTMLElement, pt: {
-    x: number;
-    y: number;
-}): {
-    x: number;
-    y: number;
-};
+export default function _default(element: HTMLElement, pt: CanvasCoordinate): PixelCoordinate;

@@ -1,3 +1,5 @@
+import { EnabledElementLayer, Image, LayerOptions } from "./enabledElements";
+
 /**
  * Rescale the target layer to the base layer based on the
  * relative size of each image and their pixel dimensions.
@@ -10,7 +12,7 @@
  * @returns {void}
  * @memberof EnabledElementLayers
  */
-export function rescaleImage(baseLayer: any, targetLayer: any): void;
+export function rescaleImage(baseLayer: EnabledElementLayer, targetLayer: EnabledElementLayer): void;
 /**
  * Add a layer to a Cornerstone element
  *
@@ -21,7 +23,7 @@ export function rescaleImage(baseLayer: any, targetLayer: any): void;
  * @returns {String} layerId The new layer's unique identifier
  * @memberof EnabledElementLayers
  */
-export function addLayer(element: HTMLElement, image: new (width?: number, height?: number) => HTMLImageElement, options: any): string;
+export function addLayer(element: HTMLElement, image: Image, options: LayerOptions): string;
 /**
  * Remove a layer from a Cornerstone element given a layer ID
  *
@@ -39,7 +41,7 @@ export function removeLayer(element: HTMLElement, layerId: string): void;
  * @return {EnabledElementLayer} The layer
  * @memberof EnabledElementLayers
  */
-export function getLayer(element: HTMLElement, layerId: string): any;
+export function getLayer(element: HTMLElement, layerId: string): EnabledElementLayer;
 /**
  * Retrieve all layers for a Cornerstone element
  *
@@ -48,7 +50,7 @@ export function getLayer(element: HTMLElement, layerId: string): any;
  * @return {EnabledElementLayer[]} An array of layers
  * @memberof EnabledElementLayers
  */
-export function getLayers(element: HTMLElement): any[];
+export function getLayers(element: HTMLElement): EnabledElementLayer[];
 /**
  * Retrieve all visible layers for a Cornerstone element
  *
@@ -57,7 +59,7 @@ export function getLayers(element: HTMLElement): any[];
  * @return {EnabledElementLayer[]} An array of layers
  * @memberof EnabledElementLayers
  */
-export function getVisibleLayers(element: HTMLElement): any[];
+export function getVisibleLayers(element: HTMLElement): EnabledElementLayer[];
 /**
  * Set the active layer for a Cornerstone element
  *
@@ -76,7 +78,7 @@ export function setActiveLayer(element: HTMLElement, layerId: string): void;
  * @returns {void}
  * @memberof EnabledElementLayers
  */
-export function setLayerImage(element: HTMLElement, image: new (width?: number, height?: number) => HTMLImageElement, layerId?: string): void;
+export function setLayerImage(element: HTMLElement, image: Image, layerId?: string): void;
 /**
  * Retrieve the currently active layer for a Cornerstone element
  *
@@ -84,7 +86,7 @@ export function setLayerImage(element: HTMLElement, image: new (width?: number, 
  * @return {EnabledElementLayer} The currently active layer
  * @memberof EnabledElementLayers
  */
-export function getActiveLayer(element: HTMLElement): any;
+export function getActiveLayer(element: HTMLElement): EnabledElementLayer;
 /**
  * Purge the layers
  *

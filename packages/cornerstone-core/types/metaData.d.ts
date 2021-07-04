@@ -1,6 +1,4 @@
-/**
- * @module Metadata
- */
+export type Provider = (type: string, imageId: string) => any
 /**
  * Adds a metadata provider with the specified priority
  * @param {Function} provider Metadata provider function
@@ -9,7 +7,7 @@
  * @returns {void}
  * @memberof Metadata
  */
-export function addProvider(provider: Function, priority?: number): void;
+export function addProvider(provider: Provider, priority?: number): void;
 /**
  * Removes the specified provider
  *
@@ -18,7 +16,7 @@ export function addProvider(provider: Function, priority?: number): void;
  * @returns {void}
  * @memberof Metadata
  */
-export function removeProvider(provider: Function): void;
+export function removeProvider(provider: Provider): void;
 declare namespace _default {
     export { addProvider };
     export { removeProvider };

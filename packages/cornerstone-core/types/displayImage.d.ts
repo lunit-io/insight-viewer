@@ -1,3 +1,4 @@
+import { Image, Viewport } from "./enabledElements";
 /**
  * Sets a new image object for a given element.
  *
@@ -9,4 +10,4 @@
  * @returns {void}
  * @memberof Drawing
  */
-export default function _default(element: HTMLElement, image: any, viewport?: any): void;
+export default function _default(element: HTMLElement, image: Image, viewport?: Viewport): void;

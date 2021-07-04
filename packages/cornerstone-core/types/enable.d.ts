@@ -1,3 +1,6 @@
+type EnableOptions = {
+  renderer?: 'webgl'
+}
 /**
  * Enable an HTML Element for use in Cornerstone
  *
@@ -12,4 +15,4 @@
  * @return {void}
  * @memberof Enable
  */
-export default function _default(element: HTMLElement, options: any): void;
+export default function _default(element: HTMLElement, options?: EnableOptions): void;
