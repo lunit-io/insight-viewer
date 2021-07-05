@@ -1,5 +1,5 @@
 import { formatViewport, formatCornerstoneViewport } from './formatViewport'
-import { ViewportContextDefaultValue } from '../../Context/Viewport/const'
+import { DefaultViewport } from '../../const'
 
 describe('formatViewport:', () => {
   it('cornerstone viewport should be formatted', () => {
@@ -38,7 +38,7 @@ describe('formatViewport:', () => {
   })
 
   it('undefined cornerstone viewport should be default viewport context value', () => {
-    expect(formatViewport(undefined)).toEqual(ViewportContextDefaultValue)
+    expect(formatViewport(undefined)).toEqual(DefaultViewport)
   })
 })
 

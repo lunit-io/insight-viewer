@@ -1,11 +1,11 @@
-import { CornerstoneViewport } from '../cornerstoneHelper'
-import { Viewport } from '../../Context/Viewport/types'
-import { ViewportContextDefaultValue } from '../../Context/Viewport/const'
+import { CornerstoneViewport } from '../cornerstoneHelper/types'
+import { Viewport } from '../../types'
+import { DefaultViewport } from '../../const'
 
 export function formatViewport(
   cornerstoneViewport: CornerstoneViewport | undefined
 ): Viewport {
-  if (!cornerstoneViewport) return ViewportContextDefaultValue
+  if (!cornerstoneViewport) return DefaultViewport
 
   const { scale, invert, hflip, vflip, translation, voi } = cornerstoneViewport
 

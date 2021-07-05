@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react'
-import { Viewport } from '../Context/Viewport/types'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
   children?: React.ReactNode
@@ -19,6 +18,20 @@ export type Viewer = ({
   imageId: string
 }>) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
+export interface BasicViewport {
+  scale: number
+  invert: boolean
+  hflip: boolean
+  vflip: boolean
+  x: number
+  y: number
+  windowWidth: number
+  windowCenter: number
+}
+export type Viewport = BasicViewport & {
+  _initial?: Partial<BasicViewport>
+}
+
 export interface HTTP {
   onError: OnError
   requestInterceptor: RequestInterceptor

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Box, Text, HStack, Switch } from '@chakra-ui/react'
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
-import OverlayLayer from '../Overlay/OverlayLayer'
+import OverlayLayer from '../../components/OverlayLayer'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'

@@ -6,4 +6,5 @@ export const LINKS = [
   { href: 'http-header', name: 'Http header' },
   { href: 'viewport', name: 'Viewport' },
   { href: 'overlay', name: 'Overlay' },
+  { href: 'interaction', name: 'Interaction' },
 ]

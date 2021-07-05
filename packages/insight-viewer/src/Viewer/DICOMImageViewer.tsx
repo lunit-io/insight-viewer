@@ -1,15 +1,18 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import {
   WithChildren,
+  Viewport,
   ViewerProp,
   ProgressComponent,
   OnViewportChange,
 } from '../types'
-import { Viewport } from '../Context/Viewport/types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageLoader from '../hooks/useImageLoader'
 import useViewportUpdate from '../hooks/useViewportUpdate'
+import { Interaction } from '../hooks/useInteraction/types'
+import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
+import { SetFrame } from '../hooks/useMultiframe/useFrame'
 import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
 import { DefaultProp } from './const'
 
@@ -19,6 +22,7 @@ export function DICOMImageViewer({
   Progress = DefaultProp.Progress,
   requestInterceptor = DefaultProp.requestInterceptor,
   viewport,
+  interaction,
   onViewportChange,
   children,
 }: WithChildren<
@@ -26,23 +30,38 @@ export function DICOMImageViewer({
     Progress?: ProgressComponent
     viewport?: Viewport
     onViewportChange?: OnViewportChange
+    onFrameChange?: SetFrame
+    interaction?: Interaction
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line no-underscore-dangle
-  const initialViewportRef = useRef(viewport?._initial)
-
+  const viewportRef = useRef(viewport)
+  // enable/disable cornerstone.js
   useCornerstone(elRef.current)
+  // enable cornerstone.js image loader and load/display image
   useImageLoader({
     imageId,
     element: elRef.current,
     onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
-    initialViewportRef,
+    viewportRef,
     onViewportChange,
   })
+  // update cornerstone viewport when viewport prop changes
   useViewportUpdate(elRef.current, viewport)
+  // update cornerstone viewport on user interaction
+  useViewportInteraction({
+    element: elRef.current,
+    interaction,
+    viewport,
+    onViewportChange,
+  })
+
+  useEffect(() => {
+    if (viewport) viewportRef.current = viewport
+  }, [viewport])
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress}>

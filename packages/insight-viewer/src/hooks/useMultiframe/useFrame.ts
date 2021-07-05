@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, Dispatch, SetStateAction } from 'react'
 
-export type SetFrame = (n: number) => void
+export type SetFrame = Dispatch<SetStateAction<number>>
 
 export interface UseFrame {
   (f: number): {
