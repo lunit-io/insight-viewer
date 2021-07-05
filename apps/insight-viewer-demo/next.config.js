@@ -1,12 +1,8 @@
 const { join } = require('path')
 
 module.exports = {
-  assetPrefix: process.env.HOST,
   trailingSlash: true,
   productionBrowserSourceMaps: true,
-  env: {
-    HOST: process.env.HOST,
-  },
   // Fix for:
   // You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file.
   // 참고: https://webman.pro/blog/how-to-setup-typescript-path-aliases-in-lerna-monorepo/
