@@ -1,8 +1,15 @@
 import React, { forwardRef } from 'react'
 import { WithChildren, ProgressComponent } from '../../types'
 import LoadingProgress from '../LoadingProgress'
-import Wrapper from './Wrapper'
 import useResize from './useResize'
+
+const style = {
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#000',
+  userSelect: 'none',
+} as const
 
 const Forwarded = forwardRef<
   HTMLDivElement,
@@ -11,11 +18,11 @@ const Forwarded = forwardRef<
   const { resizeRef } = useResize(ref)
 
   return (
-    <Wrapper ref={resizeRef}>
+    <div ref={resizeRef} style={style}>
       {Progress && <LoadingProgress Progress={Progress} />}
       <canvas className="cornerstone-canvas" />
       {children}
-    </Wrapper>
+    </div>
   )
 })
 

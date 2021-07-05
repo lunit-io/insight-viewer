@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { Subscription } from 'rxjs'
 import { loadingProgressMessage } from '../../utils/messageService'
 import { ProgressComponent } from '../../types'
 
-const ProgressWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  text-align: center;
-`
-
 let subscription: Subscription
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  width: '100%',
+  transform: 'translateY(-50%)',
+  textAlign: 'center',
+} as const
 
 export default function LoadingProgress({
   Progress,
@@ -53,8 +52,6 @@ export default function LoadingProgress({
   }, [progress])
 
   return (
-    <ProgressWrapper hidden={hidden}>
-      <Progress progress={progress ?? 0} />
-    </ProgressWrapper>
+    <div style={style}>{!hidden && <Progress progress={progress ?? 0} />}</div>
   )
 }
