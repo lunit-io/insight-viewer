@@ -27,18 +27,12 @@
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-    "clean:doc": "rm -rf ../../out/handbook/src/insight-viewer",
-    "test": "yarn jest",
-    "export-msw": "cp ./public/mockServiceWorker.js ../../out/handbook/src/insight-viewer/",
-    "storybook": "start-storybook -s public -p 6006",
-    "build-storybook": "build-storybook -o ../../out/handbook/src/insight-viewer --quiet && yarn run export-msw",
-    "doc": "yarn run build-storybook"
+    "test": "yarn jest"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "@chakra-ui/progress": "^1.1.9",
     "consola": "2.15.3",
     "cornerstone-core": "^2.3.0",
     "cornerstone-wado-image-loader": "^3.3.1",
@@ -48,31 +42,17 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-resize-detector": "^6.7.0",
-    "rxjs": "^7.0.0",
-    "styled-components": "^5.2.3"
+    "rxjs": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
-    "@mdx-js/react": "^1.6.22",
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-controls": "^6.2.9",
-    "@storybook/addon-docs": "^6.2.3",
-    "@storybook/addon-essentials": "^6.2.3",
-    "@storybook/addon-links": "^6.2.3",
-    "@storybook/react": "^6.2.3",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.3",
-    "@types/styled-components": "^5.1.9",
     "babel-loader": "^8.2.2",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",
-    "msw": "^0.29.0",
-    "msw-storybook-addon": "^1.1.0",
     "react-is": "^17.0.2",
     "ts-jest": "^26.5.4"
-  },
-  "msw": {
-    "workerDirectory": "doc"
   }
 }

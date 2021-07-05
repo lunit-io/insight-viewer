@@ -10,6 +10,7 @@ import CodeBlock from '../../components/CodeBlock'
 import WheelControl from './Control/Wheel'
 import Control from './Control'
 import OverlayLayer from '../../components/OverlayLayer'
+import CustomProgress from '../../components/CustomProgress'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -148,6 +149,7 @@ export default function App(): JSX.Element {
           interaction={interaction}
           onViewportChange={setViewport}
           viewport={viewport}
+          Progress={CustomProgress}
         >
           <OverlayLayer viewport={viewport} />
         </Viewer.Dicom>

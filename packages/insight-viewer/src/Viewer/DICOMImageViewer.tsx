@@ -19,7 +19,7 @@ import { DefaultProp } from './const'
 export function DICOMImageViewer({
   imageId,
   onError = DefaultProp.onError,
-  Progress = DefaultProp.Progress,
+  Progress,
   requestInterceptor = DefaultProp.requestInterceptor,
   viewport,
   interaction,

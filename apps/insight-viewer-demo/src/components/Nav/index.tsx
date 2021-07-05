@@ -1,7 +1,6 @@
 import { Box, List, ListItem } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextChakraLink } from '../NextChakraLink'
-import config from '../../../config'
 import { LINKS } from './const'
 
 function Nav(): JSX.Element {
@@ -26,7 +25,7 @@ function Nav(): JSX.Element {
         {LINKS.map(({ name, href }) => (
           <ListItem key={`link=${name}`}>
             <NextChakraLink
-              href={`${config.HOST}/${href}`}
+              href={`/${href}`}
               color={router.pathname.slice(1) === href ? 'cyan.600' : ''}
             >
               - {name}

@@ -1,6 +1,7 @@
-import { Box, Progress } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import Viewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import CustomProgress from '../../components/CustomProgress'
 
 const Code = `\
 import Viewer from '@lunit/insight-viewer'
@@ -16,10 +17,6 @@ export default function Viewer() {
 `
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000012.dcm'
-
-function CustomProgress({ progress }: { progress: number }): JSX.Element {
-  return <Progress value={progress} margin="50px" />
-}
 
 export default function Custom(): JSX.Element {
   return (
