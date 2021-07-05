@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "rm -rf .next && ENV=production next build",
-    "clean:doc": "rm -rf ../../out/handbook/src/insight-viewer-demo",
-    "export": "ENV=production next export -o ../../out/handbook/src/insight-viewer-demo",
+    "clean:doc": "rm -rf ../../out/handbook",
+    "export": "ENV=production next export -o ../../out/handbook",
     "start": "next start",
     "doc": "yarn run build && yarn run export"
   },
