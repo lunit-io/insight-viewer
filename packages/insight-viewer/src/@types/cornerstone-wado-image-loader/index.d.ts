@@ -1,11 +1,14 @@
+declare type Cornerstone = typeof import("cornerstone-core").default
+declare type DicomParser = typeof import("dicom-parser")
+
 declare module "cornerstone-wado-image-loader" {
   const external: {
-    cornerstone;
-    dicomParser;
+    cornerstone: Cornerstone
+    dicomParser: DicomParser;
   }
 
   const webWorkerManager: {
-    initialize: (config: cornerstoneWADOImageLoader.WebWorkerConfig) => void;
+    initialize: (config: WebWorkerConfig) => void;
     terminate: () => void;
   }
 
