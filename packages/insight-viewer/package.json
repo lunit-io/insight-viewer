@@ -27,7 +27,6 @@
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-    "clean:doc": "rm -rf ../../out/handbook/src/insight-viewer",
     "test": "yarn jest"
   },
   "publishConfig": {
