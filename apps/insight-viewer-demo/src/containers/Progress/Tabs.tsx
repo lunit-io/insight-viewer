@@ -13,7 +13,7 @@ export default function ProgressTabs(): JSX.Element {
   return (
     <Tabs isLazy onChange={handleChange}>
       <TabList>
-        <Tab>Default Progress</Tab>
+        <Tab>Default No Progress</Tab>
         <Tab>Custom Progress</Tab>
       </TabList>
 
