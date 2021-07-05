@@ -20,7 +20,7 @@
     "build": "lerna run build",
     "build:insight-viewer": "lerna run --scope @lunit/insight-viewer build",
     "test": "lerna run test",
-    "handbook:build": "yarn clean & yarn run doc:insight-viewer",
+    "handbook:build": "yarn clean & yarn run doc",
     "clean": "rm -rf ./out/handbook",
     "doc": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-demo doc",
     "publish": "lerna publish"
