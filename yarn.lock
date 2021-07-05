@@ -1280,7 +1280,7 @@
     "@chakra-ui/react-utils" "1.1.2"
     "@chakra-ui/utils" "1.8.0"
 
-"@chakra-ui/progress@1.1.10", "@chakra-ui/progress@^1.1.9":
+"@chakra-ui/progress@1.1.10":
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/@chakra-ui/progress/-/progress-1.1.10.tgz#d8fadae56e57fa65324cff0c8c4b1e346961deca"
   integrity sha512-9f5NN690GdF3rpPAhXVHgJHVSRUUXETHABFlzBsGZrr+AMzURo1xwp0USwzZrtzk4v9FpRy3Op/Td46oQodDSQ==
@@ -2554,11 +2554,6 @@
   dependencies:
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
-
-"@mdx-js/react@^1.6.22":
-  version "1.6.22"
-  resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.6.22.tgz#ae09b4744fddc74714ee9f9d6f17a66e77c43573"
-  integrity sha512-TDoPum4SHdfPiGSAaRBw7ECyI8VaHpK8GJugbJIJuqyh6kzw9ZLJZW3HGL3NNrJGxcAixUvqROm+YuQOo5eXtg==
 
 "@mswjs/cookies@^0.1.5":
   version "0.1.6"
