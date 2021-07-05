@@ -2,6 +2,7 @@ import { Box } from '@chakra-ui/react'
 import Viewer, { useMultiframe } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
+import CustomProgress from '../../components/CustomProgress'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -84,7 +85,7 @@ export default function Base(): JSX.Element {
           onChange={changeFrame}
         />
       </Box>
-      <Viewer.Dicom imageId={image} />
+      <Viewer.Dicom imageId={image} Progress={CustomProgress} />
       <Box w={900}>
         <CodeBlock code={Code} />
       </Box>

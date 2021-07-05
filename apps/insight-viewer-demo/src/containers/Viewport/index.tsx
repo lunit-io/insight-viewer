@@ -3,6 +3,7 @@ import { Box, Text, HStack, Switch } from '@chakra-ui/react'
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
+import CustomProgress from '../../components/CustomProgress'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -337,6 +338,7 @@ export default function App(): JSX.Element {
                 imageId={IMAGE_ID}
                 viewport={viewport}
                 onViewportChange={setViewport}
+                Progress={CustomProgress}
               >
                 <OverlayLayer viewport={viewport} />
               </Viewer.Dicom>
@@ -346,6 +348,7 @@ export default function App(): JSX.Element {
                 imageId={IMAGE_ID2}
                 viewport={viewport2}
                 onViewportChange={setViewport2}
+                Progress={CustomProgress}
               >
                 <OverlayLayer viewport={viewport2} />
               </Viewer.Dicom>
