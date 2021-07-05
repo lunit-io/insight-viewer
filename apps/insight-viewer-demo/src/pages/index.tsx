@@ -1,5 +1,7 @@
-import { FC } from 'react'
+import dynamic from 'next/dynamic'
 
-const IndexPage: FC = () => <>initial view</>
+const DynamicComponentWithNoSSR = dynamic(() => import('../containers/Basic'), {
+  ssr: false,
+})
 
-export default IndexPage
+export default DynamicComponentWithNoSSR

@@ -4,9 +4,14 @@ import { Logo } from '../Logo'
 import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithChildren } from '../../types'
+import { LINKS } from '../Nav/const'
 
 export default function Layout({ children }: WithChildren): JSX.Element {
   const router = useRouter()
+
+  const title = LINKS.filter(
+    link => link.href === router.pathname.slice(1)
+  )?.[0]?.name
 
   return (
     <Flex
@@ -20,7 +25,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
         <Box p="6">
           <Grid templateColumns="repeat(5, 1fr)">
             <GridItem colSpan={1}>
-              <NextChakraLink href="/basic">
+              <NextChakraLink href="/">
                 <Logo h="1.5rem" pointerEvents="none" />
               </NextChakraLink>
             </GridItem>
@@ -29,7 +34,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
                 <Heading as="h1" size="md">
                   @lunit/insight-viewer-demo /
                 </Heading>
-                <Heading as="h2">{router.pathname.slice(1)}</Heading>
+                <Heading as="h2">{title}</Heading>
               </HStack>
             </GridItem>
           </Grid>
