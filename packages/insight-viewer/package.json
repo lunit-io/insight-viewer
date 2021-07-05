@@ -23,10 +23,10 @@
   "license": "MIT",
   "homepage": "https://github.com/lunit-io/frontend-components#readme",
   "scripts": {
-    "build": "yarn run clean && yarn run compile",
+    "build": "yarn run clean & yarn run compile",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json -f modern,esm,cjs",
-    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "clean": "rm -rf ./dist & rm -rf tsconfig.tsbuildinfo",
     "test": "yarn jest"
   },
   "publishConfig": {
