@@ -1,9 +1,18 @@
 export const BASE_CODE = `\
-import Viewer, { useInteraction, useViewport, Interaction } from '@lunit/insight-viewer'
+import Viewer, {
+  useMultiframe,
+  useViewport,
+  useInteraction,
+  Interaction,
+  Wheel,
+} from '@lunit/insight-viewer'
 
 export default function App() {
+  const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { viewport, setViewport } = useViewport({
+    scale: 0.5,
+  })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport } = useViewport()
 
   function handlePrimaryDrag(e: React.ChangeEvent<HTMLInputElement>) {
     const v = e.target.value
@@ -23,6 +32,36 @@ export default function App() {
     }))
   }
 
+  const handleFrame: Wheel = (_, deltaY) => {
+    if (deltaY !== 0)
+      setFrame(prev =>
+        Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME)
+      )
+  }
+
+  const handleZoom: Wheel = (_, deltaY) => {
+    if (deltaY !== 0)
+      setViewport(prev => ({
+        ...prev,
+        scale: Math.min(
+          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
+          MAX_SCALE
+        ),
+      }))
+  }
+
+  const handler = {
+    frame: handleFrame,
+    zoom: handleZoom,
+  }
+
+  function handleWheelChange(e) {
+    setInteraction((prev: Interaction) => ({
+      ...prev,
+      [type]: e.target.value === 'none' ? undefined : handler[e.target.value],
+    }))
+  }
+
   return (
     <>
       <input type="radio" value="none" onChange={handlePrimaryDrag} />
@@ -31,6 +70,9 @@ export default function App() {
       <input type="radio" value="none" onChange={handleSecondaryDrag} />
       <input type="radio" value="pan" onChange={handleSecondaryDrag} />
       <input type="radio" value="adjust" onChange={handleSecondaryDrag} />
+      <input type="radio" value="none" onChange={handleWheelChange} />
+      <input type="radio" value="frame" onChange={handleWheelChange} />
+      <input type="radio" value="zoom" onChange={handleWheelChange} />
       <Viewer.Dicom
         imageId={IMAGE_ID}
         interaction={interaction}
@@ -122,64 +164,6 @@ export default function App() {
       >
         <OverlayLayer viewport={viewport} />
       </Viewer.Dicom>
-    </>
-  )
-}
-`
-
-export const WHEEL_CODE = `\
-import Viewer, {
-  useMultiframe,
-  useViewport,
-  useInteraction,
-  Interaction,
-  Wheel,
-} from '@lunit/insight-viewer'
-
-export default function App(): JSX.Element {
-  const { image, frame, setFrame } = useMultiframe(IMAGES)
-  const { viewport, setViewport } = useViewport({
-    scale: 0.5,
-  })
-  const { interaction, setInteraction } = useInteraction()
-
-  const handleFrame: Wheel = (_, deltaY) => {
-    if (deltaY !== 0)
-      setFrame(prev =>
-        Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME)
-      )
-  }
-
-  const handleZoom: Wheel = (_, deltaY) => {
-    if (deltaY !== 0)
-      setViewport(prev => ({
-        ...prev,
-        scale: Math.min(
-          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-          MAX_SCALE
-        ),
-      }))
-  }
-
-  const handler = {
-    frame: handleFrame,
-    zoom: handleZoom,
-  }
-
-  function handleChange(e) {
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      [type]: e.target.value === 'none' ? undefined : handler[e.target.value],
-    }))
-  }
-
-  return (
-    <>
-      <input type="radio" value="none" onChange={handleChange} />
-      <input type="radio" value="frame" onChange={handleChange} />
-      <input type="checkbox" value="zoom" onChange={handleChange} />
-      <Text>frame: {frame}</Text>
-      <Viewer.Dicom imageId={image} />
     </>
   )
 }
