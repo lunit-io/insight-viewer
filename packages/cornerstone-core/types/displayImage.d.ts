@@ -4,10 +4,9 @@ import { Image, Viewport } from "./enabledElements";
  *
  * Will also apply an optional viewport setting.
  *
- * @param {HTMLElement} element An HTML Element enabled for Cornerstone
- * @param {Object} image An Image loaded by a Cornerstone Image Loader
- * @param {Object} [viewport] A set of Cornerstone viewport parameters
- * @returns {void}
+ * @param element An HTML Element enabled for Cornerstone
+ * @param image An Image loaded by a Cornerstone Image Loader
+ * @param [viewport] A set of Cornerstone viewport parameters
  * @memberof Drawing
  */
 export default function _default(element: HTMLElement, image: Image, viewport?: Viewport): void;

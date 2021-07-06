@@ -1,5 +1,5 @@
-type EnableOptions = {
-  renderer?: 'webgl'
+export interface EnableOptions  {
+  renderer?: 'webgl';
 }
 /**
  * Enable an HTML Element for use in Cornerstone
@@ -9,10 +9,9 @@ type EnableOptions = {
  * a new one. This may be helpful when using libraries (e.g. React, Vue) which don't
  * want third parties to change the DOM.
  *
- * @param {HTMLElement} element An HTML Element enabled for Cornerstone
- * @param {Object} options Options for the enabledElement
+ * @param element An HTML Element enabled for Cornerstone
+ * @param options Options for the enabledElement
  *
- * @return {void}
  * @memberof Enable
  */
 export default function _default(element: HTMLElement, options?: EnableOptions): void;

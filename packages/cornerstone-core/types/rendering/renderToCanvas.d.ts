@@ -1,10 +1,9 @@
 /**
  * Render the image to the provided canvas immediately.
- * @param {any} canvas The HTML canvas where the image will be rendered.
- * @param {any} image An Image loaded by a Cornerstone Image Loader
- * @param {any} [viewport = null] A set of Cornerstone viewport parameters
- * @param {any} [options = null] Options for rendering the image (e.g. enable webgl by {renderer: 'webgl'})
- * @returns {void}
+ * @param canvas The HTML canvas where the image will be rendered.
+ * @param image An Image loaded by a Cornerstone Image Loader
+ * @param [viewport = null] A set of Cornerstone viewport parameters
+ * @param [options = null] Options for rendering the image (e.g. enable webgl by {renderer: 'webgl'})
  * @memberof rendering
  */
 export default function _default(canvas: any, image: any, viewport?: any, options?: any): void;

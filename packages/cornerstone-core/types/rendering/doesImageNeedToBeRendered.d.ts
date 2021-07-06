@@ -4,8 +4,8 @@
  * If the imageId has changed, or if any of the last rendered viewport
  * parameters have changed, this function will return true.
  *
- * @param {EnabledElement} enabledElement An Enabled Element
- * @param {Image} image An Image
+ * @param enabledElement An Enabled Element
+ * @param image An Image
  * @return {boolean} Whether or not the Enabled Element needs to re-render its image
  * @memberof rendering
  */

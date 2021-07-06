@@ -1,8 +1,8 @@
 /**
  * Check if two lookup tables match
  *
- * @param {LUT} a A lookup table function
- * @param {LUT} b Another lookup table function
+ * @param a A lookup table function
+ * @param b Another lookup table function
  * @return {boolean} Whether or not they match
  * @memberof rendering
  */

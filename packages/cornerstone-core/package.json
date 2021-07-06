@@ -1,22 +1,22 @@
 {
-  "name": "@types/cornerstone-core",
-  "version": "2.3.0",
-  "description": "TypeScript definitions for cornerstone-core",
-  "main": "",
-  "types": "types",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-    "directory": "types/cornerstone-core"
-  },
-  "scripts": {
-    "test": "dtslint"
-  },
-  "dependencies": {
-    "cornerstone-core": "^2.3.0"
-  },
-  "devDependencies": {
-    "dtslint": "latest"
-  },
-  "typeScriptVersion": "3.7"
+    "name": "@types/cornerstone-core",
+    "version": "2.3.0",
+    "description": "TypeScript definitions for cornerstone-core",
+    "main": "",
+    "types": "types",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/cornerstone-core"
+    },
+    "scripts": {
+        "test": "dtslint"
+    },
+    "dependencies": {
+        "cornerstone-core": "^2.3.0"
+    },
+    "devDependencies": {
+        "dtslint": "latest"
+    },
+    "typeScriptVersion": "3.7"
 }

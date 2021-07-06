@@ -6,8 +6,8 @@ export namespace int16DataUtilities {
  *
  * Pack int16 into three uint8 channels (r, g, b)
  *
- * @param {Image} image A Cornerstone Image Object
- * @returns {Uint8Array} The image data for use by the WebGL shader
+ * @param image A Cornerstone Image Object
+ * @returns The image data for use by the WebGL shader
  * @memberof WebGLRendering
  */
 declare function storedPixelDataToImageData(image: new (width?: number, height?: number) => HTMLImageElement): Uint8Array;

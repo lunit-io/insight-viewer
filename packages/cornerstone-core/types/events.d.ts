@@ -23,7 +23,6 @@ declare namespace EVENTS {
 /**
  * EventTarget - Provides the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) interface
  *
- * @class
  * @memberof Polyfills
  */
 declare class EventTarget {

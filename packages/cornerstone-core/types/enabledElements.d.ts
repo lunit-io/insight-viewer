@@ -1,54 +1,50 @@
-export type LayerOptions = {
-  viewport?: Viewport
-  visible?: boolean
-  opacity?: number
+export interface LayerOptions {
+  viewport?: Viewport;
+  visible?: boolean;
+  opacity?: number;
 }
 
 /**
  * A two-dimensional vector
  *
- * @typedef {Object} vec2
  * @memberof Objects
- * @param {Number} x - The x distance
- * @param {Number} y - The y distance
+ * @param x - The x distance
+ * @param y - The y distance
  */
-export type vec2 = {
-  x: number
-  y: number
-};
+export interface vec2 {
+  x: number;
+  y: number;
+}
 
 /**
  * VOI
  *
- * @typedef {Object} VOI
  * @memberof Objects
- * @param {Number} windowWidth - Window Width for display
- * @param {Number} windowCenter - Window Center for display
+ * @param windowWidth - Window Width for display
+ * @param windowCenter - Window Center for display
  */
-export type VOI = {
-  windowWidth: number
-  windowCenter: number
-};
+export interface VOI {
+  windowWidth: number;
+  windowCenter: number;
+}
 
 /**
  * Lookup Table Array
  *
- * @typedef {Object} LUT
  * @memberof Objects
  * @property {Number} firstValueMapped
  * @property {Number} numBitsPerEntry
  * @property {Array} lut
  */
-export type LUT = {
-  firstValueMapped: number
-  numBitsPerEntry: number
-  lut: Array<any>
-};
+export interface LUT {
+  firstValueMapped: number;
+  numBitsPerEntry: number;
+  lut: any[];
+}
 
 /**
  * Image Statistics Object
  *
- * @typedef {Object} ImageStats
  * @memberof Objects
  * @property {Number} [lastGetPixelDataTime] The time in ms taken to retrieve stored pixels required to draw the image
  * @property {Number} [lastStoredPixelDataToCanvasImageDataTime] The time in ms taken to map from stored pixel array to canvas pixel array
@@ -56,18 +52,17 @@ export type LUT = {
  * @property {Number} [lastRenderTime] The total time in ms taken for the entire rendering function to run
  * @property {Number} [lastLutGenerateTime] The time in ms taken to generate the lookup table for the image
  */
-export type ImageStats = {
-  lastGetPixelDataTime?: number
-  lastStoredPixelDataToCanvasImageDataTime?: number
-  lastPutImageDataTime?: number
-  lastRenderTime?: number
-  lastLutGenerateTime?: number
-};
+export interface ImageStats {
+  lastGetPixelDataTime?: number;
+  lastStoredPixelDataToCanvasImageDataTime?: number;
+  lastPutImageDataTime?: number;
+  lastRenderTime?: number;
+  lastLutGenerateTime?: number;
+}
 
 /**
  * An Image Object in Cornerstone
  *
- * @typedef {Object} Image
  * @memberof Objects
  * @property {string} imageId - The imageId associated with this image object
  * @property {Number} minPixelValue - the minimum stored pixel value in the image
@@ -89,51 +84,52 @@ export type ImageStats = {
  * @property {Boolean} rgba - Is the color pixel data stored in RGBA?
  * @property {Number} columnPixelSpacing - horizontal distance between the middle of each pixel (or width of each pixel) in mm or undefined if not known
  * @property {Number} rowPixelSpacing - vertical distance between the middle of each pixel (or height of each pixel) in mm or undefined if not known
- * @property {Boolean} invert - true if the the image should initially be displayed be inverted, false if not. This is here mainly to support DICOM images with a photometric interpretation of MONOCHROME1
+ * @property {Boolean} invert - true if the the image should initially be displayed be inverted, false if not.
+ * This is here mainly to support DICOM images with a photometric interpretation of MONOCHROME1
  * @property {Number} sizeInBytes - the number of bytes used to store the pixels for this image.
  * @property {Boolean} [falseColor=false] - Whether or not the image has undergone false color mapping
  * @property {Array} [origPixelData] - Original pixel data for an image after it has undergone false color mapping
  * @property {ImageStats} [stats] - Statistics for the last redraw of the image
  * @property {Object} cachedLut - Cached Lookup Table for this image.
- * @property {String|Colormap} [colormap] - Depreacted. Use viewport.colormap instead. an optional colormap ID or colormap object (from colors/colormap.js). This will be applied during rendering to convert the image to pseudocolor
+ * @property {String|Colormap} [colormap] - Depreacted. Use viewport.colormap instead.
+ * an optional colormap ID or colormap object (from colors/colormap.js). This will be applied during rendering to convert the image to pseudocolor
  * @property {Boolean} [labelmap=false] - whether or not to render this image as a label map (i.e. skip modality and VOI LUT pipelines and use only a color lookup table)
  */
-export type Image = {
-  imageId: string
-  minPixelValue: number
-  maxPixelValue: number
-  slope: number
-  intercept: number
-  windowCenter: number
-  windowWidth: number
-  getPixelData: () => number[]
-  getImageData: () => ImageData
-  getCanvas: () => HTMLCanvasElement
-  getImage: () => HTMLImageElement
-  rows: number
-  columns: number
-  height: number
-  width: number
-  color: boolean
-  lut: LUT
-  rgba: boolean
-  columnPixelSpacing: number
-  rowPixelSpacing: number
-  invert: boolean
-  sizeInBytes: number
-  falseColor?: boolean
-  origPixelData?: number[]
-  stats?: ImageStats
-  cachedLut: LUT
+export interface Image {
+  imageId: string;
+  minPixelValue: number;
+  maxPixelValue: number;
+  slope: number;
+  intercept: number;
+  windowCenter: number;
+  windowWidth: number;
+  getPixelData: () => number[];
+  getImageData: () => ImageData;
+  getCanvas: () => HTMLCanvasElement;
+  getImage: () => HTMLImageElement;
+  rows: number;
+  columns: number;
+  height: number;
+  width: number;
+  color: boolean;
+  lut: LUT;
+  rgba: boolean;
+  columnPixelSpacing: number;
+  rowPixelSpacing: number;
+  invert: boolean;
+  sizeInBytes: number;
+  falseColor?: boolean;
+  origPixelData?: number[];
+  stats?: ImageStats;
+  cachedLut: LUT;
   /** @deprecated */
-  colormap?: unknown
-  labelmap?: boolean
-};
+  colormap?: unknown;
+  labelmap?: boolean;
+}
 
 /**
  * A Viewport Settings Object Cornerstone
  *
- * @typedef {Object} Viewport
  * @memberof Objects
  * @property {Number} [scale=1.0] - The scale applied to the image. A scale of 1.0 will display no zoom (one image pixel takes up one screen pixel). A scale of 2.0 will be double zoom and a scale of .5 will be zoomed out by 2x
  * @property {vec2} [translation] - An object with properties x and y which describe the translation to apply in the pixel coordinate system. Note that the image is initially displayed centered in the enabled element with a x and y translation of 0 and 0 respectively.
@@ -148,25 +144,24 @@ export type Image = {
  * @property {String|Colormap} [colormap] - an optional colormap ID or colormap object (from colors/colormap.js). This will be applied during rendering to convert the image to pseudocolor
  * @property {Boolean} [labelmap=false] - whether or not to render this image as a label map (i.e. skip modality and VOI LUT pipelines and use only a color lookup table)
  */
-export type Viewport = {
-  scale: number
-  translation: vec2
-  voi: VOI
-  invert: boolean
-  pixelReplication: boolean
-  hflip: boolean
-  vflip: boolean
-  rotation: number
-  modalityLUT: LUT
-  voiLUT: LUT
-  colormap: unknown
-  labelmap: boolean
-};
+export interface Viewport {
+  scale: number;
+  translation: vec2;
+  voi: VOI;
+  invert: boolean;
+  pixelReplication: boolean;
+  hflip: boolean;
+  vflip: boolean;
+  rotation: number;
+  modalityLUT: LUT;
+  voiLUT: LUT;
+  colormap: unknown;
+  labelmap: boolean;
+}
 
 /**
  * An Enabled Element in Cornerstone
  *
- * @typedef {Object} EnabledElement
  * @memberof Objects
  * @property {HTMLElement} element - The DOM element which has been enabled for use by Cornerstone
  * @property {Image} [image] - The image currently displayed in the enabledElement
@@ -179,22 +174,21 @@ export type Viewport = {
  * for each of the enabled element's layers
  * @property {Boolean} [lastSyncViewportsState] - The previous state for the sync viewport boolean
  */
-export type EnabledElement = {
-  element: HTMLElement
-  image?: Image
-  viewport?: Viewport
-  canvas?: HTMLCanvasElement
-  invalid: boolean
-  needsRedraw: boolean
-  layers?: EnabledElementLayer[]
-  syncViewports?: boolean
-  lastSyncViewportsState?: boolean
-};
+export interface EnabledElement {
+  element: HTMLElement;
+  image?: Image;
+  viewport?: Viewport;
+  canvas?: HTMLCanvasElement;
+  invalid: boolean;
+  needsRedraw: boolean;
+  layers?: EnabledElementLayer[];
+  syncViewports?: boolean;
+  lastSyncViewportsState?: boolean;
+}
 
 /**
  * An Enabled Element Layer in Cornerstone
  *
- * @typedef {Object} EnabledElementLayer
  * @memberof Objects
  * @property {HTMLElement} element - The DOM element which has been enabled for use by Cornerstone
  * @property {Image} [image] - The image currently displayed in the enabledElement
@@ -204,50 +198,48 @@ export type EnabledElement = {
  * @property {Boolean} invalid - Whether or not the image pixel data underlying the enabledElement has been changed, necessitating a redraw
  * @property {Boolean} needsRedraw - A flag for triggering a redraw of the canvas without re-retrieving the pixel data, since it remains valid
  */
-export type EnabledElementLayer = {
-  element: HTMLElement
-  image?: Image
-  viewport?: Viewport
-  canvas?: HTMLCanvasElement
-  options?: LayerOptions
-  invalid: boolean
-  needsRedraw: boolean
-};
+export interface EnabledElementLayer {
+  element: HTMLElement;
+  image?: Image;
+  viewport?: Viewport;
+  canvas?: HTMLCanvasElement;
+  options?: LayerOptions;
+  invalid: boolean;
+  needsRedraw: boolean;
+}
 
 /**
  * An Image Load Object
  *
- * @typedef {Object} ImageLoadObject
  * @memberof Objects
  * @property {Promise} promise - The Promise tracking the loading of this image
  * @property {Function|undefined} cancelFn - A function to cancel the image load request
  */
-export type ImageLoadObject = {
-  promise: Promise<Image>
-  cancelFn?: () => void
-};
+export interface ImageLoadObject {
+  promise: Promise<Image>;
+  cancelFn?: () => void;
+}
 /**
  * Retrieves a Cornerstone Enabled Element object
  *
- * @param {HTMLElement} element An HTML Element enabled for Cornerstone
+ * @param element An HTML Element enabled for Cornerstone
  *
- * @returns {EnabledElement} A Cornerstone Enabled Element
+ * @returns A Cornerstone Enabled Element
  * @memberof EnabledElements
  */
 export function getEnabledElement(element: HTMLElement): EnabledElement;
 /**
  * Adds a Cornerstone Enabled Element object to the central store of enabledElements
  *
- * @param {EnabledElement} enabledElement A Cornerstone enabledElement Object
- * @returns {void}
+ * @param enabledElement A Cornerstone enabledElement Object
  * @memberof EnabledElements
  */
 export function addEnabledElement(enabledElement: EnabledElement): void;
 /**
  * Adds a Cornerstone Enabled Element object to the central store of enabledElements
  *
- * @param {string} imageId A Cornerstone Image ID
- * @returns {EnabledElement[]} An Array of Cornerstone enabledElement Objects
+ * @param imageId A Cornerstone Image ID
+ * @returns An Array of Cornerstone enabledElement Objects
  * @memberof EnabledElements
  */
 export function getEnabledElementsByImageId(imageId: string): EnabledElement[];

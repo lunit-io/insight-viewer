@@ -1,10 +1,10 @@
 interface CoordinateSystem {
-  x: number
-  y: number
+    x: number;
+    y: number;
 }
 export interface CanvasCoordinate extends CoordinateSystem {
-  _canvasCoordinateBrand: string
+    _canvasCoordinateBrand: string;
 }
 export interface PixelCoordinate extends CoordinateSystem {
-  _pixelCoordinateBrand: string
+    _pixelCoordinateBrand: string;
 }

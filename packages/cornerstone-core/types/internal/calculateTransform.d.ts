@@ -1,8 +1,8 @@
 /**
  * Calculate the transform for a Cornerstone enabled element
  *
- * @param {EnabledElement} enabledElement The Cornerstone Enabled Element
- * @param {Number} [scale] The viewport scale
+ * @param enabledElement The Cornerstone Enabled Element
+ * @param [scale] The viewport scale
  * @return {Transform} The current transform
  * @memberof Internal
  */
