@@ -3,6 +3,5 @@
  *
  * @param viewport - Object containing the viewport properties
  * @param image An Image loaded by a Cornerstone Image Loader
- * @memberof Internal
  */
 export default function computeAutoVoi(viewport: any, image: any): void;

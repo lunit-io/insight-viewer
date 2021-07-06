@@ -7,7 +7,7 @@
     "printWidth": 120,
     "overrides": [
         {
-            "files": "cornerstone-core-tests.ts",
+            "files": "test.ts",
             "options": {
                 "semi": false
             }

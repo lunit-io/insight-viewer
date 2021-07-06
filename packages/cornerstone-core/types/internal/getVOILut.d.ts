@@ -6,11 +6,10 @@
  * @param windowCenter Window Center
  * @param [voiLUT] Volume of Interest Lookup Table Object
  *
- * @return {VOILUTFunction} VOI LUT mapping function
- * @memberof VOILUT
+ * @return VOI LUT mapping function
  */
 export default function _default(windowWidth: number, windowCenter: number, voiLUT?: any): VOILUTFunction;
 /**
  * Volume of Interest Lookup Table Function
  */
-export type VOILUTFunction = Function;
+export type VOILUTFunction = (modalityLutValue: number) => number;

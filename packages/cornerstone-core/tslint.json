@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dtslint.json" }
+{
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": true
+    }
+}

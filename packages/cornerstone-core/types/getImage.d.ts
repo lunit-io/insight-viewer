@@ -1,4 +1,4 @@
-import { Image } from "./enabledElements";
+import { Image } from "./Objects";
 
 /**
  * Returns the currently displayed image for an element or undefined if no image has

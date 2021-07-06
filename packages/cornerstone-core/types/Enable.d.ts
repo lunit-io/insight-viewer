@@ -11,7 +11,12 @@ export interface EnableOptions  {
  *
  * @param element An HTML Element enabled for Cornerstone
  * @param options Options for the enabledElement
- *
- * @memberof Enable
  */
-export default function _default(element: HTMLElement, options?: EnableOptions): void;
+export function enable(element: HTMLElement, options?: EnableOptions): void;
+
+/**
+ *  Disable an HTML element for further use in Cornerstone
+ *
+ * @param element An HTML Element enabled for Cornerstone
+ */
+export function disable(element: HTMLElement): void;

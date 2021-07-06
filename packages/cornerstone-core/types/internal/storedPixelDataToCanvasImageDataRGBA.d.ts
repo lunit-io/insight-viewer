@@ -6,6 +6,5 @@
  * @param lut Lookup table array
  * @param canvasImageDataData canvasImageData.data buffer filled with white pixels
  *
- * @memberof Internal
  */
 export default function _default(image: new (width?: number, height?: number) => HTMLImageElement, lut: any[], canvasImageDataData: Uint8ClampedArray): void;

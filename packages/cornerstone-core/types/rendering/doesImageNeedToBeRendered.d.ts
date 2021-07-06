@@ -6,7 +6,6 @@
  *
  * @param enabledElement An Enabled Element
  * @param image An Image
- * @return {boolean} Whether or not the Enabled Element needs to re-render its image
- * @memberof rendering
+ * @return Whether or not the Enabled Element needs to re-render its image
  */
 export default function _default(enabledElement: any, image: new (width?: number, height?: number) => HTMLImageElement): boolean;

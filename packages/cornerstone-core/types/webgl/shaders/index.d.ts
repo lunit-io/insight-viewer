@@ -12,13 +12,8 @@ export namespace dataUtilities {
     export { uint16DataUtilities as uint16 };
     export { uint8DataUtilities as uint8 };
 }
-import { int16Shader } from "./int16.js";
-import { int8Shader } from "./int8.js";
-import { rgbShader } from "./rgb.js";
-import { uint16Shader } from "./uint16.js";
-import { uint8Shader } from "./uint8.js";
-import { int16DataUtilities } from "./int16.js";
-import { int8DataUtilities } from "./int8.js";
-import { rgbDataUtilities } from "./rgb.js";
-import { uint16DataUtilities } from "./uint16.js";
-import { uint8DataUtilities } from "./uint8.js";
+import { int16DataUtilities, int16Shader } from "./int16.js";
+import { int8DataUtilities, int8Shader } from "./int8.js";
+import { rgbDataUtilities, rgbShader } from "./rgb.js";
+import { uint16DataUtilities, uint16Shader } from "./uint16.js";
+import { uint8DataUtilities, uint8Shader } from "./uint8.js";

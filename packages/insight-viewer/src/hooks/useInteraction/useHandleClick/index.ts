@@ -80,7 +80,9 @@ export default function useHandleClick({
         }))
       )
       .subscribe(({ clientX, clientY, currentTarget }) => {
-        const currentTargetRect = (currentTarget as Element).getBoundingClientRect()
+        const currentTargetRect = (
+          currentTarget as Element
+        ).getBoundingClientRect()
         const { x, y } = getCoord(element, viewport)
 
         if (hasClickType(clickType)) {

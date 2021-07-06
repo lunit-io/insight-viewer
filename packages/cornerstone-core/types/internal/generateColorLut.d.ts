@@ -9,6 +9,5 @@
  * @param [voiLUT] A Volume of Interest Lookup Table
  *
  * @returns A lookup table to apply to the image
- * @memberof Internal
  */
 export default function _default(image: new (width?: number, height?: number) => HTMLImageElement, windowWidth: number, windowCenter: number, invert: boolean, voiLUT?: any[]): Uint8ClampedArray;

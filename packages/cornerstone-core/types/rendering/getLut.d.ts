@@ -5,7 +5,6 @@
  * @param viewport An Viewport Object
  * @param invalidated Whether or not the LUT data has been invalidated
  * (e.g. by a change to the windowWidth, windowCenter, or invert viewport parameters).
- * @return {Uint8ClampedArray} LUT Array
- * @memberof rendering
+ * @return LUT Array
  */
 export default function _default(image: new (width?: number, height?: number) => HTMLImageElement, viewport: any, invalidated: boolean): Uint8ClampedArray;

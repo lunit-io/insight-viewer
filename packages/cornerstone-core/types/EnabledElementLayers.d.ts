@@ -1,4 +1,4 @@
-import { EnabledElementLayer, Image, LayerOptions } from "./enabledElements";
+import { EnabledElementLayer, Image, LayerOptions } from "./Objects";
 
 /**
  * Rescale the target layer to the base layer based on the
@@ -9,7 +9,6 @@ import { EnabledElementLayer, Image, LayerOptions } from "./enabledElements";
  *
  * @param baseLayer The base layer
  * @param targetLayer The target layer to rescale
- * @memberof EnabledElementLayers
  */
 export function rescaleImage(baseLayer: EnabledElementLayer, targetLayer: EnabledElementLayer): void;
 /**
@@ -20,7 +19,6 @@ export function rescaleImage(baseLayer: EnabledElementLayer, targetLayer: Enable
  * @param options Options for the layer
  *
  * @returns layerId The new layer's unique identifier
- * @memberof EnabledElementLayers
  */
 export function addLayer(element: HTMLElement, image: Image, options: LayerOptions): string;
 /**
@@ -28,7 +26,6 @@ export function addLayer(element: HTMLElement, image: Image, options: LayerOptio
  *
  * @param element The DOM element enabled for Cornerstone
  * @param layerId The unique identifier for the layer
- * @memberof EnabledElementLayers
  */
 export function removeLayer(element: HTMLElement, layerId: string): void;
 /**
@@ -36,8 +33,7 @@ export function removeLayer(element: HTMLElement, layerId: string): void;
  *
  * @param element The DOM element enabled for Cornerstone
  * @param layerId The unique identifier for the layer
- * @return {EnabledElementLayer} The layer
- * @memberof EnabledElementLayers
+ * @return The layer
  */
 export function getLayer(element: HTMLElement, layerId: string): EnabledElementLayer;
 /**
@@ -45,8 +41,7 @@ export function getLayer(element: HTMLElement, layerId: string): EnabledElementL
  *
  * @param element The DOM element enabled for Cornerstone
  *
- * @return {EnabledElementLayer[]} An array of layers
- * @memberof EnabledElementLayers
+ * @return An array of layers
  */
 export function getLayers(element: HTMLElement): EnabledElementLayer[];
 /**
@@ -54,8 +49,7 @@ export function getLayers(element: HTMLElement): EnabledElementLayer[];
  *
  * @param element The DOM element enabled for Cornerstone
  *
- * @return {EnabledElementLayer[]} An array of layers
- * @memberof EnabledElementLayers
+ * @return An array of layers
  */
 export function getVisibleLayers(element: HTMLElement): EnabledElementLayer[];
 /**
@@ -63,7 +57,6 @@ export function getVisibleLayers(element: HTMLElement): EnabledElementLayer[];
  *
  * @param element The DOM element enabled for Cornerstone
  * @param layerId The unique identifier for the layer
- * @memberof EnabledElementLayers
  */
 export function setActiveLayer(element: HTMLElement, layerId: string): void;
 /**
@@ -72,15 +65,13 @@ export function setActiveLayer(element: HTMLElement, layerId: string): void;
  * @param element The DOM element enabled for Cornerstone
  * @param image The image to be displayed in this layer
  * @param [layerId] The unique identifier for the layer
- * @memberof EnabledElementLayers
  */
 export function setLayerImage(element: HTMLElement, image: Image, layerId?: string): void;
 /**
  * Retrieve the currently active layer for a Cornerstone element
  *
  * @param element The DOM element enabled for Cornerstone
- * @return {EnabledElementLayer} The currently active layer
- * @memberof EnabledElementLayers
+ * @return The currently active layer
  */
 export function getActiveLayer(element: HTMLElement): EnabledElementLayer;
 /**

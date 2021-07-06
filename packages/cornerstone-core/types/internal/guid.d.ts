@@ -1,7 +1,6 @@
 /**
  * Generate a unique identifier
  *
- * @return {string} A unique identifier
- * @memberof Internal
+ * @return A unique identifier
  */
 export default function _default(): string;

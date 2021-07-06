@@ -1,4 +1,4 @@
-import { EnabledElement } from "./enabledElements";
+import { EnabledElement } from "./Objects";
 
 /**
  * Sets the canvas context transformation matrix to the pixel coordinate system.  This allows

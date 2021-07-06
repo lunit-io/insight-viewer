@@ -4,6 +4,5 @@
  * @param canvas A Canvas DOM element
  * @param image A Cornerstone Image Object
  * @returns viewport object
- * @memberof Internal
  */
 export default function _default(canvas: HTMLElement, image: new (width?: number, height?: number) => HTMLImageElement): any;

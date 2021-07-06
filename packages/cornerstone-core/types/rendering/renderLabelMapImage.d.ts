@@ -3,7 +3,6 @@
  *
  * @param enabledElement The Cornerstone Enabled Element to redraw
  * @param invalidated - true if pixel data has been invalidated and cached rendering should not be used
- * @memberof rendering
  */
 export function renderLabelMapImage(enabledElement: any, invalidated: boolean): void;
 /**

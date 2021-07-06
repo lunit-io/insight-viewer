@@ -4,10 +4,9 @@
  * @param image An Image loaded by a Cornerstone Image Loader
  * @param [viewport = null] A set of Cornerstone viewport parameters
  * @param [options = null] Options for rendering the image (e.g. enable webgl by {renderer: 'webgl'})
- * @memberof rendering
  */
 export default function _default(canvas: any, image: any, viewport?: any, options?: any): void;
-export type EnabledElementStub = {
+export interface EnabledElementStub {
     /**
      * The enabled element
      */
@@ -42,4 +41,4 @@ export type EnabledElementStub = {
      * The current viewport
      */
     viewport: any;
-};
+}

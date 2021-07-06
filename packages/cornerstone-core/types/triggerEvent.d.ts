@@ -6,4 +6,4 @@
  * @param detail=null The event data to be sent
  * @returns The return value is false if at least one event listener called preventDefault(). Otherwise it returns true.
  */
-export default function triggerEvent(el: EventTarget, type: string, detail?: any | null): boolean;
+export default function triggerEvent(el: EventTarget, type: string, detail?: any): boolean;

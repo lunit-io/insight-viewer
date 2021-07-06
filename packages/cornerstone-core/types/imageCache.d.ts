@@ -1,4 +1,4 @@
-import { ImageLoadObject } from "./enabledElements";
+import { ImageLoadObject } from "./Objects";
 
 /**
  * Sets the maximum size of cache and purges cache contents if necessary.
@@ -25,11 +25,7 @@ export function getImageLoadObject(imageId: string): void;
  * @param imageId Image ID
  */
 export function removeImageLoadObject(imageId: string): void;
-/**
- * @property {number} maximumSizeInBytes  The maximum size of the cache in bytes
- * @property {number} cacheSizeInBytes Currently occupied space in the cache in bytes
- * @property {number} numberOfImagesCached Number of ImageLoaders in the cache
- */
+
 export interface CacheInformation {
     /**
      * The maximum size of the cache in bytes
@@ -60,17 +56,3 @@ export function purgeCache(): void;
  */
 export function changeImageIdCacheSize(imageId: string, newCacheSize: number): void;
 export const cachedImages: any[];
-declare namespace _default {
-    export { imageCacheDict as imageCache };
-    export { cachedImages };
-    export { setMaximumSizeBytes };
-    export { putImageLoadObject };
-    export { getImageLoadObject };
-    export { removeImageLoadObject };
-    export { getCacheInfo };
-    export { purgeCache };
-    export { changeImageIdCacheSize };
-}
-export default _default;
-
-declare const imageCacheDict: {};

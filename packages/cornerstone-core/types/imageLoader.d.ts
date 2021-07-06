@@ -1,4 +1,4 @@
-import { ImageLoadObject, Image } from "./enabledElements";
+import { ImageLoadObject, Image } from "./Objects";
 
 export type ImageLoaderOptions = any;
 export type ImageLoader = (imageId: string, options?: ImageLoaderOptions) => ImageLoadObject;
@@ -10,7 +10,6 @@ export type ImageLoader = (imageId: string, options?: ImageLoaderOptions) => Ima
  * @param [options] Options to be passed to the Image Loader
  *
  * @returns An Object which can be used to act after an image is loaded or loading fails
- * @memberof ImageLoader
  */
 export function loadImage(imageId: string, options?: ImageLoaderOptions): Promise<Image>;
 /**
@@ -21,7 +20,6 @@ export function loadImage(imageId: string, options?: ImageLoaderOptions): Promis
  * @param [options] Options to be passed to the Image Loader
  *
  * @returns Image Loader Object
- * @memberof ImageLoader
  */
 export function loadAndCacheImage(imageId: string, options?: ImageLoaderOptions): Promise<Image>;
 /**
@@ -29,7 +27,6 @@ export function loadAndCacheImage(imageId: string, options?: ImageLoaderOptions)
  *
  * @param scheme The scheme to use for this image loader (e.g. 'dicomweb', 'wadouri', 'http')
  * @param imageLoader A Cornerstone Image Loader function
- * @memberof ImageLoader
  */
 export function registerImageLoader(scheme: string, imageLoader: ImageLoader): void;
 /**
@@ -38,6 +35,5 @@ export function registerImageLoader(scheme: string, imageLoader: ImageLoader): v
  * @param imageLoader A Cornerstone Image Loader
  *
  * @returns The previous Unknown Image Loader
- * @memberof ImageLoader
  */
 export function registerUnknownImageLoader(imageLoader: ImageLoader): ImageLoader | undefined;

@@ -3,6 +3,5 @@
  *
  * @param enabledElement The Cornerstone Enabled Element to redraw
  * @param invalidated - true if pixel data has been invalidated and cached rendering should not be used
- * @memberof rendering
  */
 export function renderWebImage(enabledElement: any, invalidated: boolean): void;

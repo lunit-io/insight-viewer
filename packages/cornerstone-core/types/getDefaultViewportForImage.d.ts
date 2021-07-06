@@ -1,4 +1,4 @@
-import { Image, Viewport } from "./enabledElements";
+import { Image, Viewport } from "./Objects";
 /**
  * Returns a default viewport for display the specified image on the specified
  * enabled element.  The default viewport is fit to window
