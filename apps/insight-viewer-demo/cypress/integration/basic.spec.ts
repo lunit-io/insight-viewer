@@ -1,3 +1,4 @@
+import '@percy/cypress'
 import { setup } from '../support/utils'
 
 describe('Basic Viewer', () => {
@@ -7,5 +8,7 @@ describe('Basic Viewer', () => {
 
   it('is working', () => {
     cy.visit('/')
+    cy.percySnapshot()
+    // TODO: 이미지 변경 테스트
   })
 })
