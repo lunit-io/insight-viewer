@@ -11,6 +11,7 @@ import WheelControl from './Control/Wheel'
 import Control from './Control'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { WHEEL_CODE } from './Code'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -25,64 +26,6 @@ const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm',
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
 ]
-
-const Code = `\
-  import Viewer, {
-    useMultiframe,
-    useViewport,
-    useInteraction,
-    Interaction,
-    Wheel,
-  } from '@lunit/insight-viewer'
-
-  export default function App(): JSX.Element {
-    const { image, frame, setFrame } = useMultiframe(IMAGES)
-    const { viewport, setViewport } = useViewport({
-      scale: 0.5,
-    })
-    const { interaction, setInteraction } = useInteraction()
-
-    const handleFrame: Wheel = (_, deltaY) => {
-      if (deltaY !== 0)
-        setFrame(prev =>
-          Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME)
-        )
-    }
-
-    const handleZoom: Wheel = (_, deltaY) => {
-      if (deltaY !== 0)
-        setViewport(prev => ({
-          ...prev,
-          scale: Math.min(
-            Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-            MAX_SCALE
-          ),
-        }))
-    }
-
-    const handler = {
-      frame: handleFrame,
-      zoom: handleZoom,
-    }
-
-    function handleChange(e) {
-      setInteraction((prev: Interaction) => ({
-        ...prev,
-        [type]: e.target.value === 'none' ? undefined : handler[e.target.value],
-      }))
-    }
-
-    return (
-      <>
-        <input type="radio" value="none" onChange={handleChange} />
-        <input type="radio" value="frame" onChange={handleChange} />
-        <input type="checkbox" value="zoom" onChange={handleChange} />
-        <Text>frame: {frame}</Text>
-        <Viewer.Dicom imageId={image} />
-      </>
-    )
-  }
-`
 
 const MIN_FRAME = 0
 const MAX_FRAME = IMAGES.length - 1
@@ -155,7 +98,7 @@ export default function App(): JSX.Element {
         </Viewer.Dicom>
       </Box>
       <Box w={900}>
-        <CodeBlock code={Code} />
+        <CodeBlock code={WHEEL_CODE} />
       </Box>
     </Box>
   )
