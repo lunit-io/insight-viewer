@@ -7,7 +7,8 @@
     "build": "rm -rf .next && ENV=production next build",
     "export": "ENV=production next export -o ../../out/handbook",
     "start": "next start",
-    "doc": "yarn run build && yarn run export"
+    "doc": "yarn run build && yarn run export",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.0",
@@ -27,6 +28,7 @@
     "@types/prismjs": "^1.16.5",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "cypress": "^7.6.0",
     "typescript": "^4.2.4"
   },
   "msw": {
