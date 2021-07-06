@@ -8,7 +8,8 @@
     "export": "ENV=production next export -o ../../out/handbook",
     "start": "next start",
     "doc": "yarn run build && yarn run export",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "test": "percy exec -- cypress run"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.0",
@@ -24,6 +25,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@percy/cli": "^1.0.0-beta.58",
+    "@percy/cypress": "^3.1.0",
     "@types/node": "^14.14.37",
     "@types/prismjs": "^1.16.5",
     "@types/react": "^17.0.3",
