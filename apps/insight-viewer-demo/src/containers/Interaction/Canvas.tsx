@@ -18,18 +18,24 @@ interface Prop {
   canvas: HTMLCanvasElement | null
   x: number
   y: number
+  scale: number
 }
 
-function drawRect({ context, canvas, x, y }: Prop) {
+function drawRect({ context, canvas, x, y, scale }: Prop) {
   if (!context || !canvas) return
 
   context.clearRect(0, 0, canvas.width, canvas.height)
+  context.save()
+  context.translate(canvas.width / 2, canvas.height / 2)
+  context.scale(scale, scale)
+
   context.fillStyle = '#fed7d7'
-  context.fillRect(x, y, BOX_WIDTH, BOX_HEIGHT)
+  context.fillRect(x - BOX_WIDTH / 2, y - BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT)
+  context.restore()
 }
 
 export default function Canvas({
-  viewport: { x, y },
+  viewport: { x, y, scale },
 }: {
   viewport: Viewport
 }): JSX.Element {
@@ -48,16 +54,11 @@ export default function Canvas({
     drawRect({
       context,
       canvas: canvasRef.current,
-      x:
-        x +
-        (canvasRef?.current ? canvasRef.current.width / 2 : 0) -
-        BOX_WIDTH / 2,
-      y:
-        y +
-        (canvasRef?.current ? canvasRef.current.height / 2 : 0) -
-        BOX_HEIGHT / 2,
+      x,
+      y,
+      scale,
     })
-  }, [x, y, context])
+  }, [x, y, scale, context])
 
   return <canvas ref={canvasRef} style={style} />
 }
