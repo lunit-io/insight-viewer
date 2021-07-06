@@ -12,6 +12,7 @@ import Control from './Control'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { WHEEL_CODE } from './Code'
+import Canvas from './Canvas'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -95,6 +96,7 @@ export default function App(): JSX.Element {
           Progress={CustomProgress}
         >
           <OverlayLayer viewport={viewport} />
+          <Canvas viewport={viewport} />
         </Viewer.Dicom>
       </Box>
       <Box w={900}>
