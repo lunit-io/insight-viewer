@@ -1,4 +1,4 @@
-import { EnabledElementLayer, Image, LayerOptions } from "./Objects";
+import { EnabledElementLayer, Image } from "./Objects";
 
 /**
  * Rescale the target layer to the base layer based on the
@@ -20,7 +20,7 @@ export function rescaleImage(baseLayer: EnabledElementLayer, targetLayer: Enable
  *
  * @returns layerId The new layer's unique identifier
  */
-export function addLayer(element: HTMLElement, image: Image, options: LayerOptions): string;
+export function addLayer(element: HTMLElement, image: Image, options: EnabledElementLayer['options']): string;
 /**
  * Remove a layer from a Cornerstone element given a layer ID
  *

@@ -1,6 +1,3 @@
-export interface EnableOptions  {
-  renderer?: 'webgl';
-}
 /**
  * Enable an HTML Element for use in Cornerstone
  *
@@ -12,7 +9,9 @@ export interface EnableOptions  {
  * @param element An HTML Element enabled for Cornerstone
  * @param options Options for the enabledElement
  */
-export function enable(element: HTMLElement, options?: EnableOptions): void;
+export function enable(element: HTMLElement, options?: {
+  renderer?: 'webgl';
+}): void;
 
 /**
  *  Disable an HTML element for further use in Cornerstone

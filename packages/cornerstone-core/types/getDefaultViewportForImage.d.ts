@@ -8,4 +8,4 @@ import { Image, Viewport } from "./Objects";
  *
  * @returns The default viewport for the image
  */
-export default function _default(element: HTMLElement, image: Image): Viewport;
+export default function _default(element: HTMLElement, image: Image): Required<Viewport>;

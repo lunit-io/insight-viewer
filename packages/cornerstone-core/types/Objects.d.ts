@@ -185,7 +185,11 @@ export interface EnabledElementLayer {
   /** The current canvas for this enabledElement */
   canvas?: HTMLCanvasElement;
   /** Layer drawing options */
-  options?: LayerOptions;
+  options?: {
+    viewport?: Viewport;
+    visible?: boolean;
+    opacity?: number;
+  };
   /** Whether or not the image pixel data underlying the enabledElement has been changed, necessitating a redraw */
   invalid: boolean;
   /** A flag for triggering a redraw of the canvas without re-retrieving the pixel data, since it remains valid */
@@ -200,10 +204,4 @@ export interface ImageLoadObject {
   promise: Promise<Image>;
   /** A function to cancel the image load request */
   cancelFn?: () => void;
-}
-
-export interface LayerOptions {
-  viewport?: Viewport;
-  visible?: boolean;
-  opacity?: number;
 }
