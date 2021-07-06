@@ -1,14 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
 import Viewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
-
-const code = `\
-import Viewer from '@lunit/insight-viewer'
-
-export default function() {
-  return <Viewer.Dicom imageId={IMAGE_ID} />
-}
-`
+import { BASE_CODE } from './Code'
 
 export default function Base(): JSX.Element {
   return (
@@ -20,7 +13,7 @@ export default function Base(): JSX.Element {
         <Viewer.Dicom imageId="wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT0000100.dcm" />
       </Box>
       <Box w={700}>
-        <CodeBlock code={code} />
+        <CodeBlock code={BASE_CODE} />
       </Box>
     </>
   )
