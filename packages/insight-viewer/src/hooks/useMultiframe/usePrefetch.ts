@@ -3,7 +3,7 @@ import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
-import { HTTP } from '../../types'
+import { HTTP, ViewerError } from '../../types'
 
 function PromiseAllWithProgress(
   promiseArray: Promise<CornerstoneImage>[]
@@ -35,7 +35,7 @@ async function prefetch({
       .map(image =>
         loadImage(image, {
           loader: getHttpClient(requestInterceptor),
-        }).catch(err => onError(err))
+        }).catch((error: ViewerError) => onError(error))
       )
       .filter((p): p is Promise<CornerstoneImage> => p !== undefined)
     return PromiseAllWithProgress(loaders)
