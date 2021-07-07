@@ -74,6 +74,7 @@ export default function App(): JSX.Element {
                       invert: e.target.checked,
                     })
                   }
+                  className="invert"
                 />
               </Box>
               <Box>
@@ -85,6 +86,7 @@ export default function App(): JSX.Element {
                       hflip: e.target.checked,
                     })
                   }
+                  className="hflip"
                 />
               </Box>
               <Box>
@@ -96,6 +98,7 @@ export default function App(): JSX.Element {
                       vflip: e.target.checked,
                     }))
                   }
+                  className="vflip"
                 />
               </Box>
             </HStack>
@@ -117,6 +120,7 @@ export default function App(): JSX.Element {
                         x: Number(e.target.value),
                       }))
                     }}
+                    className="x-transition"
                   />
                 </Box>
               </Box>
@@ -137,6 +141,7 @@ export default function App(): JSX.Element {
                         y: Number(e.target.value),
                       }))
                     }}
+                    className="y-transition"
                   />
                 </Box>
               </Box>
@@ -158,6 +163,7 @@ export default function App(): JSX.Element {
                     scale: Number(e.target.value),
                   }))
                 }}
+                className="zoom"
               />
             </Box>
             <HStack spacing="24px" mt={3}>
@@ -178,6 +184,7 @@ export default function App(): JSX.Element {
                         windowWidth: Number(e.target.value),
                       }))
                     }}
+                    className="window-width"
                   />
                 </Box>
               </Box>
@@ -198,6 +205,7 @@ export default function App(): JSX.Element {
                         windowCenter: Number(e.target.value),
                       }))
                     }}
+                    className="window-center"
                   />
                 </Box>
               </Box>
