@@ -6,7 +6,7 @@ import { Viewport } from "./Objects";
  * @param element The DOM element enabled for Cornerstone
  * @returns The Cornerstone Viewport settings for this element, if they exist. Otherwise, undefined
  */
-export function getViewport(element: HTMLElement): Viewport | undefined;
+export function getViewport(element: HTMLElement): Required<Viewport> | undefined;
 
 /**
  * Sets/updates viewport of a given enabled element
