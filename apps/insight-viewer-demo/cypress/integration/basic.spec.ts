@@ -3,12 +3,21 @@ import { setup } from '../support/utils'
 
 describe('Basic Viewer', () => {
   before(() => {
+    cy.visit('/')
     setup()
   })
 
-  it('is working', () => {
-    cy.visit('/')
+  it('shows initial image', () => {
     cy.percySnapshot()
-    // TODO: 이미지 변경 테스트
+  })
+
+  it('shows second image', () => {
+    cy.get('.button2').click()
+    cy.percySnapshot()
+  })
+
+  it('shows third image', () => {
+    cy.get('.button3').click()
+    cy.percySnapshot()
   })
 })
