@@ -1,5 +1,9 @@
-import cornerstone, { Viewport } from 'cornerstone-core'
-import { CornerstoneImage, CornerstoneViewport } from './types'
+import cornerstone from 'cornerstone-core'
+import {
+  CornerstoneImage,
+  CornerstoneViewport,
+  CornerstoneViewportParam,
+} from './types'
 import { formatCornerstoneViewport } from '../common/formatViewport'
 
 export function enable(element: HTMLDivElement): void {
@@ -20,8 +24,8 @@ export function getCornerstone(): typeof cornerstone {
 
 export function displayImage(
   element: HTMLDivElement,
-  image: cornerstone.Image,
-  viewportOption?: Partial<Viewport>
+  image: CornerstoneImage,
+  viewportOption?: CornerstoneViewportParam
 ): {
   viewport: CornerstoneViewport
   image: CornerstoneImage
@@ -47,13 +51,13 @@ export function loadImage(
 
 export function getViewport(
   element: HTMLDivElement
-): cornerstone.Viewport | undefined {
+): ReturnType<typeof cornerstone.getViewport> {
   return cornerstone.getViewport(element)
 }
 
 export function setViewport(
   element: HTMLDivElement,
-  viewport: cornerstone.Viewport
+  viewport: CornerstoneViewportParam
 ): ReturnType<typeof cornerstone.setViewport> {
   return cornerstone.setViewport(element, viewport)
 }
