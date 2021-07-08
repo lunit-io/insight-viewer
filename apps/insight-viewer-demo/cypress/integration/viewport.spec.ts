@@ -62,8 +62,9 @@ describe('Viewport Viewer', () => {
   })
 
   it('changes viewport with keyboard', () => {
-    cy.wait(1000)
-    cy.get('body').type('wwddd')
-    cy.percySnapshot()
+    cy.get('.is-mount').then(() => {
+      cy.get('body').type('wwddd')
+      cy.percySnapshot()
+    })
   })
 })

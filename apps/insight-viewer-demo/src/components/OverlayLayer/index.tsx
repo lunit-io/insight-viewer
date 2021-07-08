@@ -18,7 +18,9 @@ export default function OverlayLayer({
       textShadow="1px 1px 1px black"
     >
       <UnorderedList>
-        <ListItem>scale: {scale}</ListItem>
+        <ListItem>
+          scale: <span className="scale">{scale}</span>
+        </ListItem>
         <ListItem>
           hflip/vflip: {`${hflip}`} / {`${vflip}`}
         </ListItem>

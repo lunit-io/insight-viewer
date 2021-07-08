@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Box, Text, HStack, Switch } from '@chakra-ui/react'
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
@@ -24,6 +24,9 @@ export default function App(): JSX.Element {
     windowWidth: 150,
     windowCenter: 50,
   })
+
+  const mountRef = useRef(false)
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 's') {
@@ -59,9 +62,13 @@ export default function App(): JSX.Element {
     }
   }, [setViewport])
 
+  useEffect(() => {
+    mountRef.current = true
+  }, [])
+
   return (
     <>
-      <Box w={1100}>
+      <Box w={1100} className={mountRef.current ? 'is-mount' : ''}>
         <HStack spacing="240px" align="flex-start">
           <Box mb={6}>
             <HStack spacing="24px">
