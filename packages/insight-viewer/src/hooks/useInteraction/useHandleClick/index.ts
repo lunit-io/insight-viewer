@@ -1,21 +1,24 @@
 import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { map, filter, tap } from 'rxjs/operators'
-import { ViewportInteraction } from '../types'
+import { ViewportInteraction, Interaction } from '../types'
 import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
 import { preventContextMenu, hasInteraction } from '../utils'
-import {
-  getViewport,
-  CornerstoneViewport,
-} from '../../../utils/cornerstoneHelper'
+import { getViewport } from '../../../utils/cornerstoneHelper'
 
 let subscription: Subscription
 
 type ClickType = typeof PRIMARY_CLICK | typeof SECONDARY_CLICK
 
-function hasClickType(value: unknown): value is ClickType {
-  return value === PRIMARY_CLICK || value === SECONDARY_CLICK
+function hasClickType(
+  clickType: ClickType | undefined,
+  interaction: Interaction
+) {
+  return (
+    (clickType === PRIMARY_CLICK || clickType === SECONDARY_CLICK) &&
+    interaction[clickType] !== undefined
+  )
 }
 
 function getCoord(element: Element, viewport?: Viewport) {
@@ -27,13 +30,11 @@ function getCoord(element: Element, viewport?: Viewport) {
       y,
     }
   }
-  const {
-    translation: { x, y },
-  } = getViewport(<HTMLDivElement>element) as CornerstoneViewport
-  return {
-    x,
-    y,
-  }
+
+  const { translation: { x = 0, y = 0 } = {} } =
+    getViewport(<HTMLDivElement>element) ?? {}
+
+  return { x, y }
 }
 
 export default function useHandleClick({
@@ -61,34 +62,27 @@ export default function useHandleClick({
           if (button === MOUSE_BUTTON.primary) clickType = PRIMARY_CLICK
           if (button === MOUSE_BUTTON.secondary) clickType = SECONDARY_CLICK
         }),
-        filter(
-          () => hasClickType(clickType) && interaction[clickType] !== undefined
-        ),
+        filter(() => hasClickType(clickType, interaction)),
         tap(({ button }) => {
-          if (
-            button === MOUSE_BUTTON.secondary &&
-            interaction[clickType as ClickType]
-          ) {
+          if (button === MOUSE_BUTTON.secondary) {
             element?.addEventListener('contextmenu', preventContextMenu)
           }
         }),
-        // for persisting currentTarget https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget
         map(({ clientX, clientY, currentTarget }) => ({
           clientX,
           clientY,
-          currentTarget,
+          currentTarget: <Element>currentTarget,
         }))
       )
       .subscribe(({ clientX, clientY, currentTarget }) => {
-        const currentTargetRect = (currentTarget as Element).getBoundingClientRect()
+        const currentTargetRect = currentTarget.getBoundingClientRect()
         const { x, y } = getCoord(element, viewport)
 
-        if (hasClickType(clickType)) {
+        if (clickType)
           interaction[clickType]?.(
             -x + clientX - currentTargetRect.left,
             -y + clientY - currentTargetRect.top
           )
-        }
       })
     return () => {
       subscription.unsubscribe()

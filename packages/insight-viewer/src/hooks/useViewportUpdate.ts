@@ -1,9 +1,5 @@
 import { useEffect } from 'react'
-import {
-  getViewport,
-  setViewport,
-  CornerstoneViewport,
-} from '../utils/cornerstoneHelper'
+import { getViewport, setViewport } from '../utils/cornerstoneHelper'
 import { formatCornerstoneViewport } from '../utils/common/formatViewport'
 import { Element, Viewport } from '../types'
 
@@ -12,15 +8,12 @@ export default function useViewportUpdate(
   newViewport?: Viewport
 ): void {
   useEffect(() => {
-    if (element && newViewport) {
-      const viewport = getViewport(
-        <HTMLDivElement>element
-      ) as CornerstoneViewport
-
+    if (!element || !newViewport) return
+    const viewport = getViewport(<HTMLDivElement>element)
+    if (viewport)
       setViewport(
         <HTMLDivElement>element,
         formatCornerstoneViewport(viewport, newViewport)
       )
-    }
   }, [element, newViewport])
 }

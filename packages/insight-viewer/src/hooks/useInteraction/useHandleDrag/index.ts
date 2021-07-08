@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
-import { tap, switchMap, map, takeUntil } from 'rxjs/operators'
+import { tap, switchMap, map, takeUntil, filter } from 'rxjs/operators'
 import { Element, OnViewportChange } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
 import {
@@ -17,8 +17,11 @@ let subscription: Subscription
 
 type DragType = typeof PRIMARY_DRAG | typeof SECONDARY_DRAG
 
-function hasDragType(value: unknown): value is DragType {
-  return value === PRIMARY_DRAG || value === SECONDARY_DRAG
+function hasDragType(dragType: DragType | undefined, interaction: Interaction) {
+  return (
+    (dragType === PRIMARY_DRAG || dragType === SECONDARY_DRAG) &&
+    interaction[dragType] !== undefined
+  )
 }
 
 function handleInteraction({
@@ -99,11 +102,9 @@ export default function useHandleDrag({
           if (button === MOUSE_BUTTON.primary) dragType = PRIMARY_DRAG
           if (button === MOUSE_BUTTON.secondary) dragType = SECONDARY_DRAG
         }),
+        filter(() => hasDragType(dragType, interaction)),
         tap(({ button }) => {
-          if (
-            button === MOUSE_BUTTON.secondary &&
-            interaction[dragType as DragType]
-          ) {
+          if (button === MOUSE_BUTTON.secondary) {
             element?.addEventListener('contextmenu', preventContextMenu)
           }
         }),
@@ -130,7 +131,7 @@ export default function useHandleDrag({
       .subscribe(dragged => {
         const viewport = getViewport(<HTMLDivElement>element)
 
-        if (viewport && hasDragType(dragType) && interaction[dragType]) {
+        if (viewport && dragType) {
           handleInteraction({
             interaction,
             dragType,
