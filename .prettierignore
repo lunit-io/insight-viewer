@@ -48,9 +48,6 @@ build
 # typescript compiled server file
 server/**/*.js
 
-# typescript type definition
-**/*.d.ts
-
 # jest test coverage
 coverage
 
