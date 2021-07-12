@@ -2,6 +2,7 @@
 declare namespace Cypress {
   interface Chainable {
     dragCanvas({ x, y, button }: { x: number; y: number; button: number }): void
+    mousewheel(delta: number, times: number): void
   }
 }
 
@@ -42,6 +43,27 @@ Cypress.Commands.add(
           bubbles: true,
         })
       )
+    })
+  }
+)
+
+Cypress.Commands.add(
+  'mousewheel',
+  { prevSubject: 'element' },
+  (element, delta, times: number) => {
+    const canvas = element.get(0)
+
+    const arr = [...Array<number>(times).keys()]
+    arr.forEach(() => {
+      canvas.dispatchEvent(
+        new WheelEvent('wheel', {
+          deltaY: delta,
+        })
+      )
+    })
+
+    requestAnimationFrame(() => {
+      canvas.dispatchEvent(new MouseEvent('mouseleave'))
     })
   }
 )
