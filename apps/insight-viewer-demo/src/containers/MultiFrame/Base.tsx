@@ -4,6 +4,7 @@ import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { CODE } from './Code'
+import useIsMount from '../../hooks/useIsMount'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -21,6 +22,7 @@ const IMAGES = [
 
 export default function Base(): JSX.Element {
   const { image, setFrame } = useMultiframe(IMAGES)
+  const isMount = useIsMount()
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -31,7 +33,7 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box w={500} h={500}>
+    <Box w={500} h={500} className={isMount ? 'is-mount' : ''}>
       <Box mb={6}>
         <input
           type="range"
@@ -42,6 +44,7 @@ export default function Base(): JSX.Element {
           step="1"
           defaultValue={0}
           onChange={changeFrame}
+          className="frame"
         />
       </Box>
       <Viewer.Dicom imageId={image} Progress={CustomProgress} />
