@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { Box, Text, HStack, Switch } from '@chakra-ui/react'
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { CODE } from './Code'
+import useIsMount from '../../hooks/useIsMount'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -25,7 +26,7 @@ export default function App(): JSX.Element {
     windowCenter: 50,
   })
 
-  const mountRef = useRef(false)
+  const isMount = useIsMount()
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -62,13 +63,9 @@ export default function App(): JSX.Element {
     }
   }, [setViewport])
 
-  useEffect(() => {
-    mountRef.current = true
-  }, [])
-
   return (
     <>
-      <Box w={1100} className={mountRef.current ? 'is-mount' : ''}>
+      <Box w={1100}>
         <HStack spacing="240px" align="flex-start">
           <Box mb={6}>
             <HStack spacing="24px">
@@ -237,6 +234,7 @@ export default function App(): JSX.Element {
                         x: Number(e.target.value),
                       }))
                     }}
+                    className="x-transition2"
                   />
                 </Box>
               </Box>
@@ -257,6 +255,7 @@ export default function App(): JSX.Element {
                         y: Number(e.target.value),
                       }))
                     }}
+                    className="y-transition2"
                   />
                 </Box>
               </Box>
@@ -269,7 +268,7 @@ export default function App(): JSX.Element {
             Move image with w,a,s,d keys
           </Text>
         </Box>
-        <Box>
+        <Box className={isMount ? 'is-mount' : ''}>
           <HStack spacing="24px">
             <Box w={500} h={500}>
               <Viewer.Dicom

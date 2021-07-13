@@ -14,7 +14,7 @@ export default function App(): JSX.Element {
     <Tabs isLazy onChange={handleChange}>
       <TabList>
         <Tab>Base Interaction</Tab>
-        <Tab>Custom Interaction</Tab>
+        <Tab className="custom-tab">Custom Interaction</Tab>
       </TabList>
 
       <TabPanels>

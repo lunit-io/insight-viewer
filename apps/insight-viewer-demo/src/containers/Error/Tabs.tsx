@@ -14,7 +14,7 @@ export default function ErrorTabs(): JSX.Element {
     <Tabs isLazy onChange={handleChange}>
       <TabList>
         <Tab>Default Error</Tab>
-        <Tab>Custom Error</Tab>
+        <Tab className="custom-error">Custom Error</Tab>
       </TabList>
 
       <TabPanels>

@@ -15,6 +15,7 @@ import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { CUSTOM_CODE } from './Code'
+import { DEFAULT_SCALE } from './const'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -22,7 +23,9 @@ const IMAGE_ID =
 export default function App(): JSX.Element {
   const [{ x, y }, setCoord] = useState({ x: 0, y: 0 })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport: viewerViewport, setViewport } = useViewport()
+  const { viewport: viewerViewport, setViewport } = useViewport({
+    scale: DEFAULT_SCALE,
+  })
 
   const customPan: Drag = ({ viewport, delta }) => {
     consola.info(

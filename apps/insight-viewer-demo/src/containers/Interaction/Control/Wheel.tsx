@@ -12,9 +12,15 @@ export default function Wheel({
           <Box>Mouse Wheel</Box>
           <RadioGroup defaultValue="none" onChange={onChange}>
             <Stack direction="row">
-              <Radio value="none">none</Radio>
-              <Radio value="frame">frame</Radio>
-              <Radio value="zoom">zoom</Radio>
+              <Radio value="none" className="mousewheel-none">
+                none
+              </Radio>
+              <Radio value="frame" className="mousewheel-frame">
+                frame
+              </Radio>
+              <Radio value="zoom" className="mousewheel-zoom">
+                zoom
+              </Radio>
             </Stack>
           </RadioGroup>
         </Box>

@@ -133,7 +133,7 @@ describe('Interaction', () => {
           })
       })
 
-      it('click after padding', { scrollBehavior: false }, () => {
+      it('click after panning', { scrollBehavior: false }, () => {
         cy.get('.primary-drag-pan').click() // for dragging
         cy.get('.primary-click').click()
 
@@ -176,7 +176,7 @@ describe('Interaction', () => {
           })
       })
 
-      it('click after padding', { scrollBehavior: false }, () => {
+      it('click after panning', { scrollBehavior: false }, () => {
         cy.get('.primary-drag-pan').click() // for dragging
         cy.get('.primary-click').click()
 

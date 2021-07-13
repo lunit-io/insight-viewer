@@ -18,7 +18,7 @@ const Forwarded = forwardRef<
   const { resizeRef } = useResize(ref)
 
   return (
-    <div ref={resizeRef} style={style}>
+    <div ref={resizeRef} style={style} className="cornerstone-canvas-wrapper">
       {Progress && <LoadingProgress Progress={Progress} />}
       <canvas className="cornerstone-canvas" />
       {children}

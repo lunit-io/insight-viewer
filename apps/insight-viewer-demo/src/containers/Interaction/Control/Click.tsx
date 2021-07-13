@@ -12,8 +12,12 @@ export default function Click({
           <Box>Primary Click</Box>
           <RadioGroup defaultValue="none" onChange={onChange('primaryClick')}>
             <Stack direction="row">
-              <Radio value="none">none</Radio>
-              <Radio value="click">click</Radio>
+              <Radio value="none" className="primary-none">
+                none
+              </Radio>
+              <Radio value="click" className="primary-click">
+                click
+              </Radio>
             </Stack>
           </RadioGroup>
         </Box>
@@ -21,8 +25,12 @@ export default function Click({
           <Box>Secondary Click</Box>
           <RadioGroup defaultValue="none" onChange={onChange('secondaryClick')}>
             <Stack direction="row">
-              <Radio value="none">none</Radio>
-              <Radio value="click">click</Radio>
+              <Radio value="none" className="secondary-none">
+                none
+              </Radio>
+              <Radio value="click" className="secondary-click">
+                click
+              </Radio>
             </Stack>
           </RadioGroup>
         </Box>

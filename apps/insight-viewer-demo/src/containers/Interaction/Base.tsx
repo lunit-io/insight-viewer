@@ -13,6 +13,7 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
+import { DEFAULT_SCALE } from './const'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -36,7 +37,9 @@ const MAX_SCALE = 3
 export default function App(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    scale: DEFAULT_SCALE,
+  })
 
   function handleChange(type: string) {
     return (value: string) => {
@@ -83,7 +86,7 @@ export default function App(): JSX.Element {
       <Control onChange={handleChange} />
       <WheelControl onChange={handleWheel} />
       <Box mb={6}>
-        <Text>frame: {frame}</Text>
+        <Text className="test">frame: {frame}</Text>
       </Box>
       <Box w={500} h={500}>
         <Viewer.Dicom
