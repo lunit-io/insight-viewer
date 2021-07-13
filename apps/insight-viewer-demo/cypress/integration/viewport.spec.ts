@@ -51,7 +51,7 @@ describe('Viewport Viewer', () => {
     cy.percySnapshot()
   })
 
-  it('shows mixed changed viewport', () => {
+  it('changes multiple viewport properties', () => {
     cy.get('.invert').click()
     cy.get('.vflip').click()
     cy.get('.x-transition').invoke('val', 60).trigger('change')
@@ -66,5 +66,13 @@ describe('Viewport Viewer', () => {
       cy.get('body').type('wwddd')
       cy.percySnapshot()
     })
+  })
+
+  it('changes multiple viewer viewport', () => {
+    cy.get('.x-transition').invoke('val', 30).trigger('change')
+    cy.get('.y-transition').invoke('val', 90).trigger('change')
+    cy.get('.x-transition2').invoke('val', 15).trigger('change')
+    cy.get('.y-transition2').invoke('val', 57).trigger('change')
+    cy.percySnapshot()
   })
 })
