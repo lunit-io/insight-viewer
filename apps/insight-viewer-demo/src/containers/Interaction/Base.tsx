@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import Viewer, {
   useInteraction,
   useViewport,
@@ -37,7 +37,7 @@ const MAX_SCALE = 3
 export default function App(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport } = useViewport({
+  const { viewport, setViewport, resetViewport } = useViewport({
     scale: DEFAULT_SCALE,
   })
 
@@ -85,21 +85,28 @@ export default function App(): JSX.Element {
     <Box w={700}>
       <Control onChange={handleChange} />
       <WheelControl onChange={handleWheel} />
+
       <Box mb={6}>
         <Text className="test">frame: {frame}</Text>
       </Box>
-      <Box w={500} h={500}>
-        <Viewer.Dicom
-          imageId={image}
-          interaction={interaction}
-          onViewportChange={setViewport}
-          viewport={viewport}
-          Progress={CustomProgress}
-        >
-          <OverlayLayer viewport={viewport} />
-          <Canvas viewport={viewport} />
-        </Viewer.Dicom>
-      </Box>
+      <Stack direction="row">
+        <Box w={500} h={500}>
+          <Viewer.Dicom
+            imageId={image}
+            interaction={interaction}
+            onViewportChange={setViewport}
+            viewport={viewport}
+            Progress={CustomProgress}
+          >
+            <OverlayLayer viewport={viewport} />
+            <Canvas viewport={viewport} />
+          </Viewer.Dicom>
+        </Box>
+        <Button colorScheme="blue" onClick={resetViewport} className="reset">
+          Reset
+        </Button>
+      </Stack>
+
       <Box w={900}>
         <CodeBlock code={BASE_CODE} />
       </Box>
