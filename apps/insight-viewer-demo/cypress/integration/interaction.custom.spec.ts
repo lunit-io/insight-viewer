@@ -5,11 +5,12 @@ import { DEFAULT_SCALE } from '../../src/containers/Interaction/const'
 describe('Interaction', () => {
   before(() => {
     setup()
+    cy.visit('/interaction')
+    cy.get('.custom-tab').click()
   })
 
   beforeEach(() => {
-    cy.visit('/interaction')
-    cy.get('.custom-tab').click()
+    cy.get('.reset').click()
   })
 
   describe('Custom Interaction', () => {
