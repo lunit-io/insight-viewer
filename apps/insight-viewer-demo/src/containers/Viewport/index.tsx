@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Box, Text, HStack, Switch } from '@chakra-ui/react'
+import { Box, Text, HStack, Switch, Button } from '@chakra-ui/react'
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -14,19 +14,31 @@ const IMAGE_ID2 =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
 
 export default function App(): JSX.Element {
-  const { viewport, setViewport } = useViewport({
+  const { viewport, setViewport, resetViewport } = useViewport({
     scale: 0.5,
     windowWidth: 90,
     windowCenter: 32,
   })
 
-  const { viewport: viewport2, setViewport: setViewport2 } = useViewport({
+  const {
+    viewport: viewport2,
+    setViewport: setViewport2,
+    resetViewport: resetViewport2,
+  } = useViewport({
     scale: 1,
     windowWidth: 150,
     windowCenter: 50,
   })
 
   const isMount = useIsMount()
+
+  function handleFirstReset() {
+    resetViewport()
+  }
+
+  function handleSecondReset() {
+    resetViewport2()
+  }
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -79,6 +91,7 @@ export default function App(): JSX.Element {
                     })
                   }
                   className="invert"
+                  isChecked={viewport.invert}
                 />
               </Box>
               <Box>
@@ -91,6 +104,7 @@ export default function App(): JSX.Element {
                     })
                   }
                   className="hflip"
+                  isChecked={viewport.hflip}
                 />
               </Box>
               <Box>
@@ -103,6 +117,7 @@ export default function App(): JSX.Element {
                     }))
                   }
                   className="vflip"
+                  isChecked={viewport.vflip}
                 />
               </Box>
             </HStack>
@@ -117,7 +132,6 @@ export default function App(): JSX.Element {
                     min="0"
                     max="100"
                     step="10"
-                    defaultValue={0}
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
@@ -125,6 +139,7 @@ export default function App(): JSX.Element {
                       }))
                     }}
                     className="x-transition"
+                    value={viewport.x}
                   />
                 </Box>
               </Box>
@@ -138,7 +153,6 @@ export default function App(): JSX.Element {
                     min="0"
                     max="100"
                     step="10"
-                    defaultValue={0}
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
@@ -146,6 +160,7 @@ export default function App(): JSX.Element {
                       }))
                     }}
                     className="y-transition"
+                    value={viewport.y}
                   />
                 </Box>
               </Box>
@@ -160,7 +175,6 @@ export default function App(): JSX.Element {
                 min="0.5"
                 max="2"
                 step="0.1"
-                defaultValue={1}
                 onChange={e => {
                   setViewport(prev => ({
                     ...prev,
@@ -168,6 +182,7 @@ export default function App(): JSX.Element {
                   }))
                 }}
                 className="zoom"
+                value={viewport.scale}
               />
             </Box>
             <HStack spacing="24px" mt={3}>
@@ -181,7 +196,6 @@ export default function App(): JSX.Element {
                     min="9"
                     max="171"
                     step="9"
-                    defaultValue={90}
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
@@ -189,6 +203,7 @@ export default function App(): JSX.Element {
                       }))
                     }}
                     className="window-width"
+                    value={viewport.windowWidth}
                   />
                 </Box>
               </Box>
@@ -202,7 +217,6 @@ export default function App(): JSX.Element {
                     min="-48"
                     max="112"
                     step="16"
-                    defaultValue={32}
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
@@ -210,9 +224,13 @@ export default function App(): JSX.Element {
                       }))
                     }}
                     className="window-center"
+                    value={viewport.windowCenter}
                   />
                 </Box>
               </Box>
+              <Button colorScheme="blue" onClick={handleFirstReset}>
+                Reset
+              </Button>
             </HStack>
           </Box>
           <Box mb={6}>
@@ -227,7 +245,6 @@ export default function App(): JSX.Element {
                     min="0"
                     max="100"
                     step="10"
-                    defaultValue={0}
                     onChange={e => {
                       setViewport2(prev => ({
                         ...prev,
@@ -235,6 +252,7 @@ export default function App(): JSX.Element {
                       }))
                     }}
                     className="x-transition2"
+                    value={viewport2.x}
                   />
                 </Box>
               </Box>
@@ -248,7 +266,6 @@ export default function App(): JSX.Element {
                     min="0"
                     max="100"
                     step="10"
-                    defaultValue={0}
                     onChange={e => {
                       setViewport2(prev => ({
                         ...prev,
@@ -256,9 +273,13 @@ export default function App(): JSX.Element {
                       }))
                     }}
                     className="y-transition2"
+                    value={viewport2.y}
                   />
                 </Box>
               </Box>
+              <Button colorScheme="blue" onClick={handleSecondReset}>
+                Reset
+              </Button>
             </HStack>
           </Box>
         </HStack>
