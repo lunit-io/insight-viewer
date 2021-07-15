@@ -1,4 +1,4 @@
-import { Box, Text, Button, Stack } from '@chakra-ui/react'
+import { Box, Text, Button, Stack, HStack } from '@chakra-ui/react'
 import Viewer, {
   useInteraction,
   useViewport,
@@ -83,12 +83,21 @@ export default function App(): JSX.Element {
 
   return (
     <Box w={700}>
-      <Control onChange={handleChange} />
-      <WheelControl onChange={handleWheel} />
+      <HStack spacing="80px" align="flex-start">
+        <Box>
+          <Control onChange={handleChange} />
+          <WheelControl onChange={handleWheel} />
+          <Box mb={6}>
+            <Text className="test">frame: {frame}</Text>
+          </Box>
+        </Box>
+        <Box>
+          <Button colorScheme="blue" onClick={resetViewport} className="reset">
+            Reset
+          </Button>
+        </Box>
+      </HStack>
 
-      <Box mb={6}>
-        <Text className="test">frame: {frame}</Text>
-      </Box>
       <Stack direction="row">
         <Box w={500} h={500}>
           <Viewer.Dicom
@@ -102,9 +111,6 @@ export default function App(): JSX.Element {
             <Canvas viewport={viewport} />
           </Viewer.Dicom>
         </Box>
-        <Button colorScheme="blue" onClick={resetViewport} className="reset">
-          Reset
-        </Button>
       </Stack>
 
       <Box w={900}>

@@ -78,49 +78,8 @@ export default function App(): JSX.Element {
   return (
     <>
       <Box w={1100}>
-        <HStack spacing="240px" align="flex-start">
+        <HStack spacing="110px" align="flex-start">
           <Box mb={6}>
-            <HStack spacing="24px">
-              <Box>
-                invert{' '}
-                <Switch
-                  onChange={e =>
-                    setViewport({
-                      ...viewport,
-                      invert: e.target.checked,
-                    })
-                  }
-                  className="invert"
-                  isChecked={viewport.invert}
-                />
-              </Box>
-              <Box>
-                hflip{' '}
-                <Switch
-                  onChange={e =>
-                    setViewport({
-                      ...viewport,
-                      hflip: e.target.checked,
-                    })
-                  }
-                  className="hflip"
-                  isChecked={viewport.hflip}
-                />
-              </Box>
-              <Box>
-                vflip{' '}
-                <Switch
-                  onChange={e =>
-                    setViewport(prev => ({
-                      ...prev,
-                      vflip: e.target.checked,
-                    }))
-                  }
-                  className="vflip"
-                  isChecked={viewport.vflip}
-                />
-              </Box>
-            </HStack>
             <HStack spacing="24px" mt={3}>
               <Box>
                 <Box>x transition</Box>
@@ -164,27 +123,11 @@ export default function App(): JSX.Element {
                   />
                 </Box>
               </Box>
+              <Button colorScheme="blue" onClick={handleFirstReset}>
+                Reset
+              </Button>
             </HStack>
 
-            <Box>zoom</Box>
-            <Box>
-              <input
-                type="range"
-                id="scale"
-                name="scale"
-                min="0.5"
-                max="2"
-                step="0.1"
-                onChange={e => {
-                  setViewport(prev => ({
-                    ...prev,
-                    scale: Number(e.target.value),
-                  }))
-                }}
-                className="zoom"
-                value={viewport.scale}
-              />
-            </Box>
             <HStack spacing="24px" mt={3}>
               <Box>
                 <Box>windowWidth</Box>
@@ -228,13 +171,72 @@ export default function App(): JSX.Element {
                   />
                 </Box>
               </Box>
-              <Button colorScheme="blue" onClick={handleFirstReset}>
-                Reset
-              </Button>
+            </HStack>
+            <HStack spacing="24px">
+              <Box>
+                <Box>zoom</Box>
+                <Box>
+                  <input
+                    type="range"
+                    id="scale"
+                    name="scale"
+                    min="0.5"
+                    max="2"
+                    step="0.1"
+                    onChange={e => {
+                      setViewport(prev => ({
+                        ...prev,
+                        scale: Number(e.target.value),
+                      }))
+                    }}
+                    className="zoom"
+                    value={viewport.scale}
+                  />
+                </Box>
+              </Box>
+              <Box>
+                invert{' '}
+                <Switch
+                  onChange={e =>
+                    setViewport({
+                      ...viewport,
+                      invert: e.target.checked,
+                    })
+                  }
+                  className="invert"
+                  isChecked={viewport.invert}
+                />
+              </Box>
+              <Box>
+                hflip{' '}
+                <Switch
+                  onChange={e =>
+                    setViewport({
+                      ...viewport,
+                      hflip: e.target.checked,
+                    })
+                  }
+                  className="hflip"
+                  isChecked={viewport.hflip}
+                />
+              </Box>
+              <Box>
+                vflip{' '}
+                <Switch
+                  onChange={e =>
+                    setViewport(prev => ({
+                      ...prev,
+                      vflip: e.target.checked,
+                    }))
+                  }
+                  className="vflip"
+                  isChecked={viewport.vflip}
+                />
+              </Box>
             </HStack>
           </Box>
           <Box mb={6}>
-            <HStack spacing="24px" mt={35}>
+            <HStack spacing="24px">
               <Box>
                 <Box>x transition</Box>
                 <Box>
