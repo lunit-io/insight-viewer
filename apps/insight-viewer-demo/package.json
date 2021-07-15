@@ -11,6 +11,7 @@
     "start:server": "yarn build && yarn start",
     "percy:cypress": "percy exec -- cypress run",
     "cypress-open": "cypress open",
+    "cypress-run": "cypress run",
     "test": "start-server-and-test start:server 3000 percy:cypress",
     "cypress": "start-server-and-test start:server 3000 cypress-open"
   },
