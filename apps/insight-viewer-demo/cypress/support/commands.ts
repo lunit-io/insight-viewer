@@ -4,6 +4,7 @@ declare namespace Cypress {
     dragCanvas({ x, y, button }: { x: number; y: number; button: number }): void
     mousewheel(delta: number, times: number): void
     mouseclick({ x, y, button }: { x: number; y: number; button: number }): void
+    controlledInputChange(value: number): void
   }
 }
 
@@ -92,5 +93,23 @@ Cypress.Commands.add(
         })
       )
     })
+  }
+)
+
+Cypress.Commands.add(
+  'controlledInputChange',
+  { prevSubject: 'element' },
+  (element, value) => {
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      'value'
+    ).set
+
+    const changeInputValue = ($range: unknown) => (newValue: number) => {
+      nativeInputValueSetter.call($range[0], newValue)
+      $range[0].dispatchEvent(new Event('change', { bubbles: true }))
+    }
+
+    return cy.get(element).then($input => changeInputValue($input)(value))
   }
 )
