@@ -21,14 +21,13 @@ const IMAGES = [
 ]
 
 export default function Base(): JSX.Element {
-  const { image, setFrame } = useMultiframe(IMAGES)
+  const { image, frame, setFrame } = useMultiframe(IMAGES)
   const isMount = useIsMount()
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
       target: { value },
     } = e
-
     setFrame(Number(value))
   }
 
@@ -42,9 +41,9 @@ export default function Base(): JSX.Element {
           min="0"
           max="10"
           step="1"
-          defaultValue={0}
           onChange={changeFrame}
-          className="frame"
+          className="frame-control"
+          value={frame}
         />
       </Box>
       <Viewer.Dicom imageId={image} Progress={CustomProgress} />
