@@ -12,6 +12,7 @@ import useImageLoader from '../hooks/useImageLoader'
 import useViewportUpdate from '../hooks/useViewportUpdate'
 import { Interaction } from '../hooks/useInteraction/types'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
+import useInitialViewport from '../hooks/useInitialViewport'
 import { SetFrame } from '../hooks/useMultiframe/useFrame'
 import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
 import { DefaultProp } from './const'
@@ -37,6 +38,8 @@ export function DICOMImageViewer({
   const elRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line no-underscore-dangle
   const viewportRef = useRef(viewport)
+  const initialViewporRef = useInitialViewport()
+
   // enable/disable cornerstone.js
   useCornerstone(elRef.current)
   // enable cornerstone.js image loader and load/display image
@@ -50,7 +53,12 @@ export function DICOMImageViewer({
     onViewportChange,
   })
   // update cornerstone viewport when viewport prop changes
-  useViewportUpdate(elRef.current, viewport)
+  useViewportUpdate({
+    element: elRef.current,
+    viewport,
+    initialViewport: initialViewporRef?.current,
+    onViewportChange,
+  })
   // update cornerstone viewport on user interaction
   useViewportInteraction({
     element: elRef.current,
