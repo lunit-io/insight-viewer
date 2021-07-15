@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
+    "@types/cornerstone-core": "^2.3.0",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.3",
     "babel-loader": "^8.2.2",
