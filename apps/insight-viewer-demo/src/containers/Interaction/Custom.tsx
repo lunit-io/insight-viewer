@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
 import Viewer, {
   useInteraction,
@@ -23,7 +23,11 @@ const IMAGE_ID =
 export default function App(): JSX.Element {
   const [{ x, y }, setCoord] = useState({ x: 0, y: 0 })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport: viewerViewport, setViewport } = useViewport({
+  const {
+    viewport: viewerViewport,
+    setViewport,
+    resetViewport,
+  } = useViewport({
     scale: DEFAULT_SCALE,
   })
 
@@ -112,17 +116,23 @@ export default function App(): JSX.Element {
           offset: {x.toFixed(2)} / {y.toFixed(2)}
         </Text>
       </Box>
-      <Box w={500} h={500}>
-        <Viewer.Dicom
-          imageId={IMAGE_ID}
-          interaction={interaction}
-          viewport={viewerViewport}
-          onViewportChange={setViewport}
-          Progress={CustomProgress}
-        >
-          <OverlayLayer viewport={viewerViewport} />
-        </Viewer.Dicom>
-      </Box>
+      <Stack direction="row">
+        <Box w={500} h={500}>
+          <Viewer.Dicom
+            imageId={IMAGE_ID}
+            interaction={interaction}
+            viewport={viewerViewport}
+            onViewportChange={setViewport}
+            Progress={CustomProgress}
+          >
+            <OverlayLayer viewport={viewerViewport} />
+          </Viewer.Dicom>
+        </Box>
+        <Button colorScheme="blue" onClick={resetViewport} className="reset">
+          Reset
+        </Button>
+      </Stack>
+
       <Box w={900}>
         <CodeBlock code={CUSTOM_CODE} />
       </Box>

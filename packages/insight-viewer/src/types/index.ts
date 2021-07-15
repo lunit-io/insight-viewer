@@ -30,6 +30,7 @@ export interface BasicViewport {
 }
 export type Viewport = BasicViewport & {
   _initial?: Partial<BasicViewport>
+  _reset?: Partial<BasicViewport>
 }
 
 export interface HTTP {

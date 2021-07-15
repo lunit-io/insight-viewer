@@ -4,7 +4,10 @@ import {
   loadImage as cornerstoneLoadImage,
 } from '../utils/cornerstoneHelper'
 import getHttpClient from '../utils/httpClient'
-import { loadingProgressMessage } from '../utils/messageService'
+import {
+  loadingProgressMessage,
+  initialViewportMessage,
+} from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
 import {
   Element,
@@ -48,17 +51,18 @@ export default function useImageLoader({
         const image = await cornerstoneLoadImage(imageId, {
           loader: getHttpClient(requestInterceptor),
         })
+        // This is for no content-length gzip image. Normally meaningless.
         loadingProgressMessage.sendMessage(100)
 
-        const { viewport } = displayImage(
+        const { viewport, defaultViewport } = displayImage(
           <HTMLDivElement>element,
           image,
-
           loadCountRef.current === 1
             ? // eslint-disable-next-line no-underscore-dangle
               viewportRef?.current?._initial
             : viewportRef?.current
         )
+        initialViewportMessage.sendMessage(defaultViewport)
 
         if (onViewportChange) {
           onViewportChange(formatViewport(viewport))
@@ -86,5 +90,4 @@ export default function useImageLoader({
     requestInterceptor,
     viewportRef,
   ])
-  return undefined
 }

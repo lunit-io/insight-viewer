@@ -24,6 +24,7 @@ export function displayImage(
   viewportOption?: Partial<Viewport>
 ): {
   viewport: CornerstoneViewport
+  defaultViewport: CornerstoneViewport
   image: CornerstoneImage
 } {
   const defaultViewport = cornerstone.getDefaultViewportForImage(element, image)
@@ -34,6 +35,7 @@ export function displayImage(
 
   return {
     viewport,
+    defaultViewport,
     image,
   }
 }

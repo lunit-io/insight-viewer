@@ -5,10 +5,11 @@ import { DEFAULT_SCALE } from '../../src/containers/Interaction/const'
 describe('Interaction', () => {
   before(() => {
     setup()
+    cy.visit('/interaction')
   })
 
   beforeEach(() => {
-    cy.visit('/interaction')
+    cy.get('.reset').click()
   })
 
   describe('Base Interaction', () => {
