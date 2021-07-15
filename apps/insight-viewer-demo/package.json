@@ -8,8 +8,11 @@
     "export": "ENV=production next export -o ../../out/handbook",
     "start": "next start",
     "doc": "yarn run build && yarn run export",
-    "cypress": "cypress open",
-    "test": "percy exec -- cypress run"
+    "start:server": "yarn build && yarn start",
+    "percy:cypress": "percy exec -- cypress run",
+    "cypress-open": "cypress open",
+    "test": "start-server-and-test start:server 3000 percy:cypress",
+    "cypress": "start-server-and-test start:server 3000 cypress-open"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.0",
@@ -32,6 +35,7 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "cypress": "^7.6.0",
+    "start-server-and-test": "^1.12.6",
     "typescript": "^4.2.4"
   },
   "msw": {
