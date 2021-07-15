@@ -7,6 +7,10 @@ describe('Viewport Viewer', () => {
     cy.visit('/viewport')
   })
 
+  beforeEach(() => {
+    cy.wait(1000)
+  })
+
   it('shows initial viewport', () => {
     cy.percySnapshot()
   })

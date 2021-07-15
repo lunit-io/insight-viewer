@@ -10,6 +10,7 @@ describe('Interaction', () => {
   })
 
   beforeEach(() => {
+    cy.wait(1000)
     cy.get('.reset').click()
   })
 
@@ -28,7 +29,6 @@ describe('Interaction', () => {
           })
 
         cy.percySnapshot()
-        cy.wait(1000)
       })
 
       it('adjust', () => {
@@ -44,7 +44,6 @@ describe('Interaction', () => {
           })
 
         cy.percySnapshot()
-        cy.wait(1000)
       })
 
       it('none', () => {
@@ -60,7 +59,6 @@ describe('Interaction', () => {
           })
 
         cy.percySnapshot()
-        cy.wait(1000)
       })
     })
 
@@ -78,7 +76,6 @@ describe('Interaction', () => {
           })
 
         cy.percySnapshot()
-        cy.wait(1000)
       })
 
       it('adjust', () => {
@@ -94,7 +91,6 @@ describe('Interaction', () => {
           })
 
         cy.percySnapshot()
-        cy.wait(1000)
       })
 
       it('none', () => {
@@ -110,7 +106,6 @@ describe('Interaction', () => {
           })
 
         cy.percySnapshot()
-        cy.wait(1000)
       })
     })
 
@@ -130,7 +125,6 @@ describe('Interaction', () => {
               button: 0,
             })
             cy.percySnapshot()
-            cy.wait(1000)
           })
       })
 
@@ -152,7 +146,6 @@ describe('Interaction', () => {
               button: 0,
             })
             cy.percySnapshot()
-            cy.wait(1000)
           })
       })
     })
@@ -173,7 +166,6 @@ describe('Interaction', () => {
               button: 0,
             })
             cy.percySnapshot()
-            cy.wait(1000)
           })
       })
 
@@ -195,7 +187,6 @@ describe('Interaction', () => {
               button: 0,
             })
             cy.percySnapshot()
-            cy.wait(1000)
           })
       })
     })

@@ -9,6 +9,8 @@ describe('Custom error', () => {
 
   it('shows custom error', () => {
     cy.get('.custom-error').click()
-    cy.percySnapshot()
+    cy.get('.is-mount').then(() => {
+      cy.percySnapshot()
+    })
   })
 })

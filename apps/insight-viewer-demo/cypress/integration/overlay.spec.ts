@@ -8,6 +8,8 @@ describe('Overlay', () => {
   })
 
   it('shows overlay', () => {
-    cy.percySnapshot()
+    cy.get('.is-mount').then(() => {
+      cy.percySnapshot()
+    })
   })
 })

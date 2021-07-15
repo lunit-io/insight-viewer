@@ -7,8 +7,14 @@ describe('Basic Viewer', () => {
     setup()
   })
 
+  beforeEach(() => {
+    cy.wait(1000)
+  })
+
   it('shows initial image', () => {
-    cy.percySnapshot()
+    cy.get('.is-mount').then(() => {
+      cy.percySnapshot()
+    })
   })
 
   it('shows second image', () => {
