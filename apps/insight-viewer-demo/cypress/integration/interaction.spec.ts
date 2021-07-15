@@ -84,38 +84,40 @@ describe('Interaction', () => {
       })
 
       describe('Mousewheel', () => {
-        it('frame', () => {
-          cy.get('.scale')
-            .contains(DEFAULT_SCALE)
-            .then(() => {
-              cy.get('.mousewheel-frame').click()
-              cy.get('.cornerstone-canvas-wrapper')
-                .trigger('mouseover')
-                .mousewheel(1, 5)
-              cy.percySnapshot()
-              cy.wait(1000)
-              cy.get('.cornerstone-canvas-wrapper')
-                .trigger('mouseover')
-                .mousewheel(-1, 2)
-              cy.percySnapshot()
-            })
+        describe('frame', () => {
+          it('next frame', () => {
+            cy.get('.mousewheel-frame').click()
+            cy.get('.cornerstone-canvas-wrapper')
+              .trigger('mouseover')
+              .mousewheel(1, 5)
+            cy.percySnapshot()
+          })
+
+          it('prev frame', () => {
+            cy.get('.mousewheel-frame').click()
+            cy.get('.cornerstone-canvas-wrapper')
+              .trigger('mouseover')
+              .mousewheel(-1, 2)
+            cy.percySnapshot()
+          })
         })
 
-        it('zoom', () => {
-          cy.get('.scale')
-            .contains(DEFAULT_SCALE)
-            .then(() => {
-              cy.get('.mousewheel-zoom').click()
-              cy.get('.cornerstone-canvas-wrapper')
-                .trigger('mouseover')
-                .mousewheel(1, 5)
-              cy.percySnapshot()
-              cy.wait(1000)
-              cy.get('.cornerstone-canvas-wrapper')
-                .trigger('mouseover')
-                .mousewheel(-1, 2)
-              cy.percySnapshot()
-            })
+        describe('scale', () => {
+          it('scale up', () => {
+            cy.get('.mousewheel-zoom').click()
+            cy.get('.cornerstone-canvas-wrapper')
+              .trigger('mouseover')
+              .mousewheel(1, 5)
+            cy.percySnapshot()
+          })
+
+          it('scale down', () => {
+            cy.get('.mousewheel-zoom').click()
+            cy.get('.cornerstone-canvas-wrapper')
+              .trigger('mouseover')
+              .mousewheel(-1, 2)
+            cy.percySnapshot()
+          })
         })
       })
     })
