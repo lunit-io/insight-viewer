@@ -88,7 +88,9 @@ export default function App(): JSX.Element {
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
           <Box mb={6}>
-            <Text className="test">frame: {frame}</Text>
+            <Text className="test">
+              frame: <span className="frame">{frame}</span>
+            </Text>
           </Box>
         </Box>
         <Box>
