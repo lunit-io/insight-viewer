@@ -5,13 +5,6 @@ describe('formatViewport:', () => {
   it('cornerstone viewport should be formatted', () => {
     const viewportData = {
       colormap: undefined,
-      displayedArea: {
-        brhc: { x: 512, y: 512 },
-        columnPixelSpacing: 0.488281,
-        presentationSizeMode: 'NONE',
-        rowPixelSpacing: 0.488281,
-        tlhc: { x: 1, y: 1 },
-      },
       hflip: false,
       invert: false,
       labelmap: false,
@@ -45,13 +38,6 @@ describe('formatViewport:', () => {
 describe('formatCornerstoneViewport:', () => {
   const viewportData = {
     colormap: undefined,
-    displayedArea: {
-      brhc: { x: 512, y: 512 },
-      columnPixelSpacing: 0.488281,
-      presentationSizeMode: 'NONE',
-      rowPixelSpacing: 0.488281,
-      tlhc: { x: 1, y: 1 },
-    },
     hflip: false,
     invert: false,
     labelmap: false,
