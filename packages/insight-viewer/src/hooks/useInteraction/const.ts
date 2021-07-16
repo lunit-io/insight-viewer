@@ -4,7 +4,7 @@ export const DRAG = {
 } as const
 
 export const MOUSE_WHEEL = {
-  zoom: 'zoom',
+  scale: 'scale',
 } as const
 
 export const MOUSE_BUTTON = {

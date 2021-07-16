@@ -112,7 +112,7 @@ describe(
 
           describe('scale', () => {
             it('scale up', () => {
-              cy.get('.mousewheel-zoom').click()
+              cy.get('.mousewheel-scale').click()
               cy.get('.cornerstone-canvas-wrapper')
                 .trigger('mouseover')
                 .mousewheel(1, 5)
@@ -120,7 +120,7 @@ describe(
             })
 
             it('scale down', () => {
-              cy.get('.mousewheel-zoom').click()
+              cy.get('.mousewheel-scale').click()
               cy.get('.cornerstone-canvas-wrapper')
                 .trigger('mouseover')
                 .mousewheel(-1, 2)

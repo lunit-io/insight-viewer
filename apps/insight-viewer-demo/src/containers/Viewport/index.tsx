@@ -174,7 +174,7 @@ export default function App(): JSX.Element {
             </HStack>
             <HStack spacing="24px">
               <Box>
-                <Box>zoom</Box>
+                <Box>scale</Box>
                 <Box>
                   <input
                     type="range"
@@ -189,7 +189,7 @@ export default function App(): JSX.Element {
                         scale: Number(e.target.value),
                       }))
                     }}
-                    className="zoom"
+                    className="scale"
                     value={viewport.scale}
                   />
                 </Box>

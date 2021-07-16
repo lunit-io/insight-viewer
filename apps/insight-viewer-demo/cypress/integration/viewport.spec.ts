@@ -49,7 +49,7 @@ describe(
     })
 
     it('shows zoomed viewport', () => {
-      cy.get('.zoom').invoke('val', 2).trigger('change')
+      cy.get('.scale').invoke('val', 2).trigger('change')
       cy.percySnapshot()
     })
 
@@ -67,7 +67,7 @@ describe(
       cy.get('.invert').click()
       cy.get('.vflip').click()
       cy.get('.x-transition').invoke('val', 60).trigger('change')
-      cy.get('.zoom').invoke('val', 0.7).trigger('change')
+      cy.get('.scale').invoke('val', 0.7).trigger('change')
       cy.get('.window-width').invoke('val', 160).trigger('change')
       cy.get('.window-center').invoke('val', 51).trigger('change')
       cy.percySnapshot()
