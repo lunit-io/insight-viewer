@@ -1,5 +1,7 @@
-name: E2E on Chrome
+name: Test
 on: push
+  branches:
+    - release
 jobs:
   test:
     runs-on: ubuntu-latest
