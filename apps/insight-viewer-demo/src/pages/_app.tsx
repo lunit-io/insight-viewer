@@ -9,7 +9,9 @@ import '../styles/globals.css'
 if (typeof window !== 'undefined') {
   const { worker } = require('../mocks/browser')
 
-  worker.start()
+  worker.start({
+    onUnhandledRequest: 'bypass',
+  })
 }
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

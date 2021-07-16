@@ -2,7 +2,7 @@ export const CODE = `\
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { viewport, setViewport } = useViewport({
+  const { viewport, setViewport, resetViewport } = useViewport({
     scale: 0.5,
     windowWidth: 90,
     windowCenter: 32,
@@ -67,6 +67,7 @@ export default function App() {
   return (
     <>
       <button type="button" onClick={updateViewport}>update viewport</button>
+      <button type="button" onClick={resetViewport}>reset viewport</button>
       <Viewer.Dicom
         imageId={IMAGE_ID}
         viewport={viewport}

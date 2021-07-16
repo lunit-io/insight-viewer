@@ -52,7 +52,7 @@ export default function App() {
 
   const handler = {
     frame: handleFrame,
-    zoom: handleZoom,
+    scale: handleZoom,
   }
 
   function handleWheelChange(e) {
@@ -72,7 +72,7 @@ export default function App() {
       <input type="radio" value="adjust" onChange={handleSecondaryDrag} />
       <input type="radio" value="none" onChange={handleWheelChange} />
       <input type="radio" value="frame" onChange={handleWheelChange} />
-      <input type="radio" value="zoom" onChange={handleWheelChange} />
+      <input type="radio" value="scale" onChange={handleWheelChange} />
       <Viewer.Dicom
         imageId={IMAGE_ID}
         interaction={interaction}

@@ -21,7 +21,10 @@ const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 export default function App(): JSX.Element {
-  const [{ x, y }, setCoord] = useState({ x: 0, y: 0 })
+  const [{ x, y }, setCoord] = useState<{
+    x: number | undefined
+    y: number | undefined
+  }>({ x: undefined, y: undefined })
   const { interaction, setInteraction } = useInteraction()
   const {
     viewport: viewerViewport,
@@ -111,11 +114,15 @@ export default function App(): JSX.Element {
     <Box w={700}>
       <Control onChange={handleDrag} />
       <ClickControl onChange={handleClick} />
-      <Box mb={6}>
-        <Text>
-          offset: {x.toFixed(2)} / {y.toFixed(2)}
-        </Text>
-      </Box>
+      {typeof x === 'number' && typeof y === 'number' && (
+        <Box mb={6}>
+          <Text>
+            offset: <span className="click-x">{x.toFixed(2)}</span> /{' '}
+            <span className="click-y">{y.toFixed(2)}</span>
+          </Text>
+        </Box>
+      )}
+
       <Stack direction="row">
         <Box w={500} h={500}>
           <Viewer.Dicom

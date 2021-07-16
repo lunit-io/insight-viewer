@@ -3,7 +3,7 @@ import { Box, RadioGroup, Radio, Stack, HStack } from '@chakra-ui/react'
 export default function Wheel({
   onChange,
 }: {
-  onChange: (value: 'frame' | 'zoom' | 'none') => void
+  onChange: (value: 'frame' | 'scale' | 'none') => void
 }): JSX.Element {
   return (
     <Box mb={6}>
@@ -18,8 +18,8 @@ export default function Wheel({
               <Radio value="frame" className="mousewheel-frame">
                 frame
               </Radio>
-              <Radio value="zoom" className="mousewheel-zoom">
-                zoom
+              <Radio value="scale" className="mousewheel-scale">
+                scale
               </Radio>
             </Stack>
           </RadioGroup>

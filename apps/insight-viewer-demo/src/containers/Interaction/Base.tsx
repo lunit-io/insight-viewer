@@ -57,7 +57,7 @@ export default function App(): JSX.Element {
       )
   }
 
-  const handleZoom: Wheel = (_, deltaY) => {
+  const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
       setViewport(prev => ({
         ...prev,
@@ -70,7 +70,7 @@ export default function App(): JSX.Element {
 
   const handler = {
     frame: handleFrame,
-    zoom: handleZoom,
+    scale: handleScale,
   }
 
   function handleWheel(value: string) {
@@ -88,7 +88,9 @@ export default function App(): JSX.Element {
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
           <Box mb={6}>
-            <Text className="test">frame: {frame}</Text>
+            <Text className="test">
+              frame: <span className="frame">{frame}</span>
+            </Text>
           </Box>
         </Box>
         <Box>
