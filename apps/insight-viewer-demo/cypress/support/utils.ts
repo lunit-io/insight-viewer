@@ -10,3 +10,30 @@ export function setup(): void {
     return false
   })
 }
+
+export function getCurrentWindowWidth(x: number, windowWidth?: number): number {
+  const ww =
+    typeof windowWidth !== 'undefined'
+      ? windowWidth
+      : Number(Cypress.$('.windowWidth').text())
+  return ww + x / Number(Cypress.$('.scale').text())
+}
+
+export function getCurrentWindowCenter(
+  y: number,
+  windowCenter?: number
+): number {
+  const wc =
+    typeof windowCenter !== 'undefined'
+      ? windowCenter
+      : Number(Cypress.$('.windowCenter').text())
+  return wc + y / Number(Cypress.$('.scale').text())
+}
+
+export function getCurrentX(x: number): number {
+  return Number(Cypress.$('.x').text()) + x / Number(Cypress.$('.scale').text())
+}
+
+export function getCurrentY(y: number): number {
+  return Number(Cypress.$('.y').text()) + y / Number(Cypress.$('.scale').text())
+}

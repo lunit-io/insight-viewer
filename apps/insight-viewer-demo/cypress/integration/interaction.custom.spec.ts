@@ -1,5 +1,11 @@
 import '@percy/cypress'
-import { setup } from '../support/utils'
+import {
+  setup,
+  getCurrentX,
+  getCurrentY,
+  getCurrentWindowWidth,
+  getCurrentWindowCenter,
+} from '../support/utils'
 import { DEFAULT_SCALE } from '../../src/containers/Interaction/const'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
 
@@ -18,75 +24,144 @@ describe(
     })
 
     beforeEach(() => {
-      cy.wait(1000)
       cy.get('.reset').click()
     })
 
     describe('Custom Interaction', () => {
       describe('Primary Drag', () => {
         it('pan', () => {
+          const value = {
+            x: 200,
+            y: -50,
+          }
+
           cy.get('.scale')
             .contains(DEFAULT_SCALE)
             .then(() => {
               cy.get('.primary-drag-pan').click()
               cy.get('.cornerstone-canvas-wrapper').dragCanvas({
-                x: 200,
-                y: -50,
+                x: value.x,
+                y: value.y,
                 button: 0,
               })
+              cy.get('.x').should('have.text', getCurrentX(value.x).toFixed(2))
+              cy.get('.y').should('have.text', getCurrentY(value.y).toFixed(2))
               cy.percySnapshot()
             })
         })
 
         it('adjust', () => {
+          const value = {
+            x: 10,
+            y: 250,
+          }
+
           cy.get('.primary-drag-adjust').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
-            x: -100,
-            y: 250,
+            x: value.x,
+            y: value.y,
             button: 0,
           })
+          cy.get('.windowWidth').should(
+            'have.text',
+            getCurrentWindowWidth(value.x).toFixed(2)
+          )
+          cy.get('.windowCenter').should(
+            'have.text',
+            getCurrentWindowCenter(value.y).toFixed(2)
+          )
           cy.percySnapshot()
         })
 
         it('none', () => {
-          cy.get('.primary-drag-none').click()
-          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+          const value = {
             x: 250,
             y: 350,
+          }
+          const origX = Cypress.$('.windowWidth').text()
+          const origY = Cypress.$('.windowCenter').text()
+
+          cy.get('.primary-drag-none').click()
+          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+            x: value.x,
+            y: value.y,
             button: 0,
           })
+          cy.get('.windowWidth').should(
+            'have.text',
+            getCurrentWindowWidth(0, Number(origX)).toFixed(2)
+          )
+          cy.get('.windowCenter').should(
+            'have.text',
+            getCurrentWindowCenter(0, Number(origY)).toFixed(2)
+          )
           cy.percySnapshot()
         })
       })
 
       describe('Secondary Drag', () => {
         it('pan', () => {
-          cy.get('.secondary-drag-pan').click()
-          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+          const value = {
             x: 50,
             y: 180,
+          }
+
+          cy.get('.secondary-drag-pan').click()
+          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+            x: value.x,
+            y: value.y,
             button: 2,
           })
+          cy.get('.x').should('have.text', getCurrentY(value.x).toFixed(2))
+          cy.get('.y').should('have.text', getCurrentY(value.y).toFixed(2))
           cy.percySnapshot()
         })
 
         it('adjust', () => {
-          cy.get('.secondary-drag-adjust').click()
-          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+          const value = {
             x: 250,
             y: 400,
+          }
+
+          cy.get('.secondary-drag-adjust').click()
+          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+            x: value.x,
+            y: value.y,
             button: 2,
           })
+          cy.get('.windowWidth').should(
+            'have.text',
+            getCurrentWindowWidth(value.x).toFixed(2)
+          )
+          cy.get('.windowCenter').should(
+            'have.text',
+            getCurrentWindowCenter(value.y).toFixed(2)
+          )
           cy.percySnapshot()
         })
 
         it('none', () => {
-          cy.get('.secondary-drag-none').click()
-          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+          const value = {
             x: -50,
             y: -30,
+          }
+          const origX = Cypress.$('.windowWidth').text()
+          const origY = Cypress.$('.windowCenter').text()
+
+          cy.get('.secondary-drag-none').click()
+          cy.get('.cornerstone-canvas-wrapper').dragCanvas({
+            x: value.x,
+            y: value.y,
             button: 0,
           })
+          cy.get('.windowWidth').should(
+            'have.text',
+            getCurrentWindowWidth(0, Number(origX)).toFixed(2)
+          )
+          cy.get('.windowCenter').should(
+            'have.text',
+            getCurrentWindowCenter(0, Number(origY)).toFixed(2)
+          )
           cy.percySnapshot()
         })
       })
@@ -103,6 +178,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
+          cy.get('.click-x').should('be.visible')
+          cy.get('.click-y').should('be.visible')
           cy.percySnapshot()
         })
 
@@ -120,6 +197,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
+          cy.get('.click-x').should('be.visible')
+          cy.get('.click-y').should('be.visible')
           cy.percySnapshot()
         })
       })
@@ -136,6 +215,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
+          cy.get('.click-x').should('be.visible')
+          cy.get('.click-y').should('be.visible')
           cy.percySnapshot()
         })
 
@@ -153,6 +234,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
+          cy.get('.click-x').should('be.visible')
+          cy.get('.click-y').should('be.visible')
           cy.percySnapshot()
         })
       })
