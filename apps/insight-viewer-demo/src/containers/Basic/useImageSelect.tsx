@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Stack, Button } from '@chakra-ui/react'
+import { Stack, Button, Text } from '@chakra-ui/react'
 
 const IMAGES = {
   image1:
@@ -49,6 +49,9 @@ export default function useImageSelect(): {
         >
           image 3
         </Button>
+        <Text pt={2}>
+          selected: <span className="image">{selected}</span>
+        </Text>
       </Stack>
     )
   }

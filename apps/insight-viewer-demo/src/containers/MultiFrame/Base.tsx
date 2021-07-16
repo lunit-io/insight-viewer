@@ -46,6 +46,9 @@ export default function Base(): JSX.Element {
           value={frame}
         />
       </Box>
+      <div>
+        frame: <span className="frame-number">{frame}</span>
+      </div>
       <Viewer.Dicom imageId={image} Progress={CustomProgress} />
       <Box w={900}>
         <CodeBlock code={CODE} />

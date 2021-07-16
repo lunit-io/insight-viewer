@@ -6,6 +6,7 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { CODE } from './Code'
 import useIsMount from '../../hooks/useIsMount'
+import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -14,21 +15,14 @@ const IMAGE_ID2 =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
 
 export default function App(): JSX.Element {
-  const { viewport, setViewport, resetViewport } = useViewport({
-    scale: 0.5,
-    windowWidth: 90,
-    windowCenter: 32,
-  })
+  const { viewport, setViewport, resetViewport } =
+    useViewport(INITIAL_VIEWPORT1)
 
   const {
     viewport: viewport2,
     setViewport: setViewport2,
     resetViewport: resetViewport2,
-  } = useViewport({
-    scale: 1,
-    windowWidth: 150,
-    windowCenter: 50,
-  })
+  } = useViewport(INITIAL_VIEWPORT2)
 
   const isMount = useIsMount()
 
@@ -82,7 +76,7 @@ export default function App(): JSX.Element {
           <Box mb={6}>
             <HStack spacing="24px" mt={3}>
               <Box>
-                <Box>x transition</Box>
+                <Box>x transition {viewport.x}</Box>
                 <Box>
                   <input
                     type="range"
@@ -97,13 +91,13 @@ export default function App(): JSX.Element {
                         x: Number(e.target.value),
                       }))
                     }}
-                    className="x-transition"
+                    className="x-control"
                     value={viewport.x}
                   />
                 </Box>
               </Box>
               <Box>
-                <Box>y transition</Box>
+                <Box>y transition {viewport.y}</Box>
                 <Box>
                   <input
                     type="range"
@@ -118,55 +112,59 @@ export default function App(): JSX.Element {
                         y: Number(e.target.value),
                       }))
                     }}
-                    className="y-transition"
+                    className="y-control"
                     value={viewport.y}
                   />
                 </Box>
               </Box>
-              <Button colorScheme="blue" onClick={handleFirstReset}>
+              <Button
+                colorScheme="blue"
+                onClick={handleFirstReset}
+                className="reset"
+              >
                 Reset
               </Button>
             </HStack>
 
             <HStack spacing="24px" mt={3}>
               <Box>
-                <Box>windowWidth</Box>
+                <Box>windowWidth {viewport.windowWidth}</Box>
                 <Box>
                   <input
                     type="range"
                     id="windowWidth"
                     name="windowWidth"
-                    min="9"
-                    max="171"
-                    step="9"
+                    min="0"
+                    max="300"
+                    step="10"
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
                         windowWidth: Number(e.target.value),
                       }))
                     }}
-                    className="window-width"
+                    className="window-width-control"
                     value={viewport.windowWidth}
                   />
                 </Box>
               </Box>
               <Box>
-                <Box>windowCenter</Box>
+                <Box>windowCenter {viewport.windowCenter}</Box>
                 <Box>
                   <input
                     type="range"
                     id="windowCenter"
                     name="windowCenter"
-                    min="-48"
-                    max="112"
-                    step="16"
+                    min="0"
+                    max="300"
+                    step="10"
                     onChange={e => {
                       setViewport(prev => ({
                         ...prev,
                         windowCenter: Number(e.target.value),
                       }))
                     }}
-                    className="window-center"
+                    className="window-center-control"
                     value={viewport.windowCenter}
                   />
                 </Box>
@@ -174,7 +172,7 @@ export default function App(): JSX.Element {
             </HStack>
             <HStack spacing="24px">
               <Box>
-                <Box>scale</Box>
+                <Box>scale {viewport.scale}</Box>
                 <Box>
                   <input
                     type="range"
@@ -189,7 +187,7 @@ export default function App(): JSX.Element {
                         scale: Number(e.target.value),
                       }))
                     }}
-                    className="scale"
+                    className="scale-control"
                     value={viewport.scale}
                   />
                 </Box>
@@ -203,7 +201,7 @@ export default function App(): JSX.Element {
                       invert: e.target.checked,
                     })
                   }
-                  className="invert"
+                  className="invert-control"
                   isChecked={viewport.invert}
                 />
               </Box>
@@ -216,7 +214,7 @@ export default function App(): JSX.Element {
                       hflip: e.target.checked,
                     })
                   }
-                  className="hflip"
+                  className="hflip-control"
                   isChecked={viewport.hflip}
                 />
               </Box>
@@ -229,7 +227,7 @@ export default function App(): JSX.Element {
                       vflip: e.target.checked,
                     }))
                   }
-                  className="vflip"
+                  className="vflip-control"
                   isChecked={viewport.vflip}
                 />
               </Box>
@@ -238,7 +236,7 @@ export default function App(): JSX.Element {
           <Box mb={6}>
             <HStack spacing="24px">
               <Box>
-                <Box>x transition</Box>
+                <Box>x transition {viewport2.x}</Box>
                 <Box>
                   <input
                     type="range"
@@ -253,13 +251,13 @@ export default function App(): JSX.Element {
                         x: Number(e.target.value),
                       }))
                     }}
-                    className="x-transition2"
+                    className="x-control2"
                     value={viewport2.x}
                   />
                 </Box>
               </Box>
               <Box>
-                <Box>y transition</Box>
+                <Box>y transition {viewport2.y}</Box>
                 <Box>
                   <input
                     type="range"
@@ -274,12 +272,16 @@ export default function App(): JSX.Element {
                         y: Number(e.target.value),
                       }))
                     }}
-                    className="y-transition2"
+                    className="y-control2"
                     value={viewport2.y}
                   />
                 </Box>
               </Box>
-              <Button colorScheme="blue" onClick={handleSecondReset}>
+              <Button
+                colorScheme="blue"
+                onClick={handleSecondReset}
+                className="reset2"
+              >
                 Reset
               </Button>
             </HStack>
@@ -293,7 +295,7 @@ export default function App(): JSX.Element {
         </Box>
         <Box className={isMount ? 'is-mount' : ''}>
           <HStack spacing="24px">
-            <Box w={500} h={500}>
+            <Box w={500} h={500} className="viewer1">
               <Viewer.Dicom
                 imageId={IMAGE_ID}
                 viewport={viewport}
@@ -303,7 +305,7 @@ export default function App(): JSX.Element {
                 <OverlayLayer viewport={viewport} />
               </Viewer.Dicom>
             </Box>
-            <Box w={500} h={500}>
+            <Box w={500} h={500} className="viewer2">
               <Viewer.Dicom
                 imageId={IMAGE_ID2}
                 viewport={viewport2}
