@@ -7,9 +7,13 @@ const LineStyle = {
   backgroundColor: '#4A5568',
 } as const
 
-export function HamburgerButton(): JSX.Element {
+export function HamburgerButton({
+  onClick,
+}: {
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+}): JSX.Element {
   return (
-    <Button variant="unstyled">
+    <Button variant="unstyled" onClick={onClick} zIndex={20}>
       <Flex align="center" justify="center" direction="column">
         <div style={LineStyle} />
         <div style={LineStyle} />

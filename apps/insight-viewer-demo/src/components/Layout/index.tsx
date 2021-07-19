@@ -5,7 +5,7 @@ import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithChildren } from '../../types'
 import { LINKS } from '../Nav/const'
-import { HamburgerButton } from '../Button'
+import MobileNavigation from './MobileNavigation'
 import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const SIDE_WIDTH = '240px'
@@ -45,7 +45,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
                 <Logo h="1.5rem" pointerEvents="none" />
               </NextChakraLink>
               <Spacer />
-              {isOneColumn && <HamburgerButton />}
+              {isOneColumn && <MobileNavigation />}
             </Flex>
             {!isOneColumn && (
               <Box>
@@ -62,9 +62,11 @@ export default function Layout({ children }: WithChildren): JSX.Element {
       </header>
       <ResponsiveBox isOneColumnLayout={isOneColumn}>
         <Flex>
-          <Box width={isOneColumn ? 'auto' : SIDE_WIDTH}>
-            <Nav />
-          </Box>
+          {!isOneColumn && (
+            <Box width={isOneColumn ? 'auto' : SIDE_WIDTH}>
+              <Nav />
+            </Box>
+          )}
           <Box w="100%">{children}</Box>
         </Flex>
       </ResponsiveBox>
