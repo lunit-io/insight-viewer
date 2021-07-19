@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import Viewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 
 const IMAGE_ID =
@@ -9,10 +10,10 @@ const IMAGE_ID =
 export default function Base(): JSX.Element {
   return (
     <>
-      <Box mb={6}>
+      <ViewerWrapper>
         <Viewer.Dicom imageId={IMAGE_ID} />
-      </Box>
-      <Box w={700}>
+      </ViewerWrapper>
+      <Box>
         <CodeBlock code={BASE_CODE} />
       </Box>
     </>

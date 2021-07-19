@@ -18,8 +18,12 @@ export default function ErrorTabs(): JSX.Element {
       </TabList>
 
       <TabPanels>
-        <TabPanel>{active === 0 && <Base />}</TabPanel>
-        <TabPanel>{active === 1 && <Custom />}</TabPanel>
+        <TabPanel p={0} pt={6}>
+          {active === 0 && <Base />}
+        </TabPanel>
+        <TabPanel p={0} pt={6}>
+          {active === 1 && <Custom />}
+        </TabPanel>
       </TabPanels>
     </Tabs>
   )

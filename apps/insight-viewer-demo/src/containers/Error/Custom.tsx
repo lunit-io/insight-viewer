@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Box, Text } from '@chakra-ui/react'
 import Viewer, { ViewerError } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
 
 const IMAGE_ID =
@@ -16,11 +17,11 @@ export default function Custom(): JSX.Element {
 
   return (
     <>
-      <Box mb={6}>
+      <ViewerWrapper>
         <Viewer.Dicom imageId={IMAGE_ID} onError={customError} />
-      </Box>
+      </ViewerWrapper>
       <Text>{error}</Text>
-      <Box w={800}>
+      <Box>
         <CodeBlock code={CUSTOM_CODE} />
       </Box>
     </>

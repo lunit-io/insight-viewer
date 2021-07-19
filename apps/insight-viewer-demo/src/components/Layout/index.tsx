@@ -1,14 +1,27 @@
-import { Flex, Heading, Box, Grid, GridItem, HStack } from '@chakra-ui/react'
+import { Flex, Heading, Box, HStack, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Logo } from '../Logo'
 import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithChildren } from '../../types'
 import { LINKS } from '../Nav/const'
+import { HamburgerButton } from '../Button'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
+
+const SIDE_WIDTH = '240px'
+
+function ResponsiveBox({
+  isOneColumnLayout,
+  children,
+}: WithChildren<{
+  isOneColumnLayout: boolean
+}>): JSX.Element {
+  return <Box pt={isOneColumnLayout ? 4 : 6}>{children}</Box>
+}
 
 export default function Layout({ children }: WithChildren): JSX.Element {
   const router = useRouter()
-
+  const isOneColumn = useIsOneColumn()
   const title = LINKS.filter(
     link => link.href === router.pathname.slice(1)
   )?.[0]?.name
@@ -22,32 +35,39 @@ export default function Layout({ children }: WithChildren): JSX.Element {
       flexDirection="column"
     >
       <header>
-        <Box p="6">
-          <Grid templateColumns="repeat(5, 1fr)">
-            <GridItem colSpan={1}>
-              <NextChakraLink href="/">
+        <ResponsiveBox isOneColumnLayout={isOneColumn}>
+          <Flex direction={isOneColumn ? 'column' : 'row'}>
+            <Flex
+              width={isOneColumn ? '100%' : SIDE_WIDTH}
+              pt={isOneColumn ? 0 : 2}
+            >
+              <NextChakraLink href="/" pt="6px">
                 <Logo h="1.5rem" pointerEvents="none" />
               </NextChakraLink>
-            </GridItem>
-            <GridItem colSpan={4}>
-              <HStack>
-                <Heading as="h1" size="md">
-                  @lunit/insight-viewer-demo /
-                </Heading>
-                <Heading as="h2">{title}</Heading>
-              </HStack>
-            </GridItem>
-          </Grid>
-        </Box>
+              <Spacer />
+              {isOneColumn && <HamburgerButton />}
+            </Flex>
+            {!isOneColumn && (
+              <Box>
+                <HStack>
+                  <Heading as="h1" size="md">
+                    @lunit/insight-viewer-demo /
+                  </Heading>
+                  <Heading as="h2">{title}</Heading>
+                </HStack>
+              </Box>
+            )}
+          </Flex>
+        </ResponsiveBox>
       </header>
-      <Box p="6">
-        <Grid templateColumns="repeat(5, 1fr)">
-          <GridItem colSpan={1}>
+      <ResponsiveBox isOneColumnLayout={isOneColumn}>
+        <Flex>
+          <Box width={isOneColumn ? 'auto' : SIDE_WIDTH}>
             <Nav />
-          </GridItem>
-          <GridItem colSpan={4}>{children}</GridItem>
-        </Grid>
-      </Box>
+          </Box>
+          <Box w="100%">{children}</Box>
+        </Flex>
+      </ResponsiveBox>
     </Flex>
   )
 }

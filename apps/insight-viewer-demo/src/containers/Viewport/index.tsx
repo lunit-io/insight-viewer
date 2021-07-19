@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
-import { Box, Text, HStack, Switch, Button } from '@chakra-ui/react'
+import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
 import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -16,6 +18,7 @@ const IMAGE_ID2 =
 export default function App(): JSX.Element {
   const { viewport, setViewport, resetViewport } =
     useViewport(INITIAL_VIEWPORT1)
+  const isOneColumn = useIsOneColumn()
 
   const {
     viewport: viewport2,
@@ -68,10 +71,14 @@ export default function App(): JSX.Element {
 
   return (
     <>
-      <Box w={1100}>
-        <HStack spacing="110px" align="flex-start">
+      <Box>
+        <Stack align="flex-start" spacing={isOneColumn ? '20px' : '20px'}>
           <Box mb={6}>
-            <HStack spacing="24px" mt={3}>
+            <Stack
+              spacing="24px"
+              mt={3}
+              direction={isOneColumn ? 'column' : 'row'}
+            >
               <Box>
                 <Box>x transition {viewport.x}</Box>
                 <Box>
@@ -121,9 +128,13 @@ export default function App(): JSX.Element {
               >
                 Reset
               </Button>
-            </HStack>
+            </Stack>
 
-            <HStack spacing="24px" mt={3}>
+            <Stack
+              spacing="24px"
+              mt={3}
+              direction={isOneColumn ? 'column' : 'row'}
+            >
               <Box>
                 <Box>windowWidth {viewport.windowWidth}</Box>
                 <Box>
@@ -166,8 +177,6 @@ export default function App(): JSX.Element {
                   />
                 </Box>
               </Box>
-            </HStack>
-            <HStack spacing="24px">
               <Box>
                 <Box>scale {viewport.scale}</Box>
                 <Box>
@@ -189,6 +198,12 @@ export default function App(): JSX.Element {
                   />
                 </Box>
               </Box>
+            </Stack>
+            <Stack
+              spacing="24px"
+              direction={isOneColumn ? 'column' : 'row'}
+              mt={6}
+            >
               <Box>
                 invert{' '}
                 <Switch
@@ -228,10 +243,13 @@ export default function App(): JSX.Element {
                   isChecked={viewport.vflip}
                 />
               </Box>
-            </HStack>
+            </Stack>
           </Box>
           <Box mb={6}>
-            <HStack spacing="24px">
+            <Stack
+              spacing={isOneColumn ? '20px' : '24px'}
+              direction={isOneColumn ? 'column' : 'row'}
+            >
               <Box>
                 <Box>x transition {viewport2.x}</Box>
                 <Box>
@@ -281,9 +299,9 @@ export default function App(): JSX.Element {
               >
                 Reset
               </Button>
-            </HStack>
+            </Stack>
           </Box>
-        </HStack>
+        </Stack>
 
         <Box mb={6}>
           <Text fontSize="md" color="red.500">
@@ -291,8 +309,11 @@ export default function App(): JSX.Element {
           </Text>
         </Box>
         <Box>
-          <HStack spacing="24px">
-            <Box w={500} h={500} className="viewer1">
+          <Stack
+            direction={isOneColumn ? 'column' : 'row'}
+            spacing={isOneColumn ? '100px' : '24px'}
+          >
+            <ViewerWrapper data-viewer="viewer1">
               <Viewer.Dicom
                 imageId={IMAGE_ID}
                 viewport={viewport}
@@ -301,8 +322,8 @@ export default function App(): JSX.Element {
               >
                 <OverlayLayer viewport={viewport} />
               </Viewer.Dicom>
-            </Box>
-            <Box w={500} h={500} className="viewer2">
+            </ViewerWrapper>
+            <ViewerWrapper data-viewer="viewer2">
               <Viewer.Dicom
                 imageId={IMAGE_ID2}
                 viewport={viewport2}
@@ -311,11 +332,11 @@ export default function App(): JSX.Element {
               >
                 <OverlayLayer viewport={viewport2} />
               </Viewer.Dicom>
-            </Box>
-          </HStack>
+            </ViewerWrapper>
+          </Stack>
         </Box>
 
-        <Box w={900}>
+        <Box>
           <CodeBlock code={CODE} />
         </Box>
       </Box>
