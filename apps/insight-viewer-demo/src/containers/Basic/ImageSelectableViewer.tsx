@@ -3,7 +3,7 @@ import Viewer from '@lunit/insight-viewer'
 import useImageSelect from './useImageSelect'
 import CustomProgress from '../../components/CustomProgress'
 
-export default function SelectableImage(): JSX.Element {
+export default function ImageSelectableViewer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
 
   return (
