@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react'
 import { Viewport, BasicViewport } from '../types'
 import { DefaultViewport } from '../const'

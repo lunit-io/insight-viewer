@@ -58,8 +58,7 @@ export default function useImageLoader({
           <HTMLDivElement>element,
           image,
           loadCountRef.current === 1
-            ? // eslint-disable-next-line no-underscore-dangle
-              viewportRef?.current?._initial
+            ? viewportRef?.current?._initial
             : viewportRef?.current
         )
         initialViewportMessage.sendMessage(defaultViewport)

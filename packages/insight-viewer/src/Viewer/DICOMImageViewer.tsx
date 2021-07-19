@@ -36,7 +36,6 @@ export function DICOMImageViewer({
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  // eslint-disable-next-line no-underscore-dangle
   const viewportRef = useRef(viewport)
   const initialViewporRef = useInitialViewport()
 
