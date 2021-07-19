@@ -27,7 +27,7 @@ const Forwarded = forwardRef<
 })
 
 const ViewerWrapper = React.memo(Forwarded)
-// for eslintr(eact/display-name)
+// for eslintrc(eact/display-name)
 Forwarded.displayName = 'Forwarded'
 ViewerWrapper.displayName = 'ViewerWrapper'
 

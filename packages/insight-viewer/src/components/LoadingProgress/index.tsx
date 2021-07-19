@@ -18,21 +18,24 @@ export default function LoadingProgress({
 }: {
   Progress: ProgressComponent
 }): JSX.Element {
-  const [{ progress, hidden }, setState] = useState<{
+  const [{ progress, hidden, initialized }, setState] = useState<{
     progress?: number
     hidden: boolean
+    initialized: boolean
   }>({
     progress: undefined,
     hidden: true,
+    initialized: false,
   })
 
   useEffect(() => {
     subscription = loadingProgressMessage
       .getMessage()
-      .subscribe((message: number) => {
+      .subscribe(({ message, loaded }) => {
         setState(prev => ({
           ...prev,
           progress: message,
+          initialized: loaded || false,
         }))
       })
 
@@ -42,16 +45,25 @@ export default function LoadingProgress({
   }, [])
 
   useEffect(() => {
-    if (progress === 100) {
+    if (initialized) {
       setState(prev => ({ ...prev, hidden: true }))
     }
 
     if (progress === 0) {
       setState(prev => ({ ...prev, hidden: false }))
     }
-  }, [progress])
+  }, [progress, initialized])
+
+  const className = [!hidden ? 'loading' : '', initialized ? 'initialized' : '']
+    .join(' ')
+    .trim()
 
   return (
-    <div style={style}>{!hidden && <Progress progress={progress ?? 0} />}</div>
+    <div
+      style={style}
+      className={className} // For Cypress test.
+    >
+      {!hidden && <Progress progress={progress ?? 0} />}
+    </div>
   )
 }

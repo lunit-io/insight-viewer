@@ -51,8 +51,6 @@ export default function useImageLoader({
         const image = await cornerstoneLoadImage(imageId, {
           loader: getHttpClient(requestInterceptor),
         })
-        // This is for no content-length gzip image. Normally meaningless.
-        loadingProgressMessage.sendMessage(100)
 
         const { viewport, defaultViewport } = displayImage(
           <HTMLDivElement>element,
@@ -61,6 +59,8 @@ export default function useImageLoader({
             ? viewportRef?.current?._initial
             : viewportRef?.current
         )
+        // This is for no content-length gzip image. At this time, Viewport has been initialized.
+        loadingProgressMessage.sendMessage(100, true)
         initialViewportMessage.sendMessage(defaultViewport)
 
         if (onViewportChange) {

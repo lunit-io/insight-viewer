@@ -1,8 +1,14 @@
 import { Observable, Subject } from 'rxjs'
 
-const subject = new Subject<number>()
+interface Message {
+  message: number
+  loaded?: boolean
+}
+
+const subject = new Subject<Message>()
 
 export const loadingProgressMessage = {
-  sendMessage: (message: number): void => subject.next(message),
-  getMessage: (): Observable<number> => subject.asObservable(),
+  sendMessage: (message: number, loaded = false): void =>
+    subject.next({ message, loaded }),
+  getMessage: (): Observable<Message> => subject.asObservable(),
 }
