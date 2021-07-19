@@ -5,7 +5,6 @@ import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { CODE } from './Code'
-import useIsMount from '../../hooks/useIsMount'
 import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
 
 const IMAGE_ID =
@@ -23,8 +22,6 @@ export default function App(): JSX.Element {
     setViewport: setViewport2,
     resetViewport: resetViewport2,
   } = useViewport(INITIAL_VIEWPORT2)
-
-  const isMount = useIsMount()
 
   function handleFirstReset() {
     resetViewport()
@@ -293,7 +290,7 @@ export default function App(): JSX.Element {
             Move image with w,a,s,d keys
           </Text>
         </Box>
-        <Box className={isMount ? 'is-mount' : ''}>
+        <Box>
           <HStack spacing="24px">
             <Box w={500} h={500} className="viewer1">
               <Viewer.Dicom

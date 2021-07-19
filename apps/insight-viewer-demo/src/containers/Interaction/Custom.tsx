@@ -15,7 +15,6 @@ import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { CUSTOM_CODE } from './Code'
-import { DEFAULT_SCALE } from './const'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -31,7 +30,7 @@ export default function App(): JSX.Element {
     setViewport,
     resetViewport,
   } = useViewport({
-    scale: DEFAULT_SCALE,
+    scale: 1,
   })
 
   const customPan: Drag = ({ viewport, delta }) => {

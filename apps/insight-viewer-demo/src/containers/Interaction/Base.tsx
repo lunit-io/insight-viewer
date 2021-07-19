@@ -13,7 +13,6 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-import { DEFAULT_SCALE } from './const'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -38,7 +37,7 @@ export default function App(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport, resetViewport } = useViewport({
-    scale: DEFAULT_SCALE,
+    scale: 1,
   })
 
   function handleChange(type: string) {

@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INITIALIZED } from '../support/const'
 import { INITIAL_VIEWPORT1 } from '../../src/containers/Viewport/const'
 
 describe(
@@ -17,8 +17,8 @@ describe(
     })
 
     it('shows initial viewport', () => {
-      cy.get('.viewer1 .scale')
-        .contains(INITIAL_VIEWPORT1.scale)
+      cy.get('.viewer1')
+        .find(INITIALIZED)
         .then(() => {
           cy.get('.viewer1 .scale').should('have.text', INITIAL_VIEWPORT1.scale)
           cy.get('.viewer1 .x').should('have.text', (0).toFixed(2))
@@ -133,7 +133,7 @@ describe(
       })
 
       it('changes viewport with keyboard', () => {
-        cy.get('.is-mount').then(() => {
+        cy.get(INITIALIZED).then(() => {
           cy.get('body').type('wwddd')
           cy.percySnapshot()
         })

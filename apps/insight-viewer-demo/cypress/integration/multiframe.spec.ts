@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INITIALIZED } from '../support/const'
 
 describe(
   'Multiframe',
@@ -16,7 +16,7 @@ describe(
     })
 
     it('shows initial viewer', () => {
-      cy.get('.is-mount').then(() => {
+      cy.get(INITIALIZED).then(() => {
         cy.get('.frame-number').should('have.text', '0')
         cy.percySnapshot()
       })

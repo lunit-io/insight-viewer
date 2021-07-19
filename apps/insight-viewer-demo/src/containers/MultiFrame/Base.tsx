@@ -4,7 +4,6 @@ import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { CODE } from './Code'
-import useIsMount from '../../hooks/useIsMount'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -22,7 +21,6 @@ const IMAGES = [
 
 export default function Base(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
-  const isMount = useIsMount()
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -32,7 +30,7 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box w={500} h={500} className={isMount ? 'is-mount' : ''}>
+    <Box w={500} h={500}>
       <Box mb={6}>
         <input
           type="range"
