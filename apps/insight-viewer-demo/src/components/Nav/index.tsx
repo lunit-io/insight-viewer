@@ -20,10 +20,7 @@ function ResponsiveBox({
         sx={{
           overscrollBehavior: 'contain',
         }}
-        top="0"
-        right="0"
-        bottom="0"
-        left="0"
+        inset="0"
         w="100%"
         height="100%"
         overflowY="auto"
