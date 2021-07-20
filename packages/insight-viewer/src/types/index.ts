@@ -29,7 +29,7 @@ export interface BasicViewport {
   windowCenter: number
 }
 export type Viewport = BasicViewport & {
-  _initial?: Partial<BasicViewport>
+  _default: Partial<BasicViewport>
   _reset?: Partial<BasicViewport>
 }
 
