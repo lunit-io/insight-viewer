@@ -67,7 +67,7 @@ export function DICOMImageViewer({
   })
 
   useEffect(() => {
-    if (viewport) viewportRef.current = viewport
+    viewportRef.current = viewport
   }, [viewport])
 
   return (
