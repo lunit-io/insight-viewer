@@ -26,15 +26,16 @@ export default function OverlayLayer({
           <span className="vflip">{`${vflip}`}</span>
         </ListItem>
         <ListItem>
-          translation: <span className="x">{x.toFixed(2)}</span> /{' '}
-          <span className="y">{y.toFixed(2)}</span>
+          translation: <span className="x">{x?.toFixed(2)}</span> /{' '}
+          <span className="y">{y?.toFixed(2)}</span>
         </ListItem>
         <ListItem>
           invert: <span className="invert">{`${invert}`}</span>
         </ListItem>
         <ListItem>
-          WW / WC: <span className="windowWidth">{windowWidth.toFixed(2)}</span>{' '}
-          / <span className="windowCenter">{windowCenter.toFixed(2)}</span>
+          WW / WC:{' '}
+          <span className="windowWidth">{windowWidth?.toFixed(2)}</span> /{' '}
+          <span className="windowCenter">{windowCenter?.toFixed(2)}</span>
         </ListItem>
       </UnorderedList>
     </Box>
