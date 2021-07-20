@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INITIALIZED } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
 
 describe(
   'Custom error',
@@ -16,8 +16,8 @@ describe(
     })
 
     it('shows custom error', () => {
+      cy.get(LOADING).should('not.exist')
       cy.get('.custom-error').click()
-      cy.get(INITIALIZED).should('not.exist')
       cy.percySnapshot()
     })
   }

@@ -1,11 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import {
-  VIEWPORT_WIDTH,
-  VIEWPORT_HEIGHT,
-  LOADING,
-  INITIALIZED,
-} from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
 
 describe(
   'Basic Viewer',
@@ -21,16 +16,14 @@ describe(
     })
 
     it('shows loading progress', () => {
-      cy.get(LOADING).then(() => {
-        cy.percySnapshot()
-      })
+      cy.get(LOADING).should('be.exist')
+      cy.percySnapshot()
     })
 
     it('shows initial image', () => {
-      cy.get(INITIALIZED).then(() => {
-        cy.get('.image').should('have.text', 'image1')
-        cy.percySnapshot()
-      })
+      cy.get(LOADING).should('not.exist')
+      cy.get('.image').should('have.text', 'image1')
+      cy.percySnapshot()
     })
 
     it('shows second image', () => {
