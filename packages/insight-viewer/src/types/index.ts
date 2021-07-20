@@ -28,8 +28,8 @@ export interface BasicViewport {
   windowWidth: number
   windowCenter: number
 }
-export type Viewport = BasicViewport & {
-  _default: Partial<BasicViewport>
+export type Viewport = Partial<BasicViewport> & {
+  _default?: Partial<BasicViewport>
   _reset?: Partial<BasicViewport>
 }
 
