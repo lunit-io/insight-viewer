@@ -15,8 +15,7 @@ function PromiseAllWithProgress(
     p.then(() => {
       d += 1
       loadingProgressMessage.sendMessage(
-        Math.round((d * 100) / promiseArray.length),
-        d === promiseArray.length
+        Math.round((d * 100) / promiseArray.length)
       )
     })
   })
