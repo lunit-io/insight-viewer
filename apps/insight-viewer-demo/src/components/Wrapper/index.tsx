@@ -8,18 +8,18 @@ export function ViewerWrapper({
   children,
   flexible = false,
   className,
-}: WithChildren<{ flexible?: boolean; className: string }>): JSX.Element {
+}: WithChildren<{ flexible?: boolean; className?: string }>): JSX.Element {
   const isOneColumn = useIsOneColumn()
 
   if (flexible || isOneColumn)
     return (
-      <div style={FLEXIBLE_WIDTH} className={className}>
+      <div style={FLEXIBLE_WIDTH} className={className ?? ''}>
         {children}
       </div>
     )
 
   return (
-    <Box w={500} h={500} className={className}>
+    <Box w={500} h={500} className={className ?? ''}>
       {children}
     </Box>
   )
