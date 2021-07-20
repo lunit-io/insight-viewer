@@ -29,17 +29,21 @@ export default function LoadingProgress({
   })
 
   useEffect(() => {
+    let isCancelled = false
+
     subscription = loadingProgressMessage
       .getMessage()
       .subscribe(({ message, loaded }) => {
-        setState(prev => ({
-          ...prev,
-          progress: message,
-          initialized: loaded || false,
-        }))
+        if (!isCancelled)
+          setState(prev => ({
+            ...prev,
+            progress: message,
+            initialized: loaded || false,
+          }))
       })
 
     return () => {
+      isCancelled = true
       subscription.unsubscribe()
     }
   }, [])
