@@ -5,7 +5,7 @@ import Viewer, {
   useInteraction,
   Interaction,
   Wheel,
-  hasViewport,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 
 export default function App() {
@@ -43,7 +43,7 @@ export default function App() {
   const handleZoom: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
       setViewport(prev => {
-        if (!hasViewport(prev)) return prev
+        if (!isValidViewport(prev)) return prev
         return {
           ...prev,
           scale: Math.min(
@@ -106,7 +106,7 @@ export default function App() {
       delta.y
     )
     setViewport(prev => {
-      if (!hasViewport(prev)) return prev
+      if (!isValidViewport(prev)) return prev
       return {
         ...prev,
         x: prev.x + delta.x / prev.scale,
@@ -124,7 +124,7 @@ export default function App() {
       delta.y
     )
     setViewport(prev => {
-      if (!hasViewport(prev)) return prev
+      if (!isValidViewport(prev)) return prev
       return {
         ...prev,
         windowWidth: prev.windowWidth + delta.x / prev.scale,

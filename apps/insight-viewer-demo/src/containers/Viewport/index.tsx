@@ -3,7 +3,7 @@ import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
 import Viewer, {
   useViewport,
   Viewport,
-  hasViewport,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -41,7 +41,7 @@ export default function App(): JSX.Element {
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
       setViewport((prev: Viewport) => {
-        if (!hasViewport(prev)) return prev
+        if (!isValidViewport(prev)) return prev
         return {
           ...prev,
           [key]: value,
@@ -53,7 +53,7 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (!hasViewport(viewport)) return
+      if (!isValidViewport(viewport)) return
       if (e.key === 's') {
         updateViewport('y', viewport.y + 10)
       }
@@ -77,7 +77,7 @@ export default function App(): JSX.Element {
 
   return (
     <>
-      <Box data-cy={hasViewport(viewport)}>
+      <Box data-cy={isValidViewport(viewport)}>
         <Stack align="flex-start" spacing={isOneColumn ? '20px' : '20px'}>
           <Box mb={6}>
             <Stack
@@ -238,7 +238,7 @@ export default function App(): JSX.Element {
                     step="10"
                     onChange={e => {
                       setViewport2(prev => {
-                        if (!hasViewport(prev)) return prev
+                        if (!isValidViewport(prev)) return prev
                         return {
                           ...prev,
                           x: Number(e.target.value),
@@ -262,7 +262,7 @@ export default function App(): JSX.Element {
                     step="10"
                     onChange={e => {
                       setViewport2(prev => {
-                        if (!hasViewport(prev)) return prev
+                        if (!isValidViewport(prev)) return prev
                         return {
                           ...prev,
                           y: Number(e.target.value),

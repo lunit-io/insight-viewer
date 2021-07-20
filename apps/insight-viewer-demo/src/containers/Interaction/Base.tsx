@@ -5,7 +5,7 @@ import Viewer, {
   useMultiframe,
   Interaction,
   Wheel,
-  hasViewport,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -63,7 +63,7 @@ export default function App(): JSX.Element {
   const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
       setViewport(prev => {
-        if (!hasViewport(prev)) return prev
+        if (!isValidViewport(prev)) return prev
         return {
           ...prev,
           scale: Math.min(

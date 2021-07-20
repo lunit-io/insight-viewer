@@ -5,7 +5,7 @@ export function handleError(e: Error): void {
   consola.error(e)
 }
 
-export function hasViewport(viewport: Viewport): viewport is BasicViewport {
+export function isValidViewport(viewport: Viewport): viewport is BasicViewport {
   return (
     viewport.scale !== undefined &&
     viewport.invert !== undefined &&

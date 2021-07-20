@@ -8,7 +8,7 @@ import Viewer, {
   DragEvent,
   Drag,
   Click,
-  hasViewport,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -47,7 +47,7 @@ export default function App(): JSX.Element {
     )
 
     setViewport(prev => {
-      if (!hasViewport(prev)) return prev
+      if (!isValidViewport(prev)) return prev
       return {
         ...prev,
         x: prev.x + delta.x / prev.scale,
@@ -65,7 +65,7 @@ export default function App(): JSX.Element {
       delta.y
     )
     setViewport(prev => {
-      if (!hasViewport(prev)) return prev
+      if (!isValidViewport(prev)) return prev
       return {
         ...prev,
         windowWidth: prev.windowWidth + delta.x / prev.scale,

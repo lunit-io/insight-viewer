@@ -1,5 +1,5 @@
 export const CODE = `\
-import Viewer, { useViewport, Viewport, hasViewport } from '@lunit/insight-viewer'
+import Viewer, { useViewport, Viewport, isValidViewport } from '@lunit/insight-viewer'
 
 export default function App() {
   const { viewport, setViewport, resetViewport } = useViewport({
@@ -10,7 +10,7 @@ export default function App() {
 
   function updateViewport() {
     setViewport(prev => {
-      if (!hasViewport(prev)) return prev
+      if (!isValidViewport(prev)) return prev
       return {
         ...prev,
         invert: false,
@@ -25,7 +25,7 @@ export default function App() {
     })
 
     // or
-    if (hasViewport(viewport))
+    if (isValidViewport(viewport))
       setViewport({
         ...viewport,
         hflip: e.target.checked,
@@ -37,7 +37,7 @@ export default function App() {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 's') {
         setViewport((prev: Viewport) => {
-          if (!hasViewport(prev)) return prev
+          if (!isValidViewport(prev)) return prev
           return {
             ...prev,
             y: prev.y + 10,
@@ -46,7 +46,7 @@ export default function App() {
       }
       if (e.key === 'w') {
         setViewport((prev: Viewport) => {
-          if (!hasViewport(prev)) return prev
+          if (!isValidViewport(prev)) return prev
           return {
             ...prev,
             y: prev.y - 10,
@@ -55,7 +55,7 @@ export default function App() {
       }
       if (e.key === 'd') {
         setViewport((prev: Viewport) => {
-          if (!hasViewport(prev)) return prev
+          if (!isValidViewport(prev)) return prev
           return {
             ...prev,
             x: prev.x + 10,
@@ -64,7 +64,7 @@ export default function App() {
       }
       if (e.key === 'a') {
         setViewport((prev: Viewport) => {
-          if (!hasViewport(prev)) return prev
+          if (!isValidViewport(prev)) return prev
           return {
             ...prev,
             x: prev.x - 10,
