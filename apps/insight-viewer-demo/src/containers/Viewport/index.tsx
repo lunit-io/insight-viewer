@@ -313,7 +313,7 @@ export default function App(): JSX.Element {
             direction={isOneColumn ? 'column' : 'row'}
             spacing={isOneColumn ? '100px' : '24px'}
           >
-            <ViewerWrapper data-viewer="viewer1">
+            <ViewerWrapper className="viewer1">
               <Viewer.Dicom
                 imageId={IMAGE_ID}
                 viewport={viewport}
@@ -323,7 +323,7 @@ export default function App(): JSX.Element {
                 <OverlayLayer viewport={viewport} />
               </Viewer.Dicom>
             </ViewerWrapper>
-            <ViewerWrapper data-viewer="viewer2">
+            <ViewerWrapper className="viewer2">
               <Viewer.Dicom
                 imageId={IMAGE_ID2}
                 viewport={viewport2}

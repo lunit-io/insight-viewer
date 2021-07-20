@@ -41,7 +41,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
               width={isOneColumn ? '100%' : SIDE_WIDTH}
               pt={isOneColumn ? 0 : 2}
             >
-              <NextChakraLink href="/" pt="6px">
+              <NextChakraLink href="/" pt={isOneColumn ? '6px' : '2px'}>
                 <Logo h="1.5rem" pointerEvents="none" />
               </NextChakraLink>
               <Spacer />

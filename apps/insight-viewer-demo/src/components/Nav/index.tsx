@@ -44,7 +44,7 @@ function ResponsiveBox({
         overscrollBehavior: 'contain',
       }}
       top="0"
-      w="280px"
+      w="240px"
       overflowY="auto"
       className="sidebar-content"
       flexShrink={0}
