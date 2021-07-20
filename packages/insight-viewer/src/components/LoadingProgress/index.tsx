@@ -54,14 +54,17 @@ export default function LoadingProgress({
     }
   }, [progress, initialized])
 
-  const className = [!hidden ? 'loading' : '', initialized ? 'initialized' : '']
+  const viewerState = [
+    !hidden ? 'loading' : '',
+    initialized ? 'initialized' : '',
+  ]
     .join(' ')
     .trim()
 
   return (
     <div
       style={style}
-      className={className} // For Cypress test.
+      data-cy={viewerState} // For Cypress test.
     >
       {!hidden && <Progress progress={progress ?? 0} />}
     </div>

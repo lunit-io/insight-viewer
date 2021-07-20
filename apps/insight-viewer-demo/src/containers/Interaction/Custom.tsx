@@ -14,7 +14,9 @@ import Control from './Control'
 import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -25,6 +27,7 @@ export default function App(): JSX.Element {
     y: number | undefined
   }>({ x: undefined, y: undefined })
   const { interaction, setInteraction } = useInteraction()
+  const isOneColumn = useIsOneColumn()
   const {
     viewport: viewerViewport,
     setViewport,
@@ -110,20 +113,38 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box w={700}>
-      <Control onChange={handleDrag} />
-      <ClickControl onChange={handleClick} />
-      {typeof x === 'number' && typeof y === 'number' && (
-        <Box mb={6}>
-          <Text>
-            offset: <span className="click-x">{x.toFixed(2)}</span> /{' '}
-            <span className="click-y">{y.toFixed(2)}</span>
-          </Text>
+    <Box>
+      <Stack
+        direction={['column', 'row']}
+        spacing={isOneColumn ? '0px' : '80px'}
+        align="flex-start"
+      >
+        <Box>
+          <Control onChange={handleDrag} />
+          <ClickControl onChange={handleClick} />
+          {typeof x === 'number' && typeof y === 'number' && (
+            <Box mb={6}>
+              <Text>
+                offset: <span className="click-x">{x.toFixed(2)}</span> /{' '}
+                <span className="click-y">{y.toFixed(2)}</span>
+              </Text>
+            </Box>
+          )}
         </Box>
-      )}
+        <Box>
+          <Button
+            colorScheme="blue"
+            onClick={resetViewport}
+            className="reset"
+            mb={isOneColumn ? '20px' : '0px'}
+          >
+            Reset
+          </Button>
+        </Box>
+      </Stack>
 
       <Stack direction="row">
-        <Box w={500} h={500}>
+        <ViewerWrapper>
           <Viewer.Dicom
             imageId={IMAGE_ID}
             interaction={interaction}
@@ -133,13 +154,10 @@ export default function App(): JSX.Element {
           >
             <OverlayLayer viewport={viewerViewport} />
           </Viewer.Dicom>
-        </Box>
-        <Button colorScheme="blue" onClick={resetViewport} className="reset">
-          Reset
-        </Button>
+        </ViewerWrapper>
       </Stack>
 
-      <Box w={900}>
+      <Box>
         <CodeBlock code={CUSTOM_CODE} />
       </Box>
     </Box>

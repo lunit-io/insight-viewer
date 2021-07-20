@@ -1,4 +1,4 @@
-import { Box, Text, Button, Stack, HStack } from '@chakra-ui/react'
+import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import Viewer, {
   useInteraction,
   useViewport,
@@ -11,8 +11,10 @@ import Control from './Control'
 import WheelControl from './Control/Wheel'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -39,6 +41,7 @@ export default function App(): JSX.Element {
   const { viewport, setViewport, resetViewport } = useViewport({
     scale: 1,
   })
+  const isOneColumn = useIsOneColumn()
 
   function handleChange(type: string) {
     return (value: string) => {
@@ -81,8 +84,12 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box w={700}>
-      <HStack spacing="80px" align="flex-start">
+    <Box>
+      <Stack
+        direction={['column', 'row']}
+        spacing={isOneColumn ? '0px' : '80px'}
+        align="flex-start"
+      >
         <Box>
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
@@ -93,14 +100,19 @@ export default function App(): JSX.Element {
           </Box>
         </Box>
         <Box>
-          <Button colorScheme="blue" onClick={resetViewport} className="reset">
+          <Button
+            colorScheme="blue"
+            onClick={resetViewport}
+            className="reset"
+            mb={isOneColumn ? '20px' : '0px'}
+          >
             Reset
           </Button>
         </Box>
-      </HStack>
+      </Stack>
 
       <Stack direction="row">
-        <Box w={500} h={500}>
+        <ViewerWrapper>
           <Viewer.Dicom
             imageId={image}
             interaction={interaction}
@@ -111,10 +123,10 @@ export default function App(): JSX.Element {
             <OverlayLayer viewport={viewport} />
             <Canvas viewport={viewport} />
           </Viewer.Dicom>
-        </Box>
+        </ViewerWrapper>
       </Stack>
 
-      <Box w={900}>
+      <Box>
         <CodeBlock code={BASE_CODE} />
       </Box>
     </Box>

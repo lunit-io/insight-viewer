@@ -3,6 +3,7 @@ import Viewer, { useMultiframe } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 
 const IMAGES = [
@@ -30,7 +31,7 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box w={500} h={500}>
+    <Box>
       <Box mb={6}>
         <input
           type="range"
@@ -47,8 +48,10 @@ export default function Base(): JSX.Element {
       <div>
         frame: <span className="frame-number">{frame}</span>
       </div>
-      <Viewer.Dicom imageId={image} Progress={CustomProgress} />
-      <Box w={900}>
+      <ViewerWrapper>
+        <Viewer.Dicom imageId={image} Progress={CustomProgress} />
+      </ViewerWrapper>
+      <Box>
         <CodeBlock code={CODE} />
       </Box>
     </Box>
