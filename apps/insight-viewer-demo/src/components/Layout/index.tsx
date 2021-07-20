@@ -27,49 +27,51 @@ export default function Layout({ children }: WithChildren): JSX.Element {
   )?.[0]?.name
 
   return (
-    <Flex
-      w="100%"
-      h="100%"
-      px="10"
-      justify="space-between"
-      flexDirection="column"
-    >
-      <header>
-        <ResponsiveBox isOneColumnLayout={isOneColumn}>
-          <Flex direction={isOneColumn ? 'column' : 'row'}>
-            <Flex
-              width={isOneColumn ? '100%' : SIDE_WIDTH}
-              pt={isOneColumn ? 0 : 2}
-            >
-              <NextChakraLink href="/" pt={isOneColumn ? '6px' : '2px'}>
-                <Logo h="1.5rem" pointerEvents="none" />
-              </NextChakraLink>
-              <Spacer />
-              {isOneColumn && <MobileNavigation />}
+    <Box maxW="1440px" m="0 auto">
+      <Flex
+        w="100%"
+        h="100%"
+        px="10"
+        justify="space-between"
+        flexDirection="column"
+      >
+        <header>
+          <ResponsiveBox isOneColumnLayout={isOneColumn}>
+            <Flex direction={isOneColumn ? 'column' : 'row'}>
+              <Flex
+                width={isOneColumn ? '100%' : SIDE_WIDTH}
+                pt={isOneColumn ? 0 : 2}
+              >
+                <NextChakraLink href="/" pt={isOneColumn ? '6px' : '2px'}>
+                  <Logo h="1.5rem" pointerEvents="none" />
+                </NextChakraLink>
+                <Spacer />
+                {isOneColumn && <MobileNavigation />}
+              </Flex>
+              {!isOneColumn && (
+                <Box>
+                  <HStack>
+                    <Heading as="h1" size="md">
+                      @lunit/insight-viewer-demo /
+                    </Heading>
+                    <Heading as="h2">{title}</Heading>
+                  </HStack>
+                </Box>
+              )}
             </Flex>
+          </ResponsiveBox>
+        </header>
+        <ResponsiveBox isOneColumnLayout={isOneColumn}>
+          <Flex>
             {!isOneColumn && (
-              <Box>
-                <HStack>
-                  <Heading as="h1" size="md">
-                    @lunit/insight-viewer-demo /
-                  </Heading>
-                  <Heading as="h2">{title}</Heading>
-                </HStack>
+              <Box width={isOneColumn ? 'auto' : SIDE_WIDTH}>
+                <Nav />
               </Box>
             )}
+            <Box w="100%">{children}</Box>
           </Flex>
         </ResponsiveBox>
-      </header>
-      <ResponsiveBox isOneColumnLayout={isOneColumn}>
-        <Flex>
-          {!isOneColumn && (
-            <Box width={isOneColumn ? 'auto' : SIDE_WIDTH}>
-              <Nav />
-            </Box>
-          )}
-          <Box w="100%">{children}</Box>
-        </Flex>
-      </ResponsiveBox>
-    </Flex>
+      </Flex>
+    </Box>
   )
 }
