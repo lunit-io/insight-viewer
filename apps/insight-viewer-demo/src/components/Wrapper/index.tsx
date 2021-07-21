@@ -19,8 +19,10 @@ export function ViewerWrapper({
     )
 
   return (
-    <Box w={500} h={500} className={className ?? ''}>
-      {children}
+    <Box bg="black" w="100%" d="flex" justifyContent="center">
+      <Box w={500} h={500} className={className ?? ''}>
+        {children}
+      </Box>
     </Box>
   )
 }

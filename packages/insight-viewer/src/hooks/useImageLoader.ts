@@ -56,11 +56,11 @@ export default function useImageLoader({
           <HTMLDivElement>element,
           image,
           loadCountRef.current === 1
-            ? viewportRef?.current?._initial
+            ? viewportRef?.current?._default
             : viewportRef?.current
         )
-        // This is for no content-length gzip image. At this time, Viewport has been initialized.
-        loadingProgressMessage.sendMessage(100, true)
+        // This is for no content-length gzip image. Normally, meaningless.
+        loadingProgressMessage.sendMessage(100)
         initialViewportMessage.sendMessage(defaultViewport)
 
         if (onViewportChange) {

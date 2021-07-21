@@ -8,6 +8,7 @@ import Viewer, {
   DragEvent,
   Drag,
   Click,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -39,17 +40,20 @@ export default function App(): JSX.Element {
   const customPan: Drag = ({ viewport, delta }) => {
     consola.info(
       'pan',
-      viewport.translation.x,
-      viewport.translation.y,
+      viewport.translation?.x,
+      viewport.translation?.y,
       delta.x,
       delta.y
     )
 
-    setViewport(prev => ({
-      ...prev,
-      x: prev.x + delta.x / prev.scale,
-      y: prev.y + delta.y / prev.scale,
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        x: prev.x + delta.x / prev.scale,
+        y: prev.y + delta.y / prev.scale,
+      }
+    })
   }
 
   const customAdjust: Drag = ({ viewport, delta }) => {
@@ -60,11 +64,14 @@ export default function App(): JSX.Element {
       delta.x,
       delta.y
     )
-    setViewport(prev => ({
-      ...prev,
-      windowWidth: prev.windowWidth + delta.x / prev.scale,
-      windowCenter: prev.windowCenter + delta.y / prev.scale,
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        windowWidth: prev.windowWidth + delta.x / prev.scale,
+        windowCenter: prev.windowCenter + delta.y / prev.scale,
+      }
+    })
   }
 
   const primaryClick: Click = (offsetX, offsetY) => {
@@ -122,6 +129,12 @@ export default function App(): JSX.Element {
         <Box>
           <Control onChange={handleDrag} />
           <ClickControl onChange={handleClick} />
+          <Box mb={6}>
+            <Text>
+              offset: <span className="click-x">{x?.toFixed(2) ?? 0}</span> /{' '}
+              <span className="click-y">{y?.toFixed(2) ?? 0}</span>
+            </Text>
+          </Box>
           {typeof x === 'number' && typeof y === 'number' && (
             <Box mb={6}>
               <Text>
