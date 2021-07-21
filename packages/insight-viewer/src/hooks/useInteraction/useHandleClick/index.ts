@@ -6,6 +6,7 @@ import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
 import { preventContextMenu, hasInteraction } from '../utils'
 import { getViewport } from '../../../utils/cornerstoneHelper'
+import { isValidViewport } from '../../../utils/common'
 
 let subscription: Subscription
 
@@ -22,7 +23,7 @@ function hasClickType(
 }
 
 function getCoord(element: Element, viewport?: Viewport) {
-  if (viewport) {
+  if (viewport && isValidViewport(viewport)) {
     const { x, y } = viewport
 
     return {

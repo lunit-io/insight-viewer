@@ -2,15 +2,14 @@ import { useState } from 'react'
 import { Box, Text } from '@chakra-ui/react'
 import Viewer, { ViewerError } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import useIsMount from '../../hooks/useIsMount'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT0000100.dcm'
 
 export default function Custom(): JSX.Element {
   const [error, setError] = useState('')
-  const isMount = useIsMount()
 
   function customError(e: ViewerError): void {
     setError(`!!! ${e.message} ${e.status}`)
@@ -18,11 +17,11 @@ export default function Custom(): JSX.Element {
 
   return (
     <>
-      <Box mb={6} className={isMount ? 'is-mount' : ''}>
+      <ViewerWrapper>
         <Viewer.Dicom imageId={IMAGE_ID} onError={customError} />
-      </Box>
+      </ViewerWrapper>
       <Text>{error}</Text>
-      <Box w={800}>
+      <Box>
         <CodeBlock code={CUSTOM_CODE} />
       </Box>
     </>

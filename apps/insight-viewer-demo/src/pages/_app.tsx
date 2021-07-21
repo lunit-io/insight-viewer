@@ -2,9 +2,11 @@
 /* eslint-disable global-require */
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import Layout from '../components/Layout'
+import dynamic from 'next/dynamic'
 import { Chakra } from '../components/Chakra'
 import '../styles/globals.css'
+
+const Layout = dynamic(() => import('../components/Layout'), { ssr: false })
 
 if (typeof window !== 'undefined') {
   const { worker } = require('../mocks/browser')
@@ -23,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Chakra>
-        <Layout title="@lunit/insight-viewer demo">
+        <Layout>
           <Component {...pageProps} />
         </Layout>
       </Chakra>

@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
 
 describe(
   'Multiframe',
@@ -15,11 +15,15 @@ describe(
       cy.visit('/multi-frame')
     })
 
+    it('shows loading progress', () => {
+      cy.get(LOADING).should('be.exist')
+      cy.percySnapshot()
+    })
+
     it('shows initial viewer', () => {
-      cy.get('.is-mount').then(() => {
-        cy.get('.frame-number').should('have.text', '0')
-        cy.percySnapshot()
-      })
+      cy.get(LOADING).should('not.exist')
+      cy.get('.frame-number').should('have.text', '0')
+      cy.percySnapshot()
     })
 
     it('change frame to 5', () => {

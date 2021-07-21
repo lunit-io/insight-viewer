@@ -18,7 +18,12 @@ const Forwarded = forwardRef<
   const { resizeRef } = useResize(ref)
 
   return (
-    <div ref={resizeRef} style={style} className="cornerstone-canvas-wrapper">
+    <div
+      ref={resizeRef}
+      style={style}
+      className="cornerstone-canvas-wrapper"
+      data-cy="cornerstone-canvas-wrapper"
+    >
       {Progress && <LoadingProgress Progress={Progress} />}
       <canvas className="cornerstone-canvas" />
       {children}
@@ -27,7 +32,7 @@ const Forwarded = forwardRef<
 })
 
 const ViewerWrapper = React.memo(Forwarded)
-// for eslintr(eact/display-name)
+// for eslintrc(eact/display-name)
 Forwarded.displayName = 'Forwarded'
 ViewerWrapper.displayName = 'ViewerWrapper'
 

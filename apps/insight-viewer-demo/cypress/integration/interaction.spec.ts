@@ -1,7 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { DEFAULT_SCALE } from '../../src/containers/Interaction/const'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
 
 describe(
   'Interaction',
@@ -20,8 +19,13 @@ describe(
       cy.get('.reset').click()
     })
 
+    it('shows loading progress', () => {
+      cy.get(LOADING).should('be.exist')
+    })
+
     it('shows initial viewport', () => {
-      cy.get('.scale').contains(DEFAULT_SCALE)
+      cy.get(LOADING).should('not.exist')
+      cy.percySnapshot()
     })
 
     describe('Base Interaction', () => {

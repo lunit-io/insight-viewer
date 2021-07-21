@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useEffect } from 'react'
 import {
   getViewport,

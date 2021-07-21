@@ -5,6 +5,7 @@ import Viewer, {
   useInteraction,
   Interaction,
   Wheel,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 
 export default function App() {
@@ -41,13 +42,16 @@ export default function App() {
 
   const handleZoom: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
-      setViewport(prev => ({
-        ...prev,
-        scale: Math.min(
-          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-          MAX_SCALE
-        ),
-      }))
+      setViewport(prev => {
+        if (!isValidViewport(prev)) return prev
+        return {
+          ...prev,
+          scale: Math.min(
+            Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
+            MAX_SCALE
+          ),
+        }
+      })
   }
 
   const handler = {
@@ -101,11 +105,14 @@ export default function App() {
       delta.x,
       delta.y
     )
-    setViewport(prev => ({
-      ...prev,
-      x: prev.x + delta.x / prev.scale,
-      y: prev.y + delta.y / prev.scale,
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        x: prev.x + delta.x / prev.scale,
+        y: prev.y + delta.y / prev.scale,
+      }
+    })
   }
 
   const customAdjust: Drag = ({ viewport, delta }) => {
@@ -116,11 +123,14 @@ export default function App() {
       delta.x,
       delta.y
     )
-    setViewport(prev => ({
-      ...prev,
-      windowWidth: prev.windowWidth + delta.x / prev.scale,
-      windowCenter: prev.windowCenter + delta.y / prev.scale,
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        windowWidth: prev.windowWidth + delta.x / prev.scale,
+        windowCenter: prev.windowCenter + delta.y / prev.scale,
+      }
+    })
   }
 
   function handleCustomPan(e: React.ChangeEvent<HTMLInputElement>) {

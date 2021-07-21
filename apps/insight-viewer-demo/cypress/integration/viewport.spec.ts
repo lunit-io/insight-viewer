@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
 import { INITIAL_VIEWPORT1 } from '../../src/containers/Viewport/const'
 
 describe(
@@ -16,27 +16,29 @@ describe(
       cy.visit('/viewport')
     })
 
-    it('shows initial viewport', () => {
-      cy.get('.viewer1 .scale')
-        .contains(INITIAL_VIEWPORT1.scale)
-        .then(() => {
-          cy.get('.viewer1 .scale').should('have.text', INITIAL_VIEWPORT1.scale)
-          cy.get('.viewer1 .x').should('have.text', (0).toFixed(2))
-          cy.get('.viewer1 .y').should('have.text', (0).toFixed(2))
-          cy.get('.viewer1 .windowWidth').should(
-            'have.text',
-            INITIAL_VIEWPORT1.windowWidth.toFixed(2)
-          )
-          cy.get('.viewer1 .windowCenter').should(
-            'have.text',
-            INITIAL_VIEWPORT1.windowCenter.toFixed(2)
-          )
-          cy.get('.viewer1 .invert').should('have.text', 'false')
-          cy.get('.viewer1 .hflip').should('have.text', 'false')
-          cy.get('.viewer1 .vflip').should('have.text', 'false')
+    it('shows loading progress', () => {
+      cy.get(LOADING).should('be.exist')
+    })
 
-          cy.percySnapshot()
-        })
+    it('shows initial viewport', () => {
+      cy.get(LOADING).should('not.exist')
+      cy.get('[data-cy=true]').should('be.exist')
+      cy.get('.viewer1 .scale').should('have.text', INITIAL_VIEWPORT1.scale)
+      cy.get('.viewer1 .x').should('have.text', (0).toFixed(2))
+      cy.get('.viewer1 .y').should('have.text', (0).toFixed(2))
+      cy.get('.viewer1 .windowWidth').should(
+        'have.text',
+        INITIAL_VIEWPORT1.windowWidth.toFixed(2)
+      )
+      cy.get('.viewer1 .windowCenter').should(
+        'have.text',
+        INITIAL_VIEWPORT1.windowCenter.toFixed(2)
+      )
+      cy.get('.viewer1 .invert').should('have.text', 'false')
+      cy.get('.viewer1 .hflip').should('have.text', 'false')
+      cy.get('.viewer1 .vflip').should('have.text', 'false')
+
+      cy.percySnapshot()
     })
 
     describe('viewport update', () => {
@@ -133,10 +135,8 @@ describe(
       })
 
       it('changes viewport with keyboard', () => {
-        cy.get('.is-mount').then(() => {
-          cy.get('body').type('wwddd')
-          cy.percySnapshot()
-        })
+        cy.get('body').type('wwddd')
+        cy.percySnapshot()
       })
 
       it('changes multiple viewer viewport', () => {

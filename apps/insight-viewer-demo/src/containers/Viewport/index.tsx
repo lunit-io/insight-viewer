@@ -1,12 +1,17 @@
-import { useEffect } from 'react'
-import { Box, Text, HStack, Switch, Button } from '@chakra-ui/react'
-import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
+import { useEffect, useCallback } from 'react'
+import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
+import Viewer, {
+  useViewport,
+  Viewport,
+  isValidViewport,
+} from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-import useIsMount from '../../hooks/useIsMount'
 import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
@@ -17,14 +22,13 @@ const IMAGE_ID2 =
 export default function App(): JSX.Element {
   const { viewport, setViewport, resetViewport } =
     useViewport(INITIAL_VIEWPORT1)
+  const isOneColumn = useIsOneColumn()
 
   const {
     viewport: viewport2,
     setViewport: setViewport2,
     resetViewport: resetViewport2,
   } = useViewport(INITIAL_VIEWPORT2)
-
-  const isMount = useIsMount()
 
   function handleFirstReset() {
     resetViewport()
@@ -34,31 +38,33 @@ export default function App(): JSX.Element {
     resetViewport2()
   }
 
+  const updateViewport = useCallback(
+    (key: keyof Viewport, value: unknown) => {
+      setViewport((prev: Viewport) => {
+        if (!isValidViewport(prev)) return prev
+        return {
+          ...prev,
+          [key]: value,
+        }
+      })
+    },
+    [setViewport]
+  )
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
+      if (!isValidViewport(viewport)) return
       if (e.key === 's') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          y: prev.y + 10,
-        }))
+        updateViewport('y', viewport.y + 10)
       }
       if (e.key === 'w') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          y: prev.y - 10,
-        }))
+        updateViewport('y', viewport.y - 10)
       }
       if (e.key === 'd') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          x: prev.x + 10,
-        }))
+        updateViewport('x', viewport.x + 10)
       }
       if (e.key === 'a') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          x: prev.x - 10,
-        }))
+        updateViewport('x', viewport.x - 10)
       }
     }
 
@@ -67,14 +73,18 @@ export default function App(): JSX.Element {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [setViewport])
+  }, [setViewport, viewport, updateViewport])
 
   return (
     <>
-      <Box w={1100}>
-        <HStack spacing="110px" align="flex-start">
+      <Box data-cy={isValidViewport(viewport)}>
+        <Stack align="flex-start" spacing={isOneColumn ? '20px' : '20px'}>
           <Box mb={6}>
-            <HStack spacing="24px" mt={3}>
+            <Stack
+              spacing="24px"
+              mt={3}
+              direction={isOneColumn ? 'column' : 'row'}
+            >
               <Box>
                 <Box>x transition {viewport.x}</Box>
                 <Box>
@@ -86,13 +96,10 @@ export default function App(): JSX.Element {
                     max="100"
                     step="10"
                     onChange={e => {
-                      setViewport(prev => ({
-                        ...prev,
-                        x: Number(e.target.value),
-                      }))
+                      updateViewport('x', Number(e.target.value))
                     }}
                     className="x-control"
-                    value={viewport.x}
+                    value={viewport?.x ?? 0}
                   />
                 </Box>
               </Box>
@@ -107,13 +114,10 @@ export default function App(): JSX.Element {
                     max="100"
                     step="10"
                     onChange={e => {
-                      setViewport(prev => ({
-                        ...prev,
-                        y: Number(e.target.value),
-                      }))
+                      updateViewport('y', Number(e.target.value))
                     }}
                     className="y-control"
-                    value={viewport.y}
+                    value={viewport?.y ?? 0}
                   />
                 </Box>
               </Box>
@@ -124,9 +128,13 @@ export default function App(): JSX.Element {
               >
                 Reset
               </Button>
-            </HStack>
+            </Stack>
 
-            <HStack spacing="24px" mt={3}>
+            <Stack
+              spacing="24px"
+              mt={3}
+              direction={isOneColumn ? 'column' : 'row'}
+            >
               <Box>
                 <Box>windowWidth {viewport.windowWidth}</Box>
                 <Box>
@@ -138,13 +146,10 @@ export default function App(): JSX.Element {
                     max="300"
                     step="10"
                     onChange={e => {
-                      setViewport(prev => ({
-                        ...prev,
-                        windowWidth: Number(e.target.value),
-                      }))
+                      updateViewport('windowWidth', Number(e.target.value))
                     }}
                     className="window-width-control"
-                    value={viewport.windowWidth}
+                    value={viewport?.windowWidth ?? 0}
                   />
                 </Box>
               </Box>
@@ -159,18 +164,13 @@ export default function App(): JSX.Element {
                     max="300"
                     step="10"
                     onChange={e => {
-                      setViewport(prev => ({
-                        ...prev,
-                        windowCenter: Number(e.target.value),
-                      }))
+                      updateViewport('windowCenter', Number(e.target.value))
                     }}
                     className="window-center-control"
-                    value={viewport.windowCenter}
+                    value={viewport?.windowCenter ?? 0}
                   />
                 </Box>
               </Box>
-            </HStack>
-            <HStack spacing="24px">
               <Box>
                 <Box>scale {viewport.scale}</Box>
                 <Box>
@@ -182,25 +182,23 @@ export default function App(): JSX.Element {
                     max="2"
                     step="0.1"
                     onChange={e => {
-                      setViewport(prev => ({
-                        ...prev,
-                        scale: Number(e.target.value),
-                      }))
+                      updateViewport('scale', Number(e.target.value))
                     }}
                     className="scale-control"
-                    value={viewport.scale}
+                    value={viewport?.scale ?? 0}
                   />
                 </Box>
               </Box>
+            </Stack>
+            <Stack
+              spacing="24px"
+              direction={isOneColumn ? 'column' : 'row'}
+              mt={6}
+            >
               <Box>
                 invert{' '}
                 <Switch
-                  onChange={e =>
-                    setViewport({
-                      ...viewport,
-                      invert: e.target.checked,
-                    })
-                  }
+                  onChange={e => updateViewport('invert', e.target.checked)}
                   className="invert-control"
                   isChecked={viewport.invert}
                 />
@@ -208,35 +206,28 @@ export default function App(): JSX.Element {
               <Box>
                 hflip{' '}
                 <Switch
-                  onChange={e =>
-                    setViewport({
-                      ...viewport,
-                      hflip: e.target.checked,
-                    })
-                  }
+                  onChange={e => updateViewport('hflip', e.target.checked)}
                   className="hflip-control"
-                  isChecked={viewport.hflip}
+                  isChecked={viewport?.hflip ?? false}
                 />
               </Box>
               <Box>
                 vflip{' '}
                 <Switch
-                  onChange={e =>
-                    setViewport(prev => ({
-                      ...prev,
-                      vflip: e.target.checked,
-                    }))
-                  }
+                  onChange={e => updateViewport('vflip', e.target.checked)}
                   className="vflip-control"
-                  isChecked={viewport.vflip}
+                  isChecked={viewport?.vflip ?? false}
                 />
               </Box>
-            </HStack>
+            </Stack>
           </Box>
           <Box mb={6}>
-            <HStack spacing="24px">
+            <Stack
+              spacing={isOneColumn ? '20px' : '24px'}
+              direction={isOneColumn ? 'column' : 'row'}
+            >
               <Box>
-                <Box>x transition {viewport2.x}</Box>
+                <Box>x transition {viewport2?.x}</Box>
                 <Box>
                   <input
                     type="range"
@@ -246,18 +237,21 @@ export default function App(): JSX.Element {
                     max="100"
                     step="10"
                     onChange={e => {
-                      setViewport2(prev => ({
-                        ...prev,
-                        x: Number(e.target.value),
-                      }))
+                      setViewport2(prev => {
+                        if (!isValidViewport(prev)) return prev
+                        return {
+                          ...prev,
+                          x: Number(e.target.value),
+                        }
+                      })
                     }}
                     className="x-control2"
-                    value={viewport2.x}
+                    value={viewport2?.x ?? 0}
                   />
                 </Box>
               </Box>
               <Box>
-                <Box>y transition {viewport2.y}</Box>
+                <Box>y transition {viewport2?.y}</Box>
                 <Box>
                   <input
                     type="range"
@@ -267,13 +261,16 @@ export default function App(): JSX.Element {
                     max="100"
                     step="10"
                     onChange={e => {
-                      setViewport2(prev => ({
-                        ...prev,
-                        y: Number(e.target.value),
-                      }))
+                      setViewport2(prev => {
+                        if (!isValidViewport(prev)) return prev
+                        return {
+                          ...prev,
+                          y: Number(e.target.value),
+                        }
+                      })
                     }}
                     className="y-control2"
-                    value={viewport2.y}
+                    value={viewport2?.y ?? 0}
                   />
                 </Box>
               </Box>
@@ -284,18 +281,21 @@ export default function App(): JSX.Element {
               >
                 Reset
               </Button>
-            </HStack>
+            </Stack>
           </Box>
-        </HStack>
+        </Stack>
 
         <Box mb={6}>
           <Text fontSize="md" color="red.500">
             Move image with w,a,s,d keys
           </Text>
         </Box>
-        <Box className={isMount ? 'is-mount' : ''}>
-          <HStack spacing="24px">
-            <Box w={500} h={500} className="viewer1">
+        <Box>
+          <Stack
+            direction={isOneColumn ? 'column' : 'row'}
+            spacing={isOneColumn ? '100px' : '24px'}
+          >
+            <ViewerWrapper className="viewer1">
               <Viewer.Dicom
                 imageId={IMAGE_ID}
                 viewport={viewport}
@@ -304,8 +304,8 @@ export default function App(): JSX.Element {
               >
                 <OverlayLayer viewport={viewport} />
               </Viewer.Dicom>
-            </Box>
-            <Box w={500} h={500} className="viewer2">
+            </ViewerWrapper>
+            <ViewerWrapper className="viewer2">
               <Viewer.Dicom
                 imageId={IMAGE_ID2}
                 viewport={viewport2}
@@ -314,11 +314,11 @@ export default function App(): JSX.Element {
               >
                 <OverlayLayer viewport={viewport2} />
               </Viewer.Dicom>
-            </Box>
-          </HStack>
+            </ViewerWrapper>
+          </Stack>
         </Box>
 
-        <Box w={900}>
+        <Box>
           <CodeBlock code={CODE} />
         </Box>
       </Box>

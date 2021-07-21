@@ -2,11 +2,10 @@ import { Box } from '@chakra-ui/react'
 import Viewer from '@lunit/insight-viewer'
 import useImageSelect from './useImageSelect'
 import CustomProgress from '../../components/CustomProgress'
-import useIsMount from '../../hooks/useIsMount'
+import { ViewerWrapper } from '../../components/Wrapper'
 
-export default function SelectableImage(): JSX.Element {
+export default function ImageSelectableViewer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
-  const isMount = useIsMount()
 
   return (
     <>
@@ -14,12 +13,9 @@ export default function SelectableImage(): JSX.Element {
         <ImageSelect />
       </Box>
 
-      <div
-        style={{ maxWidth: '100%', aspectRatio: '1 / 1' }}
-        className={isMount ? 'is-mount' : ''}
-      >
+      <ViewerWrapper>
         <Viewer.Dicom imageId={selected} Progress={CustomProgress} />
-      </div>
+      </ViewerWrapper>
     </>
   )
 }
