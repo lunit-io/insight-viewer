@@ -1,7 +1,8 @@
 import { Box, Heading } from '@chakra-ui/react'
 import Viewer from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
-import SelectableImage from './SelectableImage'
+import { ViewerWrapper } from '../../components/Wrapper'
+import ImageSelectableViewer from './ImageSelectableViewer'
 import { DICOM_CODE, WEB_CODE } from './Code'
 
 export const WEB_URL =
@@ -10,20 +11,18 @@ export const WEB_URL =
 function Basic(): JSX.Element {
   return (
     <>
-      <SelectableImage />
-      <Box w={700}>
+      <ImageSelectableViewer />
+      <Box>
         <CodeBlock code={DICOM_CODE} />
       </Box>
 
       <Box mt={10} mb={6}>
         <Heading as="h3">WebImageViewer</Heading>
       </Box>
-      <Box w={700}>
-        <Box w={500} h={500}>
-          <Viewer.Web imageId={WEB_URL} />
-        </Box>
-        <CodeBlock code={WEB_CODE} />
-      </Box>
+      <ViewerWrapper>
+        <Viewer.Web imageId={WEB_URL} />
+      </ViewerWrapper>
+      <CodeBlock code={WEB_CODE} />
     </>
   )
 }

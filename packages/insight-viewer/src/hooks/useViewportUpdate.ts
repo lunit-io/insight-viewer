@@ -4,23 +4,46 @@ import {
   setViewport,
   CornerstoneViewport,
 } from '../utils/cornerstoneHelper'
-import { formatCornerstoneViewport } from '../utils/common/formatViewport'
-import { Element, Viewport } from '../types'
+import {
+  formatCornerstoneViewport,
+  formatViewport,
+} from '../utils/common/formatViewport'
+import { Element, Viewport, OnViewportChange } from '../types'
 
-export default function useViewportUpdate(
-  element: Element,
-  newViewport?: Viewport
-): void {
+interface Prop {
+  element: Element
+  viewport?: Viewport
+  initialViewport: CornerstoneViewport | undefined
+  onViewportChange?: OnViewportChange
+}
+
+export default function useViewportUpdate({
+  element,
+  viewport: newViewport,
+  initialViewport,
+  onViewportChange,
+}: Prop): void {
   useEffect(() => {
-    if (element && newViewport) {
-      const viewport = getViewport(
-        <HTMLDivElement>element
-      ) as CornerstoneViewport
+    if (!element || !newViewport) return
 
-      setViewport(
-        <HTMLDivElement>element,
-        formatCornerstoneViewport(viewport, newViewport)
-      )
+    const willReset = newViewport?._reset && initialViewport
+    const viewport = willReset
+      ? initialViewport
+      : getViewport(<HTMLDivElement>element)
+
+    if (!viewport) return
+
+    setViewport(
+      <HTMLDivElement>element,
+      formatCornerstoneViewport(viewport, newViewport)
+    )
+
+    // When resetting, update Viewer's viewport prop
+    if (willReset && onViewportChange) {
+      onViewportChange({
+        ...formatViewport(initialViewport),
+        ...(newViewport?._reset ?? {}),
+      })
     }
-  }, [element, newViewport])
+  }, [element, newViewport, initialViewport, onViewportChange])
 }

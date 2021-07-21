@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Stack, Button } from '@chakra-ui/react'
+import { Stack, Button, Text } from '@chakra-ui/react'
 
 const IMAGES = {
   image1:
@@ -29,6 +29,7 @@ export default function useImageSelect(): {
           colorScheme="blue"
           onClick={() => handleClick('image1')}
           isActive={selected === 'image1'}
+          className="button1"
         >
           image 1
         </Button>
@@ -36,6 +37,7 @@ export default function useImageSelect(): {
           colorScheme="blue"
           onClick={() => handleClick('image2')}
           isActive={selected === 'image2'}
+          className="button2"
         >
           image 2
         </Button>
@@ -43,9 +45,13 @@ export default function useImageSelect(): {
           colorScheme="blue"
           onClick={() => handleClick('image3')}
           isActive={selected === 'image3'}
+          className="button3"
         >
           image 3
         </Button>
+        <Text pt={2}>
+          selected: <span className="image">{selected}</span>
+        </Text>
       </Stack>
     )
   }

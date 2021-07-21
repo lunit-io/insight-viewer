@@ -3,6 +3,7 @@ import Viewer, { useMultiframe } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 
 const IMAGES = [
@@ -20,18 +21,17 @@ const IMAGES = [
 ]
 
 export default function Base(): JSX.Element {
-  const { image, setFrame } = useMultiframe(IMAGES)
+  const { image, frame, setFrame } = useMultiframe(IMAGES)
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
       target: { value },
     } = e
-
     setFrame(Number(value))
   }
 
   return (
-    <Box w={500} h={500}>
+    <Box>
       <Box mb={6}>
         <input
           type="range"
@@ -40,12 +40,18 @@ export default function Base(): JSX.Element {
           min="0"
           max="10"
           step="1"
-          defaultValue={0}
           onChange={changeFrame}
+          className="frame-control"
+          value={frame}
         />
       </Box>
-      <Viewer.Dicom imageId={image} Progress={CustomProgress} />
-      <Box w={900}>
+      <div>
+        frame: <span className="frame-number">{frame}</span>
+      </div>
+      <ViewerWrapper>
+        <Viewer.Dicom imageId={image} Progress={CustomProgress} />
+      </ViewerWrapper>
+      <Box>
         <CodeBlock code={CODE} />
       </Box>
     </Box>

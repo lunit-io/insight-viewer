@@ -9,7 +9,6 @@ function PromiseAllWithProgress(
   promiseArray: Promise<CornerstoneImage>[]
 ): Promise<CornerstoneImage[]> {
   let d = 0
-
   loadingProgressMessage.sendMessage(0)
 
   promiseArray.forEach(p => {
@@ -34,7 +33,7 @@ async function prefetch({
     const loaders = images
       .map(image =>
         loadImage(image, {
-          loader: getHttpClient(requestInterceptor),
+          loader: getHttpClient(requestInterceptor, true),
         }).catch((error: ViewerError) => onError(error))
       )
       .filter((p): p is Promise<CornerstoneImage> => p !== undefined)

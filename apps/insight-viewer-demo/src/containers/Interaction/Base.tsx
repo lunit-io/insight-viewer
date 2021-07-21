@@ -1,18 +1,21 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import Viewer, {
   useInteraction,
   useViewport,
   useMultiframe,
   Interaction,
   Wheel,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
 import WheelControl from './Control/Wheel'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -36,7 +39,10 @@ const MAX_SCALE = 3
 export default function App(): JSX.Element {
   const { image, frame, setFrame } = useMultiframe(IMAGES)
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport, resetViewport } = useViewport({
+    scale: 1,
+  })
+  const isOneColumn = useIsOneColumn()
 
   function handleChange(type: string) {
     return (value: string) => {
@@ -54,20 +60,23 @@ export default function App(): JSX.Element {
       )
   }
 
-  const handleZoom: Wheel = (_, deltaY) => {
+  const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
-      setViewport(prev => ({
-        ...prev,
-        scale: Math.min(
-          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-          MAX_SCALE
-        ),
-      }))
+      setViewport(prev => {
+        if (!isValidViewport(prev)) return prev
+        return {
+          ...prev,
+          scale: Math.min(
+            Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
+            MAX_SCALE
+          ),
+        }
+      })
   }
 
   const handler = {
     frame: handleFrame,
-    zoom: handleZoom,
+    scale: handleScale,
   }
 
   function handleWheel(value: string) {
@@ -79,25 +88,49 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box w={700}>
-      <Control onChange={handleChange} />
-      <WheelControl onChange={handleWheel} />
-      <Box mb={6}>
-        <Text>frame: {frame}</Text>
-      </Box>
-      <Box w={500} h={500}>
-        <Viewer.Dicom
-          imageId={image}
-          interaction={interaction}
-          onViewportChange={setViewport}
-          viewport={viewport}
-          Progress={CustomProgress}
-        >
-          <OverlayLayer viewport={viewport} />
-          <Canvas viewport={viewport} />
-        </Viewer.Dicom>
-      </Box>
-      <Box w={900}>
+    <Box>
+      <Stack
+        direction={['column', 'row']}
+        spacing={isOneColumn ? '0px' : '80px'}
+        align="flex-start"
+      >
+        <Box>
+          <Control onChange={handleChange} />
+          <WheelControl onChange={handleWheel} />
+          <Box mb={6}>
+            <Text className="test">
+              frame: <span className="frame">{frame}</span>
+            </Text>
+          </Box>
+        </Box>
+        <Box>
+          <Button
+            colorScheme="blue"
+            onClick={resetViewport}
+            className="reset"
+            mb={isOneColumn ? '20px' : '0px'}
+          >
+            Reset
+          </Button>
+        </Box>
+      </Stack>
+
+      <Stack direction="row">
+        <ViewerWrapper>
+          <Viewer.Dicom
+            imageId={image}
+            interaction={interaction}
+            onViewportChange={setViewport}
+            viewport={viewport}
+            Progress={CustomProgress}
+          >
+            <OverlayLayer viewport={viewport} />
+            <Canvas viewport={viewport} />
+          </Viewer.Dicom>
+        </ViewerWrapper>
+      </Stack>
+
+      <Box>
         <CodeBlock code={BASE_CODE} />
       </Box>
     </Box>

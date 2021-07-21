@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
 import Viewer, {
   useInteraction,
@@ -8,36 +8,52 @@ import Viewer, {
   DragEvent,
   Drag,
   Click,
+  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
 import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
+import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 export default function App(): JSX.Element {
-  const [{ x, y }, setCoord] = useState({ x: 0, y: 0 })
+  const [{ x, y }, setCoord] = useState<{
+    x: number | undefined
+    y: number | undefined
+  }>({ x: undefined, y: undefined })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport: viewerViewport, setViewport } = useViewport()
+  const isOneColumn = useIsOneColumn()
+  const {
+    viewport: viewerViewport,
+    setViewport,
+    resetViewport,
+  } = useViewport({
+    scale: 1,
+  })
 
   const customPan: Drag = ({ viewport, delta }) => {
     consola.info(
       'pan',
-      viewport.translation.x,
-      viewport.translation.y,
+      viewport.translation?.x,
+      viewport.translation?.y,
       delta.x,
       delta.y
     )
 
-    setViewport(prev => ({
-      ...prev,
-      x: prev.x + delta.x / prev.scale,
-      y: prev.y + delta.y / prev.scale,
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        x: prev.x + delta.x / prev.scale,
+        y: prev.y + delta.y / prev.scale,
+      }
+    })
   }
 
   const customAdjust: Drag = ({ viewport, delta }) => {
@@ -48,11 +64,14 @@ export default function App(): JSX.Element {
       delta.x,
       delta.y
     )
-    setViewport(prev => ({
-      ...prev,
-      windowWidth: prev.windowWidth + delta.x / prev.scale,
-      windowCenter: prev.windowCenter + delta.y / prev.scale,
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        windowWidth: prev.windowWidth + delta.x / prev.scale,
+        windowCenter: prev.windowCenter + delta.y / prev.scale,
+      }
+    })
   }
 
   const primaryClick: Click = (offsetX, offsetY) => {
@@ -101,26 +120,57 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box w={700}>
-      <Control onChange={handleDrag} />
-      <ClickControl onChange={handleClick} />
-      <Box mb={6}>
-        <Text>
-          offset: {x.toFixed(2)} / {y.toFixed(2)}
-        </Text>
-      </Box>
-      <Box w={500} h={500}>
-        <Viewer.Dicom
-          imageId={IMAGE_ID}
-          interaction={interaction}
-          viewport={viewerViewport}
-          onViewportChange={setViewport}
-          Progress={CustomProgress}
-        >
-          <OverlayLayer viewport={viewerViewport} />
-        </Viewer.Dicom>
-      </Box>
-      <Box w={900}>
+    <Box>
+      <Stack
+        direction={['column', 'row']}
+        spacing={isOneColumn ? '0px' : '80px'}
+        align="flex-start"
+      >
+        <Box>
+          <Control onChange={handleDrag} />
+          <ClickControl onChange={handleClick} />
+          <Box mb={6}>
+            <Text>
+              offset: <span className="click-x">{x?.toFixed(2) ?? 0}</span> /{' '}
+              <span className="click-y">{y?.toFixed(2) ?? 0}</span>
+            </Text>
+          </Box>
+          {typeof x === 'number' && typeof y === 'number' && (
+            <Box mb={6}>
+              <Text>
+                offset: <span className="click-x">{x.toFixed(2)}</span> /{' '}
+                <span className="click-y">{y.toFixed(2)}</span>
+              </Text>
+            </Box>
+          )}
+        </Box>
+        <Box>
+          <Button
+            colorScheme="blue"
+            onClick={resetViewport}
+            className="reset"
+            mb={isOneColumn ? '20px' : '0px'}
+          >
+            Reset
+          </Button>
+        </Box>
+      </Stack>
+
+      <Stack direction="row">
+        <ViewerWrapper>
+          <Viewer.Dicom
+            imageId={IMAGE_ID}
+            interaction={interaction}
+            viewport={viewerViewport}
+            onViewportChange={setViewport}
+            Progress={CustomProgress}
+          >
+            <OverlayLayer viewport={viewerViewport} />
+          </Viewer.Dicom>
+        </ViewerWrapper>
+      </Stack>
+
+      <Box>
         <CodeBlock code={CUSTOM_CODE} />
       </Box>
     </Box>

@@ -27,16 +27,18 @@ export default function LoadingProgress({
   })
 
   useEffect(() => {
-    subscription = loadingProgressMessage
-      .getMessage()
-      .subscribe((message: number) => {
+    let isCancelled = false
+
+    subscription = loadingProgressMessage.getMessage().subscribe(message => {
+      if (!isCancelled)
         setState(prev => ({
           ...prev,
           progress: message,
         }))
-      })
+    })
 
     return () => {
+      isCancelled = true
       subscription.unsubscribe()
     }
   }, [])
@@ -52,6 +54,11 @@ export default function LoadingProgress({
   }, [progress])
 
   return (
-    <div style={style}>{!hidden && <Progress progress={progress ?? 0} />}</div>
+    <div
+      style={style}
+      data-cy={!hidden ? 'loading' : ''} // For Cypress test.
+    >
+      {!hidden && <Progress progress={progress ?? 0} />}
+    </div>
   )
 }

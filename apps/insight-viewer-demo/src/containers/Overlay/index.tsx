@@ -3,6 +3,7 @@ import Viewer, { useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 
 const IMAGE_ID =
@@ -12,8 +13,8 @@ function Overlay(): JSX.Element {
   const { viewport, setViewport } = useViewport()
 
   return (
-    <Box w={700}>
-      <Box w={500} h={500}>
+    <Box>
+      <ViewerWrapper>
         <Viewer.Dicom
           imageId={IMAGE_ID}
           viewport={viewport}
@@ -22,8 +23,8 @@ function Overlay(): JSX.Element {
         >
           <OverlayLayer viewport={viewport} />
         </Viewer.Dicom>
-      </Box>
-      <Box w={900}>
+      </ViewerWrapper>
+      <Box>
         <CodeBlock code={CODE} />
       </Box>
     </Box>

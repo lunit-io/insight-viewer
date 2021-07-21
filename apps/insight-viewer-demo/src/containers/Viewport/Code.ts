@@ -1,59 +1,75 @@
 export const CODE = `\
-import Viewer, { useViewport, Viewport } from '@lunit/insight-viewer'
+import Viewer, { useViewport, Viewport, isValidViewport } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { viewport, setViewport } = useViewport({
+  const { viewport, setViewport, resetViewport } = useViewport({
     scale: 0.5,
     windowWidth: 90,
     windowCenter: 32,
   })
 
   function updateViewport() {
-    setViewport(prev => ({
-      ...prev,
-      invert: false,
-      hflip: false,
-      vflip: true,
-      x: 10,
-      y: 0,
-      scale: 1,
-      windowWidth: 128,
-      windowCenter: 256
-    }))
+    setViewport(prev => {
+      if (!isValidViewport(prev)) return prev
+      return {
+        ...prev,
+        invert: false,
+        hflip: false,
+        vflip: true,
+        x: 10,
+        y: 0,
+        scale: 1,
+        windowWidth: 128,
+        windowCenter: 256
+      }
+    })
 
     // or
-    setViewport({
-      ...viewport,
-      hflip: e.target.checked,
-    })
+    if (isValidViewport(viewport))
+      setViewport({
+        ...viewport,
+        hflip: e.target.checked,
+      })
   }
 
   // update viewport with keyboard event
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 's') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          y: prev.y + 10,
-        }))
+        setViewport((prev: Viewport) => {
+          if (!isValidViewport(prev)) return prev
+          return {
+            ...prev,
+            y: prev.y + 10,
+          }
+        })
       }
       if (e.key === 'w') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          y: prev.y - 10,
-        }))
+        setViewport((prev: Viewport) => {
+          if (!isValidViewport(prev)) return prev
+          return {
+            ...prev,
+            y: prev.y - 10,
+          }
+        })
       }
       if (e.key === 'd') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          x: prev.x + 10,
-        }))
+        setViewport((prev: Viewport) => {
+          if (!isValidViewport(prev)) return prev
+          return {
+            ...prev,
+            x: prev.x + 10,
+          }
+        })
       }
       if (e.key === 'a') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          x: prev.x - 10,
-        }))
+        setViewport((prev: Viewport) => {
+          if (!isValidViewport(prev)) return prev
+          return {
+            ...prev,
+            x: prev.x - 10,
+          }
+        })
       }
     }
 
@@ -67,6 +83,7 @@ export default function App() {
   return (
     <>
       <button type="button" onClick={updateViewport}>update viewport</button>
+      <button type="button" onClick={resetViewport}>reset viewport</button>
       <Viewer.Dicom
         imageId={IMAGE_ID}
         viewport={viewport}

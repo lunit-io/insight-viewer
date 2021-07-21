@@ -5,7 +5,8 @@ import { RequestInterceptor } from '../../types'
 type HttpClient = (url: string) => Promise<ArrayBuffer>
 
 export default function getHttpClient(
-  requestInterceptor: RequestInterceptor
+  requestInterceptor: RequestInterceptor,
+  multiple = false
 ): HttpClient {
   const httpClient: HttpClient = async url => {
     const http = ky.create({
@@ -17,7 +18,8 @@ export default function getHttpClient(
         ],
       },
       onDownloadProgress: async progress => {
-        loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
+        if (!multiple)
+          loadingProgressMessage.sendMessage(Math.round(progress.percent * 100))
       },
     })
 

@@ -36,6 +36,7 @@ module.exports = {
   rules: {
     semi: ['error', 'never', { beforeStatementContinuationChars: 'never' }],
     'no-extra-semi': 'error',
+    'no-underscore-dangle': 'off',
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
@@ -62,6 +63,8 @@ module.exports = {
         devDependencies: [
           '**/*.test.ts',
           '**/*.test.tsx',
+          '**/*.spec.ts',
+          '**/*.spec.tsx',
           '**/mocks/*',
           '**/mocks.ts',
         ],
