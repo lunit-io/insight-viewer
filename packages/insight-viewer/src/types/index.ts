@@ -42,4 +42,4 @@ export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 
 export type ViewerProp = {
   imageId: string
-} & Partial<HTTP>
+} & HTTP
