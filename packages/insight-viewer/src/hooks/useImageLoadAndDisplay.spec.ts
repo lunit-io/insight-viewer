@@ -1,6 +1,7 @@
-import { renderHook } from '@testing-library/react-hooks'
-import useImageLoadAndDisplay from './useImageLoadAndDisplay'
+/* eslint-disable no-shadow */
+import { loadAndDisplayImage } from './useImageLoadAndDisplay'
 import { DefaultProp } from '../Viewer/const'
+import { CORNERSTONE_VIEWPORT_MOCK } from '../mocks/const'
 
 const { onError, requestInterceptor } = DefaultProp
 const IMAGE_ID =
@@ -10,41 +11,66 @@ const defaultParam = {
   onError,
   requestInterceptor,
   hasLoader: true,
+  loadCountRef: { current: 1 },
+  viewportRef: { current: undefined },
 }
 
 describe('useImageLoadAndDisplay:', () => {
+  let container: HTMLDivElement
+  beforeAll(() => {
+    container = document.createElement('div')
+    document.body.appendChild(container)
+  })
+
   it('with no element', () => {
-    const { result } = renderHook(() =>
-      useImageLoadAndDisplay({
-        ...defaultParam,
-        imageId: IMAGE_ID,
-        element: null,
-      })
-    )
-    expect(result.current).toBeUndefined()
+    loadAndDisplayImage({
+      ...defaultParam,
+      imageId: IMAGE_ID,
+      element: null,
+    }).then(result => {
+      expect(result).toBe(false)
+    })
   })
 
   it('with no loader', () => {
-    const { result } = renderHook(() =>
-      useImageLoadAndDisplay({
-        ...defaultParam,
-        imageId: IMAGE_ID,
-        element: null,
-        hasLoader: false,
-      })
-    )
-    expect(result.current).toBeUndefined()
+    loadAndDisplayImage({
+      ...defaultParam,
+      imageId: IMAGE_ID,
+      element: container,
+      hasLoader: false,
+    }).then(result => {
+      expect(result).toBe(false)
+    })
   })
 
-  it('with invalid image', () => {
-    const { result } = renderHook(() =>
-      useImageLoadAndDisplay({
+  it('with invalid image', async () => {
+    const getImageViewport = async () => {
+      throw new Error('request fails')
+    }
+
+    const action = () =>
+      loadAndDisplayImage({
         ...defaultParam,
         imageId: '',
-        element: null,
-        hasLoader: false,
+        element: container,
+        getImageViewport,
       })
-    )
-    expect(result.current).toBeUndefined()
+    expect(await action()).toBe(false)
+  })
+
+  it('with valid image', () => {
+    const getImageViewport = async () => ({
+      viewport: CORNERSTONE_VIEWPORT_MOCK,
+      defaultViewport: CORNERSTONE_VIEWPORT_MOCK,
+    })
+
+    loadAndDisplayImage({
+      ...defaultParam,
+      imageId: IMAGE_ID,
+      element: container,
+      getImageViewport,
+    }).then(res => {
+      expect(res).toBe(true)
+    })
   })
 })
