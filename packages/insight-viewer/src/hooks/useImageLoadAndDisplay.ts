@@ -125,7 +125,8 @@ export default function useImageLoadAndDisplay(prop: Prop): void {
   } = prop
 
   useEffect(() => {
-    if (!hasLoader) return undefined
+    if (!hasLoader || !element) return
+
     // Determine whether it is first load or subsequent load(multiframe viewer)
     loadCountRef.current += 1
 
