@@ -20,7 +20,7 @@ import {
   BasicViewport,
 } from '../types'
 
-type Prop = ViewerProp & {
+type Prop = Required<ViewerProp> & {
   element: Element
   hasLoader: boolean
   viewportRef?: React.MutableRefObject<Viewport | undefined>
