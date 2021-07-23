@@ -22,27 +22,6 @@ describe('useImageLoadAndDisplay:', () => {
     document.body.appendChild(container)
   })
 
-  it('with no element', () => {
-    loadAndDisplayImage({
-      ...defaultParam,
-      imageId: IMAGE_ID,
-      element: null,
-    }).then(result => {
-      expect(result).toBe(false)
-    })
-  })
-
-  it('with no loader', () => {
-    loadAndDisplayImage({
-      ...defaultParam,
-      imageId: IMAGE_ID,
-      element: container,
-      hasLoader: false,
-    }).then(result => {
-      expect(result).toBe(false)
-    })
-  })
-
   it('with invalid image', async () => {
     const getImageViewport = async () => {
       throw new Error('request fails')
