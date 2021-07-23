@@ -77,7 +77,7 @@ export default function App(): JSX.Element {
 
   return (
     <>
-      <Box data-cy={isValidViewport(viewport)}>
+      <Box data-cy-viewport={isValidViewport(viewport)}>
         <Stack align="flex-start" spacing={isOneColumn ? '20px' : '20px'}>
           <Box mb={6}>
             <Stack

@@ -24,6 +24,7 @@ describe(
     })
 
     it('shows initial viewport', () => {
+      cy.wait(5000) // TODO: remove after implementing loading state getter
       cy.get(LOADING).should('not.exist')
       cy.percySnapshot()
     })

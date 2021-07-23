@@ -16,13 +16,10 @@ describe(
       cy.visit('/viewport')
     })
 
-    it('shows loading progress', () => {
-      cy.get(LOADING).should('be.exist')
-    })
-
     it('shows initial viewport', () => {
+      cy.wait(5000) // TODO: remove after implementing loading state getter
       cy.get(LOADING).should('not.exist')
-      cy.get('[data-cy=true]').should('be.exist')
+      cy.get('[data-cy-viewport=true]').should('be.exist')
       cy.get('.viewer1 .scale').should('have.text', INITIAL_VIEWPORT1.scale)
       cy.get('.viewer1 .x').should('have.text', (0).toFixed(2))
       cy.get('.viewer1 .y').should('have.text', (0).toFixed(2))

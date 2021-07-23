@@ -56,7 +56,7 @@ export default function LoadingProgress({
   return (
     <div
       style={style}
-      data-cy={!hidden ? 'loading' : ''} // For Cypress test.
+      data-cy-loading={!hidden ? 'loading' : ''} // For Cypress test.
     >
       {!hidden && <Progress progress={progress ?? 0} />}
     </div>
