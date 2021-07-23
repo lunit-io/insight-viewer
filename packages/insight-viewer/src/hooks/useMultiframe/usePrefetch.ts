@@ -64,19 +64,15 @@ export default function usePrefetch({
   prefetch: boolean
 }): void {
   useEffect(() => {
-    if (!prefetchEnabled) return undefined
-    let loaded = false
-    if (images.length === 0 || loaded) return undefined
+    if (!prefetchEnabled) return
+    if (images.length === 0) return
 
     setWadoImageLoader(onError)
       .then(async () => {
         await prefetch({ images, requestInterceptor })
-        loaded = true
       })
       .catch(e => {
         onError(e)
       })
-
-    return undefined
   }, [images, onError, requestInterceptor, prefetchEnabled])
 }
