@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   displayImage,
   loadImage as cornerstoneLoadImage,
@@ -22,7 +22,6 @@ import {
 
 type Prop = Required<ViewerProp> & {
   element: Element
-  hasLoader: boolean
   viewportRef?: React.MutableRefObject<Viewport | undefined>
   onViewportChange?: OnViewportChange
 }
@@ -81,14 +80,12 @@ export async function loadAndDisplayImage({
   loadCountRef,
   viewportRef,
   onError,
-  hasLoader,
   getImageViewport = _getImageViewport,
 }: Prop & {
   loadCountRef: React.MutableRefObject<number>
   getImageViewport?: GetImageViewport
 }): Promise<boolean> {
   try {
-    if (!element || !hasLoader) return false
     const imageViewport = await getImageViewport({
       imageId,
       element,
@@ -112,17 +109,27 @@ export async function loadAndDisplayImage({
   }
 }
 
-export default function useImageLoadAndDisplay(prop: Prop): void {
+export default function useImageLoadAndDisplay(
+  prop: Prop & {
+    setLoader: () => Promise<boolean>
+  }
+): void {
   const loadCountRef = useRef(0)
+  const [hasLoader, setHasLoader] = useState(false)
   const {
     element,
     imageId,
-    hasLoader,
     viewportRef,
+    setLoader,
     onError,
     requestInterceptor,
     onViewportChange,
   } = prop
+
+  // eslint-disable-next-line no-extra-semi
+  ;(async function asyncLoad(): Promise<void> {
+    if (!hasLoader) setHasLoader(await setLoader())
+  })()
 
   useEffect(() => {
     if (!hasLoader || !element) return
@@ -133,7 +140,6 @@ export default function useImageLoadAndDisplay(prop: Prop): void {
     loadAndDisplayImage({
       element,
       imageId,
-      hasLoader,
       viewportRef,
       onError,
       requestInterceptor,
