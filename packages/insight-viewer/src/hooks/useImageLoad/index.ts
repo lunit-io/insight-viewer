@@ -6,8 +6,8 @@ import {
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { ViewerProp, RequestInterceptor } from '../../types'
-import { LoadingStatus } from './types'
 import { LOADING_STATUS } from './const'
+import { ImageLoadStatus } from '../useImageLoadStatus'
 
 type DefaultGetImage = (arg: {
   imageId: string
@@ -54,16 +54,12 @@ export default function useImageLoad({
   requestInterceptor,
   setLoader,
   onError,
+  setLoadingStatus,
 }: Required<ViewerProp> & {
   setLoader: () => Promise<boolean>
-}): {
-  loadingStatus: LoadingStatus
-  image: CornerstoneImage | undefined
-} {
+  setLoadingStatus?: React.Dispatch<React.SetStateAction<ImageLoadStatus>>
+}): CornerstoneImage | undefined {
   const [hasLoader, setHasLoader] = useState(false)
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>(
-    LOADING_STATUS.INITIAL
-  )
   const [image, setImage] = useState<CornerstoneImage>()
 
   // eslint-disable-next-line no-extra-semi
@@ -73,7 +69,10 @@ export default function useImageLoad({
 
   useEffect(() => {
     if (!hasLoader) return
-    setLoadingStatus(LOADING_STATUS.LOADING)
+    setLoadingStatus?.(prev => ({
+      ...prev,
+      loadingStatus: LOADING_STATUS.LOADING,
+    }))
 
     loadImage({
       imageId,
@@ -81,11 +80,20 @@ export default function useImageLoad({
       onError,
     })
       .then(res => {
-        setLoadingStatus(LOADING_STATUS.SUCCESS)
+        setLoadingStatus?.(prev => ({
+          ...prev,
+          loadingStatus: LOADING_STATUS.SUCCESS,
+          loaded: res,
+        }))
         setImage(res)
       })
-      .catch(() => setLoadingStatus(LOADING_STATUS.FAIL))
-  }, [hasLoader, imageId, requestInterceptor, onError])
+      .catch(() =>
+        setLoadingStatus?.(prev => ({
+          ...prev,
+          status: LOADING_STATUS.FAIL,
+        }))
+      )
+  }, [hasLoader, imageId, requestInterceptor, onError, setLoadingStatus])
 
-  return { loadingStatus, image }
+  return image
 }
