@@ -3,7 +3,13 @@ import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
-import { HTTP, ViewerError } from '../../types'
+import { formatError } from '../../utils/common'
+import { HTTP, RequestInterceptor } from '../../types'
+
+export type GetLoadImage = (
+  image: string,
+  requestInterceptor: RequestInterceptor
+) => Promise<CornerstoneImage>
 
 function PromiseAllWithProgress(
   promiseArray: Promise<CornerstoneImage>[]
@@ -17,31 +23,35 @@ function PromiseAllWithProgress(
       loadingProgressMessage.sendMessage(
         Math.round((d * 100) / promiseArray.length)
       )
-    })
+    }).catch(e => e)
   })
+
   return Promise.all(promiseArray)
 }
 
-async function prefetch({
+const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
+  loadImage(image, {
+    loader: getHttpClient(requestInterceptor, true),
+  })
+
+/**
+ * If successful, return true. It works well.
+ * If not successful, return false. It calls onError.
+ * getLoadImage is pluggable for unit test.
+ */
+export async function prefetch({
   images,
   requestInterceptor,
-  onError,
-}: HTTP & {
+  getLoadImage = _getLoadImage,
+}: {
   images: string[]
-}) {
-  try {
-    const loaders = images
-      .map(image =>
-        loadImage(image, {
-          loader: getHttpClient(requestInterceptor, true),
-        }).catch((error: ViewerError) => onError(error))
-      )
-      .filter((p): p is Promise<CornerstoneImage> => p !== undefined)
-    return PromiseAllWithProgress(loaders)
-  } catch (err) {
-    onError(err)
-    return undefined
-  }
+  getLoadImage?: GetLoadImage
+  requestInterceptor: RequestInterceptor
+}): Promise<CornerstoneImage[]> {
+  const loaders = images.map(image => getLoadImage(image, requestInterceptor))
+  return PromiseAllWithProgress(loaders).catch(e => {
+    throw formatError(e)
+  })
 }
 
 export default function usePrefetch({
@@ -54,15 +64,15 @@ export default function usePrefetch({
   prefetch: boolean
 }): void {
   useEffect(() => {
-    if (!prefetchEnabled) return undefined
-    let loaded = false
-    if (images.length === 0 || loaded) return undefined
+    if (!prefetchEnabled) return
+    if (images.length === 0) return
 
-    setWadoImageLoader(onError).then(async () => {
-      await prefetch({ images, requestInterceptor, onError })
-      loaded = true
-    })
-
-    return undefined
+    setWadoImageLoader(onError)
+      .then(async () => {
+        await prefetch({ images, requestInterceptor })
+      })
+      .catch(e => {
+        onError(e)
+      })
   }, [images, onError, requestInterceptor, prefetchEnabled])
 }

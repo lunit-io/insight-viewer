@@ -21,6 +21,7 @@ describe(
     })
 
     it('shows initial viewer', () => {
+      cy.wait(5000) // TODO: remove after implementing loading state getter
       cy.get(LOADING).should('not.exist')
       cy.get('.frame-number').should('have.text', '0')
       cy.percySnapshot()

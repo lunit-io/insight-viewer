@@ -1,32 +1,18 @@
 import { formatViewport, formatCornerstoneViewport } from './formatViewport'
 import { DefaultViewport } from '../../const'
+import { CORNERSTONE_VIEWPORT_MOCK } from '../../mocks/const'
 
 describe('formatViewport:', () => {
   it('cornerstone viewport should be formatted', () => {
-    const viewportData = {
-      colormap: undefined,
-      hflip: false,
-      invert: false,
-      labelmap: false,
-      modalityLUT: undefined,
-      pixelReplication: false,
-      rotation: 0,
-      scale: 0.9765625,
-      translation: { x: 0, y: 0 },
-      vflip: false,
-      voi: { windowWidth: 90, windowCenter: 32 },
-      voiLUT: undefined,
-    }
-
-    expect(formatViewport(viewportData)).toEqual({
-      scale: viewportData.scale,
-      invert: viewportData.invert,
-      hflip: viewportData.hflip,
-      vflip: viewportData.vflip,
-      x: viewportData.translation.x,
-      y: viewportData.translation.y,
-      windowWidth: viewportData.voi.windowWidth,
-      windowCenter: viewportData.voi.windowCenter,
+    expect(formatViewport(CORNERSTONE_VIEWPORT_MOCK)).toEqual({
+      scale: CORNERSTONE_VIEWPORT_MOCK.scale,
+      invert: CORNERSTONE_VIEWPORT_MOCK.invert,
+      hflip: CORNERSTONE_VIEWPORT_MOCK.hflip,
+      vflip: CORNERSTONE_VIEWPORT_MOCK.vflip,
+      x: CORNERSTONE_VIEWPORT_MOCK.translation.x,
+      y: CORNERSTONE_VIEWPORT_MOCK.translation.y,
+      windowWidth: CORNERSTONE_VIEWPORT_MOCK.voi.windowWidth,
+      windowCenter: CORNERSTONE_VIEWPORT_MOCK.voi.windowCenter,
     })
   })
 

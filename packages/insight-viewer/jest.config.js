@@ -6,4 +6,6 @@ module.exports = {
   name: packageJson.name,
   displayName: packageJson.name,
   roots: ['<rootDir>/src'],
+  verbose: true,
+  transformIgnorePatterns: ['/node_modules/(?!(ky))'],
 }

@@ -20,11 +20,8 @@ describe(
       cy.get('.reset').click()
     })
 
-    it('shows loading progress', () => {
-      cy.get(LOADING).should('be.exist')
-    })
-
     it('shows initial viewport', () => {
+      cy.wait(5000) // TODO: remove after implementing loading state getter
       cy.get(LOADING).should('not.exist')
       cy.percySnapshot()
     })
