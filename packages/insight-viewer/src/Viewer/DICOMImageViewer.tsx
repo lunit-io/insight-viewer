@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import {
   WithChildren,
@@ -15,6 +15,7 @@ import { Interaction } from '../hooks/useInteraction/types'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
 import useInitialViewport from '../hooks/useInitialViewport'
 import { SetFrame } from '../hooks/useMultiframe/useFrame'
+import { ImageLoadStatus } from '../hooks/useImageLoadStatus'
 import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
 import { DefaultProp } from './const'
 
@@ -26,6 +27,7 @@ export function DICOMImageViewer({
   viewport,
   interaction,
   onViewportChange,
+  setLoadingStatus,
   children,
 }: WithChildren<
   ViewerProp & {
@@ -34,6 +36,7 @@ export function DICOMImageViewer({
     onViewportChange?: OnViewportChange
     onFrameChange?: SetFrame
     interaction?: Interaction
+    setLoadingStatus?: Dispatch<SetStateAction<ImageLoadStatus>>
   }
 >): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
@@ -41,11 +44,12 @@ export function DICOMImageViewer({
   const initialViewporRef = useInitialViewport()
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
-  const { /* loadingStatus, */ image } = useImageLoad({
+  const image = useImageLoad({
     imageId,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
     onError,
+    setLoadingStatus,
   })
   useImageDisplay({
     element: elRef.current,

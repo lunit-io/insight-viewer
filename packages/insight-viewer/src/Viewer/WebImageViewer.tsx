@@ -16,7 +16,7 @@ export function WebImageViewer({
   const elRef = useRef<HTMLDivElement>(null)
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
-  const { /* loadingStatus, */ image } = useImageLoad({
+  const image = useImageLoad({
     imageId,
     requestInterceptor,
     setLoader: () => setWebImageLoader(onError),
