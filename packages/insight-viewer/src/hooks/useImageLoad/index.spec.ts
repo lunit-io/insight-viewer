@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow */
-import { loadImage } from './useImageLoad'
-import { DefaultProp } from '../Viewer/const'
-import { CornerstoneImage } from '../utils/cornerstoneHelper'
-import { CORNERSTONE_IMAGE_MOCK } from '../mocks/const'
+import { loadImage } from '../useImageLoad'
+import { DefaultProp } from '../../Viewer/const'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 
 const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm'

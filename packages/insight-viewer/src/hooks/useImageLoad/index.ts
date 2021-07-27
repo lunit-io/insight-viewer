@@ -2,19 +2,13 @@ import { useState, useEffect } from 'react'
 import {
   loadImage as cornerstoneLoadImage,
   CornerstoneImage,
-} from '../utils/cornerstoneHelper'
-import getHttpClient from '../utils/httpClient'
-import { formatError } from '../utils/common'
-import { ViewerProp, RequestInterceptor } from '../types'
+} from '../../utils/cornerstoneHelper'
+import getHttpClient from '../../utils/httpClient'
+import { formatError } from '../../utils/common'
+import { ViewerProp, RequestInterceptor } from '../../types'
+import { LoadingStatus } from './types'
+import { LOADING_STATUS } from './const'
 
-export const LOADING_STATUS = {
-  INITIAL: 'initial',
-  LOADING: 'loading',
-  SUCCESS: 'success',
-  FAIL: 'fail',
-} as const
-
-export type LoadingStatus = typeof LOADING_STATUS[keyof typeof LOADING_STATUS]
 type DefaultGetImage = (arg: {
   imageId: string
   requestInterceptor: RequestInterceptor
