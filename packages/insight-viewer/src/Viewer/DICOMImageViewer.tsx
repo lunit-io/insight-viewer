@@ -8,7 +8,8 @@ import {
   OnViewportChange,
 } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
-import useImageLoadAndDisplay from '../hooks/useImageLoadAndDisplay'
+import useImageLoad from '../hooks/useImageLoad'
+import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
 import { Interaction } from '../hooks/useInteraction/types'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
@@ -40,13 +41,15 @@ export function DICOMImageViewer({
   const initialViewporRef = useInitialViewport()
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
-  // Load and display image.
-  useImageLoadAndDisplay({
+  const { /* loadingStatus, */ image } = useImageLoad({
     imageId,
-    element: elRef.current,
-    onError,
     requestInterceptor,
     setLoader: () => setWadoImageLoader(onError),
+    onError,
+  })
+  useImageDisplay({
+    element: elRef.current,
+    image,
     viewportRef,
     onViewportChange,
   })
