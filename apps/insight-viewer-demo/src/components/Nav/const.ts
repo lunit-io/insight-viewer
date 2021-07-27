@@ -1,6 +1,7 @@
 export const LINKS = [
   { href: '', name: 'Basic Viewer' },
   { href: 'multi-frame', name: 'MultiFrame Viewer' },
+  { href: 'loading-status', name: 'Loading Status' },
   { href: 'error', name: 'Error' },
   { href: 'progress', name: 'Progress' },
   { href: 'http-header', name: 'Http header' },
