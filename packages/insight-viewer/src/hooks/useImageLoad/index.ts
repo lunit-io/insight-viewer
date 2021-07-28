@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
-import { LOADING_STATE } from './const'
 import { LOADER_TYPE, CONFIG } from '../../const'
-import { LoadingState } from './types'
 import {
   loadImage as cornerstoneLoadImage,
   CornerstoneImage,
@@ -11,6 +9,15 @@ import { formatError } from '../../utils/common'
 import { HTTP, RequestInterceptor } from '../../types'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
+
+export const LOADING_STATE = {
+  INITIAL: 'initial',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  FAIL: 'fail',
+} as const
+
+export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 
 export type ImageLoad = {
   imageId: string
