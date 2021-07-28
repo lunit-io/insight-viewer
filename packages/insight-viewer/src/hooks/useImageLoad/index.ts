@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
+import { LOADING_STATE } from './const'
+import { LOADER_TYPE } from '../../const'
+import { LoadingState } from './types'
 import {
   loadImage as cornerstoneLoadImage,
   CornerstoneImage,
 } from '../../utils/cornerstoneHelper'
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
-import { ViewerProp, RequestInterceptor } from '../../types'
-import { LOADING_STATE } from './const'
-import { LoadingState } from './types'
+import { ViewerProp, RequestInterceptor, LoaderType } from '../../types'
+import { DefaultProp } from '../../Viewer/const'
+import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
+import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
 
 type DefaultGetImage = (arg: {
   imageId: string
@@ -50,23 +54,28 @@ export async function loadImage({
   }
 }
 
-export default function useImageLoad_({
+export default function useImageLoad({
+  requestInterceptor = DefaultProp.requestInterceptor,
+  onError = DefaultProp.onError,
   imageId,
-  requestInterceptor,
-  setLoader,
-  onError,
-  setLoadingState,
-}: Required<ViewerProp> & {
-  imageId: string
-  setLoader: () => Promise<boolean>
-  setLoadingState: React.Dispatch<React.SetStateAction<LoadingState>>
-}): CornerstoneImage | undefined {
+  type = LOADER_TYPE.Dicom,
+}: ViewerProp & {
+  type?: LoaderType
+}): {
+  loadingState: LoadingState
+  image: CornerstoneImage | undefined
+} {
+  const [loadingState, setLoadingState] = useState<LoadingState>(
+    LOADING_STATE.INITIAL
+  )
   const [hasLoader, setHasLoader] = useState(false)
   const [image, setImage] = useState<CornerstoneImage>()
+  const loader =
+    type === LOADER_TYPE.Dicom ? setWadoImageLoader : setWebImageLoader
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
-    if (!hasLoader) setHasLoader(await setLoader())
+    if (!hasLoader) setHasLoader(await loader(onError))
   })()
 
   useEffect(() => {
@@ -85,5 +94,8 @@ export default function useImageLoad_({
       .catch(() => setLoadingState(LOADING_STATE.FAIL))
   }, [hasLoader, imageId, requestInterceptor, onError, setLoadingState])
 
-  return image
+  return {
+    loadingState,
+    image,
+  }
 }

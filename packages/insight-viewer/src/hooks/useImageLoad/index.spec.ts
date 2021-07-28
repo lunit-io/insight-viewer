@@ -13,7 +13,7 @@ const defaultParam = {
 }
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 
-describe('useImageLoad_:', () => {
+describe('useImageLoad:', () => {
   it('with invalid image', () => {
     const getImage = async () => {
       throw new Error('request fails')
