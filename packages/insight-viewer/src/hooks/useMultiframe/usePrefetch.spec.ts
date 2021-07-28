@@ -1,9 +1,9 @@
 import { prefetch } from './usePrefetch'
-import { DefaultProp } from '../../Viewer/const'
+import { CONFIG } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 
-const { requestInterceptor } = DefaultProp
+const { requestInterceptor } = CONFIG
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',

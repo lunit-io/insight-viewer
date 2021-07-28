@@ -1,4 +1,5 @@
 import { Viewport } from './types'
+import { handleError } from './utils/common'
 
 export const DefaultViewport: Viewport = {
   scale: 0,
@@ -15,3 +16,10 @@ export const LOADER_TYPE = {
   Dicom: 'Dicom',
   Web: 'Web',
 } as const
+
+export const CONFIG = {
+  onError: handleError,
+  Progress: undefined,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  requestInterceptor: (_request: Request): void => {},
+}

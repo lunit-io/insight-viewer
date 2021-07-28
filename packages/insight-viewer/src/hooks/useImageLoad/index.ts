@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { LOADING_STATE } from './const'
-import { LOADER_TYPE } from '../../const'
+import { LOADER_TYPE, CONFIG } from '../../const'
 import { LoadingState } from './types'
 import {
   loadImage as cornerstoneLoadImage,
@@ -8,16 +8,20 @@ import {
 } from '../../utils/cornerstoneHelper'
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
-import { ViewerProp, RequestInterceptor, LoaderType } from '../../types'
-import { DefaultProp } from '../../Viewer/const'
+import { HTTP, RequestInterceptor } from '../../types'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
+
+export type ImageLoad = {
+  imageId: string
+} & Partial<HTTP>
 
 type DefaultGetImage = (arg: {
   imageId: string
   requestInterceptor: RequestInterceptor
 }) => Promise<CornerstoneImage>
 export type GetImage = DefaultGetImage | (() => Promise<CornerstoneImage>)
+type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]
 
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
   try {
@@ -39,7 +43,7 @@ export async function loadImage({
   requestInterceptor,
   onError,
   getImage = _getImage,
-}: Required<ViewerProp> & {
+}: Required<ImageLoad> & {
   getImage?: GetImage
   imageId: string
 }): Promise<CornerstoneImage> {
@@ -55,11 +59,11 @@ export async function loadImage({
 }
 
 export default function useImageLoad({
-  requestInterceptor = DefaultProp.requestInterceptor,
-  onError = DefaultProp.onError,
+  requestInterceptor = CONFIG.requestInterceptor,
+  onError = CONFIG.onError,
   imageId,
   type = LOADER_TYPE.Dicom,
-}: ViewerProp & {
+}: ImageLoad & {
   type?: LoaderType
 }): {
   loadingState: LoadingState
