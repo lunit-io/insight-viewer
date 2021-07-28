@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import { LOADER_TYPE } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
   children?: React.ReactNode
@@ -11,12 +12,6 @@ export type ProgressComponent = ({
 }: {
   progress: number
 }) => JSX.Element
-export type Viewer = ({
-  imageId,
-  children,
-}: WithChildren<{
-  imageId: string
-}>) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
 export interface BasicViewport {
   scale: number
@@ -43,3 +38,5 @@ export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 export type ViewerProp = {
   imageId: string
 } & Partial<HTTP>
+
+export type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]

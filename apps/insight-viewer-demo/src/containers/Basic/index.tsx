@@ -1,5 +1,5 @@
 import { Box, Heading } from '@chakra-ui/react'
-import Viewer from '@lunit/insight-viewer'
+import Viewer, { useImageLoad } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import ImageSelectableViewer from './ImageSelectableViewer'
@@ -9,6 +9,11 @@ export const WEB_URL =
   'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
 
 function Basic(): JSX.Element {
+  const { image } = useImageLoad({
+    imageId: WEB_URL,
+    type: 'Web',
+  })
+
   return (
     <>
       <ImageSelectableViewer />
@@ -20,7 +25,7 @@ function Basic(): JSX.Element {
         <Heading as="h3">WebImageViewer</Heading>
       </Box>
       <ViewerWrapper>
-        <Viewer.Web imageId={WEB_URL} />
+        <Viewer.Web image={image} />
       </ViewerWrapper>
       <CodeBlock code={WEB_CODE} />
     </>

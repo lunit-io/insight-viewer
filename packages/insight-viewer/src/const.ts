@@ -10,3 +10,8 @@ export const DefaultViewport: Viewport = {
   windowWidth: 0,
   windowCenter: 0,
 }
+
+export const LOADER_TYPE = {
+  Dicom: 'Dicom',
+  Web: 'Web',
+} as const
