@@ -21,7 +21,7 @@ const IMAGE_ID2 =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
 
 export default function App(): JSX.Element {
-  const { image } = useImageLoad({
+  const { loadingState, image } = useImageLoad({
     imageId: IMAGE_ID,
   })
   const { image: image2 } = useImageLoad({
@@ -296,7 +296,7 @@ export default function App(): JSX.Element {
             Move image with w,a,s,d keys
           </Text>
         </Box>
-        <Box>
+        <Box data-cy-loaded={loadingState}>
           <Stack
             direction={isOneColumn ? 'column' : 'row'}
             spacing={isOneColumn ? '100px' : '24px'}

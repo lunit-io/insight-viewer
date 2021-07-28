@@ -28,7 +28,7 @@ export default function App(): JSX.Element {
     x: number | undefined
     y: number | undefined
   }>({ x: undefined, y: undefined })
-  const { image } = useImageLoad({
+  const { loadingState, image } = useImageLoad({
     imageId: IMAGE_ID,
   })
   const { interaction, setInteraction } = useInteraction()
@@ -124,7 +124,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box>
+    <Box data-cy-loaded={loadingState}>
       <Stack
         direction={['column', 'row']}
         spacing={isOneColumn ? '0px' : '80px'}

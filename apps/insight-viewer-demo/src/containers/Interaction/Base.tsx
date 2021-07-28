@@ -39,7 +39,7 @@ const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
   const { image: currentImage, frame, setFrame } = useMultiframe(IMAGES)
-  const { image } = useImageLoad({
+  const { loadingState, image } = useImageLoad({
     imageId: currentImage,
   })
   const { interaction, setInteraction } = useInteraction()
@@ -92,7 +92,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box>
+    <Box data-cy-loaded={loadingState}>
       <Stack
         direction={['column', 'row']}
         spacing={isOneColumn ? '0px' : '80px'}

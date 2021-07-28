@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADED } from '../support/const'
 
 describe(
   'Interaction',
@@ -19,13 +19,9 @@ describe(
       cy.get('.reset').click()
     })
 
-    it('shows loading progress', () => {
-      cy.get(LOADING).should('be.exist')
-    })
-
     it('shows initial viewport', () => {
-      cy.wait(5000) // TODO: remove after implementing loading state getter
-      cy.get(LOADING).should('not.exist')
+      cy.wait(5000)
+      cy.get(LOADED).should('be.exist')
       cy.percySnapshot()
     })
 

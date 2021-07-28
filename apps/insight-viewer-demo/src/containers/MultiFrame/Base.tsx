@@ -22,7 +22,7 @@ const IMAGES = [
 
 export default function Base(): JSX.Element {
   const { frame, setFrame } = useMultiframe(IMAGES)
-  const { image } = useImageLoad({
+  const { loadingState, image } = useImageLoad({
     imageId: IMAGES[frame],
   })
 
@@ -34,7 +34,7 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box>
+    <Box data-cy-loaded={loadingState}>
       <Box mb={6}>
         <input
           type="range"
