@@ -4,15 +4,25 @@ import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 export default function App() {
   const { image } = useImageLoad({
     imageId: IMAGE_ID,
+    type: 'Dicom',      // optional(Default)
+    onError,            // optional
+    requestInterceptor, // optional
   })
 
   return <ImageViewer image={image} />
 }
 `
 export const WEB_CODE = `\
-import ImageViewer from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 
 export default function App() {
-  return <ImageViewer imageId={WEB_URL} />
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+    type: 'Web',
+    onError,            // optional
+    requestInterceptor, // optional
+  })
+
+  return <ImageViewer image={image} />
 }
 `
