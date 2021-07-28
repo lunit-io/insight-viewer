@@ -7,7 +7,7 @@ import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { ViewerProp, RequestInterceptor } from '../../types'
 import { LOADING_STATE } from './const'
-import { ImageLoadState } from '../useImageLoadState'
+import { ImageLoadState } from './types'
 
 type DefaultGetImage = (arg: {
   imageId: string
@@ -37,6 +37,7 @@ export async function loadImage({
   getImage = _getImage,
 }: Required<ViewerProp> & {
   getImage?: GetImage
+  imageId: string
 }): Promise<CornerstoneImage> {
   try {
     return await getImage({
@@ -49,13 +50,14 @@ export async function loadImage({
   }
 }
 
-export default function useImageLoad({
+export default function useImageLoad_({
   imageId,
   requestInterceptor,
   setLoader,
   onError,
   onLoadingStateChanged,
 }: Required<ViewerProp> & {
+  imageId: string
   setLoader: () => Promise<boolean>
   onLoadingStateChanged?: React.Dispatch<React.SetStateAction<ImageLoadState>>
 }): CornerstoneImage | undefined {
