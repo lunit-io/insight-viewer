@@ -1,3 +1,3 @@
-import { LOADING_STATUS } from './const'
+import { LOADING_STATE } from './const'
 
-export type LoadingStatus = typeof LOADING_STATUS[keyof typeof LOADING_STATUS]
+export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]

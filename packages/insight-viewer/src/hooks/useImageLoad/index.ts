@@ -6,8 +6,8 @@ import {
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { ViewerProp, RequestInterceptor } from '../../types'
-import { LOADING_STATUS } from './const'
-import { ImageLoadStatus } from '../useImageLoadStatus'
+import { LOADING_STATE } from './const'
+import { ImageLoadState } from '../useImageLoadState'
 
 type DefaultGetImage = (arg: {
   imageId: string
@@ -54,10 +54,10 @@ export default function useImageLoad({
   requestInterceptor,
   setLoader,
   onError,
-  setLoadingStatus,
+  onLoadingStateChanged,
 }: Required<ViewerProp> & {
   setLoader: () => Promise<boolean>
-  setLoadingStatus?: React.Dispatch<React.SetStateAction<ImageLoadStatus>>
+  onLoadingStateChanged?: React.Dispatch<React.SetStateAction<ImageLoadState>>
 }): CornerstoneImage | undefined {
   const [hasLoader, setHasLoader] = useState(false)
   const [image, setImage] = useState<CornerstoneImage>()
@@ -69,9 +69,9 @@ export default function useImageLoad({
 
   useEffect(() => {
     if (!hasLoader) return
-    setLoadingStatus?.(prev => ({
+    onLoadingStateChanged?.(prev => ({
       ...prev,
-      loadingStatus: LOADING_STATUS.LOADING,
+      loadingState: LOADING_STATE.LOADING,
     }))
 
     loadImage({
@@ -80,20 +80,19 @@ export default function useImageLoad({
       onError,
     })
       .then(res => {
-        setLoadingStatus?.(prev => ({
+        onLoadingStateChanged?.(prev => ({
           ...prev,
-          loadingStatus: LOADING_STATUS.SUCCESS,
-          loaded: res,
+          loadingState: LOADING_STATE.SUCCESS,
         }))
         setImage(res)
       })
       .catch(() =>
-        setLoadingStatus?.(prev => ({
+        onLoadingStateChanged?.(prev => ({
           ...prev,
-          status: LOADING_STATUS.FAIL,
+          status: LOADING_STATE.FAIL,
         }))
       )
-  }, [hasLoader, imageId, requestInterceptor, onError, setLoadingStatus])
+  }, [hasLoader, imageId, requestInterceptor, onError, onLoadingStateChanged])
 
   return image
 }

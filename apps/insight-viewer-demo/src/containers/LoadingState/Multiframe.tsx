@@ -1,8 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
-import Viewer, {
-  useMultiframe,
-  useImageLoadStatus,
-} from '@lunit/insight-viewer'
+import Viewer, { useMultiframe, useImageLoadState } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -24,22 +21,22 @@ const IMAGES = [
 
 export default function Multiframe(): JSX.Element {
   const { frame } = useMultiframe(IMAGES)
-  const { loadingStatus, setLoadingStatus, loaded } = useImageLoadStatus()
+  const { loadingState, onLoadingStateChanged, image } = useImageLoadState()
 
   return (
     <Box>
       <Box mb={6}>
         <Text className="test">
-          loadingStatus:{' '}
-          <span data-cy-loading-status="loading-status">{loadingStatus}</span>
-          {loaded && <span> ({loaded.imageId})</span>}
+          loadingState:{' '}
+          <span data-cy-loading-state="loading-state">{loadingState}</span>
+          {image && <span> ({image.imageId})</span>}
         </Text>
       </Box>
       <ViewerWrapper>
         <Viewer.Dicom
           imageId={IMAGES[frame]}
           Progress={CustomProgress}
-          setLoadingStatus={setLoadingStatus}
+          onLoadingStateChanged={onLoadingStateChanged}
         />
       </ViewerWrapper>
       <Box>

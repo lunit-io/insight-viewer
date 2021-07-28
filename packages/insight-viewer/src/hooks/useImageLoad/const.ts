@@ -1,4 +1,4 @@
-export const LOADING_STATUS = {
+export const LOADING_STATE = {
   INITIAL: 'initial',
   LOADING: 'loading',
   SUCCESS: 'success',

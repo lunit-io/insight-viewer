@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 
 const DynamicComponentWithNoSSR = dynamic(
-  () => import('../containers/LoadingStatus'),
+  () => import('../containers/LoadingState'),
   { ssr: false }
 )
 
