@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Box, Text } from '@chakra-ui/react'
-import Viewer, { ViewerError } from '@lunit/insight-viewer'
+import Viewer, { ViewerError, useImageLoad } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
@@ -11,14 +11,19 @@ const IMAGE_ID =
 export default function Custom(): JSX.Element {
   const [error, setError] = useState('')
 
-  function customError(e: ViewerError): void {
+  const customError = useCallback((e: ViewerError) => {
     setError(`!!! ${e.message} ${e.status}`)
-  }
+  }, [])
+
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+    onError: customError,
+  })
 
   return (
     <>
       <ViewerWrapper>
-        <Viewer.Dicom imageId={IMAGE_ID} onError={customError} />
+        <Viewer.Dicom image={image} />
       </ViewerWrapper>
       <Text>{error}</Text>
       <Box>

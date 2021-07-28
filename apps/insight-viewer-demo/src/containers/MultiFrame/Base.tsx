@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Viewer, { useMultiframe } from '@lunit/insight-viewer'
+import Viewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
@@ -21,7 +21,10 @@ const IMAGES = [
 ]
 
 export default function Base(): JSX.Element {
-  const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { frame, setFrame } = useMultiframe(IMAGES)
+  const { image } = useImageLoad({
+    imageId: IMAGES[frame],
+  })
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -49,7 +52,7 @@ export default function Base(): JSX.Element {
         frame: <span className="frame-number">{frame}</span>
       </div>
       <ViewerWrapper>
-        <Viewer.Dicom imageId={image} Progress={CustomProgress} />
+        <Viewer.Dicom image={image} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CODE} />

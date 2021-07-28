@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
 import Viewer, {
+  useImageLoad,
   useInteraction,
   useViewport,
   Interaction,
@@ -27,6 +28,9 @@ export default function App(): JSX.Element {
     x: number | undefined
     y: number | undefined
   }>({ x: undefined, y: undefined })
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+  })
   const { interaction, setInteraction } = useInteraction()
   const isOneColumn = useIsOneColumn()
   const {
@@ -159,7 +163,7 @@ export default function App(): JSX.Element {
       <Stack direction="row">
         <ViewerWrapper>
           <Viewer.Dicom
-            imageId={IMAGE_ID}
+            image={image}
             interaction={interaction}
             viewport={viewerViewport}
             onViewportChange={setViewport}

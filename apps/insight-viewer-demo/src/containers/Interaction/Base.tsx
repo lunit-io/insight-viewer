@@ -1,5 +1,6 @@
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import Viewer, {
+  useImageLoad,
   useInteraction,
   useViewport,
   useMultiframe,
@@ -37,7 +38,10 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
-  const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { image: currentImage, frame, setFrame } = useMultiframe(IMAGES)
+  const { image } = useImageLoad({
+    imageId: currentImage,
+  })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport, resetViewport } = useViewport({
     scale: 1,
@@ -118,7 +122,7 @@ export default function App(): JSX.Element {
       <Stack direction="row">
         <ViewerWrapper>
           <Viewer.Dicom
-            imageId={image}
+            image={image}
             interaction={interaction}
             onViewportChange={setViewport}
             viewport={viewport}

@@ -1,14 +1,18 @@
 export const DICOM_CODE = `\
-import Viewer from '@lunit/insight-viewer'
+import Viewer, { useImageLoad } from '@lunit/insight-viewer'
 
-export default function() {
-  return <Viewer.Dicom imageId={IMAGE_ID} />
+export default function App() {
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+  })
+
+  return <Viewer.Dicom image={image} />
 }
 `
 export const WEB_CODE = `\
 import Viewer from '@lunit/insight-viewer'
 
-export default function() {
+export default function App() {
   return <Viewer.Web imageId={WEB_URL} />
 }
 `

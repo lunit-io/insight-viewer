@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
-import Viewer, { useMultiframe, useImageLoadState } from '@lunit/insight-viewer'
+import Viewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -21,7 +21,9 @@ const IMAGES = [
 
 export default function Multiframe(): JSX.Element {
   const { frame } = useMultiframe(IMAGES)
-  const { loadingState, onLoadingStateChanged, image } = useImageLoadState()
+  const { loadingState, image } = useImageLoad({
+    imageId: IMAGES[frame],
+  })
 
   return (
     <Box>
@@ -33,11 +35,7 @@ export default function Multiframe(): JSX.Element {
         </Text>
       </Box>
       <ViewerWrapper>
-        <Viewer.Dicom
-          imageId={IMAGES[frame]}
-          Progress={CustomProgress}
-          onLoadingStateChanged={onLoadingStateChanged}
-        />
+        <Viewer.Dicom image={image} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CODE} />

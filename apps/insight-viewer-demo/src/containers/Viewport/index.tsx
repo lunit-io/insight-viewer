@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
 import Viewer, {
+  useImageLoad,
   useViewport,
   Viewport,
   isValidViewport,
@@ -20,10 +21,15 @@ const IMAGE_ID2 =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
 
 export default function App(): JSX.Element {
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+  })
+  const { image: image2 } = useImageLoad({
+    imageId: IMAGE_ID2,
+  })
   const { viewport, setViewport, resetViewport } =
     useViewport(INITIAL_VIEWPORT1)
   const isOneColumn = useIsOneColumn()
-
   const {
     viewport: viewport2,
     setViewport: setViewport2,
@@ -297,7 +303,7 @@ export default function App(): JSX.Element {
           >
             <ViewerWrapper className="viewer1">
               <Viewer.Dicom
-                imageId={IMAGE_ID}
+                image={image}
                 viewport={viewport}
                 onViewportChange={setViewport}
                 Progress={CustomProgress}
@@ -307,7 +313,7 @@ export default function App(): JSX.Element {
             </ViewerWrapper>
             <ViewerWrapper className="viewer2">
               <Viewer.Dicom
-                imageId={IMAGE_ID2}
+                image={image2}
                 viewport={viewport2}
                 onViewportChange={setViewport2}
                 Progress={CustomProgress}
