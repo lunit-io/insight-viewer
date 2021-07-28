@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 import useImageSelect from './useImageSelect'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -17,7 +17,7 @@ export default function ImageSelectableViewer(): JSX.Element {
       </Box>
 
       <ViewerWrapper>
-        <Viewer.Dicom image={image} Progress={CustomProgress} />
+        <ImageViewer image={image} Progress={CustomProgress} />
       </ViewerWrapper>
     </>
   )

@@ -1,5 +1,5 @@
 export const CODE = `\
-import Viewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -37,7 +37,7 @@ export default function Viewer() {
         defaultValue={0}
         onChange={changeFrame}
       />
-      <Viewer.Dicom image={image} />
+      <ImageViewer image={image} />
     </>
   )
 }

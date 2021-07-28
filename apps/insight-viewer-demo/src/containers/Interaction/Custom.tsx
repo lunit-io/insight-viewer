@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
-import Viewer, {
+import ImageViewer, {
   useImageLoad,
   useInteraction,
   useViewport,
@@ -162,7 +162,7 @@ export default function App(): JSX.Element {
 
       <Stack direction="row">
         <ViewerWrapper>
-          <Viewer.Dicom
+          <ImageViewer
             image={image}
             interaction={interaction}
             viewport={viewerViewport}
@@ -170,7 +170,7 @@ export default function App(): JSX.Element {
             Progress={CustomProgress}
           >
             <OverlayLayer viewport={viewerViewport} />
-          </Viewer.Dicom>
+          </ImageViewer>
         </ViewerWrapper>
       </Stack>
 

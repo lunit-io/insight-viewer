@@ -1,5 +1,5 @@
 import { Box, Heading } from '@chakra-ui/react'
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
@@ -22,7 +22,7 @@ export default function WithJwt(): JSX.Element {
       </Box>
       <Box>
         <ViewerWrapper>
-          <Viewer.Dicom image={image} />
+          <ImageViewer image={image} />
         </ViewerWrapper>
         <CodeBlock code={CODE} />
       </Box>

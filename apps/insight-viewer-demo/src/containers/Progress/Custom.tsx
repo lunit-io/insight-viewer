@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -16,7 +16,7 @@ export default function Custom(): JSX.Element {
   return (
     <>
       <ViewerWrapper>
-        <Viewer.Dicom image={image} Progress={CustomProgress} />
+        <ImageViewer image={image} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CUSTOM_CODE} />

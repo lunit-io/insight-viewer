@@ -1,5 +1,5 @@
 export const BASE_CODE = `\
-import Viewer, {
+import ImageViewer, {
   useImageLoad,
   useMultiframe,
   useViewport,
@@ -81,21 +81,21 @@ export default function App() {
       <input type="radio" value="none" onChange={handleWheelChange} />
       <input type="radio" value="frame" onChange={handleWheelChange} />
       <input type="radio" value="scale" onChange={handleWheelChange} />
-      <Viewer.Dicom
+      <ImageViewer
         image={image}
         interaction={interaction}
         viewport={viewport}
         onViewportChange={setViewport}
       >
         <OverlayLayer viewport={viewport} />
-      </Viewer.Dicom>
+      </ImageViewer>
     </>
   )
 }
 `
 
 export const CUSTOM_CODE = `\
-import Viewer, { useImageLoad, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
 
 export default function App() {
   const { image } = useImageLoad({
@@ -173,14 +173,14 @@ export default function App() {
       <input type="radio" value="pan" onChange={handleCustomPan} />
       <input type="radio" value="adjust" onChange={handleCustomAdjust} />
       <input type="checkbox" value="adjust" onChange={handleClick} />
-      <Viewer.Dicom
+      <ImageViewer
         image={image}
         interaction={interaction}
         viewport={viewport}
         onViewportChange={setViewport}
       >
         <OverlayLayer viewport={viewport} />
-      </Viewer.Dicom>
+      </ImageViewer>
     </>
   )
 }

@@ -1,5 +1,5 @@
 export const CODE = `\
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 
   export default function App() {
     const { loadingState, image } = useImageLoad({
@@ -13,7 +13,7 @@ import Viewer, { useImageLoad } from '@lunit/insight-viewer'
           <span>{loadingState}</span>
           {image && <span> ({image.imageId})</span>}
         </div>
-        <Viewer.Dicom image={image} />
+        <ImageViewer image={image} />
       </>
     )
   }

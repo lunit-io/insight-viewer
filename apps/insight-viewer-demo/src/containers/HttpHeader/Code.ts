@@ -1,5 +1,5 @@
 export const CODE = `\
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 
 const requestInterceptor = (request: Request) => {
   request.headers.set('Authorization', 'Bearer blahblah')
@@ -12,9 +12,7 @@ export default function() {
   })
 
   return (
-    <Viewer.Dicom 
-      image={image}
-    />
+    <ImageViewer image={image} />
   )
 }
 `

@@ -1,16 +1,16 @@
 export const BASE_CODE = `\
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 
 export default function Viewer() {
   const { image } = useImageLoad({
     imageId: IMAGE_ID,
   })
 
-  return <Viewer.Dicom image={image} />
+  return <ImageViewer image={image} />
 }
 `
 export const CUSTOM_CODE = `\
-import Viewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 
 export default function Viewer() {
   const { image } = useImageLoad({
@@ -18,7 +18,7 @@ export default function Viewer() {
   })
 
   return (
-    <Viewer.Dicom 
+    <ImageViewer 
       image={image}
       Progress={CustomProgress} 
     />

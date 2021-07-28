@@ -1,5 +1,5 @@
 export const CODE = `\
-import Viewer, { 
+import ImageViewer, { 
   useImageLoad, 
   useViewport, 
   Viewport, 
@@ -92,7 +92,7 @@ export default function App() {
     <>
       <button type="button" onClick={updateViewport}>update viewport</button>
       <button type="button" onClick={resetViewport}>reset viewport</button>
-      <Viewer.Dicom
+      <ImageViewer
         image={image}
         viewport={viewport}
         onViewportChange={setViewport}
