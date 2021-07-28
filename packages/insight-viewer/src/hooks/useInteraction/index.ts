@@ -8,7 +8,7 @@ import {
   MOUSEWHEEL,
 } from './const'
 
-export default function useInteraction(): {
+export function useInteraction(): {
   interaction: Interaction
   setInteraction: React.Dispatch<React.SetStateAction<Interaction>>
 } {

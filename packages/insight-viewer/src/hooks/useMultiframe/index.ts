@@ -9,7 +9,7 @@ type Prop = {
   prefetch?: boolean
 } & Partial<HTTP>
 
-export default function useMultiframe(
+export function useMultiframe(
   IMAGES: string[],
   { initialFrame, prefetch, onError, requestInterceptor }: Prop | undefined = {}
 ): {

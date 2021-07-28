@@ -58,7 +58,7 @@ export async function loadImage({
   }
 }
 
-export default function useImageLoad({
+export function useImageLoad({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
   imageId,
