@@ -11,5 +11,4 @@ export type ViewerProp = {
   onViewportChange?: OnViewportChange
   onFrameChange?: SetFrame
   interaction?: Interaction
-  // onLoadingStateChanged?: Dispatch<SetStateAction<ImageLoadState>>
 }

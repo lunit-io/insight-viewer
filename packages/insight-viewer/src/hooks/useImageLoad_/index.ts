@@ -7,7 +7,7 @@ import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { ViewerProp, RequestInterceptor } from '../../types'
 import { LOADING_STATE } from './const'
-import { ImageLoadState } from './types'
+import { LoadingState } from './types'
 
 type DefaultGetImage = (arg: {
   imageId: string
@@ -55,11 +55,11 @@ export default function useImageLoad_({
   requestInterceptor,
   setLoader,
   onError,
-  onLoadingStateChanged,
+  setLoadingState,
 }: Required<ViewerProp> & {
   imageId: string
   setLoader: () => Promise<boolean>
-  onLoadingStateChanged?: React.Dispatch<React.SetStateAction<ImageLoadState>>
+  setLoadingState: React.Dispatch<React.SetStateAction<LoadingState>>
 }): CornerstoneImage | undefined {
   const [hasLoader, setHasLoader] = useState(false)
   const [image, setImage] = useState<CornerstoneImage>()
@@ -71,10 +71,7 @@ export default function useImageLoad_({
 
   useEffect(() => {
     if (!hasLoader) return
-    onLoadingStateChanged?.(prev => ({
-      ...prev,
-      loadingState: LOADING_STATE.LOADING,
-    }))
+    setLoadingState(LOADING_STATE.LOADING)
 
     loadImage({
       imageId,
@@ -82,19 +79,11 @@ export default function useImageLoad_({
       onError,
     })
       .then(res => {
-        onLoadingStateChanged?.(prev => ({
-          ...prev,
-          loadingState: LOADING_STATE.SUCCESS,
-        }))
+        setLoadingState(LOADING_STATE.SUCCESS)
         setImage(res)
       })
-      .catch(() =>
-        onLoadingStateChanged?.(prev => ({
-          ...prev,
-          status: LOADING_STATE.FAIL,
-        }))
-      )
-  }, [hasLoader, imageId, requestInterceptor, onError, onLoadingStateChanged])
+      .catch(() => setLoadingState(LOADING_STATE.FAIL))
+  }, [hasLoader, imageId, requestInterceptor, onError, setLoadingState])
 
   return image
 }
