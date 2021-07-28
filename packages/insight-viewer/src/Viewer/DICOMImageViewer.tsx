@@ -1,56 +1,26 @@
-import React, { useRef, useEffect, Dispatch, SetStateAction } from 'react'
+import React, { useRef, useEffect } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import {
-  WithChildren,
-  Viewport,
-  ViewerProp,
-  ProgressComponent,
-  OnViewportChange,
-} from '../types'
+import { WithChildren } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
-import useImageLoad from '../hooks/useImageLoad'
 import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
-import { Interaction } from '../hooks/useInteraction/types'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
 import useInitialViewport from '../hooks/useInitialViewport'
-import { SetFrame } from '../hooks/useMultiframe/useFrame'
-import { ImageLoadState } from '../hooks/useImageLoadState'
-import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
-import { DefaultProp } from './const'
+import { ViewerProp } from './types'
 
 export function DICOMImageViewer({
-  imageId,
-  onError = DefaultProp.onError,
+  image,
   Progress,
-  requestInterceptor = DefaultProp.requestInterceptor,
   viewport,
   interaction,
   onViewportChange,
-  onLoadingStateChanged,
   children,
-}: WithChildren<
-  ViewerProp & {
-    Progress?: ProgressComponent
-    viewport?: Viewport
-    onViewportChange?: OnViewportChange
-    onFrameChange?: SetFrame
-    interaction?: Interaction
-    onLoadingStateChanged?: Dispatch<SetStateAction<ImageLoadState>>
-  }
->): JSX.Element {
+}: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef(viewport)
   const initialViewporRef = useInitialViewport()
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
-  const image = useImageLoad({
-    imageId,
-    requestInterceptor,
-    setLoader: () => setWadoImageLoader(onError),
-    onError,
-    onLoadingStateChanged,
-  })
   useImageDisplay({
     element: elRef.current,
     image,
