@@ -20,7 +20,6 @@ describe(
     })
 
     it('shows initial viewport', () => {
-      cy.wait(5000)
       cy.get(LOADED).should('be.exist')
       cy.percySnapshot()
     })

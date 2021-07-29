@@ -17,7 +17,6 @@ describe(
     })
 
     it('shows initial viewport', () => {
-      cy.wait(5000)
       cy.get(LOADED).should('be.exist')
       cy.get('[data-cy-viewport=true]').should('be.exist')
       cy.get('.viewer1 .scale').should('have.text', INITIAL_VIEWPORT1.scale)

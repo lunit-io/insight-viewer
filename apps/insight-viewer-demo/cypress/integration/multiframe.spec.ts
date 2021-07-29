@@ -26,7 +26,6 @@ describe(
     })
 
     it('shows initial viewer', () => {
-      cy.wait(5000)
       cy.get(LOADED).should('be.exist')
       cy.get('.frame-number').should('have.text', '0')
       cy.percySnapshot()

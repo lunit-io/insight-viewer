@@ -8,7 +8,8 @@ import '../styles/globals.css'
 
 const Layout = dynamic(() => import('../components/Layout'), { ssr: false })
 
-if (typeof window !== 'undefined') {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+if (typeof window !== 'undefined' && !(window as any).Cypress) {
   const { worker } = require('../mocks/browser')
 
   worker.start({
