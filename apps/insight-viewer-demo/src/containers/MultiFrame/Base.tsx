@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text, Stack } from '@chakra-ui/react'
 import ImageViewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
@@ -35,22 +35,31 @@ export default function Base(): JSX.Element {
 
   return (
     <Box data-cy-loaded={loadingState}>
-      <Box mb={6}>
-        <input
-          type="range"
-          id="frame"
-          name="frame"
-          min="0"
-          max="10"
-          step="1"
-          onChange={changeFrame}
-          className="frame-control"
-          value={frame}
-        />
+      <Stack spacing="24px" mt={3} mb={3} direction="row">
+        <Box>
+          <input
+            type="range"
+            id="frame"
+            name="frame"
+            min="0"
+            max="10"
+            step="1"
+            onChange={changeFrame}
+            className="frame-control"
+            value={frame}
+          />
+        </Box>
+        <div>
+          frame: <span className="frame-number">{frame}</span>
+        </div>
+      </Stack>
+
+      <Box mb={3}>
+        <Text>
+          <b data-cy-loading-state="loading-state">{loadingState}</b>
+          {image && <span> ({image.imageId})</span>}
+        </Text>
       </Box>
-      <div>
-        frame: <span className="frame-number">{frame}</span>
-      </div>
       <ViewerWrapper>
         <ImageViewer image={image} Progress={CustomProgress} />
       </ViewerWrapper>

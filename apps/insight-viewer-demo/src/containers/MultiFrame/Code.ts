@@ -17,7 +17,7 @@ export default function Viewer() {
       requestInterceptor, // optional
     } // optional
   )
-  const { image } = useImageLoad({
+  const { loadingState, image } = useImageLoad({
     imageId, // or IMAGES[frame]
   })
 
@@ -37,6 +37,10 @@ export default function Viewer() {
         defaultValue={0}
         onChange={changeFrame}
       />
+      <div>
+        <span>{loadingState}</span>
+        {image && <span> ({image.imageId})</span>}
+      </div>
       <ImageViewer image={image} />
     </>
   )
