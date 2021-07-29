@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { LOADER_TYPE, CONFIG } from '../../const'
 import {
   loadImage as cornerstoneLoadImage,
@@ -6,29 +6,17 @@ import {
 } from '../../utils/cornerstoneHelper'
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
-import { HTTP, RequestInterceptor } from '../../types'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
-
-export const LOADING_STATE = {
-  INITIAL: 'initial',
-  LOADING: 'loading',
-  SUCCESS: 'success',
-  FAIL: 'fail',
-} as const
-
-export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
-
-export type ImageLoad = {
-  imageId: string
-} & Partial<HTTP>
-
-type DefaultGetImage = (arg: {
-  imageId: string
-  requestInterceptor: RequestInterceptor
-}) => Promise<CornerstoneImage>
-export type GetImage = DefaultGetImage | (() => Promise<CornerstoneImage>)
-type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]
+import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './reducers'
+import { LOADING_STATE } from './const'
+import {
+  LoadingState,
+  ImageLoad,
+  LoaderType,
+  DefaultGetImage,
+  GetImage,
+} from './types'
 
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
   try {
@@ -76,11 +64,13 @@ export function useImageLoad({
   loadingState: LoadingState
   image: CornerstoneImage | undefined
 } {
-  const [loadingState, setLoadingState] = useState<LoadingState>(
-    LOADING_STATE.INITIAL
+  const [state, dispatch] = useReducer(
+    imageLoadReducer,
+    INITIAL_IMAGE_LOAD_STATE
   )
+  const { loadingState, image } = state
   const [hasLoader, setHasLoader] = useState(false)
-  const [image, setImage] = useState<CornerstoneImage>()
+
   const loader =
     type === LOADER_TYPE.Dicom ? setWadoImageLoader : setWebImageLoader
 
@@ -91,19 +81,18 @@ export function useImageLoad({
 
   useEffect(() => {
     if (!hasLoader) return
-    setLoadingState(LOADING_STATE.LOADING)
+    dispatch({ type: LOADING_STATE.LOADING })
 
     loadImage({
       imageId,
       requestInterceptor,
       onError,
     })
-      .then(res => {
-        setLoadingState(LOADING_STATE.SUCCESS)
-        setImage(res)
+      .then(img => {
+        dispatch({ type: LOADING_STATE.SUCCESS, payload: img })
       })
-      .catch(() => setLoadingState(LOADING_STATE.FAIL))
-  }, [hasLoader, imageId, requestInterceptor, onError, setLoadingState])
+      .catch(() => dispatch({ type: LOADING_STATE.FAIL }))
+  }, [hasLoader, imageId, requestInterceptor, onError])
 
   return {
     loadingState,
