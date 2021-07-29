@@ -38,9 +38,9 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
-  const { image: currentImage, frame, setFrame } = useMultiframe(IMAGES)
+  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
   const { loadingState, image } = useImageLoad({
-    imageId: currentImage,
+    imageId,
   })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport, resetViewport } = useViewport({

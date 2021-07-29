@@ -13,7 +13,7 @@ export function useMultiframe(
   IMAGES: string[],
   { initialFrame, prefetch, onError, requestInterceptor }: Prop | undefined = {}
 ): {
-  image: string // current image
+  imageId: string // current image
   frame: number // current frame index
   setFrame: SetFrame // set current frame index
 } {
@@ -39,7 +39,7 @@ export function useMultiframe(
   }
 
   return {
-    image: IMAGES[frame],
+    imageId: IMAGES[frame],
     frame,
     setFrame: handleFrame,
   }

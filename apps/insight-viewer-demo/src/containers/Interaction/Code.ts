@@ -10,9 +10,9 @@ import ImageViewer, {
 } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image: currentImage, frame, setFrame } = useMultiframe(IMAGES)
+  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
   const { image } = useImageLoad({
-    imageId: currentImage,
+    imageId,
   })
   const { viewport, setViewport } = useViewport({
     scale: 0.5,

@@ -8,7 +8,7 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { frame, setFrame } = useMultiframe(
+  const { imageId, frame, setFrame } = useMultiframe(
     IMAGES, 
     {
       initialFrame,       // optional: initialValue or default 0
@@ -18,7 +18,7 @@ export default function Viewer() {
     } // optional
   )
   const { image } = useImageLoad({
-    imageId: IMAGES[frame],
+    imageId, // or IMAGES[frame]
   })
 
   function changeFrame(e) {

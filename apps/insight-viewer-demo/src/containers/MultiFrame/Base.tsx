@@ -21,9 +21,9 @@ const IMAGES = [
 ]
 
 export default function Base(): JSX.Element {
-  const { frame, setFrame } = useMultiframe(IMAGES)
+  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
   const { loadingState, image } = useImageLoad({
-    imageId: IMAGES[frame],
+    imageId, // or IMAGES[frame]
   })
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
