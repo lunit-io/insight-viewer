@@ -1,18 +1,28 @@
 export const BASE_CODE = `\
-import Viewer from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 
 export default function() {
-  return <Viewer.Dicom imageId={IMAGE_ID} />
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID
+  })
+
+  return <ImageViewer image={image} />
 }
 `
 export const CUSTOM_CODE = `\
-import Viewer, { ViewerError } from '@lunit/insight-viewer'
+import { useCallback } from 'react'
+import ImageViewer, { ViewerError, useImageLoad } from '@lunit/insight-viewer'
 
-function customError(e: ViewerError): void {
-  alert(e.message + e.status)
-}
+const customError = useCallback((e: ViewerError) => {
+  setError(e.message + e.status)
+}, [])
 
 export default function() {
-  return <Viewer.Dicom imageId={IMAGE_ID} onError={customError} />
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+    onError: customError
+  })
+
+  return <ImageViewer image={image} />
 }
 `

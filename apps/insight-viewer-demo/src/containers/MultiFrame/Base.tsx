@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react'
-import Viewer, { useMultiframe } from '@lunit/insight-viewer'
+import { Box, Text, Stack } from '@chakra-ui/react'
+import ImageViewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
@@ -21,7 +21,10 @@ const IMAGES = [
 ]
 
 export default function Base(): JSX.Element {
-  const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
+  const { loadingState, image } = useImageLoad({
+    imageId, // or IMAGES[frame]
+  })
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
     const {
@@ -31,25 +34,34 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box>
-      <Box mb={6}>
-        <input
-          type="range"
-          id="frame"
-          name="frame"
-          min="0"
-          max="10"
-          step="1"
-          onChange={changeFrame}
-          className="frame-control"
-          value={frame}
-        />
+    <Box data-cy-loaded={loadingState}>
+      <Stack spacing="24px" mt={3} mb={3} direction="row">
+        <Box>
+          <input
+            type="range"
+            id="frame"
+            name="frame"
+            min="0"
+            max="10"
+            step="1"
+            onChange={changeFrame}
+            className="frame-control"
+            value={frame}
+          />
+        </Box>
+        <div>
+          frame: <span className="frame-number">{frame}</span>
+        </div>
+      </Stack>
+
+      <Box mb={3}>
+        <Text>
+          <b data-cy-loading-state="loading-state">{loadingState}</b>
+          {image && <span> ({image.imageId})</span>}
+        </Text>
       </Box>
-      <div>
-        frame: <span className="frame-number">{frame}</span>
-      </div>
       <ViewerWrapper>
-        <Viewer.Dicom imageId={image} Progress={CustomProgress} />
+        <ImageViewer image={image} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CODE} />

@@ -1,15 +1,19 @@
 import { Box, Heading } from '@chakra-ui/react'
-import Viewer from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 
 const IMAGE_ID = 'wadouri:/msw/with-jwt'
+const requestInterceptor = (request: Request) => {
+  request.headers.set('Authorization', 'Bearer blahblah')
+}
 
 export default function WithJwt(): JSX.Element {
-  const requestInterceptor = (request: Request) => {
-    request.headers.set('Authorization', 'Bearer blahblah')
-  }
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+    requestInterceptor,
+  })
 
   return (
     <>
@@ -18,10 +22,7 @@ export default function WithJwt(): JSX.Element {
       </Box>
       <Box>
         <ViewerWrapper>
-          <Viewer.Dicom
-            imageId={IMAGE_ID}
-            requestInterceptor={requestInterceptor}
-          />
+          <ImageViewer image={image} />
         </ViewerWrapper>
         <CodeBlock code={CODE} />
       </Box>

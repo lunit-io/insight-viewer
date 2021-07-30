@@ -1,5 +1,6 @@
 export const BASE_CODE = `\
-import Viewer, {
+import ImageViewer, {
+  useImageLoad,
   useMultiframe,
   useViewport,
   useInteraction,
@@ -9,7 +10,10 @@ import Viewer, {
 } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
+  const { image } = useImageLoad({
+    imageId,
+  })
   const { viewport, setViewport } = useViewport({
     scale: 0.5,
   })
@@ -77,23 +81,26 @@ export default function App() {
       <input type="radio" value="none" onChange={handleWheelChange} />
       <input type="radio" value="frame" onChange={handleWheelChange} />
       <input type="radio" value="scale" onChange={handleWheelChange} />
-      <Viewer.Dicom
-        imageId={IMAGE_ID}
+      <ImageViewer
+        image={image}
         interaction={interaction}
         viewport={viewport}
         onViewportChange={setViewport}
       >
         <OverlayLayer viewport={viewport} />
-      </Viewer.Dicom>
+      </ImageViewer>
     </>
   )
 }
 `
 
 export const CUSTOM_CODE = `\
-import Viewer, { useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
+import ImageViewer, { useImageLoad, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
 
 export default function App() {
+  const { image } = useImageLoad({
+    imageId: IMAGE_ID,
+  })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport } = useViewport()
 
@@ -166,14 +173,14 @@ export default function App() {
       <input type="radio" value="pan" onChange={handleCustomPan} />
       <input type="radio" value="adjust" onChange={handleCustomAdjust} />
       <input type="checkbox" value="adjust" onChange={handleClick} />
-      <Viewer.Dicom
-        imageId={IMAGE_ID}
+      <ImageViewer
+        image={image}
         interaction={interaction}
         viewport={viewport}
         onViewportChange={setViewport}
       >
         <OverlayLayer viewport={viewport} />
-      </Viewer.Dicom>
+      </ImageViewer>
     </>
   )
 }

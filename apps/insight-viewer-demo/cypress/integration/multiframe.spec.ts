@@ -1,6 +1,11 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADING } from '../support/const'
+import {
+  VIEWPORT_WIDTH,
+  VIEWPORT_HEIGHT,
+  LOADING,
+  LOADED,
+} from '../support/const'
 
 describe(
   'Multiframe',
@@ -21,8 +26,7 @@ describe(
     })
 
     it('shows initial viewer', () => {
-      cy.wait(5000) // TODO: remove after implementing loading state getter
-      cy.get(LOADING).should('not.exist')
+      cy.get(LOADED).should('be.exist')
       cy.get('.frame-number').should('have.text', '0')
       cy.percySnapshot()
     })

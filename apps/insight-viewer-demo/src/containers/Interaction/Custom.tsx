@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
-import Viewer, {
+import ImageViewer, {
+  useImageLoad,
   useInteraction,
   useViewport,
   Interaction,
@@ -27,6 +28,9 @@ export default function App(): JSX.Element {
     x: number | undefined
     y: number | undefined
   }>({ x: undefined, y: undefined })
+  const { loadingState, image } = useImageLoad({
+    imageId: IMAGE_ID,
+  })
   const { interaction, setInteraction } = useInteraction()
   const isOneColumn = useIsOneColumn()
   const {
@@ -120,7 +124,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box>
+    <Box data-cy-loaded={loadingState}>
       <Stack
         direction={['column', 'row']}
         spacing={isOneColumn ? '0px' : '80px'}
@@ -158,15 +162,15 @@ export default function App(): JSX.Element {
 
       <Stack direction="row">
         <ViewerWrapper>
-          <Viewer.Dicom
-            imageId={IMAGE_ID}
+          <ImageViewer
+            image={image}
             interaction={interaction}
             viewport={viewerViewport}
             onViewportChange={setViewport}
             Progress={CustomProgress}
           >
             <OverlayLayer viewport={viewerViewport} />
-          </Viewer.Dicom>
+          </ImageViewer>
         </ViewerWrapper>
       </Stack>
 

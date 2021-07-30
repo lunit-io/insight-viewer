@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Viewport, BasicViewport } from '../types'
 
-export default function useViewport(defaultViewport?: Partial<BasicViewport>): {
+export function useViewport(defaultViewport?: Partial<BasicViewport>): {
   viewport: Viewport
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
   resetViewport: () => void

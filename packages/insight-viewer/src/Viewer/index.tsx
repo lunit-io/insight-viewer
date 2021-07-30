@@ -1,52 +1,29 @@
 import React, { useRef, useEffect } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import {
-  WithChildren,
-  Viewport,
-  ViewerProp,
-  ProgressComponent,
-  OnViewportChange,
-} from '../types'
+import { WithChildren } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
-import useImageLoadAndDisplay from '../hooks/useImageLoadAndDisplay'
+import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
-import { Interaction } from '../hooks/useInteraction/types'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
 import useInitialViewport from '../hooks/useInitialViewport'
-import { SetFrame } from '../hooks/useMultiframe/useFrame'
-import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
-import { DefaultProp } from './const'
+import { ViewerProp } from './types'
 
-export function DICOMImageViewer({
-  imageId,
-  onError = DefaultProp.onError,
+export function ImageViewer({
+  image,
   Progress,
-  requestInterceptor = DefaultProp.requestInterceptor,
   viewport,
   interaction,
   onViewportChange,
   children,
-}: WithChildren<
-  ViewerProp & {
-    Progress?: ProgressComponent
-    viewport?: Viewport
-    onViewportChange?: OnViewportChange
-    onFrameChange?: SetFrame
-    interaction?: Interaction
-  }
->): JSX.Element {
+}: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef(viewport)
   const initialViewporRef = useInitialViewport()
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
-  // Load and display image.
-  useImageLoadAndDisplay({
-    imageId,
+  useImageDisplay({
     element: elRef.current,
-    onError,
-    requestInterceptor,
-    setLoader: () => setWadoImageLoader(onError),
+    image,
     viewportRef,
     onViewportChange,
   })

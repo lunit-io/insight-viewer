@@ -11,12 +11,6 @@ export type ProgressComponent = ({
 }: {
   progress: number
 }) => JSX.Element
-export type Viewer = ({
-  imageId,
-  children,
-}: WithChildren<{
-  imageId: string
-}>) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
 export interface BasicViewport {
   scale: number
@@ -39,7 +33,3 @@ export interface HTTP {
 }
 
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
-
-export type ViewerProp = {
-  imageId: string
-} & Partial<HTTP>

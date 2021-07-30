@@ -2,25 +2,25 @@ import { SetStateAction } from 'react'
 import usePrefetch from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP } from '../../types'
-import { DefaultProp } from '../../Viewer/const'
+import { CONFIG } from '../../const'
 
 type Prop = {
   initialFrame?: number
   prefetch?: boolean
 } & Partial<HTTP>
 
-export default function useMultiframe(
+export function useMultiframe(
   IMAGES: string[],
   { initialFrame, prefetch, onError, requestInterceptor }: Prop | undefined = {}
 ): {
-  image: string // current image
+  imageId: string // current image
   frame: number // current frame index
   setFrame: SetFrame // set current frame index
 } {
   usePrefetch({
     images: IMAGES,
-    onError: onError ?? DefaultProp.onError,
-    requestInterceptor: requestInterceptor ?? DefaultProp.requestInterceptor,
+    onError: onError ?? CONFIG.onError,
+    requestInterceptor: requestInterceptor ?? CONFIG.requestInterceptor,
     prefetch: prefetch ?? true,
   })
   const { frame, setFrame } = useFrame(initialFrame ?? 0)
@@ -39,7 +39,7 @@ export default function useMultiframe(
   }
 
   return {
-    image: IMAGES[frame],
+    imageId: IMAGES[frame],
     frame,
     setFrame: handleFrame,
   }

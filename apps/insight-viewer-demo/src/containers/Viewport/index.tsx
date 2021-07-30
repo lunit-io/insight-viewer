@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
-import Viewer, {
+import ImageViewer, {
+  useImageLoad,
   useViewport,
   Viewport,
   isValidViewport,
@@ -20,10 +21,15 @@ const IMAGE_ID2 =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
 
 export default function App(): JSX.Element {
+  const { loadingState, image } = useImageLoad({
+    imageId: IMAGE_ID,
+  })
+  const { image: image2 } = useImageLoad({
+    imageId: IMAGE_ID2,
+  })
   const { viewport, setViewport, resetViewport } =
     useViewport(INITIAL_VIEWPORT1)
   const isOneColumn = useIsOneColumn()
-
   const {
     viewport: viewport2,
     setViewport: setViewport2,
@@ -290,30 +296,30 @@ export default function App(): JSX.Element {
             Move image with w,a,s,d keys
           </Text>
         </Box>
-        <Box>
+        <Box data-cy-loaded={loadingState}>
           <Stack
             direction={isOneColumn ? 'column' : 'row'}
             spacing={isOneColumn ? '100px' : '24px'}
           >
             <ViewerWrapper className="viewer1">
-              <Viewer.Dicom
-                imageId={IMAGE_ID}
+              <ImageViewer
+                image={image}
                 viewport={viewport}
                 onViewportChange={setViewport}
                 Progress={CustomProgress}
               >
                 <OverlayLayer viewport={viewport} />
-              </Viewer.Dicom>
+              </ImageViewer>
             </ViewerWrapper>
             <ViewerWrapper className="viewer2">
-              <Viewer.Dicom
-                imageId={IMAGE_ID2}
+              <ImageViewer
+                image={image2}
                 viewport={viewport2}
                 onViewportChange={setViewport2}
                 Progress={CustomProgress}
               >
                 <OverlayLayer viewport={viewport2} />
-              </Viewer.Dicom>
+              </ImageViewer>
             </ViewerWrapper>
           </Stack>
         </Box>

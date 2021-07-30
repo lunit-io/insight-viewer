@@ -1,5 +1,5 @@
 export const CODE = `\
-import Viewer, { useMultiframe } from '@lunit/insight-viewer'
+import ImageViewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -8,7 +8,7 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { image, frame, setFrame } = useMultiframe(
+  const { imageId, frame, setFrame } = useMultiframe(
     IMAGES, 
     {
       initialFrame,       // optional: initialValue or default 0
@@ -17,6 +17,9 @@ export default function Viewer() {
       requestInterceptor, // optional
     } // optional
   )
+  const { loadingState, image } = useImageLoad({
+    imageId, // or IMAGES[frame]
+  })
 
   function changeFrame(e) {
     setFrame(Number(e.target.value))
@@ -34,7 +37,11 @@ export default function Viewer() {
         defaultValue={0}
         onChange={changeFrame}
       />
-      <Viewer.Dicom imageId={image} /* or imageId={IMAGES[frame]} */ />
+      <div>
+        <span>{loadingState}</span>
+        {image && <span> ({image.imageId})</span>}
+      </div>
+      <ImageViewer image={image} />
     </>
   )
 }

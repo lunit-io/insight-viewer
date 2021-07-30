@@ -1,17 +1,20 @@
 export const CODE = `\
-  import Viewer, { useViewport } from '@lunit/insight-viewer'
+  import ImageViewer, { useImageLoad, useViewport } from '@lunit/insight-viewer'
 
   export default function Viewer() {
+    const { image } = useImageLoad({
+      imageId: IMAGE_ID,
+    })
     const { viewport, setViewport } = useViewport()
 
     return (
-      <Viewer.Dicom 
-        imageId={IMAGE_ID} 
+      <ImageViewer 
+        image={image} 
         viewport={viewport}
         onViewportChange={setViewport}
       >
         <OverlayLayer viewport={viewport} />
-      </Viewer.Dicom>
+      </ImageViewer>
     )
   }
   `
