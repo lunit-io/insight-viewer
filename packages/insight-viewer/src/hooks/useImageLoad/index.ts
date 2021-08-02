@@ -1,19 +1,18 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import { LOADER_TYPE, LOADING_STATE, CONFIG } from '../../const'
-import { LoadingState } from '../../types'
+import { LoadingState, LoaderType } from '../../types'
 import {
   loadImage as cornerstoneLoadImage,
   CornerstoneImage,
 } from '../../utils/cornerstoneHelper'
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
-import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
-import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
+import { useImageLoader } from '../useImageLoader'
 import {
   imageLoadReducer,
   INITIAL_IMAGE_LOAD_STATE,
 } from '../../stores/imageLoadReducer'
-import { ImageLoad, LoaderType, DefaultGetImage, GetImage } from './types'
+import { ImageLoad, DefaultGetImage, GetImage } from './types'
 
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
   try {
@@ -66,15 +65,7 @@ export function useImageLoad({
     INITIAL_IMAGE_LOAD_STATE
   )
   const { loadingState, image } = state
-  const [hasLoader, setHasLoader] = useState(false)
-
-  const loader =
-    type === LOADER_TYPE.Dicom ? setWadoImageLoader : setWebImageLoader
-
-  // eslint-disable-next-line no-extra-semi
-  ;(async function asyncLoad(): Promise<void> {
-    if (!hasLoader) setHasLoader(await loader(onError))
-  })()
+  const hasLoader = useImageLoader(type, onError)
 
   useEffect(() => {
     if (!hasLoader) return

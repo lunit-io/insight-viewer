@@ -1,14 +1,15 @@
 import { SetStateAction } from 'react'
 import usePrefetch from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
-import { HTTP } from '../../types'
-import { CONFIG } from '../../const'
+import { HTTP, LoaderType } from '../../types'
+import { LOADER_TYPE, CONFIG } from '../../const'
 import { ImageLoadState } from '../../stores/imageLoadReducer'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 type Prop = {
   imageIds: string[]
   initialFrame?: number
+  type?: LoaderType
 } & Partial<HTTP>
 
 export function useImagesLoad({
@@ -16,6 +17,7 @@ export function useImagesLoad({
   initialFrame = 0,
   onError = CONFIG.onError,
   requestInterceptor = CONFIG.requestInterceptor,
+  type = LOADER_TYPE.Dicom,
 }: Prop): {
   frame: number // current frame index
   setFrame: SetFrame // set current frame index
@@ -30,6 +32,7 @@ export function useImagesLoad({
     images: imageIds,
     onError,
     requestInterceptor,
+    type,
   })
 
   const { frame, setFrame } = useFrame(initialFrame ?? 0)

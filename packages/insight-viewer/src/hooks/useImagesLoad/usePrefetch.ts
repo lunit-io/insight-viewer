@@ -2,17 +2,17 @@ import { useEffect, useReducer, useState } from 'react'
 import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
-import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
-import { HTTP, RequestInterceptor } from '../../types'
+import { HTTP, RequestInterceptor, LoaderType } from '../../types'
 import {
   imageLoadReducer,
   INITIAL_IMAGE_LOAD_STATE,
   ImageLoadState,
 } from '../../stores/imageLoadReducer'
 import { LOADING_STATE } from '../../const'
+import { useImageLoader } from '../useImageLoader'
 
 type GetLoadImage = (
   image: string,
@@ -67,8 +67,10 @@ export default function usePrefetch({
   images,
   onError,
   requestInterceptor,
+  type,
 }: HTTP & {
   images: string[]
+  type?: LoaderType
 }): Omit<ImageLoadState, 'image'> & {
   images: CornerstoneImage[]
 } {
@@ -77,31 +79,30 @@ export default function usePrefetch({
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
   )
+  const hasLoader = useImageLoader(type, onError)
 
   useEffect(() => {
-    if (images.length === 0) return
+    if (images.length === 0 || !hasLoader) return
 
-    setWadoImageLoader(onError).then(() => {
-      dispatch({ type: LOADING_STATE.LOADING })
+    dispatch({ type: LOADING_STATE.LOADING })
 
-      prefetch({ images, requestInterceptor }).subscribe({
-        next: (res: Prefetched) => {
-          setImages(prev => [...prev, res.image])
-          dispatch({
-            type: LOADING_STATE.SUCCESS,
-            payload: {
-              image: res.image,
-              progress: res.loadedPercentage,
-            },
-          })
-        },
-        error: err => {
-          onError(err)
-          dispatch({ type: LOADING_STATE.FAIL })
-        },
-      })
+    prefetch({ images, requestInterceptor }).subscribe({
+      next: (res: Prefetched) => {
+        setImages(prev => [...prev, res.image])
+        dispatch({
+          type: LOADING_STATE.SUCCESS,
+          payload: {
+            image: res.image,
+            progress: res.loadedPercentage,
+          },
+        })
+      },
+      error: err => {
+        onError(err)
+        dispatch({ type: LOADING_STATE.FAIL })
+      },
     })
-  }, [images, onError, requestInterceptor])
+  }, [images, onError, requestInterceptor, hasLoader])
 
   return {
     loadingState,
