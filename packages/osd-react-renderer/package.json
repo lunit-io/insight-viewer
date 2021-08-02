@@ -1,0 +1,46 @@
+{
+  "name": "@lunit/osd-react-renderer",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Hyunjin Kwon <hyunjin.kwon@lunit.io>",
+  "homepage": "https://github.com/lunit-io/frontend-components#readme",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lunit-io/frontend-components"
+  },
+  "scripts": {
+    "build": "yarn run clean && yarn run compile",
+    "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/lunit-io/frontend-components/issues"
+  },
+  "dependencies": {
+    "openseadragon": "^2.4.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-reconciler": "^0.26.2"
+  },
+  "devDependencies": {
+    "@types/openseadragon": "^2.4.5",
+    "@types/react-reconciler": "^0.26.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.0",
+    "react-dom": ">=16.0"
+  }
+}
