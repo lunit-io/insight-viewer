@@ -3,6 +3,8 @@ import usePrefetch from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP } from '../../types'
 import { CONFIG } from '../../const'
+import { ImageLoadState } from './reducers'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 type Prop = {
   initialFrame?: number
@@ -13,16 +15,18 @@ export function useMultiframe(
   IMAGES: string[],
   { initialFrame, prefetch, onError, requestInterceptor }: Prop | undefined = {}
 ): {
-  imageId: string // current image
   frame: number // current frame index
   setFrame: SetFrame // set current frame index
-} {
-  usePrefetch({
+} & Omit<ImageLoadState, 'images'> & {
+    image: CornerstoneImage
+  } {
+  const { loadingState, images, progress } = usePrefetch({
     images: IMAGES,
     onError: onError ?? CONFIG.onError,
     requestInterceptor: requestInterceptor ?? CONFIG.requestInterceptor,
     prefetch: prefetch ?? true,
   })
+
   const { frame, setFrame } = useFrame(initialFrame ?? 0)
 
   function handleFrame(arg: SetStateAction<number>) {
@@ -39,8 +43,10 @@ export function useMultiframe(
   }
 
   return {
-    imageId: IMAGES[frame],
     frame,
     setFrame: handleFrame,
+    loadingState,
+    image: images[frame],
+    progress,
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
@@ -7,6 +7,12 @@ import { loadingProgressMessage } from '../../utils/messageService'
 import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { HTTP, RequestInterceptor } from '../../types'
+import {
+  imageLoadReducer,
+  INITIAL_IMAGE_LOAD_STATE,
+  ImageLoadState,
+} from './reducers'
+import { LOADING_STATE } from '../../const'
 
 type GetLoadImage = (
   image: string,
@@ -65,16 +71,38 @@ export default function usePrefetch({
 }: HTTP & {
   images: string[]
   prefetch: boolean
-}): void {
+}): ImageLoadState {
+  const [{ loadingState, images: loadedImages, progress }, dispatch] =
+    useReducer(imageLoadReducer, INITIAL_IMAGE_LOAD_STATE)
+
   useEffect(() => {
     if (!prefetchEnabled) return
     if (images.length === 0) return
 
     setWadoImageLoader(onError).then(() => {
+      dispatch({ type: LOADING_STATE.LOADING })
+
       prefetch({ images, requestInterceptor }).subscribe({
-        next: _ => {},
-        error: err => onError(err),
+        next: (res: Prefetched) => {
+          dispatch({
+            type: LOADING_STATE.SUCCESS,
+            payload: {
+              image: res.image,
+              progress: res.loadedPercentage,
+            },
+          })
+        },
+        error: err => {
+          onError(err)
+          dispatch({ type: LOADING_STATE.FAIL })
+        },
       })
     })
   }, [images, onError, requestInterceptor, prefetchEnabled])
+
+  return {
+    loadingState,
+    images: loadedImages,
+    progress,
+  }
 }
