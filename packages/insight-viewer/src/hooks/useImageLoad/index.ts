@@ -1,5 +1,6 @@
 import { useState, useEffect, useReducer } from 'react'
-import { LOADER_TYPE, CONFIG } from '../../const'
+import { LOADER_TYPE, LOADING_STATE, CONFIG } from '../../const'
+import { LoadingState } from '../../types'
 import {
   loadImage as cornerstoneLoadImage,
   CornerstoneImage,
@@ -9,14 +10,7 @@ import { formatError } from '../../utils/common'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './reducers'
-import { LOADING_STATE } from './const'
-import {
-  LoadingState,
-  ImageLoad,
-  LoaderType,
-  DefaultGetImage,
-  GetImage,
-} from './types'
+import { ImageLoad, LoaderType, DefaultGetImage, GetImage } from './types'
 
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
   try {

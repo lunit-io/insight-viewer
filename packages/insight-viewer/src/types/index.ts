@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import { LOADING_STATE } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
   children?: React.ReactNode
@@ -33,3 +34,4 @@ export interface HTTP {
 }
 
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
+export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]

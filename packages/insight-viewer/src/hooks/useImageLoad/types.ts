@@ -1,9 +1,6 @@
-import { LOADING_STATE } from './const'
 import { LOADER_TYPE } from '../../const'
 import { HTTP, RequestInterceptor } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
-
-export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 
 export type ImageLoad = {
   imageId: string

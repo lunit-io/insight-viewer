@@ -1,4 +1,3 @@
-import consola from 'consola'
 import { Viewport, BasicViewport, ViewerError } from '../../types'
 
 /**
@@ -8,10 +7,6 @@ import { Viewport, BasicViewport, ViewerError } from '../../types'
  */
 interface HTTPError {
   error: { response: { status: number }; message: string }
-}
-
-export function handleError(e: Error): void {
-  consola.error(e)
 }
 
 export function formatError(e: Error | HTTPError): ViewerError {

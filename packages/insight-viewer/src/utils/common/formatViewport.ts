@@ -1,6 +1,6 @@
 import { CornerstoneViewport } from '../cornerstoneHelper/types'
 import { Viewport } from '../../types'
-import { DefaultViewport } from '../../const'
+import { DefaultViewport } from './const'
 
 export function formatViewport(
   cornerstoneViewport: CornerstoneViewport | undefined
