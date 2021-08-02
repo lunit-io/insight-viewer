@@ -67,10 +67,8 @@ export default function usePrefetch({
   images,
   onError,
   requestInterceptor,
-  prefetch: prefetchEnabled,
 }: HTTP & {
   images: string[]
-  prefetch: boolean
 }): Omit<ImageLoadState, 'image'> & {
   images: CornerstoneImage[]
 } {
@@ -81,7 +79,6 @@ export default function usePrefetch({
   )
 
   useEffect(() => {
-    if (!prefetchEnabled) return
     if (images.length === 0) return
 
     setWadoImageLoader(onError).then(() => {
@@ -104,7 +101,7 @@ export default function usePrefetch({
         },
       })
     })
-  }, [images, onError, requestInterceptor, prefetchEnabled])
+  }, [images, onError, requestInterceptor])
 
   return {
     loadingState,

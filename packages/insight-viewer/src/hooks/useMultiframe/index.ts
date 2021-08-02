@@ -3,28 +3,33 @@ import usePrefetch from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP } from '../../types'
 import { CONFIG } from '../../const'
-import { ImageLoadState } from './reducers'
+import { ImageLoadState } from '../../stores/imageLoadReducer'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 type Prop = {
+  imageIds: string[]
   initialFrame?: number
-  prefetch?: boolean
 } & Partial<HTTP>
 
-export function useMultiframe(
-  IMAGES: string[],
-  { initialFrame, prefetch, onError, requestInterceptor }: Prop | undefined = {}
-): {
+export function useMultiframe({
+  imageIds,
+  initialFrame = 0,
+  onError = CONFIG.onError,
+  requestInterceptor = CONFIG.requestInterceptor,
+}: Prop): {
   frame: number // current frame index
   setFrame: SetFrame // set current frame index
 } & Omit<ImageLoadState, 'images'> & {
     image: CornerstoneImage
   } {
-  const { loadingState, images, progress } = usePrefetch({
-    images: IMAGES,
-    onError: onError ?? CONFIG.onError,
-    requestInterceptor: requestInterceptor ?? CONFIG.requestInterceptor,
-    prefetch: prefetch ?? true,
+  const {
+    loadingState,
+    images: loadedImages,
+    progress,
+  } = usePrefetch({
+    images: imageIds,
+    onError,
+    requestInterceptor,
   })
 
   const { frame, setFrame } = useFrame(initialFrame ?? 0)
@@ -38,7 +43,7 @@ export function useMultiframe(
       frameIndex = arg(frame)
     }
 
-    if (frameIndex < 0 || frameIndex > IMAGES.length - 1) return
+    if (frameIndex < 0 || frameIndex > imageIds.length - 1) return
     setFrame(arg)
   }
 
@@ -46,7 +51,7 @@ export function useMultiframe(
     frame,
     setFrame: handleFrame,
     loadingState,
-    image: images[frame],
+    image: loadedImages[frame],
     progress,
   }
 }
