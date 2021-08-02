@@ -9,7 +9,10 @@ import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
-import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './reducers'
+import {
+  imageLoadReducer,
+  INITIAL_IMAGE_LOAD_STATE,
+} from '../../stores/imageLoadReducer'
 import { ImageLoad, LoaderType, DefaultGetImage, GetImage } from './types'
 
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
@@ -82,8 +85,14 @@ export function useImageLoad({
       requestInterceptor,
       onError,
     })
-      .then(img => {
-        dispatch({ type: LOADING_STATE.SUCCESS, payload: img })
+      .then(res => {
+        dispatch({
+          type: LOADING_STATE.SUCCESS,
+          payload: {
+            image: res,
+            progress: 100,
+          },
+        })
       })
       .catch(() => dispatch({ type: LOADING_STATE.FAIL }))
   }, [hasLoader, imageId, requestInterceptor, onError])

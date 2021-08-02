@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
@@ -11,7 +11,7 @@ import {
   imageLoadReducer,
   INITIAL_IMAGE_LOAD_STATE,
   ImageLoadState,
-} from './reducers'
+} from '../../stores/imageLoadReducer'
 import { LOADING_STATE } from '../../const'
 
 type GetLoadImage = (
@@ -71,9 +71,14 @@ export default function usePrefetch({
 }: HTTP & {
   images: string[]
   prefetch: boolean
-}): ImageLoadState {
-  const [{ loadingState, images: loadedImages, progress }, dispatch] =
-    useReducer(imageLoadReducer, INITIAL_IMAGE_LOAD_STATE)
+}): Omit<ImageLoadState, 'image'> & {
+  images: CornerstoneImage[]
+} {
+  const [loadedImages, setImages] = useState<CornerstoneImage[]>([])
+  const [{ loadingState, progress }, dispatch] = useReducer(
+    imageLoadReducer,
+    INITIAL_IMAGE_LOAD_STATE
+  )
 
   useEffect(() => {
     if (!prefetchEnabled) return
@@ -84,6 +89,7 @@ export default function usePrefetch({
 
       prefetch({ images, requestInterceptor }).subscribe({
         next: (res: Prefetched) => {
+          setImages(prev => [...prev, res.image])
           dispatch({
             type: LOADING_STATE.SUCCESS,
             payload: {
