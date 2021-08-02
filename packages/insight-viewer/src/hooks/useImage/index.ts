@@ -49,7 +49,7 @@ export async function loadImage({
   }
 }
 
-export function useImageLoad({
+export function useImage({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
   imageId,
