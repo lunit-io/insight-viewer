@@ -79,10 +79,7 @@ export function useImage({
       .then(res => {
         dispatch({
           type: LOADING_STATE.SUCCESS,
-          payload: {
-            image: res,
-            progress: 100,
-          },
+          payload: res,
         })
       })
       .catch(() => dispatch({ type: LOADING_STATE.FAIL }))

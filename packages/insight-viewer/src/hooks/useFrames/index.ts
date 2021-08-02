@@ -21,14 +21,10 @@ export function useFrames({
 }: Prop): {
   frame: number // current frame index
   setFrame: SetFrame // set current frame index
-} & Omit<ImageLoadState, 'images'> & {
+} & Omit<ImageLoadState, 'images' | 'progress'> & {
     image: CornerstoneImage
   } {
-  const {
-    loadingState,
-    images: loadedImages,
-    progress,
-  } = usePrefetch({
+  const { loadingState, images: loadedImages } = usePrefetch({
     images: imageIds,
     onError,
     requestInterceptor,
@@ -55,6 +51,5 @@ export function useFrames({
     setFrame: handleFrame,
     loadingState,
     image: loadedImages[frame],
-    progress,
   }
 }

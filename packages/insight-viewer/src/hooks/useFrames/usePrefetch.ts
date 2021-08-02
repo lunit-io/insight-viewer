@@ -75,7 +75,7 @@ export default function usePrefetch({
   images: CornerstoneImage[]
 } {
   const [loadedImages, setImages] = useState<CornerstoneImage[]>([])
-  const [{ loadingState, progress }, dispatch] = useReducer(
+  const [{ loadingState }, dispatch] = useReducer(
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
   )
@@ -91,10 +91,7 @@ export default function usePrefetch({
         setImages(prev => [...prev, res.image])
         dispatch({
           type: LOADING_STATE.SUCCESS,
-          payload: {
-            image: res.image,
-            progress: res.loadedPercentage,
-          },
+          payload: res.image,
         })
       },
       error: err => {
@@ -107,6 +104,5 @@ export default function usePrefetch({
   return {
     loadingState,
     images: loadedImages,
-    progress,
   }
 }

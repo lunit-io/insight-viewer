@@ -5,15 +5,11 @@ import { CornerstoneImage } from '../utils/cornerstoneHelper'
 export interface ImageLoadState {
   loadingState: LoadingState
   image: CornerstoneImage | undefined
-  progress: number
 }
 
 interface ImageLoadAction {
   type: LoadingState
-  payload?: {
-    image: CornerstoneImage
-    progress: number
-  }
+  payload?: CornerstoneImage
 }
 
 export function imageLoadReducer(
@@ -31,8 +27,7 @@ export function imageLoadReducer(
     case LOADING_STATE.SUCCESS:
       return {
         loadingState: LOADING_STATE.SUCCESS,
-        image: payload?.image,
-        progress: payload?.progress ?? 0,
+        image: payload,
       }
     case LOADING_STATE.FAIL:
       return {
@@ -47,5 +42,4 @@ export function imageLoadReducer(
 export const INITIAL_IMAGE_LOAD_STATE = {
   loadingState: LOADING_STATE.INITIAL,
   image: undefined,
-  progress: 0,
 }
