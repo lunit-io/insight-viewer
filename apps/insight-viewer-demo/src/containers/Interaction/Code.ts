@@ -1,6 +1,6 @@
 export const BASE_CODE = `\
 import ImageViewer, {
-  useMultiframe,
+  useFrames,
   useViewport,
   useInteraction,
   Interaction,
@@ -9,7 +9,9 @@ import ImageViewer, {
 } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image, frame, setFrame } = useMultiframe(IMAGES)
+  const { image, frame, setFrame } = useFrames({
+    imageIds: IMAGES
+  })
   const { viewport, setViewport } = useViewport({
     scale: 0.5,
   })
@@ -91,10 +93,10 @@ export default function App() {
 `
 
 export const CUSTOM_CODE = `\
-import ImageViewer, { useImageLoad, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
+import ImageViewer, { useImage, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
   })
   const { interaction, setInteraction } = useInteraction()

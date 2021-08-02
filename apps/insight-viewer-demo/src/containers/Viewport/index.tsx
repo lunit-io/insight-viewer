@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
 import ImageViewer, {
-  useImageLoad,
+  useImage,
   useViewport,
   Viewport,
   isValidViewport,
@@ -21,10 +21,10 @@ const IMAGE_ID2 =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
 
 export default function App(): JSX.Element {
-  const { loadingState, image } = useImageLoad({
+  const { loadingState, image } = useImage({
     imageId: IMAGE_ID,
   })
-  const { image: image2 } = useImageLoad({
+  const { image: image2 } = useImage({
     imageId: IMAGE_ID2,
   })
   const { viewport, setViewport, resetViewport } =

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
 import ImageViewer, {
-  useImageLoad,
+  useImage,
   useInteraction,
   useViewport,
   Interaction,
@@ -28,7 +28,7 @@ export default function App(): JSX.Element {
     x: number | undefined
     y: number | undefined
   }>({ x: undefined, y: undefined })
-  const { loadingState, image } = useImageLoad({
+  const { loadingState, image } = useImage({
     imageId: IMAGE_ID,
   })
   const { interaction, setInteraction } = useInteraction()

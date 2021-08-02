@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import ImageViewer, { useImageLoad, useViewport } from '@lunit/insight-viewer'
+import ImageViewer, { useImage, useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
@@ -10,7 +10,7 @@ const IMAGE_ID =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
 
 function Overlay(): JSX.Element {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
   })
   const { viewport, setViewport } = useViewport()

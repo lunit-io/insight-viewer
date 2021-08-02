@@ -1,8 +1,8 @@
 export const BASE_CODE = `\
-import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function Viewer() {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
   })
 
@@ -10,10 +10,10 @@ export default function Viewer() {
 }
 `
 export const CUSTOM_CODE = `\
-import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function Viewer() {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
   })
 
