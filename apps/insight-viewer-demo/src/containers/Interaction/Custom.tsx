@@ -139,14 +139,6 @@ export default function App(): JSX.Element {
               <span className="click-y">{y?.toFixed(2) ?? 0}</span>
             </Text>
           </Box>
-          {typeof x === 'number' && typeof y === 'number' && (
-            <Box mb={6}>
-              <Text>
-                offset: <span className="click-x">{x.toFixed(2)}</span> /{' '}
-                <span className="click-y">{y.toFixed(2)}</span>
-              </Text>
-            </Box>
-          )}
         </Box>
         <Box>
           <Button
