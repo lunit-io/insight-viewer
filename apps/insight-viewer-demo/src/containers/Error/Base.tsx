@@ -3,11 +3,11 @@ import ImageViewer, { useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
+import { WRONG_IMAGE } from '../../const'
 
 export default function Base(): JSX.Element {
   const { image } = useImage({
-    imageId:
-      'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT0000100.dcm',
+    imageId: WRONG_IMAGE,
   })
 
   return (

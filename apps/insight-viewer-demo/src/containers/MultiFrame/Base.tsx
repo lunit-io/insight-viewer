@@ -5,23 +5,10 @@ import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-
-const IMAGES = [
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000003.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000004.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000005.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000006.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000007.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000008.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
-]
+import { IMAGES } from '../../const'
 
 export default function Base(): JSX.Element {
-  const { frame, setFrame, loadingState, image /* progress */ } = useFrames({
+  const { frame, setFrame, loadingState, image } = useFrames({
     imageIds: IMAGES,
   })
 

@@ -13,19 +13,14 @@ import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
 import useIsOneColumn from '../../hooks/useIsOneColumn'
-
-const IMAGE_ID =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
-
-const IMAGE_ID2 =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm'
+import { IMAGES } from '../../const'
 
 export default function App(): JSX.Element {
   const { loadingState, image } = useImage({
-    imageId: IMAGE_ID,
+    imageId: IMAGES[10],
   })
   const { image: image2 } = useImage({
-    imageId: IMAGE_ID2,
+    imageId: IMAGES[11],
   })
   const { viewport, setViewport, resetViewport } =
     useViewport(INITIAL_VIEWPORT1)

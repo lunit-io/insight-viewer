@@ -19,9 +19,7 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
 import useIsOneColumn from '../../hooks/useIsOneColumn'
-
-const IMAGE_ID =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
+import { IMAGES } from '../../const'
 
 export default function App(): JSX.Element {
   const [{ x, y }, setCoord] = useState<{
@@ -29,7 +27,7 @@ export default function App(): JSX.Element {
     y: number | undefined
   }>({ x: undefined, y: undefined })
   const { loadingState, image } = useImage({
-    imageId: IMAGE_ID,
+    imageId: IMAGES[7],
   })
   const { interaction, setInteraction } = useInteraction()
   const isOneColumn = useIsOneColumn()
