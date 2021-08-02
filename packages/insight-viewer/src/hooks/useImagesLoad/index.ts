@@ -11,7 +11,7 @@ type Prop = {
   initialFrame?: number
 } & Partial<HTTP>
 
-export function useMultiframe({
+export function useImagesLoad({
   imageIds,
   initialFrame = 0,
   onError = CONFIG.onError,
