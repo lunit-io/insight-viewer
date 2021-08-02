@@ -1,15 +1,19 @@
-import { LOADING_STATE } from '../../const'
-import { LoadingState } from '../../types'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { LOADING_STATE } from '../const'
+import { LoadingState } from '../types'
+import { CornerstoneImage } from '../utils/cornerstoneHelper'
 
-interface ImageLoadState {
+export interface ImageLoadState {
   loadingState: LoadingState
   image: CornerstoneImage | undefined
+  progress: number
 }
 
 interface ImageLoadAction {
   type: LoadingState
-  payload?: CornerstoneImage
+  payload?: {
+    image: CornerstoneImage
+    progress: number
+  }
 }
 
 export function imageLoadReducer(
@@ -27,7 +31,8 @@ export function imageLoadReducer(
     case LOADING_STATE.SUCCESS:
       return {
         loadingState: LOADING_STATE.SUCCESS,
-        image: payload,
+        image: payload?.image,
+        progress: payload?.progress ?? 0,
       }
     case LOADING_STATE.FAIL:
       return {
@@ -42,4 +47,5 @@ export function imageLoadReducer(
 export const INITIAL_IMAGE_LOAD_STATE = {
   loadingState: LOADING_STATE.INITIAL,
   image: undefined,
+  progress: 0,
 }
