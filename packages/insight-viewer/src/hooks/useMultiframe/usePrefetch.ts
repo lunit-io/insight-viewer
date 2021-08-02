@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { from, Observable } from 'rxjs'
+import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
 import setWadoImageLoader from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import { loadingProgressMessage } from '../../utils/messageService'
@@ -6,27 +8,14 @@ import getHttpClient from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { HTTP, RequestInterceptor } from '../../types'
 
-export type GetLoadImage = (
+type GetLoadImage = (
   image: string,
   requestInterceptor: RequestInterceptor
 ) => Promise<CornerstoneImage>
 
-function PromiseAllWithProgress(
-  promiseArray: Promise<CornerstoneImage>[]
-): Promise<CornerstoneImage[]> {
-  let d = 0
-  loadingProgressMessage.sendMessage(0)
-
-  promiseArray.forEach(p => {
-    p.then(() => {
-      d += 1
-      loadingProgressMessage.sendMessage(
-        Math.round((d * 100) / promiseArray.length)
-      )
-    }).catch(e => e)
-  })
-
-  return Promise.all(promiseArray)
+export interface Prefetched {
+  image: CornerstoneImage
+  loadedPercentage: number
 }
 
 const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
@@ -35,23 +24,37 @@ const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
   })
 
 /**
- * If successful, return true. It works well.
- * If not successful, return false. It calls onError.
  * getLoadImage is pluggable for unit test.
  */
-export async function prefetch({
+export function prefetch({
   images,
   requestInterceptor,
   getLoadImage = _getLoadImage,
 }: {
   images: string[]
-  getLoadImage?: GetLoadImage
   requestInterceptor: RequestInterceptor
-}): Promise<CornerstoneImage[]> {
-  const loaders = images.map(image => getLoadImage(image, requestInterceptor))
-  return PromiseAllWithProgress(loaders).catch(e => {
-    throw formatError(e)
-  })
+  getLoadImage?: GetLoadImage
+}): Observable<Prefetched> {
+  // Start multiframe image loading.
+  loadingProgressMessage.sendMessage(0)
+  let loadedCount = 0
+
+  return from(images).pipe(
+    // Sequential Requests.
+    concatMap(image => getLoadImage(image, requestInterceptor)),
+    map(image => {
+      loadedCount += 1
+      const loaded = Math.round((loadedCount * 100) / images.length)
+      loadingProgressMessage.sendMessage(loaded)
+      return {
+        image,
+        loadedPercentage: loaded,
+      }
+    }),
+    catchError(err => {
+      throw formatError(err)
+    })
+  )
 }
 
 export default function usePrefetch({
@@ -67,12 +70,11 @@ export default function usePrefetch({
     if (!prefetchEnabled) return
     if (images.length === 0) return
 
-    setWadoImageLoader(onError)
-      .then(async () => {
-        await prefetch({ images, requestInterceptor })
+    setWadoImageLoader(onError).then(() => {
+      prefetch({ images, requestInterceptor }).subscribe({
+        next: _ => {},
+        error: err => onError(err),
       })
-      .catch(e => {
-        onError(e)
-      })
+    })
   }, [images, onError, requestInterceptor, prefetchEnabled])
 }
