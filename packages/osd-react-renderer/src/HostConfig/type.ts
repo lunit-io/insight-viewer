@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-explicit-any */
-import OpenSeadragon from 'openseadragon'
+/// <reference types="openseadragon" />
 
 export type TiledImageInstance = {
   type: 'TiledImage'
