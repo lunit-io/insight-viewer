@@ -1,1 +1,1 @@
-export { default } from './components/OSDViewer'
+export { default } from './components/index'

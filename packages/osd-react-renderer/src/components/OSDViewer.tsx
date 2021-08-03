@@ -21,6 +21,6 @@ const OSDViewer: React.FC<OSDViewerProps> = ({ children, options = {} }) => {
   )
 }
 
-OSDViewer.displayName = 'OSDViwer'
+OSDViewer.displayName = 'OSDViewer'
 
 export default OSDViewer
