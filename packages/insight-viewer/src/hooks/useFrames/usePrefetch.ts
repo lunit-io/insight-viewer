@@ -2,7 +2,7 @@ import { useEffect, useReducer, useState } from 'react'
 import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
-import { loadingProgressMessage } from '../../utils/messageService'
+import { loadedCountMessageMessage } from '../../utils/messageService'
 import { getHttpClient } from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { HTTP, RequestInterceptor, LoaderType } from '../../types'
@@ -24,14 +24,14 @@ export interface Prefetched {
   loadedPercentage: number
 }
 
+/**
+ * getLoadImage is pluggable for unit test.
+ */
 const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
   loadImage(image, {
     loader: getHttpClient(requestInterceptor),
   })
 
-/**
- * getLoadImage is pluggable for unit test.
- */
 export function prefetch({
   images,
   requestInterceptor,
@@ -41,22 +41,28 @@ export function prefetch({
   requestInterceptor: RequestInterceptor
   getLoadImage?: GetLoadImage
 }): Observable<Prefetched> {
-  // Start multiframe image loading.
-  loadingProgressMessage.sendMessage(0)
   let loadedCount = 0
+  // Should send message before loading starts, because subscriber needs total value.
+  loadedCountMessageMessage.sendMessage({
+    loaded: loadedCount,
+    total: images.length,
+  })
 
   return from(images).pipe(
     // Sequential Requests.
     concatMap(image => getLoadImage(image, requestInterceptor)),
     map(image => {
       loadedCount += 1
-      const loaded = Math.round((loadedCount * 100) / images.length)
-      loadingProgressMessage.sendMessage(loaded)
+      loadedCountMessageMessage.sendMessage({
+        loaded: loadedCount,
+        total: images.length,
+      })
       return {
         image,
-        loadedPercentage: loaded,
+        loadedPercentage: Math.round((loadedCount * 100) / images.length),
       }
     }),
+
     catchError(err => {
       throw formatError(err)
     })
