@@ -8,13 +8,13 @@ import { CODE } from './Code'
 import { IMAGES } from '../../const'
 
 function Overlay(): JSX.Element {
-  const { image } = useImage({
+  const { loadingState, image } = useImage({
     imageId: IMAGES[9],
   })
   const { viewport, setViewport } = useViewport()
 
   return (
-    <Box>
+    <Box data-cy-loaded={loadingState}>
       <ViewerWrapper>
         <ImageViewer
           image={image}
