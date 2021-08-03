@@ -5,7 +5,7 @@ import {
   loadImage as cornerstoneLoadImage,
   CornerstoneImage,
 } from '../../utils/cornerstoneHelper'
-import getHttpClient from '../../utils/httpClient'
+import { getHttpClient } from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
 import {
@@ -17,7 +17,7 @@ import { ImageLoad, DefaultGetImage, GetImage } from './types'
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
   try {
     return await cornerstoneLoadImage(imageId, {
-      loader: getHttpClient(requestInterceptor),
+      loader: getHttpClient({ requestInterceptor }),
     })
   } catch (e) {
     throw formatError(e)

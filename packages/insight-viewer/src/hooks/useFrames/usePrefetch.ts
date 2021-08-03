@@ -3,7 +3,7 @@ import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { loadingProgressMessage } from '../../utils/messageService'
-import getHttpClient from '../../utils/httpClient'
+import { getHttpClient } from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
 import { HTTP, RequestInterceptor, LoaderType } from '../../types'
 import {
@@ -26,7 +26,7 @@ export interface Prefetched {
 
 const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
   loadImage(image, {
-    loader: getHttpClient(requestInterceptor, true),
+    loader: getHttpClient({ requestInterceptor, multiple: true }),
   })
 
 /**
