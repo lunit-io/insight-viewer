@@ -3,18 +3,9 @@ import { loadingProgressMessage } from '../messageService'
 import { RequestInterceptor } from '../../types'
 
 type HttpClient = (url: string) => Promise<ArrayBuffer>
-type GetHttpClient = ({
-  requestInterceptor,
-  multiple,
-}: {
-  requestInterceptor: RequestInterceptor
-  multiple?: boolean
-}) => HttpClient
+type GetHttpClient = (requestInterceptor: RequestInterceptor) => HttpClient
 
-export const getHttpClient: GetHttpClient = ({
-  requestInterceptor,
-  multiple = false,
-}) => {
+export const getHttpClient: GetHttpClient = requestInterceptor => {
   const httpClient: HttpClient = async url => {
     const http = ky.create({
       hooks: {
@@ -25,8 +16,6 @@ export const getHttpClient: GetHttpClient = ({
         ],
       },
       onDownloadProgress: async progress => {
-        if (multiple) return
-
         const noContentLength =
           progress.percent === 0 &&
           progress.totalBytes === 0 &&

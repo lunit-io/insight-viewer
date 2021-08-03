@@ -26,7 +26,7 @@ export interface Prefetched {
 
 const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
   loadImage(image, {
-    loader: getHttpClient({ requestInterceptor, multiple: true }),
+    loader: getHttpClient(requestInterceptor),
   })
 
 /**

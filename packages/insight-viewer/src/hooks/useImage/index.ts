@@ -17,7 +17,7 @@ import { ImageLoad, DefaultGetImage, GetImage } from './types'
 const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
   try {
     return await cornerstoneLoadImage(imageId, {
-      loader: getHttpClient({ requestInterceptor }),
+      loader: getHttpClient(requestInterceptor),
     })
   } catch (e) {
     throw formatError(e)
