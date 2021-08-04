@@ -51,14 +51,14 @@ export default function LoadingProgress({
 
   useEffect(() => {
     let isCancelled = false // Do not update state on unmount.
-    const $progress = loadingProgressMessage.getMessage()
-    const $loadedCount = loadedCountMessageMessage.getMessage()
+    const progress$ = loadingProgressMessage.getMessage()
+    const loadedCount$ = loadedCountMessageMessage.getMessage()
 
     let loadedCount = 0
     let totalCount = 1
     let _progress = 0
 
-    subscription = merge($progress, $loadedCount).subscribe(prop => {
+    subscription = merge(progress$, loadedCount$).subscribe(prop => {
       if (typeof prop === 'number') {
         _progress = prop
       } else {
