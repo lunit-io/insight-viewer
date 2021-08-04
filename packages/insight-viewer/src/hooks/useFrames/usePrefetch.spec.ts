@@ -21,25 +21,18 @@ describe('usePrefetch', () => {
   })
 
   it('fetches all images successfully', () => {
-    const loadedPercentage = {
-      '0': 33,
-      '1': 67,
-      '2': 100,
-    }
     prefetch({
       images: IMAGES,
       requestInterceptor,
-      getLoadImage: getLoadImageMock.mockImplementation(() =>
+      getLoadImage: getLoadImageMock.mockImplementation(() => {
+        count += 1
         Promise.resolve(cornerstoneImage)
-      ),
+      }),
     }).subscribe({
       next: async (res: Prefetched) => {
-        count += 1
-
         expect(res).toMatchObject({
           image: cornerstoneImage,
-          loadedPercentage:
-            loadedPercentage[String(count) as keyof typeof loadedPercentage],
+          loaded: count + 1,
         })
       },
     })
@@ -58,7 +51,7 @@ describe('usePrefetch', () => {
     }).subscribe({
       error: async (err: ViewerError) => {
         expect(err.message).toBe('first image fetch fails')
-        expect(count).toBe(0)
+        expect(count).toBe(count)
       },
     })
   })
@@ -74,9 +67,15 @@ describe('usePrefetch', () => {
         return Promise.resolve(cornerstoneImage)
       }),
     }).subscribe({
+      next: async (res: Prefetched) => {
+        expect(res).toMatchObject({
+          image: cornerstoneImage,
+          loaded: count + 1,
+        })
+      },
       error: async (err: ViewerError) => {
         expect(err.message).toBe('second image fetch fails')
-        expect(count).toBe(1)
+        expect(count).toBe(count)
       },
     })
   })
@@ -92,9 +91,15 @@ describe('usePrefetch', () => {
         return Promise.resolve(cornerstoneImage)
       }),
     }).subscribe({
+      next: async (res: Prefetched) => {
+        expect(res).toMatchObject({
+          image: cornerstoneImage,
+          loaded: count + 1,
+        })
+      },
       error: async (err: ViewerError) => {
         expect(err.message).toBe('last image fetch fails')
-        expect(count).toBe(IMAGES.length - 1)
+        expect(count).toBe(count)
       },
     })
   })
