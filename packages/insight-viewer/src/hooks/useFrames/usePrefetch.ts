@@ -21,7 +21,7 @@ type GetLoadImage = (
 
 export interface Prefetched {
   image: CornerstoneImage
-  loadedPercentage: number
+  loaded: number
 }
 
 /**
@@ -41,10 +41,10 @@ export function prefetch({
   requestInterceptor: RequestInterceptor
   getLoadImage?: GetLoadImage
 }): Observable<Prefetched> {
-  let loadedCount = 0
+  let loaded = 0
   // Should send message before loading starts, because subscriber needs total value.
   loadedCountMessageMessage.sendMessage({
-    loaded: loadedCount,
+    loaded,
     total: images.length,
   })
 
@@ -52,14 +52,14 @@ export function prefetch({
     // Sequential Requests.
     concatMap(image => getLoadImage(image, requestInterceptor)),
     map(image => {
-      loadedCount += 1
+      loaded += 1
       loadedCountMessageMessage.sendMessage({
-        loaded: loadedCount,
+        loaded,
         total: images.length,
       })
       return {
         image,
-        loadedPercentage: Math.round((loadedCount * 100) / images.length),
+        loaded,
       }
     }),
 
