@@ -34,7 +34,7 @@ const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
 }
 
 /**
- * @param imageId The image url to prefetch.
+ * @param imageId The image url to load.
  * @param requestInterceptor The callback is called before a request is sent. It use ky.js beforeRequest hook.
  * @param getImage
  * @returns Promise<CornerstoneImage>.

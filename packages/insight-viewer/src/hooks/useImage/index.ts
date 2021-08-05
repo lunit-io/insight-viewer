@@ -28,7 +28,7 @@ interface UseImage {
 }
 
 /**
- * @param imageId The image url to prefetch.
+ * @param imageId The image url to load.
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
  * @param requestInterceptor The callback is called before a request is sent.
  *  It use ky.js beforeRequest hook.

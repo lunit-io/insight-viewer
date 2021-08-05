@@ -7,11 +7,11 @@ import {
 } from '../../stores/imageLoadReducer'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
-import { prefetch } from './prefetch'
+import { loadImages } from './loadImages'
 import { HTTP, LoaderType } from '../../types'
-import { Prefetched } from './types'
+import { Loaded } from './types'
 
-interface UsePrefetch {
+interface UseLoadImages {
   ({
     images,
     onError,
@@ -24,7 +24,7 @@ interface UsePrefetch {
 }
 
 /**
- * @param imageIds The images urls to prefetch.
+ * @param imageIds The images urls to load.
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
  * @param requestInterceptor The callback is called before a request is sent.
  *  It use ky.js beforeRequest hook.
@@ -33,7 +33,7 @@ interface UsePrefetch {
  * @returns <{ image, loadingState, frame, setFrame }> image is a CornerstoneImage.
  *  loadingState is 'initial'|'loading'|'success'|'fail'
  */
-export const usePrefetch: UsePrefetch = ({
+export const useLoadImages: UseLoadImages = ({
   images,
   onError,
   requestInterceptor,
@@ -51,8 +51,8 @@ export const usePrefetch: UsePrefetch = ({
 
     dispatch({ type: LOADING_STATE.LOADING })
 
-    prefetch({ images, requestInterceptor }).subscribe({
-      next: (res: Prefetched) => {
+    loadImages({ images, requestInterceptor }).subscribe({
+      next: (res: Loaded) => {
         setImages(prev => [...prev, res.image])
         dispatch({
           type: LOADING_STATE.SUCCESS,

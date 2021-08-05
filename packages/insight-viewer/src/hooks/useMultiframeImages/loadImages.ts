@@ -1,5 +1,5 @@
 /**
- * @fileoverview Prefetches images sequentially.
+ * @fileoverview Loads images sequentially.
  */
 import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
@@ -8,7 +8,7 @@ import { loadedCountMessageMessage } from '../../utils/messageService'
 import { formatError } from '../../utils/common'
 import { getHttpClient } from '../../utils/httpClient'
 import { RequestInterceptor } from '../../types'
-import { Prefetched } from './types'
+import { Loaded } from './types'
 
 interface GetLoadImage {
   (
@@ -17,7 +17,7 @@ interface GetLoadImage {
   ): Promise<CornerstoneImage>
 }
 
-interface Prefetch {
+interface LoadImages {
   ({
     images,
     requestInterceptor,
@@ -26,7 +26,7 @@ interface Prefetch {
     images: string[]
     requestInterceptor: RequestInterceptor
     getLoadImage?: GetLoadImage
-  }): Observable<Prefetched>
+  }): Observable<Loaded>
 }
 
 /**
@@ -38,13 +38,13 @@ const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
   })
 
 /**
- * @param images The images urls to prefetch.
+ * @param images The images urls to load.
  * @param requestInterceptor The callback is called before a request is sent. It use ky.js beforeRequest hook.
  * @param getLoadImage
  * @returns Observable<{ image, loaded }>. image is cornerstone image. loaded is the numbe of loaded images.
  * @throws If image fetching fails.
  */
-export const prefetch: Prefetch = ({
+export const loadImages: LoadImages = ({
   images,
   requestInterceptor,
   getLoadImage = _getLoadImage,

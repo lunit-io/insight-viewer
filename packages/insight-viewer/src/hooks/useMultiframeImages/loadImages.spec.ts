@@ -2,8 +2,8 @@ import { CONFIG } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { ViewerError } from '../../types'
-import { prefetch } from './prefetch'
-import { Prefetched } from './types'
+import { loadImages } from './loadImages'
+import { Loaded } from './types'
 
 const { requestInterceptor } = CONFIG
 const IMAGES = [
@@ -14,7 +14,7 @@ const IMAGES = [
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 const getLoadImageMock = jest.fn()
 
-describe('prefetch()', () => {
+describe('loadImages()', () => {
   let count: number
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('prefetch()', () => {
   })
 
   it('fetches all images successfully', () => {
-    prefetch({
+    loadImages({
       images: IMAGES,
       requestInterceptor,
       getLoadImage: getLoadImageMock.mockImplementation(() => {
@@ -30,7 +30,7 @@ describe('prefetch()', () => {
         Promise.resolve(cornerstoneImage)
       }),
     }).subscribe({
-      next: async (res: Prefetched) => {
+      next: async (res: Loaded) => {
         expect(res).toMatchObject({
           image: cornerstoneImage,
           loaded: count + 1,
@@ -40,7 +40,7 @@ describe('prefetch()', () => {
   })
 
   it('fails on first request', () => {
-    prefetch({
+    loadImages({
       images: IMAGES,
       requestInterceptor,
       getLoadImage: getLoadImageMock.mockImplementation(() => {
@@ -58,7 +58,7 @@ describe('prefetch()', () => {
   })
 
   it('fails on second request', () => {
-    prefetch({
+    loadImages({
       images: IMAGES,
       requestInterceptor,
       getLoadImage: getLoadImageMock.mockImplementation(() => {
@@ -68,7 +68,7 @@ describe('prefetch()', () => {
         return Promise.resolve(cornerstoneImage)
       }),
     }).subscribe({
-      next: async (res: Prefetched) => {
+      next: async (res: Loaded) => {
         expect(res).toMatchObject({
           image: cornerstoneImage,
           loaded: count + 1,
@@ -82,7 +82,7 @@ describe('prefetch()', () => {
   })
 
   it('fails on the last request', () => {
-    prefetch({
+    loadImages({
       images: IMAGES,
       requestInterceptor,
       getLoadImage: getLoadImageMock.mockImplementation(() => {
@@ -92,7 +92,7 @@ describe('prefetch()', () => {
         return Promise.resolve(cornerstoneImage)
       }),
     }).subscribe({
-      next: async (res: Prefetched) => {
+      next: async (res: Loaded) => {
         expect(res).toMatchObject({
           image: cornerstoneImage,
           loaded: count + 1,
@@ -106,7 +106,7 @@ describe('prefetch()', () => {
   })
 
   it('fails for all images', () => {
-    prefetch({
+    loadImages({
       images: IMAGES,
       requestInterceptor,
       getLoadImage: getLoadImageMock.mockImplementation(() =>

@@ -3,7 +3,7 @@
  * return the current image and loading state, current frame and frame updater.
  */
 import { SetStateAction } from 'react'
-import { usePrefetch } from './usePrefetch'
+import { useLoadImages } from './useLoadImages'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP, LoaderType } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
@@ -23,7 +23,7 @@ interface UseMultiframeImages {
 }
 
 /**
- * @param imageIds The images urls to prefetch.
+ * @param imageIds The images urls to load.
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
  * @param initialFrame
  * @param requestInterceptor The callback is called before a request is sent.
@@ -39,7 +39,7 @@ export const useMultiframeImages: UseMultiframeImages = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
 }) => {
-  const { loadingState, images: loadedImages = [] } = usePrefetch({
+  const { loadingState, images: loadedImages = [] } = useLoadImages({
     images: imageIds,
     onError,
     requestInterceptor,

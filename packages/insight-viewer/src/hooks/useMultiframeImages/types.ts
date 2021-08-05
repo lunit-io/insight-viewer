@@ -1,6 +1,6 @@
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
-export interface Prefetched {
+export interface Loaded {
   image: CornerstoneImage
   loaded: number
 }
