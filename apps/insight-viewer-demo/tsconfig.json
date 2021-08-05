@@ -3,7 +3,7 @@
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
-      "path": "../../packages/insight-viewer/tsconfig.build.json"
+      "path": "insight-viewer"
     }
   ]
 }
