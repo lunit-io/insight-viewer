@@ -7,7 +7,7 @@ import {
   imageLoadReducer,
   INITIAL_IMAGE_LOAD_STATE,
 } from '../../stores/imageLoadReducer'
-import { ImageLoad } from './types'
+import { Prop } from './types'
 import { loadImage } from './loadImage'
 
 export function useImage({
@@ -15,7 +15,7 @@ export function useImage({
   onError = CONFIG.onError,
   imageId,
   type = LOADER_TYPE.Dicom,
-}: ImageLoad & {
+}: Prop & {
   type?: LoaderType
 }): {
   loadingState: LoadingState

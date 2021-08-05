@@ -7,7 +7,7 @@ import {
 } from '../../utils/cornerstoneHelper'
 import { getHttpClient } from '../../utils/httpClient'
 import { formatError } from '../../utils/common'
-import { ImageLoad, DefaultGetImage, GetImage } from './types'
+import { Prop, DefaultGetImage, GetImage } from './types'
 
 interface LoadImage {
   ({
@@ -15,9 +15,8 @@ interface LoadImage {
     requestInterceptor,
     onError,
     getImage,
-  }: Required<ImageLoad> & {
+  }: Required<Prop> & {
     getImage?: GetImage
-    imageId: string
   }): Promise<CornerstoneImage>
 }
 
