@@ -2,7 +2,7 @@ import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import ImageViewer, {
   useInteraction,
   useViewport,
-  useFrames,
+  useMultiframeImages,
   Interaction,
   Wheel,
   isValidViewport,
@@ -24,7 +24,7 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
-  const { loadingState, image, frame, setFrame } = useFrames({
+  const { loadingState, image, frame, setFrame } = useMultiframeImages({
     imageIds: IMAGES,
   })
   const { interaction, setInteraction } = useInteraction()
