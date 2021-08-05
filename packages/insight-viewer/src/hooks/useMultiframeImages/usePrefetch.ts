@@ -3,7 +3,7 @@ import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import {
   imageLoadReducer,
   INITIAL_IMAGE_LOAD_STATE,
-  ImageLoadState,
+  ImagesLoadState,
 } from '../../stores/imageLoadReducer'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
@@ -20,7 +20,7 @@ interface UsePrefetch {
   }: HTTP & {
     images: string[]
     type?: LoaderType
-  }): ImageLoadState
+  }): ImagesLoadState
 }
 
 /**

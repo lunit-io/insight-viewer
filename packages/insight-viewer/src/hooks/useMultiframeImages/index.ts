@@ -7,7 +7,7 @@ import { usePrefetch } from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP, LoaderType } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
-import { ImageLoadState } from '../../stores/imageLoadReducer'
+import { ImagesLoadState } from '../../stores/imageLoadReducer'
 
 type Prop = {
   imageIds: string[]
@@ -19,7 +19,7 @@ interface UseMultiframeImages {
   ({ imageIds, initialFrame, onError, requestInterceptor, type }: Prop): {
     frame: number // current frame index
     setFrame: SetFrame // set current frame index
-  } & ImageLoadState
+  } & ImagesLoadState
 }
 
 /**
@@ -65,6 +65,6 @@ export const useMultiframeImages: UseMultiframeImages = ({
     frame,
     setFrame: handleFrame,
     loadingState,
-    image: loadedImages[frame],
+    images: loadedImages,
   }
 }
