@@ -3,12 +3,11 @@
  * return the current image and loading state, current frame and frame updater.
  */
 import { SetStateAction } from 'react'
-import usePrefetch from './usePrefetch'
+import { usePrefetch } from './usePrefetch'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP, LoaderType } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
 import { ImageLoadState } from '../../stores/imageLoadReducer'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 type Prop = {
   imageIds: string[]
@@ -20,17 +19,15 @@ interface UseMultiframeImages {
   ({ imageIds, initialFrame, onError, requestInterceptor, type }: Prop): {
     frame: number // current frame index
     setFrame: SetFrame // set current frame index
-  } & Omit<ImageLoadState, 'images' | 'progress'> & {
-      image: CornerstoneImage
-    }
+  } & ImageLoadState
 }
 
 /**
  * @param imageIds The images urls to prefetch.
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
+ * @param initialFrame
  * @param requestInterceptor The callback is called before a request is sent.
  *  It use ky.js beforeRequest hook.
- * @param initialFrame
  * @param onError The error handler.
  * @returns <{ image, loadingState, frame, setFrame }> image is a CornerstoneImage.
  *  loadingState is 'initial'|'loading'|'success'|'fail'
@@ -42,7 +39,7 @@ export const useMultiframeImages: UseMultiframeImages = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
 }) => {
-  const { loadingState, images: loadedImages } = usePrefetch({
+  const { loadingState, images: loadedImages = [] } = usePrefetch({
     images: imageIds,
     onError,
     requestInterceptor,

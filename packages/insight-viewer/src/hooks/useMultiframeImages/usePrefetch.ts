@@ -11,17 +11,34 @@ import { prefetch } from './prefetch'
 import { HTTP, LoaderType } from '../../types'
 import { Prefetched } from './types'
 
-export default function usePrefetch({
+interface UsePrefetch {
+  ({
+    images,
+    onError,
+    requestInterceptor,
+    type,
+  }: HTTP & {
+    images: string[]
+    type?: LoaderType
+  }): ImageLoadState
+}
+
+/**
+ * @param imageIds The images urls to prefetch.
+ * @param type The image type to load. 'Dicom'(default) | 'Web'.
+ * @param requestInterceptor The callback is called before a request is sent.
+ *  It use ky.js beforeRequest hook.
+ * @param initialFrame
+ * @param onError The error handler.
+ * @returns <{ image, loadingState, frame, setFrame }> image is a CornerstoneImage.
+ *  loadingState is 'initial'|'loading'|'success'|'fail'
+ */
+export const usePrefetch: UsePrefetch = ({
   images,
   onError,
   requestInterceptor,
   type,
-}: HTTP & {
-  images: string[]
-  type?: LoaderType
-}): Omit<ImageLoadState, 'image'> & {
-  images: CornerstoneImage[]
-} {
+}) => {
   const [loadedImages, setImages] = useState<CornerstoneImage[]>([])
   const [{ loadingState }, dispatch] = useReducer(
     imageLoadReducer,
