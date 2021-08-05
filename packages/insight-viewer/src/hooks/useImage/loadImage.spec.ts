@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { loadImage } from '.'
+import { loadImage } from './loadImage'
 import { CONFIG } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
@@ -13,7 +13,7 @@ const defaultParam = {
 }
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 
-describe('useImage:', () => {
+describe('loadImage()', () => {
   it('with invalid image', () => {
     const getImage = async () => {
       throw new Error('request fails')
