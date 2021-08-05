@@ -1,4 +1,4 @@
-import { getProgress } from './index'
+import { getProgress } from './getProgress'
 
 describe('getProgress()', () => {
   it('initially', () => {
