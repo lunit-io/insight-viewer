@@ -1,5 +1,5 @@
 export { ImageViewer as default } from './Viewer'
-export { useFrames } from './hooks/useFrames'
+export { useMultiframeImages } from './hooks/useMultiframeImages'
 export { useViewport } from './hooks/useViewport'
 export { useInteraction } from './hooks/useInteraction'
 export { useImage } from './hooks/useImage'

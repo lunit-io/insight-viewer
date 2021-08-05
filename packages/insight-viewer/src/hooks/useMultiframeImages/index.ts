@@ -12,7 +12,7 @@ type Prop = {
   type?: LoaderType
 } & Partial<HTTP>
 
-export function useFrames({
+export function useMultiframeImages({
   imageIds,
   initialFrame = 0,
   onError = CONFIG.onError,
