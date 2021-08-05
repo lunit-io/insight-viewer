@@ -1,17 +1,5 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "references": [
-    {
-      "path": "../../packages/osd-react-renderer/tsconfig.build.json"
-    }
-  ],
-  "exclude": [
-    "node_modules"
-  ],
   "compilerOptions": {
     "jsx": "react-jsx"
   }

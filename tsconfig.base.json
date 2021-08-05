@@ -5,11 +5,7 @@
       "@lunit/*": ["packages/*/src"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -38,10 +34,5 @@
     "apps/**/*.tsx",
     "apps/**/*.js"
   ],
-  "exclude": [
-    "node_modules",
-    "spec",
-    "dist",
-    "test"
-  ]
+  "exclude": ["node_modules", "spec", "dist", "test"]
 }
