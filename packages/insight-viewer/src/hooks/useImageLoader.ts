@@ -1,3 +1,6 @@
+/**
+ * @fileoverview Enable Cornerstone image(Dicom/Web) loader.
+ */
 import { useState } from 'react'
 import { LOADER_TYPE } from '../const'
 import { LoaderType, OnError } from '../types'
