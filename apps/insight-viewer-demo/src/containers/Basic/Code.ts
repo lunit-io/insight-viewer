@@ -4,7 +4,7 @@ import ImageViewer, { useImage } from '@lunit/insight-viewer'
 export default function App() {
   const { loadingState, image } = useImage({
     imageId: IMAGE_ID,
-    type: 'Dicom',      // optional(Default)
+    type: 'Dicom',      // optional: 'Dicom'(Default) | 'Web'
     onError,            // optional
     requestInterceptor, // optional
   })

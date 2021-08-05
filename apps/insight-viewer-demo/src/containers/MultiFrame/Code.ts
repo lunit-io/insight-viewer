@@ -8,10 +8,10 @@ const IMAGES = [
 ]
 
 export default function Viewer() {
-  const { frame, setFrame, loadingState, image /* progress */ } = useMultiframeImages({
+  const { frame, setFrame, loadingState, images } = useMultiframeImages({
     imageIds: IMAGES,
-    type: 'Dicom',      // optional(Default)
-    initialFrame,       // optional: initialValue or default 0
+    type: 'Dicom',      // optional: 'Dicom'(Default) | 'Web'
+    initialFrame,       // optional: initialValue | 0(default)
     onError,            // optional
     requestInterceptor, // optional
   })
@@ -34,9 +34,9 @@ export default function Viewer() {
       />
       <div>
         <span>{loadingState}</span>
-        {image && <span> ({image.imageId})</span>}
+        {images[frame] && <span> ({images[frame].imageId})</span>}
       </div>
-      <ImageViewer image={image} />
+      <ImageViewer image={images[frame]} />
     </>
   )
 }

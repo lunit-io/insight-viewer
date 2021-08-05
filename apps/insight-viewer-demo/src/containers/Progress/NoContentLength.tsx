@@ -18,7 +18,7 @@ export default function Custom(): JSX.Element {
   const { image } = useImage({
     imageId: IMAGE_ID,
   })
-  const { image: image2 } = useMultiframeImages({
+  const { frame, images } = useMultiframeImages({
     imageIds: IMAGES,
   })
 
@@ -29,7 +29,7 @@ export default function Custom(): JSX.Element {
           <ImageViewer image={image} Progress={CustomProgress} />
         </ViewerWrapper>
         <ViewerWrapper>
-          <ImageViewer image={image2} Progress={CustomProgress} />
+          <ImageViewer image={images[frame]} Progress={CustomProgress} />
         </ViewerWrapper>
         å
       </Stack>
