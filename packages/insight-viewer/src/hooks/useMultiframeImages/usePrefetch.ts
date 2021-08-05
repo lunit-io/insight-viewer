@@ -1,11 +1,5 @@
 import { useEffect, useReducer, useState } from 'react'
-import { from, Observable } from 'rxjs'
-import { concatMap, map, catchError } from 'rxjs/operators'
-import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
-import { loadedCountMessageMessage } from '../../utils/messageService'
-import { getHttpClient } from '../../utils/httpClient'
-import { formatError } from '../../utils/common'
-import { HTTP, RequestInterceptor, LoaderType } from '../../types'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import {
   imageLoadReducer,
   INITIAL_IMAGE_LOAD_STATE,
@@ -13,61 +7,9 @@ import {
 } from '../../stores/imageLoadReducer'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
-
-type GetLoadImage = (
-  image: string,
-  requestInterceptor: RequestInterceptor
-) => Promise<CornerstoneImage>
-
-export interface Prefetched {
-  image: CornerstoneImage
-  loaded: number
-}
-
-/**
- * getLoadImage is pluggable for unit test.
- */
-const _getLoadImage: GetLoadImage = (image, requestInterceptor) =>
-  loadImage(image, {
-    loader: getHttpClient(requestInterceptor),
-  })
-
-export function prefetch({
-  images,
-  requestInterceptor,
-  getLoadImage = _getLoadImage,
-}: {
-  images: string[]
-  requestInterceptor: RequestInterceptor
-  getLoadImage?: GetLoadImage
-}): Observable<Prefetched> {
-  let loaded = 0
-  // Should send message before loading starts, because subscriber needs total value.
-  loadedCountMessageMessage.sendMessage({
-    loaded,
-    total: images.length,
-  })
-
-  return from(images).pipe(
-    // Sequential Requests.
-    concatMap(image => getLoadImage(image, requestInterceptor)),
-    map(image => {
-      loaded += 1
-      loadedCountMessageMessage.sendMessage({
-        loaded,
-        total: images.length,
-      })
-      return {
-        image,
-        loaded,
-      }
-    }),
-
-    catchError(err => {
-      throw formatError(err)
-    })
-  )
-}
+import { prefetch } from './prefetch'
+import { HTTP, LoaderType } from '../../types'
+import { Prefetched } from './types'
 
 export default function usePrefetch({
   images,

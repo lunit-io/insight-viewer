@@ -1,8 +1,9 @@
-import { prefetch, Prefetched } from './usePrefetch'
 import { CONFIG } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { ViewerError } from '../../types'
+import { prefetch } from './prefetch'
+import { Prefetched } from './types'
 
 const { requestInterceptor } = CONFIG
 const IMAGES = [
@@ -13,7 +14,7 @@ const IMAGES = [
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 const getLoadImageMock = jest.fn()
 
-describe('usePrefetch', () => {
+describe('prefetch()', () => {
   let count: number
 
   beforeEach(() => {
