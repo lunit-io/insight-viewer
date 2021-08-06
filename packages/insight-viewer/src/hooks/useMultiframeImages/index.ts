@@ -5,14 +5,9 @@
 import { SetStateAction } from 'react'
 import { useLoadImages } from './useLoadImages'
 import useFrame, { SetFrame } from './useFrame'
-import { HTTP, LoaderType, LoadingState } from '../../types'
+import { HTTP, LoaderType } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
-
-export interface ImagesLoadState {
-  loadingStates: LoadingState[]
-  images: CornerstoneImage[]
-}
+import { ImagesLoadState } from './types'
 
 type Prop = {
   imageIds: string[]
