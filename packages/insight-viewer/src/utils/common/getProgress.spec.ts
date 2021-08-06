@@ -141,10 +141,10 @@ describe('getProgress()', () => {
     })
   })
 
-  it('when all images are loaded', () => {
+  it('all images are loaded', () => {
     const result = getProgress({
-      loadedCount: 0,
-      totalCount: 1,
+      loadedCount: 3,
+      totalCount: 3,
       progress: 100,
     })
 
