@@ -1,21 +1,12 @@
-import { LOADING_STATE } from '../const'
-import { LoadingState } from '../types'
-import { CornerstoneImage } from '../utils/cornerstoneHelper'
+import { LOADING_STATE } from '../../const'
+import { LoadingState } from '../../types'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
-export interface ImagesLoadState {
+export type ImageLoadState = {
   loadingState: LoadingState
-  images: CornerstoneImage[]
+  image: CornerstoneImage | undefined
+  images?: never
 }
-
-export type ImageLoadState =
-  | {
-      loadingState: LoadingState
-      image: CornerstoneImage | undefined
-      images?: never
-    }
-  | (ImagesLoadState & {
-      image?: never
-    })
 
 interface ImageLoadAction {
   type: LoadingState
