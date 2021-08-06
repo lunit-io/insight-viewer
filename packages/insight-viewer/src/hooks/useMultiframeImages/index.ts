@@ -5,9 +5,14 @@
 import { SetStateAction } from 'react'
 import { useLoadImages } from './useLoadImages'
 import useFrame, { SetFrame } from './useFrame'
-import { HTTP, LoaderType } from '../../types'
+import { HTTP, LoaderType, LoadingState } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
-import { ImagesLoadState } from '../../stores/imageLoadReducer'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+
+export interface ImagesLoadState {
+  loadingStates: LoadingState[]
+  images: CornerstoneImage[]
+}
 
 type Prop = {
   imageIds: string[]
@@ -27,10 +32,10 @@ interface UseMultiframeImages {
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
  * @param initialFrame
  * @param requestInterceptor The callback is called before a request is sent.
- *  It use ky.js beforeRequest hook.
+ *  It uses ky.js beforeRequest hook.
  * @param onError The error handler.
- * @returns <{ image, loadingState, frame, setFrame }> image is a CornerstoneImage.
- *  loadingState is 'initial'|'loading'|'success'|'fail'
+ * @returns <{ image, loadingStates, frame, setFrame }> image is a CornerstoneImage.
+ *  loadingStates are each image's <'initial'|'loading'|'success'|'fail'>
  */
 export const useMultiframeImages: UseMultiframeImages = ({
   imageIds,
@@ -39,7 +44,7 @@ export const useMultiframeImages: UseMultiframeImages = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
 }) => {
-  const { loadingState, images: loadedImages = [] } = useLoadImages({
+  const { loadingStates, images: loadedImages = [] } = useLoadImages({
     images: imageIds,
     onError,
     requestInterceptor,
@@ -64,7 +69,7 @@ export const useMultiframeImages: UseMultiframeImages = ({
   return {
     frame,
     setFrame: handleFrame,
-    loadingState,
+    loadingStates,
     images: loadedImages,
   }
 }

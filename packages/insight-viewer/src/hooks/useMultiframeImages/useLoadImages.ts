@@ -1,15 +1,12 @@
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
-import {
-  imageLoadReducer,
-  INITIAL_IMAGE_LOAD_STATE,
-  ImagesLoadState,
-} from '../../stores/imageLoadReducer'
+import { ImagesLoadState } from '../../stores/imageLoadReducer'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
-import { HTTP, LoaderType } from '../../types'
+import { HTTP, LoaderType, LoadingState } from '../../types'
 import { Loaded } from './types'
+import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 
 interface UseLoadImages {
   ({
@@ -23,6 +20,12 @@ interface UseLoadImages {
   }): ImagesLoadState
 }
 
+interface State {
+  images: CornerstoneImage[]
+  loadingStates: Map<number, LoadingState>
+  _currentIndex: number
+}
+
 /**
  * @param imageIds The images urls to load.
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
@@ -30,44 +33,60 @@ interface UseLoadImages {
  *  It use ky.js beforeRequest hook.
  * @param initialFrame
  * @param onError The error handler.
- * @returns <{ image, loadingState, frame, setFrame }> image is a CornerstoneImage.
- *  loadingState is 'initial'|'loading'|'success'|'fail'
+ * @returns <{ images, loadingStates }> images are CornerstoneImages.
+ *  loadingStates are <'initial'|'loading'|'success'|'fail'>[]
  */
 export const useLoadImages: UseLoadImages = ({
-  images,
+  images: imageIds,
   onError,
   requestInterceptor,
   type,
 }) => {
-  const [loadedImages, setImages] = useState<CornerstoneImage[]>([])
-  const [{ loadingState }, dispatch] = useReducer(
-    imageLoadReducer,
-    INITIAL_IMAGE_LOAD_STATE
-  )
+  const [{ images, loadingStates }, setImages] = useState<State>({
+    images: [],
+    loadingStates: getLoadingStateMap(imageIds.length),
+    _currentIndex: -1,
+  })
+
   const hasLoader = useImageLoader(type, onError)
 
   useEffect(() => {
-    if (images.length === 0 || !hasLoader) return
+    if (imageIds.length === 0) return // No images to load
+    if (!hasLoader) return // No image loader
 
-    dispatch({ type: LOADING_STATE.LOADING })
+    // Initialize first image loading state.
+    setImages((prev: State) => ({
+      ...prev,
+      loadingStates: prev.loadingStates.set(0, LOADING_STATE.LOADING),
+    }))
 
-    loadImages({ images, requestInterceptor }).subscribe({
-      next: (res: Loaded) => {
-        setImages(prev => [...prev, res.image])
-        dispatch({
-          type: LOADING_STATE.SUCCESS,
-          payload: res.image,
-        })
+    loadImages({ images: imageIds, requestInterceptor }).subscribe({
+      next: ({ image, loaded }: Loaded) => {
+        setImages((prev: State) => ({
+          images: [...prev.images, image],
+          loadingStates: updateLoadedStates({
+            size: imageIds.length,
+            stateMap: prev.loadingStates,
+            value: loaded,
+          }),
+          _currentIndex: loaded - 1,
+        }))
       },
       error: err => {
         onError(err)
-        dispatch({ type: LOADING_STATE.FAIL })
+        setImages(prev => ({
+          ...prev,
+          loadingStates: prev.loadingStates.set(
+            prev._currentIndex + 1,
+            LOADING_STATE.FAIL
+          ),
+        }))
       },
     })
-  }, [images, onError, requestInterceptor, hasLoader])
+  }, [imageIds, onError, requestInterceptor, hasLoader])
 
   return {
-    loadingState,
-    images: loadedImages,
+    images,
+    loadingStates: Array.from(loadingStates.values()),
   }
 }
