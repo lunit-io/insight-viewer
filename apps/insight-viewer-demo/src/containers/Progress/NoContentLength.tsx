@@ -1,7 +1,8 @@
 import { Box, Stack } from '@chakra-ui/react'
 import ImageViewer, {
   useImage,
-  useMultiframeImages,
+  useMultipleImages,
+  useFrame,
 } from '@lunit/insight-viewer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -18,8 +19,12 @@ export default function Custom(): JSX.Element {
   const { image } = useImage({
     imageId: IMAGE_ID,
   })
-  const { frame, images } = useMultiframeImages({
+  const { images } = useMultipleImages({
     imageIds: IMAGES,
+  })
+  const { frame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
   })
 
   return (

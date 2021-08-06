@@ -1,16 +1,21 @@
 export const BASE_CODE = `\
 import ImageViewer, {
-  useMultiframeImages,
+  useMultipleImages,
   useViewport,
   useInteraction,
+  useFrame,
   Interaction,
   Wheel,
   isValidViewport,
 } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { images, frame, setFrame } = useMultiframeImages({
-    imageIds: IMAGES
+  const { loadingStates, images } = useMultipleImages({
+    imageIds: IMAGES,
+  })
+  const { frame, setFrame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
   })
   const { viewport, setViewport } = useViewport({
     scale: 0.5,
