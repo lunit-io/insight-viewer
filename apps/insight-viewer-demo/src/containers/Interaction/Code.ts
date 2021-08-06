@@ -9,7 +9,7 @@ import ImageViewer, {
 } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image, frame, setFrame } = useMultiframeImages({
+  const { images, frame, setFrame } = useMultiframeImages({
     imageIds: IMAGES
   })
   const { viewport, setViewport } = useViewport({
@@ -80,7 +80,7 @@ export default function App() {
       <input type="radio" value="frame" onChange={handleWheelChange} />
       <input type="radio" value="scale" onChange={handleWheelChange} />
       <ImageViewer
-        image={image}
+        image={images[frame]}
         interaction={interaction}
         viewport={viewport}
         onViewportChange={setViewport}

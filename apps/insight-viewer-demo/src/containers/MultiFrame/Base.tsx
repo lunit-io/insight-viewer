@@ -8,7 +8,7 @@ import { CODE } from './Code'
 import { IMAGES } from '../../const'
 
 export default function Base(): JSX.Element {
-  const { frame, setFrame, loadingState, image } = useMultiframeImages({
+  const { frame, setFrame, loadingState, images } = useMultiframeImages({
     imageIds: IMAGES,
   })
 
@@ -43,11 +43,11 @@ export default function Base(): JSX.Element {
       <Box mb={3}>
         <Text>
           <b data-cy-loaded={loadingState}>{loadingState}</b>
-          {image && <span> ({image.imageId})</span>}
+          {images[frame] && <span> ({images[frame].imageId})</span>}
         </Text>
       </Box>
       <ViewerWrapper>
-        <ImageViewer image={image} Progress={CustomProgress} />
+        <ImageViewer image={images[frame]} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CODE} />

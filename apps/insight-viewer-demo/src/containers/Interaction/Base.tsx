@@ -24,7 +24,7 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
-  const { loadingState, image, frame, setFrame } = useMultiframeImages({
+  const { loadingState, images, frame, setFrame } = useMultiframeImages({
     imageIds: IMAGES,
   })
   const { interaction, setInteraction } = useInteraction()
@@ -107,7 +107,7 @@ export default function App(): JSX.Element {
       <Stack direction="row">
         <ViewerWrapper>
           <ImageViewer
-            image={image}
+            image={images[frame]}
             interaction={interaction}
             onViewportChange={setViewport}
             viewport={viewport}

@@ -1,10 +1,13 @@
+/**
+ * @fileoverview Loads images(Dicom/Web) and
+ * return the current image and loading state, current frame and frame updater.
+ */
 import { SetStateAction } from 'react'
-import usePrefetch from './usePrefetch'
+import { useLoadImages } from './useLoadImages'
 import useFrame, { SetFrame } from './useFrame'
 import { HTTP, LoaderType } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
-import { ImageLoadState } from '../../stores/imageLoadReducer'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { ImagesLoadState } from '../../stores/imageLoadReducer'
 
 type Prop = {
   imageIds: string[]
@@ -12,19 +15,31 @@ type Prop = {
   type?: LoaderType
 } & Partial<HTTP>
 
-export function useMultiframeImages({
+interface UseMultiframeImages {
+  ({ imageIds, initialFrame, onError, requestInterceptor, type }: Prop): {
+    frame: number // current frame index
+    setFrame: SetFrame // set current frame index
+  } & ImagesLoadState
+}
+
+/**
+ * @param imageIds The images urls to load.
+ * @param type The image type to load. 'Dicom'(default) | 'Web'.
+ * @param initialFrame
+ * @param requestInterceptor The callback is called before a request is sent.
+ *  It use ky.js beforeRequest hook.
+ * @param onError The error handler.
+ * @returns <{ image, loadingState, frame, setFrame }> image is a CornerstoneImage.
+ *  loadingState is 'initial'|'loading'|'success'|'fail'
+ */
+export const useMultiframeImages: UseMultiframeImages = ({
   imageIds,
-  initialFrame = 0,
-  onError = CONFIG.onError,
-  requestInterceptor = CONFIG.requestInterceptor,
   type = LOADER_TYPE.Dicom,
-}: Prop): {
-  frame: number // current frame index
-  setFrame: SetFrame // set current frame index
-} & Omit<ImageLoadState, 'images' | 'progress'> & {
-    image: CornerstoneImage
-  } {
-  const { loadingState, images: loadedImages } = usePrefetch({
+  initialFrame = 0,
+  requestInterceptor = CONFIG.requestInterceptor,
+  onError = CONFIG.onError,
+}) => {
+  const { loadingState, images: loadedImages = [] } = useLoadImages({
     images: imageIds,
     onError,
     requestInterceptor,
@@ -50,6 +65,6 @@ export function useMultiframeImages({
     frame,
     setFrame: handleFrame,
     loadingState,
-    image: loadedImages[frame],
+    images: loadedImages,
   }
 }
