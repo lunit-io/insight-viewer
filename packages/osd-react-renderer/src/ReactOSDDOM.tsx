@@ -1,9 +1,19 @@
 import OpenSeadragon from 'openseadragon'
 import ReactReconciler from 'react-reconciler'
 import { HostConfig } from './HostConfig/type'
+import { createInstance } from './elements'
+import Root from './elements/Root'
+import Base from './elements/Base'
 
 const rootHostContext = {}
 const childHostContext = {}
+
+const shouldReplaceLink = (type: string, props: HostConfig.Props) =>
+  type === 'LINK' &&
+  (typeof props.children === 'string' ||
+    typeof props.children === 'number' ||
+    Array.isArray(props.children) ||
+    props.render)
 
 const reconciler = ReactReconciler<
   HostConfig.Type,
@@ -27,14 +37,9 @@ const reconciler = ReactReconciler<
 
   supportsPersistence: false,
 
-  createInstance(type, props) {
-    if (type === 'tiledImage') {
-      return { type: 'TiledImage', url: props.url }
-    }
-    if (type === 'viewport') {
-      return { type: 'Viewport', zoom: props.zoom, rotation: props.rotation }
-    }
-    return { type: 'Invalid' }
+  createInstance(type, props, internalInstanceHandle) {
+    const instanceType = shouldReplaceLink(type, props) ? 'TEXT' : type
+    return createInstance({ type: instanceType, props }, internalInstanceHandle)
   },
 
   createTextInstance() {
@@ -97,15 +102,8 @@ const reconciler = ReactReconciler<
 
   supportsHydration: false,
 
-  appendChildToContainer(container, child) {
-    if (child == null) {
-      return
-    }
-    if (child.type === 'TiledImage') {
-      container.open(child.url)
-    } else if (child.type === 'Viewport') {
-      // @todo
-    }
+  appendChildToContainer(container, child: Base) {
+    container.appendChild(child)
   },
 
   clearContainer() {
@@ -124,7 +122,8 @@ const ReactOSDDOM = {
       ...options,
       element: domContainer,
     })
-    const container = reconciler.createContainer(viewer, 0, false, null)
+    const root = new Root(viewer)
+    const container = reconciler.createContainer(root, 0, false, null)
     reconciler.updateContainer(reactElement, container, null, callback)
   },
 }
