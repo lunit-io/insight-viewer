@@ -1,20 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-explicit-any */
-/// <reference types="openseadragon" />
+import TiledImage from '../elements/TiledImage'
+import Viewport from '../elements/Viewport'
+import InvalidElement from '../elements/InvalidElement'
+import Base from '../elements/Base'
+import Root from '../elements/Root'
 
-export type TiledImageInstance = {
-  type: 'TiledImage'
-  url: string
-}
-
-export type ViewportInstance = {
-  type: 'Viewport'
-  zoom: number
-  rotation: number
-}
-
-export type InvalidInstance = {
-  type: 'Invalid'
-}
 export namespace HostConfig {
   export type Type = string
 
@@ -22,9 +12,13 @@ export namespace HostConfig {
     [key: string]: any
   }
 
-  export type Container = OpenSeadragon.Viewer
+  export type InvalidInstance = {
+    type: 'Invalid'
+  }
 
-  export type Instance = TiledImageInstance | ViewportInstance | InvalidInstance
+  export type Container = Base
+
+  export type Instance = TiledImage | Viewport | Root | InvalidElement
 
   export type TextInstance = InvalidInstance
 
