@@ -1,20 +1,21 @@
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 import { LoadingState } from '../../types'
+import { LOADING_STATE } from '../../const'
 
 describe('getLoadingStateMap()', () => {
   it('with size 1', () => {
     const stateMap = getLoadingStateMap(1)
     expect(stateMap.size).toBe(1)
-    expect(stateMap.get(0)).toBe('initial')
+    expect(stateMap.get(0)).toBe(LOADING_STATE.INITIAL)
     expect(stateMap.get(1)).toBeUndefined()
   })
 
   it('with size 3', () => {
     const stateMap = getLoadingStateMap(3)
     expect(stateMap.size).toBe(3)
-    expect(stateMap.get(0)).toBe('initial')
-    expect(stateMap.get(1)).toBe('initial')
-    expect(stateMap.get(2)).toBe('initial')
+    expect(stateMap.get(0)).toBe(LOADING_STATE.INITIAL)
+    expect(stateMap.get(1)).toBe(LOADING_STATE.INITIAL)
+    expect(stateMap.get(2)).toBe(LOADING_STATE.INITIAL)
     expect(stateMap.get(3)).toBeUndefined()
   })
 })
@@ -27,7 +28,7 @@ describe('updateLoadingStates()', () => {
       value: 1,
     })
     expect(stateMap.size).toBe(1)
-    expect(stateMap.get(0)).toBe('success')
+    expect(stateMap.get(0)).toBe(LOADING_STATE.SUCCESS)
     expect(stateMap.get(1)).toBeUndefined()
   })
 
@@ -43,9 +44,9 @@ describe('updateLoadingStates()', () => {
       })
       firstLoaded = stateMap
       expect(stateMap.size).toBe(3)
-      expect(stateMap.get(0)).toBe('success')
-      expect(stateMap.get(1)).toBe('loading')
-      expect(stateMap.get(2)).toBe('initial')
+      expect(stateMap.get(0)).toBe(LOADING_STATE.SUCCESS)
+      expect(stateMap.get(1)).toBe(LOADING_STATE.LOADING)
+      expect(stateMap.get(2)).toBe(LOADING_STATE.INITIAL)
       expect(stateMap.get(3)).toBeUndefined()
     })
 
@@ -57,9 +58,9 @@ describe('updateLoadingStates()', () => {
       })
       secondLoaded = stateMap
       expect(stateMap.size).toBe(3)
-      expect(stateMap.get(0)).toBe('success')
-      expect(stateMap.get(1)).toBe('success')
-      expect(stateMap.get(2)).toBe('loading')
+      expect(stateMap.get(0)).toBe(LOADING_STATE.SUCCESS)
+      expect(stateMap.get(1)).toBe(LOADING_STATE.SUCCESS)
+      expect(stateMap.get(2)).toBe(LOADING_STATE.LOADING)
       expect(stateMap.get(3)).toBeUndefined()
     })
 
@@ -70,9 +71,9 @@ describe('updateLoadingStates()', () => {
         value: 3,
       })
       expect(stateMap.size).toBe(3)
-      expect(stateMap.get(0)).toBe('success')
-      expect(stateMap.get(1)).toBe('success')
-      expect(stateMap.get(2)).toBe('success')
+      expect(stateMap.get(0)).toBe(LOADING_STATE.SUCCESS)
+      expect(stateMap.get(1)).toBe(LOADING_STATE.SUCCESS)
+      expect(stateMap.get(2)).toBe(LOADING_STATE.SUCCESS)
       expect(stateMap.get(3)).toBeUndefined()
     })
   })
