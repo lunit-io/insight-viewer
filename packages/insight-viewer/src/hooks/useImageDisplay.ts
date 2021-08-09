@@ -1,3 +1,6 @@
+/**
+ * @fileoverview Display a cornerstone image in a given HTML element and set viewport.
+ */
 import React, { useEffect, useRef } from 'react'
 import { displayImage, CornerstoneImage } from '../utils/cornerstoneHelper'
 import { initialViewportMessage } from '../utils/messageService'

@@ -1,3 +1,6 @@
+/**
+ * @fileoverview Handles frame of multi-frame image viewer.
+ */
 import { useState, Dispatch, SetStateAction } from 'react'
 
 export type SetFrame = Dispatch<SetStateAction<number>>

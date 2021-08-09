@@ -1,5 +1,5 @@
 /**
- * @fileoverview Loads an image(Dicom/Web) and return the image and loading state.
+ * @fileoverview Loads an image(Dicom/Web) and return the loaded image and loading state of it.
  */
 import { useEffect, useReducer } from 'react'
 import { LOADER_TYPE, LOADING_STATE, CONFIG } from '../../const'
