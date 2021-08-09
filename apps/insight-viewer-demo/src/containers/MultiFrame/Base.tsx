@@ -24,7 +24,10 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box data-cy-loaded={loadingStates[frame]}>
+    <Box
+      data-cy-loaded={loadingStates[frame]}
+      data-cy-all-loaded={loadingStates[IMAGES.length - 1]}
+    >
       <Stack spacing="24px" mt={3} mb={3} direction="row">
         <Box>
           <input
@@ -46,7 +49,7 @@ export default function Base(): JSX.Element {
 
       <Box mb={3}>
         <Text>
-          <b data-cy-loaded={loadingStates[frame]}>{loadingStates[frame]}</b>
+          <b>{loadingStates[frame]}</b>
           {images[frame] && <span> ({images[frame].imageId})</span>}
         </Text>
       </Box>
