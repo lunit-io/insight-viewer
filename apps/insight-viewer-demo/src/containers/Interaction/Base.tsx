@@ -2,7 +2,8 @@ import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import ImageViewer, {
   useInteraction,
   useViewport,
-  useMultiframeImages,
+  useMultipleImages,
+  useFrame,
   Interaction,
   Wheel,
   isValidViewport,
@@ -24,8 +25,12 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
-  const { loadingState, images, frame, setFrame } = useMultiframeImages({
+  const { loadingStates, images } = useMultipleImages({
     imageIds: IMAGES,
+  })
+  const { frame, setFrame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
   })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport, resetViewport } = useViewport({
@@ -77,7 +82,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box data-cy-loaded={loadingState}>
+    <Box data-cy-loaded={loadingStates[frame]}>
       <Stack
         direction={['column', 'row']}
         spacing={isOneColumn ? '0px' : '80px'}

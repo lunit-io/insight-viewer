@@ -1,16 +1,13 @@
 /**
- * @fileoverview Loads an image(Dicom/Web) and return the image and loading state.
+ * @fileoverview Loads an image(Dicom/Web) and return the loaded image and loading state of it.
  */
 import { useEffect, useReducer } from 'react'
 import { LOADER_TYPE, LOADING_STATE, CONFIG } from '../../const'
 import { LoadingState, LoaderType } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { useImageLoader } from '../useImageLoader'
-import {
-  imageLoadReducer,
-  INITIAL_IMAGE_LOAD_STATE,
-} from '../../stores/imageLoadReducer'
-import { Prop } from './types'
+import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
+import { Props } from './types'
 import { loadImage } from './loadImage'
 
 interface UseImage {
@@ -19,7 +16,7 @@ interface UseImage {
     type,
     requestInterceptor,
     onError,
-  }: Prop & {
+  }: Props & {
     type?: LoaderType
   }): {
     loadingState: LoadingState

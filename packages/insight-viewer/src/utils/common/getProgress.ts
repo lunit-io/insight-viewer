@@ -1,9 +1,9 @@
 /**
  * Calculate progress status value for single/multiple image(s) fetching.
- * @param {number} loadedCount The count of loaded images.
- * @param {number} totalCount The length of images to load.
- * @param {number} progress The progress status of image to be loading. Repeat 0 to 100 for each new image fetching.
- * @returns {number} Total progress. When all images are loaded, return 100. Otherwise, round down.
+ * @param loadedCount The count of loaded images.
+ * @param totalCount The length of images to load.
+ * @param progress The progress status of image to be loading. Repeat 0 to 100 for each new image fetching.
+ * @returns Total progress. When all images are loaded, return 100. Otherwise, return rounded down value.
  */
 export function getProgress({
   loadedCount,

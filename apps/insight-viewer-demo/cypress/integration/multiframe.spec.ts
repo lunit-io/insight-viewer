@@ -21,7 +21,7 @@ describe(
     })
 
     it('shows initial viewer', () => {
-      cy.get($LOADED).should('be.exist')
+      cy.get('[data-cy-all-loaded=success]').should('be.exist')
       cy.get('.frame-number').should('have.text', '0')
       cy.percySnapshot()
     })

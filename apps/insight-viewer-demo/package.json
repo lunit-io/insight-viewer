@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf .next && ENV=production next build",
+    "clean": "rimraf .next *.tsbuildinfo",
+    "build": "yarn run clean && ENV=production next build",
     "export": "ENV=production next export -o ../../out/handbook",
     "start": "next start",
     "doc": "yarn run build && yarn run export",

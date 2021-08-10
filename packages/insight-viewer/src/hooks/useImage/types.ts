@@ -1,7 +1,7 @@
 import { HTTP, RequestInterceptor } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
-export type Prop = {
+export type Props = {
   imageId: string
 } & Partial<HTTP>
 
