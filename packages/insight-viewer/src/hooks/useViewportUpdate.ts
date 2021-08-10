@@ -1,3 +1,6 @@
+/**
+ * @fileoverview Update cornerstone.js viewport when Viewer's viewport prop changes.
+ */
 import { useEffect } from 'react'
 import {
   getViewport,
@@ -17,6 +20,12 @@ interface Prop {
   onViewportChange?: OnViewportChange
 }
 
+/**
+ * @param element The HTML Element enabled for Cornerstone.
+ * @param viewport The Viewer's viewport prop.
+ * @param initialViewport The user-defined initial viewport of a Viewer.
+ * @param onViewportChange The Viewer's viewport setter prop.
+ */
 export default function useViewportUpdate({
   element,
   viewport: newViewport,

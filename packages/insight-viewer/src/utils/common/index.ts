@@ -1,4 +1,4 @@
-import { Viewport, BasicViewport, ViewerError } from '../../types'
+import { ViewerError } from '../../types'
 
 /**
  * ky HTTPError
@@ -15,17 +15,4 @@ export function formatError(e: Error | HTTPError): ViewerError {
   )
   if (!(e instanceof Error)) err.status = e?.error?.response?.status
   return err
-}
-
-export function isValidViewport(viewport: Viewport): viewport is BasicViewport {
-  return (
-    viewport.scale !== undefined &&
-    viewport.invert !== undefined &&
-    viewport.hflip !== undefined &&
-    viewport.vflip !== undefined &&
-    viewport.x !== undefined &&
-    viewport.y !== undefined &&
-    viewport.windowWidth !== undefined &&
-    viewport.windowCenter !== undefined
-  )
 }
