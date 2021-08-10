@@ -7,7 +7,7 @@ import { LoadingState, LoaderType } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
-import { Prop } from './types'
+import { Props } from './types'
 import { loadImage } from './loadImage'
 
 interface UseImage {
@@ -16,7 +16,7 @@ interface UseImage {
     type,
     requestInterceptor,
     onError,
-  }: Prop & {
+  }: Props & {
     type?: LoaderType
   }): {
     loadingState: LoadingState

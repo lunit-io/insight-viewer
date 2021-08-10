@@ -2,17 +2,11 @@
  * @fileoverview Loads images(Dicom/Web) and return the loaded images and loading states of them.
  */
 import { useLoadImages } from './useLoadImages'
-import { HTTP, LoaderType } from '../../types'
 import { LOADER_TYPE, CONFIG } from '../../const'
-import { ImagesLoadState } from './types'
-
-type Prop = {
-  imageIds: string[]
-  type?: LoaderType
-} & Partial<HTTP>
+import { ImagesLoadState, Props } from './types'
 
 interface UseMultiframeImages {
-  ({ imageIds, onError, requestInterceptor, type }: Prop): ImagesLoadState
+  ({ imageIds, onError, requestInterceptor, type }: Props): ImagesLoadState
 }
 
 /**
