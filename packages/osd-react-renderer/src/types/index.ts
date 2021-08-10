@@ -20,7 +20,7 @@ export interface ViewportProps
   rotation: number
 }
 
-enum ViewerEventHandlers {
+export enum ViewerEventHandlers {
   onAddItemFailed = 'add-item-failed',
   onAddOverlay = 'add-overlay',
   onAnimation = 'animation',
