@@ -6,7 +6,6 @@ import ImageViewer, {
   useFrame,
   Interaction,
   Wheel,
-  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -56,16 +55,13 @@ export default function App(): JSX.Element {
 
   const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
-      setViewport(prev => {
-        if (!isValidViewport(prev)) return prev
-        return {
-          ...prev,
-          scale: Math.min(
-            Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-            MAX_SCALE
-          ),
-        }
-      })
+      setViewport(prev => ({
+        ...prev,
+        scale: Math.min(
+          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
+          MAX_SCALE
+        ),
+      }))
   }
 
   const handler = {

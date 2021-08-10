@@ -4,7 +4,6 @@ import ImageViewer, {
   useImage,
   useViewport,
   Viewport,
-  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -22,7 +21,7 @@ export default function App(): JSX.Element {
   const { image: image2 } = useImage({
     imageId: IMAGES[11],
   })
-  const { viewport, setViewport, resetViewport } =
+  const { viewport, setViewport, resetViewport, initialized } =
     useViewport(INITIAL_VIEWPORT1)
   const isOneColumn = useIsOneColumn()
   const {
@@ -41,20 +40,16 @@ export default function App(): JSX.Element {
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
-      setViewport((prev: Viewport) => {
-        if (!isValidViewport(prev)) return prev
-        return {
-          ...prev,
-          [key]: value,
-        }
-      })
+      setViewport((prev: Viewport) => ({
+        ...prev,
+        [key]: value,
+      }))
     },
     [setViewport]
   )
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (!isValidViewport(viewport)) return
       if (e.key === 's') {
         updateViewport('y', viewport.y + 10)
       }
@@ -78,7 +73,7 @@ export default function App(): JSX.Element {
 
   return (
     <>
-      <Box data-cy-viewport={isValidViewport(viewport)}>
+      <Box data-cy-viewport={initialized}>
         <Stack align="flex-start" spacing={isOneColumn ? '20px' : '20px'}>
           <Box mb={6}>
             <Stack
@@ -238,13 +233,10 @@ export default function App(): JSX.Element {
                     max="100"
                     step="10"
                     onChange={e => {
-                      setViewport2(prev => {
-                        if (!isValidViewport(prev)) return prev
-                        return {
-                          ...prev,
-                          x: Number(e.target.value),
-                        }
-                      })
+                      setViewport2(prev => ({
+                        ...prev,
+                        x: Number(e.target.value),
+                      }))
                     }}
                     className="x-control2"
                     value={viewport2?.x ?? 0}
@@ -262,13 +254,10 @@ export default function App(): JSX.Element {
                     max="100"
                     step="10"
                     onChange={e => {
-                      setViewport2(prev => {
-                        if (!isValidViewport(prev)) return prev
-                        return {
-                          ...prev,
-                          y: Number(e.target.value),
-                        }
-                      })
+                      setViewport2(prev => ({
+                        ...prev,
+                        y: Number(e.target.value),
+                      }))
                     }}
                     className="y-control2"
                     value={viewport2?.y ?? 0}

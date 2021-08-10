@@ -9,7 +9,6 @@ import ImageViewer, {
   DragEvent,
   Drag,
   Click,
-  isValidViewport,
 } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -48,14 +47,11 @@ export default function App(): JSX.Element {
       delta.y
     )
 
-    setViewport(prev => {
-      if (!isValidViewport(prev)) return prev
-      return {
-        ...prev,
-        x: prev.x + delta.x / prev.scale,
-        y: prev.y + delta.y / prev.scale,
-      }
-    })
+    setViewport(prev => ({
+      ...prev,
+      x: prev.x + delta.x / prev.scale,
+      y: prev.y + delta.y / prev.scale,
+    }))
   }
 
   const customAdjust: Drag = ({ viewport, delta }) => {
@@ -66,14 +62,11 @@ export default function App(): JSX.Element {
       delta.x,
       delta.y
     )
-    setViewport(prev => {
-      if (!isValidViewport(prev)) return prev
-      return {
-        ...prev,
-        windowWidth: prev.windowWidth + delta.x / prev.scale,
-        windowCenter: prev.windowCenter + delta.y / prev.scale,
-      }
-    })
+    setViewport(prev => ({
+      ...prev,
+      windowWidth: prev.windowWidth + delta.x / prev.scale,
+      windowCenter: prev.windowCenter + delta.y / prev.scale,
+    }))
   }
 
   const primaryClick: Click = (offsetX, offsetY) => {

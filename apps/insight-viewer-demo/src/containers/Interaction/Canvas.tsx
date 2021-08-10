@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Viewport, isValidViewport } from '@lunit/insight-viewer'
+import { Viewport } from '@lunit/insight-viewer'
 
 const style: React.CSSProperties = {
   position: 'absolute',
@@ -51,14 +51,13 @@ export default function Canvas({
   }, [context])
 
   useEffect(() => {
-    if (isValidViewport(viewport))
-      drawRect({
-        context,
-        canvas: canvasRef.current,
-        x: viewport.x,
-        y: viewport.y,
-        scale: viewport.scale,
-      })
+    drawRect({
+      context,
+      canvas: canvasRef.current,
+      x: viewport.x,
+      y: viewport.y,
+      scale: viewport.scale,
+    })
   }, [context, viewport])
 
   return <canvas ref={canvasRef} style={style} />
