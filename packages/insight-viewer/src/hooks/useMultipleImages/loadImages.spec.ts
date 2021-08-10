@@ -14,14 +14,7 @@ const IMAGES = [
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 const getLoadImageMock = jest.fn()
 
-const errorText = {
-  0: 'first',
-  1: 'second',
-  2: 'last',
-  3: 'all',
-}
-
-type ErrorTextKey = keyof typeof errorText
+const ErrorTexts = ['first', 'second', 'last', 'all']
 
 /** It mocks getLoadImage() which returns Promise.
  * When loop counter equals to errorIndex, the Promise is rejected.
@@ -35,7 +28,7 @@ function handleMock({ errorIndex = -1 }) {
     count += 1
     if (errorIndex === count) {
       return Promise.reject(
-        new Error(`${errorText[errorIndex as ErrorTextKey]} image fetch fails`)
+        new Error(`${ErrorTexts[errorIndex]} image fetch fails`)
       )
     }
     return Promise.resolve(cornerstoneImage)
