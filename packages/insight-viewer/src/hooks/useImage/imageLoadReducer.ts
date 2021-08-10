@@ -5,7 +5,6 @@ import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 export type ImageLoadState = {
   loadingState: LoadingState
   image: CornerstoneImage | undefined
-  images?: never
 }
 
 interface ImageLoadAction {

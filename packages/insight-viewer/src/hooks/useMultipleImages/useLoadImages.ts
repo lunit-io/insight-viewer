@@ -41,7 +41,7 @@ export const useLoadImages: UseLoadImages = ({
   requestInterceptor,
   type,
 }) => {
-  const [{ images, loadingStates }, setImages] = useState<State>({
+  const [{ images, loadingStates }, setState] = useState<State>({
     images: [],
     loadingStates: getLoadingStateMap(imageIds.length),
     _currentIndex: -1,
@@ -54,14 +54,14 @@ export const useLoadImages: UseLoadImages = ({
     if (!hasLoader) return // No image loader
 
     // Initialize first image loading state.
-    setImages((prev: State) => ({
+    setState((prev: State) => ({
       ...prev,
       loadingStates: prev.loadingStates.set(0, LOADING_STATE.LOADING),
     }))
 
     loadImages({ images: imageIds, requestInterceptor }).subscribe({
       next: ({ image, loaded }: Loaded) => {
-        setImages((prev: State) => ({
+        setState((prev: State) => ({
           images: [...prev.images, image],
           loadingStates: updateLoadedStates({
             size: imageIds.length,
@@ -73,7 +73,7 @@ export const useLoadImages: UseLoadImages = ({
       },
       error: err => {
         onError(err)
-        setImages(prev => ({
+        setState(prev => ({
           ...prev,
           loadingStates: prev.loadingStates.set(
             prev._currentIndex + 1,
