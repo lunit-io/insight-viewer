@@ -1,9 +1,6 @@
 import OpenSeadragon from 'openseadragon'
+import { TiledImageProps } from '../types'
 import Base from './Base'
-
-interface TiledImageProps {
-  url: string
-}
 
 class TiledImage extends Base {
   url: string

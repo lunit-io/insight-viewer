@@ -1,10 +1,6 @@
 import OpenSeadragon from 'openseadragon'
+import { ViewportProps } from '../types'
 import Base from './Base'
-
-interface ViewportProps {
-  zoom: number
-  rotation: number
-}
 
 class Viewport extends Base {
   zoom: number
