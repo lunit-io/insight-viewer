@@ -27,12 +27,14 @@ describe(
     })
 
     it('shows second image', () => {
+      cy.get($LOADED).should('be.exist')
       cy.get('.button2').click()
       cy.get('.image').should('have.text', 'image2')
       cy.percySnapshot()
     })
 
     it('shows third image', () => {
+      cy.get($LOADED).should('be.exist')
       cy.get('.button3').click()
       cy.get('.image').should('have.text', 'image3')
       cy.percySnapshot()
