@@ -35,7 +35,7 @@ export default function Base(): JSX.Element {
             id="frame"
             name="frame"
             min="0"
-            max="11"
+            max={IMAGES.length - 1}
             step="1"
             onChange={changeFrame}
             className="frame-control"

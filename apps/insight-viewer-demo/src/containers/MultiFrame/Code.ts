@@ -31,7 +31,7 @@ export default function Viewer() {
         id="frame"
         name="frame"
         min="0"
-        max="10"
+        max={IMAGES.length - 1}
         step="1"
         defaultValue={0}
         onChange={changeFrame}
