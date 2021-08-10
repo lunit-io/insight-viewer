@@ -10,11 +10,13 @@ import { DEFAULT_VIEWPORT } from '../const'
  * @returns {viewport} The viewport which is used as a Viewer's viewport prop.
  * @returns {setViewport} The viewport setter which is used as a Viewer's onViewportChange prop.
  * @returns {resetViewport} It resets a Viewer's viewport.
+ * @returns {initialized} Whether the viewport is initialized or not.
  */
 export function useViewport(defaultViewport?: Partial<BasicViewport>): {
   viewport: Viewport
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
   resetViewport: () => void
+  initialized: boolean
 } {
   const [viewport, setViewport] = useState<Viewport>({
     ...(defaultViewport
@@ -33,5 +35,6 @@ export function useViewport(defaultViewport?: Partial<BasicViewport>): {
     viewport,
     setViewport,
     resetViewport,
+    initialized: viewport.scale !== DEFAULT_VIEWPORT.scale, // DEFAULT_VIEWPORT.scale is 0.
   }
 }
