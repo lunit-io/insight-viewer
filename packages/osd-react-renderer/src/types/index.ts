@@ -9,13 +9,15 @@ export interface TiledImageProps {
   url: string
 }
 
-export interface ViewportProps
+export interface ViewportEventHandlers
   extends Partial<
     Record<
       keyof typeof ViewerEventHandlers,
       OpenSeadragon.EventHandler<OpenSeadragon.ViewerEvent>
     >
-  > {
+  > {}
+
+export interface ViewportProps extends ViewportEventHandlers {
   zoom: number
   rotation: number
 }
