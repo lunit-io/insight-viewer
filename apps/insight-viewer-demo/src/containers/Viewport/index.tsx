@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
-import ImageViewer, {
+import InsightViewer, {
   useImage,
   useViewport,
   Viewport,
@@ -286,24 +286,24 @@ export default function App(): JSX.Element {
             spacing={isOneColumn ? '100px' : '24px'}
           >
             <ViewerWrapper className="viewer1">
-              <ImageViewer
+              <InsightViewer
                 image={image}
                 viewport={viewport}
                 onViewportChange={setViewport}
                 Progress={CustomProgress}
               >
                 <OverlayLayer viewport={viewport} />
-              </ImageViewer>
+              </InsightViewer>
             </ViewerWrapper>
             <ViewerWrapper className="viewer2">
-              <ImageViewer
+              <InsightViewer
                 image={image2}
                 viewport={viewport2}
                 onViewportChange={setViewport2}
                 Progress={CustomProgress}
               >
                 <OverlayLayer viewport={viewport2} />
-              </ImageViewer>
+              </InsightViewer>
             </ViewerWrapper>
           </Stack>
         </Box>

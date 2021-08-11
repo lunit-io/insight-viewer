@@ -1,5 +1,5 @@
 import { Box, Stack } from '@chakra-ui/react'
-import ImageViewer, {
+import InsightViewer, {
   useImage,
   useMultipleImages,
   useFrame,
@@ -31,10 +31,10 @@ export default function Custom(): JSX.Element {
     <Box>
       <Stack direction="row" spacing="24px">
         <ViewerWrapper>
-          <ImageViewer image={image} Progress={CustomProgress} />
+          <InsightViewer image={image} Progress={CustomProgress} />
         </ViewerWrapper>
         <ViewerWrapper>
-          <ImageViewer image={images[frame]} Progress={CustomProgress} />
+          <InsightViewer image={images[frame]} Progress={CustomProgress} />
         </ViewerWrapper>
         å
       </Stack>

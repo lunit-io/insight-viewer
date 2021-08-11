@@ -1,5 +1,5 @@
 export const CODE = `\
-import ImageViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
+import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 
 const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
@@ -40,7 +40,7 @@ export default function Viewer() {
         <span>{loadingStates[frame]}</span>
         {images[frame] && <span> ({images[frame].imageId})</span>}
       </div>
-      <ImageViewer image={images[frame]} />
+      <InsightViewer image={images[frame]} />
     </>
   )
 }

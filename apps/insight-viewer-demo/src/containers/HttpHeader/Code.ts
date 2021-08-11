@@ -1,5 +1,5 @@
 export const CODE = `\
-import ImageViewer, { useImage } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 
 const requestInterceptor = (request: Request) => {
   request.headers.set('Authorization', 'Bearer blahblah')
@@ -12,7 +12,7 @@ export default function() {
   })
 
   return (
-    <ImageViewer image={image} />
+    <InsightViewer image={image} />
   )
 }
 `

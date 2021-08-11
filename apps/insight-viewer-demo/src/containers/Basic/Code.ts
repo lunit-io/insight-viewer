@@ -1,5 +1,5 @@
 export const DICOM_CODE = `\
-import ImageViewer, { useImage } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function App() {
   const { loadingState, image } = useImage({
@@ -15,13 +15,13 @@ export default function App() {
         <span>{loadingState}</span>
         {image && <span> ({image.imageId})</span>}
       </div>
-      <ImageViewer image={image} />
+      <InsightViewer image={image} />
     </>
   )
 }
 `
 export const WEB_CODE = `\
-import ImageViewer, { useImage } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function App() {
   const { image } = useImage({
@@ -31,6 +31,6 @@ export default function App() {
     requestInterceptor, // optional
   })
 
-  return <ImageViewer image={image} />
+  return <InsightViewer image={image} />
 }
 `

@@ -1,5 +1,5 @@
 export const CODE = `\
-import ImageViewer, { 
+import InsightViewer, { 
   useImageLoad, 
   useViewport, 
   Viewport, 
@@ -76,7 +76,7 @@ export default function App() {
     <>
       <button type="button" onClick={updateViewport}>update viewport</button>
       <button type="button" onClick={resetViewport}>reset viewport</button>
-      <ImageViewer
+      <InsightViewer
         image={image}
         viewport={viewport}
         onViewportChange={setViewport}

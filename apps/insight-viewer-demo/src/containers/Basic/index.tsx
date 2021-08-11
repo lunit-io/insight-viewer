@@ -1,5 +1,5 @@
 import { Box, Heading } from '@chakra-ui/react'
-import ImageViewer, { useImage } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import ImageSelectableViewer from './ImageSelectableViewer'
@@ -25,7 +25,7 @@ function Basic(): JSX.Element {
         <Heading as="h3">WebImageViewer</Heading>
       </Box>
       <ViewerWrapper>
-        <ImageViewer image={image} />
+        <InsightViewer image={image} />
       </ViewerWrapper>
       <CodeBlock code={WEB_CODE} />
     </>

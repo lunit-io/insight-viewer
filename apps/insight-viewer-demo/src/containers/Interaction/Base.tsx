@@ -1,5 +1,5 @@
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
-import ImageViewer, {
+import InsightViewer, {
   useInteraction,
   useViewport,
   useMultipleImages,
@@ -107,7 +107,7 @@ export default function App(): JSX.Element {
 
       <Stack direction="row">
         <ViewerWrapper>
-          <ImageViewer
+          <InsightViewer
             image={images[frame]}
             interaction={interaction}
             onViewportChange={setViewport}
@@ -116,7 +116,7 @@ export default function App(): JSX.Element {
           >
             <OverlayLayer viewport={viewport} />
             <Canvas viewport={viewport} />
-          </ImageViewer>
+          </InsightViewer>
         </ViewerWrapper>
       </Stack>
 

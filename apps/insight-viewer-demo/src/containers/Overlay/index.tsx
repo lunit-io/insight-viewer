@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import ImageViewer, { useImage, useViewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
@@ -16,14 +16,14 @@ function Overlay(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <ViewerWrapper>
-        <ImageViewer
+        <InsightViewer
           image={image}
           viewport={viewport}
           onViewportChange={setViewport}
           Progress={CustomProgress}
         >
           <OverlayLayer viewport={viewport} />
-        </ImageViewer>
+        </InsightViewer>
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CODE} />
