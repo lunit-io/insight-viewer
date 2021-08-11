@@ -1,29 +1,23 @@
 # `insight-viewer`
 
-> TODO: description
+Cornerstone.js medical image viewer component for React.
 
-# Scripts
+## Visit [frontend-components.vercel.app](https://frontend-components.vercel.app/) for docs, guides, API and more!
 
-## Start development server
+## Install
 
-```shell
-yarn dev
+### npm
+
+```sh
+$ npm install @lunit/insight-viewer
 ```
 
-## Build package
+### yarn
 
-```shell
-yarn build
+```sh
+$ yarn add @lunit/insight-viewer
 ```
 
-## Run tests
+## E2E testing
 
-```shell
-yarn test
-```
-
-## Usage
-
-```
-// TODO: DEMONSTRATE API
-```
+The e2e testing of this package is performed on the [`documentation app`](./apps).
