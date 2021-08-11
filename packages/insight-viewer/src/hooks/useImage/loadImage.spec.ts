@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { loadImage } from '.'
+import { loadImage } from './loadImage'
 import { CONFIG } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
@@ -12,27 +12,24 @@ const defaultParam = {
   imageId: IMAGE_ID,
 }
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
+const getImageMock = jest.fn()
 
-describe('useImageLoad:', () => {
+describe('loadImage()', () => {
   it('with invalid image', () => {
-    const getImage = async () => {
-      throw new Error('request fails')
-    }
-
     const action = () =>
       loadImage({
         ...defaultParam,
-        getImage,
+        getImage: getImageMock.mockImplementation(async () => {
+          throw new Error('request fails')
+        }),
       })
     expect(action()).rejects.toThrow('request fails')
   })
 
   it('with valid image', () => {
-    const getImage = async () => cornerstoneImage
-
     loadImage({
       ...defaultParam,
-      getImage,
+      getImage: getImageMock.mockImplementation(async () => cornerstoneImage),
     }).then(res => {
       expect(res).toMatchObject(CORNERSTONE_IMAGE_MOCK)
     })

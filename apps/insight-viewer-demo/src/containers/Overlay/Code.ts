@@ -1,8 +1,8 @@
 export const CODE = `\
-  import ImageViewer, { useImageLoad, useViewport } from '@lunit/insight-viewer'
+  import ImageViewer, { useImage, useViewport } from '@lunit/insight-viewer'
 
   export default function Viewer() {
-    const { image } = useImageLoad({
+    const { image } = useImage({
       imageId: IMAGE_ID,
     })
     const { viewport, setViewport } = useViewport()

@@ -1,9 +1,9 @@
+/**
+ * @fileoverview Display a cornerstone image in a given HTML element and set viewport.
+ */
 import React, { useEffect, useRef } from 'react'
 import { displayImage, CornerstoneImage } from '../utils/cornerstoneHelper'
-import {
-  loadingProgressMessage,
-  initialViewportMessage,
-} from '../utils/messageService'
+import { initialViewportMessage } from '../utils/messageService'
 import { formatViewport } from '../utils/common/formatViewport'
 import { Element, Viewport, OnViewportChange } from '../types'
 
@@ -35,8 +35,7 @@ export default function useImageDisplay({
         ? viewportRef?.current?._default
         : viewportRef?.current
     )
-    // This is for no content-length gzip image. Normally, meaningless.
-    loadingProgressMessage.sendMessage(100)
+
     initialViewportMessage.sendMessage(defaultViewport)
 
     if (onViewportChange) {

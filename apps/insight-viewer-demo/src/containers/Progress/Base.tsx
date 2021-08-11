@@ -1,15 +1,13 @@
 import { Box } from '@chakra-ui/react'
-import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
-
-const IMAGE_ID =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
+import { IMAGES } from '../../const'
 
 export default function Base(): JSX.Element {
-  const { image } = useImageLoad({
-    imageId: IMAGE_ID,
+  const { image } = useImage({
+    imageId: IMAGES[3],
   })
 
   return (

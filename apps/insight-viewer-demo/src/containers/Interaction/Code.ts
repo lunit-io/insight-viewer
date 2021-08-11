@@ -1,18 +1,21 @@
 export const BASE_CODE = `\
 import ImageViewer, {
-  useImageLoad,
-  useMultiframe,
+  useMultipleImages,
   useViewport,
   useInteraction,
+  useFrame,
   Interaction,
   Wheel,
   isValidViewport,
 } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
-  const { image } = useImageLoad({
-    imageId,
+  const { loadingStates, images } = useMultipleImages({
+    imageIds: IMAGES,
+  })
+  const { frame, setFrame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
   })
   const { viewport, setViewport } = useViewport({
     scale: 0.5,
@@ -82,7 +85,7 @@ export default function App() {
       <input type="radio" value="frame" onChange={handleWheelChange} />
       <input type="radio" value="scale" onChange={handleWheelChange} />
       <ImageViewer
-        image={image}
+        image={images[frame]}
         interaction={interaction}
         viewport={viewport}
         onViewportChange={setViewport}
@@ -95,10 +98,10 @@ export default function App() {
 `
 
 export const CUSTOM_CODE = `\
-import ImageViewer, { useImageLoad, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
+import ImageViewer, { useImage, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
   })
   const { interaction, setInteraction } = useInteraction()

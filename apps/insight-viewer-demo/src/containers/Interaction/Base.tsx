@@ -1,9 +1,9 @@
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import ImageViewer, {
-  useImageLoad,
   useInteraction,
   useViewport,
-  useMultiframe,
+  useMultipleImages,
+  useFrame,
   Interaction,
   Wheel,
   isValidViewport,
@@ -17,20 +17,7 @@ import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
 import useIsOneColumn from '../../hooks/useIsOneColumn'
-
-const IMAGES = [
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000003.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000004.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000005.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000006.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000007.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000008.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
-]
+import { IMAGES } from '../../const'
 
 const MIN_FRAME = 0
 const MAX_FRAME = IMAGES.length - 1
@@ -38,9 +25,12 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
-  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
-  const { loadingState, image } = useImageLoad({
-    imageId,
+  const { loadingStates, images } = useMultipleImages({
+    imageIds: IMAGES,
+  })
+  const { frame, setFrame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
   })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport, resetViewport } = useViewport({
@@ -92,7 +82,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <Box data-cy-loaded={loadingState}>
+    <Box data-cy-loaded={loadingStates[frame]}>
       <Stack
         direction={['column', 'row']}
         spacing={isOneColumn ? '0px' : '80px'}
@@ -122,7 +112,7 @@ export default function App(): JSX.Element {
       <Stack direction="row">
         <ViewerWrapper>
           <ImageViewer
-            image={image}
+            image={images[frame]}
             interaction={interaction}
             onViewportChange={setViewport}
             viewport={viewport}

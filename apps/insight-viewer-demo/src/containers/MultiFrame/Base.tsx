@@ -1,29 +1,19 @@
 import { Box, Text, Stack } from '@chakra-ui/react'
-import ImageViewer, { useMultiframe, useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-
-const IMAGES = [
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000003.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000004.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000005.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000006.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000007.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000008.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
-]
+import { IMAGES } from '../../const'
 
 export default function Base(): JSX.Element {
-  const { imageId, frame, setFrame } = useMultiframe(IMAGES)
-  const { loadingState, image } = useImageLoad({
-    imageId, // or IMAGES[frame]
+  const { loadingStates, images } = useMultipleImages({
+    imageIds: IMAGES,
+  })
+  const { frame, setFrame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
   })
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -34,7 +24,10 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box data-cy-loaded={loadingState}>
+    <Box
+      data-cy-loaded={loadingStates[frame]}
+      data-cy-all-loaded={loadingStates[IMAGES.length - 1]}
+    >
       <Stack spacing="24px" mt={3} mb={3} direction="row">
         <Box>
           <input
@@ -42,7 +35,7 @@ export default function Base(): JSX.Element {
             id="frame"
             name="frame"
             min="0"
-            max="10"
+            max={IMAGES.length - 1}
             step="1"
             onChange={changeFrame}
             className="frame-control"
@@ -56,12 +49,12 @@ export default function Base(): JSX.Element {
 
       <Box mb={3}>
         <Text>
-          <b data-cy-loading-state="loading-state">{loadingState}</b>
-          {image && <span> ({image.imageId})</span>}
+          <b>{loadingStates[frame]}</b>
+          {images[frame] && <span> ({images[frame].imageId})</span>}
         </Text>
       </Box>
       <ViewerWrapper>
-        <ImageViewer image={image} Progress={CustomProgress} />
+        <ImageViewer image={images[frame]} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
         <CodeBlock code={CODE} />

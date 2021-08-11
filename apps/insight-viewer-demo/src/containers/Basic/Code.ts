@@ -1,10 +1,10 @@
 export const DICOM_CODE = `\
-import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { loadingState, image } = useImageLoad({
+  const { loadingState, image } = useImage({
     imageId: IMAGE_ID,
-    type: 'Dicom',      // optional(Default)
+    type: 'Dicom',      // optional: 'Dicom'(Default) | 'Web'
     onError,            // optional
     requestInterceptor, // optional
   })
@@ -21,10 +21,10 @@ export default function App() {
 }
 `
 export const WEB_CODE = `\
-import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function App() {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
     type: 'Web',
     onError,            // optional

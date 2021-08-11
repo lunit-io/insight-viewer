@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Subscription } from 'rxjs'
-import { loadingProgressMessage } from '../../utils/messageService'
+import { Subscription, merge } from 'rxjs'
+import {
+  loadingProgressMessage,
+  loadedCountMessageMessage,
+} from '../../utils/messageService'
+import { getProgress } from '../../utils/common/getProgress'
 import { ProgressComponent } from '../../types'
 
 let subscription: Subscription
@@ -27,13 +31,30 @@ export default function LoadingProgress({
   })
 
   useEffect(() => {
-    let isCancelled = false
+    let isCancelled = false // Do not update state on unmount.
+    const progress$ = loadingProgressMessage.getMessage()
+    const loadedCount$ = loadedCountMessageMessage.getMessage()
 
-    subscription = loadingProgressMessage.getMessage().subscribe(message => {
+    let loadedCount = 0
+    let totalCount = 1
+    let _progress = 0
+
+    subscription = merge(progress$, loadedCount$).subscribe(prop => {
+      if (typeof prop === 'number') {
+        _progress = prop
+      } else {
+        loadedCount = prop.loaded
+        totalCount = prop.total
+      }
+
       if (!isCancelled)
         setState(prev => ({
           ...prev,
-          progress: message,
+          progress: getProgress({
+            loadedCount,
+            totalCount,
+            progress: _progress,
+          }),
         }))
     })
 

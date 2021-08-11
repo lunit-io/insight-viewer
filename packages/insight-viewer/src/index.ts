@@ -1,10 +1,11 @@
 export { ImageViewer as default } from './Viewer'
-export { useMultiframe } from './hooks/useMultiframe'
+export { useMultipleImages } from './hooks/useMultipleImages'
 export { useViewport } from './hooks/useViewport'
 export { useInteraction } from './hooks/useInteraction'
-export { useImageLoad } from './hooks/useImageLoad'
-export type { Interaction, SetInteraction } from './hooks/useInteraction/types'
+export { useImage } from './hooks/useImage'
+export { useFrame } from './hooks/useFrame'
 export { isValidViewport } from './utils/common'
+export type { Interaction, SetInteraction } from './hooks/useInteraction/types'
 export type { Viewport, ViewerError } from './types'
 export type {
   DragEvent,

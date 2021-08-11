@@ -11,10 +11,7 @@
     "lib": ["DOM", "ESNext"],
     "composite": true,
     "declaration": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ]
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
   },
   "include": ["src/**/*"],
   "references": []

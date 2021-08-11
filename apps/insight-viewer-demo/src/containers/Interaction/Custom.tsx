@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
 import ImageViewer, {
-  useImageLoad,
+  useImage,
   useInteraction,
   useViewport,
   Interaction,
@@ -19,17 +19,15 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
 import useIsOneColumn from '../../hooks/useIsOneColumn'
-
-const IMAGE_ID =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm'
+import { IMAGES } from '../../const'
 
 export default function App(): JSX.Element {
   const [{ x, y }, setCoord] = useState<{
     x: number | undefined
     y: number | undefined
   }>({ x: undefined, y: undefined })
-  const { loadingState, image } = useImageLoad({
-    imageId: IMAGE_ID,
+  const { loadingState, image } = useImage({
+    imageId: IMAGES[7],
   })
   const { interaction, setInteraction } = useInteraction()
   const isOneColumn = useIsOneColumn()
@@ -139,14 +137,6 @@ export default function App(): JSX.Element {
               <span className="click-y">{y?.toFixed(2) ?? 0}</span>
             </Text>
           </Box>
-          {typeof x === 'number' && typeof y === 'number' && (
-            <Box mb={6}>
-              <Text>
-                offset: <span className="click-x">{x.toFixed(2)}</span> /{' '}
-                <span className="click-y">{y.toFixed(2)}</span>
-              </Text>
-            </Box>
-          )}
         </Box>
         <Box>
           <Button

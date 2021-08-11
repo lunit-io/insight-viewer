@@ -1,16 +1,14 @@
 import { useState } from 'react'
 import { Stack, Button, Text } from '@chakra-ui/react'
+import { IMAGES } from '../../const'
 
-const IMAGES = {
-  image1:
-    'wadouri:https://raw.githubusercontent.com/cornerstonejs/cornerstoneWADOImageLoader/master/testImages/CT2_J2KR',
-  image2:
-    'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
-  image3:
-    'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
+const images = {
+  image1: IMAGES[0],
+  image2: IMAGES[5],
+  image3: IMAGES[10],
 }
 
-type Image = keyof typeof IMAGES
+type Image = keyof typeof images
 
 export default function useImageSelect(): {
   ImageSelect: () => JSX.Element
@@ -56,5 +54,5 @@ export default function useImageSelect(): {
     )
   }
 
-  return { ImageSelect, selected: IMAGES[selected] }
+  return { ImageSelect, selected: images[selected] }
 }

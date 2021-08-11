@@ -1,5 +1,5 @@
 import { Box, Heading } from '@chakra-ui/react'
-import ImageViewer, { useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
@@ -10,7 +10,7 @@ const requestInterceptor = (request: Request) => {
 }
 
 export default function WithJwt(): JSX.Element {
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
     requestInterceptor,
   })

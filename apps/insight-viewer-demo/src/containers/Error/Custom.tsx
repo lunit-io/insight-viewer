@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react'
 import { Box, Text } from '@chakra-ui/react'
-import ImageViewer, { ViewerError, useImageLoad } from '@lunit/insight-viewer'
+import ImageViewer, { ViewerError, useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
+import { WRONG_IMAGE } from '../../const'
 
-const IMAGE_ID =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT0000100.dcm'
+const IMAGE_ID = WRONG_IMAGE
 
 export default function Custom(): JSX.Element {
   const [error, setError] = useState('')
@@ -15,7 +15,7 @@ export default function Custom(): JSX.Element {
     setError(`!!! ${e.message} ${e.status}`)
   }, [])
 
-  const { image } = useImageLoad({
+  const { image } = useImage({
     imageId: IMAGE_ID,
     onError: customError,
   })

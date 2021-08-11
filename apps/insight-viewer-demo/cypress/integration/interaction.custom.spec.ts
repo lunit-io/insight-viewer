@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, LOADED } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
 
 describe(
   'Interaction',
@@ -21,7 +21,7 @@ describe(
     })
 
     it('shows initial viewport', () => {
-      cy.get(LOADED).should('be.exist')
+      cy.get($LOADED).should('be.exist')
       cy.percySnapshot()
     })
 
