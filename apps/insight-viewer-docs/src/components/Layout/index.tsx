@@ -35,7 +35,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
               <Box>
                 <HStack>
                   <Heading as="h1" size="md">
-                    @lunit/insight-viewer-demo /
+                    @lunit/insight-viewer-docs /
                   </Heading>
                   <Heading as="h2">{title}</Heading>
                 </HStack>

@@ -1,7 +1,5 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
@@ -11,7 +9,7 @@
       "conventionalCommits": true
     },
     "version": {
-			"message": "chore(release): Publish release"
-		}
+      "message": "chore(release): publish release"
+    }
   }
 }
