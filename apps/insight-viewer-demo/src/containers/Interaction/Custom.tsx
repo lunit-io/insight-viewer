@@ -17,7 +17,6 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import useIsOneColumn from '../../hooks/useIsOneColumn'
 import { IMAGES } from '../../const'
 
 export default function App(): JSX.Element {
@@ -29,7 +28,6 @@ export default function App(): JSX.Element {
     imageId: IMAGES[7],
   })
   const { interaction, setInteraction } = useInteraction()
-  const isOneColumn = useIsOneColumn()
   const {
     viewport: viewerViewport,
     setViewport,
@@ -116,11 +114,7 @@ export default function App(): JSX.Element {
 
   return (
     <Box data-cy-loaded={loadingState}>
-      <Stack
-        direction={['column', 'row']}
-        spacing={isOneColumn ? '0px' : '80px'}
-        align="flex-start"
-      >
+      <Stack direction="row" spacing="80px" align="flex-start">
         <Box>
           <Control onChange={handleDrag} />
           <ClickControl onChange={handleClick} />
@@ -132,12 +126,7 @@ export default function App(): JSX.Element {
           </Box>
         </Box>
         <Box>
-          <Button
-            colorScheme="blue"
-            onClick={resetViewport}
-            className="reset"
-            mb={isOneColumn ? '20px' : '0px'}
-          >
+          <Button colorScheme="blue" onClick={resetViewport} className="reset">
             Reset
           </Button>
         </Box>

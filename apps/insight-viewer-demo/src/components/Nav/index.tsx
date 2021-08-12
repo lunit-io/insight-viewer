@@ -2,36 +2,10 @@ import { Box, List, ListItem } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NextChakraLink } from '../NextChakraLink'
 import { LINKS } from './const'
-import useIsOneColumn from '../../hooks/useIsOneColumn'
-import { WithChildren } from '../../types'
 
-function ResponsiveBox({
-  isOneColumn,
-  children,
-}: WithChildren<{
-  isOneColumn: boolean
-}>): JSX.Element {
-  if (isOneColumn)
-    return (
-      <Box
-        as="nav"
-        aria-label="Main Navigation"
-        pos="fixed"
-        sx={{
-          overscrollBehavior: 'contain',
-        }}
-        inset="0"
-        w="100%"
-        height="100%"
-        overflowY="auto"
-        className="sidebar-content"
-        flexShrink={0}
-        bg="white"
-        zIndex={10}
-      >
-        {children}
-      </Box>
-    )
+function Nav(): JSX.Element {
+  const router = useRouter()
+
   return (
     <Box
       as="nav"
@@ -47,17 +21,6 @@ function ResponsiveBox({
       flexShrink={0}
       bg="white"
     >
-      {children}
-    </Box>
-  )
-}
-
-function Nav(): JSX.Element {
-  const router = useRouter()
-  const isOneColumn = useIsOneColumn()
-
-  return (
-    <ResponsiveBox isOneColumn={isOneColumn}>
       <List>
         {LINKS.map(({ name, href }) => (
           <ListItem key={`link=${name}`}>
@@ -70,7 +33,7 @@ function Nav(): JSX.Element {
           </ListItem>
         ))}
       </List>
-    </ResponsiveBox>
+    </Box>
   )
 }
 

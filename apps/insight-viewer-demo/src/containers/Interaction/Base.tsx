@@ -15,7 +15,6 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-import useIsOneColumn from '../../hooks/useIsOneColumn'
 import { IMAGES } from '../../const'
 
 const MIN_FRAME = 0
@@ -35,7 +34,6 @@ export default function App(): JSX.Element {
   const { viewport, setViewport, resetViewport } = useViewport({
     scale: 1,
   })
-  const isOneColumn = useIsOneColumn()
 
   function handleChange(type: string) {
     return (value: string) => {
@@ -79,11 +77,7 @@ export default function App(): JSX.Element {
 
   return (
     <Box data-cy-loaded={loadingStates[frame]}>
-      <Stack
-        direction={['column', 'row']}
-        spacing={isOneColumn ? '0px' : '80px'}
-        align="flex-start"
-      >
+      <Stack direction="row" spacing="80px" align="flex-start">
         <Box>
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
@@ -98,7 +92,7 @@ export default function App(): JSX.Element {
             colorScheme="blue"
             onClick={resetViewport}
             className="reset"
-            mb={isOneColumn ? '20px' : '0px'}
+            mb="0px"
           >
             Reset
           </Button>

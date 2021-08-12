@@ -5,23 +5,11 @@ import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithChildren } from '../../types'
 import { LINKS } from '../Nav/const'
-import MobileNavigation from './MobileNavigation'
-import useIsOneColumn from '../../hooks/useIsOneColumn'
 
 const SIDE_WIDTH = '240px'
 
-function ResponsiveBox({
-  isOneColumnLayout,
-  children,
-}: WithChildren<{
-  isOneColumnLayout: boolean
-}>): JSX.Element {
-  return <Box pt={isOneColumnLayout ? 4 : 6}>{children}</Box>
-}
-
 export default function Layout({ children }: WithChildren): JSX.Element {
   const router = useRouter()
-  const isOneColumn = useIsOneColumn()
   const title = LINKS.filter(
     link => link.href === router.pathname.slice(1)
   )?.[0]?.name
@@ -35,42 +23,35 @@ export default function Layout({ children }: WithChildren): JSX.Element {
         justify="space-between"
         flexDirection="column"
       >
-        <header>
-          <ResponsiveBox isOneColumnLayout={isOneColumn}>
-            <Flex direction={isOneColumn ? 'column' : 'row'}>
-              <Flex
-                width={isOneColumn ? '100%' : SIDE_WIDTH}
-                pt={isOneColumn ? 0 : 2}
-              >
-                <NextChakraLink href="/" pt={isOneColumn ? '6px' : '2px'}>
+        <Box pt={6}>
+          <header>
+            <Flex direction="row">
+              <Flex width={SIDE_WIDTH} pt={2}>
+                <NextChakraLink href="/" pt="2px">
                   <Logo h="1.5rem" pointerEvents="none" />
                 </NextChakraLink>
                 <Spacer />
-                {isOneColumn && <MobileNavigation />}
               </Flex>
-              {!isOneColumn && (
-                <Box>
-                  <HStack>
-                    <Heading as="h1" size="md">
-                      @lunit/insight-viewer-demo /
-                    </Heading>
-                    <Heading as="h2">{title}</Heading>
-                  </HStack>
-                </Box>
-              )}
-            </Flex>
-          </ResponsiveBox>
-        </header>
-        <ResponsiveBox isOneColumnLayout={isOneColumn}>
-          <Flex>
-            {!isOneColumn && (
-              <Box width={isOneColumn ? 'auto' : SIDE_WIDTH}>
-                <Nav />
+              <Box>
+                <HStack>
+                  <Heading as="h1" size="md">
+                    @lunit/insight-viewer-demo /
+                  </Heading>
+                  <Heading as="h2">{title}</Heading>
+                </HStack>
               </Box>
-            )}
+            </Flex>
+          </header>
+        </Box>
+
+        <Box pt={6}>
+          <Flex>
+            <Box width={SIDE_WIDTH}>
+              <Nav />
+            </Box>
             <Box w="100%">{children}</Box>
           </Flex>
-        </ResponsiveBox>
+        </Box>
       </Flex>
     </Box>
   )

@@ -1,19 +1,13 @@
 import { Box, RadioGroup, Radio, Stack } from '@chakra-ui/react'
-import useIsOneColumn from '../../../hooks/useIsOneColumn'
 
 export default function Click({
   onChange,
 }: {
   onChange: (type: string) => (value: 'click' | 'none') => void
 }): JSX.Element {
-  const isOneColumn = useIsOneColumn()
-
   return (
     <Box mb={6}>
-      <Stack
-        direction={['column', 'row']}
-        spacing={isOneColumn ? '20px' : '80px'}
-      >
+      <Stack direction="row" spacing="80px">
         <Box w={200}>
           <Box>Primary Click</Box>
           <RadioGroup defaultValue="none" onChange={onChange('primaryClick')}>

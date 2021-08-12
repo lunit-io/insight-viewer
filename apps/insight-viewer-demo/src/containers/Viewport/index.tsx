@@ -11,7 +11,6 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
-import useIsOneColumn from '../../hooks/useIsOneColumn'
 import { IMAGES } from '../../const'
 
 export default function App(): JSX.Element {
@@ -23,7 +22,6 @@ export default function App(): JSX.Element {
   })
   const { viewport, setViewport, resetViewport, initialized } =
     useViewport(INITIAL_VIEWPORT1)
-  const isOneColumn = useIsOneColumn()
   const {
     viewport: viewport2,
     setViewport: setViewport2,
@@ -74,13 +72,9 @@ export default function App(): JSX.Element {
   return (
     <>
       <Box data-cy-viewport={initialized}>
-        <Stack align="flex-start" spacing={isOneColumn ? '20px' : '20px'}>
+        <Stack align="flex-start" spacing="20px">
           <Box mb={6}>
-            <Stack
-              spacing="24px"
-              mt={3}
-              direction={isOneColumn ? 'column' : 'row'}
-            >
+            <Stack spacing="24px" mt={3} direction="row">
               <Box>
                 <Box>x transition {viewport.x}</Box>
                 <Box>
@@ -126,11 +120,7 @@ export default function App(): JSX.Element {
               </Button>
             </Stack>
 
-            <Stack
-              spacing="24px"
-              mt={3}
-              direction={isOneColumn ? 'column' : 'row'}
-            >
+            <Stack spacing="24px" mt={3} direction="row">
               <Box>
                 <Box>windowWidth {viewport.windowWidth}</Box>
                 <Box>
@@ -186,11 +176,7 @@ export default function App(): JSX.Element {
                 </Box>
               </Box>
             </Stack>
-            <Stack
-              spacing="24px"
-              direction={isOneColumn ? 'column' : 'row'}
-              mt={6}
-            >
+            <Stack spacing="24px" direction="row" mt={6}>
               <Box>
                 invert{' '}
                 <Switch
@@ -218,10 +204,7 @@ export default function App(): JSX.Element {
             </Stack>
           </Box>
           <Box mb={6}>
-            <Stack
-              spacing={isOneColumn ? '20px' : '24px'}
-              direction={isOneColumn ? 'column' : 'row'}
-            >
+            <Stack spacing="24px" direction="row">
               <Box>
                 <Box>x transition {viewport2?.x}</Box>
                 <Box>
@@ -281,10 +264,7 @@ export default function App(): JSX.Element {
           </Text>
         </Box>
         <Box data-cy-loaded={loadingState}>
-          <Stack
-            direction={isOneColumn ? 'column' : 'row'}
-            spacing={isOneColumn ? '100px' : '24px'}
-          >
+          <Stack direction="row" spacing="24px">
             <ViewerWrapper className="viewer1">
               <InsightViewer
                 image={image}
