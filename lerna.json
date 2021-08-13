@@ -6,10 +6,15 @@
   "stream": true,
   "command": {
     "publish": {
-      "conventionalCommits": true
-    },
-    "version": {
-      "message": "chore(release): publish release"
+      "allowBranch": ["master", "release"],
+      "message": "chore(release): publish release",
+      "conventionalCommits": true,
+      "ignoreChanges": [
+        "**/__test__/**",
+        "**/*.{md,mdx}",
+        "**/*.spec.ts",
+        "LICENSE"
+      ]
     }
   }
 }
