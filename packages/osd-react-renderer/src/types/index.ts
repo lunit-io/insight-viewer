@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/no-namespace, no-shadow */
+/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-explicit-any, no-shadow */
 import OpenSeadragon from 'openseadragon'
 
+export interface BaseProps {
+  [key: string]: any
+}
 export interface OSDViewerProps {
   options: OpenSeadragon.Options
 }

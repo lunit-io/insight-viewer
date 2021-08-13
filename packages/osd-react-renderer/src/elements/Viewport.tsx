@@ -19,42 +19,46 @@ class Viewport extends Base implements ViewportProps {
 
     this.zoom = props.zoom
     this.rotation = props.rotation
-    this.eventHandlers = Object.keys(props).reduce<ViewportEventHandlers>(
-      (handlers, key) => {
-        if (hasOwnProperty(ViewerEventHandlers, key)) {
-          handlers[key] = props[key]
-        }
-        return handlers
-      },
-      {}
-    )
-    // this.eventHandlers = Object.keys(props).reduce(
-    //   (handlers, key) =>
-    //     key !== 'zoom' && key !== 'rotation'
-    //       ? {
-    //           ...handlers,
-    //           [key]: props[key as keyof ViewportProps],
-    //         }
-    //       : handlers,
-    //   {}
-    // )
+    this.eventHandlers = Viewport.extractEventHandlers(props)
   }
 
-  set parent(p: Base | null) {
-    this._parent = p
-    const checkEventHandler = p ? 'addHandler' : 'removeHandler'
+  commitUpdate(props: ViewportProps): void {
+    this.updateEventHandler(false) // removeHandler
+    this.zoom = props.zoom
+    this.rotation = props.rotation
+    this.eventHandlers = Viewport.extractEventHandlers(props)
+    this.updateEventHandler(true)
+  }
+
+  private static extractEventHandlers(props: ViewportProps) {
+    return Object.keys(props).reduce<ViewportEventHandlers>((handlers, key) => {
+      if (hasOwnProperty(ViewerEventHandlers, key)) {
+        handlers[key] = props[key]
+      }
+      return handlers
+    }, {})
+  }
+
+  private updateEventHandler(add: boolean) {
+    const parent = this._parent
+    if (!parent) {
+      return
+    }
+    const checkEventHandler = add ? 'addHandler' : 'removeHandler'
     Object.keys(this.eventHandlers).forEach(key => {
       if (!hasOwnProperty(ViewerEventHandlers, key)) {
         return
       }
       const handler = this.eventHandlers[key]
       if (handler) {
-        this._parent?.viewer[checkEventHandler](
-          ViewerEventHandlers[key],
-          handler
-        )
+        parent.viewer[checkEventHandler](ViewerEventHandlers[key], handler)
       }
     })
+  }
+
+  set parent(p: Base | null) {
+    this._parent = p
+    this.updateEventHandler(!!p)
   }
 }
 

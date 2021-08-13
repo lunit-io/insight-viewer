@@ -35,6 +35,8 @@ class Base {
       this.children.splice(index, 1)
     }
   }
+
+  static commitUpdate(): void {}
 }
 
 export default Base

@@ -14,5 +14,9 @@ class TiledImage extends Base {
     super(viewer)
     this.url = props.url
   }
+
+  commitUpdate(props: TiledImageProps): void {
+    this.url = props.url
+  }
 }
 export default TiledImage

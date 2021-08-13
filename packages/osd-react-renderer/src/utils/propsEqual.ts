@@ -1,6 +1,5 @@
 /* eslint-disable no-continue */
-
-import { HostConfig } from '../HostConfig/type'
+import { BaseProps } from '../types/index'
 
 /**
  * Checks if two sets of props are equal (recursively)
@@ -10,7 +9,7 @@ import { HostConfig } from '../HostConfig/type'
  * @returns {Boolean} props equals?
  *
  */
-const propsEqual = (a: HostConfig.Props, b: HostConfig.Props): boolean => {
+const propsEqual = (a: BaseProps, b: BaseProps): boolean => {
   const oldPropsKeys = Object.keys(a)
   const newPropsKeys = Object.keys(b)
 
