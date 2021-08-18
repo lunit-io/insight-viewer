@@ -20,3 +20,15 @@ export const LOADING_STATE = {
   SUCCESS: 'success',
   FAIL: 'fail',
 } as const
+
+// This is the default initial viewport value and is used as placeholder.
+export const BASE_VIEWPORT = {
+  scale: 0,
+  invert: false,
+  hflip: false,
+  vflip: false,
+  x: 0,
+  y: 0,
+  windowWidth: 0,
+  windowCenter: 0,
+}

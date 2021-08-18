@@ -14,7 +14,6 @@ export default function useViewportInteraction({
     interaction,
     onViewportChange,
   })
-
   useHandleDrag({
     element,
     interaction,

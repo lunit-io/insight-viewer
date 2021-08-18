@@ -20,10 +20,14 @@
     "test": "lerna run test",
     "handbook:build": "yarn clean & yarn run doc",
     "clean": "rm -rf ./out/handbook",
-    "doc": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-demo doc",
-    "publish": "lerna publish"
+    "doc": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-docs doc",
+    "publish": "lerna publish",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/config-lerna-scopes": "^13.1.0",
     "@types/eslint": "^7.2.8",
     "@types/node": "^14.14.37",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
@@ -37,17 +41,12 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^4.2.3",
+    "husky": "^7.0.1",
     "lerna": "4.0.0",
     "lint-staged": "^10.0.8",
     "node-filter-async": "^2.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

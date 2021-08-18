@@ -10,26 +10,30 @@ import {
 } from '../../../utils/cornerstoneHelper'
 import { Interaction, DragEvent, ViewportInteraction } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
-import { preventContextMenu, hasInteraction } from '../utils'
+import { preventContextMenu } from '../utils'
 import control from './control'
 
 let subscription: Subscription
-
 type DragType = typeof PRIMARY_DRAG | typeof SECONDARY_DRAG
 
-function hasDragType(dragType: DragType | undefined, interaction: Interaction) {
-  return (
-    (dragType === PRIMARY_DRAG || dragType === SECONDARY_DRAG) &&
-    interaction[dragType] !== undefined
-  )
-}
-
-function handleInteraction({
+/**
+ * If interaction[dragType] is a pre-defined drag action('pan' | 'adjust'),
+ *  update the viewport with it.
+ * If interaction[dragType] is a callback, viewport and delta are passed to the callback,
+ *  so the consumers update the viewport by themselves.
+ * @param element The HTML Element enabled for Cornerstone.
+ * @param interaction The Viewer's interaction prop. { primaryDrag, secondaryDrag ... }
+ * @param dragType 'primaryDrag' | 'secondaryDrag'
+ * @param dragged The dragged x, y coordinates.
+ * @param viewport The Viewer's viewport prop.
+ * @param onViewportChange The Viewer's viewport setter prop.
+ */
+function handleViewportByDrag({
+  element,
   interaction,
   dragType,
-  element,
-  viewport,
   dragged,
+  viewport,
   onViewportChange,
 }: {
   interaction: Interaction
@@ -42,33 +46,40 @@ function handleInteraction({
   }
   onViewportChange?: OnViewportChange
 }): void {
-  const handler = interaction[dragType]
+  const dragHandler = interaction[dragType]
 
-  function updateViewport(eventType?: DragEvent): void {
-    if (!eventType) return
+  /**
+   * If a drag handler is pre-defined, call the drag control function provided by default.
+   * It results in the Viewer's viewport update.
+   * @param dragEventType 'pan' | 'adjust'
+   */
+  function updateViewportByDrag(dragEventType?: DragEvent): void {
+    if (!dragEventType) return
 
+    // If there is a viewport setter, set a new viewport which is triggered by interaction.
     if (onViewportChange) {
       onViewportChange(prev => ({
         ...prev,
-        ...control[eventType]?.(viewport, dragged),
+        ...control[dragEventType]?.(viewport, dragged),
       }))
     } else {
+      // If no viewport setter, just update cornerstone viewport.
       setViewport(
         <HTMLDivElement>element,
         formatCornerstoneViewport(
           viewport,
-          control[eventType]?.(viewport, dragged)
+          control[dragEventType]?.(viewport, dragged)
         )
       )
     }
   }
 
-  switch (typeof handler) {
+  switch (typeof dragHandler) {
     case 'string':
-      updateViewport(handler)
+      updateViewportByDrag(dragHandler)
       break
     case 'function':
-      handler({ viewport, delta: dragged })
+      dragHandler({ viewport, delta: dragged })
       break
     default:
       break
@@ -82,6 +93,11 @@ export default function useHandleDrag({
 }: ViewportInteraction): void {
   useEffect(() => {
     if (!interaction || !element) return undefined
+    // Restore context menu display.
+    element?.removeEventListener('contextmenu', preventContextMenu)
+    // No drag interaction.
+    if (!(interaction[PRIMARY_DRAG] || interaction[SECONDARY_DRAG]))
+      return undefined
 
     const mousedown$ = fromEvent<MouseEvent>(
       <HTMLDivElement>element,
@@ -91,10 +107,6 @@ export default function useHandleDrag({
     const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
     let dragType: DragType | undefined
 
-    element?.removeEventListener('contextmenu', preventContextMenu)
-    if (!hasInteraction(interaction, [PRIMARY_DRAG, SECONDARY_DRAG]))
-      return undefined
-
     subscription = mousedown$
       .pipe(
         tap(({ button }) => {
@@ -102,7 +114,7 @@ export default function useHandleDrag({
           if (button === MOUSE_BUTTON.primary) dragType = PRIMARY_DRAG
           if (button === MOUSE_BUTTON.secondary) dragType = SECONDARY_DRAG
         }),
-        filter(() => hasDragType(dragType, interaction)),
+        filter(() => dragType !== undefined),
         tap(({ button }) => {
           if (button === MOUSE_BUTTON.secondary) {
             element?.addEventListener('contextmenu', preventContextMenu)
@@ -130,17 +142,16 @@ export default function useHandleDrag({
       )
       .subscribe(dragged => {
         const viewport = getViewport(<HTMLDivElement>element)
+        if (!viewport || !dragType) return
 
-        if (viewport && dragType) {
-          handleInteraction({
-            interaction,
-            dragType,
-            element,
-            viewport,
-            dragged,
-            onViewportChange,
-          })
-        }
+        handleViewportByDrag({
+          interaction,
+          dragType,
+          element,
+          viewport,
+          dragged,
+          onViewportChange,
+        })
       })
 
     return () => {

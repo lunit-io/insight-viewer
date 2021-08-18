@@ -1,40 +1,23 @@
 import { useEffect } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { map, filter, tap } from 'rxjs/operators'
-import { ViewportInteraction, Interaction } from '../types'
+import { ViewportInteraction } from '../types'
 import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
-import { preventContextMenu, hasInteraction } from '../utils'
+import { preventContextMenu } from '../utils'
 import { getViewport } from '../../../utils/cornerstoneHelper'
-import { isValidViewport } from '../../../utils/common'
 
 let subscription: Subscription
-
 type ClickType = typeof PRIMARY_CLICK | typeof SECONDARY_CLICK
 
-function hasClickType(
-  clickType: ClickType | undefined,
-  interaction: Interaction
-) {
-  return (
-    (clickType === PRIMARY_CLICK || clickType === SECONDARY_CLICK) &&
-    interaction[clickType] !== undefined
-  )
-}
-
 function getCoord(element: Element, viewport?: Viewport) {
-  if (viewport && isValidViewport(viewport)) {
+  if (viewport) {
     const { x, y } = viewport
-
-    return {
-      x,
-      y,
-    }
+    return { x, y }
   }
 
   const { translation: { x = 0, y = 0 } = {} } =
     getViewport(<HTMLDivElement>element) ?? {}
-
   return { x, y }
 }
 
@@ -45,6 +28,11 @@ export default function useHandleClick({
 }: ViewportInteraction): void {
   useEffect(() => {
     if (!interaction || !element) return undefined
+    // Restore context menu display.
+    element?.removeEventListener('contextmenu', preventContextMenu)
+    // No click interaction.
+    if (!(interaction[PRIMARY_CLICK] || interaction[SECONDARY_CLICK]))
+      return undefined
 
     const mousedown$ = fromEvent<MouseEvent>(
       <HTMLDivElement>element,
@@ -53,9 +41,6 @@ export default function useHandleClick({
     let clickType: ClickType | undefined
     if (!interaction) return undefined
 
-    if (!hasInteraction(interaction, [PRIMARY_CLICK, SECONDARY_CLICK]))
-      return undefined
-
     subscription = mousedown$
       .pipe(
         tap(({ button }) => {
@@ -63,7 +48,7 @@ export default function useHandleClick({
           if (button === MOUSE_BUTTON.primary) clickType = PRIMARY_CLICK
           if (button === MOUSE_BUTTON.secondary) clickType = SECONDARY_CLICK
         }),
-        filter(() => hasClickType(clickType, interaction)),
+        filter(() => clickType !== undefined),
         tap(({ button }) => {
           if (button === MOUSE_BUTTON.secondary) {
             element?.addEventListener('contextmenu', preventContextMenu)

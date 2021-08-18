@@ -8,7 +8,7 @@ import useViewportInteraction from '../hooks/useInteraction/useViewportInteracti
 import useInitialViewport from '../hooks/useInitialViewport'
 import { ViewerProp } from './types'
 
-export function ImageViewer({
+export function InsightViewer({
   image,
   Progress,
   viewport,
