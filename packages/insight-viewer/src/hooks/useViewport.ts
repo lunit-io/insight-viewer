@@ -3,7 +3,7 @@
  */
 import { useState } from 'react'
 import { Viewport, BasicViewport } from '../types'
-import { DEFAULT_VIEWPORT } from '../const'
+import { BASE_VIEWPORT } from '../const'
 
 /**
  * @param defaultViewport The user-defined default viewport.
@@ -20,8 +20,8 @@ export function useViewport(defaultViewport?: Partial<BasicViewport>): {
 } {
   const [viewport, setViewport] = useState<Viewport>({
     ...(defaultViewport
-      ? { ...DEFAULT_VIEWPORT, _default: defaultViewport }
-      : DEFAULT_VIEWPORT),
+      ? { ...BASE_VIEWPORT, _default: defaultViewport }
+      : BASE_VIEWPORT),
   })
 
   function resetViewport() {
@@ -35,6 +35,6 @@ export function useViewport(defaultViewport?: Partial<BasicViewport>): {
     viewport,
     setViewport,
     resetViewport,
-    initialized: viewport.scale !== DEFAULT_VIEWPORT.scale, // DEFAULT_VIEWPORT.scale is 0.
+    initialized: viewport.scale !== BASE_VIEWPORT.scale, // BASE_VIEWPORT.scale is 0.
   }
 }
