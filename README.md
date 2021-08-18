@@ -20,7 +20,7 @@ Each public sub-package is independently published to NPM.
 
 ### Apps
 
-- [`packages/insight-viewer-demo`](./packages/insight-viewer-demo) - Documentation site for @lunit/insight-viewer.
+- [`packages/insight-viewer-docs`](./packages/insight-viewer-docs) - Documentation site for @lunit/insight-viewer.
 
 ## Install
 

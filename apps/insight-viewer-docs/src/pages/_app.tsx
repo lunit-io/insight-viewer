@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>@lunit/insight-viewer demo</title>
+        <title>@lunit/insight-viewer docs</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=1024" />
       </Head>

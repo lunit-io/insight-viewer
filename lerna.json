@@ -1,17 +1,20 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "stream": true,
   "command": {
     "publish": {
-      "conventionalCommits": true
-    },
-    "version": {
-			"message": "chore(release): Publish release"
-		}
+      "allowBranch": ["master", "release"],
+      "message": "chore(release): publish release",
+      "conventionalCommits": true,
+      "ignoreChanges": [
+        "**/__test__/**",
+        "**/*.{md,mdx}",
+        "**/*.spec.ts",
+        "LICENSE"
+      ]
+    }
   }
 }
