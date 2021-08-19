@@ -22,8 +22,7 @@
     "clean": "rm -rf ./out/handbook",
     "doc": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-docs doc",
     "publish": "lerna publish",
-    "local-publish": "lerna publish from-package --no-git-reset --no-git-tag-version --no-push --registry=\"http://localhost:4873/\"",
-    "local-unpublish": "lerna exec -- npm unpublish -f --registry=\"http://localhost:4873/\" \"\\${LERNA_PACKAGE_NAME}\""
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
