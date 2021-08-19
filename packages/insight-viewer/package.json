@@ -28,9 +28,6 @@
     "clean": "rimraf dist *.tsbuildinfo",
     "test": "yarn jest"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "dependencies": {
     "consola": "2.15.3",
     "cornerstone-core": "^2.3.0",
