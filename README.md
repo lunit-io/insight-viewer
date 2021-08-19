@@ -20,7 +20,7 @@ Each public sub-package is independently published to NPM.
 
 ### Apps
 
-- [`packages/insight-viewer-docs`](./packages/insight-viewer-docs) - Documentation site for @lunit/insight-viewer.
+- [`packages/insight-viewer-docs`](./apps/insight-viewer-docs) - Documentation site for @lunit/insight-viewer.
 
 ## Install
 
@@ -64,7 +64,7 @@ package.json
 ### Add a dependency/devDependency to a package/app
 
 ```sh
-$ yarn workspace @lunit/<package_or_app_name_to_be_added_to> add <package_name_to_add...> [-D]
+$ yarn workspace @lunit/<package name | app name> add <package name> [-D]
 ```
 
 ## Use Create-React-App
