@@ -14,7 +14,8 @@
         "**/*.{md,mdx}",
         "**/*.spec.ts",
         "LICENSE"
-      ]
+      ],
+      "no-private": true
     }
   }
 }
