@@ -3,6 +3,7 @@ const { join } = require('path')
 module.exports = {
   trailingSlash: true,
   productionBrowserSourceMaps: true,
+  webpack5: false,
   // Fix for:
   // You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file.
   // 참고: https://webman.pro/blog/how-to-setup-typescript-path-aliases-in-lerna-monorepo/
