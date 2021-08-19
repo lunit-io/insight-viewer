@@ -80,7 +80,6 @@ Add a project name to package.json
 ```json
 {
   "name": "@lunit/<app name>"
-  // ...
 }
 ```
 
