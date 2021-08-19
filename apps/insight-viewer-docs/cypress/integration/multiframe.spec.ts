@@ -1,6 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
 
 describe(
   'Multiframe',
@@ -13,11 +13,6 @@ describe(
     before(() => {
       setup()
       cy.visit('/multi-frame')
-    })
-
-    it('shows loading progress', () => {
-      cy.get($LOADED).should('be.not.exist')
-      cy.percySnapshot()
     })
 
     it('shows initial viewer', () => {
