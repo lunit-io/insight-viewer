@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.test.json",
-  "include": ["src/**/*"],
-  "references": [
-    {
-      "path": "../../packages/insight-viewer/tsconfig.build.json"
-    }
-  ]
-}
