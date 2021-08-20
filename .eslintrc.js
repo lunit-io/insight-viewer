@@ -25,7 +25,7 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: './tsconfig.base.json',
+    project: ['./tsconfig.base.json', './packages/**/tsconfig.*.json'],
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionstsconfigrootdir
     tsconfigRootDir: __dirname,
   },
