@@ -1,5 +1,3 @@
-const { join } = require('path')
-
 module.exports = {
   trailingSlash: true,
   productionBrowserSourceMaps: true,
