@@ -12,7 +12,7 @@
   "include": ["src/**/*"],
   "references": [
     {
-      "path": "insight-viewer"
+      "path": "../../packages/insight-viewer/tsconfig.build.json"
     }
   ]
 }
