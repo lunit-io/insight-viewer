@@ -14,7 +14,8 @@
     "cypress-open": "cypress open",
     "cypress-run": "cypress run",
     "test": "start-server-and-test start:server 3000 percy:cypress",
-    "cypress": "start-server-and-test start:server 3000 cypress-open"
+    "cypress": "start-server-and-test start:server 3000 cypress-open",
+    "lint": "next lint"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.0",
