@@ -12,4 +12,5 @@ module.exports = {
       },
     },
   ],
+  extends: [...baseConfig.extends, 'next'],
 }
