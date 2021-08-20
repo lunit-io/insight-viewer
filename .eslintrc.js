@@ -88,15 +88,5 @@ module.exports = {
         '@typescript-eslint/no-empty-function': 'off',
       },
     },
-    {
-      // Turn off rule that are not necessary in Next.js
-      files: [
-        './apps/insight-viewer-docs/src/**/*.ts',
-        './apps/insight-viewer-docs/src/**/*.tsx',
-      ],
-      rules: {
-        'react/react-in-jsx-scope': 'off',
-      },
-    },
   ],
 }
