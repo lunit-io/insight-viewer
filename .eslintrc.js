@@ -26,6 +26,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     project: './tsconfig.base.json',
+    // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionstsconfigrootdir
+    tsconfigRootDir: __dirname,
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   settings: {
