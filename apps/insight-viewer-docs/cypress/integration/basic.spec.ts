@@ -15,11 +15,6 @@ describe(
       setup()
     })
 
-    it('shows loading progress', () => {
-      cy.get($LOADED).should('be.not.exist')
-      cy.percySnapshot()
-    })
-
     it('shows initial image', () => {
       cy.get($LOADED).should('be.exist')
       cy.get('.image').should('have.text', 'image1')

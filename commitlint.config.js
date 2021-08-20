@@ -16,6 +16,8 @@ module.exports = {
         // Insert custom scopes below:
         'root',
         'release',
+        'viewer',
+        'viewer-docs',
       ],
     ],
     'scope-empty': [2, 'never'],
