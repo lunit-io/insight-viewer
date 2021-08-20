@@ -1,11 +1,13 @@
-```bash
 ## 📝 Description
+
 > Add a brief description
 
 ## ✅ PR Type
+
 What kind of change does this PR introduce?
 
 > Please check the one that applies to this PR using "x".
+
 - [ ] Bugfix
 - [ ] Feature
 - [ ] Code style update (formatting, local variables)
@@ -18,16 +20,18 @@ What kind of change does this PR introduce?
 - [ ] Other... Please describe:
 
 ## 🎯 Current behavior
+
 > Please describe the current behavior that you are modifying, or link to a relevant issue.
 
 Issue Number: N/A
 
 ## 🚀 New behavior
+
 > Please describe the behavior or changes this PR adds.
 
 ## 💣 Is this a breaking change?
+
 - [ ] Yes
 - [ ] No
 
 > If this PR contains a breaking change, please describe the impact and migration path for existing applications below.
-```
