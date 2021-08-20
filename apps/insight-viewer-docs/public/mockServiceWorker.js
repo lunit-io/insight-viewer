@@ -2,7 +2,7 @@
 /* tslint:disable */
 
 /**
- * Mock Service Worker (0.32.0).
+ * Mock Service Worker (0.32.3).
  * @see https://github.com/mswjs/msw
  * - Please do NOT modify this file.
  * - Please do NOT serve this file on production.
@@ -242,9 +242,7 @@ If you wish to mock an error response, please refer to this guide: https://mswjs
 
 self.addEventListener('fetch', function (event) {
   const { request } = event
-  // Without it, resource remains in a "pending" status.
-  if (!request.url.split('/').includes('msw')) return
- 
+
   // Bypass navigation requests.
   if (request.mode === 'navigate') {
     return
