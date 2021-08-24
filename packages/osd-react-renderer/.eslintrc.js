@@ -9,5 +9,14 @@ module.exports = {
         },
       },
     ],
+    '@typescript-eslint/no-empty-interface': ['off'],
+    'no-param-reassign': [
+      'error',
+      // { props: true, ignorePropertyModificationsForRegex: ['acc', 'Acc$'] },
+      {
+        props: true,
+        ignorePropertyModificationsForRegex: ['handlers', 'Handlers$'],
+      },
+    ],
   },
 }

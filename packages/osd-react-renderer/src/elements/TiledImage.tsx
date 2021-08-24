@@ -1,9 +1,6 @@
 import OpenSeadragon from 'openseadragon'
+import { TiledImageProps } from '../types'
 import Base from './Base'
-
-interface TiledImageProps {
-  url: string
-}
 
 class TiledImage extends Base {
   url: string
@@ -15,6 +12,10 @@ class TiledImage extends Base {
 
   constructor(viewer: OpenSeadragon.Viewer, props: TiledImageProps) {
     super(viewer)
+    this.url = props.url
+  }
+
+  commitUpdate(props: TiledImageProps): void {
     this.url = props.url
   }
 }

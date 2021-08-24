@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import OpenSeadragon from 'openseadragon'
 import ReactReconciler from 'react-reconciler'
-import { HostConfig } from './HostConfig/type'
+import { HostConfig } from './types/HostConfig'
 import { createInstance } from './elements'
 import Root from './elements/Root'
 import Base from './elements/Base'
+import propsEqual from './utils/propsEqual'
 
 const rootHostContext = {}
 const childHostContext = {}
@@ -54,8 +56,8 @@ const reconciler = ReactReconciler<
     return false
   },
 
-  prepareUpdate() {
-    throw new Error('appendInitialChild method is called')
+  prepareUpdate(instance, type, oldProps, newProps) {
+    return !propsEqual(oldProps, newProps)
   },
 
   shouldSetTextContent() {
@@ -71,7 +73,7 @@ const reconciler = ReactReconciler<
   },
 
   getPublicInstance() {
-    throw new Error('appendInitialChild method is called')
+    throw new Error('getPublicInstance method is called')
   },
 
   prepareForCommit() {
@@ -93,7 +95,7 @@ const reconciler = ReactReconciler<
   },
 
   cancelTimeout() {
-    throw new Error('scheduleTimeout method is called')
+    throw new Error('cancelTimeout method is called')
   },
 
   noTimeout: -1,
@@ -106,10 +108,21 @@ const reconciler = ReactReconciler<
     container.appendChild(child)
   },
 
+  removeChildFromContainer(container, child) {
+    container.removeChild(child)
+  },
+
+  commitUpdate(instance, updatePayload, type, prevProps, nextProps) {
+    instance.commitUpdate(nextProps as any)
+  },
+
   clearContainer() {
     return null
   },
 })
+
+let viewer: OpenSeadragon.Viewer
+let container: HostConfig.Container
 
 const ReactOSDDOM = {
   render(
@@ -118,12 +131,14 @@ const ReactOSDDOM = {
     options: OpenSeadragon.Options,
     callback?: () => void | null
   ): void {
-    const viewer = new OpenSeadragon.Viewer({
-      ...options,
-      element: domContainer,
-    })
-    const root = new Root(viewer)
-    const container = reconciler.createContainer(root, 0, false, null)
+    if (!viewer && !container) {
+      viewer = new OpenSeadragon.Viewer({
+        ...options,
+        element: domContainer,
+      })
+      const root = new Root(viewer)
+      container = reconciler.createContainer(root, 0, false, null)
+    }
     reconciler.updateContainer(reactElement, container, null, callback)
   },
 }

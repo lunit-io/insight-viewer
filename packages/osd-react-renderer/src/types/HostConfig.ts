@@ -16,9 +16,9 @@ export namespace HostConfig {
     type: 'Invalid'
   }
 
-  export type Container = Base
+  export type Container = Root
 
-  export type Instance = TiledImage | Viewport | Root | InvalidElement
+  export type Instance = TiledImage | Viewport | Base | InvalidElement
 
   export type TextInstance = InvalidInstance
 
@@ -34,9 +34,7 @@ export namespace HostConfig {
     [key: string]: any
   }
 
-  export interface UpdatePayload {
-    [key: string]: any
-  }
+  export type UpdatePayload = boolean
 
   export type ChildSet = undefined // Unused
 

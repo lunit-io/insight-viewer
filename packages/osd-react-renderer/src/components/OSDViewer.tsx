@@ -10,7 +10,7 @@ const OSDViewer: React.FC<OSDViewerProps> = ({ children, options = {} }) => {
       return
     }
     ReactOSDDOM.render(<>{children}</>, containerRef.current, options)
-  })
+  }, [children, options])
 
   return (
     <div

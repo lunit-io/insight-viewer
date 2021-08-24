@@ -24,7 +24,8 @@
     "build": "yarn run clean && yarn run compile",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "yarn test",
+    "test-watch": "jest"
   },
   "bugs": {
     "url": "https://github.com/lunit-io/frontend-components/issues"
