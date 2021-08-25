@@ -20,7 +20,7 @@ Each public sub-package is independently published to NPM.
 
 ### Apps
 
-- [`packages/insight-viewer-docs`](./packages/insight-viewer-docs) - Documentation site for @lunit/insight-viewer.
+- [`packages/insight-viewer-docs`](./apps/insight-viewer-docs) - Documentation site for @lunit/insight-viewer.
 
 ## Install
 
@@ -80,7 +80,6 @@ Add a project name to package.json
 ```json
 {
   "name": "@lunit/<app name>"
-  // ...
 }
 ```
 

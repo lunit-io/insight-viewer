@@ -25,7 +25,8 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: './tsconfig.base.json',
+    project: ['./tsconfig.base.json', './packages/**/tsconfig.*.json'],
+    tsconfigRootDir: __dirname,
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   settings: {
@@ -85,16 +86,6 @@ module.exports = {
         'react/prop-types': 'off',
         'react/require-default-props': 'off',
         '@typescript-eslint/no-empty-function': 'off',
-      },
-    },
-    {
-      // Turn off rule that are not necessary in Next.js
-      files: [
-        './apps/insight-viewer-docs/src/**/*.ts',
-        './apps/insight-viewer-docs/src/**/*.tsx',
-      ],
-      rules: {
-        'react/react-in-jsx-scope': 'off',
       },
     },
   ],
