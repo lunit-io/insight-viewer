@@ -3,10 +3,12 @@ import TiledImage from './TiledImage'
 import Viewport from './Viewport'
 import Base from './Base'
 import Root from './Root'
+import Scalebar from './Scalebar'
 
 const ElementConstructors = {
   tiledImage: TiledImage,
   viewport: Viewport,
+  scalebar: Scalebar,
   root: Root,
 }
 
