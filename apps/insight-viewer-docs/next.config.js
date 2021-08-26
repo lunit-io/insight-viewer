@@ -1,5 +1,3 @@
-const { join } = require('path')
-
 module.exports = {
   trailingSlash: true,
   productionBrowserSourceMaps: true,
@@ -17,12 +15,8 @@ module.exports = {
 
     // https://github.com/vercel/next.js/issues/6316
     config.optimization.minimize = false
+    config.resolve.fallback = { fs: false, path: false }
 
-    return {
-      ...config,
-      node: {
-        fs: 'empty',
-      },
-    }
+    return config
   },
 }
