@@ -38,8 +38,6 @@
     "cornerstone-web-image-loader": "^2.1.1",
     "dicom-parser": "^1.8.7",
     "ky": "^0.27.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "react-resize-detector": "^6.7.0",
     "rxjs": "^7.0.0"
   },
@@ -53,5 +51,9 @@
     "microbundle": "^0.13.0",
     "react-is": "^17.0.2",
     "ts-jest": "^26.5.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
