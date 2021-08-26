@@ -23,7 +23,7 @@
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
-    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "clean": "rimraf ./dist tsconfig.tsbuildinfo",
     "test": "yarn test",
     "test-watch": "jest"
   },

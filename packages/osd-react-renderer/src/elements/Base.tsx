@@ -36,7 +36,7 @@ class Base {
     }
   }
 
-  static commitUpdate(): void {}
+  commitUpdate(_: any): void {}
 }
 
 export default Base

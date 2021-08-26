@@ -56,7 +56,7 @@ const reconciler = ReactReconciler<
     return false
   },
 
-  prepareUpdate(instance, type, oldProps, newProps) {
+  prepareUpdate(_instance, _type, oldProps, newProps) {
     return !propsEqual(oldProps, newProps)
   },
 
@@ -112,7 +112,7 @@ const reconciler = ReactReconciler<
     container.removeChild(child)
   },
 
-  commitUpdate(instance, updatePayload, type, prevProps, nextProps) {
+  commitUpdate(instance, _updatePayload, _type, _prevProps, nextProps) {
     instance.commitUpdate(nextProps as any)
   },
 

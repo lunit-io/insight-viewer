@@ -23,11 +23,11 @@ class Viewport extends Base implements ViewportProps {
   }
 
   commitUpdate(props: ViewportProps): void {
-    this.updateEventHandler(false) // removeHandler
+    this.updateEventHandler('remove') // removeHandler
     this.zoom = props.zoom
     this.rotation = props.rotation
     this.eventHandlers = Viewport.extractEventHandlers(props)
-    this.updateEventHandler(true)
+    this.updateEventHandler('add')
   }
 
   private static extractEventHandlers(props: ViewportProps) {
@@ -39,12 +39,12 @@ class Viewport extends Base implements ViewportProps {
     }, {})
   }
 
-  private updateEventHandler(add: boolean) {
+  private updateEventHandler(update: 'add' | 'remove') {
     const parent = this._parent
     if (!parent) {
       return
     }
-    const checkEventHandler = add ? 'addHandler' : 'removeHandler'
+    const checkEventHandler = update == 'add' ? 'addHandler' : 'removeHandler'
     Object.keys(this.eventHandlers).forEach(key => {
       if (!hasOwnProperty(ViewerEventHandlers, key)) {
         return
@@ -58,7 +58,7 @@ class Viewport extends Base implements ViewportProps {
 
   set parent(p: Base | null) {
     this._parent = p
-    this.updateEventHandler(!!p)
+    this.updateEventHandler('add')
   }
 }
 
