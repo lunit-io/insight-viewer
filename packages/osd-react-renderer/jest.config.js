@@ -1,4 +1,11 @@
+const baseConfig = require('../../jest.config.js')
+const packageJson = require('./package')
+
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  ...baseConfig,
+  name: packageJson.name,
+  displayName: packageJson.name,
+  roots: ['<rootDir>/src'],
+  verbose: true,
+  transformIgnorePatterns: ['/node_modules/(?!(ky))'],
 }

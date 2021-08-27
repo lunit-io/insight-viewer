@@ -24,7 +24,7 @@
     "build": "yarn run clean && yarn run compile",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rimraf ./dist tsconfig.tsbuildinfo",
-    "test": "yarn test",
+    "test": "jest",
     "test-watch": "jest"
   },
   "bugs": {
@@ -38,7 +38,8 @@
   },
   "devDependencies": {
     "@types/openseadragon": "^2.4.5",
-    "@types/react-reconciler": "^0.26.3"
+    "@types/react-reconciler": "^0.26.3",
+    "ts-jest": "^27.0.5"
   },
   "peerDependencies": {
     "react": ">=16.0",
