@@ -20,7 +20,13 @@ export interface ViewportEventHandlers
     >
   > {}
 
-export interface ViewportProps extends ViewportEventHandlers {
+export interface ViewportProps extends ViewerProps {
+  defaultZoomLevel?: number
+  maxZoomLevel?: number
+  minZoomLevel?: number
+}
+
+export interface ViewerProps extends ViewportEventHandlers {
   zoom: number
   rotation: number
 }
