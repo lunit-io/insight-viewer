@@ -6,8 +6,9 @@ const PREFIX = 'wadouri:'
 export const handlers = [
   rest.get('/msw/with-jwt', async (req, res, ctx) => {
     const authHeader = req.headers.get('Authorization')
-    const imageBuffer = await fetch(IMAGES[9]).then(r => r.arrayBuffer())
-
+    const imageBuffer = await fetch(IMAGES[9].replace(PREFIX, '')).then(r =>
+      r.arrayBuffer()
+    )
     if (!authHeader) {
       return res(
         ctx.status(403),
