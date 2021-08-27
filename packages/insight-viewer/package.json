@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "5.0.1-alpha.1",
+  "version": "5.0.1-alpha.2",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -11,7 +11,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lunit-io/frontend-components"
+    "url": "https://github.com/lunit-io/frontend-components",
+    "directory": "packages/insight-viewer"
+  },
+  "bugs": {
+    "url": "https://github.com/lunit-io/frontend-components/issues"
   },
   "keywords": [
     "dicom",
@@ -20,7 +24,7 @@
     "react"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/lunit-io/frontend-components#readme",
+  "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/insight-viewer#readme",
   "scripts": {
     "build": "yarn run clean & yarn run compile",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
@@ -29,7 +33,7 @@
     "test": "yarn jest"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "consola": "2.15.3",
