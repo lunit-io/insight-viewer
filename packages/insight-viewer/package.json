@@ -29,7 +29,7 @@
     "test": "yarn jest"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "consola": "2.15.3",
