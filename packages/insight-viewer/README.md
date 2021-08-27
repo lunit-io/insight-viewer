@@ -20,4 +20,4 @@ $ yarn add @lunit/insight-viewer
 
 ## E2E testing
 
-The e2e testing of this package is performed on the [`documentation app`](../../apps/insight-viewer-docs).
+The e2e testing of this package is performed on the [`documentation app`](https://github.com/lunit-io/frontend-components/tree/master/apps/insight-viewer-docs).
