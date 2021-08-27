@@ -11,7 +11,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lunit-io/frontend-components"
+    "url": "https://github.com/lunit-io/frontend-components",
+    "directory": "packages/insight-viewer"
+  },
+  "bugs": {
+    "url": "https://github.com/lunit-io/frontend-components/issues"
   },
   "keywords": [
     "dicom",
@@ -20,7 +24,7 @@
     "react"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/lunit-io/frontend-components#readme",
+  "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/insight-viewer#readme",
   "scripts": {
     "build": "yarn run clean & yarn run compile",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
