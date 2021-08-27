@@ -7,25 +7,46 @@ import {
 } from '../types'
 import { hasOwnProperty } from '../utils/object'
 
-class Viewport extends Base implements ViewportProps {
-  zoom: ViewportProps['zoom']
+const DEFAULT_MIN_ZOOM: number = 0.3125
+const DEFAULT_MAX_ZOOM: number = 160
 
-  rotation: ViewportProps['rotation']
+declare module 'openseadragon' {
+  interface Viewport {
+    maxZoomLevel: number
+    minZoomLevel: number
+  }
+}
 
+const defaultViewportOptions: Partial<ViewportProps> = {
+  maxZoomLevel: DEFAULT_MAX_ZOOM,
+  minZoomLevel: DEFAULT_MIN_ZOOM,
+}
+
+class Viewport extends Base {
   eventHandlers: ViewportEventHandlers
+
+  options: Partial<ViewportProps> = defaultViewportOptions
 
   constructor(viewer: OpenSeadragon.Viewer, props: ViewportProps) {
     super(viewer)
 
-    this.zoom = props.zoom
-    this.rotation = props.rotation
+    this.options = { ...defaultViewportOptions, ...props }
     this.eventHandlers = Viewport.extractEventHandlers(props)
+    this.viewer.viewport.zoomTo(props.zoom)
+    this.viewer.viewport.setRotation(props.rotation)
+    this.viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM
+    this.viewer.viewport.minZoomLevel = 0.1
   }
 
   commitUpdate(props: ViewportProps): void {
-    this.updateEventHandler('remove') // removeHandler
-    this.zoom = props.zoom
-    this.rotation = props.rotation
+    this.updateEventHandler('remove')
+    if (this.options.zoom !== props.zoom) {
+      this.viewer.viewport.zoomTo(props.zoom)
+    }
+    if (this.options.rotation !== props.rotation) {
+      this.viewer.viewport.setRotation(props.rotation)
+    }
+    this.options = { ...defaultViewportOptions, ...props }
     this.eventHandlers = Viewport.extractEventHandlers(props)
     this.updateEventHandler('add')
   }
@@ -51,6 +72,13 @@ class Viewport extends Base implements ViewportProps {
       }
       const handler = this.eventHandlers[key]
       if (handler) {
+        // if (key === "onZoom") {
+        //   parent.viewer[checkEventHandler](ViewerEventHandlers[key], (event) => {
+        //     this.viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM
+        //     this.viewer.viewport.minZoomLevel = 0.1
+        //     handler(this.viewer.viewport.getZoom() / 1, event.refPoint)
+        //   })
+        // }
         parent.viewer[checkEventHandler](ViewerEventHandlers[key], handler)
       }
     })
@@ -58,7 +86,7 @@ class Viewport extends Base implements ViewportProps {
 
   set parent(p: Base | null) {
     this._parent = p
-    this.updateEventHandler('add')
+    this.updateEventHandler(p ? 'add' : 'remove')
   }
 }
 
