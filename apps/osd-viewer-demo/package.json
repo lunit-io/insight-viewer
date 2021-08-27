@@ -22,7 +22,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
+    "test": "echo \"Error no test\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
