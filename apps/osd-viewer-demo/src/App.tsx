@@ -7,6 +7,7 @@ const DEFAULT_MAX_ZOOM: number = 160
 
 function App() {
   const [zoom, setZoom] = useState(10)
+
   const physicalWidthPx = 700
   const microscopeWidth1x = physicalWidthPx * 10
 
@@ -20,7 +21,6 @@ function App() {
       const scaleFactor = microscopeWidth1x / viewportSize.x
       viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM * scaleFactor
       viewer.viewport.minZoomLevel = 0.1 * scaleFactor
-      console.log(viewer.viewport.getZoom() / scaleFactor, event.refPoint)
       setZoom(event.zoom)
     },
     [microscopeWidth1x]

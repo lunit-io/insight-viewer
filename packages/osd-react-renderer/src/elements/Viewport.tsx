@@ -32,7 +32,7 @@ class Viewport extends Base {
 
     this.options = { ...defaultViewportOptions, ...props }
     this.eventHandlers = Viewport.extractEventHandlers(props)
-    this.viewer.viewport.zoomTo(props.zoom)
+    this.viewer.viewport.zoomTo(props.zoom, props.refPoint)
     this.viewer.viewport.setRotation(props.rotation)
     this.viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM
     this.viewer.viewport.minZoomLevel = 0.1
@@ -41,7 +41,7 @@ class Viewport extends Base {
   commitUpdate(props: ViewportProps): void {
     this.updateEventHandler('remove')
     if (this.options.zoom !== props.zoom) {
-      this.viewer.viewport.zoomTo(props.zoom)
+      this.viewer.viewport.zoomTo(props.zoom, props.refPoint)
     }
     if (this.options.rotation !== props.rotation) {
       this.viewer.viewport.setRotation(props.rotation)
@@ -72,13 +72,6 @@ class Viewport extends Base {
       }
       const handler = this.eventHandlers[key]
       if (handler) {
-        // if (key === "onZoom") {
-        //   parent.viewer[checkEventHandler](ViewerEventHandlers[key], (event) => {
-        //     this.viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM
-        //     this.viewer.viewport.minZoomLevel = 0.1
-        //     handler(this.viewer.viewport.getZoom() / 1, event.refPoint)
-        //   })
-        // }
         parent.viewer[checkEventHandler](ViewerEventHandlers[key], handler)
       }
     })

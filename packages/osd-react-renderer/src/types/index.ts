@@ -29,6 +29,7 @@ export interface ViewportProps extends ViewerProps {
 export interface ViewerProps extends ViewportEventHandlers {
   zoom: number
   rotation: number
+  refPoint?: OpenSeadragon.Point
 }
 
 export enum ScalebarLocation {
