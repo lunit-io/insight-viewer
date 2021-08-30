@@ -4,21 +4,28 @@ import OpenSeadragon from 'openseadragon'
 export interface BaseProps {
   [key: string]: any
 }
+
+interface NodeProps {
+  ref?: React.Ref<React.ReactNode>
+  key?: React.Key
+}
+
 export interface OSDViewerProps {
   options: OpenSeadragon.Options
 }
 
-export interface TiledImageProps {
+export interface TiledImageProps extends NodeProps {
   url: string
 }
 
 export interface ViewportEventHandlers
   extends Partial<
-    Record<
-      keyof typeof ViewerEventHandlers,
-      OpenSeadragon.EventHandler<OpenSeadragon.ViewerEvent>
-    >
-  > {}
+      Record<
+        keyof typeof ViewerEventHandlers,
+        OpenSeadragon.EventHandler<OpenSeadragon.ViewerEvent>
+      >
+    >,
+    NodeProps {}
 
 export interface ViewportProps extends ViewerProps {
   defaultZoomLevel?: number
@@ -40,7 +47,7 @@ export enum ScalebarLocation {
   BOTTOM_LEFT,
 }
 
-export interface ScalebarProps {
+export interface ScalebarProps extends NodeProps {
   pixelsPerMeter: number
   xOffset?: number
   yOffset?: number
@@ -109,12 +116,20 @@ export enum ViewerEventHandlers {
   onZoom = 'zoom',
 }
 
+export interface CanvasOverlayProps extends NodeProps {
+  onRedraw: (
+    overlayCanvasEl: HTMLCanvasElement,
+    viewer: OpenSeadragon.Viewer
+  ) => void
+}
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
       tiledImage: TiledImageProps
       viewport: ViewportProps
       scalebar: ScalebarProps
+      canvasOverlay: CanvasOverlayProps
     }
   }
 }

@@ -1,0 +1,63 @@
+import OpenSeadragon from 'openseadragon'
+import '../plugins/OpenSeadragonCanvasOverlay'
+import { CanvasOverlayProps } from '../types'
+import Base from './Base'
+
+declare module 'openseadragon' {
+  interface CanvasOverlay extends OpenSeadragon.Overlay {
+    forceRedraw(): void
+    reset(): void
+    canvas(): HTMLCanvasElement
+    onRedraw: () => void
+  }
+
+  interface Viewer {
+    canvasOverlay: (options?: { onRedraw: () => void }) => CanvasOverlay
+  }
+}
+
+const defaultOptions: CanvasOverlayProps = { onRedraw: () => {} }
+
+class CanvasOverlay extends Base {
+  options: CanvasOverlayProps
+
+  _overlay: OpenSeadragon.CanvasOverlay
+
+  set overlay(o: OpenSeadragon.CanvasOverlay) {
+    this._overlay = o
+  }
+
+  get overlay(): OpenSeadragon.CanvasOverlay {
+    return this._overlay
+  }
+
+  set parent(p: Base | null) {
+    this._parent = p
+    this._setOnRedraw()
+  }
+
+  constructor(viewer: OpenSeadragon.Viewer, props: CanvasOverlayProps) {
+    super(viewer)
+    this._overlay = this.viewer.canvasOverlay({
+      onRedraw: () => {},
+    })
+    this.options = { ...defaultOptions, ...props }
+  }
+
+  commitUpdate(props: CanvasOverlayProps): void {
+    this.options = { ...defaultOptions, ...props }
+    this._setOnRedraw()
+  }
+
+  private _setOnRedraw(): void {
+    const {
+      viewer,
+      options: { onRedraw },
+    } = this
+    const canvas = this.overlay.canvas()
+    this.overlay.onRedraw = () => {
+      onRedraw(canvas, viewer)
+    }
+  }
+}
+export default CanvasOverlay

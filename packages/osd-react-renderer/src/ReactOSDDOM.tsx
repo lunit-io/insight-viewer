@@ -72,8 +72,8 @@ const reconciler = ReactReconciler<
     return childHostContext
   },
 
-  getPublicInstance() {
-    throw new Error('getPublicInstance method is called')
+  getPublicInstance(instance: Base): HostConfig.PublicInstance {
+    return instance
   },
 
   prepareForCommit() {

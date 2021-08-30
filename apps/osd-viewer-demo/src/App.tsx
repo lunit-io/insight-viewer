@@ -2,7 +2,7 @@ import OSDViewer, {
   ScalebarLocation,
   ViewportProps,
 } from '@lunit/osd-react-renderer'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -48,6 +48,7 @@ function App() {
     },
     [microscopeWidth1x]
   )
+  const canvasOverlayRef = useRef(null)
 
   const onRotate = useCallback<NonNullable<ViewportProps['onRotate']>>(
     ({ eventSource: viewer, degrees }) => {
@@ -69,6 +70,7 @@ function App() {
           imageLoaderLimit: 8,
           smoothTileEdgesMinZoom: Infinity,
           showNavigator: true,
+          showNavigationControl: false,
           timeout: 60000,
           navigatorAutoResize: false,
           preserveImageSizeOnResize: true,
@@ -93,6 +95,16 @@ function App() {
           fontColor="#53646d"
           backgroundColor={'rgba(255,255,255,0.5)'}
           location={ScalebarLocation.BOTTOM_RIGHT}
+        />
+        <canvasOverlay
+          ref={canvasOverlayRef}
+          onRedraw={canvas => {
+            const ctx = canvas.getContext('2d')
+            if (ctx) {
+              ctx.fillStyle = '#000'
+              ctx.fillRect(50, 50, 5000, 5000)
+            }
+          }}
         />
       </OSDViewer>
     </Container>

@@ -4,11 +4,13 @@ import Viewport from './Viewport'
 import Base from './Base'
 import Root from './Root'
 import Scalebar from './Scalebar'
+import CanvasOverlay from './CanvasOverlay'
 
 const ElementConstructors = {
   tiledImage: TiledImage,
   viewport: Viewport,
   scalebar: Scalebar,
+  canvasOverlay: CanvasOverlay,
   root: Root,
 }
 
