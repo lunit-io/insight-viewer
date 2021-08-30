@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, class-methods-use-this, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
 import OpenSeadragon from 'openseadragon'
 
 class Base {
@@ -6,7 +6,7 @@ class Base {
 
   children: Base[]
 
-  _parent: Base | null = null
+  protected _parent: Base | null = null
 
   get parent(): Base | null {
     return this._parent
