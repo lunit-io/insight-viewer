@@ -7,6 +7,7 @@ const DEFAULT_MAX_ZOOM: number = 160
 
 function App() {
   const [zoom, setZoom] = useState(10)
+  const [rotation, setRotation] = useState(0)
 
   const physicalWidthPx = 700
   const microscopeWidth1x = physicalWidthPx * 10
@@ -26,16 +27,32 @@ function App() {
     [microscopeWidth1x]
   )
 
+  const onRotate = useCallback<NonNullable<ViewportProps['onRotate']>>(
+    event => {
+      const viewer = event.eventSource
+      if (viewer == null || event.degrees == null) {
+        return
+      }
+      setRotation(event.degrees)
+    },
+    []
+  )
+
   const DEMO_MPP = 0.263175
   const MICRONS_PER_METER = 1e6
 
   return (
     <div style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0 }}>
-      <OSDViewer options={{}}>
+      <OSDViewer
+        options={{
+          showRotationControl: true,
+        }}
+      >
         <viewport
           zoom={zoom}
-          rotation={90}
+          rotation={rotation}
           onZoom={onZoom}
+          onRotate={onRotate}
           maxZoomLevel={DEFAULT_MAX_ZOOM}
           minZoomLevel={DEFAULT_MIN_ZOOM}
         />
