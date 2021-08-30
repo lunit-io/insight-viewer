@@ -5,6 +5,7 @@ import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithChildren } from '../../types'
 import { LINKS } from '../Nav/const'
+import config from '../../../config'
 
 const SIDE_WIDTH = '240px'
 
@@ -26,7 +27,11 @@ export default function Layout({ children }: WithChildren): JSX.Element {
         <Box pt={6}>
           <header>
             <Flex direction="row">
-              <Flex width={SIDE_WIDTH} pt={2}>
+              <Flex
+                width={SIDE_WIDTH}
+                pt={2}
+                display={config.IS_CYPRESS ? 'none' : 'flex'}
+              >
                 <NextChakraLink href="/" pt="2px">
                   <Logo h="1.5rem" pointerEvents="none" />
                 </NextChakraLink>
@@ -46,7 +51,10 @@ export default function Layout({ children }: WithChildren): JSX.Element {
 
         <Box pt={6}>
           <Flex>
-            <Box width={SIDE_WIDTH}>
+            <Box
+              width={SIDE_WIDTH}
+              display={config.IS_CYPRESS ? 'none' : 'block'}
+            >
               <Nav />
             </Box>
             <Box w="100%">{children}</Box>

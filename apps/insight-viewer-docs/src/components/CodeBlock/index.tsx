@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
+import { Box } from '@chakra-ui/react'
 import Prism from 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'
 import { WithChildren } from '../../types'
+import config from '../../../config'
 
 export default function CodeBlock({
   code,
@@ -13,10 +15,10 @@ export default function CodeBlock({
   }, [])
 
   return (
-    <div className="Code">
+    <Box className="Code" display={config.IS_CYPRESS ? 'none' : 'block'}>
       <pre>
         <code className="language-javascript">{code}</code>
       </pre>
-    </div>
+    </Box>
   )
 }

@@ -6,7 +6,7 @@ describe(
   'Basic Viewer',
   {
     viewportWidth: VIEWPORT_WIDTH,
-    viewportHeight: VIEWPORT_HEIGHT,
+    viewportHeight: VIEWPORT_HEIGHT + 500, // page is vertical long
     scrollBehavior: false,
   },
   () => {
