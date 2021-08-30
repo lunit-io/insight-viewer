@@ -25,6 +25,26 @@ export interface ViewportProps extends ViewportEventHandlers {
   rotation: number
 }
 
+export enum ScalebarLocation {
+  NONE,
+  TOP_LEFT,
+  TOP_RIGHT,
+  BOTTOM_RIGHT,
+  BOTTOM_LEFT,
+}
+
+export interface ScalebarProps {
+  pixelsPerMeter: number
+  xOffset?: number
+  yOffset?: number
+  barThickness?: number
+  color?: string
+  fontColor?: string
+  backgroundColor?: string
+  location?: ScalebarLocation
+  stayInsideImage?: boolean
+}
+
 export enum ViewerEventHandlers {
   onAddItemFailed = 'add-item-failed',
   onAddOverlay = 'add-overlay',
@@ -87,6 +107,7 @@ declare global {
     interface IntrinsicElements {
       tiledImage: TiledImageProps
       viewport: ViewportProps
+      scalebar: ScalebarProps
     }
   }
 }
