@@ -5,5 +5,6 @@
     "lib": ["es2015", "dom"],
     "types": ["node", "cypress"],
     "downlevelIteration": true
-  }
+  },
+  "include": ["**/*.ts"]
 }
