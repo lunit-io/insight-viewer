@@ -1,5 +1,7 @@
-import OSDViewer, { ScalebarLocation } from '@lunit/osd-react-renderer'
-import { ViewportProps } from 'packages/osd-react-renderer/src/types'
+import OSDViewer, {
+  ScalebarLocation,
+  ViewportProps,
+} from '@lunit/osd-react-renderer'
 import { useCallback, useState } from 'react'
 
 const DEFAULT_MIN_ZOOM: number = 0.3125
@@ -13,27 +15,25 @@ function App() {
   const microscopeWidth1x = physicalWidthPx * 10
 
   const onZoom = useCallback<NonNullable<ViewportProps['onZoom']>>(
-    event => {
-      const viewer = event.eventSource
-      if (viewer == null || event.zoom == null) {
+    ({ eventSource: viewer, zoom }) => {
+      if (viewer == null || zoom == null) {
         return
       }
       const viewportSize = viewer.viewport.getContainerSize()
       const scaleFactor = microscopeWidth1x / viewportSize.x
       viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM * scaleFactor
       viewer.viewport.minZoomLevel = 0.1 * scaleFactor
-      setZoom(event.zoom)
+      setZoom(zoom)
     },
     [microscopeWidth1x]
   )
 
   const onRotate = useCallback<NonNullable<ViewportProps['onRotate']>>(
-    event => {
-      const viewer = event.eventSource
-      if (viewer == null || event.degrees == null) {
+    ({ eventSource: viewer, degrees }) => {
+      if (viewer == null || degrees == null) {
         return
       }
-      setRotation(event.degrees)
+      setRotation(degrees)
     },
     []
   )
