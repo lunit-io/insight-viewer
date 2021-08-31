@@ -103,10 +103,10 @@ Cypress.Commands.add(
     const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
       window.HTMLInputElement.prototype,
       'value'
-    ).set
+    )?.set
 
-    const changeInputValue = ($range: unknown) => (newValue: number) => {
-      nativeInputValueSetter.call($range[0], newValue)
+    const changeInputValue = ($range: JQuery) => (newValue: number) => {
+      nativeInputValueSetter?.call($range[0], newValue)
       $range[0].dispatchEvent(new Event('change', { bubbles: true }))
     }
 
