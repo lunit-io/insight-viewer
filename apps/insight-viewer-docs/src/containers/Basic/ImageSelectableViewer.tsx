@@ -19,7 +19,7 @@ export default function ImageSelectableViewer(): JSX.Element {
       <Box mb={3}>
         <Text>
           <b data-cy-loaded={loadingState}>{loadingState}</b>
-          {image && <span> ({image.imageId})</span>}
+          {image && <span data-cy-image> ({image.imageId})</span>}
         </Text>
       </Box>
 

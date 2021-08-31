@@ -19,23 +19,22 @@ export default function OverlayLayer({
     >
       <UnorderedList>
         <ListItem>
-          scale: <span className="scale">{scale}</span>
+          scale: <span data-cy-scale>{scale}</span>
         </ListItem>
         <ListItem>
-          hflip/vflip: <span className="hflip">{`${hflip}`}</span> /{' '}
-          <span className="vflip">{`${vflip}`}</span>
+          hflip/vflip: <span data-cy-hflip>{`${hflip}`}</span> /{' '}
+          <span data-cy-vflip>{`${vflip}`}</span>
         </ListItem>
         <ListItem>
-          translation: <span className="x">{x?.toFixed(2)}</span> /{' '}
-          <span className="y">{y?.toFixed(2)}</span>
+          translation: <span data-cy-x>{x?.toFixed(2)}</span> /{' '}
+          <span data-cy-y>{y?.toFixed(2)}</span>
         </ListItem>
         <ListItem>
-          invert: <span className="invert">{`${invert}`}</span>
+          invert: <span data-cy-invert>{`${invert}`}</span>
         </ListItem>
         <ListItem>
-          WW / WC:{' '}
-          <span className="windowWidth">{windowWidth?.toFixed(2)}</span> /{' '}
-          <span className="windowCenter">{windowCenter?.toFixed(2)}</span>
+          WW / WC: <span data-cy-window-width>{windowWidth?.toFixed(2)}</span> /{' '}
+          <span data-cy-window-center>{windowCenter?.toFixed(2)}</span>
         </ListItem>
       </UnorderedList>
     </Box>

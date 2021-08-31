@@ -19,21 +19,20 @@ describe(
     it('shows initial viewport', () => {
       cy.get($LOADED).should('be.exist')
       cy.get('[data-cy-viewport=true]').should('be.exist')
-      cy.get('.viewer1 .scale').should('have.text', INITIAL_VIEWPORT1.scale)
-      cy.get('.viewer1 .x').should('have.text', (0).toFixed(2))
-      cy.get('.viewer1 .y').should('have.text', (0).toFixed(2))
-      cy.get('.viewer1 .windowWidth').should(
-        'have.text',
-        INITIAL_VIEWPORT1.windowWidth.toFixed(2)
-      )
-      cy.get('.viewer1 .windowCenter').should(
-        'have.text',
-        INITIAL_VIEWPORT1.windowCenter.toFixed(2)
-      )
-      cy.get('.viewer1 .invert').should('have.text', 'false')
-      cy.get('.viewer1 .hflip').should('have.text', 'false')
-      cy.get('.viewer1 .vflip').should('have.text', 'false')
-
+      cy.get('.viewer1')
+        .find('[data-cy-scale]')
+        .contains(INITIAL_VIEWPORT1.scale)
+      cy.get('.viewer1').find('[data-cy-x]').contains((0).toFixed(2))
+      cy.get('.viewer1').find('[data-cy-y]').contains((0).toFixed(2))
+      cy.get('.viewer1')
+        .find('[data-cy-window-width]')
+        .contains(INITIAL_VIEWPORT1.windowWidth.toFixed(2))
+      cy.get('.viewer1')
+        .find('[data-cy-window-center]')
+        .contains(INITIAL_VIEWPORT1.windowCenter.toFixed(2))
+      cy.get('.viewer1').find('[data-cy-invert]').contains('false')
+      cy.get('.viewer1').find('[data-cy-hflip]').contains('false')
+      cy.get('.viewer1').find('[data-cy-vflip]').contains('false')
       cy.percySnapshot()
     })
 
@@ -44,54 +43,58 @@ describe(
 
       it('shows inverted viewport', () => {
         cy.get('.invert-control').click()
-        cy.get('.viewer1 .invert').should('have.text', 'true')
+        cy.get('.viewer1').find('[data-cy-invert]').contains('true')
         cy.percySnapshot()
       })
 
       it('shows hflipped viewport', () => {
         cy.get('.hflip-control').click()
-        cy.get('.viewer1 .hflip').should('have.text', 'true')
+        cy.get('.viewer1').find('[data-cy-hflip]').contains('true')
         cy.percySnapshot()
       })
 
       it('shows vflipped viewport', () => {
         cy.get('.vflip-control').click()
-        cy.get('.viewer1 .vflip').should('have.text', 'true')
+        cy.get('.viewer1').find('[data-cy-vflip]').contains('true')
         cy.percySnapshot()
       })
 
       it('shows x-transitioned viewport', () => {
         const value = 20
         cy.get('.x-control').controlledInputChange(value)
-        cy.get('.viewer1 .x').should('have.text', value.toFixed(2))
+        cy.get('.viewer1').find('[data-cy-x]').contains(value.toFixed(2))
         cy.percySnapshot()
       })
 
       it('shows y-transitioned viewport', () => {
         const value = 50
         cy.get('.y-control').controlledInputChange(value)
-        cy.get('.viewer1 .y').should('have.text', value.toFixed(2))
+        cy.get('.viewer1').find('[data-cy-y]').contains(value.toFixed(2))
         cy.percySnapshot()
       })
 
       it('shows zoomed viewport', () => {
         const value = 2
         cy.get('.scale-control').controlledInputChange(value)
-        cy.get('.viewer1 .scale').should('have.text', value)
+        cy.get('.viewer1').find('[data-cy-scale]').contains(value)
         cy.percySnapshot()
       })
 
       it('shows window-width viewport', () => {
         const value = 240
         cy.get('.window-width-control').controlledInputChange(value)
-        cy.get('.viewer1 .windowWidth').should('have.text', value.toFixed(2))
+        cy.get('.viewer1')
+          .find('[data-cy-window-width]')
+          .contains(value.toFixed(2))
         cy.percySnapshot()
       })
 
       it('shows window-center viewport', () => {
         const value = 150
         cy.get('.window-center-control').controlledInputChange(value)
-        cy.get('.viewer1 .windowCenter').should('have.text', value.toFixed(2))
+        cy.get('.viewer1')
+          .find('[data-cy-window-center]')
+          .contains(value.toFixed(2))
         cy.percySnapshot()
       })
 
@@ -114,19 +117,16 @@ describe(
           value.windowCenter
         )
 
-        cy.get('.viewer1 .invert').should('have.text', value.invert)
-        cy.get('.viewer1 .vflip').should('have.text', value.vflip)
-        cy.get('.viewer1 .x').should('have.text', value.x.toFixed(2))
-        cy.get('.viewer1 .scale').should('have.text', value.scale)
-        cy.get('.viewer1 .windowWidth').should(
-          'have.text',
-          value.windowWidth.toFixed(2)
-        )
-        cy.get('.viewer1 .windowCenter').should(
-          'have.text',
-          value.windowCenter.toFixed(2)
-        )
-
+        cy.get('.viewer1').find('[data-cy-invert]').contains(value.invert)
+        cy.get('.viewer1').find('[data-cy-vflip]').contains(value.vflip)
+        cy.get('.viewer1').find('[data-cy-x]').contains(value.x.toFixed(2))
+        cy.get('.viewer1').find('[data-cy-scale]').contains(value.scale)
+        cy.get('.viewer1')
+          .find('[data-cy-window-width]')
+          .contains(value.windowWidth.toFixed(2))
+        cy.get('.viewer1')
+          .find('[data-cy-window-center]')
+          .contains(value.windowCenter.toFixed(2))
         cy.percySnapshot()
       })
 
@@ -148,10 +148,10 @@ describe(
         cy.get('.x-control2').controlledInputChange(value.x2)
         cy.get('.y-control2').controlledInputChange(value.y2)
 
-        cy.get('.viewer1 .x').should('have.text', value.x.toFixed(2))
-        cy.get('.viewer1 .y').should('have.text', value.y.toFixed(2))
-        cy.get('.viewer2 .x').should('have.text', value.x2.toFixed(2))
-        cy.get('.viewer2 .y').should('have.text', value.y2.toFixed(2))
+        cy.get('.viewer1').find('[data-cy-x]').contains(value.x.toFixed(2))
+        cy.get('.viewer1').find('[data-cy-y]').contains(value.y.toFixed(2))
+        cy.get('.viewer2').find('[data-cy-x]').contains(value.x2.toFixed(2))
+        cy.get('.viewer2').find('[data-cy-y]').contains(value.y2.toFixed(2))
         cy.percySnapshot()
       })
     })

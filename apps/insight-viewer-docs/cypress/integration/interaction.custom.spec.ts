@@ -32,17 +32,14 @@ describe(
             x: 200,
             y: -50,
           }
-          const origX = Cypress.$('.x').text()
-          const origY = Cypress.$('.y').text()
-
           cy.get('.primary-drag-pan').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
             x: value.x,
             y: value.y,
             button: 0,
           })
-          cy.get('.x').should('not.have.text', origX)
-          cy.get('.y').should('not.have.text', origY)
+          cy.get('[data-cy-x]').contains(value.x)
+          cy.get('[data-cy-y]').contains(value.y)
           cy.percySnapshot()
         })
 
@@ -51,17 +48,14 @@ describe(
             x: 10,
             y: 250,
           }
-          const origWW = Cypress.$('.windowWidth').text()
-          const origWC = Cypress.$('.windowCenter').text()
-
           cy.get('.primary-drag-adjust').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
             x: value.x,
             y: value.y,
             button: 0,
           })
-          cy.get('.windowWidth').should('not.have.text', origWW)
-          cy.get('.windowCenter').should('not.have.text', origWC)
+          cy.get('[data-cy-window-width]').contains(100.0)
+          cy.get('[data-cy-window-center]').contains(282.0)
           cy.percySnapshot()
         })
 
@@ -70,10 +64,10 @@ describe(
             x: 250,
             y: 350,
           }
-          const origX = Cypress.$('.x').text()
-          const origY = Cypress.$('.y').text()
-          const origWW = Cypress.$('.windowWidth').text()
-          const origWC = Cypress.$('.windowCenter').text()
+          const origX = Cypress.$('[data-cy-x]').text()
+          const origY = Cypress.$('[data-cy-y]').text()
+          const origWW = Cypress.$('[data-cy-window-width]').text()
+          const origWC = Cypress.$('[data-cy-window-center]').text()
 
           cy.get('.primary-drag-none').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
@@ -81,10 +75,10 @@ describe(
             y: value.y,
             button: 0,
           })
-          cy.get('.x').should('have.text', origX)
-          cy.get('.y').should('have.text', origY)
-          cy.get('.windowWidth').should('have.text', origWW)
-          cy.get('.windowCenter').should('have.text', origWC)
+          cy.get('[data-cy-x]').contains(origX)
+          cy.get('[data-cy-y]').contains(origY)
+          cy.get('[data-cy-window-width]').contains(origWW)
+          cy.get('[data-cy-window-center]').contains(origWC)
           cy.percySnapshot()
         })
       })
@@ -95,17 +89,14 @@ describe(
             x: 50,
             y: 180,
           }
-          const origX = Cypress.$('.x').text()
-          const origY = Cypress.$('.y').text()
-
           cy.get('.secondary-drag-pan').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
             x: value.x,
             y: value.y,
             button: 2,
           })
-          cy.get('.x').should('not.have.text', origX)
-          cy.get('.y').should('not.have.text', origY)
+          cy.get('[data-cy-x]').contains(value.x)
+          cy.get('[data-cy-y]').contains(value.y)
           cy.percySnapshot()
         })
 
@@ -114,17 +105,14 @@ describe(
             x: 250,
             y: 400,
           }
-          const origWW = Cypress.$('.windowWidth').text()
-          const origWC = Cypress.$('.windowCenter').text()
-
           cy.get('.secondary-drag-adjust').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
             x: value.x,
             y: value.y,
             button: 2,
           })
-          cy.get('.windowWidth').should('not.have.text', origWW)
-          cy.get('.windowCenter').should('not.have.text', origWC)
+          cy.get('[data-cy-window-width]').contains(340.0)
+          cy.get('[data-cy-window-center]').contains(432.0)
           cy.percySnapshot()
         })
 
@@ -133,10 +121,10 @@ describe(
             x: -50,
             y: -30,
           }
-          const origX = Cypress.$('.x').text()
-          const origY = Cypress.$('.y').text()
-          const origWW = Cypress.$('.windowWidth').text()
-          const origWC = Cypress.$('.windowCenter').text()
+          const origX = Cypress.$('[data-cy-x]').text()
+          const origY = Cypress.$('[data-cy-y]').text()
+          const origWW = Cypress.$('[data-cy-window-width]').text()
+          const origWC = Cypress.$('[data-cy-window-center]').text()
 
           cy.get('.secondary-drag-none').click()
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
@@ -144,10 +132,10 @@ describe(
             y: value.y,
             button: 0,
           })
-          cy.get('.x').should('have.text', origX)
-          cy.get('.y').should('have.text', origY)
-          cy.get('.windowWidth').should('have.text', origWW)
-          cy.get('.windowCenter').should('have.text', origWC)
+          cy.get('[data-cy-x]').contains(origX)
+          cy.get('[data-cy-y]').contains(origY)
+          cy.get('[data-cy-window-width]').contains(origWW)
+          cy.get('[data-cy-window-center]').contains(origWC)
           cy.percySnapshot()
         })
       })
@@ -164,8 +152,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
-          cy.get('.click-x').should('be.visible')
-          cy.get('.click-y').should('be.visible')
+          cy.get('[data-cy-click-x]').contains(-150.0)
+          cy.get('[data-cy-click-y]').contains(261.0)
           cy.percySnapshot()
         })
 
@@ -183,8 +171,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
-          cy.get('.click-x').should('be.visible')
-          cy.get('.click-y').should('be.visible')
+          cy.get('[data-cy-click-x]').contains(-290.0)
+          cy.get('[data-cy-click-y]').contains(231.0)
           cy.percySnapshot()
         })
       })
@@ -201,8 +189,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
-          cy.get('.click-x').should('be.visible')
-          cy.get('.click-y').should('be.visible')
+          cy.get('[data-cy-click-x]').contains(299.0)
+          cy.get('[data-cy-click-y]').contains(489.0)
           cy.percySnapshot()
         })
 
@@ -220,8 +208,8 @@ describe(
             y: CLIENT_Y,
             button: 0,
           })
-          cy.get('.click-x').should('be.visible')
-          cy.get('.click-y').should('be.visible')
+          cy.get('[data-cy-click-x]').contains(439.0)
+          cy.get('[data-cy-click-y]').contains(549.0)
           cy.percySnapshot()
         })
       })

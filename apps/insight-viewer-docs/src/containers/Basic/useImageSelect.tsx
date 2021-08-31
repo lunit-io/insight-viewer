@@ -48,7 +48,7 @@ export default function useImageSelect(): {
           image 3
         </Button>
         <Text pt={2}>
-          selected: <span className="image">{selected}</span>
+          selected: <span>{selected}</span>
         </Text>
       </Stack>
     )

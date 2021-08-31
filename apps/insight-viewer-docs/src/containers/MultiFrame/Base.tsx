@@ -53,7 +53,9 @@ export default function Base(): JSX.Element {
       <Box mb={3}>
         <Text>
           <b>{loadingStates[frame]}</b>
-          {images[frame] && <span> ({images[frame].imageId})</span>}
+          {images[frame] && (
+            <span data-cy-image> ({images[frame].imageId})</span>
+          )}
         </Text>
       </Box>
       <ViewerWrapper>
