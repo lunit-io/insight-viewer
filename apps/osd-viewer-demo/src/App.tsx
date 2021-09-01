@@ -7,6 +7,7 @@ import OSDViewer, {
 import OpenSeadragon from 'openseadragon'
 import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
+import ZoomController, { ZoomControllerProps } from './ZoomController'
 
 const Container = styled.div`
   position: fixed;
@@ -65,7 +66,7 @@ const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
 }
 
 function App() {
-  const [zoom, setZoom] = useState(10)
+  const [zoom, setZoom] = useState(1)
   const [refPoint, setRefPoint] = useState<OpenSeadragon.Point>()
   const [rotation, setRotation] = useState(0)
 
@@ -97,6 +98,12 @@ function App() {
     },
     []
   )
+
+  const handleZoomControllerZoom = useCallback<
+    NonNullable<ZoomControllerProps['onZoom']>
+  >(newValue => {
+    setZoom(newValue)
+  }, [])
 
   return (
     <Container>
@@ -149,6 +156,12 @@ function App() {
         />
         <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
       </OSDViewer>
+      <ZoomController
+        zoom={zoom}
+        minZoomLevel={DEFAULT_MIN_ZOOM}
+        onZoom={handleZoomControllerZoom}
+      />
+    </div>
     </Container>
   )
 }

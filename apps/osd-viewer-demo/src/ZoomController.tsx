@@ -1,0 +1,245 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  Button,
+  createStyles,
+  makeStyles,
+  Theme,
+  Tooltip,
+} from '@material-ui/core'
+import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
+import PlusIcon from '@material-ui/icons/AddOutlined'
+import MinusIcon from '@material-ui/icons/RemoveOutlined'
+import clsx from 'clsx'
+import reduce from 'lodash/reduce'
+import { concat } from 'lodash'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    zoomWrapper: {
+      position: 'absolute',
+      bottom: 76,
+      right: '16px',
+    },
+    zoomWrapperNoSubdrawer: {
+      right: '20px',
+    },
+    slideContainer: {
+      backgroundColor: '#8694B1',
+      borderRadius: 4,
+      color: '#fff',
+      '& .Mui-selected': {
+        color: '#fff',
+        backgroundColor: '#443AFF',
+        '&:hover': {
+          backgroundColor: '#443AFF',
+        },
+      },
+    },
+    zoomLevelButton: {
+      backgroundColor: '#fff',
+      color: '#585858',
+      padding: '5px 7px',
+      borderTop: 'none !important', // to override MuiToggleButtonGroup's style
+      borderLeft: '1px solid rgba(134, 148, 177, 0.16)',
+      borderRight: '1px solid rgba(134, 148, 177, 0.16)',
+      borderBottom: '2px solid rgba(134,148,177,0.16)',
+      ...theme.typography.body2,
+      '&:hover': {
+        backgroundColor: '#443AFF',
+        color: '#fff',
+      },
+      // Plus btn
+      '&:first-child': {
+        minWidth: 'inherit',
+        backgroundColor: '#fff',
+        color: 'rgba(134,148,177,0.8)',
+        borderTop: '1px solid rgba(134, 148, 177, 0.16) !important',
+      },
+      // Minus btn
+      '&:last-child': {
+        minWidth: 'inherit',
+        backgroundColor: '#fff',
+        color: 'rgba(134,148,177,0.8)',
+        border: '1px solid rgba(134, 148, 177, 0.16)',
+      },
+    },
+    labelController: {
+      color: '#7292FD',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+  })
+)
+
+const DEFAULT_ZOOM_LEVELS = [0, 0.5, 1, 2, 5, 10, 20, 40, 160]
+
+export interface ZoomControllerProps {
+  noSubdrawer?: boolean
+  zoom: number
+  minZoomLevel: number
+  onZoom?: (newValue: number) => void
+}
+
+const ZoomController = ({
+  noSubdrawer,
+  zoom: zoomState,
+  minZoomLevel,
+  onZoom,
+}: ZoomControllerProps) => {
+  const classes = useStyles()
+  const [tmpZoomValue, setTmpZoomValue] = useState(1)
+  const [levelLabelHidden, setLevelLabelHidden] = useState(false)
+
+  const handleChange = useCallback(
+    (_event: React.MouseEvent<HTMLElement>, newValue: number) => {
+      onZoom?.(newValue)
+    },
+    [onZoom]
+  )
+
+  const zoomLevelLabels = useMemo(() => {
+    return reduce(
+      DEFAULT_ZOOM_LEVELS,
+      (zoomLevels, currLevel) =>
+        minZoomLevel >= currLevel ? zoomLevels : concat(zoomLevels, currLevel),
+      [minZoomLevel]
+    )
+  }, [minZoomLevel])
+
+  const getClosestZoomLevel = useCallback(
+    (target: number) =>
+      zoomLevelLabels.reduce((prev, curr) =>
+        Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev
+      ),
+    [zoomLevelLabels]
+  )
+
+  useEffect(() => {
+    // To subscribe the updated zoom state and update tmpZoomValue correspondingly.
+    // Mostly used when user tries to zoom in/out
+    // \w a device such as a mouse wheel or trackpad
+    const closest = getClosestZoomLevel(zoomState)
+    setTmpZoomValue(closest)
+  }, [zoomState, getClosestZoomLevel])
+
+  const handleZoomIn = useCallback(() => {
+    if (!onZoom) {
+      return
+    }
+    const currentIdx = zoomLevelLabels.findIndex(
+      level => level === tmpZoomValue
+    )
+    if (currentIdx === zoomLevelLabels.length - 1) {
+      return
+    }
+    const nextIdx = currentIdx + 1
+    return onZoom(zoomLevelLabels[nextIdx])
+  }, [tmpZoomValue, zoomLevelLabels, onZoom])
+
+  const handleZoomOut = useCallback(() => {
+    if (!onZoom) {
+      return
+    }
+    const currentIdx = zoomLevelLabels.findIndex(
+      level => level === tmpZoomValue
+    )
+    if (currentIdx === 0) {
+      return
+    }
+    const nextIdx = currentIdx - 1
+    return onZoom(zoomLevelLabels[nextIdx])
+  }, [tmpZoomValue, zoomLevelLabels, onZoom])
+
+  return (
+    <div
+      className={clsx(classes.zoomWrapper, {
+        [classes.zoomWrapperNoSubdrawer]: noSubdrawer,
+      })}
+    >
+      <div className={classes.slideContainer}>
+        <ToggleButtonGroup
+          size="small"
+          orientation="vertical"
+          value={tmpZoomValue}
+          exclusive
+          onChange={handleChange}
+        >
+          <Tooltip
+            interactive
+            placement="left"
+            title={
+              <div>
+                Zoom{' '}
+                <div
+                  className={classes.labelController}
+                  onClick={() => setLevelLabelHidden(!levelLabelHidden)}
+                >
+                  {levelLabelHidden ? 'Show' : 'Hide'} labels
+                </div>
+              </div>
+            }
+            aria-label="zoom-in"
+          >
+            <Button
+              className={classes.zoomLevelButton}
+              aria-label="zoom-in"
+              onClick={handleZoomIn}
+            >
+              <PlusIcon />
+            </Button>
+          </Tooltip>
+          {!levelLabelHidden &&
+            zoomLevelLabels
+              // https://stackoverflow.com/questions/5024085/whats-the-point-of-slice0-here
+              .slice(0)
+              .reverse()
+              .map((level, index) => (
+                <ToggleButton
+                  key={`zoom-level-${level}`}
+                  className={classes.zoomLevelButton}
+                  onClick={() => setTmpZoomValue(level)}
+                  value={level}
+                  aria-label={level.toString()}
+                >
+                  <span>
+                    {level <= 40 && index < zoomLevelLabels.length - 1
+                      ? `X${level}`
+                      : level > 40
+                      ? 'MAX'
+                      : 'MIN'}
+                  </span>
+                </ToggleButton>
+              ))}
+          <Tooltip
+            interactive
+            placement="left"
+            title={
+              <div>
+                Zoom{' '}
+                <div
+                  className={classes.labelController}
+                  onClick={() => setLevelLabelHidden(!levelLabelHidden)}
+                >
+                  {levelLabelHidden ? 'Show' : 'Hide'} labels
+                </div>
+              </div>
+            }
+            aria-label="zoom-out"
+          >
+            <Button
+              className={classes.zoomLevelButton}
+              aria-label="zoom-out"
+              onClick={handleZoomOut}
+            >
+              <MinusIcon />
+            </Button>
+          </Tooltip>
+        </ToggleButtonGroup>
+      </div>
+    </div>
+  )
+}
+
+export default ZoomController
