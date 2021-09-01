@@ -1,8 +1,8 @@
-name: Test
+name: Test: Insight Viewer
 on:
   pull_request:
     branches: [master]
-  paths-ignore:
+  paths:
     - packages/insight-viewer/**
     - apps/insight-viewer-docs/**
 jobs:
@@ -20,5 +20,9 @@ jobs:
           restore-keys: v1/${{ runner.os }}/node-12/
       - name: Install dependencies
         run: yarn
-      - name: Run tests
-        run: yarn test
+      - name: Run visual tests
+        uses: percy/exec-action@v0.3.1
+        with:
+          custom-command: 'yarn test'
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
