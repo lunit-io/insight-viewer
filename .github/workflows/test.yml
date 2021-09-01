@@ -2,9 +2,9 @@ name: Test
 on:
   pull_request:
     branches: [master]
-  paths-ignore:
-    - packages/insight-viewer/**
-    - apps/insight-viewer-docs/**
+    paths-ignore:
+      - packages/insight-viewer/**
+      - apps/insight-viewer-docs/**
 jobs:
   test:
     runs-on: ubuntu-latest

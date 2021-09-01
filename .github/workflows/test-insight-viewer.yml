@@ -2,9 +2,9 @@ name: Test: Insight Viewer
 on:
   pull_request:
     branches: [master]
-  paths:
-    - packages/insight-viewer/**
-    - apps/insight-viewer-docs/**
+    paths:
+      - packages/insight-viewer/**
+      - apps/insight-viewer-docs/**
 jobs:
   test:
     runs-on: ubuntu-latest
