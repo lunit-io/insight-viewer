@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { useCallback } from 'react'
+import { Box } from '@chakra-ui/react'
 import InsightViewer, { ViewerError, useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -9,10 +9,9 @@ import { WRONG_IMAGE } from '../../const'
 const IMAGE_ID = WRONG_IMAGE
 
 export default function Custom(): JSX.Element {
-  const [error, setError] = useState('')
-
   const customError = useCallback((e: ViewerError) => {
-    setError(`!!! ${e.message} ${e.status}`)
+    // eslint-disable-next-line no-alert
+    alert(`error ${e.status}`)
   }, [])
 
   const { image } = useImage({
@@ -25,7 +24,7 @@ export default function Custom(): JSX.Element {
       <ViewerWrapper>
         <InsightViewer image={image} />
       </ViewerWrapper>
-      <Text>{error}</Text>
+
       <Box>
         <CodeBlock code={CUSTOM_CODE} />
       </Box>

@@ -120,8 +120,8 @@ export default function App(): JSX.Element {
           <ClickControl onChange={handleClick} />
           <Box mb={6}>
             <Text>
-              offset: <span className="click-x">{x?.toFixed(2) ?? 0}</span> /{' '}
-              <span className="click-y">{y?.toFixed(2) ?? 0}</span>
+              offset: <span data-cy-click-x>{x?.toFixed(2) ?? 0}</span> /{' '}
+              <span data-cy-click-y>{y?.toFixed(2) ?? 0}</span>
             </Text>
           </Box>
         </Box>

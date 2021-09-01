@@ -1,12 +1,13 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
+import { IMAGES } from '../../src/const'
 
 describe(
   'Basic Viewer',
   {
     viewportWidth: VIEWPORT_WIDTH,
-    viewportHeight: VIEWPORT_HEIGHT,
+    viewportHeight: VIEWPORT_HEIGHT + 500, // page is vertical long
     scrollBehavior: false,
   },
   () => {
@@ -16,22 +17,22 @@ describe(
     })
 
     it('shows initial image', () => {
-      cy.get($LOADED).should('be.exist')
-      cy.get('.image').should('have.text', 'image1')
+      cy.get('[data-cy-loaded=success]').should('be.exist') // image is loaded successfully
+      cy.get('[data-cy-image').contains(IMAGES[0]) // check loaded image url
       cy.percySnapshot()
     })
 
     it('shows second image', () => {
-      cy.get($LOADED).should('be.exist')
       cy.get('.button2').click()
-      cy.get('.image').should('have.text', 'image2')
+      cy.get('[data-cy-loaded=success]').should('be.exist')
+      cy.get('[data-cy-image]').contains(IMAGES[5])
       cy.percySnapshot()
     })
 
     it('shows third image', () => {
-      cy.get($LOADED).should('be.exist')
       cy.get('.button3').click()
-      cy.get('.image').should('have.text', 'image3')
+      cy.get('[data-cy-loaded=success]').should('be.exist')
+      cy.get('[data-cy-image]').contains(IMAGES[10])
       cy.percySnapshot()
     })
   }

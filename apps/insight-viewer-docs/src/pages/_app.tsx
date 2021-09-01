@@ -5,11 +5,12 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { Chakra } from '../components/Chakra'
 import '../styles/globals.css'
+import config from '../../config'
 
 const Layout = dynamic(() => import('../components/Layout'), { ssr: false })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-if (typeof window !== 'undefined' && !(window as any).Cypress) {
+if (typeof window !== 'undefined' && !config.IS_CYPRESS) {
   const { worker } = require('../mocks/browser')
 
   worker.start({

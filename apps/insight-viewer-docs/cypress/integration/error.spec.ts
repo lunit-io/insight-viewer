@@ -1,10 +1,6 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
-import {
-  VIEWPORT_WIDTH,
-  VIEWPORT_HEIGHT,
-  LOADING_STATE,
-} from '../support/const'
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
 
 describe(
   'Custom error',
@@ -20,9 +16,10 @@ describe(
     })
 
     it('shows custom error', () => {
-      cy.get(LOADING_STATE).should('not.exist')
       cy.get('.custom-error').click()
-      cy.percySnapshot()
+      cy.on('window:alert', msg => {
+        expect(msg).to.contains('error 404')
+      })
     })
   }
 )
