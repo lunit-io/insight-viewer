@@ -3,14 +3,14 @@ import { LoadingState } from '../../types'
 import { LOADING_STATE } from '../../const'
 
 describe('getLoadingStateMap()', () => {
-  it('with size 1', () => {
+  it('with image size 1', () => {
     const stateMap = getLoadingStateMap(1)
     expect(stateMap.size).toBe(1)
     expect(stateMap.get(0)).toBe(LOADING_STATE.INITIAL)
     expect(stateMap.get(1)).toBeUndefined()
   })
 
-  it('with size 3', () => {
+  it('with image size 3', () => {
     const stateMap = getLoadingStateMap(3)
     expect(stateMap.size).toBe(3)
     expect(stateMap.get(0)).toBe(LOADING_STATE.INITIAL)
@@ -21,7 +21,7 @@ describe('getLoadingStateMap()', () => {
 })
 
 describe('updateLoadingStates()', () => {
-  it('with size 1', () => {
+  it('with image size 1', () => {
     const stateMap = updateLoadedStates({
       size: 1,
       stateMap: getLoadingStateMap(1),
@@ -32,7 +32,7 @@ describe('updateLoadingStates()', () => {
     expect(stateMap.get(1)).toBeUndefined()
   })
 
-  describe('with size 3', () => {
+  describe('with image size 3', () => {
     let firstLoaded: Map<number, LoadingState>
     let secondLoaded: Map<number, LoadingState>
 
