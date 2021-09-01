@@ -1,4 +1,4 @@
-name: Test: Insight Viewer
+name: Insight Viewer Test
 on:
   pull_request:
     branches: [master]
