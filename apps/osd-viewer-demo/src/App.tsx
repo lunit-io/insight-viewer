@@ -1,36 +1,47 @@
 import OSDViewer, {
   ScalebarLocation,
   ViewportProps,
+  TooltipOverlayProps,
+  CanvasOverlayProps,
 } from '@lunit/osd-react-renderer'
 import OpenSeadragon from 'openseadragon'
 import { useCallback, useRef, useState } from 'react'
-import styled from 'styled-components'
-
-const Container = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  .navigator {
-    width: 160px !important;
-    height: 160px !important;
-    border: solid 1px rgba(134, 148, 177, 0.16) !important;
-    background-color: #fff !important;
-    margin-top: 16px !important;
-    margin-right: 16px !important;
-    border-radius: 4px;
-  }
-  .displayregion {
-    border: 2px solid #5a79e3 !important;
-  }
-`
 
 const DEFAULT_MIN_ZOOM: number = 0.3125
 const DEFAULT_MAX_ZOOM: number = 160
 const DEMO_MPP = 0.263175
 const MICRONS_PER_METER = 1e6
 const RADIUS_UM = 281.34
+
+const onCanvasOverlayRedraw: CanvasOverlayProps['onRedraw'] = (
+  canvas: HTMLCanvasElement
+) => {
+  const ctx = canvas.getContext('2d')
+  if (ctx) {
+    ctx.fillStyle = '#000'
+    ctx.fillRect(50, 50, 5000, 5000)
+  }
+}
+
+const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
+  tooltipCoord,
+  overlayCanvasEl,
+  viewer,
+}) => {
+  const ctx = overlayCanvasEl.getContext('2d')
+  if (ctx && tooltipCoord) {
+    const radiusPx = RADIUS_UM / DEMO_MPP
+    const sizeRect = new OpenSeadragon.Rect(0, 0, 2, 2)
+    const lineWidth = viewer.viewport.viewportToImageRectangle(
+      viewer.viewport.viewerElementToViewportRectangle(sizeRect)
+    ).width
+    ctx.lineWidth = lineWidth
+    ctx.beginPath()
+    ctx.arc(tooltipCoord.x, tooltipCoord.y, radiusPx, 0, 2 * Math.PI)
+    ctx.closePath()
+    ctx.stroke()
+  }
+}
 
 function App() {
   const [zoom, setZoom] = useState(10)
@@ -67,7 +78,15 @@ function App() {
   )
 
   return (
-    <Container>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      }}
+    >
       <OSDViewer
         options={{
           imageLoaderLimit: 8,
@@ -113,33 +132,11 @@ function App() {
         />
         <canvasOverlay
           ref={canvasOverlayRef}
-          onRedraw={canvas => {
-            const ctx = canvas.getContext('2d')
-            if (ctx) {
-              ctx.fillStyle = '#000'
-              ctx.fillRect(50, 50, 5000, 5000)
-            }
-          }}
+          onRedraw={onCanvasOverlayRedraw}
         />
-        <tooltipOverlay
-          onRedraw={({ tooltipCoord, overlayCanvasEl, viewer }) => {
-            const ctx = overlayCanvasEl.getContext('2d')
-            if (ctx && tooltipCoord) {
-              const radiusPx = RADIUS_UM / DEMO_MPP
-              const sizeRect = new OpenSeadragon.Rect(0, 0, 2, 2)
-              const lineWidth = viewer.viewport.viewportToImageRectangle(
-                viewer.viewport.viewerElementToViewportRectangle(sizeRect)
-              ).width
-              ctx.lineWidth = lineWidth
-              ctx.beginPath()
-              ctx.arc(tooltipCoord.x, tooltipCoord.y, radiusPx, 0, 2 * Math.PI)
-              ctx.closePath()
-              ctx.stroke()
-            }
-          }}
-        />
+        <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
       </OSDViewer>
-    </Container>
+    </div>
   )
 }
 
