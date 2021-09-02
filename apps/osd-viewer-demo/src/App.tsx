@@ -3,6 +3,27 @@ import OSDViewer, {
   ViewportProps,
 } from '@lunit/osd-react-renderer'
 import { useCallback, useState } from 'react'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  .navigator {
+    width: 160px !important;
+    height: 160px !important;
+    border: solid 1px rgba(134, 148, 177, 0.16) !important;
+    background-color: #fff !important;
+    margin-top: 16px !important;
+    margin-right: 16px !important;
+    border-radius: 4px;
+  }
+  .displayregion {
+    border: 2px solid #5a79e3 !important;
+  }
+`
 
 const DEFAULT_MIN_ZOOM: number = 0.3125
 const DEFAULT_MAX_ZOOM: number = 160
@@ -42,7 +63,7 @@ function App() {
   const MICRONS_PER_METER = 1e6
 
   return (
-    <div style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0 }}>
+    <Container>
       <OSDViewer
         options={{
           showRotationControl: true,
@@ -68,7 +89,7 @@ function App() {
           location={ScalebarLocation.BOTTOM_RIGHT}
         />
       </OSDViewer>
-    </div>
+    </Container>
   )
 }
 
