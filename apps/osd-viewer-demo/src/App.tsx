@@ -66,10 +66,9 @@ const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
 }
 
 function App() {
-  const [zoom, setZoom] = useState(1)
+  const [zoom, setZoom] = useState<number>(1)
   const [refPoint, setRefPoint] = useState<OpenSeadragon.Point>()
-  const [rotation, setRotation] = useState(0)
-
+  const [rotation, setRotation] = useState<number>(0)
   const physicalWidthPx = 700
   const microscopeWidth1x = physicalWidthPx * 10
 
