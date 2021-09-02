@@ -80,6 +80,15 @@ function App() {
           showRotationControl: true,
           zoomPerScroll: 1.3,
           animationTime: 0.3,
+          gestureSettingsMouse: {
+            clickToZoom: false,
+            dblClickToZoom: false,
+          },
+          gestureSettingsTouch: {
+            flickEnabled: false,
+            clickToZoom: false,
+            dblClickToZoom: false,
+          },
         }}
       >
         <viewport
