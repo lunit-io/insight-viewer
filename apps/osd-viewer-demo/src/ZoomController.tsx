@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   Button,
   createStyles,
@@ -89,8 +89,7 @@ const ZoomController = ({
   onZoom,
 }: ZoomControllerProps) => {
   const classes = useStyles()
-  const [tmpZoomValue, setTmpZoomValue] = useState(1)
-  const [levelLabelHidden, setLevelLabelHidden] = useState(false)
+  const [levelLabelHidden, setLevelLabelHidden] = useState<boolean>(false)
 
   const handleChange = useCallback(
     (_event: React.MouseEvent<HTMLElement>, newValue: number) => {
@@ -116,41 +115,38 @@ const ZoomController = ({
     [zoomLevelLabels]
   )
 
-  useEffect(() => {
-    // To subscribe the updated zoom state and update tmpZoomValue correspondingly.
-    // Mostly used when user tries to zoom in/out
-    // \w a device such as a mouse wheel or trackpad
-    const closest = getClosestZoomLevel(zoomState)
-    setTmpZoomValue(closest)
-  }, [zoomState, getClosestZoomLevel])
+  const closetZoomLevel = useMemo(
+    () => getClosestZoomLevel(zoomState),
+    [getClosestZoomLevel, zoomState]
+  )
 
   const handleZoomIn = useCallback(() => {
     if (!onZoom) {
       return
     }
     const currentIdx = zoomLevelLabels.findIndex(
-      level => level === tmpZoomValue
+      level => level === getClosestZoomLevel(zoomState)
     )
     if (currentIdx === zoomLevelLabels.length - 1) {
       return
     }
     const nextIdx = currentIdx + 1
     return onZoom(zoomLevelLabels[nextIdx])
-  }, [tmpZoomValue, zoomLevelLabels, onZoom])
+  }, [getClosestZoomLevel, zoomState, zoomLevelLabels, onZoom])
 
   const handleZoomOut = useCallback(() => {
     if (!onZoom) {
       return
     }
     const currentIdx = zoomLevelLabels.findIndex(
-      level => level === tmpZoomValue
+      level => level === getClosestZoomLevel(zoomState)
     )
     if (currentIdx === 0) {
       return
     }
     const nextIdx = currentIdx - 1
     return onZoom(zoomLevelLabels[nextIdx])
-  }, [tmpZoomValue, zoomLevelLabels, onZoom])
+  }, [getClosestZoomLevel, zoomState, zoomLevelLabels, onZoom])
 
   return (
     <div
@@ -162,7 +158,7 @@ const ZoomController = ({
         <ToggleButtonGroup
           size="small"
           orientation="vertical"
-          value={tmpZoomValue}
+          value={closetZoomLevel}
           exclusive
           onChange={handleChange}
         >
@@ -199,7 +195,6 @@ const ZoomController = ({
                 <ToggleButton
                   key={`zoom-level-${level}`}
                   className={classes.zoomLevelButton}
-                  onClick={() => setTmpZoomValue(level)}
                   value={level}
                   aria-label={level.toString()}
                 >
