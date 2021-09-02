@@ -1,13 +1,11 @@
 # Lunit Front-End Packages
 
-**Note:** Are you searching for `@lunit/*` packages? Check out [3.x branch](https://github.com/lunit-io/frontend-components/tree/3.x).
-
 This repository is a monorepo managed using yarn workspaces, typescript, and lerna.  
 Each public sub-package is independently published to NPM.
 
 ## Docs
 
-[3.x](https://frontend-components.now.sh/) | [4.x (WIP)](#)
+[https://frontend-components.vercel.app/](https://frontend-components.vercel.app/)
 
 ## Project structure
 

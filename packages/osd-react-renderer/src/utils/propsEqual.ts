@@ -28,6 +28,8 @@ const propsEqual = (a: BaseProps, b: BaseProps): boolean => {
       if (
         typeof a[propName] === 'object' &&
         typeof b[propName] === 'object' &&
+        a[propName] !== null &&
+        b[propName] !== null &&
         propsEqual(a[propName], b[propName])
       ) {
         continue

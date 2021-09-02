@@ -1,8 +1,11 @@
 import OSDViewer, {
   ScalebarLocation,
   ViewportProps,
+  TooltipOverlayProps,
+  CanvasOverlayProps,
 } from '@lunit/osd-react-renderer'
-import { useCallback, useState } from 'react'
+import OpenSeadragon from 'openseadragon'
+import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -27,16 +30,50 @@ const Container = styled.div`
 
 const DEFAULT_MIN_ZOOM: number = 0.3125
 const DEFAULT_MAX_ZOOM: number = 160
+const DEMO_MPP = 0.263175
+const MICRONS_PER_METER = 1e6
+const RADIUS_UM = 281.34
+
+const onCanvasOverlayRedraw: CanvasOverlayProps['onRedraw'] = (
+  canvas: HTMLCanvasElement
+) => {
+  const ctx = canvas.getContext('2d')
+  if (ctx) {
+    ctx.fillStyle = '#000'
+    ctx.fillRect(50, 50, 5000, 5000)
+  }
+}
+
+const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
+  tooltipCoord,
+  overlayCanvasEl,
+  viewer,
+}) => {
+  const ctx = overlayCanvasEl.getContext('2d')
+  if (ctx && tooltipCoord) {
+    const radiusPx = RADIUS_UM / DEMO_MPP
+    const sizeRect = new OpenSeadragon.Rect(0, 0, 2, 2)
+    const lineWidth = viewer.viewport.viewportToImageRectangle(
+      viewer.viewport.viewerElementToViewportRectangle(sizeRect)
+    ).width
+    ctx.lineWidth = lineWidth
+    ctx.beginPath()
+    ctx.arc(tooltipCoord.x, tooltipCoord.y, radiusPx, 0, 2 * Math.PI)
+    ctx.closePath()
+    ctx.stroke()
+  }
+}
 
 function App() {
   const [zoom, setZoom] = useState(10)
+  const [refPoint, setRefPoint] = useState<OpenSeadragon.Point>()
   const [rotation, setRotation] = useState(0)
 
   const physicalWidthPx = 700
   const microscopeWidth1x = physicalWidthPx * 10
 
   const onZoom = useCallback<NonNullable<ViewportProps['onZoom']>>(
-    ({ eventSource: viewer, zoom }) => {
+    ({ eventSource: viewer, zoom, refPoint }) => {
       if (viewer == null || zoom == null) {
         return
       }
@@ -45,9 +82,11 @@ function App() {
       viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM * scaleFactor
       viewer.viewport.minZoomLevel = 0.1 * scaleFactor
       setZoom(zoom)
+      setRefPoint(refPoint || undefined)
     },
     [microscopeWidth1x]
   )
+  const canvasOverlayRef = useRef(null)
 
   const onRotate = useCallback<NonNullable<ViewportProps['onRotate']>>(
     ({ eventSource: viewer, degrees }) => {
@@ -59,18 +98,34 @@ function App() {
     []
   )
 
-  const DEMO_MPP = 0.263175
-  const MICRONS_PER_METER = 1e6
-
   return (
     <Container>
       <OSDViewer
         options={{
+          imageLoaderLimit: 8,
+          smoothTileEdgesMinZoom: Infinity,
+          showNavigator: true,
+          showNavigationControl: false,
+          timeout: 60000,
+          navigatorAutoResize: false,
+          preserveImageSizeOnResize: true,
           showRotationControl: true,
+          zoomPerScroll: 1.3,
+          animationTime: 0.3,
+          gestureSettingsMouse: {
+            clickToZoom: false,
+            dblClickToZoom: false,
+          },
+          gestureSettingsTouch: {
+            flickEnabled: false,
+            clickToZoom: false,
+            dblClickToZoom: false,
+          },
         }}
       >
         <viewport
           zoom={zoom}
+          refPoint={refPoint}
           rotation={rotation}
           onZoom={onZoom}
           onRotate={onRotate}
@@ -88,6 +143,11 @@ function App() {
           backgroundColor={'rgba(255,255,255,0.5)'}
           location={ScalebarLocation.BOTTOM_RIGHT}
         />
+        <canvasOverlay
+          ref={canvasOverlayRef}
+          onRedraw={onCanvasOverlayRedraw}
+        />
+        <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
       </OSDViewer>
     </Container>
   )

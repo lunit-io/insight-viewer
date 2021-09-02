@@ -26,9 +26,7 @@ export namespace HostConfig {
 
   export type HydratableInstance = Instance | TextInstance
 
-  export type PublicInstance = (Instance | TextInstance) & {
-    kind: 'PublicInstance'
-  }
+  export type PublicInstance = Instance | TextInstance
 
   export interface HostContext {
     [key: string]: any
