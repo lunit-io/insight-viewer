@@ -160,7 +160,6 @@ function App() {
         minZoomLevel={DEFAULT_MIN_ZOOM}
         onZoom={handleZoomControllerZoom}
       />
-    </div>
     </Container>
   )
 }
