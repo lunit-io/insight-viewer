@@ -19,7 +19,7 @@ declare module 'openseadragon' {
 const defaultOptions: CanvasOverlayProps = { onRedraw: () => {} }
 
 class CanvasOverlay extends Base {
-  options: CanvasOverlayProps
+  props: CanvasOverlayProps
 
   _overlay: OpenSeadragon.CanvasOverlay
 
@@ -41,18 +41,18 @@ class CanvasOverlay extends Base {
     this._overlay = this.viewer.canvasOverlay({
       onRedraw: () => {},
     })
-    this.options = { ...defaultOptions, ...props }
+    this.props = { ...defaultOptions, ...props }
   }
 
   commitUpdate(props: CanvasOverlayProps): void {
-    this.options = { ...defaultOptions, ...props }
+    this.props = { ...defaultOptions, ...props }
     this._setOnRedraw()
   }
 
   private _setOnRedraw(): void {
     const {
       viewer,
-      options: { onRedraw },
+      props: { onRedraw },
     } = this
     const canvas = this.overlay.canvas()
     this.overlay.onRedraw = () => {

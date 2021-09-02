@@ -1,16 +1,16 @@
 /* eslint-disable */
 import OpenSeadragon from 'openseadragon'
 
-// OpenSeadragon canvas Overlay plugin 0.0.2 based on svg overlay plugin
+// OpenSeadragon tooltip Overlay plugin 0.0.1 based on canvas overlay plugin
 ;(function () {
   // ----------
-  OpenSeadragon.Viewer.prototype.canvasOverlay = function (options) {
-    if (this._canvasOverlayInfo) {
-      return this._canvasOverlayInfo
+  OpenSeadragon.Viewer.prototype.tooltipOverlay = function (options) {
+    if (this._tooltipOverlayInfo) {
+      return this._tooltipOverlayInfo
     }
 
-    this._canvasOverlayInfo = new Overlay(this, options)
-    return this._canvasOverlayInfo
+    this._tooltipOverlayInfo = new Overlay(this, options)
+    return this._tooltipOverlayInfo
   }
 
   // ----------
@@ -34,20 +34,42 @@ import OpenSeadragon from 'openseadragon'
     this._open = false
 
     this.onRedraw = options.onRedraw || function () {}
+    this.onMousemove = options.onMousemove || function () {}
+    this.redrawOnViewportChange =
+      typeof options.redrawOnViewportChange !== 'undefined'
+        ? options.redrawOnViewportChange
+        : true
     this.clearBeforeRedraw =
       typeof options.clearBeforeRedraw !== 'undefined'
         ? options.clearBeforeRedraw
         : true
 
-    this._viewer.addHandler('viewport-change', function () {
-      self.resize()
-      self._updateCanvas()
+    this._viewer.addHandler('viewport-change', function (e) {
+      if (self.redrawOnViewportChange) {
+        self.resize()
+        self._updateCanvas()
+      }
     })
+
+    this._handleMousemove = function (event) {
+      self.tooltipLocation = self._viewer.viewport.windowToImageCoordinates(
+        new OpenSeadragon.Point(event.clientX, event.clientY)
+      )
+      self._updateCanvas(event)
+    }
 
     this._viewer.addHandler('open', function () {
       self._open = true
       self.resize()
       self._updateCanvas()
+      self._viewer.container.removeEventListener(
+        'mousemove',
+        self._handleMousemove
+      )
+      self._viewer.container.addEventListener(
+        'mousemove',
+        self._handleMousemove
+      )
     })
   }
 
@@ -67,19 +89,11 @@ import OpenSeadragon from 'openseadragon'
       this._canvas.width = this._canvas.width
       // this._canvas.getContext('2d').clearRect(0, 0, this._containerWidth, this._containerHeight);
     },
-    forceRedraw: function () {
-      if (this._open) {
-        this.resize()
-        this._updateCanvas()
-      }
-    },
-    reset: function () {
-      this._open = false
-    },
     destroy: function () {
       this._canvasdiv.removeChild(this._canvas)
       this._viewer.canvas.removeChild(this._canvasdiv)
       this.onRedraw = null
+      this.onMousemove = null
       this._canvasdiv = null
       this._canvas = null
       this._viewer = null
@@ -109,7 +123,17 @@ import OpenSeadragon from 'openseadragon'
       this._viewportWidth = boundsRect.width
       this._viewportHeight = boundsRect.height * this.imgAspectRatio
     },
-    _updateCanvas: function () {
+    tooltipLocation: new OpenSeadragon.Point(0, 0),
+    redrawCanvas: function () {
+      if (this._open) {
+        this.resize()
+        this._updateCanvas()
+      }
+    },
+    reset: function () {
+      this._open = false
+    },
+    _updateCanvas: function (event) {
       var viewportZoom = this._viewer.viewport.getZoom(true)
       var image1 = this._viewer.world.getItemAt(0)
       var zoom = image1.viewportToImageZoom(viewportZoom)
@@ -122,10 +146,11 @@ import OpenSeadragon from 'openseadragon'
         ((this._viewportOrigin.y / this.imgHeight - this._viewportOrigin.y) /
           this._viewportHeight) *
         this._containerHeight
+
       if (this.clearBeforeRedraw) this.clear()
       this._canvas.getContext('2d').translate(x, y)
       this._canvas.getContext('2d').scale(zoom, zoom)
-      this.onRedraw()
+      this.onRedraw(event)
       this._canvas.getContext('2d').setTransform(1, 0, 0, 1, 0, 0)
     },
   }

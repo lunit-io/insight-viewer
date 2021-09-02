@@ -5,12 +5,14 @@ import Base from './Base'
 import Root from './Root'
 import Scalebar from './Scalebar'
 import CanvasOverlay from './CanvasOverlay'
+import TooltipOverlay from './TooltipOverlay'
 
 const ElementConstructors = {
   tiledImage: TiledImage,
   viewport: Viewport,
   scalebar: Scalebar,
   canvasOverlay: CanvasOverlay,
+  tooltipOverlay: TooltipOverlay,
   root: Root,
 }
 

@@ -123,6 +123,16 @@ export interface CanvasOverlayProps extends NodeProps {
   ) => void
 }
 
+export interface TooltipOverlayProps extends NodeProps {
+  onRedraw: (event: {
+    overlayCanvasEl: HTMLCanvasElement
+    viewer: OpenSeadragon.Viewer
+    tooltipCoord?: OpenSeadragon.Point
+    originalEvent?: MouseEvent
+  }) => void
+  redrawOnViewportChange?: boolean
+}
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -130,6 +140,7 @@ declare global {
       viewport: ViewportProps
       scalebar: ScalebarProps
       canvasOverlay: CanvasOverlayProps
+      tooltipOverlay: TooltipOverlayProps
     }
   }
 }
