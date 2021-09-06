@@ -42,7 +42,7 @@ class TiledImage extends Base {
       viewer.open(customTileSource)
     } else {
       throw new Error(
-        'Both tileIndex and tileMeta should be defined or not defined at the same time'
+        'Both tileIndex and dziMeta should be defined or not defined at the same time'
       )
     }
   }
