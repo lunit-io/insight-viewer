@@ -24,10 +24,10 @@ class TiledImage extends Base {
     const viewer = this._parent?.viewer
     if (!viewer) return
     viewer.close()
-    if (!this.props.tileIndex && !this.props.dziMeta) {
+    if (!this.props.tileMap && !this.props.dziMeta) {
       // Real-time tiling
       viewer.open(this.props.url)
-    } else if (this.props.tileIndex && this.props.dziMeta) {
+    } else if (this.props.tileMap && this.props.dziMeta) {
       // Static(Glob) tiling
       // https://github.com/openseadragon/openseadragon/issues/1032#issuecomment-248323573
       // https://github.com/openseadragon/openseadragon/blob/master/test/modules/ajax-tiles.js
@@ -35,8 +35,7 @@ class TiledImage extends Base {
         ...this.props.dziMeta,
         getTileUrl: () => this.props.url,
         getTileAjaxHeader: (level: number, x: number, y: number) => ({
-          Range:
-            this.props.tileIndex && this.props.tileIndex[`${level} ${x} ${y}`],
+          Range: this.props.tileMap && this.props.tileMap[`${level} ${x} ${y}`],
         }),
       }
       viewer.open(customTileSource)

@@ -32,7 +32,7 @@ export type TileMap = {
 export interface TiledImageProps extends NodeProps {
   url: string
   dziMeta?: DZIMetaData
-  tileIndex?: TileMap
+  tileMap?: TileMap
 }
 
 export interface ViewportEventHandlers
