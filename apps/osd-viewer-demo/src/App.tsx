@@ -3,6 +3,7 @@ import OSDViewer, {
   ViewportProps,
   TooltipOverlayProps,
   CanvasOverlayProps,
+  OSDViewerRef,
 } from '@lunit/osd-react-renderer'
 import OpenSeadragon from 'openseadragon'
 import { useCallback, useRef, useState } from 'react'
@@ -29,8 +30,8 @@ const Container = styled.div`
   }
 `
 
-const DEFAULT_MIN_ZOOM: number = 0.3125
-const DEFAULT_MAX_ZOOM: number = 160
+const DEFAULT_CONTROLLER_MIN_ZOOM: number = 0.3125
+const DEFAULT_CONTROLLER_MAX_ZOOM: number = 160
 const DEMO_MPP = 0.263175
 const MICRONS_PER_METER = 1e6
 const RADIUS_UM = 281.34
@@ -65,43 +66,69 @@ const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
   }
 }
 
+// @todo mpp 값 계산
+const mpp = 10
+
 function App() {
-  const [zoom, setZoom] = useState<number>(1)
+  const [viewportZoom, setViewportZoom] = useState<number>(1)
   const [refPoint, setRefPoint] = useState<OpenSeadragon.Point>()
   const [rotation, setRotation] = useState<number>(0)
-  const physicalWidthPx = 700
-  const microscopeWidth1x = physicalWidthPx * 10
+  const [scaleFactor, setScaleFactor] = useState<number>(1)
 
-  const onZoom = useCallback<NonNullable<ViewportProps['onZoom']>>(
-    ({ eventSource: viewer, zoom, refPoint }) => {
-      if (viewer == null || zoom == null) {
-        return
-      }
-      const viewportSize = viewer.viewport.getContainerSize()
-      const scaleFactor = microscopeWidth1x / viewportSize.x
-      viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM * scaleFactor
-      viewer.viewport.minZoomLevel = 0.1 * scaleFactor
-      setZoom(zoom)
-      setRefPoint(refPoint || undefined)
-    },
-    [microscopeWidth1x]
-  )
   const canvasOverlayRef = useRef(null)
+  const osdViewerRef = useRef<OSDViewerRef>(null)
 
-  const onRotate = useCallback<NonNullable<ViewportProps['onRotate']>>(
+  const refreshScaleFactor = useCallback(() => {
+    const viewer = osdViewerRef.current?.viewer
+    if (!viewer) {
+      return
+    }
+    const imageWidth = viewer.world.getItemAt(0).getContentSize().x
+    const microscopeWidth1x = ((imageWidth * mpp) / 25400) * 96 * 10
+    const viewportWidth = viewer.viewport.getContainerSize().x
+    setScaleFactor(microscopeWidth1x / viewportWidth)
+  }, [])
+
+  const handleViewportOpen = useCallback<
+    NonNullable<ViewportProps['onOpen']>
+  >(() => {
+    refreshScaleFactor()
+  }, [refreshScaleFactor])
+
+  const handleViewportResize = useCallback<
+    NonNullable<ViewportProps['onResize']>
+  >(() => {
+    refreshScaleFactor()
+  }, [refreshScaleFactor])
+
+  const handleViewportRotate = useCallback<
+    NonNullable<ViewportProps['onRotate']>
+  >(
     ({ eventSource: viewer, degrees }) => {
       if (viewer == null || degrees == null) {
         return
       }
+      refreshScaleFactor()
       setRotation(degrees)
+    },
+    [refreshScaleFactor]
+  )
+
+  const handleViewportZoom = useCallback<NonNullable<ViewportProps['onZoom']>>(
+    ({ eventSource: viewer, zoom, refPoint }) => {
+      if (viewer == null || zoom == null) {
+        return
+      }
+      setViewportZoom(zoom)
+      setRefPoint(refPoint || undefined)
     },
     []
   )
 
-  const handleZoomControllerZoom = useCallback<
+  const handleControllerZoom = useCallback<
     NonNullable<ZoomControllerProps['onZoom']>
-  >(newValue => {
-    setZoom(newValue)
+  >(zoom => {
+    setViewportZoom(zoom)
   }, [])
 
   return (
@@ -128,15 +155,18 @@ function App() {
             dblClickToZoom: false,
           },
         }}
+        ref={osdViewerRef}
       >
         <viewport
-          zoom={zoom}
+          zoom={viewportZoom}
           refPoint={refPoint}
           rotation={rotation}
-          onZoom={onZoom}
-          onRotate={onRotate}
-          maxZoomLevel={DEFAULT_MAX_ZOOM}
-          minZoomLevel={DEFAULT_MIN_ZOOM}
+          onOpen={handleViewportOpen}
+          onResize={handleViewportResize}
+          onRotate={handleViewportRotate}
+          onZoom={handleViewportZoom}
+          maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM / scaleFactor}
+          minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM / scaleFactor}
         />
         <tiledImage url="https://image-pdl1.api.opt.scope.lunit.io/slides/images/dzi/41f49f4c-8dcd-4e85-9e7d-c3715f391d6f/3/122145f9-7f68-4f85-82f7-5b30364c2323/D_202103_Lunit_NSCLC_011_IHC_22C3.svs" />
         <scalebar
@@ -156,9 +186,11 @@ function App() {
         <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
       </OSDViewer>
       <ZoomController
-        zoom={zoom}
-        minZoomLevel={DEFAULT_MIN_ZOOM}
-        onZoom={handleZoomControllerZoom}
+        zoom={viewportZoom}
+        maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM}
+        minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM}
+        onZoom={handleControllerZoom}
+        scaleFactor={scaleFactor}
       />
     </Container>
   )

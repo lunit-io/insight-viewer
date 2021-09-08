@@ -40,9 +40,9 @@ class Viewport extends Base {
 
   commitUpdate(props: ViewportProps): void {
     this.updateEventHandler('remove')
-    if (this.options.zoom !== props.zoom) {
-      this.viewer.viewport.zoomTo(props.zoom, props.refPoint)
-    }
+    // if (this.options.zoom !== props.zoom) {
+    this.viewer.viewport.zoomTo(props.zoom, props.refPoint)
+    // }
     if (this.options.rotation !== props.rotation) {
       this.viewer.viewport.setRotation(props.rotation)
     }

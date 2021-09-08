@@ -79,23 +79,30 @@ export interface ZoomControllerProps {
   noSubdrawer?: boolean
   zoom: number
   minZoomLevel: number
+  maxZoomLevel: number
   onZoom?: (newValue: number) => void
+  scaleFactor: number
 }
 
 const ZoomController = ({
   noSubdrawer,
   zoom: zoomState,
   minZoomLevel,
+  // @todo maxZoomLevel을 구현할 것인지 검토(viewport host component와 스펙 통일)
   onZoom,
+  scaleFactor,
 }: ZoomControllerProps) => {
   const classes = useStyles()
   const [levelLabelHidden, setLevelLabelHidden] = useState<boolean>(false)
 
   const handleChange = useCallback(
-    (_event: React.MouseEvent<HTMLElement>, newValue: number) => {
-      onZoom?.(newValue)
+    (_event: React.MouseEvent<HTMLElement>, newZoomLevel: number) => {
+      if (!onZoom) {
+        return
+      }
+      onZoom((newZoomLevel / scaleFactor) * scaleFactor)
     },
-    [onZoom]
+    [onZoom, scaleFactor]
   )
 
   const zoomLevelLabels = useMemo(() => {
