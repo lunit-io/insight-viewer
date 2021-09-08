@@ -66,9 +66,6 @@ const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
   }
 }
 
-// @todo mpp 값 계산
-const mpp = 10
-
 function App() {
   const [viewportZoom, setViewportZoom] = useState<number>(1)
   const [refPoint, setRefPoint] = useState<OpenSeadragon.Point>()
@@ -84,7 +81,7 @@ function App() {
       return
     }
     const imageWidth = viewer.world.getItemAt(0).getContentSize().x
-    const microscopeWidth1x = ((imageWidth * mpp) / 25400) * 96 * 10
+    const microscopeWidth1x = ((imageWidth * DEMO_MPP) / 25400) * 96 * 10
     const viewportWidth = viewer.viewport.getContainerSize().x
     setScaleFactor(microscopeWidth1x / viewportWidth)
   }, [])
@@ -127,9 +124,12 @@ function App() {
 
   const handleControllerZoom = useCallback<
     NonNullable<ZoomControllerProps['onZoom']>
-  >(zoom => {
-    setViewportZoom(zoom)
-  }, [])
+  >(
+    zoom => {
+      setViewportZoom(zoom * scaleFactor)
+    },
+    [scaleFactor]
+  )
 
   return (
     <Container>
@@ -165,8 +165,8 @@ function App() {
           onResize={handleViewportResize}
           onRotate={handleViewportRotate}
           onZoom={handleViewportZoom}
-          maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM / scaleFactor}
-          minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM / scaleFactor}
+          maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM * scaleFactor}
+          minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM * scaleFactor}
         />
         <tiledImage url="https://image-pdl1.api.opt.scope.lunit.io/slides/images/dzi/41f49f4c-8dcd-4e85-9e7d-c3715f391d6f/3/122145f9-7f68-4f85-82f7-5b30364c2323/D_202103_Lunit_NSCLC_011_IHC_22C3.svs" />
         <scalebar
@@ -186,11 +186,10 @@ function App() {
         <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
       </OSDViewer>
       <ZoomController
-        zoom={viewportZoom}
+        zoom={viewportZoom / scaleFactor}
         maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM}
         minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM}
         onZoom={handleControllerZoom}
-        scaleFactor={scaleFactor}
       />
     </Container>
   )

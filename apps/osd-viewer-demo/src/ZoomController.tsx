@@ -81,7 +81,6 @@ export interface ZoomControllerProps {
   minZoomLevel: number
   maxZoomLevel: number
   onZoom?: (newValue: number) => void
-  scaleFactor: number
 }
 
 const ZoomController = ({
@@ -90,7 +89,6 @@ const ZoomController = ({
   minZoomLevel,
   // @todo maxZoomLevel을 구현할 것인지 검토(viewport host component와 스펙 통일)
   onZoom,
-  scaleFactor,
 }: ZoomControllerProps) => {
   const classes = useStyles()
   const [levelLabelHidden, setLevelLabelHidden] = useState<boolean>(false)
@@ -100,9 +98,9 @@ const ZoomController = ({
       if (!onZoom) {
         return
       }
-      onZoom((newZoomLevel / scaleFactor) * scaleFactor)
+      onZoom(newZoomLevel)
     },
-    [onZoom, scaleFactor]
+    [onZoom]
   )
 
   const zoomLevelLabels = useMemo(() => {
