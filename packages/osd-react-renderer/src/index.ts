@@ -4,4 +4,5 @@ export type {
   ViewportProps,
   CanvasOverlayProps,
   TooltipOverlayProps,
+  OSDViewerRef,
 } from './types/index'

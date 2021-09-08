@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-explicit-any, no-shadow */
 import OpenSeadragon from 'openseadragon'
+import { ReactNode } from 'react'
 
 export interface BaseProps {
   [key: string]: any
@@ -11,6 +12,7 @@ interface NodeProps {
 }
 
 export interface OSDViewerProps {
+  children?: ReactNode | undefined
   options: OpenSeadragon.Options
 }
 
@@ -27,6 +29,11 @@ type ByteRange = string
 
 export type TileMap = {
   [key: string]: ByteRange
+}
+
+export interface OSDViewerRef {
+  container: HTMLDivElement
+  viewer: OpenSeadragon.Viewer
 }
 
 export interface TiledImageProps extends NodeProps {

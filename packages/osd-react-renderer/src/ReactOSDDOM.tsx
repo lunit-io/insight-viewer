@@ -130,7 +130,7 @@ const ReactOSDDOM = {
     domContainer: HTMLElement,
     options: OpenSeadragon.Options,
     callback?: () => void | null
-  ): void {
+  ): OpenSeadragon.Viewer {
     if (!viewer && !container) {
       viewer = new OpenSeadragon.Viewer({
         ...options,
@@ -140,6 +140,7 @@ const ReactOSDDOM = {
       container = reconciler.createContainer(root, 0, false, null)
     }
     reconciler.updateContainer(reactElement, container, null, callback)
+    return viewer
   },
 }
 
