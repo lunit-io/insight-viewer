@@ -3,20 +3,47 @@ import { TiledImageProps } from '../types'
 import Base from './Base'
 
 class TiledImage extends Base {
-  url: string
+  props: TiledImageProps
 
   set parent(p: Base | null) {
     this._parent = p
-    this._parent?.viewer.open(this.url)
+    this._openImage()
   }
 
   constructor(viewer: OpenSeadragon.Viewer, props: TiledImageProps) {
     super(viewer)
-    this.url = props.url
+    this.props = props
   }
 
   commitUpdate(props: TiledImageProps): void {
-    this.url = props.url
+    this.props = props
+    this._openImage()
+  }
+
+  private _openImage(): void {
+    const viewer = this._parent?.viewer
+    if (!viewer) return
+    viewer.close()
+    if (!this.props.tileMap && !this.props.dziMeta) {
+      // Real-time tiling
+      viewer.open(this.props.url)
+    } else if (this.props.tileMap && this.props.dziMeta) {
+      // Static(Glob) tiling
+      // https://github.com/openseadragon/openseadragon/issues/1032#issuecomment-248323573
+      // https://github.com/openseadragon/openseadragon/blob/master/test/modules/ajax-tiles.js
+      const customTileSource = {
+        ...this.props.dziMeta,
+        getTileUrl: () => this.props.url,
+        getTileAjaxHeader: (level: number, x: number, y: number) => ({
+          Range: this.props.tileMap && this.props.tileMap[`${level} ${x} ${y}`],
+        }),
+      }
+      viewer.open(customTileSource)
+    } else {
+      throw new Error(
+        'Both tileIndex and dziMeta should be defined or not defined at the same time'
+      )
+    }
   }
 }
 export default TiledImage

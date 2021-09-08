@@ -14,8 +14,25 @@ export interface OSDViewerProps {
   options: OpenSeadragon.Options
 }
 
+export interface DZIMetaData {
+  width: number
+  height: number
+  tileSize: number
+  tileOverlap: number
+  maxLevel: number
+  minLevel: number
+}
+
+type ByteRange = string
+
+export type TileMap = {
+  [key: string]: ByteRange
+}
+
 export interface TiledImageProps extends NodeProps {
   url: string
+  dziMeta?: DZIMetaData
+  tileMap?: TileMap
 }
 
 export interface ViewportEventHandlers
