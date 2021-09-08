@@ -1,6 +1,6 @@
 {
   "name": "@lunit/osd-react-renderer",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "> TODO: description",
   "author": "Hyunjin Kwon <hyunjin.kwon@lunit.io>",
   "homepage": "https://github.com/lunit-io/frontend-components#readme",
