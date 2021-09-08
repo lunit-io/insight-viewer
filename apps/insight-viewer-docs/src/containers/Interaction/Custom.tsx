@@ -17,7 +17,7 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import { IMAGES } from '../../const'
+import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function App(): JSX.Element {
   const [{ x, y }, setCoord] = useState<{
@@ -147,7 +147,10 @@ export default function App(): JSX.Element {
       </Stack>
 
       <Box>
-        <CodeBlock code={CUSTOM_CODE} />
+        <CodeBlock
+          code={CUSTOM_CODE}
+          codeSandbox={CODE_SANDBOX.customInteraction}
+        />
       </Box>
     </Box>
   )

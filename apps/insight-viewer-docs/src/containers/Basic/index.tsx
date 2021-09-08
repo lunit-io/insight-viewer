@@ -4,6 +4,7 @@ import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import ImageSelectableViewer from './ImageSelectableViewer'
 import { DICOM_CODE, WEB_CODE } from './Code'
+import { CODE_SANDBOX } from '../../const'
 
 export const WEB_URL =
   'https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg'
@@ -18,7 +19,7 @@ function Basic(): JSX.Element {
     <>
       <ImageSelectableViewer />
       <Box>
-        <CodeBlock code={DICOM_CODE} />
+        <CodeBlock code={DICOM_CODE} codeSandbox={CODE_SANDBOX.basic} />
       </Box>
 
       <Box mt={10} mb={6}>

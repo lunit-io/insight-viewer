@@ -4,7 +4,7 @@ import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import { IMAGES } from '../../const'
+import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function Custom(): JSX.Element {
   const { image } = useImage({
@@ -17,7 +17,7 @@ export default function Custom(): JSX.Element {
         <InsightViewer image={image} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
-        <CodeBlock code={CUSTOM_CODE} />
+        <CodeBlock code={CUSTOM_CODE} codeSandbox={CODE_SANDBOX.progress} />
       </Box>
     </>
   )

@@ -4,7 +4,7 @@ import InsightViewer, { ViewerError, useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import { WRONG_IMAGE } from '../../const'
+import { WRONG_IMAGE, CODE_SANDBOX } from '../../const'
 
 const IMAGE_ID = WRONG_IMAGE
 
@@ -26,7 +26,7 @@ export default function Custom(): JSX.Element {
       </ViewerWrapper>
 
       <Box>
-        <CodeBlock code={CUSTOM_CODE} />
+        <CodeBlock code={CUSTOM_CODE} codeSandbox={CODE_SANDBOX.error} />
       </Box>
     </>
   )
