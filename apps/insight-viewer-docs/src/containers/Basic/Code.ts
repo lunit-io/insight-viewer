@@ -1,6 +1,11 @@
 export const DICOM_CODE = `\
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
 
+const style = {
+  width: '500px',
+  height: '500px'
+}
+
 export default function App() {
   const { loadingState, image } = useImage({
     imageId: IMAGE_ID,
@@ -10,18 +15,19 @@ export default function App() {
   })
 
   return (
-    <>
-      <div>
-        <span>{loadingState}</span>
-        {image && <span> ({image.imageId})</span>}
-      </div>
+    <div style={style}> // Wrapper size is required because InsightViewer's width/height is '100%'.
       <InsightViewer image={image} />
-    </>
+    </div>
   )
 }
 `
 export const WEB_CODE = `\
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
+
+const style = {
+  width: '500px',
+  height: '500px'
+}
 
 export default function App() {
   const { image } = useImage({
@@ -31,6 +37,10 @@ export default function App() {
     requestInterceptor, // optional
   })
 
-  return <InsightViewer image={image} />
+  return (
+    <div style={style}> // Wrapper size is required because InsightViewer's width/height is '100%'.
+      <InsightViewer image={image} />
+    </div>
+  )
 }
 `

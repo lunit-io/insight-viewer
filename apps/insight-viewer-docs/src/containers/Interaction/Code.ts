@@ -8,6 +8,11 @@ import InsightViewer, {
   Wheel,
 } from '@lunit/insight-viewer'
 
+const style = {
+  width: '500px',
+  height: '500px'
+}
+
 export default function App() {
   const { loadingStates, images } = useMultipleImages({
     imageIds: IMAGES,
@@ -80,14 +85,16 @@ export default function App() {
       <input type="radio" value="none" onChange={handleWheelChange} />
       <input type="radio" value="frame" onChange={handleWheelChange} />
       <input type="radio" value="scale" onChange={handleWheelChange} />
-      <InsightViewer
-        image={images[frame]}
-        interaction={interaction}
-        viewport={viewport}
-        onViewportChange={setViewport}
-      >
-        <OverlayLayer viewport={viewport} />
-      </InsightViewer>
+      <div style={style}>
+        <InsightViewer
+          image={images[frame]}
+          interaction={interaction}
+          viewport={viewport}
+          onViewportChange={setViewport}
+        >
+          <OverlayLayer viewport={viewport} />
+        </InsightViewer>
+      </div>
     </>
   )
 }
@@ -95,6 +102,11 @@ export default function App() {
 
 export const CUSTOM_CODE = `\
 import InsightViewer, { useImage, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
+
+const style = {
+  width: '500px',
+  height: '500px'
+}
 
 export default function App() {
   const { image } = useImage({
@@ -166,14 +178,16 @@ export default function App() {
       <input type="radio" value="pan" onChange={handleCustomPan} />
       <input type="radio" value="adjust" onChange={handleCustomAdjust} />
       <input type="checkbox" value="adjust" onChange={handleClick} />
-      <InsightViewer
-        image={image}
-        interaction={interaction}
-        viewport={viewport}
-        onViewportChange={setViewport}
-      >
-        <OverlayLayer viewport={viewport} />
-      </InsightViewer>
+      <div style={style}>
+        <InsightViewer
+          image={image}
+          interaction={interaction}
+          viewport={viewport}
+          onViewportChange={setViewport}
+        >
+          <OverlayLayer viewport={viewport} />
+        </InsightViewer>
+      </div>
     </>
   )
 }
