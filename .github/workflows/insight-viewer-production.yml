@@ -45,7 +45,7 @@ jobs:
 
       - name: Deploy
         env:
-          HOST: insight-viewer.s.lunit.io
+          HOST: insight-viewer.lunit.io
         run: |
           aws s3 sync \
             ./dist s3://lunit-cdn-default-virginia/${HOST} \
