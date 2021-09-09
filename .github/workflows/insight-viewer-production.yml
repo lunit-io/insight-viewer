@@ -33,7 +33,7 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
       - name: Build
-        run: yarn doc:insight-viewer
+        run: yarn doc:insight-viewer-prod
         working-directory: ${{ env.WORKDIR }}
 
       - name: Configure AWS Credentials
@@ -48,6 +48,6 @@ jobs:
           HOST: insight-viewer.s.lunit.io
         run: |
           aws s3 sync \
-            ./out/handbook s3://lunit-cdn-default-virginia/${HOST} \
+            ./dist s3://lunit-cdn-default-virginia/${HOST} \
             --delete
         working-directory: ${{ env.WORKDIR }}
