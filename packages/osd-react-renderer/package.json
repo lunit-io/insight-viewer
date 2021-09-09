@@ -1,9 +1,8 @@
 {
   "name": "@lunit/osd-react-renderer",
   "version": "1.0.0-alpha.1",
-  "description": "> TODO: description",
-  "author": "Hyunjin Kwon <hyunjin.kwon@lunit.io>",
-  "homepage": "https://github.com/lunit-io/frontend-components#readme",
+  "description": "OpenSeadragon viewer component for React using react-reconciler package.",
+  "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/osd-react-renderer#readme",
   "license": "MIT",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -13,22 +12,30 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lunit-io/frontend-components"
+    "url": "https://github.com/lunit-io/frontend-components",
+    "directory": "packages/osd-react-renderer"
   },
+  "bugs": {
+    "url": "https://github.com/lunit-io/frontend-components/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "openseadragon",
+    "react",
+    "reconciler",
+    "deepzoom",
+    "dzi"
+  ],
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json",
     "clean": "rimraf ./dist tsconfig.tsbuildinfo",
     "test": "yarn jest",
     "test-watch": "jest"
-  },
-  "bugs": {
-    "url": "https://github.com/lunit-io/frontend-components/issues"
   },
   "dependencies": {
     "openseadragon": "^2.4.2",
