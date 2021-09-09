@@ -48,6 +48,6 @@ jobs:
           HOST: insight-viewer.s.lunit.io
         run: |
           aws s3 sync \
-            ./dist s3://lunit-cdn-default-virginia/${HOST} \
+            ./out/handbook s3://lunit-cdn-default-virginia/${HOST} \
             --delete
         working-directory: ${{ env.WORKDIR }}
