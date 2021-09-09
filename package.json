@@ -19,6 +19,7 @@
     "build:insight-viewer": "lerna run --scope @lunit/insight-viewer build",
     "build:osd-react-renderer": "lerna run --scope @lunit/osd-react-renderer build",
     "test": "lerna run test",
+    "test:insight-viewer": "lerna run --scope @lunit/insight-viewer test",
     "handbook:build": "yarn clean & yarn run doc",
     "clean": "rm -rf ./out/handbook",
     "doc": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-docs doc",
