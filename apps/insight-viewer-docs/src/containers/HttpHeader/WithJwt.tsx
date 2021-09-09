@@ -3,6 +3,7 @@ import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
+import { CODE_SANDBOX } from '../../const'
 
 const IMAGE_ID = 'wadouri:/msw/with-jwt'
 const requestInterceptor = (request: Request) => {
@@ -24,7 +25,7 @@ export default function WithJwt(): JSX.Element {
         <ViewerWrapper>
           <InsightViewer image={image} />
         </ViewerWrapper>
-        <CodeBlock code={CODE} />
+        <CodeBlock code={CODE} codeSandbox={CODE_SANDBOX.httpHeader} />
       </Box>
     </>
   )

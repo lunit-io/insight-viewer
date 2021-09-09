@@ -1,16 +1,10 @@
 export const BASE_CODE = `\
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
 
-export default function Viewer() {
-  const { image } = useImage({
-    imageId: IMAGE_ID,
-  })
-
-  return <InsightViewer image={image} />
+const style = {
+  width: '500px',
+  height: '500px'
 }
-`
-export const CUSTOM_CODE = `\
-import InsightViewer, { useImage } from '@lunit/insight-viewer'
 
 export default function Viewer() {
   const { image } = useImage({
@@ -18,10 +12,37 @@ export default function Viewer() {
   })
 
   return (
-    <InsightViewer 
-      image={image}
-      Progress={CustomProgress} 
-    />
+    <div style={style}>
+      <InsightViewer image={image} />
+    </div>
+  )
+}
+`
+export const CUSTOM_CODE = `\
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { CircularProgress } from '@chakra-ui/react'
+
+const style = {
+  width: '500px',
+  height: '500px'
+}
+
+function CustomProgress({ progress }: { progress: number }): JSX.Element {
+  return <CircularProgress value={progress} />;
+}
+
+export default function Viewer() {
+  const { image } = useImage({
+    imageId: IMAGE_ID,
+  })
+
+  return (
+    <div style={style}>
+      <InsightViewer 
+        image={image}
+        Progress={CustomProgress} 
+      />
+    </div>
   )
 }
 `

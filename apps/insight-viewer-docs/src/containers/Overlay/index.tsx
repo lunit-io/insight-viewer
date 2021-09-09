@@ -5,7 +5,7 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-import { IMAGES } from '../../const'
+import { IMAGES, CODE_SANDBOX } from '../../const'
 
 function Overlay(): JSX.Element {
   const { loadingState, image } = useImage({
@@ -26,7 +26,7 @@ function Overlay(): JSX.Element {
         </InsightViewer>
       </ViewerWrapper>
       <Box>
-        <CodeBlock code={CODE} />
+        <CodeBlock code={CODE} codeSandbox={CODE_SANDBOX.overlay} />
       </Box>
     </Box>
   )

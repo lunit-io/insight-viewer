@@ -8,7 +8,7 @@ import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-import { IMAGES } from '../../const'
+import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function Base(): JSX.Element {
   const { loadingStates, images } = useMultipleImages({
@@ -62,7 +62,7 @@ export default function Base(): JSX.Element {
         <InsightViewer image={images[frame]} Progress={CustomProgress} />
       </ViewerWrapper>
       <Box>
-        <CodeBlock code={CODE} />
+        <CodeBlock code={CODE} codeSandbox={CODE_SANDBOX.multiframe} />
       </Box>
     </Box>
   )

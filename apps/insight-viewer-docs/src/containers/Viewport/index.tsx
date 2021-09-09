@@ -11,7 +11,7 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
 import { INITIAL_VIEWPORT1, INITIAL_VIEWPORT2 } from './const'
-import { IMAGES } from '../../const'
+import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function App(): JSX.Element {
   const { loadingState, image } = useImage({
@@ -289,7 +289,7 @@ export default function App(): JSX.Element {
         </Box>
 
         <Box>
-          <CodeBlock code={CODE} />
+          <CodeBlock code={CODE} codeSandbox={CODE_SANDBOX.viewport} />
         </Box>
       </Box>
     </>

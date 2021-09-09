@@ -15,7 +15,7 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-import { IMAGES } from '../../const'
+import { IMAGES, CODE_SANDBOX } from '../../const'
 
 const MIN_FRAME = 0
 const MAX_FRAME = IMAGES.length - 1
@@ -115,7 +115,10 @@ export default function App(): JSX.Element {
       </Stack>
 
       <Box>
-        <CodeBlock code={BASE_CODE} />
+        <CodeBlock
+          code={BASE_CODE}
+          codeSandbox={CODE_SANDBOX.builtInInteraction}
+        />
       </Box>
     </Box>
   )

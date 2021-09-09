@@ -5,6 +5,11 @@ import InsightViewer, {
   Viewport, 
 } from '@lunit/insight-viewer'
 
+const style = {
+  width: '500px',
+  height: '500px'
+}
+
 export default function App() {
   const { image } = useImageLoad({
     imageId: IMAGE_ID,
@@ -73,7 +78,7 @@ export default function App() {
   }, [setViewport])
 
   return (
-    <>
+    <div style={style}>
       <button type="button" onClick={updateViewport}>update viewport</button>
       <button type="button" onClick={resetViewport}>reset viewport</button>
       <InsightViewer
@@ -81,7 +86,7 @@ export default function App() {
         viewport={viewport}
         onViewportChange={setViewport}
       />
-    </>
+    </div>
   )
 }
 `
