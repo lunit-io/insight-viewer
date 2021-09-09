@@ -1,11 +1,11 @@
-name: Deploy insight-viewer on staging
+name: Deploy insight-viewer on production
 
 on:
-  push:
+  pull_request:
     branches:
-      - chore/insight-viewer-staging-deploy-github-action
+      - master
     paths:
-      - .github/workflows/insight-viewer-staging.yml
+      - .github/workflows/insight-viewer-production.yml
       - packages/insight-viewer/**
       - apps/insight-viewer-docs/**
 
@@ -33,7 +33,7 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
       - name: Build
-        run: yarn doc
+        run: yarn doc:insight-viewer
         working-directory: ${{ env.WORKDIR }}
 
       - name: Configure AWS Credentials
