@@ -33,7 +33,7 @@ jobs:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
       - name: Build
-        run: yarn doc:insight-viewer-prod
+        run: yarn doc:insight-viewer
         working-directory: ${{ env.WORKDIR }}
 
       - name: Configure AWS Credentials

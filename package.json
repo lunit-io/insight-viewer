@@ -20,10 +20,7 @@
     "build:osd-react-renderer": "lerna run --scope @lunit/osd-react-renderer build",
     "test": "lerna run test",
     "test:insight-viewer": "lerna run --scope @lunit/insight-viewer test",
-    "handbook:build": "yarn clean & yarn run doc:insight-viewer",
-    "clean": "rm -rf ./dist",
     "doc:insight-viewer": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-docs doc",
-    "doc:insight-viewer-prod": "yarn run build:insight-viewer && lerna run --scope @lunit/insight-viewer-docs doc-prod",
     "publish": "lerna publish",
     "postinstall": "husky install"
   },
