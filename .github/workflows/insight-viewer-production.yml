@@ -1,0 +1,53 @@
+name: Deploy insight-viewer on production
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/insight-viewer-production.yml
+      - packages/insight-viewer/**
+      - apps/insight-viewer-docs/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      WORKDIR: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Install Packages
+        run: yarn
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Run tests
+        uses: percy/exec-action@v0.3.1
+        with:
+          custom-command: 'yarn test:insight-viewer'
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+      - name: Build
+        run: yarn doc:insight-viewer
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CDN_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.CDN_SECRET_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy
+        env:
+          HOST: insight-viewer.lunit.io
+        run: |
+          aws s3 sync \
+            ./dist s3://lunit-cdn-default-virginia/${HOST} \
+            --delete
+        working-directory: ${{ env.WORKDIR }}

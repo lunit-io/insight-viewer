@@ -6,7 +6,7 @@
     "dev": "next dev",
     "clean": "rimraf .next *.tsbuildinfo",
     "build": "yarn run clean && ENV=production next build",
-    "export": "ENV=production next export -o ../../out/handbook",
+    "export": "rimraf ../../dist && ENV=production next export -o ../../dist",
     "start": "next start",
     "doc": "yarn run build && yarn run export",
     "start:server": "yarn build && yarn start",

@@ -24,7 +24,6 @@ yarn.lock
 
 # next.js build output
 .next
-out/
 
 # vscode
 .vscode
