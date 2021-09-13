@@ -21,7 +21,8 @@
     "url": "https://github.com/lunit-io/frontend-components/issues"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "keywords": [
     "openseadragon",
