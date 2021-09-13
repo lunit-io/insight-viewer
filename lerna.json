@@ -9,7 +9,6 @@
   "command": {
     "publish": {
       "allowBranch": [
-        "master",
         "release",
         "releases/*"
       ],
