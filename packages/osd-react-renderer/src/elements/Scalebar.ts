@@ -13,7 +13,7 @@ const defaultScalebarOptions: ScalebarProps = {
   barThickness: 3,
   color: '#443aff',
   fontColor: '#53646d',
-  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  backgroundColor: 'rgba(255, 255, 255, 0.2)',
   pixelsPerMeter: 0,
   location: ScalebarLocation.BOTTOM_RIGHT,
   stayInsideImage: true,
