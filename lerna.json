@@ -1,12 +1,17 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "stream": true,
   "command": {
     "publish": {
-      "allowBranch": ["master", "release"],
+      "allowBranch": [
+        "release",
+        "releases/*"
+      ],
       "message": "chore(release): publish release",
       "conventionalCommits": true,
       "ignoreChanges": [

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.3](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.2...@lunit/osd-react-renderer@1.0.0-alpha.3) (2021-09-13)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** update scalebar default to trigger change ([d48045a](https://github.com/lunit-io/frontend-components/commit/d48045a0a47e8866b269a0f0efb7141d77401a83))
+
+
+
+
+
 # 1.0.0-alpha.2 (2021-09-13)
 
 
