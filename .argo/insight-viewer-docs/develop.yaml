@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: insight-viewer--develop
+  namespace: argo
+  labels:
+    argo.lunit.in/category: application
+    argo.lunit.in/organization: radiology
+spec:
+  project: radiology
+  source:
+    repoURL: git@github.com:lunit-io/frontend-components.git
+    targetRevision: master
+    path: .helm
+    helm:
+      valueFiles:
+        - values.yaml
+      version: v3
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: insight-viewer--develop
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
