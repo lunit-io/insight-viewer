@@ -10,6 +10,7 @@ on:
       - version.txt
       - packages/insight-viewer/**
       - apps/insight-viewer-docs/**
+      - nginx/**
 
 jobs:
   build:
