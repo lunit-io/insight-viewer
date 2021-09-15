@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: git@github.com:lunit-io/frontend-components.git
     targetRevision: master
-    path: .helm/insight-viewer
+    path: .helm/insight-viewer-docs
     helm:
       parameters:
         - name: ingress.hosts[0].host

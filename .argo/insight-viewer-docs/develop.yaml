@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: git@github.com:lunit-io/frontend-components.git
     targetRevision: master
-    path: .helm
+    path: .helm/insight-viewer-docs
     helm:
       valueFiles:
         - values.yaml
