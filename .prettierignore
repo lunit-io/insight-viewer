@@ -54,3 +54,8 @@ coverage
 storybook-static
 built-storybooks
 .storybook
+
+# CI/CD
+.argo
+.github
+.helm

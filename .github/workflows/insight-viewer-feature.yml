@@ -1,0 +1,71 @@
+name: Deploy vue.js on develop
+
+on:
+  push:
+    branches:
+      - feature/**
+      - chore/**
+    paths:
+      - .github/workflows/insight-viewer-feature.yml
+      - version.txt
+      - packages/insight-viewer/**
+      - apps/insight-viewer-docs/**
+      - nginx/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      WORKDIR: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Log in to Harbor
+        uses: docker/login-action@v1
+        with:
+          registry: harbor.lunit.in
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+          logout: true
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: harbor.lunit.in/radiology/insight-viewer
+          tags: |
+            type=sha
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          labels: ${{ steps.meta.outputs.labels }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          target: release-insight-viewer
+
+      - name: Checkout private action named actions-argocd-deploy
+        uses: actions/checkout@v2
+        with:
+          path: .github/actions/actions-argocd-deploy
+          repository: lunit-io/actions-argocd-deploy
+          ref: main
+          token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Get docker image tag for Argo CD application
+        id: tag
+        run: |
+          INPUT=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
+          OUTPUT=$(awk '{split($0, out, ":"); print out[2]}' <<< $INPUT)
+          echo "::set-output name=value::${OUTPUT}"
+
+      - name: Deploy
+        uses: ./.github/actions/actions-argocd-deploy
+        with:
+          password: ${{ secrets.ARGO_DEPLOY_PASSWORD }}
+          app-name: insight-viewer--${{ github.actor }}
+          image-tag: ${{ steps.tag.outputs.value }}
