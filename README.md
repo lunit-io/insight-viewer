@@ -82,3 +82,27 @@ Add a project name to package.json
 ```
 
 And then in the root, `$ yarn` again. All dependencies are hoisted.
+
+## When adding project, check this out
+
+### workspace name scope
+
+project.json
+
+```json
+{
+  "name": "@lunit/{PROJECT_NAME}"
+}
+```
+
+### typescript project reference
+
+```json
+{
+  "references": [
+    {
+      "path": "../../packages/{PACKAGE_NAME}/tsconfig.build.json"
+    }
+  ]
+}
+```
