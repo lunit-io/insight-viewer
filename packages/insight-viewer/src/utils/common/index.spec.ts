@@ -1,4 +1,5 @@
 import { formatError } from './index'
+import { ERROR_UNKNOWN } from './const'
 
 describe('formatError', () => {
   it('formats Error instance', async () => {
@@ -17,5 +18,13 @@ describe('formatError', () => {
     expect(result).toBeInstanceOf(Error)
     expect(result.message).toBe('something happended')
     expect(result.status).toBe(401)
+  })
+
+  it('formats unknown', async () => {
+    const unknown: unknown = undefined
+    const result = formatError(unknown)
+    expect(result).toBeInstanceOf(Error)
+    expect(result.message).toBe(ERROR_UNKNOWN)
+    expect(result.status).toBeUndefined()
   })
 })
