@@ -2,31 +2,23 @@
  * @fileoverview Loads an image(Dicom/Web) and return the loaded image and loading state of it.
  */
 import { useEffect, useReducer } from 'react'
-import { LOADER_TYPE, LOADING_STATE, CONFIG } from '../../const'
-import { LoadingState, LoaderType } from '../../types'
+import { LOADING_STATE, CONFIG } from '../../const'
+import { LoadingState, ImageType, HTTP } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { getLoaderType, getImageId } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
-import { Props } from './types'
 import { loadImage } from './loadImage'
 
 interface UseImage {
-  ({
-    imageId,
-    type,
-    requestInterceptor,
-    onError,
-  }: Props & {
-    type?: LoaderType
-  }): {
+  (props: Partial<HTTP> & ImageType): {
     loadingState: LoadingState
     image: CornerstoneImage | undefined
   }
 }
 
 /**
- * @param imageId The image url to load.
- * @param type The image type to load. 'Dicom'(default) | 'Web'.
+ * @param rest wadouri | dicomfile | web
  * @param requestInterceptor The callback is called before a request is sent.
  *  It use ky.js beforeRequest hook.
  * @param onError The error handler.
@@ -34,20 +26,20 @@ interface UseImage {
  *  loadingState is 'initial'|'loading'|'success'|'fail'
  */
 export const useImage: UseImage = ({
-  imageId,
-  type = LOADER_TYPE.Dicom,
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
+  ...rest
 }) => {
+  const imageId = getImageId(rest)
   const [state, dispatch] = useReducer(
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
   )
   const { loadingState, image } = state
-  const hasLoader = useImageLoader(type, onError)
+  const hasLoader = useImageLoader(getLoaderType(rest), onError)
 
   useEffect(() => {
-    if (!hasLoader) return
+    if (!hasLoader || !imageId) return
     dispatch({ type: LOADING_STATE.LOADING })
 
     loadImage({
