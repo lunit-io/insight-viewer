@@ -7,14 +7,11 @@ import { LoaderType, OnError } from '../types'
 import setWadoImageLoader from '../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../utils/cornerstoneHelper/setWebImageLoader'
 
-export function useImageLoader(
-  type: LoaderType = LOADER_TYPE.Dicom,
-  onError: OnError
-): boolean {
+export function useImageLoader(type: LoaderType, onError: OnError): boolean {
   const [hasLoader, setHasLoader] = useState(false)
 
   const loader =
-    type === LOADER_TYPE.Dicom ? setWadoImageLoader : setWebImageLoader
+    type === LOADER_TYPE.DICOM ? setWadoImageLoader : setWebImageLoader
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
