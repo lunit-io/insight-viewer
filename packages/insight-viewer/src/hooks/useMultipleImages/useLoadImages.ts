@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { getLoaderType, getImageIds } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
-import { HTTP, LoaderType, LoadingState } from '../../types'
+import { HTTP, LoadingState, ImageTypes } from '../../types'
 import { Loaded, ImagesLoadState } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 
 interface UseLoadImages {
-  ({
-    images,
-    onError,
-    requestInterceptor,
-    type,
-  }: HTTP & {
-    images: string[]
-    type?: LoaderType
-  }): ImagesLoadState
+  ({ onError, requestInterceptor, ...rest }: HTTP & ImageTypes): ImagesLoadState
 }
 
 interface State {
@@ -36,18 +29,18 @@ interface State {
  *  loadingStates are <'initial'|'loading'|'success'|'fail'>[]
  */
 export const useLoadImages: UseLoadImages = ({
-  images: imageIds,
   onError,
   requestInterceptor,
-  type,
+  ...rest
 }) => {
+  const imageIds = getImageIds(rest)
   const [{ images, loadingStates }, setState] = useState<State>({
     images: [],
     loadingStates: getLoadingStateMap(imageIds.length),
     _currentIndex: -1,
   })
 
-  const hasLoader = useImageLoader(type, onError)
+  const hasLoader = useImageLoader(getLoaderType(rest), onError)
 
   useEffect(() => {
     if (imageIds.length === 0) return // No images to load
