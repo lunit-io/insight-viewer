@@ -1,8 +1,15 @@
 import consola from 'consola'
 
+// wadors and dicomweb types are not currently supported!
+export const IMAGE_TYPE = {
+  WADOURI: 'wadouri',
+  DICOMFILE: 'dicomfile',
+  WEB: 'web', // for cornerstone-web-image-loader
+} as const
+
 export const LOADER_TYPE = {
-  Dicom: 'Dicom',
-  Web: 'Web',
+  DICOM: 'dicom', // for cornerstone-wado-image-loader
+  WEB: 'web', // for cornerstone-web-image-loader
 } as const
 
 export const CONFIG = {
