@@ -4,11 +4,11 @@
 import { useLoadImages } from './useLoadImages'
 
 import { CONFIG } from '../../const'
-import { HTTP, ImageType } from '../../types'
+import { HTTP, ImageTypes } from '../../types'
 import { ImagesLoadState } from './types'
 
 interface UseMultiframeImages {
-  (props: Partial<HTTP> & ImageType): ImagesLoadState
+  (props: Partial<HTTP> & ImageTypes): ImagesLoadState
 }
 
 /**
