@@ -15,7 +15,7 @@ const style = {
 
 export default function App() {
   const { loadingStates, images } = useMultipleImages({
-    imageIds: IMAGES,
+    wadouri: IMAGES,
   })
   const { frame, setFrame } = useFrame({
     initial: 0,

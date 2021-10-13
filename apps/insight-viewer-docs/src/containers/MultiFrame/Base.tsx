@@ -12,7 +12,7 @@ import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function Base(): JSX.Element {
   const { loadingStates, images } = useMultipleImages({
-    imageIds: IMAGES,
+    wadouri: IMAGES,
   })
   const { frame, setFrame } = useFrame({
     initial: 0,

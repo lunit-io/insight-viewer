@@ -14,8 +14,7 @@ const style = {
 
 export default function Viewer() {
   const { images } = useMultipleImages({
-    imageIds: IMAGES,
-    type: 'Dicom',      // optional: 'Dicom'(Default) | 'Web'
+    wadouri: IMAGES,
     initialFrame,       // optional: initialValue | 0(default)
     onError,            // optional
     requestInterceptor, // optional

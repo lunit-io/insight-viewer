@@ -20,7 +20,7 @@ export default function Custom(): JSX.Element {
     wadouri: IMAGE_ID,
   })
   const { images } = useMultipleImages({
-    imageIds: IMAGES,
+    wadouri: IMAGES,
   })
   const { frame } = useFrame({
     initial: 0,
