@@ -32,4 +32,4 @@ export function normalizeError(e: Error | HTTPError | unknown): ViewerError {
 }
 
 export { getLoaderType } from './getLoaderType'
-export { getImageId } from './getImageId'
+export { getImageId, getImageIds } from './getImageId'

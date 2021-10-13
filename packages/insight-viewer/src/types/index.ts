@@ -52,3 +52,19 @@ export type ImageType =
       [IMAGE_TYPE.DICOMFILE]?: never
       [IMAGE_TYPE.WEB]: string
     }
+export type ImageTypes =
+  | {
+      [IMAGE_TYPE.WADOURI]: string[]
+      [IMAGE_TYPE.DICOMFILE]?: never
+      [IMAGE_TYPE.WEB]?: never
+    }
+  | {
+      [IMAGE_TYPE.WADOURI]?: never
+      [IMAGE_TYPE.DICOMFILE]: string[]
+      [IMAGE_TYPE.WEB]?: never
+    }
+  | {
+      [IMAGE_TYPE.WADOURI]?: never
+      [IMAGE_TYPE.DICOMFILE]?: never
+      [IMAGE_TYPE.WEB]: string[]
+    }
