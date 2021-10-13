@@ -1,4 +1,5 @@
 import { ViewerError } from '../../types'
+import { ERROR_UNKNOWN } from './const'
 
 /**
  * ky HTTPError
@@ -9,10 +10,23 @@ interface HTTPError {
   error: { response: { status: number }; message: string }
 }
 
-export function formatError(e: Error | HTTPError): ViewerError {
-  const err: ViewerError = new Error(
-    e instanceof Error ? e.message : e.error.message
+function isError(e: unknown): e is Error {
+  return e instanceof Error
+}
+
+function isHTTPError(e: unknown): e is HTTPError {
+  return (
+    (e as HTTPError)?.error !== undefined &&
+    (e as HTTPError)?.error?.message !== undefined
   )
-  if (!(e instanceof Error)) err.status = e?.error?.response?.status
-  return err
+}
+
+export function formatError(e: Error | HTTPError | unknown): ViewerError {
+  if (isError(e)) return e
+  if (isHTTPError(e)) {
+    const err: ViewerError = new Error(e.error.message)
+    err.status = e?.error?.response?.status
+    return err
+  }
+  return new Error(ERROR_UNKNOWN)
 }
