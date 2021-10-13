@@ -5,7 +5,7 @@ import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { loadedCountMessageMessage } from '../../utils/messageService'
-import { formatError } from '../../utils/common'
+import { normalizeError } from '../../utils/common'
 import { getHttpClient } from '../../utils/httpClient'
 import { RequestInterceptor } from '../../types'
 import { Loaded } from './types'
@@ -71,7 +71,7 @@ export const loadImages: LoadImages = ({
       }
     }),
     catchError(err => {
-      throw formatError(err)
+      throw normalizeError(err)
     })
   )
 }

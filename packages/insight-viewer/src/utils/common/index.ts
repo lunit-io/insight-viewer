@@ -21,7 +21,7 @@ function isHTTPError(e: unknown): e is HTTPError {
   )
 }
 
-export function formatError(e: Error | HTTPError | unknown): ViewerError {
+export function normalizeError(e: Error | HTTPError | unknown): ViewerError {
   if (isError(e)) return e
   if (isHTTPError(e)) {
     const err: ViewerError = new Error(e.error.message)

@@ -6,7 +6,7 @@ import {
   CornerstoneImage,
 } from '../../utils/cornerstoneHelper'
 import { getHttpClient } from '../../utils/httpClient'
-import { formatError } from '../../utils/common'
+import { normalizeError } from '../../utils/common'
 import { Props, DefaultGetImage, GetImage } from './types'
 
 interface LoadImage {
@@ -29,7 +29,7 @@ const _getImage: DefaultGetImage = async ({ imageId, requestInterceptor }) => {
       loader: getHttpClient(requestInterceptor),
     })
   } catch (e) {
-    throw formatError(e)
+    throw normalizeError(e)
   }
 }
 
@@ -52,7 +52,7 @@ export const loadImage: LoadImage = async ({
       requestInterceptor,
     })
   } catch (e) {
-    onError(formatError(e))
+    onError(normalizeError(e))
     throw e
   }
 }
