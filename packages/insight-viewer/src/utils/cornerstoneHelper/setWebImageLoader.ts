@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../@types/cornerstone-web-image-loader/index.d.ts" />
 import { OnError } from '../../types'
+import { formatError } from '../common'
 import { getCornerstone } from './utils'
 
 export default async function setWebImageLoader(
@@ -14,7 +15,7 @@ export default async function setWebImageLoader(
     cornerstoneWebImageLoader.external.cornerstone = getCornerstone()
     return true
   } catch (e) {
-    onError(e)
+    onError(formatError(e))
     return false
   }
 }

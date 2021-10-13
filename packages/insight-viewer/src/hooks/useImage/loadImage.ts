@@ -52,7 +52,7 @@ export const loadImage: LoadImage = async ({
       requestInterceptor,
     })
   } catch (e) {
-    onError(e)
+    onError(formatError(e))
     throw e
   }
 }
