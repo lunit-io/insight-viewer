@@ -4,6 +4,7 @@ import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { ViewerError } from '../../types'
 import { loadImages } from './loadImages'
 import { Loaded } from './types'
+import { loadCornerstoneImages } from './loadCornerstoneImages'
 
 const { requestInterceptor } = CONFIG
 const IMAGES = [
@@ -12,7 +13,10 @@ const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm',
 ]
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
-const getLoadImageMock = jest.fn()
+const mockLoadCornerstoneImages = loadCornerstoneImages as jest.Mock
+jest.mock('./loadCornerstoneImages', () => ({
+  loadCornerstoneImages: jest.fn(),
+}))
 
 const ErrorTexts = ['first', 'second', 'last', 'all']
 
@@ -24,7 +28,7 @@ const ErrorTexts = ['first', 'second', 'last', 'all']
  */
 function handleMock({ errorIndex = -1 }) {
   let count = -1
-  return getLoadImageMock.mockImplementation(() => {
+  return mockLoadCornerstoneImages.mockImplementation(() => {
     count += 1
     if (errorIndex === count) {
       return Promise.reject(
@@ -44,11 +48,12 @@ describe('loadImages()', () => {
     })
 
     it('fetches all images successfully', () => {
+      handleMock({ errorIndex: -1 })
+
       // TODO: Needs to implement observable mock.
       loadImages({
         images: IMAGES,
         requestInterceptor,
-        getLoadImage: handleMock({ errorIndex: -1 }),
       }).subscribe({
         next: async (res: Loaded) => {
           count += 1
@@ -61,10 +66,11 @@ describe('loadImages()', () => {
     })
 
     it('fails on first request', () => {
+      handleMock({ errorIndex: 0 })
+
       loadImages({
         images: IMAGES,
         requestInterceptor,
-        getLoadImage: handleMock({ errorIndex: 0 }),
       }).subscribe({
         error: async (err: ViewerError) => {
           expect(err.message).toBe('first image fetch fails')
@@ -74,10 +80,11 @@ describe('loadImages()', () => {
     })
 
     it('fails on second request', () => {
+      handleMock({ errorIndex: 1 })
+
       loadImages({
         images: IMAGES,
         requestInterceptor,
-        getLoadImage: handleMock({ errorIndex: 1 }),
       }).subscribe({
         next: async (res: Loaded) => {
           count += 1
@@ -94,10 +101,11 @@ describe('loadImages()', () => {
     })
 
     it('fails on the last request', () => {
+      handleMock({ errorIndex: 2 })
+
       loadImages({
         images: IMAGES,
         requestInterceptor,
-        getLoadImage: handleMock({ errorIndex: 2 }),
       }).subscribe({
         next: async (res: Loaded) => {
           count += 1
@@ -114,10 +122,11 @@ describe('loadImages()', () => {
     })
 
     it('fails for all images', () => {
+      handleMock({ errorIndex: 3 })
+
       loadImages({
         images: IMAGES,
         requestInterceptor,
-        getLoadImage: handleMock({ errorIndex: 3 }),
       }).subscribe({
         error: async (err: ViewerError) => {
           expect(err.message).toBe('all images fetch fails')
