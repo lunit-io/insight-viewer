@@ -8,7 +8,7 @@ import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function Custom(): JSX.Element {
   const { image } = useImage({
-    imageId: IMAGES[4],
+    wadouri: IMAGES[4],
   })
 
   return (

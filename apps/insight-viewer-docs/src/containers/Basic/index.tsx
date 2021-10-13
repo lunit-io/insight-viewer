@@ -11,8 +11,7 @@ export const WEB_URL =
 
 function Basic(): JSX.Element {
   const { image } = useImage({
-    imageId: WEB_URL,
-    type: 'Web',
+    web: WEB_URL,
   })
 
   return (

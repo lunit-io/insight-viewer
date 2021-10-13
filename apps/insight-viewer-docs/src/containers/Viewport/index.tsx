@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+// TODO: resolve eslint error
 import { useEffect, useCallback } from 'react'
 import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
 import InsightViewer, {
@@ -15,10 +17,10 @@ import { IMAGES, CODE_SANDBOX } from '../../const'
 
 export default function App(): JSX.Element {
   const { loadingState, image } = useImage({
-    imageId: IMAGES[10],
+    wadouri: IMAGES[10],
   })
   const { image: image2 } = useImage({
-    imageId: IMAGES[11],
+    wadouri: IMAGES[11],
   })
   const { viewport, setViewport, resetViewport, initialized } =
     useViewport(INITIAL_VIEWPORT1)

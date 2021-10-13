@@ -14,7 +14,7 @@ function customError(e: ViewerError) {
 
 export default function Custom(): JSX.Element {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
     onError: customError,
   })
 

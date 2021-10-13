@@ -8,8 +8,7 @@ const style = {
 
 export default function App() {
   const { loadingState, image } = useImage({
-    imageId: IMAGE_ID,
-    type: 'Dicom',      // optional: 'Dicom'(Default) | 'Web'
+    wadouri: IMAGE_ID,
     onError,            // optional
     requestInterceptor, // optional
   })
@@ -31,8 +30,7 @@ const style = {
 
 export default function App() {
   const { image } = useImage({
-    imageId: IMAGE_ID,
-    type: 'Web',
+    web: IMAGE_ID,
     onError,            // optional
     requestInterceptor, // optional
   })

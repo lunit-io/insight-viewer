@@ -8,7 +8,7 @@ export const CODE = `\
 
   export default function Viewer() {
     const { image } = useImage({
-      imageId: IMAGE_ID,
+      wadouri: IMAGE_ID,
     })
     const { viewport, setViewport } = useViewport()
 

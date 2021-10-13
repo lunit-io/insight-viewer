@@ -12,7 +12,7 @@ const requestInterceptor = (request: Request) => {
 
 export default function WithJwt(): JSX.Element {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
     requestInterceptor,
   })
 

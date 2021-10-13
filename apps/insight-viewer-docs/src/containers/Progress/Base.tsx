@@ -7,7 +7,7 @@ import { IMAGES } from '../../const'
 
 export default function Base(): JSX.Element {
   const { image } = useImage({
-    imageId: IMAGES[3],
+    wadouri: IMAGES[3],
   })
 
   return (

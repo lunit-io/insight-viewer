@@ -9,7 +9,7 @@ import { IMAGES, CODE_SANDBOX } from '../../const'
 
 function Overlay(): JSX.Element {
   const { loadingState, image } = useImage({
-    imageId: IMAGES[9],
+    wadouri: IMAGES[9],
   })
   const { viewport, setViewport } = useViewport()
 

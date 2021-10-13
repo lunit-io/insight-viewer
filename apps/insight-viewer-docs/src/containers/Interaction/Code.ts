@@ -110,7 +110,7 @@ const style = {
 
 export default function App() {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
   })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport } = useViewport()
