@@ -30,5 +30,3 @@ export function normalizeError(e: Error | HTTPError | unknown): ViewerError {
   }
   return new Error(ERROR_UNKNOWN)
 }
-
-export { getImageId, getImageIds } from './getImageId'

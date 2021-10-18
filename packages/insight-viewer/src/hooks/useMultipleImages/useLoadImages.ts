@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
-import { getImageIds } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
 import { HTTP, LoadingState, ImageId } from '../../types'
 import { Loaded, ImagesLoadState } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
+import { getImageIds } from './getImageIds'
 
 interface UseLoadImages {
   ({ onError, requestInterceptor, ...rest }: HTTP & ImageId): ImagesLoadState
