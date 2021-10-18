@@ -3,7 +3,7 @@
  */
 import { useEffect, useReducer } from 'react'
 import { LOADING_STATE, CONFIG } from '../../const'
-import { LoadingState, ImageType, HTTP } from '../../types'
+import { LoadingState, ImageId, HTTP } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { getLoaderType, getImageId } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
@@ -11,7 +11,7 @@ import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
 import { loadImage } from './loadImage'
 
 interface UseImage {
-  (props: Partial<HTTP> & ImageType): {
+  (props: Partial<HTTP> & ImageId): {
     loadingState: LoadingState
     image: CornerstoneImage | undefined
   }
