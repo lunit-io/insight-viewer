@@ -1,4 +1,4 @@
-import { CONFIG } from '../../const'
+import { CONFIG, IMAGE_LOADER_SCHEME } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { ViewerError } from '../../types'
@@ -53,6 +53,7 @@ describe('loadImages()', () => {
       // TODO: Needs to implement observable mock.
       loadImages({
         images: IMAGES,
+        imageScheme: IMAGE_LOADER_SCHEME.WADO,
         requestInterceptor,
       }).subscribe({
         next: async (res: Loaded) => {
@@ -70,6 +71,7 @@ describe('loadImages()', () => {
 
       loadImages({
         images: IMAGES,
+        imageScheme: IMAGE_LOADER_SCHEME.WADO,
         requestInterceptor,
       }).subscribe({
         error: async (err: ViewerError) => {
@@ -84,6 +86,7 @@ describe('loadImages()', () => {
 
       loadImages({
         images: IMAGES,
+        imageScheme: IMAGE_LOADER_SCHEME.WADO,
         requestInterceptor,
       }).subscribe({
         next: async (res: Loaded) => {
@@ -105,6 +108,7 @@ describe('loadImages()', () => {
 
       loadImages({
         images: IMAGES,
+        imageScheme: IMAGE_LOADER_SCHEME.WADO,
         requestInterceptor,
       }).subscribe({
         next: async (res: Loaded) => {
@@ -126,6 +130,7 @@ describe('loadImages()', () => {
 
       loadImages({
         images: IMAGES,
+        imageScheme: IMAGE_LOADER_SCHEME.WADO,
         requestInterceptor,
       }).subscribe({
         error: async (err: ViewerError) => {

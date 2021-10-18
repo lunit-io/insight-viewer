@@ -3,15 +3,19 @@
  */
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { normalizeError } from '../../utils/common'
+import { ImageLoaderScheme } from '../../types'
 import { Props } from './types'
 import { loadCornerstoneImage } from './loadCornerstoneImage'
 
 interface LoadImage {
   ({
     imageId,
+    imageScheme,
     requestInterceptor,
     onError,
-  }: Required<Props>): Promise<CornerstoneImage>
+  }: Required<Props> & {
+    imageScheme: ImageLoaderScheme
+  }): Promise<CornerstoneImage>
 }
 
 /**
@@ -22,12 +26,14 @@ interface LoadImage {
  */
 export const loadImage: LoadImage = async ({
   imageId,
+  imageScheme,
   requestInterceptor,
   onError,
 }) => {
   try {
     return await loadCornerstoneImage({
       imageId,
+      imageScheme,
       requestInterceptor,
     })
   } catch (e) {

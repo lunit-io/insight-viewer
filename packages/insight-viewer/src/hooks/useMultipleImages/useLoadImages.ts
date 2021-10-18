@@ -6,7 +6,7 @@ import { loadImages } from './loadImages'
 import { HTTP, LoadingState, ImageId } from '../../types'
 import { Loaded, ImagesLoadState } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
-import { getImageIds } from './getImageIds'
+import { getImageIdsAndType } from './getImageIdsAndType'
 
 interface UseLoadImages {
   ({ onError, requestInterceptor, ...rest }: HTTP & ImageId): ImagesLoadState
@@ -33,7 +33,7 @@ export const useLoadImages: UseLoadImages = ({
   requestInterceptor,
   ...rest
 }) => {
-  const imageIds = getImageIds(rest)
+  const { ids: imageIds, scheme: imageScheme } = getImageIdsAndType(rest)
   const [{ images, loadingStates }, setState] = useState<State>({
     images: [],
     loadingStates: getLoadingStateMap(
@@ -45,7 +45,7 @@ export const useLoadImages: UseLoadImages = ({
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
-    if (!imageIds || imageIds.length === 0) return // No images to load
+    if (!imageIds || imageIds.length === 0 || !imageScheme) return // No images to load
     if (!hasLoader) return // No image loader
 
     // Initialize first image loading state.
@@ -54,30 +54,32 @@ export const useLoadImages: UseLoadImages = ({
       loadingStates: prev.loadingStates.set(0, LOADING_STATE.LOADING),
     }))
 
-    loadImages({ images: imageIds, requestInterceptor }).subscribe({
-      next: ({ image, loaded }: Loaded) => {
-        setState((prev: State) => ({
-          images: [...prev.images, image],
-          loadingStates: updateLoadedStates({
-            size: imageIds.length,
-            stateMap: prev.loadingStates,
-            value: loaded,
-          }),
-          _currentIndex: loaded - 1,
-        }))
-      },
-      error: err => {
-        onError(err)
-        setState(prev => ({
-          ...prev,
-          loadingStates: prev.loadingStates.set(
-            prev._currentIndex + 1,
-            LOADING_STATE.FAIL
-          ),
-        }))
-      },
-    })
-  }, [imageIds, onError, requestInterceptor, hasLoader])
+    loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe(
+      {
+        next: ({ image, loaded }: Loaded) => {
+          setState((prev: State) => ({
+            images: [...prev.images, image],
+            loadingStates: updateLoadedStates({
+              size: imageIds.length,
+              stateMap: prev.loadingStates,
+              value: loaded,
+            }),
+            _currentIndex: loaded - 1,
+          }))
+        },
+        error: err => {
+          onError(err)
+          setState(prev => ({
+            ...prev,
+            loadingStates: prev.loadingStates.set(
+              prev._currentIndex + 1,
+              LOADING_STATE.FAIL
+            ),
+          }))
+        },
+      }
+    )
+  }, [imageIds, imageScheme, onError, requestInterceptor, hasLoader])
 
   return {
     images,

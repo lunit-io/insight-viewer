@@ -1,4 +1,4 @@
-import { HTTP, RequestInterceptor } from '../../types'
+import { HTTP, RequestInterceptor, ImageLoaderScheme } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 export type Props = {
@@ -7,5 +7,6 @@ export type Props = {
 
 export type GetImage = (arg: {
   imageId: string
+  imageScheme: ImageLoaderScheme
   requestInterceptor: RequestInterceptor
 }) => Promise<CornerstoneImage>

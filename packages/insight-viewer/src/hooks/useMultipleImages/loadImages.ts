@@ -5,16 +5,18 @@ import { from, Observable } from 'rxjs'
 import { concatMap, map, catchError } from 'rxjs/operators'
 import { loadedCountMessageMessage } from '../../utils/messageService'
 import { normalizeError } from '../../utils/common'
-import { RequestInterceptor } from '../../types'
+import { RequestInterceptor, ImageLoaderScheme } from '../../types'
 import { Loaded } from './types'
 import { loadCornerstoneImages } from './loadCornerstoneImages'
 
 interface LoadImages {
   ({
     images,
+    imageScheme,
     requestInterceptor,
   }: {
     images: string[]
+    imageScheme: ImageLoaderScheme
     requestInterceptor: RequestInterceptor
   }): Observable<Loaded>
 }
@@ -25,7 +27,11 @@ interface LoadImages {
  * @returns Observable<{ image, loaded }>. image is cornerstone image. loaded is the numbe of loaded images.
  * @throws If image fetching fails.
  */
-export const loadImages: LoadImages = ({ images, requestInterceptor }) => {
+export const loadImages: LoadImages = ({
+  images,
+  imageScheme,
+  requestInterceptor,
+}) => {
   let loaded = 0
   // Should send message before loading starts, because subscriber needs total value.
   loadedCountMessageMessage.sendMessage({
@@ -35,7 +41,9 @@ export const loadImages: LoadImages = ({ images, requestInterceptor }) => {
 
   return from(images).pipe(
     // Sequential Requests.
-    concatMap(image => loadCornerstoneImages(image, requestInterceptor)),
+    concatMap(image =>
+      loadCornerstoneImages(image, imageScheme, requestInterceptor)
+    ),
     map(image => {
       loaded += 1
       loadedCountMessageMessage.sendMessage({

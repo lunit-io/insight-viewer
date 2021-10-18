@@ -1,10 +1,12 @@
 import { loadImage, CornerstoneImage } from '../../utils/cornerstoneHelper'
-import { RequestInterceptor } from '../../types'
+import { RequestInterceptor, ImageLoaderScheme } from '../../types'
+import { IMAGE_LOADER_SCHEME } from '../../const'
 import { getHttpClient } from '../../utils/httpClient'
 
 interface GetLoadImage {
   (
     image: string,
+    imageScheme: ImageLoaderScheme,
     requestInterceptor: RequestInterceptor
   ): Promise<CornerstoneImage>
 }
@@ -14,8 +16,12 @@ interface GetLoadImage {
  */
 export const loadCornerstoneImages: GetLoadImage = (
   image,
+  imageScheme,
   requestInterceptor
 ) =>
   loadImage(image, {
-    loader: getHttpClient(requestInterceptor),
+    loader:
+      imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE
+        ? undefined
+        : getHttpClient(requestInterceptor),
   })

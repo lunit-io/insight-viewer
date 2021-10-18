@@ -1,6 +1,7 @@
 import { loadImage } from '../../utils/cornerstoneHelper'
 import { normalizeError } from '../../utils/common'
 import { getHttpClient } from '../../utils/httpClient'
+import { IMAGE_LOADER_SCHEME } from '../../const'
 import { GetImage } from './types'
 
 /**
@@ -8,11 +9,15 @@ import { GetImage } from './types'
  */
 export const loadCornerstoneImage: GetImage = async ({
   imageId,
+  imageScheme,
   requestInterceptor,
 }) => {
   try {
     return await loadImage(imageId, {
-      loader: getHttpClient(requestInterceptor),
+      loader:
+        imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE
+          ? undefined
+          : getHttpClient(requestInterceptor),
     })
   } catch (e) {
     throw normalizeError(e)
