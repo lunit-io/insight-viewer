@@ -36,35 +36,19 @@ export interface HTTP {
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 export type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]
-export type ImageType =
+export type ImageId =
   | {
-      [IMAGE_TYPE.WADOURI]: string
+      [IMAGE_TYPE.WADO]: string | string[]
       [IMAGE_TYPE.DICOMFILE]?: never
       [IMAGE_TYPE.WEB]?: never
     }
   | {
-      [IMAGE_TYPE.WADOURI]?: never
-      [IMAGE_TYPE.DICOMFILE]: string
+      [IMAGE_TYPE.WADO]?: never
+      [IMAGE_TYPE.DICOMFILE]: string | string[]
       [IMAGE_TYPE.WEB]?: never
     }
   | {
-      [IMAGE_TYPE.WADOURI]?: never
+      [IMAGE_TYPE.WADO]?: never
       [IMAGE_TYPE.DICOMFILE]?: never
-      [IMAGE_TYPE.WEB]: string
-    }
-export type ImageTypes =
-  | {
-      [IMAGE_TYPE.WADOURI]: string[]
-      [IMAGE_TYPE.DICOMFILE]?: never
-      [IMAGE_TYPE.WEB]?: never
-    }
-  | {
-      [IMAGE_TYPE.WADOURI]?: never
-      [IMAGE_TYPE.DICOMFILE]: string[]
-      [IMAGE_TYPE.WEB]?: never
-    }
-  | {
-      [IMAGE_TYPE.WADOURI]?: never
-      [IMAGE_TYPE.DICOMFILE]?: never
-      [IMAGE_TYPE.WEB]: string[]
+      [IMAGE_TYPE.WEB]: string | string[]
     }
