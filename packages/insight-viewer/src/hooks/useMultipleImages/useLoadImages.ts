@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
-import { getLoaderType, getImageIds } from '../../utils/common'
+import { getImageIds } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
@@ -42,7 +42,7 @@ export const useLoadImages: UseLoadImages = ({
     _currentIndex: -1,
   })
 
-  const hasLoader = useImageLoader(getLoaderType(rest), onError)
+  const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
     if (!imageIds || imageIds.length === 0) return // No images to load

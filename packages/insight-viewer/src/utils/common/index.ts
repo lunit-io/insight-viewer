@@ -31,5 +31,4 @@ export function normalizeError(e: Error | HTTPError | unknown): ViewerError {
   return new Error(ERROR_UNKNOWN)
 }
 
-export { getLoaderType } from './getLoaderType'
 export { getImageId, getImageIds } from './getImageId'

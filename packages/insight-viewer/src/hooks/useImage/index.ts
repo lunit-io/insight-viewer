@@ -5,7 +5,7 @@ import { useEffect, useReducer } from 'react'
 import { LOADING_STATE, CONFIG } from '../../const'
 import { LoadingState, ImageId, HTTP } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
-import { getLoaderType, getImageId } from '../../utils/common'
+import { getImageId } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
 import { loadImage } from './loadImage'
@@ -36,7 +36,7 @@ export const useImage: UseImage = ({
     INITIAL_IMAGE_LOAD_STATE
   )
   const { loadingState, image } = state
-  const hasLoader = useImageLoader(getLoaderType(rest), onError)
+  const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
     if (!hasLoader || !imageId) return
