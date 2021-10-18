@@ -4,12 +4,12 @@ import { getLoaderType, getImageIds } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
-import { HTTP, LoadingState, ImageTypes } from '../../types'
+import { HTTP, LoadingState, ImageId } from '../../types'
 import { Loaded, ImagesLoadState } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 
 interface UseLoadImages {
-  ({ onError, requestInterceptor, ...rest }: HTTP & ImageTypes): ImagesLoadState
+  ({ onError, requestInterceptor, ...rest }: HTTP & ImageId): ImagesLoadState
 }
 
 interface State {
@@ -36,14 +36,16 @@ export const useLoadImages: UseLoadImages = ({
   const imageIds = getImageIds(rest)
   const [{ images, loadingStates }, setState] = useState<State>({
     images: [],
-    loadingStates: getLoadingStateMap(imageIds.length),
+    loadingStates: getLoadingStateMap(
+      Array.isArray(imageIds) ? imageIds.length : 0
+    ),
     _currentIndex: -1,
   })
 
   const hasLoader = useImageLoader(getLoaderType(rest), onError)
 
   useEffect(() => {
-    if (imageIds.length === 0) return // No images to load
+    if (!imageIds || imageIds.length === 0) return // No images to load
     if (!hasLoader) return // No image loader
 
     // Initialize first image loading state.
