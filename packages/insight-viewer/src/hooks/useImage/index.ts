@@ -40,7 +40,7 @@ export const useImage: UseImage = ({
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
-    if (!hasLoader || !imageId) return
+    if (!hasLoader || !imageId || !imageScheme) return
     dispatch({ type: LOADING_STATE.LOADING })
 
     loadImage({
