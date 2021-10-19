@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.4](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.3...@lunit/osd-react-renderer@1.0.0-alpha.4) (2021-10-19)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** fix a bug where OSDViewer being unmounted was leaking viewer object ([2ffb41d](https://github.com/lunit-io/frontend-components/commit/2ffb41d1092cacfa337be40e5f93b7bd818d7314))
+
+
+
+
+
 # [1.0.0-alpha.3](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.2...@lunit/osd-react-renderer@1.0.0-alpha.3) (2021-09-13)
 
 
