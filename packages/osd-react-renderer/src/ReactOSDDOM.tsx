@@ -121,8 +121,8 @@ const reconciler = ReactReconciler<
   },
 })
 
-let viewer: OpenSeadragon.Viewer
-let container: HostConfig.Container
+let viewer: OpenSeadragon.Viewer | null
+let container: HostConfig.Container | null
 
 const ReactOSDDOM = {
   render(
@@ -140,7 +140,15 @@ const ReactOSDDOM = {
       container = reconciler.createContainer(root, 0, false, null)
     }
     reconciler.updateContainer(reactElement, container, null, callback)
-    return viewer
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return viewer!
+  },
+  destroy(): void {
+    viewer?.canvasOverlay().destroy()
+    viewer?.tooltipOverlay().destroy()
+    viewer?.destroy()
+    viewer = null
+    container = null
   },
 }
 

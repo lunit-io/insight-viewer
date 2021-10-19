@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import ReactOSDDOM from '../ReactOSDDOM'
 import { OSDViewerProps, OSDViewerRef } from '../types'
 
@@ -20,10 +20,18 @@ const OSDViewer = React.forwardRef<OSDViewerRef, OSDViewerProps>(
         if (typeof ref === 'function') {
           ref(refValue)
         } else if (typeof ref === 'object') {
+          // eslint-disable-next-line no-param-reassign
           ref.current = refValue
         }
       }
-    }, [children, options])
+    }, [children, options, ref])
+
+    useEffect(
+      () => () => {
+        ReactOSDDOM.destroy()
+      },
+      []
+    )
 
     return (
       <div
