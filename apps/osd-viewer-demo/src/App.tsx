@@ -6,16 +6,15 @@ import OSDViewer, {
   OSDViewerRef,
 } from '@lunit/osd-react-renderer'
 import OpenSeadragon from 'openseadragon'
+import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
 import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 import ZoomController, { ZoomControllerProps } from './ZoomController'
 
 const Container = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
   .navigator {
     width: 160px !important;
     height: 160px !important;
@@ -27,6 +26,18 @@ const Container = styled.div`
   }
   .displayregion {
     border: 2px solid #5a79e3 !important;
+  }
+`
+
+const OSDContainer = styled.div`
+  flex: 1;
+  height: 100%;
+`
+
+const Links = styled.div`
+  width: 100px;
+  a {
+    display: block;
   }
 `
 
@@ -132,66 +143,82 @@ function App() {
   )
 
   return (
-    <Container>
-      <OSDViewer
-        options={{
-          imageLoaderLimit: 8,
-          smoothTileEdgesMinZoom: Infinity,
-          showNavigator: true,
-          showNavigationControl: false,
-          timeout: 60000,
-          navigatorAutoResize: false,
-          preserveImageSizeOnResize: true,
-          showRotationControl: true,
-          zoomPerScroll: 1.3,
-          animationTime: 0.3,
-          gestureSettingsMouse: {
-            clickToZoom: false,
-            dblClickToZoom: false,
-          },
-          gestureSettingsTouch: {
-            flickEnabled: false,
-            clickToZoom: false,
-            dblClickToZoom: false,
-          },
-        }}
-        ref={osdViewerRef}
-      >
-        <viewport
-          zoom={viewportZoom}
-          refPoint={refPoint}
-          rotation={rotation}
-          onOpen={handleViewportOpen}
-          onResize={handleViewportResize}
-          onRotate={handleViewportRotate}
-          onZoom={handleViewportZoom}
-          maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM * scaleFactor}
-          minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM * scaleFactor}
+    <BrowserRouter>
+      <Container>
+        <Links>
+          <NavLink to="/">HOME</NavLink>
+          <NavLink to="/test">TEST</NavLink>
+        </Links>
+        <Switch>
+          <OSDContainer>
+            <Route exact path="/test">
+              <div>something</div>
+            </Route>
+            <Route exact path="/">
+              <OSDViewer
+                options={{
+                  imageLoaderLimit: 8,
+                  smoothTileEdgesMinZoom: Infinity,
+                  showNavigator: true,
+                  showNavigationControl: false,
+                  timeout: 60000,
+                  navigatorAutoResize: false,
+                  preserveImageSizeOnResize: true,
+                  showRotationControl: true,
+                  zoomPerScroll: 1.3,
+                  animationTime: 0.3,
+                  gestureSettingsMouse: {
+                    clickToZoom: false,
+                    dblClickToZoom: false,
+                  },
+                  gestureSettingsTouch: {
+                    flickEnabled: false,
+                    clickToZoom: false,
+                    dblClickToZoom: false,
+                  },
+                }}
+                ref={osdViewerRef}
+              >
+                <viewport
+                  zoom={viewportZoom}
+                  refPoint={refPoint}
+                  rotation={rotation}
+                  onOpen={handleViewportOpen}
+                  onResize={handleViewportResize}
+                  onRotate={handleViewportRotate}
+                  onZoom={handleViewportZoom}
+                  maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM * scaleFactor}
+                  minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM * scaleFactor}
+                />
+                <tiledImage url="https://image-pdl1.api.opt.scope.lunit.io/slides/images/dzi/41f49f4c-8dcd-4e85-9e7d-c3715f391d6f/3/122145f9-7f68-4f85-82f7-5b30364c2323/D_202103_Lunit_NSCLC_011_IHC_22C3.svs" />
+                <scalebar
+                  pixelsPerMeter={MICRONS_PER_METER / DEMO_MPP}
+                  xOffset={10}
+                  yOffset={30}
+                  barThickness={3}
+                  color="#443aff"
+                  fontColor="#53646d"
+                  backgroundColor={'rgba(255,255,255,0.5)'}
+                  location={ScalebarLocation.BOTTOM_RIGHT}
+                />
+                <canvasOverlay
+                  ref={canvasOverlayRef}
+                  onRedraw={onCanvasOverlayRedraw}
+                />
+                <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
+              </OSDViewer>
+            </Route>
+          </OSDContainer>
+        </Switch>
+
+        <ZoomController
+          zoom={viewportZoom / scaleFactor}
+          maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM}
+          minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM}
+          onZoom={handleControllerZoom}
         />
-        <tiledImage url="https://image-pdl1.api.opt.scope.lunit.io/slides/images/dzi/41f49f4c-8dcd-4e85-9e7d-c3715f391d6f/3/122145f9-7f68-4f85-82f7-5b30364c2323/D_202103_Lunit_NSCLC_011_IHC_22C3.svs" />
-        <scalebar
-          pixelsPerMeter={MICRONS_PER_METER / DEMO_MPP}
-          xOffset={10}
-          yOffset={30}
-          barThickness={3}
-          color="#443aff"
-          fontColor="#53646d"
-          backgroundColor={'rgba(255,255,255,0.5)'}
-          location={ScalebarLocation.BOTTOM_RIGHT}
-        />
-        <canvasOverlay
-          ref={canvasOverlayRef}
-          onRedraw={onCanvasOverlayRedraw}
-        />
-        <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
-      </OSDViewer>
-      <ZoomController
-        zoom={viewportZoom / scaleFactor}
-        maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM}
-        minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM}
-        onZoom={handleControllerZoom}
-      />
-    </Container>
+      </Container>
+    </BrowserRouter>
   )
 }
 
