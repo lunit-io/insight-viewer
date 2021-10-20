@@ -9,7 +9,7 @@ export function useDicomFile(): {
 
   function handleFileChange(file: File) {
     getDicomFileImageId(file).then(imgId => {
-      setImageId(imgId)
+      setImageId(imgId ?? '')
     })
   }
 
