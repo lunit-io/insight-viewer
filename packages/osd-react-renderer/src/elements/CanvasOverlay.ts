@@ -13,6 +13,7 @@ declare module 'openseadragon' {
 
   interface Viewer {
     canvasOverlay: (options?: { onRedraw: () => void }) => CanvasOverlay
+    canvasOverlayExists: () => boolean
   }
 }
 

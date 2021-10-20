@@ -13,6 +13,10 @@ import OpenSeadragon from 'openseadragon'
     return this._tooltipOverlayInfo
   }
 
+  OpenSeadragon.Viewer.prototype.tooltipOverlayExists = function () {
+    return !!this._tooltipOverlayInfo
+  }
+
   // ----------
   var Overlay = function (viewer, options) {
     var self = this

@@ -144,8 +144,8 @@ const ReactOSDDOM = {
     return viewer!
   },
   destroy(): void {
-    viewer?.canvasOverlay().destroy()
-    viewer?.tooltipOverlay().destroy()
+    if (viewer?.canvasOverlayExists()) viewer?.canvasOverlay().destroy()
+    if (viewer?.tooltipOverlayExists()) viewer?.tooltipOverlay().destroy()
     viewer?.destroy()
     viewer = null
     container = null

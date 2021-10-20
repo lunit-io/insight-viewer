@@ -20,6 +20,7 @@ declare module 'openseadragon' {
 
   interface Viewer {
     tooltipOverlay: (options?: TooltipOverlayOptions) => TooltipOverlay
+    tooltipOverlayExists: () => boolean
   }
 }
 

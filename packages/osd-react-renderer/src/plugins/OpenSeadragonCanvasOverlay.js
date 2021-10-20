@@ -13,6 +13,10 @@ import OpenSeadragon from 'openseadragon'
     return this._canvasOverlayInfo
   }
 
+  OpenSeadragon.Viewer.prototype.canvasOverlayExists = function () {
+    return !!this._canvasOverlayInfo
+  }
+
   // ----------
   var Overlay = function (viewer, options) {
     var self = this
