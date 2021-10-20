@@ -1,10 +1,17 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import ReactOSDDOM from '../ReactOSDDOM'
 import { OSDViewerProps, OSDViewerRef } from '../types'
 
 const OSDViewer = React.forwardRef<OSDViewerRef, OSDViewerProps>(
   ({ children, options = {} }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null)
+
+    useLayoutEffect(
+      () => () => {
+        ReactOSDDOM.destroy()
+      },
+      []
+    )
 
     useLayoutEffect(() => {
       if (!(containerRef.current instanceof HTMLElement)) {
@@ -25,13 +32,6 @@ const OSDViewer = React.forwardRef<OSDViewerRef, OSDViewerProps>(
         }
       }
     }, [children, options, ref])
-
-    useEffect(
-      () => () => {
-        ReactOSDDOM.destroy()
-      },
-      []
-    )
 
     return (
       <div
