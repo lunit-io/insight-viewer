@@ -6,7 +6,7 @@ import { loadImages } from './loadImages'
 import { HTTP, LoadingState, ImageId } from '../../types'
 import { Loaded, ImagesLoadState } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
-import { getImageIdsAndType } from './getImageIdsAndType'
+import { getImageIdsAndScheme } from './getImageIdsAndScheme'
 
 interface UseLoadImages {
   ({ onError, requestInterceptor, ...rest }: HTTP & ImageId): ImagesLoadState
@@ -33,7 +33,7 @@ export const useLoadImages: UseLoadImages = ({
   requestInterceptor,
   ...rest
 }) => {
-  const { ids: imageIds, scheme: imageScheme } = getImageIdsAndType(rest)
+  const { ids: imageIds, scheme: imageScheme } = getImageIdsAndScheme(rest)
   const [{ images, loadingStates }, setState] = useState<State>({
     images: [],
     loadingStates: getLoadingStateMap(

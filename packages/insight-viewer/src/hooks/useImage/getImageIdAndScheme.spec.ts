@@ -1,6 +1,6 @@
 import { IMAGE_LOADER_SCHEME } from '../../const'
 import { ImageId } from '../../types'
-import { getItem, getImageIdAndType } from './getImageIdAndType'
+import { getItem, getImageIdAndScheme } from './getImageIdAndScheme'
 
 const file = 'wadouri:https://example/CT000000.dcm'
 
@@ -18,13 +18,13 @@ describe('getItem()', () => {
   })
 })
 
-describe('getImageIdAndType()', () => {
+describe('getImageIdAndScheme()', () => {
   it('return dicom when image type is wadouri', () => {
     const imageType: ImageId = {
       [IMAGE_LOADER_SCHEME.WADO]: file,
     }
-    expect(getImageIdAndType(imageType).id).toEqual(file)
-    expect(getImageIdAndType(imageType).scheme).toEqual(
+    expect(getImageIdAndScheme(imageType).id).toEqual(file)
+    expect(getImageIdAndScheme(imageType).scheme).toEqual(
       IMAGE_LOADER_SCHEME.WADO
     )
   })
@@ -33,8 +33,8 @@ describe('getImageIdAndType()', () => {
     const imageType: ImageId = {
       [IMAGE_LOADER_SCHEME.DICOMFILE]: file,
     }
-    expect(getImageIdAndType(imageType).id).toEqual(file)
-    expect(getImageIdAndType(imageType).scheme).toEqual(
+    expect(getImageIdAndScheme(imageType).id).toEqual(file)
+    expect(getImageIdAndScheme(imageType).scheme).toEqual(
       IMAGE_LOADER_SCHEME.DICOMFILE
     )
   })
@@ -43,7 +43,9 @@ describe('getImageIdAndType()', () => {
     const imageType: ImageId = {
       [IMAGE_LOADER_SCHEME.WEB]: file,
     }
-    expect(getImageIdAndType(imageType).id).toEqual(file)
-    expect(getImageIdAndType(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.WEB)
+    expect(getImageIdAndScheme(imageType).id).toEqual(file)
+    expect(getImageIdAndScheme(imageType).scheme).toEqual(
+      IMAGE_LOADER_SCHEME.WEB
+    )
   })
 })
