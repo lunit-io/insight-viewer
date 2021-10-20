@@ -8,7 +8,7 @@ import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
 import { loadImage } from './loadImage'
-import { getImageId } from './getImageId'
+import { getImageIdAndScheme } from './getImageIdAndScheme'
 
 interface UseImage {
   (props: Partial<HTTP> & ImageId): {
@@ -30,7 +30,8 @@ export const useImage: UseImage = ({
   onError = CONFIG.onError,
   ...rest
 }) => {
-  const imageId = getImageId(rest)
+  const { id: imageId, scheme: imageScheme } = getImageIdAndScheme(rest)
+
   const [state, dispatch] = useReducer(
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
@@ -39,11 +40,12 @@ export const useImage: UseImage = ({
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
-    if (!hasLoader || !imageId) return
+    if (!hasLoader || !imageId || !imageScheme) return
     dispatch({ type: LOADING_STATE.LOADING })
 
     loadImage({
       imageId,
+      imageScheme,
       requestInterceptor,
       onError,
     })
@@ -54,7 +56,7 @@ export const useImage: UseImage = ({
         })
       })
       .catch(() => dispatch({ type: LOADING_STATE.FAIL }))
-  }, [hasLoader, imageId, requestInterceptor, onError])
+  }, [hasLoader, imageId, imageScheme, requestInterceptor, onError])
 
   return {
     image,

@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { CONFIG } from '../../const'
+import { CONFIG, IMAGE_LOADER_SCHEME } from '../../const'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { loadImage } from './loadImage'
@@ -11,6 +11,7 @@ const defaultParam = {
   onError: CONFIG.onError,
   requestInterceptor: CONFIG.requestInterceptor,
   imageId: IMAGE_ID,
+  imageScheme: IMAGE_LOADER_SCHEME.WADO,
 }
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 const mockLoadCornerstoneImage = loadCornerstoneImage as jest.Mock

@@ -17,7 +17,10 @@ export function useImageLoader(imageId: ImageId, onError: OnError): boolean {
 
   // eslint-disable-next-line no-extra-semi
   ;(async function asyncLoad(): Promise<void> {
-    if (!hasLoader) setHasLoader(await loader(onError))
+    if (!hasLoader) {
+      const imageLoader = await loader(onError)
+      setHasLoader(!!imageLoader)
+    }
   })()
 
   return hasLoader
