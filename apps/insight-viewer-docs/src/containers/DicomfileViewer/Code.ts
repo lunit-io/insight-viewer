@@ -8,7 +8,7 @@ const style = {
 }
 
 export default function App() {
-  const { FileInput, imageId } = useFileInput()
+  const { imageId } = useFileInput()
   const { image } = useImage({
     dicomfile: imageId,
   })
