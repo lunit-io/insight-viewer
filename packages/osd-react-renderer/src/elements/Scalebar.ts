@@ -10,7 +10,7 @@ declare module 'openseadragon' {
   }
   interface Viewer {
     scalebar: (option: ScalebarProps) => void
-    scalebarInstance: ScalebarInstance
+    scalebarInstance?: ScalebarInstance
   }
 }
 

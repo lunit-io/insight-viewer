@@ -146,7 +146,7 @@ const ReactOSDDOM = {
   destroy(): void {
     if (viewer?.canvasOverlayExists()) viewer?.canvasOverlay().destroy()
     if (viewer?.tooltipOverlayExists()) viewer?.tooltipOverlay().destroy()
-    viewer?.scalebarInstance.destroy()
+    viewer?.scalebarInstance?.destroy()
     viewer?.destroy()
     if (viewer?.navigator) {
       viewer?.navigator.destroy()
