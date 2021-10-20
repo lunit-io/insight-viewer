@@ -6,7 +6,7 @@ import FileInput from '../../components/FileInput'
 import { CODE } from './Code'
 
 export default function DicomfileViewer(): JSX.Element {
-  const { imageId, setImageId } = useDicomFile()
+  const { imageId, handleFileChange } = useDicomFile()
   const { image } = useImage({
     dicomfile: imageId,
   })
@@ -14,7 +14,7 @@ export default function DicomfileViewer(): JSX.Element {
   return (
     <>
       <Box mb={6}>
-        <FileInput onChange={setImageId} />
+        <FileInput onChange={handleFileChange} />
       </Box>
       <ViewerWrapper>
         <InsightViewer image={image} />
