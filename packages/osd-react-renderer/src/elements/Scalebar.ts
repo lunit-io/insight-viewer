@@ -4,8 +4,13 @@ import { ScalebarLocation, ScalebarProps } from '../types'
 import Base from './Base'
 
 declare module 'openseadragon' {
+  interface ScalebarInstance {
+    getAsCanvas: () => HTMLCanvasElement
+    destroy: () => void
+  }
   interface Viewer {
     scalebar: (option: ScalebarProps) => void
+    scalebarInstance: ScalebarInstance
   }
 }
 
