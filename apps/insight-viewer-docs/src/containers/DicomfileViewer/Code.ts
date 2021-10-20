@@ -18,7 +18,6 @@ export default function App() {
       <input
         type="file"
         accept="application/dicom"
-        hidden
         onChange={handleFileChange}
       />
       <div style={style}> // Wrapper size is required because InsightViewer's width/height is '100%'.
