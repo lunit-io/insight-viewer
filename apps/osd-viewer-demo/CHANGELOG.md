@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.5](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.4...@lunit/osd-viewer-demo@1.0.0-alpha.5) (2021-10-21)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** fix a bug where not using a scalebar was also causing a crash ([e8df0f5](https://github.com/lunit-io/frontend-components/commit/e8df0f5a53dc74d2d59a6410c0178cac011924db))
+
+
+### Features
+
+* **osd-viewer-demo:** add a new case to demo with no overlays ([4899fc8](https://github.com/lunit-io/frontend-components/commit/4899fc8cae72e5e5a1d3b10ae308c7927a1790d1))
+
+
+
+
+
 # [1.0.0-alpha.4](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.3...@lunit/osd-viewer-demo@1.0.0-alpha.4) (2021-10-19)
 
 

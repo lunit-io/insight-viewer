@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.5](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.4...@lunit/osd-react-renderer@1.0.0-alpha.5) (2021-10-21)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** add more of missing clean-up process for osd viewer object ([224a07b](https://github.com/lunit-io/frontend-components/commit/224a07b7969bd4e7c8b43b957945ac3934d874c2))
+* **osd-react-renderer:** fix a bug where not using a scalebar was also causing a crash ([e8df0f5](https://github.com/lunit-io/frontend-components/commit/e8df0f5a53dc74d2d59a6410c0178cac011924db))
+* **osd-react-renderer:** fix a bug where osd destroy method was being run at a wrong time ([4d3152c](https://github.com/lunit-io/frontend-components/commit/4d3152cd45d814d6b10e6a8ae9f69cfadb2d0c86))
+* **osd-react-renderer:** fix a bug where OSDViewer without any overlay was crashing ([ec40f3d](https://github.com/lunit-io/frontend-components/commit/ec40f3d8554be2c217f304e0ec477c4afa3923a2))
+
+
+
+
+
 # [1.0.0-alpha.4](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.3...@lunit/osd-react-renderer@1.0.0-alpha.4) (2021-10-19)
 
 
