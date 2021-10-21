@@ -27,4 +27,5 @@ export const CODE_SANDBOX = {
   overlay: 'https://codesandbox.io/s/insight-viewer-overlay-y8b2v',
   progress: 'https://codesandbox.io/s/insight-viewer-custom-progress-bar-vu5rj',
   viewport: 'https://codesandbox.io/s/insight-viewer-viewport-ibfti',
+  dicomfile: 'https://codesandbox.io/s/insight-viewer-dicomfile-viewer-1bqdr',
 }

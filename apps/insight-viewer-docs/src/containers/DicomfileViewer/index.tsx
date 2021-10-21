@@ -3,6 +3,7 @@ import InsightViewer, { useImage, useDicomFile } from '@lunit/insight-viewer'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CodeBlock from '../../components/CodeBlock'
 import FileInput from '../../components/FileInput'
+import { CODE_SANDBOX } from '../../const'
 import { CODE } from './Code'
 
 export default function DicomfileViewer(): JSX.Element {
@@ -20,7 +21,7 @@ export default function DicomfileViewer(): JSX.Element {
         <InsightViewer image={image} />
       </ViewerWrapper>
       <Box>
-        <CodeBlock code={CODE} />
+        <CodeBlock code={CODE} codeSandbox={CODE_SANDBOX.dicomfile} />
       </Box>
     </>
   )
