@@ -144,9 +144,20 @@ const ReactOSDDOM = {
     return viewer!
   },
   destroy(): void {
-    viewer?.canvasOverlay().destroy()
-    viewer?.tooltipOverlay().destroy()
+    if (viewer?.canvasOverlayExists()) viewer?.canvasOverlay().destroy()
+    if (viewer?.tooltipOverlayExists()) viewer?.tooltipOverlay().destroy()
+    viewer?.scalebarInstance?.destroy()
     viewer?.destroy()
+    if (viewer?.navigator) {
+      viewer?.navigator.destroy()
+    }
+    if (viewer && viewer.drawer) {
+      viewer.drawer.destroy()
+      // using ts-ignore here because this is part of clean-up process necessary to prevent viewer object leak
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: Type 'null' is not assignable to type 'Drawer'
+      viewer.drawer = null
+    }
     viewer = null
     container = null
   },

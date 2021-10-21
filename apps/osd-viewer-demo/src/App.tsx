@@ -46,6 +46,27 @@ const DEFAULT_CONTROLLER_MAX_ZOOM: number = 160
 const DEMO_MPP = 0.263175
 const MICRONS_PER_METER = 1e6
 const RADIUS_UM = 281.34
+const VIEWER_OPTIONS = {
+  imageLoaderLimit: 8,
+  smoothTileEdgesMinZoom: Infinity,
+  showNavigator: true,
+  showNavigationControl: false,
+  timeout: 60000,
+  navigatorAutoResize: false,
+  preserveImageSizeOnResize: true,
+  showRotationControl: true,
+  zoomPerScroll: 1.3,
+  animationTime: 0.3,
+  gestureSettingsMouse: {
+    clickToZoom: false,
+    dblClickToZoom: false,
+  },
+  gestureSettingsTouch: {
+    flickEnabled: false,
+    clickToZoom: false,
+    dblClickToZoom: false,
+  },
+}
 
 const onCanvasOverlayRedraw: CanvasOverlayProps['onRedraw'] = (
   canvas: HTMLCanvasElement
@@ -147,6 +168,7 @@ function App() {
       <Container>
         <Links>
           <NavLink to="/">HOME</NavLink>
+          <NavLink to="/no-overlay">NO OVERLAY</NavLink>
           <NavLink to="/test">TEST</NavLink>
         </Links>
         <Switch>
@@ -155,30 +177,7 @@ function App() {
               <div>something</div>
             </Route>
             <Route exact path="/">
-              <OSDViewer
-                options={{
-                  imageLoaderLimit: 8,
-                  smoothTileEdgesMinZoom: Infinity,
-                  showNavigator: true,
-                  showNavigationControl: false,
-                  timeout: 60000,
-                  navigatorAutoResize: false,
-                  preserveImageSizeOnResize: true,
-                  showRotationControl: true,
-                  zoomPerScroll: 1.3,
-                  animationTime: 0.3,
-                  gestureSettingsMouse: {
-                    clickToZoom: false,
-                    dblClickToZoom: false,
-                  },
-                  gestureSettingsTouch: {
-                    flickEnabled: false,
-                    clickToZoom: false,
-                    dblClickToZoom: false,
-                  },
-                }}
-                ref={osdViewerRef}
-              >
+              <OSDViewer options={VIEWER_OPTIONS} ref={osdViewerRef}>
                 <viewport
                   zoom={viewportZoom}
                   refPoint={refPoint}
@@ -207,16 +206,20 @@ function App() {
                 />
                 <tooltipOverlay onRedraw={onTooltipOverlayRedraw} />
               </OSDViewer>
+              <ZoomController
+                zoom={viewportZoom / scaleFactor}
+                maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM}
+                minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM}
+                onZoom={handleControllerZoom}
+              />
+            </Route>
+            <Route exact path="/no-overlay">
+              <OSDViewer options={VIEWER_OPTIONS} ref={osdViewerRef}>
+                <tiledImage url="https://image-pdl1.api.opt.scope.lunit.io/slides/images/dzi/41f49f4c-8dcd-4e85-9e7d-c3715f391d6f/3/122145f9-7f68-4f85-82f7-5b30364c2323/D_202103_Lunit_NSCLC_011_IHC_22C3.svs" />
+              </OSDViewer>
             </Route>
           </OSDContainer>
         </Switch>
-
-        <ZoomController
-          zoom={viewportZoom / scaleFactor}
-          maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM}
-          minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM}
-          onZoom={handleControllerZoom}
-        />
       </Container>
     </BrowserRouter>
   )
