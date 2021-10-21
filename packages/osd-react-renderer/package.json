@@ -1,6 +1,6 @@
 {
   "name": "@lunit/osd-react-renderer",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "OpenSeadragon viewer component for React using react-reconciler package.",
   "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/osd-react-renderer#readme",
   "license": "MIT",
