@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-// TODO: resolve this
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import InsightViewer, {
   useInteraction,

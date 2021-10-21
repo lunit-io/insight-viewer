@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react'
-import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useDicomFile } from '@lunit/insight-viewer'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CodeBlock from '../../components/CodeBlock'
-import { useFileInput } from '../../hooks/useFileInput'
+import FileInput from '../../components/FileInput'
 import { CODE } from './Code'
 
 export default function DicomfileViewer(): JSX.Element {
-  const { FileInput, imageId } = useFileInput()
+  const { imageId, setImageIdByFile } = useDicomFile()
   const { image } = useImage({
     dicomfile: imageId,
   })
@@ -14,7 +14,7 @@ export default function DicomfileViewer(): JSX.Element {
   return (
     <>
       <Box mb={6}>
-        <FileInput />
+        <FileInput onChange={setImageIdByFile} />
       </Box>
       <ViewerWrapper>
         <InsightViewer image={image} />
