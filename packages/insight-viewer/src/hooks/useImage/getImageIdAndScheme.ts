@@ -1,7 +1,7 @@
 import { IMAGE_LOADER_SCHEME } from '../../const'
 import { ImageId, ImageLoaderScheme } from '../../types'
 
-export interface ImageIdAndType {
+export interface ImageIdAndScheme {
   id: string | undefined
   scheme: ImageLoaderScheme | undefined
 }
@@ -14,7 +14,7 @@ export function getItem(
   return item
 }
 
-export function getImageIdAndType(image: ImageId): ImageIdAndType {
+export function getImageIdAndScheme(image: ImageId): ImageIdAndScheme {
   if (image[IMAGE_LOADER_SCHEME.WADO])
     return {
       id: getItem(image[IMAGE_LOADER_SCHEME.WADO]),
