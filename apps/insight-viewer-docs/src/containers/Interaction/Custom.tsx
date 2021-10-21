@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-// TODO: resolve eslint error
 import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'

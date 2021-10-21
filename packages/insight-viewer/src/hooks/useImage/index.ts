@@ -32,11 +32,10 @@ export const useImage: UseImage = ({
 }) => {
   const { id: imageId, scheme: imageScheme } = getImageIdAndScheme(rest)
 
-  const [state, dispatch] = useReducer(
+  const [{ loadingState, image }, dispatch] = useReducer(
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
   )
-  const { loadingState, image } = state
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
