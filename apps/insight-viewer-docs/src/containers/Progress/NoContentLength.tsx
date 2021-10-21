@@ -17,10 +17,10 @@ const IMAGES = [
 
 export default function Custom(): JSX.Element {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
   })
   const { images } = useMultipleImages({
-    imageIds: IMAGES,
+    wadouri: IMAGES,
   })
   const { frame } = useFrame({
     initial: 0,

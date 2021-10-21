@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+// TODO: resolve this
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import InsightViewer, {
   useInteraction,
@@ -24,7 +26,7 @@ const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
   const { loadingStates, images } = useMultipleImages({
-    imageIds: IMAGES,
+    wadouri: IMAGES,
   })
   const { frame, setFrame } = useFrame({
     initial: 0,

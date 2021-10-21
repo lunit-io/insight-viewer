@@ -10,3 +10,5 @@ export const DefaultViewport: Viewport = {
   windowWidth: 0,
   windowCenter: 0,
 }
+
+export const ERROR_UNKNOWN = 'error unknown'

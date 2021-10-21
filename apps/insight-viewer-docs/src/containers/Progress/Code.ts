@@ -8,7 +8,7 @@ const style = {
 
 export default function Viewer() {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
   })
 
   return (
@@ -33,7 +33,7 @@ function CustomProgress({ progress }: { progress: number }): JSX.Element {
 
 export default function Viewer() {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
   })
 
   return (

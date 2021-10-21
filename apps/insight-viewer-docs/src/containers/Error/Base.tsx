@@ -7,7 +7,7 @@ import { WRONG_IMAGE } from '../../const'
 
 export default function Base(): JSX.Element {
   const { image } = useImage({
-    imageId: WRONG_IMAGE,
+    wadouri: WRONG_IMAGE,
   })
 
   return (

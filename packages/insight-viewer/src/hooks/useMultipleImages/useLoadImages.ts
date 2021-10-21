@@ -3,20 +3,13 @@ import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
-import { HTTP, LoaderType, LoadingState } from '../../types'
+import { HTTP, LoadingState, ImageId } from '../../types'
 import { Loaded, ImagesLoadState } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
+import { getImageIdsAndScheme } from './getImageIdsAndScheme'
 
 interface UseLoadImages {
-  ({
-    images,
-    onError,
-    requestInterceptor,
-    type,
-  }: HTTP & {
-    images: string[]
-    type?: LoaderType
-  }): ImagesLoadState
+  ({ onError, requestInterceptor, ...rest }: HTTP & ImageId): ImagesLoadState
 }
 
 interface State {
@@ -36,21 +29,23 @@ interface State {
  *  loadingStates are <'initial'|'loading'|'success'|'fail'>[]
  */
 export const useLoadImages: UseLoadImages = ({
-  images: imageIds,
   onError,
   requestInterceptor,
-  type,
+  ...rest
 }) => {
+  const { ids: imageIds, scheme: imageScheme } = getImageIdsAndScheme(rest)
   const [{ images, loadingStates }, setState] = useState<State>({
     images: [],
-    loadingStates: getLoadingStateMap(imageIds.length),
+    loadingStates: getLoadingStateMap(
+      Array.isArray(imageIds) ? imageIds.length : 0
+    ),
     _currentIndex: -1,
   })
 
-  const hasLoader = useImageLoader(type, onError)
+  const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
-    if (imageIds.length === 0) return // No images to load
+    if (!imageIds || imageIds.length === 0 || !imageScheme) return // No images to load
     if (!hasLoader) return // No image loader
 
     // Initialize first image loading state.
@@ -59,30 +54,32 @@ export const useLoadImages: UseLoadImages = ({
       loadingStates: prev.loadingStates.set(0, LOADING_STATE.LOADING),
     }))
 
-    loadImages({ images: imageIds, requestInterceptor }).subscribe({
-      next: ({ image, loaded }: Loaded) => {
-        setState((prev: State) => ({
-          images: [...prev.images, image],
-          loadingStates: updateLoadedStates({
-            size: imageIds.length,
-            stateMap: prev.loadingStates,
-            value: loaded,
-          }),
-          _currentIndex: loaded - 1,
-        }))
-      },
-      error: err => {
-        onError(err)
-        setState(prev => ({
-          ...prev,
-          loadingStates: prev.loadingStates.set(
-            prev._currentIndex + 1,
-            LOADING_STATE.FAIL
-          ),
-        }))
-      },
-    })
-  }, [imageIds, onError, requestInterceptor, hasLoader])
+    loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe(
+      {
+        next: ({ image, loaded }: Loaded) => {
+          setState((prev: State) => ({
+            images: [...prev.images, image],
+            loadingStates: updateLoadedStates({
+              size: imageIds.length,
+              stateMap: prev.loadingStates,
+              value: loaded,
+            }),
+            _currentIndex: loaded - 1,
+          }))
+        },
+        error: err => {
+          onError(err)
+          setState(prev => ({
+            ...prev,
+            loadingStates: prev.loadingStates.set(
+              prev._currentIndex + 1,
+              LOADING_STATE.FAIL
+            ),
+          }))
+        },
+      }
+    )
+  }, [imageIds, imageScheme, onError, requestInterceptor, hasLoader])
 
   return {
     images,

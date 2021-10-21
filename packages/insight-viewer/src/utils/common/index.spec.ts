@@ -1,8 +1,9 @@
-import { formatError } from './index'
+import { normalizeError } from './index'
+import { ERROR_UNKNOWN } from './const'
 
-describe('formatError', () => {
+describe('normalizeError', () => {
   it('formats Error instance', async () => {
-    const result = formatError(new Error('something happended'))
+    const result = normalizeError(new Error('something happended'))
 
     expect(result).toBeInstanceOf(Error)
     expect(result.message).toBe('something happended')
@@ -10,12 +11,20 @@ describe('formatError', () => {
   })
 
   it('formats HTTPError instance from ky.js', async () => {
-    const result = formatError({
+    const result = normalizeError({
       error: { response: { status: 401 }, message: 'something happended' },
     })
 
     expect(result).toBeInstanceOf(Error)
     expect(result.message).toBe('something happended')
     expect(result.status).toBe(401)
+  })
+
+  it('formats unknown', async () => {
+    const unknown: unknown = undefined
+    const result = normalizeError(unknown)
+    expect(result).toBeInstanceOf(Error)
+    expect(result.message).toBe(ERROR_UNKNOWN)
+    expect(result.status).toBeUndefined()
   })
 })

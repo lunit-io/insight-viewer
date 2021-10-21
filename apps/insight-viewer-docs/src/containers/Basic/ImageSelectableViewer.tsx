@@ -7,7 +7,7 @@ import { ViewerWrapper } from '../../components/Wrapper'
 export default function ImageSelectableViewer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
-    imageId: selected,
+    wadouri: selected,
   })
 
   return (

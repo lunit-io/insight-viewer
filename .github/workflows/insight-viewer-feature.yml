@@ -1,4 +1,4 @@
-name: Deploy vue.js on develop
+name: Deploy insight-viewer on develop
 
 on:
   push:

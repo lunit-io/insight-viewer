@@ -12,7 +12,7 @@ const requestInterceptor = (request: Request) => {
 
 export default function() {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
     requestInterceptor
   })
 

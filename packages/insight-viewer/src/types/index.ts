@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { LOADING_STATE, LOADER_TYPE } from '../const'
+import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
   children?: React.ReactNode
@@ -36,3 +36,21 @@ export interface HTTP {
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 export type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]
+export type ImageLoaderScheme =
+  typeof IMAGE_LOADER_SCHEME[keyof typeof IMAGE_LOADER_SCHEME]
+export type ImageId =
+  | {
+      [IMAGE_LOADER_SCHEME.WADO]: string | string[]
+      [IMAGE_LOADER_SCHEME.DICOMFILE]?: never
+      [IMAGE_LOADER_SCHEME.WEB]?: never
+    }
+  | {
+      [IMAGE_LOADER_SCHEME.WADO]?: never
+      [IMAGE_LOADER_SCHEME.DICOMFILE]: string | string[]
+      [IMAGE_LOADER_SCHEME.WEB]?: never
+    }
+  | {
+      [IMAGE_LOADER_SCHEME.WADO]?: never
+      [IMAGE_LOADER_SCHEME.DICOMFILE]?: never
+      [IMAGE_LOADER_SCHEME.WEB]: string | string[]
+    }

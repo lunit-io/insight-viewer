@@ -8,7 +8,7 @@ const style = {
 
 export default function() {
   const { image } = useImage({
-    imageId: IMAGE_ID
+    wadouri: IMAGE_ID
   })
 
   return (
@@ -32,7 +32,7 @@ function customError(e: ViewerError) {
 
 export default function() {
   const { image } = useImage({
-    imageId: IMAGE_ID,
+    wadouri: IMAGE_ID,
     onError: customError
   })
 

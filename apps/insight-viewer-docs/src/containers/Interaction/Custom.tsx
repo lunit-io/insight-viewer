@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+// TODO: resolve eslint error
 import { useState } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
@@ -25,7 +27,7 @@ export default function App(): JSX.Element {
     y: number | undefined
   }>({ x: undefined, y: undefined })
   const { loadingState, image } = useImage({
-    imageId: IMAGES[7],
+    wadouri: IMAGES[7],
   })
   const { interaction, setInteraction } = useInteraction()
   const {
