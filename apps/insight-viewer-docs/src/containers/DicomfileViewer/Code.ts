@@ -8,7 +8,7 @@ const style = {
 }
 
 export default function App() {
-  const { imageId, handleFileChange } = useDicomFile()
+  const { imageId, setImageIdByFile } = useDicomFile()
   const { image } = useImage({
     dicomfile: imageId,
   })
@@ -18,7 +18,7 @@ export default function App() {
       <input
         type="file"
         accept="application/dicom"
-        onChange={handleFileChange}
+        onChange={setImageIdByFile}
       />
       <div style={style}> // Wrapper size is required because InsightViewer's width/height is '100%'.
         <InsightViewer image={image} />

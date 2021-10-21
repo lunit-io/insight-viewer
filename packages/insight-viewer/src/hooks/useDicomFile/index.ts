@@ -3,11 +3,11 @@ import { getDicomFileImageId } from '../../utils/cornerstoneHelper/getDicomFileI
 
 export function useDicomFile(): {
   imageId: string
-  handleFileChange: (file: File) => void
+  setImageIdByFile: (file: File) => void
 } {
   const [imageId, setImageId] = useState<string>('')
 
-  function handleFileChange(file: File) {
+  function setImageIdByFile(file: File) {
     getDicomFileImageId(file).then(imgId => {
       setImageId(imgId ?? '')
     })
@@ -15,6 +15,6 @@ export function useDicomFile(): {
 
   return {
     imageId,
-    handleFileChange,
+    setImageIdByFile,
   }
 }
