@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0-alpha.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.0.1-alpha.2...@lunit/insight-viewer@5.1.0-alpha.0) (2021-10-21)
+
+
+### Bug Fixes
+
+* **viewer:** add missed out condition ([cabbf28](https://github.com/lunit-io/frontend-components/commit/cabbf28567f567a1e01c38a53a8f004ba27ec371))
+* **viewer:** fix incorrect type ([0cc931e](https://github.com/lunit-io/frontend-components/commit/0cc931e594be4deee8872fbab828f1b875f547e7))
+
+
+### Features
+
+* **viewer:** add getDicomFileImageId ([dd73ae0](https://github.com/lunit-io/frontend-components/commit/dd73ae0ca3b182773933b2b66b67931ad88ad947))
+* **viewer:** add getImageId ([3000db6](https://github.com/lunit-io/frontend-components/commit/3000db6f29c1675b0b8fcc377622a3ea03e08cea))
+* **viewer:** add getImageIds, ImageTypes ([330b7b7](https://github.com/lunit-io/frontend-components/commit/330b7b78ff25252db682a2c42c12aeaa65046cc3))
+* **viewer:** add getLoaderType ([e0aabe5](https://github.com/lunit-io/frontend-components/commit/e0aabe513ebaf574d794db195091b2d6c5bb38fe))
+* **viewer:** export getLoaderType and getImageId from utils/common ([78db072](https://github.com/lunit-io/frontend-components/commit/78db072dc64fc9e6e61943e265960e9bc230786d))
+* **viewer:** pass image scheme to useImage, useMultipleImages, loadCornerstoneImage(s) ([0678ecd](https://github.com/lunit-io/frontend-components/commit/0678ecd0db4b8cfa7084b4377226891db33e002c))
+* **viewer:** separate loadCornerstoneImage ([68a501d](https://github.com/lunit-io/frontend-components/commit/68a501d1bd7303134d3de7449f2c8ff8d6b68f41))
+* **viewer:** separate loadCornerstoneImages ([c043877](https://github.com/lunit-io/frontend-components/commit/c043877bbe406a3cf07432ca1454e573f08c8a8f))
+* **viewer:** update formatError to accept unknown type ([b41e159](https://github.com/lunit-io/frontend-components/commit/b41e15982f826d07405339fc01683626f9767abc))
+* **viewer:** update getImageId to return image id and schme ([a1f4ce8](https://github.com/lunit-io/frontend-components/commit/a1f4ce8604d5fae8bd2c737f8dc65a8d26206f9b))
+* **viewer:** update getImageIds to return image ids and schme ([8479e41](https://github.com/lunit-io/frontend-components/commit/8479e419872a178789767ee7ec01310484278203))
+* **viewer:** update ImageType and LoaderType ([54cdfa8](https://github.com/lunit-io/frontend-components/commit/54cdfa84567d9282e1fe33cab049d5e959580c0c))
+* **viewer:** update setWadoImageLoader/setWebImageLoader to return cornerstone image loader ([6700b2f](https://github.com/lunit-io/frontend-components/commit/6700b2fbbe761f74a705f249d45b245423a89fb2))
+* **viewer:** update useImage to accept wadouri/dicomfile/web instead of type/imageId ([3316bc0](https://github.com/lunit-io/frontend-components/commit/3316bc06deef8236307d57f714eefa1064b22522))
+* **viewer:** update useMultipleImages api ([80c30d8](https://github.com/lunit-io/frontend-components/commit/80c30d8069c45c5e3e639d894e6e6cbd695f7a4a))
+* **viewer:** use formatError in catch block ([4170029](https://github.com/lunit-io/frontend-components/commit/4170029897297a9e94a750e9bbbce616b15194db))
+* **viewer:** use LoaderType in useImageLoader ([39e8084](https://github.com/lunit-io/frontend-components/commit/39e80841cde49aa058dfe92cfb7e43dbd3e83b0e))
+
+
+
+
+
 ## [5.0.1-alpha.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@4.1.0...@lunit/insight-viewer@5.0.1-alpha.2) (2021-08-27)
 
 
