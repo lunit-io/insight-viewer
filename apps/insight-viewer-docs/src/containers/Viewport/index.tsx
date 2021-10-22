@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-// TODO: resolve eslint error
 import { useEffect, useCallback } from 'react'
 import { Box, Text, Stack, Switch, Button } from '@chakra-ui/react'
 import InsightViewer, {

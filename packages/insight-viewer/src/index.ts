@@ -12,4 +12,4 @@ export type {
   Drag,
   Wheel,
 } from './hooks/useInteraction/types'
-export { getDicomFileImageId } from './utils/cornerstoneHelper/getDicomFileImageId'
+export { useDicomFile } from './hooks/useDicomFile'
