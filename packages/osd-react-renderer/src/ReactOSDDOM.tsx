@@ -131,6 +131,15 @@ const ReactOSDDOM = {
     options: OpenSeadragon.Options,
     callback?: () => void | null
   ): OpenSeadragon.Viewer {
+    this._createContainer(domContainer, options)
+    reconciler.updateContainer(reactElement, container, null, callback)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return viewer!
+  },
+  _createContainer(
+    domContainer: HTMLElement,
+    options: OpenSeadragon.Options
+  ): void {
     if (!viewer && !container) {
       viewer = new OpenSeadragon.Viewer({
         ...options,
@@ -139,9 +148,6 @@ const ReactOSDDOM = {
       const root = new Root(viewer)
       container = reconciler.createContainer(root, 0, false, null)
     }
-    reconciler.updateContainer(reactElement, container, null, callback)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return viewer!
   },
   destroy(): void {
     if (viewer?.canvasOverlayExists()) viewer?.canvasOverlay().destroy()
