@@ -6,6 +6,7 @@ import { createInstance } from './elements'
 import Root from './elements/Root'
 import Base from './elements/Base'
 import propsEqual from './utils/propsEqual'
+import assert from './utils/assert'
 
 const rootHostContext = {}
 const childHostContext = {}
@@ -131,12 +132,12 @@ const ReactOSDDOM = {
     options: OpenSeadragon.Options,
     callback?: () => void | null
   ): OpenSeadragon.Viewer {
-    this._createContainer(domContainer, options)
+    this.createContainer(domContainer, options)
     reconciler.updateContainer(reactElement, container, null, callback)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return viewer!
+    assert(viewer !== null)
+    return viewer
   },
-  _createContainer(
+  createContainer(
     domContainer: HTMLElement,
     options: OpenSeadragon.Options
   ): void {

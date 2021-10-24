@@ -8,10 +8,8 @@ const OSDViewer = React.forwardRef<OSDViewerRef, OSDViewerProps>(
 
     // on mount / unmount
     useEffect(() => {
-      if (!(containerRef.current instanceof HTMLElement)) {
-        return () => {}
-      }
-      ReactOSDDOM._createContainer(containerRef.current, options)
+      if (!(containerRef.current instanceof HTMLElement)) return undefined
+      ReactOSDDOM.createContainer(containerRef.current, options)
       return () => {
         ReactOSDDOM.destroy()
       }
@@ -19,9 +17,7 @@ const OSDViewer = React.forwardRef<OSDViewerRef, OSDViewerProps>(
 
     // on update
     useEffect(() => {
-      if (!(containerRef.current instanceof HTMLElement)) {
-        return
-      }
+      if (!(containerRef.current instanceof HTMLElement)) return
       const viewer = ReactOSDDOM.render(
         <>{children}</>,
         containerRef.current,
