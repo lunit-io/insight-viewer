@@ -93,6 +93,12 @@ import OpenSeadragon from 'openseadragon'
       this._canvas.width = this._canvas.width
       // this._canvas.getContext('2d').clearRect(0, 0, this._containerWidth, this._containerHeight);
     },
+    forceRedraw: function () {
+      if (this._open) {
+        this.resize()
+        this._updateCanvas()
+      }
+    },
     destroy: function () {
       this._canvasdiv.removeChild(this._canvas)
       this._viewer.canvas.removeChild(this._canvasdiv)
@@ -128,12 +134,6 @@ import OpenSeadragon from 'openseadragon'
       this._viewportHeight = boundsRect.height * this.imgAspectRatio
     },
     tooltipLocation: new OpenSeadragon.Point(0, 0),
-    redrawCanvas: function () {
-      if (this._open) {
-        this.resize()
-        this._updateCanvas()
-      }
-    },
     reset: function () {
       this._open = false
     },
