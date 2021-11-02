@@ -7,7 +7,7 @@ import { CODE_SANDBOX } from '../../const'
 import { CODE } from './Code'
 
 export default function DicomfileViewer(): JSX.Element {
-  const { imageId, setImageIdByFile } = useDicomFile()
+  const { imageId, file, setImageIdByFile } = useDicomFile()
   const { image } = useImage({
     dicomfile: imageId,
   })
@@ -15,7 +15,7 @@ export default function DicomfileViewer(): JSX.Element {
   return (
     <>
       <Box mb={6}>
-        <FileInput onChange={setImageIdByFile} />
+        <FileInput onChange={setImageIdByFile} /> {file?.name}
       </Box>
       <ViewerWrapper>
         <InsightViewer image={image} />
