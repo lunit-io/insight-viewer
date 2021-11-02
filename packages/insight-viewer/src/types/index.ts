@@ -40,17 +40,17 @@ export type ImageLoaderScheme =
   typeof IMAGE_LOADER_SCHEME[keyof typeof IMAGE_LOADER_SCHEME]
 export type ImageId =
   | {
-      [IMAGE_LOADER_SCHEME.WADO]: string | string[]
+      [IMAGE_LOADER_SCHEME.WADO]: string | string[] | undefined
       [IMAGE_LOADER_SCHEME.DICOMFILE]?: never
       [IMAGE_LOADER_SCHEME.WEB]?: never
     }
   | {
       [IMAGE_LOADER_SCHEME.WADO]?: never
-      [IMAGE_LOADER_SCHEME.DICOMFILE]: string | string[]
+      [IMAGE_LOADER_SCHEME.DICOMFILE]: string | string[] | undefined
       [IMAGE_LOADER_SCHEME.WEB]?: never
     }
   | {
       [IMAGE_LOADER_SCHEME.WADO]?: never
       [IMAGE_LOADER_SCHEME.DICOMFILE]?: never
-      [IMAGE_LOADER_SCHEME.WEB]: string | string[]
+      [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
