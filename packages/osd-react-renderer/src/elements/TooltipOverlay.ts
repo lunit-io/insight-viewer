@@ -57,10 +57,13 @@ class TooltipOverlay extends Base {
   }
 
   commitUpdate(props: TooltipOverlayProps): void {
+    const oldRedraw = this.props.onRedraw
     this.props = { ...defaultProps, ...props }
     this._overlay.redrawOnViewportChange =
       this.props.redrawOnViewportChange || true
-    this._setOnRedraw()
+    if (oldRedraw !== props.onRedraw) {
+      this._setOnRedraw()
+    }
   }
 
   private _setOnRedraw(): void {
@@ -77,6 +80,7 @@ class TooltipOverlay extends Base {
         originalEvent: e,
       })
     }
+    this.overlay.forceRedraw()
   }
 }
 export default TooltipOverlay

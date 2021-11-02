@@ -46,8 +46,11 @@ class CanvasOverlay extends Base {
   }
 
   commitUpdate(props: CanvasOverlayProps): void {
+    const oldRedraw = this.props.onRedraw
     this.props = { ...defaultOptions, ...props }
-    this._setOnRedraw()
+    if (oldRedraw !== props.onRedraw) {
+      this._setOnRedraw()
+    }
   }
 
   private _setOnRedraw(): void {
@@ -59,6 +62,7 @@ class CanvasOverlay extends Base {
     this.overlay.onRedraw = () => {
       onRedraw(canvas, viewer)
     }
+    this.overlay.forceRedraw()
   }
 }
 export default CanvasOverlay

@@ -98,11 +98,14 @@ const onTooltipOverlayRedraw: TooltipOverlayProps['onRedraw'] = ({
   }
 }
 
+let timer: ReturnType<typeof setTimeout>
+
 function App() {
   const [viewportZoom, setViewportZoom] = useState<number>(1)
   const [refPoint, setRefPoint] = useState<OpenSeadragon.Point>()
   const [rotation, setRotation] = useState<number>(0)
   const [scaleFactor, setScaleFactor] = useState<number>(1)
+  const [rectSize, setRectSize] = useState<[number, number]>([5000, 5000])
 
   const canvasOverlayRef = useRef(null)
   const osdViewerRef = useRef<OSDViewerRef>(null)
@@ -163,6 +166,25 @@ function App() {
     [scaleFactor]
   )
 
+  const handleUpdatedCanvasOverlayRedraw: CanvasOverlayProps['onRedraw'] =
+    useCallback(
+      (canvas: HTMLCanvasElement, viewer: OpenSeadragon.Viewer) => {
+        const ctx = canvas.getContext('2d')
+        if (ctx) {
+          ctx.fillStyle = 'rgba(0,0,0,0.3)'
+          ctx.fillRect(50, 50, rectSize[0], rectSize[1])
+        }
+        if (viewer.world && viewer.world.getItemAt(0)) {
+          const imgSize = viewer.world.getItemAt(0).getContentSize()
+          clearTimeout(timer)
+          timer = setTimeout(() => {
+            setRectSize([Math.random() * imgSize.x, Math.random() * imgSize.y])
+          }, 5000)
+        }
+      },
+      [rectSize]
+    )
+
   return (
     <BrowserRouter>
       <Container>
@@ -174,7 +196,34 @@ function App() {
         <Switch>
           <OSDContainer>
             <Route exact path="/test">
-              <div>something</div>
+              <OSDViewer options={VIEWER_OPTIONS} ref={osdViewerRef}>
+                <viewport
+                  zoom={viewportZoom}
+                  refPoint={refPoint}
+                  rotation={rotation}
+                  onOpen={handleViewportOpen}
+                  onResize={handleViewportResize}
+                  onRotate={handleViewportRotate}
+                  onZoom={handleViewportZoom}
+                  maxZoomLevel={DEFAULT_CONTROLLER_MAX_ZOOM * scaleFactor}
+                  minZoomLevel={DEFAULT_CONTROLLER_MIN_ZOOM * scaleFactor}
+                />
+                <tiledImage url="https://image-pdl1.api.opt.scope.lunit.io/slides/images/dzi/41f49f4c-8dcd-4e85-9e7d-c3715f391d6f/3/122145f9-7f68-4f85-82f7-5b30364c2323/D_202103_Lunit_NSCLC_011_IHC_22C3.svs" />
+                <scalebar
+                  pixelsPerMeter={MICRONS_PER_METER / DEMO_MPP}
+                  xOffset={10}
+                  yOffset={30}
+                  barThickness={3}
+                  color="#443aff"
+                  fontColor="#53646d"
+                  backgroundColor={'rgba(255,255,255,0.5)'}
+                  location={ScalebarLocation.BOTTOM_RIGHT}
+                />
+                <canvasOverlay
+                  ref={canvasOverlayRef}
+                  onRedraw={handleUpdatedCanvasOverlayRedraw}
+                />
+              </OSDViewer>
             </Route>
             <Route exact path="/">
               <OSDViewer options={VIEWER_OPTIONS} ref={osdViewerRef}>
