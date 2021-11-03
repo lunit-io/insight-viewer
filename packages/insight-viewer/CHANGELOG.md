@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0-alpha.6](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.1.0-alpha.2...@lunit/insight-viewer@5.1.0-alpha.6) (2021-11-03)
+
+
+### Bug Fixes
+
+* **viewer:** fix incorrect setState ([3f60ef4](https://github.com/lunit-io/frontend-components/commit/3f60ef4acd7ccc8df7ef59c7d86aaaa958f4e716))
+
+
+### Features
+
+* **viewer:** expose file from useDicomFile hook ([4cbe0e0](https://github.com/lunit-io/frontend-components/commit/4cbe0e01f7725b8fdcd95d4b5aae0d943bcdcf60))
+* **viewer:** update useImage and useMultipleImages hook to accept undefined image id ([7af5256](https://github.com/lunit-io/frontend-components/commit/7af5256d1775dba0f2b54cf57eb9dac97a071a82))
+
+
+
+
+
 # [5.1.0-alpha.5](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.1.0-alpha.2...@lunit/insight-viewer@5.1.0-alpha.5) (2021-11-03)
 
 

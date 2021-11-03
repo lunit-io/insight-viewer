@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0-alpha.6](https://github.com-work/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.1.0-alpha.2...@lunit/insight-viewer-docs@5.1.0-alpha.6) (2021-11-03)
+
+**Note:** Version bump only for package @lunit/insight-viewer-docs
+
+
+
+
+
 # [5.1.0-alpha.5](https://github.com-work/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.1.0-alpha.2...@lunit/insight-viewer-docs@5.1.0-alpha.5) (2021-11-03)
 
 **Note:** Version bump only for package @lunit/insight-viewer-docs
