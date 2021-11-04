@@ -1,20 +1,31 @@
 import { useState } from 'react'
 import { getDicomFileImageId } from '../../utils/cornerstoneHelper/getDicomFileImageId'
 
-export function useDicomFile(): {
+interface State {
   imageId: string
-  setImageIdByFile: (file: File) => void
-} {
-  const [imageId, setImageId] = useState<string>('')
+  file: File | undefined
+}
 
-  function setImageIdByFile(file: File) {
-    getDicomFileImageId(file).then(imgId => {
-      setImageId(imgId ?? '')
+export function useDicomFile(): {
+  setImageIdByFile: (file: File) => void
+} & State {
+  const [{ imageId, file }, setState] = useState<State>({
+    imageId: '',
+    file: undefined,
+  })
+
+  function setImageIdByFile(f: File) {
+    getDicomFileImageId(f).then(imgId => {
+      setState({
+        imageId: imgId,
+        file: f,
+      })
     })
   }
 
   return {
     imageId,
     setImageIdByFile,
+    file,
   }
 }
