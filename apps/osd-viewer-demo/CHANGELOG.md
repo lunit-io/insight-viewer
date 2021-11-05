@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.6](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.5...@lunit/osd-viewer-demo@1.0.0-alpha.6) (2021-11-02)
+
+
+### Features
+
+* **osd-viewer-demo:** add a case for testing new overlay force redraw behavior ([da2768f](https://github.com/lunit-io/frontend-components/commit/da2768ff67fdb32f896d18f4967372cf26081a1b))
+
+
+
+
+
 # [1.0.0-alpha.5](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.4...@lunit/osd-viewer-demo@1.0.0-alpha.5) (2021-10-21)
 
 
