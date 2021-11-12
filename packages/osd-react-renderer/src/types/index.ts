@@ -38,6 +38,7 @@ export interface OSDViewerRef {
 
 export interface TiledImageProps extends NodeProps {
   url: string
+  tileUrlBase?: string
   dziMeta?: DZIMetaData
   tileMap?: TileMap
 }

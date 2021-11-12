@@ -190,6 +190,7 @@ function App() {
       <Container>
         <Links>
           <NavLink to="/">HOME</NavLink>
+          <NavLink to="/test-custom">CUSTOM IMG URL</NavLink>
           <NavLink to="/no-overlay">NO OVERLAY</NavLink>
           <NavLink to="/test">TEST</NavLink>
         </Links>
@@ -222,6 +223,14 @@ function App() {
                 <canvasOverlay
                   ref={canvasOverlayRef}
                   onRedraw={handleUpdatedCanvasOverlayRedraw}
+                />
+              </OSDViewer>
+            </Route>
+            <Route exact path="/test-custom">
+              <OSDViewer options={VIEWER_OPTIONS} ref={osdViewerRef}>
+                <tiledImage
+                  url="https://pdl1.api.dev.scope.lunit.io/slides/dzi/metadata?file=mrxs_test/SIZE_TEST_2.mrxs"
+                  tileUrlBase="https://pdl1.api.dev.scope.lunit.io/slides/images/dzi/mrxs_test/SIZE_TEST_2.mrxs"
                 />
               </OSDViewer>
             </Route>
