@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.6...@lunit/osd-react-renderer@1.0.0-alpha.7) (2021-11-12)
+
+
+### Features
+
+* **osd-react-renderer:** add a way to customize base url for tile images ([f91fbbd](https://github.com/lunit-io/frontend-components/commit/f91fbbd7a10c6da507d698474c7b5db71291f2ea))
+
+
+
+
+
 # [1.0.0-alpha.6](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.5...@lunit/osd-react-renderer@1.0.0-alpha.6) (2021-11-02)
 
 
