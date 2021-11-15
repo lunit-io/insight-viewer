@@ -53,6 +53,10 @@ import OpenSeadragon from 'openseadragon'
       self.resize()
       self._updateCanvas()
     })
+
+    this._viewer.addHandler('close', function () {
+      self._open = false
+    })
   }
 
   // ----------
