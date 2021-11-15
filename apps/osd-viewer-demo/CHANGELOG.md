@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.6...@lunit/osd-viewer-demo@1.0.0-alpha.7) (2021-11-12)
+
+
+### Features
+
+* **osd-viewer-demo:** add a test case for custom tile url base ([9467c03](https://github.com/lunit-io/frontend-components/commit/9467c0328880f5f0b315759dfa384668e2cff6aa))
+
+
+
+
+
 # [1.0.0-alpha.6](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.5...@lunit/osd-viewer-demo@1.0.0-alpha.6) (2021-11-02)
 
 
