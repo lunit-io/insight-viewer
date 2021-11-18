@@ -75,6 +75,14 @@ import OpenSeadragon from 'openseadragon'
         self._handleMousemove
       )
     })
+
+    this._viewer.addHandler('close', function () {
+      self._open = false
+      self._viewer.container.removeEventListener(
+        'mousemove',
+        self._handleMousemove
+      )
+    })
   }
 
   // ----------
