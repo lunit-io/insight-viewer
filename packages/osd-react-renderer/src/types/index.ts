@@ -37,10 +37,9 @@ export interface OSDViewerRef {
 }
 
 export interface TiledImageProps extends NodeProps {
-  url: string
+  url?: string
   tileUrlBase?: string
-  dziMeta?: DZIMetaData
-  tileMap?: TileMap
+  tileSource?: OpenSeadragon.TileSource
 }
 
 export interface ViewportEventHandlers
