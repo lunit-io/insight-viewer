@@ -49,10 +49,14 @@ class TiledImage extends Base {
     const viewer = this._parent?.viewer
     if (!viewer) return
     viewer.close()
-    if (!this.props.tileMap && !this.props.dziMeta && !this.props.tileUrlBase) {
+    if (!this.props.tileSource && !this.props.tileUrlBase && this.props.url) {
       // Real-time tiling
       viewer.open(this.props.url)
-    } else if (this.props.tileUrlBase) {
+    } else if (
+      !this.props.tileSource &&
+      this.props.tileUrlBase &&
+      this.props.url
+    ) {
       // Real-time tiling with custom tile url
       loadDZIMeta(this.props.url).then(dziMeta => {
         const { format, ...tileSource } = dziMeta
@@ -65,22 +69,13 @@ class TiledImage extends Base {
         })
       })
       // viewer.open({ url: this.props.url, getTileUrl: this.props.getTileUrl })
-    } else if (this.props.tileMap && this.props.dziMeta) {
+    } else if (this.props.tileSource) {
       // Static(Glob) tiling
       // https://github.com/openseadragon/openseadragon/issues/1032#issuecomment-248323573
       // https://github.com/openseadragon/openseadragon/blob/master/test/modules/ajax-tiles.js
-      const customTileSource = {
-        ...this.props.dziMeta,
-        getTileUrl: () => this.props.url,
-        getTileAjaxHeader: (level: number, x: number, y: number) => ({
-          Range: this.props.tileMap && this.props.tileMap[`${level} ${x} ${y}`],
-        }),
-      }
-      viewer.open(customTileSource)
+      viewer.open(this.props.tileSource)
     } else {
-      throw new Error(
-        'Both tileIndex and dziMeta should be defined or not defined at the same time'
-      )
+      throw new Error('Either tileSource or url should be defined')
     }
   }
 }
