@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.9](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.7...@lunit/osd-react-renderer@1.0.0-alpha.9) (2021-11-23)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** added support for custom tileSource ([6b2aae4](https://github.com/lunit-io/frontend-components/commit/6b2aae4fe2462d523ca95e22e8e34a5ffe792b89))
+* **osd-react-renderer:** fix a bug where changing the url of a tiledImage caused a crash ([039f903](https://github.com/lunit-io/frontend-components/commit/039f9035da79f82ca898b911cf470e8317219886))
+
+
+
+
+
 # [1.0.0-alpha.7](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.6...@lunit/osd-react-renderer@1.0.0-alpha.7) (2021-11-12)
 
 
