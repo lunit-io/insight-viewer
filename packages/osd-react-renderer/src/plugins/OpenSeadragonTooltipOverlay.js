@@ -77,7 +77,7 @@ import OpenSeadragon from 'openseadragon'
     })
 
     this._viewer.addHandler('close', function () {
-      if (self) {
+      if (self && self._viewer) {
         self._open = false
         self._viewer.container.removeEventListener(
           'mousemove',
