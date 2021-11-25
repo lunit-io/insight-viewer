@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.9...@lunit/osd-react-renderer@1.0.0-alpha.10) (2021-11-25)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** fix another crash on destroy ([54209a7](https://github.com/lunit-io/frontend-components/commit/54209a794dc3101fdda2dc0448f056071ff557c5))
+* **osd-react-renderer:** fix crash when ReactOSDDOM destroy method is called ([740d2a2](https://github.com/lunit-io/frontend-components/commit/740d2a2666e71c40c494644ecc3b882f831cca80))
+
+
+
+
+
 # [1.0.0-alpha.9](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.7...@lunit/osd-react-renderer@1.0.0-alpha.9) (2021-11-23)
 
 
