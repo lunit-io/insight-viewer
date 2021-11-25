@@ -55,7 +55,9 @@ import OpenSeadragon from 'openseadragon'
     })
 
     this._viewer.addHandler('close', function () {
-      self._open = false
+      if (self) {
+        self._open = false
+      }
     })
   }
 
