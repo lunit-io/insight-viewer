@@ -193,6 +193,7 @@ function App() {
           <NavLink to="/test-custom">CUSTOM IMG URL</NavLink>
           <NavLink to="/no-overlay">NO OVERLAY</NavLink>
           <NavLink to="/test">TEST</NavLink>
+          <NavLink to="/destroy">TEST DESTROY</NavLink>
         </Links>
         <Switch>
           <OSDContainer>
