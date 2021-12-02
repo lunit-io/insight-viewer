@@ -6,6 +6,7 @@ import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
 import useInitialViewport from '../hooks/useInitialViewport'
+import { OverlayContextProvider } from '../contexts'
 import { ViewerProp } from './types'
 
 export function InsightViewer({
@@ -53,7 +54,9 @@ export function InsightViewer({
       onViewportChange={onViewportChange}
       hasImage={!!image}
     >
-      {children}
+      <OverlayContextProvider element={elRef.current}>
+        {children}
+      </OverlayContextProvider>
     </ViewerWrapper>
   )
 }
