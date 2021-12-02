@@ -34,8 +34,8 @@ class Viewport extends Base {
     this.eventHandlers = Viewport.extractEventHandlers(props)
     this.viewer.viewport.zoomTo(props.zoom, props.refPoint)
     this.viewer.viewport.setRotation(props.rotation)
-    this.viewer.viewport.maxZoomLevel = DEFAULT_MAX_ZOOM
-    this.viewer.viewport.minZoomLevel = 0.1
+    this.viewer.viewport.maxZoomLevel = props.maxZoomLevel || DEFAULT_MAX_ZOOM
+    this.viewer.viewport.minZoomLevel = props.minZoomLevel || DEFAULT_MIN_ZOOM
   }
 
   commitUpdate(props: ViewportProps): void {
