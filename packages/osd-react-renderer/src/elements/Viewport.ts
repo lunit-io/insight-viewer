@@ -7,8 +7,8 @@ import {
 } from '../types'
 import { hasOwnProperty } from '../utils/object'
 
-const DEFAULT_MIN_ZOOM: number = 0.3125
-const DEFAULT_MAX_ZOOM: number = 160
+const DEFAULT_MIN_ZOOM = 0.3125
+const DEFAULT_MAX_ZOOM = 160
 
 declare module 'openseadragon' {
   interface Viewport {
@@ -65,7 +65,7 @@ class Viewport extends Base {
     if (!parent) {
       return
     }
-    const checkEventHandler = update == 'add' ? 'addHandler' : 'removeHandler'
+    const checkEventHandler = update === 'add' ? 'addHandler' : 'removeHandler'
     Object.keys(this.eventHandlers).forEach(key => {
       if (!hasOwnProperty(ViewerEventHandlers, key)) {
         return
