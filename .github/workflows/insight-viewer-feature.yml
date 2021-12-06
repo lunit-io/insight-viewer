@@ -7,7 +7,6 @@ on:
       - chore/**
     paths:
       - .github/workflows/insight-viewer-feature.yml
-      - version.txt
       - packages/insight-viewer/**
       - apps/insight-viewer-docs/**
       - nginx/**
@@ -15,8 +14,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      WORKDIR: .
 
     steps:
       - name: Checkout
@@ -24,48 +21,31 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Log in to Harbor
-        uses: docker/login-action@v1
+      - uses: actions/cache@v2
+        id: yarn-cache
         with:
-          registry: harbor.lunit.in
-          username: ${{ secrets.HARBOR_USERNAME }}
-          password: ${{ secrets.HARBOR_PASSWORD }}
-          logout: true
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: harbor.lunit.in/radiology/insight-viewer
-          tags: |
-            type=sha
-
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          labels: ${{ steps.meta.outputs.labels }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          target: release-insight-viewer
-
-      - name: Checkout private action named actions-argocd-deploy
-        uses: actions/checkout@v2
-        with:
-          path: .github/actions/actions-argocd-deploy
-          repository: lunit-io/actions-argocd-deploy
-          ref: main
-          token: ${{ secrets.GIT_TOKEN }}
-
-      - name: Get docker image tag for Argo CD application
-        id: tag
+      - name: Yarn build
+        id: yarn-build
         run: |
-          INPUT=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
-          OUTPUT=$(awk '{split($0, out, ":"); print out[2]}' <<< $INPUT)
-          echo "::set-output name=value::${OUTPUT}"
+          yarn
+          yarn doc:insight-viewer
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id:     ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
+          aws-region:            us-east-1
 
       - name: Deploy
-        uses: ./.github/actions/actions-argocd-deploy
-        with:
-          password: ${{ secrets.ARGO_DEPLOY_PASSWORD }}
-          app-name: insight-viewer--${{ github.actor }}
-          image-tag: ${{ steps.tag.outputs.value }}
+        env:
+          HOST: insight-viewer--${{ github.actor }}.f.lunit.io
+        run: |
+          aws s3 sync \
+            ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
+            --delete
