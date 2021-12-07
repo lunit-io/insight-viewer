@@ -5,7 +5,7 @@ Each public sub-package is independently published to NPM.
 
 ## Docs
 
-[https://frontend-components.vercel.app/](https://frontend-components.vercel.app/)
+- [https://insight-viewer.s.lunit.io/](https://insight-viewer.s.lunit.io/)
 
 ## Project structure
 
