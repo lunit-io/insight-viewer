@@ -47,14 +47,14 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
+          aws-access-key-id: ${{ secrets.CDN_FOR_PRODUCTION_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.CDN_FOR_PRODUCTION_SECRET_KEY }}
           aws-region: us-east-1
 
       - name: Deploy
         env:
-          HOST: insight-viewer.s.lunit.io
+          HOST: insight-viewer.lunit.io
         run: |
           aws s3 sync \
-            ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
+            ./dist s3://lunit-cdn-for-production-virginia/${HOST} \
             --delete
