@@ -8,4 +8,5 @@ export const LINKS = [
   { href: 'viewport', name: 'Viewport' },
   { href: 'overlay', name: 'Overlay' },
   { href: 'interaction', name: 'Interaction' },
+  { href: 'resize', name: 'Resize' },
 ]
