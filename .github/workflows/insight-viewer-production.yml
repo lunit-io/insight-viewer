@@ -1,7 +1,7 @@
 name: Deploy insight-viewer on production
 
 on:
-  pull_request:
+  push:
     branches:
       - master
     paths:
