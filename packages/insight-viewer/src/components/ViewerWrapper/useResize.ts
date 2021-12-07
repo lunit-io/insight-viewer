@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
-import { resize, getViewport } from '../../utils/cornerstoneHelper'
-import { formatViewport } from '../../utils/common/formatViewport'
-import { Element, OnViewportChange } from '../../types'
+import { resize } from '../../utils/cornerstoneHelper'
+import { Element } from '../../types'
 
-export default function useResize(
-  ref: React.ForwardedRef<HTMLDivElement>,
-  onViewportChange: OnViewportChange | undefined
-): {
+export default function useResize(ref: React.ForwardedRef<HTMLDivElement>): {
   resizeRef: React.RefObject<HTMLDivElement>
+  width: number | undefined
+  height: number | undefined
 } {
   const targetRef = <React.MutableRefObject<Element>>ref
   const element = targetRef?.current
@@ -16,19 +14,17 @@ export default function useResize(
   const handleResize = useCallback(() => {
     if (!element) return
     resize(element)
-    // update Viewer's viewport prop to change
-    if (onViewportChange) {
-      const viewport = getViewport(element)
-      // for resolving issue which is "Cannot update a component while rendering a different component" warning
-      requestAnimationFrame(() => onViewportChange(formatViewport(viewport)))
-    }
-  }, [element, onViewportChange])
+  }, [element])
 
-  const { ref: resizeRef } = useResizeDetector({
+  const {
+    ref: resizeRef,
+    width,
+    height,
+  } = useResizeDetector({
     targetRef,
     onResize: handleResize,
     skipOnMount: false,
   })
 
-  return { resizeRef }
+  return { resizeRef, width, height }
 }
