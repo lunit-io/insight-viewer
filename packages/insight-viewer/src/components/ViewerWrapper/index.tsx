@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { WithChildren, ProgressComponent } from '../../types'
+import { WithChildren, ProgressComponent, OnViewportChange } from '../../types'
 import LoadingProgress from '../LoadingProgress'
 import useResize from './useResize'
 
@@ -13,9 +13,12 @@ const style = {
 
 const Forwarded = forwardRef<
   HTMLDivElement,
-  WithChildren<{ Progress?: ProgressComponent }>
->(({ Progress, children }, ref) => {
-  const { resizeRef } = useResize(ref)
+  WithChildren<{
+    Progress?: ProgressComponent
+    onViewportChange: OnViewportChange | undefined
+  }>
+>(({ Progress, onViewportChange, children }, ref) => {
+  const { resizeRef } = useResize(ref, onViewportChange)
 
   return (
     <div

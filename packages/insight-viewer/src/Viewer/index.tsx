@@ -47,7 +47,11 @@ export function InsightViewer({
   }, [viewport])
 
   return (
-    <ViewerWrapper ref={elRef} Progress={Progress}>
+    <ViewerWrapper
+      ref={elRef}
+      Progress={Progress}
+      onViewportChange={onViewportChange}
+    >
       {children}
     </ViewerWrapper>
   )
