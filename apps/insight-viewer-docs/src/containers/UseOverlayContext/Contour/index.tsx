@@ -1,8 +1,7 @@
 import { Box } from '@chakra-ui/react'
-import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
 import { Resizable } from 're-resizable'
-import OverlayLayer from '../../components/OverlayLayer'
-import { IMAGES } from '../../const'
+import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
+import Contour from './Contour'
 
 const style = {
   display: 'flex',
@@ -10,9 +9,9 @@ const style = {
   justifyContent: 'center',
 } as const
 
-export default function Resize(): JSX.Element {
+function ContourContainer(): JSX.Element {
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[1],
+    wadouri: 'wadouri:/Case08.dcm',
   })
   const { viewport, setViewport } = useViewport()
 
@@ -30,9 +29,11 @@ export default function Resize(): JSX.Element {
           viewport={viewport}
           onViewportChange={setViewport}
         >
-          <OverlayLayer viewport={viewport} />
+          {loadingState === 'success' && <Contour />}
         </InsightViewer>
       </Resizable>
     </Box>
   )
 }
+
+export default ContourContainer
