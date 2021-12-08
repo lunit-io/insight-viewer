@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.8...@lunit/osd-viewer-demo@1.0.0-alpha.10) (2021-12-08)
+
+
+### Features
+
+* **osd-viewer-demo:** add route to test destroy functionality ([43126e6](https://github.com/lunit-io/frontend-components/commit/43126e647eff92f472703016918fdb5239098a91))
+
+
+
+
+
 # [1.0.0-alpha.9](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-viewer-demo@1.0.0-alpha.8...@lunit/osd-viewer-demo@1.0.0-alpha.9) (2021-11-25)
 
 
