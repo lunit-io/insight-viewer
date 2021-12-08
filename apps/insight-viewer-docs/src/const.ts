@@ -11,6 +11,7 @@ export const IMAGES = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000009.dcm',
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000010.dcm',
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000011.dcm',
+  'wadouri:https://static.lunit.io/insight/samples/cxr/cxr-v3/Nodule.dcm',
 ]
 export const WRONG_IMAGE =
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT0000100.dcm'

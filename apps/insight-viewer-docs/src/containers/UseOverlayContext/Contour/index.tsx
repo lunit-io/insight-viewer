@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
+import { IMAGES } from '../../../const'
 import Contour from './Contour'
 
 const style = {
@@ -11,7 +12,7 @@ const style = {
 
 function ContourContainer(): JSX.Element {
   const { loadingState, image } = useImage({
-    wadouri: 'wadouri:/Case08.dcm',
+    wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
 

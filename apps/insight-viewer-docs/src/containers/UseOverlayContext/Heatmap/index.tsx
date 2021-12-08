@@ -2,6 +2,7 @@ import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
 import CodeBlock from '../../../components/CodeBlock'
+import { IMAGES } from '../../../const'
 import Heatmap from './Heatmap'
 import { CODE } from '../Code'
 
@@ -13,7 +14,7 @@ const style = {
 
 function HeatmapContainer(): JSX.Element {
   const { loadingState, image } = useImage({
-    wadouri: 'wadouri:/Case08.dcm',
+    wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
 
