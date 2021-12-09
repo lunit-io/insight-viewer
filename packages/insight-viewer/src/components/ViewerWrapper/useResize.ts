@@ -23,7 +23,9 @@ export default function useResize(ref: React.ForwardedRef<HTMLDivElement>): {
   } = useResizeDetector({
     targetRef,
     onResize: handleResize,
-    skipOnMount: false,
+    refreshMode: 'debounce',
+    refreshRate: 10,
+    skipOnMount: true,
   })
 
   return { resizeRef, width, height }
