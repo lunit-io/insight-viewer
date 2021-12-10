@@ -1,9 +1,9 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable one-var */
-/* eslint-disable no-bitwise */
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-bitwise */
 import { useRef, useEffect, CSSProperties } from 'react'
-import { useOverlayContext } from '@lunit/insight-viewer'
+import { useOverlayContext, OverlayContext } from '@lunit/insight-viewer'
 import posMap from './posMap'
 
 const threshold = 0.1
@@ -16,6 +16,7 @@ const style: CSSProperties = {
   height: '100%',
 } as const
 
+// 특정 영역의 확률값(0~1)을 JET colormap 색상에 해당하는 [r, g, b] 배열로 바꿔주는 함수
 export function getRGBArray(value: number): number[] {
   let r = 1.0
   let g = 1.0
@@ -85,92 +86,65 @@ function clear(
 }
 
 function draw({
-  cachedCanvas,
-  drawingCanvas,
+  baseCanvas,
+  heatmapCanvas,
   heatmapData,
   setToPixelCoordinateSystem,
+  enabledElement,
 }: {
-  cachedCanvas: HTMLCanvasElement | null
-  drawingCanvas: HTMLCanvasElement
+  baseCanvas: HTMLCanvasElement | null
+  heatmapCanvas: HTMLCanvasElement
   heatmapData: ImageData | undefined
-  setToPixelCoordinateSystem: (context: CanvasRenderingContext2D) => void
-}) {
-  if (!heatmapData || !cachedCanvas) return
-  const context = cachedCanvas.getContext('2d')
-  clear(cachedCanvas, context)
-  const { offsetWidth, offsetHeight } = cachedCanvas
-  cachedCanvas.width = offsetWidth
-  cachedCanvas.height = offsetHeight
-  context?.save()
+} & OverlayContext) {
+  if (!heatmapData || !baseCanvas) return
+  const baseCanvasContext = baseCanvas.getContext('2d')
+  clear(baseCanvas, baseCanvasContext)
+  const { offsetWidth, offsetHeight } = baseCanvas
+  baseCanvas.width = offsetWidth
+  baseCanvas.height = offsetHeight
+  baseCanvasContext?.save()
+  heatmapCanvas.width = heatmapData.width
+  heatmapCanvas.height = heatmapData.height
+  heatmapCanvas.getContext('2d')?.putImageData(heatmapData, 0, 0)
+  const heatmapCanvasContext = heatmapCanvas.getContext('2d')
 
-  drawingCanvas.width = heatmapData.width
-  drawingCanvas.height = heatmapData.height
-  drawingCanvas.getContext('2d')?.putImageData(heatmapData, 0, 0)
-  const ctx = drawingCanvas.getContext('2d')
+  if (!baseCanvasContext || !heatmapCanvasContext || !enabledElement) return
 
-  if (!context || !ctx) return
-  setToPixelCoordinateSystem(ctx)
+  setToPixelCoordinateSystem(baseCanvasContext)
 
-  if (offsetHeight >= offsetWidth) {
-    const orgPadLength = (offsetHeight - offsetWidth) / 2
-    const roiInPosMapWidth = Math.round(
-      heatmapData.height * (offsetWidth / offsetHeight)
-    )
-    const padInPosMapLength = Math.round(
-      orgPadLength * (heatmapData.height / offsetHeight)
-    )
+  baseCanvasContext.drawImage(
+    heatmapCanvas, // image
+    0, // sx: s for source
+    0, // sy
+    heatmapCanvas.width, // sWidth
+    heatmapCanvas.height, // sHeight
+    0, // dx: d for destination
+    0, // dy
+    enabledElement.image?.width ?? 0, // dWidth
+    enabledElement.image?.height ?? 0 // dHeight
+  )
 
-    context.drawImage(
-      drawingCanvas,
-      padInPosMapLength,
-      0,
-      roiInPosMapWidth,
-      drawingCanvas.height,
-      0,
-      0,
-      offsetWidth,
-      offsetHeight
-    )
-  } else {
-    const orgPadLength = (offsetWidth - offsetHeight) / 2
-    const roiInPosMapHeight = Math.round(
-      heatmapData.width * (offsetHeight / offsetWidth)
-    )
-    const padInPosMapLength = Math.round(
-      orgPadLength * (heatmapData.height / offsetHeight)
-    )
-    context.drawImage(
-      drawingCanvas,
-      0,
-      padInPosMapLength,
-      heatmapData.width,
-      roiInPosMapHeight,
-      0,
-      0,
-      offsetWidth,
-      offsetHeight
-    )
-  }
-  context.restore()
+  baseCanvasContext.restore()
 }
 
 export default function Heatmap(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const cachedCanvas = canvasRef?.current
-  const drawingCanvas = document.createElement('canvas')
-  const { setToPixelCoordinateSystem } = useOverlayContext()
+  const baseCanvas = canvasRef?.current
+  const heatmapCanvas = document.createElement('canvas')
+  const { setToPixelCoordinateSystem, enabledElement } = useOverlayContext()
 
   useEffect(() => {
     const heatmapData = getHeatmapImageData({
-      canvas: cachedCanvas,
+      canvas: baseCanvas,
     })
 
     draw({
-      cachedCanvas,
-      drawingCanvas,
+      baseCanvas,
+      heatmapCanvas,
       heatmapData,
       setToPixelCoordinateSystem,
+      enabledElement,
     })
-  }, [cachedCanvas, drawingCanvas, setToPixelCoordinateSystem])
+  }, [baseCanvas, heatmapCanvas, setToPixelCoordinateSystem, enabledElement])
   return <canvas ref={canvasRef} style={style} />
 }
