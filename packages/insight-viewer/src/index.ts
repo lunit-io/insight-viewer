@@ -13,4 +13,4 @@ export type {
   Wheel,
 } from './hooks/useInteraction/types'
 export { useDicomFile } from './hooks/useDicomFile'
-export { useOverlayContext } from './contexts'
+export { useOverlayContext, OverlayContext } from './contexts'

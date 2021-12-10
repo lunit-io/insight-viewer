@@ -1,38 +1,51 @@
-import React, { createContext, useContext } from 'react'
+import { EnabledElement } from 'cornerstone-core'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { WithChildren } from '../types'
 import {
   setToPixelCoordinateSystem as setToPixelCoordinateSystemUtil,
   getEnabledElement,
 } from '../utils/cornerstoneHelper'
 
-interface OverlayContextState {
+export interface OverlayContext {
+  enabledElement: EnabledElement | null
   setToPixelCoordinateSystem: (context: CanvasRenderingContext2D) => void
 }
 
-const contextDefaultValue: OverlayContextState = {
+const contextDefaultValue: OverlayContext = {
+  enabledElement: null,
   setToPixelCoordinateSystem: () => {},
 }
-const OverlayContext = createContext<OverlayContextState>(contextDefaultValue)
+const Context = createContext<OverlayContext>(contextDefaultValue)
 
 export function OverlayContextProvider({
   element,
+  hasImage,
   children,
 }: WithChildren<{
   element: HTMLElement | null
+  hasImage: boolean
 }>): JSX.Element {
+  const [enabledElement, setEnabledElement] = useState<EnabledElement | null>(
+    null
+  )
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
-    if (!element) return
-    const enabledElement = getEnabledElement(element)
+    if (!enabledElement || !enabledElement.element) return
     setToPixelCoordinateSystemUtil(enabledElement, context)
   }
 
+  useEffect(() => {
+    if (!hasImage || !element) return
+    const enabled = getEnabledElement(element)
+    if (enabled) setEnabledElement(enabled)
+  }, [element, hasImage])
+
   return (
-    <OverlayContext.Provider value={{ setToPixelCoordinateSystem }}>
+    <Context.Provider value={{ setToPixelCoordinateSystem, enabledElement }}>
       {children}
-    </OverlayContext.Provider>
+    </Context.Provider>
   )
 }
 
-export function useOverlayContext(): OverlayContextState {
-  return useContext(OverlayContext)
+export function useOverlayContext(): OverlayContext {
+  return useContext(Context)
 }

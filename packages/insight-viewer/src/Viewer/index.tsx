@@ -54,7 +54,7 @@ export function InsightViewer({
       onViewportChange={onViewportChange}
       hasImage={!!image}
     >
-      <OverlayContextProvider element={elRef.current}>
+      <OverlayContextProvider element={elRef.current} hasImage={!!image}>
         {children}
       </OverlayContextProvider>
     </ViewerWrapper>
