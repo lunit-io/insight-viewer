@@ -8,16 +8,21 @@ import {
   MOUSEWHEEL,
 } from './const'
 
-export function useInteraction(): {
+const DEFAULT_INTERACTION = {
+  [PRIMARY_DRAG]: undefined,
+  [SECONDARY_DRAG]: undefined,
+  [PRIMARY_CLICK]: undefined,
+  [SECONDARY_CLICK]: undefined,
+  [MOUSEWHEEL]: undefined,
+}
+
+export function useInteraction(initialInteraction: Partial<Interaction> = {}): {
   interaction: Interaction
   setInteraction: React.Dispatch<React.SetStateAction<Interaction>>
 } {
   const [interaction, setInteraction] = useState<Interaction>({
-    [PRIMARY_DRAG]: undefined,
-    [SECONDARY_DRAG]: undefined,
-    [PRIMARY_CLICK]: undefined,
-    [SECONDARY_CLICK]: undefined,
-    [MOUSEWHEEL]: undefined,
+    ...DEFAULT_INTERACTION,
+    ...initialInteraction,
   })
 
   return {
