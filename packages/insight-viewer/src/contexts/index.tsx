@@ -19,11 +19,11 @@ const Context = createContext<OverlayContext>(contextDefaultValue)
 
 export function OverlayContextProvider({
   element,
-  hasImage,
+  imageEnabled,
   children,
 }: WithChildren<{
   element: HTMLElement | null
-  hasImage: boolean
+  imageEnabled: boolean
 }>): JSX.Element {
   const [enabledElement, setEnabledElement] = useState<EnabledElement | null>(
     null
@@ -34,10 +34,10 @@ export function OverlayContextProvider({
   }
 
   useEffect(() => {
-    if (!hasImage || !element) return
-    const enabled = getEnabledElement(element)
-    if (enabled) setEnabledElement(enabled)
-  }, [element, hasImage])
+    if (!imageEnabled || !element) return
+    const _enabledElement = getEnabledElement(element)
+    if (_enabledElement) setEnabledElement(_enabledElement)
+  }, [element, imageEnabled])
 
   return (
     <Context.Provider value={{ setToPixelCoordinateSystem, enabledElement }}>
