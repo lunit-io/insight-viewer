@@ -1,6 +1,11 @@
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
+import InsightViewer, {
+  useImage,
+  useViewport,
+  useInteraction,
+} from '@lunit/insight-viewer'
+import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
 import { IMAGES } from '../../../const'
 import Heatmap from './Heatmap'
@@ -17,6 +22,9 @@ function HeatmapContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
+  const { interaction } = useInteraction({
+    primaryDrag: 'pan',
+  })
 
   return (
     <>
@@ -32,8 +40,10 @@ function HeatmapContainer(): JSX.Element {
             image={image}
             viewport={viewport}
             onViewportChange={setViewport}
+            interaction={interaction}
           >
             {loadingState === 'success' && <Heatmap />}
+            <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </Resizable>
       </Box>
