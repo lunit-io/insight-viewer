@@ -38,6 +38,7 @@ function HeatmapContainer(): JSX.Element {
     <>
       <Box mb={6}>
         <Text className="test">primayDrag로 transition 가능</Text>
+        <Text className="test">캔버스 모서리 드래그하여 resize 가능</Text>
       </Box>
       <Box mb={6}>
         <Stack spacing="24px" direction="row" mt={6}>
