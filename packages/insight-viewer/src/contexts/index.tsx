@@ -34,7 +34,8 @@ export function OverlayContextProvider({
     null
   )
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
-    if (!enabledElement || !enabledElement.element) return
+    if (!enabledElement?.element) return
+    context.setTransform(1, 0, 0, 1, 0, 0)
     setToPixelCoordinateSystemUtil(enabledElement, context)
   }
 
