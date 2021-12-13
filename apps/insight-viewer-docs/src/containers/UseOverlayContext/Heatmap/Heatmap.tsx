@@ -112,22 +112,24 @@ function draw({
   heatmapCanvas.getContext('2d')?.putImageData(heatmapData, 0, 0)
   const heatmapCanvasContext = heatmapCanvas.getContext('2d')
   if (!baseCanvasContext || !heatmapCanvasContext || !enabledElement) return
-  baseCanvasContext?.setTransform(1, 0, 0, 1, 0, 0)
-  setToPixelCoordinateSystem(baseCanvasContext)
 
-  baseCanvasContext.drawImage(
-    heatmapCanvas, // image
-    0, // sx: s for source
-    0, // sy
-    heatmapCanvas.width, // sWidth
-    heatmapCanvas.height, // sHeight
-    0, // dx: d for destination
-    0, // dy
-    enabledElement.image?.width ?? 0, // dWidth
-    enabledElement.image?.height ?? 0 // dHeight
-  )
+  // at this time, enabledElement.viewport is not changed
+  requestAnimationFrame(() => {
+    setToPixelCoordinateSystem(baseCanvasContext)
+    baseCanvasContext.drawImage(
+      heatmapCanvas, // image
+      0, // sx: s for source
+      0, // sy
+      heatmapCanvas.width, // sWidth
+      heatmapCanvas.height, // sHeight
+      0, // dx: d for destination
+      0, // dy
+      enabledElement.image?.width ?? 0, // dWidth
+      enabledElement.image?.height ?? 0 // dHeight
+    )
 
-  baseCanvasContext.restore()
+    baseCanvasContext.restore()
+  })
 }
 
 export default function Heatmap(): JSX.Element {
