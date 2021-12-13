@@ -1,9 +1,10 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Stack, Switch } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   useImage,
   useViewport,
   useInteraction,
+  Viewport,
 } from '@lunit/insight-viewer'
 import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
@@ -26,8 +27,43 @@ function HeatmapContainer(): JSX.Element {
     primaryDrag: 'pan',
   })
 
+  const updateViewport = (key: keyof Viewport, value: boolean) => {
+    setViewport((prev: Viewport) => ({
+      ...prev,
+      [key]: value,
+    }))
+  }
+
   return (
     <>
+      <Box mb={6}>
+        <Stack spacing="24px" direction="row" mt={6}>
+          <Box>
+            invert{' '}
+            <Switch
+              onChange={e => updateViewport('invert', e.target.checked)}
+              className="invert-control"
+              isChecked={viewport.invert}
+            />
+          </Box>
+          <Box>
+            hflip{' '}
+            <Switch
+              onChange={e => updateViewport('hflip', e.target.checked)}
+              className="hflip-control"
+              isChecked={viewport?.hflip ?? false}
+            />
+          </Box>
+          <Box>
+            vflip{' '}
+            <Switch
+              onChange={e => updateViewport('vflip', e.target.checked)}
+              className="vflip-control"
+              isChecked={viewport?.vflip ?? false}
+            />
+          </Box>
+        </Stack>
+      </Box>
       <Box data-cy-loaded={loadingState}>
         <Resizable
           style={style}
