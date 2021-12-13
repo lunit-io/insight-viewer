@@ -33,16 +33,18 @@ export function OverlayContextProvider({
   const [enabledElement, setEnabledElement] = useState<EnabledElement | null>(
     null
   )
-  const [, setCount] = React.useState(0)
+  const [, setUpdateCount] = React.useState(0)
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
     if (!enabledElement?.element) return
     context.setTransform(1, 0, 0, 1, 0, 0)
     setToPixelCoordinateSystemUtil(enabledElement, context)
   }
 
+  // when viewport prop is changed, Overlay context should be changed as well.
+  // new viewport props update cornerstone's viewport asynchronously.
   useEffect(() => {
     if (!enabledElement) return
-    setCount(prev => prev + 1)
+    setUpdateCount(prev => prev + 1)
   }, [viewport, enabledElement])
 
   useEffect(() => {
