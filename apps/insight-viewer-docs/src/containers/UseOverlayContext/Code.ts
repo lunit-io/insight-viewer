@@ -7,6 +7,8 @@ const style = {
 }
 
 function Heatmap() {
+  const { setToPixelCoordinateSystem } = useOverlayContext()
+  
   function draw() {
     // ...
     setToPixelCoordinateSystem(drawingContext)
@@ -20,7 +22,6 @@ export default function App() {
   const { image } = useImage({
     web: IMAGE_ID,
   })
-  const { setToPixelCoordinateSystem } = useOverlayContext()
 
   return (
     <div style={style}> // Wrapper size is required because InsightViewer's width/height is '100%'.
