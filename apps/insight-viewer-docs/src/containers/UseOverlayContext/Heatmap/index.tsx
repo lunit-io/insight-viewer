@@ -1,4 +1,4 @@
-import { Box, Stack, Switch } from '@chakra-ui/react'
+import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   useImage,
@@ -36,6 +36,9 @@ function HeatmapContainer(): JSX.Element {
 
   return (
     <>
+      <Box mb={6}>
+        <Text className="test">primayDrag로 transition 가능</Text>
+      </Box>
       <Box mb={6}>
         <Stack spacing="24px" direction="row" mt={6}>
           <Box>

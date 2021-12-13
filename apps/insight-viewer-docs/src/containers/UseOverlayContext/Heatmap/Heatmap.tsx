@@ -2,7 +2,7 @@
 /* eslint-disable one-var */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
-import { useRef, useEffect, CSSProperties } from 'react'
+import { useRef, useEffect, CSSProperties, useMemo } from 'react'
 import { useOverlayContext, OverlayContext } from '@lunit/insight-viewer'
 import posMap from './posMap'
 
@@ -42,19 +42,23 @@ function getHeatmapImageData({
   canvas,
 }: {
   canvas: HTMLCanvasElement | null
-}): ImageData | undefined {
-  if (!canvas || !posMap) return undefined
+}): {
+  heatmapData: ImageData | undefined
+  heatmapCanvas: HTMLCanvasElement | undefined
+} {
+  if (!canvas || !posMap)
+    return { heatmapData: undefined, heatmapCanvas: undefined }
   const heatmapWidth = posMap[0].length ?? 0
   const heatmapHeight = posMap.length ?? 0
   canvas.width = heatmapWidth
   canvas.height = heatmapHeight
-
+  const heatmapCanvas = document.createElement('canvas')
   const heatmapImageData = canvas
     .getContext('2d')
     ?.createImageData(heatmapWidth, heatmapHeight)
   const pixels = heatmapImageData?.data
 
-  if (!pixels) return undefined
+  if (!pixels) return { heatmapData: undefined, heatmapCanvas: undefined }
 
   let offset, pixVal, posProb
   // convert prob_map into a heatmap on the canvas
@@ -74,7 +78,7 @@ function getHeatmapImageData({
       }
     }
   }
-  return heatmapImageData
+  return { heatmapData: heatmapImageData, heatmapCanvas }
 }
 
 function clear(
@@ -93,10 +97,10 @@ function draw({
   enabledElement,
 }: {
   baseCanvas: HTMLCanvasElement | null
-  heatmapCanvas: HTMLCanvasElement
+  heatmapCanvas: HTMLCanvasElement | undefined
   heatmapData: ImageData | undefined
-} & OverlayContext) {
-  if (!heatmapData || !baseCanvas) return
+} & Omit<OverlayContext, 'viewport'>) {
+  if (!heatmapData || !baseCanvas || !heatmapCanvas) return
   const baseCanvasContext = baseCanvas.getContext('2d')
   clear(baseCanvas, baseCanvasContext)
   const { offsetWidth, offsetHeight } = baseCanvas
@@ -107,9 +111,8 @@ function draw({
   heatmapCanvas.height = heatmapData.height
   heatmapCanvas.getContext('2d')?.putImageData(heatmapData, 0, 0)
   const heatmapCanvasContext = heatmapCanvas.getContext('2d')
-
   if (!baseCanvasContext || !heatmapCanvasContext || !enabledElement) return
-
+  baseCanvasContext?.setTransform(1, 0, 0, 1, 0, 0)
   setToPixelCoordinateSystem(baseCanvasContext)
 
   baseCanvasContext.drawImage(
@@ -130,14 +133,18 @@ function draw({
 export default function Heatmap(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const baseCanvas = canvasRef?.current
-  const heatmapCanvas = document.createElement('canvas')
-  const { setToPixelCoordinateSystem, enabledElement } = useOverlayContext()
+  const { setToPixelCoordinateSystem, enabledElement, viewport } =
+    useOverlayContext()
+  const { hflip, vflip } = viewport
+  const { heatmapData, heatmapCanvas } = useMemo(
+    () =>
+      getHeatmapImageData({
+        canvas: baseCanvas,
+      }),
+    [baseCanvas]
+  )
 
   useEffect(() => {
-    const heatmapData = getHeatmapImageData({
-      canvas: baseCanvas,
-    })
-
     draw({
       baseCanvas,
       heatmapCanvas,
@@ -145,6 +152,14 @@ export default function Heatmap(): JSX.Element {
       setToPixelCoordinateSystem,
       enabledElement,
     })
-  }, [baseCanvas, heatmapCanvas, setToPixelCoordinateSystem, enabledElement])
+  }, [
+    baseCanvas,
+    heatmapCanvas,
+    heatmapData,
+    setToPixelCoordinateSystem,
+    enabledElement,
+    hflip,
+    vflip,
+  ])
   return <canvas ref={canvasRef} style={style} />
 }
