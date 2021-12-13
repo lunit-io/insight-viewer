@@ -33,11 +33,17 @@ export function OverlayContextProvider({
   const [enabledElement, setEnabledElement] = useState<EnabledElement | null>(
     null
   )
+  const [, setCount] = React.useState(0)
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
     if (!enabledElement?.element) return
     context.setTransform(1, 0, 0, 1, 0, 0)
     setToPixelCoordinateSystemUtil(enabledElement, context)
   }
+
+  useEffect(() => {
+    if (!enabledElement) return
+    setCount(prev => prev + 1)
+  }, [viewport, enabledElement])
 
   useEffect(() => {
     if (!imageEnabled || !element) return
