@@ -12,10 +12,14 @@ on:
       - nginx/**
 
 jobs:
-  build:
+  feature:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get short sha
+        id: sha7
+        run: |
+          echo "::set-output name=value::${GITHUB_SHA::7}"
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -44,7 +48,7 @@ jobs:
 
       - name: Deploy
         env:
-          HOST: insight-viewer--${{ github.actor }}.f.lunit.io
+          HOST: insight-viewer--${{ steps.sha7.outputs.value }}.f.lunit.io
         run: |
           aws s3 sync \
             ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
