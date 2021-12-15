@@ -18,19 +18,19 @@ const Forwarded = forwardRef<
   WithChildren<{
     Progress?: ProgressComponent
     onViewportChange: OnViewportChange | undefined
-    hasImage: boolean
+    imageEnabled: boolean
   }>
->(({ Progress, onViewportChange, hasImage, children }, ref) => {
+>(({ Progress, onViewportChange, imageEnabled, children }, ref) => {
   const { resizeRef, width, height } = useResize(ref)
   useEffect(() => {
     if (width === undefined || height === undefined) return
-    if (!resizeRef.current || !hasImage) return
+    if (!resizeRef.current || !imageEnabled) return
     // update Viewer's viewport prop to change
     if (onViewportChange) {
       const viewport = getViewport(resizeRef.current)
       onViewportChange(formatViewport(viewport))
     }
-  }, [width, height, resizeRef, hasImage, onViewportChange])
+  }, [width, height, resizeRef, imageEnabled, onViewportChange])
 
   return (
     <div
