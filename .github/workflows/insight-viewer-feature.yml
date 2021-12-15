@@ -9,10 +9,9 @@ on:
       - .github/workflows/insight-viewer-feature.yml
       - packages/insight-viewer/**
       - apps/insight-viewer-docs/**
-      - nginx/**
 
 jobs:
-  feature:
+  build:
     runs-on: ubuntu-latest
 
     steps:

@@ -1,0 +1,30 @@
+name: Feature preview url comment on pull request
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/insight-viewer-feature.yml
+      - packages/insight-viewer/**
+      - apps/insight-viewer-docs/**
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get short sha
+        id: sha7
+        run: |
+          echo "::set-output name=value::${GITHUB_SHA::7}"
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Preview link
+        uses: NejcZdovc/comment-pr@v1.1.1
+        with:
+          file: "comment.md"
+          identifier: "GITHUB_COMMIT_FILE"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          SHA: ${{steps.sha7.outputs.value}}
