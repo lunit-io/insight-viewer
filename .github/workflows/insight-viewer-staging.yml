@@ -1,0 +1,60 @@
+name: Deploy insight-viewer on production
+
+on:
+  push:
+    branches:
+      - releases/insight-viewer
+    paths:
+      - .github/workflows/insight-viewer-staging.yml
+      - packages/insight-viewer/**
+      - apps/insight-viewer-docs/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      WORKDIR: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Packages
+        run: yarn
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Run tests
+        uses: percy/exec-action@v0.3.1
+        with:
+          custom-command: 'yarn test:insight-viewer'
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+      - name: Build
+        run: yarn doc:insight-viewer
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy
+        env:
+          HOST: insight-viewer.s.lunit.io
+        run: |
+          aws s3 sync \
+            ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
+            --delete
