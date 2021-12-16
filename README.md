@@ -5,7 +5,7 @@ Each public sub-package is independently published to NPM.
 
 ## Docs
 
-- [https://insight-viewer.s.lunit.io/](https://insight-viewer.s.lunit.io/)
+- [https://insight-viewer.lunit.io/](https://insight-viewer.lunit.io/)
 
 ## Project structure
 
