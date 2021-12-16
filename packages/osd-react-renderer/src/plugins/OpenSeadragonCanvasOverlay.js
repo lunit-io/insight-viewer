@@ -96,6 +96,7 @@ import OpenSeadragon from 'openseadragon'
     },
     // ----------
     resize: function () {
+      if (!this?._viewer?.world?.getItemAt(0)) return
       if (this._containerWidth !== this._viewer.container.clientWidth) {
         this._containerWidth = this._viewer.container.clientWidth
         this._canvasdiv.setAttribute('width', this._containerWidth)
@@ -120,6 +121,7 @@ import OpenSeadragon from 'openseadragon'
       this._viewportHeight = boundsRect.height * this.imgAspectRatio
     },
     _updateCanvas: function () {
+      if (!this?._viewer?.world?.getItemAt(0)) return
       var viewportZoom = this._viewer.viewport.getZoom(true)
       var image1 = this._viewer.world.getItemAt(0)
       var zoom = image1.viewportToImageZoom(viewportZoom)
