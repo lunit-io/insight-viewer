@@ -1,10 +1,8 @@
 name: Deploy insight-viewer on develop
 
 on:
-  push:
-    branches:
-      - feature/**
-      - chore/**
+  pull_request:
+    types: [opened, synchronize, reopened]
     paths:
       - .github/workflows/insight-viewer-feature.yml
       - packages/insight-viewer/**
@@ -15,10 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get short sha
-        id: sha7
-        run: |
-          echo "::set-output name=value::${GITHUB_SHA::7}"
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -45,6 +39,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
           aws-region:            us-east-1
 
+      - name: Get short sha
+        id: sha7
+        run: |
+          echo "::set-output name=value::${GITHUB_SHA::7}"
+
       - name: Deploy
         env:
           HOST: insight-viewer--${{ steps.sha7.outputs.value }}.f.lunit.io
@@ -52,3 +51,12 @@ jobs:
           aws s3 sync \
             ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
             --delete
+
+      - name: Preview link
+        uses: NejcZdovc/comment-pr@v1.1.1
+        with:
+          file: "comment.md"
+          identifier: "GITHUB_COMMIT_FILE"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          SHA: ${{steps.sha7.outputs.value}}
