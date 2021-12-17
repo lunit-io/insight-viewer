@@ -25,12 +25,13 @@ export function getCornerstone(): typeof cornerstone {
 export function displayImage(
   element: HTMLDivElement,
   image: CornerstoneImage,
-  viewportOption?: CornerstoneViewportParam
+  viewportOption?: CornerstoneViewportParam // [viewport] A set of Cornerstone viewport parameters
 ): {
   viewport: CornerstoneViewport
   defaultViewport: CornerstoneViewport
   image: CornerstoneImage
 } {
+  // Returns a default viewport for display the specified image on the specified enabled element.
   const defaultViewport = cornerstone.getDefaultViewportForImage(element, image)
   const viewport = viewportOption
     ? formatCornerstoneViewport(defaultViewport, viewportOption)

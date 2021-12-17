@@ -32,14 +32,14 @@ export default function useImageDisplay({
   useEffect(() => {
     if (!image || !element) return
 
-    loadCountRef.current += 1
-
+    loadCountRef.current += 1 // This is 1 unless the image is not changed.
+    // viewport and defaultViewport from dispalyImage() are same when there is no user-defined default value.
     const { viewport, defaultViewport } = displayImage(
       element,
       image,
       loadCountRef.current === 1 // This is the first time to display the image.
-        ? viewportRef?.current?._default // Use the user-defined default value.
-        : viewportRef?.current // Use the viewport prop of Viewer.
+        ? viewportRef?.current?._initialViewport // Use the user-defined default value.
+        : viewportRef?.current // Use the current viewport prop of Viewer(for multiframe images).
     )
     // Sets the default viewport for later use on resetting.
     initialViewportMessage.sendMessage(defaultViewport)
