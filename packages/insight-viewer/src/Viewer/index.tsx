@@ -5,7 +5,6 @@ import useCornerstone from '../hooks/useCornerstone'
 import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
-import useDefaultViewport from '../hooks/useDefaultViewport'
 import { ViewerProp } from './types'
 
 export function InsightViewer({
@@ -18,7 +17,7 @@ export function InsightViewer({
 }: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef(viewport) // viewport props
-  const defaultViewporRef = useDefaultViewport() // image's cornerstone default viewport
+
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
   useImageDisplay({
@@ -31,7 +30,6 @@ export function InsightViewer({
   useViewportUpdate({
     element: elRef.current,
     viewport,
-    defaultViewport: defaultViewporRef?.current,
     onViewportChange,
   })
   // Update cornerstone viewport on user interaction.
