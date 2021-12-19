@@ -39,14 +39,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
           aws-region:            us-east-1
 
-      - name: Get short sha
-        id: sha7
-        run: |
-          echo "::set-output name=value::${GITHUB_SHA::7}"
-
       - name: Deploy
         env:
-          HOST: insight-viewer--${{ steps.sha7.outputs.value }}.f.lunit.io
+          HOST: insight-viewer--pr-${{ github.event.number }}.f.lunit.io
         run: |
           aws s3 sync \
             ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
@@ -59,4 +54,4 @@ jobs:
           identifier: "GITHUB_COMMIT_FILE"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          SHA: ${{steps.sha7.outputs.value}}
+          PR_ID: ${{github.event.number}}

@@ -1,1 +1,1 @@
-preview: https://insight-viewer--{SHA}.f.lunit.io/
+preview: https://insight-viewer--pr-{PR_ID}.f.lunit.io/
