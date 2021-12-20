@@ -1,5 +1,7 @@
-import React, { forwardRef } from 'react'
-import { WithChildren, ProgressComponent } from '../../types'
+import React, { forwardRef, useEffect } from 'react'
+import { WithChildren, ProgressComponent, OnViewportChange } from '../../types'
+import { getViewport } from '../../utils/cornerstoneHelper'
+import { formatViewport } from '../../utils/common/formatViewport'
 import LoadingProgress from '../LoadingProgress'
 import useResize from './useResize'
 
@@ -13,9 +15,22 @@ const style = {
 
 const Forwarded = forwardRef<
   HTMLDivElement,
-  WithChildren<{ Progress?: ProgressComponent }>
->(({ Progress, children }, ref) => {
-  const { resizeRef } = useResize(ref)
+  WithChildren<{
+    Progress?: ProgressComponent
+    onViewportChange: OnViewportChange | undefined
+    imageEnabled: boolean
+  }>
+>(({ Progress, onViewportChange, imageEnabled, children }, ref) => {
+  const { resizeRef, width, height } = useResize(ref)
+  useEffect(() => {
+    if (width === undefined || height === undefined) return
+    if (!resizeRef.current || !imageEnabled) return
+    // update Viewer's viewport prop to change
+    if (onViewportChange) {
+      const viewport = getViewport(resizeRef.current)
+      onViewportChange(formatViewport(viewport))
+    }
+  }, [width, height, resizeRef, imageEnabled, onViewportChange])
 
   return (
     <div

@@ -1,4 +1,4 @@
-import cornerstone from 'cornerstone-core'
+import cornerstone, { EnabledElement } from 'cornerstone-core'
 import {
   CornerstoneImage,
   CornerstoneViewport,
@@ -62,4 +62,17 @@ export function setViewport(
   viewport: CornerstoneViewportParam
 ): ReturnType<typeof cornerstone.setViewport> {
   return cornerstone.setViewport(element, viewport)
+}
+
+export function getEnabledElement(
+  element: HTMLElement
+): ReturnType<typeof cornerstone.getEnabledElement> {
+  return cornerstone.getEnabledElement(element)
+}
+
+export function setToPixelCoordinateSystem(
+  element: EnabledElement,
+  context: CanvasRenderingContext2D
+): ReturnType<typeof cornerstone.setToPixelCoordinateSystem> {
+  return cornerstone.setToPixelCoordinateSystem(element, context)
 }
