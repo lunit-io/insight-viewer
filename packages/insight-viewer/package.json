@@ -36,12 +36,14 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
+    "@types/polylabel": "^1.0.5",
     "consola": "2.15.3",
     "cornerstone-core": "^2.3.0",
     "cornerstone-wado-image-loader": "^3.3.1",
     "cornerstone-web-image-loader": "^2.1.1",
     "dicom-parser": "^1.8.7",
     "ky": "^0.27.0",
+    "polylabel": "^1.1.0",
     "react-resize-detector": "^6.7.0",
     "rxjs": "^7.0.0"
   },
