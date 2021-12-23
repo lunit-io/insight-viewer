@@ -1,4 +1,8 @@
-import cornerstone, { EnabledElement } from 'cornerstone-core'
+import cornerstone, {
+  CanvasCoordinate,
+  EnabledElement,
+  PixelCoordinate,
+} from 'cornerstone-core'
 import {
   CornerstoneImage,
   CornerstoneViewport,
@@ -75,4 +79,11 @@ export function setToPixelCoordinateSystem(
   context: CanvasRenderingContext2D
 ): ReturnType<typeof cornerstone.setToPixelCoordinateSystem> {
   return cornerstone.setToPixelCoordinateSystem(element, context)
+}
+
+export function pixelToCanvas(
+  element: HTMLElement,
+  points: PixelCoordinate
+): CanvasCoordinate {
+  return cornerstone.pixelToCanvas(element, points)
 }
