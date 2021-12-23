@@ -22,10 +22,11 @@ const DEFAULT_SIZE = { width: 1000, height: 1000 }
 
 /** This function return mock Contour Data */
 const getSvgContours = (contourList: Contours): Contour[] =>
-  contourList.map((points, index) => {
-    const contour: Contour = { polygon: points, id: index, lineWidth: 1 }
-    return contour
-  })
+  contourList.map((points, index) => ({
+    polygon: points,
+    id: index,
+    lineWidth: 1,
+  }))
 
 function SvgContourContainer(): JSX.Element {
   const { loadingState, image } = useImage({
