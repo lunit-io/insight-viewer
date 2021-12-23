@@ -38,3 +38,8 @@ export const BASE_VIEWPORT = {
   windowWidth: 0,
   windowCenter: 0,
 }
+
+export const ERROR_MESSAGE = {
+  ENABLED_ELEMENT_NOT_READY:
+    'enabledElement value is null, Please check the enabledElement value.',
+} as const

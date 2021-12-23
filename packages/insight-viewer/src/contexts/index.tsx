@@ -1,7 +1,7 @@
 import { EnabledElement, PixelCoordinate } from 'cornerstone-core'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { WithChildren, Viewport, Point } from '../types'
-import { BASE_VIEWPORT } from '../const'
+import { BASE_VIEWPORT, ERROR_MESSAGE } from '../const'
 import {
   pixelToCanvas as pixelToCanvasUtil,
   setToPixelCoordinateSystem as setToPixelCoordinateSystemUtil,
@@ -40,9 +40,7 @@ export function OverlayContextProvider({
 
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
     if (!enabledElement?.element) {
-      throw new Error(
-        'enabledElement value is null Please check the enabledElement value.'
-      )
+      throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
     }
 
     context.setTransform(1, 0, 0, 1, 0, 0)
@@ -51,9 +49,7 @@ export function OverlayContextProvider({
 
   function pixelToCanvas([xPosition, yPosition]: Point): Point {
     if (!enabledElement?.element) {
-      throw new Error(
-        'enabledElement value is null Please check the enabledElement value.'
-      )
+      throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
     }
 
     const pixelCoordinate: PixelCoordinate = {
