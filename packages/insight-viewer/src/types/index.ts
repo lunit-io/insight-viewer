@@ -28,8 +28,8 @@ export type Viewport = BasicViewport & {
   _reset?: Partial<BasicViewport>
 }
 
-export type Contours = number[][][]
 export type Point = [number, number]
+export type Contours = Point[][]
 
 export interface HTTP {
   onError: OnError
