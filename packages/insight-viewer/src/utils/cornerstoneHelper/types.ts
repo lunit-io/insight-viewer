@@ -1,4 +1,4 @@
-import cornerstone from 'cornerstone-core'
+import cornerstone, { EnabledElement, PixelCoordinate } from 'cornerstone-core'
 
 export type CornerstoneImage = cornerstone.Image
 export type CornerstoneViewport = Required<
@@ -17,5 +17,5 @@ export type CornerstoneViewport = Required<
 > &
   Pick<cornerstone.Viewport, 'colormap' | 'modalityLUT' | 'voiLUT'>
 export type CornerstoneViewportParam = cornerstone.Viewport
-export type EnabledElementParam = cornerstone.EnabledElement
-export type PixelCoordinateParam = cornerstone.PixelCoordinate
+export type EnabledElementParam = EnabledElement
+export type PixelCoordinateParam = PixelCoordinate
