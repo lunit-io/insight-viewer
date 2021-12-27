@@ -9,8 +9,8 @@ import {
 } from './SvgContourViewer.types'
 
 function svgContoursDraw<T extends Contour>({
-  isBorder,
   contours,
+  showBorder,
   focusedContour,
   polygonAttrs,
   pixelToCanvas,
@@ -24,7 +24,7 @@ function svgContoursDraw<T extends Contour>({
 
     const polygonAttributes =
       typeof polygonAttrs === 'function'
-        ? polygonAttrs(contour, isBorder)
+        ? polygonAttrs(contour, showBorder)
         : undefined
 
     const [labelXPosition, labelYPosition] = polylabel([transformedPoints], 1)
@@ -34,7 +34,7 @@ function svgContoursDraw<T extends Contour>({
 
     return (
       <React.Fragment key={id}>
-        {isBorder && (
+        {showBorder && (
           <polygon
             style={{ ...polygonStyle, ...polygonAttributes?.style }}
             data-border="border"
@@ -59,10 +59,10 @@ export function SvgContourViewer<T extends Contour>({
   style,
   width,
   height,
-  border,
   contours,
   className,
   focusedContour,
+  showBorder = false,
   polygonAttrs,
 }: SvgContourViewerProps<T>): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -79,7 +79,7 @@ export function SvgContourViewer<T extends Contour>({
       {contours.length === 0 || !enabledElement
         ? null
         : svgContoursDraw({
-            isBorder: !!border,
+            showBorder,
             contours,
             focusedContour,
             pixelToCanvas,
