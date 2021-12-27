@@ -29,6 +29,7 @@ export function InsightViewer({
   // Update cornerstone viewport when viewport prop changes.
   useViewportUpdate({
     element: elRef.current,
+    image,
     viewport,
     onViewportChange,
   })

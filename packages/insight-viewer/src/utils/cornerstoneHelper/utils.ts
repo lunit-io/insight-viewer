@@ -64,3 +64,10 @@ export function setViewport(
 ): ReturnType<typeof cornerstone.setViewport> {
   return cornerstone.setViewport(element, viewport)
 }
+
+export function getDefaultViewportForImage(
+  element: HTMLDivElement,
+  image: CornerstoneImage
+): ReturnType<typeof cornerstone.getDefaultViewportForImage> {
+  return cornerstone.getDefaultViewportForImage(element, image)
+}

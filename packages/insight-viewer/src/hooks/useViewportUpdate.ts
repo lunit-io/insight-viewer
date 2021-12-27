@@ -2,16 +2,21 @@
  * @fileoverview Update cornerstone.js viewport when Viewer's viewport prop changes.
  */
 import { useEffect } from 'react'
-import { getViewport, setViewport } from '../utils/cornerstoneHelper'
+import {
+  getViewport,
+  setViewport,
+  getDefaultViewportForImage,
+  CornerstoneImage,
+} from '../utils/cornerstoneHelper'
 import {
   formatCornerstoneViewport,
   formatViewport,
 } from '../utils/common/formatViewport'
 import { Element, Viewport, OnViewportChange } from '../types'
-import useDefaultViewport from './useDefaultViewport'
 
 interface Prop {
   element: Element
+  image: CornerstoneImage | undefined
   viewport?: Viewport
   onViewportChange?: OnViewportChange
 }
@@ -24,15 +29,13 @@ interface Prop {
  */
 export default function useViewportUpdate({
   element,
+  image,
   viewport: newViewportProp,
   onViewportChange,
 }: Prop): void {
-  const defaultViewporRef = useDefaultViewport() // image's cornerstone default viewport
-  const defaultViewport = defaultViewporRef?.current
-
   useEffect(() => {
-    if (!element || !newViewportProp || !defaultViewport) return
-
+    if (!element || !image || !newViewportProp) return
+    const defaultViewport = getDefaultViewportForImage(element, image)
     const willReset = newViewportProp?._resetViewport && defaultViewport
     const viewport = willReset
       ? defaultViewport
@@ -52,5 +55,5 @@ export default function useViewportUpdate({
         ...(newViewportProp?._resetViewport ?? {}),
       })
     }
-  }, [element, newViewportProp, defaultViewport, onViewportChange])
+  }, [element, image, newViewportProp, onViewportChange])
 }
