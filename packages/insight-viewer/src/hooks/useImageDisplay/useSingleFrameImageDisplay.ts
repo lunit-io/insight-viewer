@@ -19,7 +19,7 @@ const useSingleFrameImageDisplay: UseImageDisplay = ({
   viewportRef,
   onViewportChange,
 }) => {
-  // If imageCountRef.current is bigger than 1, the frame has been changed.
+  // If imageCountRef.current is bigger than 1, the image prop has been changed.
   const imageCountRef = useRef(0)
   const resetViewportRef = useRef<Partial<BasicViewport>>() // Use as initial viewport on reset.
 
@@ -33,7 +33,6 @@ const useSingleFrameImageDisplay: UseImageDisplay = ({
     // Only multiframe image has _persistentViewport property.
     if (image?._persistentViewport !== undefined) return
 
-    // viewport and defaultViewport from dispalyImage() are same when there is no user-defined default value.
     const { viewport } = displayImage(
       element,
       image,

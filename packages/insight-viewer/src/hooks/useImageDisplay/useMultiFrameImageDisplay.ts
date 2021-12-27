@@ -19,7 +19,7 @@ const useMultiFrameImageDisplay: UseImageDisplay = ({
   viewportRef,
   onViewportChange,
 }) => {
-  // If imageCountRef.current is bigger than 1, the image prop has been changed.
+  // If imageCountRef.current is bigger than 1, the current frame has been changed.
   const imageCountRef = useRef(0)
   const resetViewportRef = useRef<Partial<BasicViewport>>() // Use as initial viewport on reset.
 
