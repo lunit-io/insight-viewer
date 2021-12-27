@@ -1,3 +1,3 @@
 export { loadingProgressMessage } from './loadingProgress'
-export { initialViewportMessage } from './initialViewport'
+export { defaultViewportMessage } from './defaultViewport'
 export { loadedCountMessageMessage } from './loadedCountMessage'

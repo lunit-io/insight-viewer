@@ -3,7 +3,7 @@
  */
 import { useRef, MutableRefObject, useEffect } from 'react'
 import { Subscription } from 'rxjs'
-import { initialViewportMessage } from '../utils/messageService'
+import { defaultViewportMessage } from '../utils/messageService'
 import { CornerstoneViewport } from '../utils/cornerstoneHelper'
 
 let subscription: Subscription
@@ -11,13 +11,13 @@ let subscription: Subscription
 export default function useDefaultViewport(): MutableRefObject<
   CornerstoneViewport | undefined
 > {
-  const initialViewporRef = useRef<CornerstoneViewport>()
+  const defaultViewporRef = useRef<CornerstoneViewport>()
 
   useEffect(() => {
-    subscription = initialViewportMessage
+    subscription = defaultViewportMessage
       .getMessage()
       .subscribe((message: CornerstoneViewport) => {
-        initialViewporRef.current = message
+        defaultViewporRef.current = message
       })
 
     return () => {
@@ -25,5 +25,5 @@ export default function useDefaultViewport(): MutableRefObject<
     }
   }, [])
 
-  return initialViewporRef
+  return defaultViewporRef
 }

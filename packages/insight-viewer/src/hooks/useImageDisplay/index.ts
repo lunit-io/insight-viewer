@@ -7,7 +7,7 @@ import {
   CornerstoneImage,
   CornerstoneViewport,
 } from '../../utils/cornerstoneHelper'
-import { initialViewportMessage } from '../../utils/messageService'
+import { defaultViewportMessage } from '../../utils/messageService'
 import { formatViewport } from '../../utils/common/formatViewport'
 import { Element, Viewport, OnViewportChange } from '../../types'
 
@@ -52,7 +52,7 @@ export default function useImageDisplay({
       // : viewportRef?.current // Use the current viewport prop of Viewer(for multiframe images).
     )
     // Sets the default viewport for later use on resetting.
-    initialViewportMessage.sendMessage(defaultViewport)
+    defaultViewportMessage.sendMessage(defaultViewport)
     if (loadCountRef.current === 1) initialViewportRef.current = viewport
     // Updates viewport prop of Viewer after setting the image object.
     if (onViewportChange) {
