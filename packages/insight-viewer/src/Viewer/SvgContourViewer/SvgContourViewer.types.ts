@@ -3,12 +3,12 @@ import { Contour, Point } from '../../types'
 
 export interface SvgContoursDrawProps<T extends Contour> {
   contours: T[]
-  showBorder: boolean
+  showOutline: boolean
   focusedContour: T | null
   pixelToCanvas: (point: Point) => Point
   polygonAttrs?: (
     contour: Contour,
-    showBorder: boolean
+    showOutline: boolean
   ) => SVGProps<SVGPolygonElement>
 }
 
@@ -34,12 +34,12 @@ export interface SvgContourViewerProps<T extends Contour> {
    */
   polygonAttrs?: (
     contour: Contour,
-    showBorder: boolean
+    showOutline: boolean
   ) => SVGProps<SVGPolygonElement>
 
   /**
    * Draw an outline on the line
-   * Since the border is expressed by drawing two lines, it can be deactivated in a performance-sensitive situation
+   * Since the outline is expressed by drawing two lines, it can be deactivated in a performance-sensitive situation
    */
-  showBorder?: boolean
+  showOutline?: boolean
 }
