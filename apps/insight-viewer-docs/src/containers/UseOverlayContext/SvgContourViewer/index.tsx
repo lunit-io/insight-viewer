@@ -10,6 +10,7 @@ import InsightViewer, {
   SvgContourViewer,
 } from '@lunit/insight-viewer'
 import contours from '../Contour/contours'
+import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 
 const style = {
   display: 'flex',
@@ -49,11 +50,7 @@ function SvgContourContainer(): JSX.Element {
               width={DEFAULT_SIZE.width}
               height={DEFAULT_SIZE.height}
               contours={svgContours}
-              polygonAttrs={(contour, isBorder) => ({
-                style: {
-                  strokeWidth: contour.lineWidth * 3 + (isBorder ? 4 : 0),
-                },
-              })}
+              polygonAttrs={getPolygonStyles}
             />
           )}
         </InsightViewer>
