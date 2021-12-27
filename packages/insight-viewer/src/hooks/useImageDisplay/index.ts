@@ -6,10 +6,10 @@ import {
   displayImage,
   CornerstoneImage,
   CornerstoneViewport,
-} from '../utils/cornerstoneHelper'
-import { initialViewportMessage } from '../utils/messageService'
-import { formatViewport } from '../utils/common/formatViewport'
-import { Element, Viewport, OnViewportChange } from '../types'
+} from '../../utils/cornerstoneHelper'
+import { initialViewportMessage } from '../../utils/messageService'
+import { formatViewport } from '../../utils/common/formatViewport'
+import { Element, Viewport, OnViewportChange } from '../../types'
 
 interface Prop {
   element: Element
