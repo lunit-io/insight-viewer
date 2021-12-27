@@ -16,6 +16,5 @@ export type CornerstoneViewport = Required<
   >
 > &
   Pick<cornerstone.Viewport, 'colormap' | 'modalityLUT' | 'voiLUT'>
-export type CornerstoneViewportParam = cornerstone.Viewport
 export type EnabledElementParam = EnabledElement
 export type PixelCoordinateParam = PixelCoordinate
