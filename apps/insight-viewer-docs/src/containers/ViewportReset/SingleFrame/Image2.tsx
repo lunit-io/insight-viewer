@@ -1,22 +1,34 @@
-import { useEffect, useCallback } from 'react'
-import { Box, Stack, Switch, Button } from '@chakra-ui/react'
+import { useCallback, useRef } from 'react'
+import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
 import InsightViewer, {
   useImage,
   useViewport,
   Viewport,
 } from '@lunit/insight-viewer'
-import { ViewerWrapper } from '../../components/Wrapper'
-import CustomProgress from '../../components/CustomProgress'
-import OverlayLayer from '../../components/OverlayLayer'
-import { IMAGES } from '../../const'
-import { INITIAL_VIEWPORT1 } from './const'
+import useImageSelect, { OnSelect } from '../../Basic/useImageSelect'
+import { ViewerWrapper } from '../../../components/Wrapper'
+import CustomProgress from '../../../components/CustomProgress'
+import OverlayLayer from '../../../components/OverlayLayer'
 
-export default function Image1(): JSX.Element {
-  const { loadingState, image } = useImage({
-    wadouri: IMAGES[0],
-  })
+const INITIAL_VIEWPORT = {
+  scale: 0.5,
+  windowWidth: 90,
+  windowCenter: 32,
+}
+
+export default function Image2(): JSX.Element {
+  const { ImageSelect, selected } = useImageSelect()
   const { viewport, setViewport, resetViewport, initialized } =
-    useViewport(INITIAL_VIEWPORT1)
+    useViewport(INITIAL_VIEWPORT)
+  const currentViewportRef = useRef<Viewport>()
+  const handleImageLoaded = () => {
+    if (!currentViewportRef?.current) return
+    setViewport(currentViewportRef.current)
+  }
+  const { loadingState, image } = useImage({
+    wadouri: selected,
+    onImageLoaded: handleImageLoaded,
+  })
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
@@ -28,31 +40,20 @@ export default function Image1(): JSX.Element {
     [setViewport]
   )
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 's') {
-        updateViewport('y', viewport.y + 10)
-      }
-      if (e.key === 'w') {
-        updateViewport('y', viewport.y - 10)
-      }
-      if (e.key === 'd') {
-        updateViewport('x', viewport.x + 10)
-      }
-      if (e.key === 'a') {
-        updateViewport('x', viewport.x - 10)
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [setViewport, viewport, updateViewport])
+  const handleImageSelect: OnSelect = () => {
+    currentViewportRef.current = viewport
+  }
 
   return (
     <Box>
+      <Box mb={6}>
+        <Text className="test">
+          이미지 변경 시 뷰포트 변경 (유저가 변경한 현재 뷰포트 유지)
+        </Text>
+      </Box>
+      <Box mb={6}>
+        <ImageSelect onSelect={handleImageSelect} />
+      </Box>
       <Stack align="flex-start" spacing="20px">
         <Box mb={6}>
           <Stack spacing="24px" mt={3} direction="row">

@@ -1,22 +1,46 @@
-import { useEffect, useCallback } from 'react'
-import { Box, Stack, Switch, Button } from '@chakra-ui/react'
+import { useCallback } from 'react'
+import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
 import InsightViewer, {
-  useImage,
+  useMultipleImages,
   useViewport,
+  useFrame,
   Viewport,
 } from '@lunit/insight-viewer'
-import { ViewerWrapper } from '../../components/Wrapper'
-import CustomProgress from '../../components/CustomProgress'
-import OverlayLayer from '../../components/OverlayLayer'
-import { IMAGES } from '../../const'
-import { INITIAL_VIEWPORT1 } from './const'
+import { ViewerWrapper } from '../../../components/Wrapper'
+import CustomProgress from '../../../components/CustomProgress'
+import OverlayLayer from '../../../components/OverlayLayer'
+import { IMAGES } from '../../../const'
+import useCaseSelect from './useCaseSelect'
 
-export default function Image1(): JSX.Element {
-  const { loadingState, image } = useImage({
-    wadouri: IMAGES[0],
+const INITIAL_VIEWPORT = {
+  scale: 0.5,
+  windowWidth: 90,
+  windowCenter: 32,
+}
+
+export default function Images(): JSX.Element {
+  const { CaseSelect, selected } = useCaseSelect()
+  const { viewport, setViewport, resetViewport } = useViewport(INITIAL_VIEWPORT)
+
+  const { loadingStates, images } = useMultipleImages({
+    wadouri: selected,
   })
-  const { viewport, setViewport, resetViewport, initialized } =
-    useViewport(INITIAL_VIEWPORT1)
+
+  const { frame, setFrame } = useFrame({
+    initial: 0,
+    max: images.length - 1,
+  })
+
+  function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
+    const {
+      target: { value },
+    } = e
+    setFrame(Number(value))
+  }
+
+  function handleCaseSelect() {
+    setFrame(0)
+  }
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
@@ -28,31 +52,35 @@ export default function Image1(): JSX.Element {
     [setViewport]
   )
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 's') {
-        updateViewport('y', viewport.y + 10)
-      }
-      if (e.key === 'w') {
-        updateViewport('y', viewport.y - 10)
-      }
-      if (e.key === 'd') {
-        updateViewport('x', viewport.x + 10)
-      }
-      if (e.key === 'a') {
-        updateViewport('x', viewport.x - 10)
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [setViewport, viewport, updateViewport])
-
   return (
     <Box>
+      <Box mb={6}>
+        <Text className="test">
+          프레임 변경 시 현재 뷰포트 유지. 다음 시리즈로 넘어갔을때에는 변경.
+        </Text>
+      </Box>
+      <Box>
+        <CaseSelect onSelect={handleCaseSelect} frame={frame} />
+      </Box>
+
+      <Stack spacing="24px" mt={3} mb={3} direction="row">
+        <Box>
+          <input
+            type="range"
+            id="frame"
+            name="frame"
+            min="0"
+            max={IMAGES.length - 1}
+            step="1"
+            onChange={changeFrame}
+            className="frame-control"
+            value={frame}
+          />
+        </Box>
+        <div>
+          frame: <span className="frame-number">{frame}</span>
+        </div>
+      </Stack>
       <Stack align="flex-start" spacing="20px">
         <Box mb={6}>
           <Stack spacing="24px" mt={3} direction="row">
@@ -185,12 +213,15 @@ export default function Image1(): JSX.Element {
           </Stack>
         </Box>
       </Stack>
-      <Box data-cy-loaded={loadingState} data-cy-viewport={initialized}>
+      <Box
+        data-cy-loaded={loadingStates[frame]}
+        data-cy-all-loaded={loadingStates[IMAGES.length - 1]}
+      >
         <ViewerWrapper className="viewer1">
           <InsightViewer
-            image={image}
-            viewport={viewport}
+            image={images[frame]}
             onViewportChange={setViewport}
+            viewport={viewport}
             Progress={CustomProgress}
           >
             <OverlayLayer viewport={viewport} />

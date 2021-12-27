@@ -54,7 +54,7 @@ export default function Image1(): JSX.Element {
   return (
     <Box>
       <Stack align="flex-start" spacing="20px">
-        <Box mb={6} mt={183}>
+        <Box mb={6} mt={120}>
           <Stack spacing="24px" direction="row">
             <Box>
               <Box>x transition {viewport?.x}</Box>
