@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.12](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.9...@lunit/osd-react-renderer@1.0.0-alpha.12) (2021-12-27)
+
+
+### Bug Fixes
+
+* **osd-react-renderer:** fix an issue where the max / min zoom level is not applied ([7e06249](https://github.com/lunit-io/frontend-components/commit/7e062494be4c2eb1f0e5b57912f1169a3b37463c))
+* **osd-react-renderer:** fix another crash on destroy ([54209a7](https://github.com/lunit-io/frontend-components/commit/54209a794dc3101fdda2dc0448f056071ff557c5))
+* **osd-react-renderer:** fix crash error when switching tiledImage ([95e84f6](https://github.com/lunit-io/frontend-components/commit/95e84f624f984fcfefbebe1fd0cae77f19df2655))
+* **osd-react-renderer:** fix crash when ReactOSDDOM destroy method is called ([740d2a2](https://github.com/lunit-io/frontend-components/commit/740d2a2666e71c40c494644ecc3b882f831cca80))
+
+
+
+
+
 # [1.0.0-alpha.11](https://github.com/lunit-io/frontend-components/compare/@lunit/osd-react-renderer@1.0.0-alpha.9...@lunit/osd-react-renderer@1.0.0-alpha.11) (2021-12-08)
 
 
