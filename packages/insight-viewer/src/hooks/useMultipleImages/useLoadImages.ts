@@ -55,14 +55,19 @@ export const useLoadImages: UseLoadImages = ({
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
-    if (!imageIds || imageIds.length === 0 || !imageScheme) return // No images to load
+    // No images to load
+    if (!imageIds || imageIds.length === 0 || !imageScheme) return
     if (!hasLoader) return // No image loader
+
     // Initialize first image loading state.
     imagesRef.current = []
     setState((prev: State) => ({
       ...prev,
       loadingStates: prev.loadingStates.set(0, LOADING_STATE.LOADING),
     }))
+
+    // Update _imageSeriesKey When the image series are changed.
+    _imageSeriesKey += 1
 
     loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe(
       {
@@ -92,7 +97,6 @@ export const useLoadImages: UseLoadImages = ({
         },
         complete: () => {
           onImagesLoaded()
-          _imageSeriesKey += 1
         },
       }
     )
