@@ -22,6 +22,8 @@ interface State {
   _currentIndex: number
 }
 
+let _imageSeriesKey = Date.now() // Detect whether the image series are changed.
+
 /**
  * @param imageIds The images urls to load.
  * @param type The image type to load. 'Dicom'(default) | 'Web'.
@@ -45,6 +47,7 @@ export const useLoadImages: UseLoadImages = ({
     ),
     _currentIndex: -1,
   })
+
   // The "_persistentViewport" flag is used for persisting viewport when the image frame is changed.
   // When all images are loaded, the "_persistentViewport" is changed to true. It makes the viewport is persistent.
   // Before all images are loaded, the "_persistentViewport" is false. The viewport is reset when the Multiframe image case is changed.
@@ -66,7 +69,7 @@ export const useLoadImages: UseLoadImages = ({
         next: ({ image, loaded }: Loaded) => {
           imagesRef.current = [
             ...imagesRef.current,
-            { ...image, _persistentViewport: false },
+            { ...image, _imageSeriesKey },
           ]
           setState((prev: State) => ({
             loadingStates: updateLoadedStates({
@@ -88,16 +91,8 @@ export const useLoadImages: UseLoadImages = ({
           }))
         },
         complete: () => {
-          setTimeout(() => {
-            imagesRef.current = [...imagesRef.current].map(
-              image =>
-                <Image>{
-                  ...image,
-                  _persistentViewport: true,
-                }
-            )
-          }, 0)
           onImagesLoaded()
+          _imageSeriesKey += 1
         },
       }
     )

@@ -5,7 +5,7 @@ import { Interaction } from '../hooks/useInteraction/types'
 
 export type Image =
   | (CornerstoneImage & {
-      _persistentViewport?: boolean
+      _imageSeriesKey?: number
     })
   | undefined
 
