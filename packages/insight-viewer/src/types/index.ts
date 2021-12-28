@@ -73,6 +73,9 @@ export interface Contour {
   /** If label is present, it will output instead of id */
   label?: string
 
+  /** polygon pabel position = [x, y] */
+  labelPosition?: Point
+
   /**
    * The data-attribute is added to the svg element
    * You can implement functions such as css styling based on the attributes

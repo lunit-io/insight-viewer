@@ -1,4 +1,3 @@
-import polylabel from 'polylabel'
 import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
 import { Contour, Point } from '../../types'
@@ -17,7 +16,7 @@ function svgContoursDraw<T extends Contour>({
   pixelToCanvas,
 }: SvgContoursDrawProps<T>) {
   return contours.map(contour => {
-    const { polygon, label, id } = contour
+    const { polygon, label, id, labelPosition: _labelPosition } = contour
     const isFocusedPolygon = polygon === focusedContour?.polygon
     const transformedPoints: Point[] = polygon.map(point =>
       pixelToCanvas(point)
@@ -28,7 +27,9 @@ function svgContoursDraw<T extends Contour>({
         ? polygonAttrs(contour, showOutline)
         : undefined
 
-    const [labelXPosition, labelYPosition] = polylabel([transformedPoints], 1)
+    const labelPosition = _labelPosition
+      ? pixelToCanvas(_labelPosition)
+      : undefined
     const polygonPoints = transformedPoints
       .map(([x, y]) => `${x},${y}`)
       .join(' ')
@@ -48,8 +49,8 @@ function svgContoursDraw<T extends Contour>({
           data-focus={isFocusedPolygon || undefined}
           points={polygonPoints}
         />
-        {showPolygonLabel && (
-          <text x={labelXPosition} y={labelYPosition}>
+        {showPolygonLabel && labelPosition && (
+          <text x={labelPosition[0]} y={labelPosition[1]}>
             {label ?? id}
           </text>
         )}
