@@ -10,7 +10,7 @@ import {
 } from '../utils/cornerstoneHelper'
 import {
   formatCornerstoneViewport,
-  formatViewport,
+  formatViewerViewport,
 } from '../utils/common/formatViewport'
 import { Element, Viewport, OnViewportChange } from '../types'
 
@@ -51,7 +51,7 @@ export default function useViewportUpdate({
     // When resetting, update Viewer's viewport prop
     if (willReset && onViewportChange) {
       onViewportChange({
-        ...formatViewport(defaultViewport),
+        ...formatViewerViewport(defaultViewport),
         ...(newViewportProp?._resetViewport ?? {}),
       })
     }

@@ -1,10 +1,13 @@
-import { formatViewport, formatCornerstoneViewport } from './formatViewport'
+import {
+  formatViewerViewport,
+  formatCornerstoneViewport,
+} from './formatViewport'
 import { DefaultViewport } from './const'
 import { CORNERSTONE_VIEWPORT_MOCK } from '../../mocks/const'
 
-describe('formatViewport:', () => {
+describe('formatViewerViewport:', () => {
   it('cornerstone viewport should be formatted', () => {
-    expect(formatViewport(CORNERSTONE_VIEWPORT_MOCK)).toEqual({
+    expect(formatViewerViewport(CORNERSTONE_VIEWPORT_MOCK)).toEqual({
       scale: CORNERSTONE_VIEWPORT_MOCK.scale,
       invert: CORNERSTONE_VIEWPORT_MOCK.invert,
       hflip: CORNERSTONE_VIEWPORT_MOCK.hflip,
@@ -17,7 +20,7 @@ describe('formatViewport:', () => {
   })
 
   it('undefined cornerstone viewport should be default viewport context value', () => {
-    expect(formatViewport(undefined)).toEqual(DefaultViewport)
+    expect(formatViewerViewport(undefined)).toEqual(DefaultViewport)
   })
 })
 

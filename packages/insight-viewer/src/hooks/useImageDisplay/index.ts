@@ -7,7 +7,7 @@ import {
   getDefaultViewportForImage,
 } from '../../utils/cornerstoneHelper'
 import {
-  formatViewport,
+  formatViewerViewport,
   formatCornerstoneViewport,
 } from '../../utils/common/formatViewport'
 import { BasicViewport } from '../../types'
@@ -79,7 +79,7 @@ const useImageDisplay: UseImageDisplay = ({
 
     // Updates the viewport prop of Viewer.
     if (onViewportChange) {
-      onViewportChange(formatViewport(viewport))
+      onViewportChange(formatViewerViewport(viewport))
     }
   }, [image, element, viewportRef, onViewportChange])
 }
