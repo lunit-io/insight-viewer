@@ -14,6 +14,8 @@ import InsightViewer, {
 import { IMAGES } from '../../../const'
 import contours from '../Contour/contours'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
+import CodeBlock from '../../../components/CodeBlock'
+import { CODE } from './Code'
 
 const style = {
   display: 'flex',
@@ -22,7 +24,7 @@ const style = {
 } as const
 
 /** Mock svg Size */
-const DEFAULT_SIZE = { width: 1000, height: 1000 }
+const DEFAULT_SIZE = { width: 500, height: 500 }
 
 /** This function return mock Contour Data */
 const getSvgContours = (contourList: Contours): Contour[] =>
@@ -41,26 +43,31 @@ function SvgContourContainer(): JSX.Element {
   const svgContours = getSvgContours(contours)
 
   return (
-    <Box data-cy-loaded={loadingState}>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE}>
-        <InsightViewer
-          image={image}
-          viewport={viewport}
-          onViewportChange={setViewport}
-        >
-          {loadingState === 'success' && (
-            <SvgContourViewer
-              focusedContour={null}
-              width={DEFAULT_SIZE.width}
-              height={DEFAULT_SIZE.height}
-              contours={svgContours}
-              polygonAttrs={getPolygonStyles}
-              showPolygonLabel
-            />
-          )}
-        </InsightViewer>
-      </Resizable>
-    </Box>
+    <>
+      <Box data-cy-loaded={loadingState}>
+        <Resizable style={style} defaultSize={DEFAULT_SIZE}>
+          <InsightViewer
+            image={image}
+            viewport={viewport}
+            onViewportChange={setViewport}
+          >
+            {loadingState === 'success' && (
+              <SvgContourViewer
+                focusedContour={null}
+                width={DEFAULT_SIZE.width}
+                height={DEFAULT_SIZE.height}
+                contours={svgContours}
+                polygonAttrs={getPolygonStyles}
+                showPolygonLabel
+              />
+            )}
+          </InsightViewer>
+        </Resizable>
+      </Box>
+      <Box>
+        <CodeBlock code={CODE} />
+      </Box>
+    </>
   )
 }
 
