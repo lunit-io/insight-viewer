@@ -72,6 +72,8 @@ class Viewport extends Base {
       }
       const handler = this.eventHandlers[key]
       if (handler) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         parent.viewer[checkEventHandler](ViewerEventHandlers[key], handler)
       }
     })
