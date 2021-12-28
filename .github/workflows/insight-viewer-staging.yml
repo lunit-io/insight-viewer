@@ -1,16 +1,19 @@
-name: Deploy insight-viewer on develop
+name: Deploy insight-viewer on production
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - releases/insight-viewer
     paths:
-      - .github/workflows/insight-viewer-feature.yml
+      - .github/workflows/insight-viewer-staging.yml
       - packages/insight-viewer/**
       - apps/insight-viewer-docs/**
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      WORKDIR: .
 
     steps:
       - name: Checkout
@@ -26,32 +29,32 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Yarn build
-        id: yarn-build
-        run: |
-          yarn
-          yarn doc:insight-viewer
+      - name: Install Packages
+        run: yarn
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Run tests
+        uses: percy/exec-action@v0.3.1
+        with:
+          custom-command: 'yarn test:insight-viewer'
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+      - name: Build
+        run: yarn doc:insight-viewer
+        working-directory: ${{ env.WORKDIR }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id:     ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
-          aws-region:            us-east-1
+          aws-region: us-east-1
 
       - name: Deploy
         env:
-          HOST: insight-viewer--pr-${{ github.event.number }}.f.lunit.io
+          HOST: insight-viewer.s.lunit.io
         run: |
           aws s3 sync \
             ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
             --delete
-
-      - name: Preview link
-        uses: NejcZdovc/comment-pr@v1.1.1
-        with:
-          file: "comment.md"
-          identifier: "GITHUB_COMMIT_FILE"
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          PR_ID: ${{github.event.number}}
