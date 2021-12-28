@@ -29,17 +29,17 @@ export default function Image1(): JSX.Element {
   )
 
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 's') {
+    function handleKeyDown({ code }: KeyboardEvent) {
+      if (code === 'KeyS') {
         updateViewport('y', viewport.y + 10)
       }
-      if (e.key === 'w') {
+      if (code === 'KeyW') {
         updateViewport('y', viewport.y - 10)
       }
-      if (e.key === 'd') {
+      if (code === 'KeyD') {
         updateViewport('x', viewport.x + 10)
       }
-      if (e.key === 'a') {
+      if (code === 'KeyA') {
         updateViewport('x', viewport.x - 10)
       }
     }

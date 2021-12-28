@@ -1,8 +1,8 @@
 export const CODE = `\
-import InsightViewer, { 
-  useImageLoad, 
-  useViewport, 
-  Viewport, 
+import InsightViewer, {
+  useImageLoad,
+  useViewport,
+  Viewport,
 } from '@lunit/insight-viewer'
 
 const style = {
@@ -38,35 +38,23 @@ export default function App() {
       ...viewport,
       hflip: e.target.checked,
     })
-      
+
   }
 
   // update viewport with keyboard event
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 's') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          y: prev.y + 10,
-        }))
+    function handleKeyDown({ code }: KeyboardEvent) {
+      if (code === 'KeyS') {
+        updateViewport('y', viewport.y + 10)
       }
-      if (e.key === 'w') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          y: prev.y - 10,
-        }))
+      if (code === 'KeyW') {
+        updateViewport('y', viewport.y - 10)
       }
-      if (e.key === 'd') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          x: prev.x + 10,
-        }))
+      if (code === 'KeyD') {
+        updateViewport('x', viewport.x + 10)
       }
-      if (e.key === 'a') {
-        setViewport((prev: Viewport) => ({
-          ...prev,
-          x: prev.x - 10,
-        }))
+      if (code === 'KeyA') {
+        updateViewport('x', viewport.x - 10)
       }
     }
 
