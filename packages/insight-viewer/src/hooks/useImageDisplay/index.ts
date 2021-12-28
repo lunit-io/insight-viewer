@@ -31,13 +31,6 @@ const useImageDisplay: UseImageDisplay = ({
   const resetViewportRef = useRef<Partial<BasicViewport>>()
 
   useEffect(() => {
-    if (!image || image._imageSeriesKey === undefined) return
-    if (imageSeriesKey) return
-    // Set the first imageSeriesKey value.
-    imageSeriesKey = image._imageSeriesKey
-  }, [image])
-
-  useEffect(() => {
     if (!image || !element) return
 
     function getMultiframeViewport() {
