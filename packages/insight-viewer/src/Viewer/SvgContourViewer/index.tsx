@@ -11,6 +11,7 @@ import {
 function svgContoursDraw<T extends Contour>({
   contours,
   showOutline,
+  showPolygonLabel,
   focusedContour,
   polygonAttrs,
   pixelToCanvas,
@@ -47,9 +48,11 @@ function svgContoursDraw<T extends Contour>({
           data-focus={isFocusedPolygon || undefined}
           points={polygonPoints}
         />
-        <text x={labelXPosition} y={labelYPosition}>
-          {label ?? id}
-        </text>
+        {showPolygonLabel && (
+          <text x={labelXPosition} y={labelYPosition}>
+            {label ?? id}
+          </text>
+        )}
       </React.Fragment>
     )
   })
@@ -63,6 +66,7 @@ export function SvgContourViewer<T extends Contour>({
   className,
   focusedContour,
   showOutline = false,
+  showPolygonLabel = false,
   polygonAttrs,
 }: SvgContourViewerProps<T>): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -80,6 +84,7 @@ export function SvgContourViewer<T extends Contour>({
         ? null
         : svgContoursDraw({
             showOutline,
+            showPolygonLabel,
             contours,
             focusedContour,
             pixelToCanvas,

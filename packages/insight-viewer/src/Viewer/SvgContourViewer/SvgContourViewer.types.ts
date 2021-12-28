@@ -4,6 +4,7 @@ import { Contour, Point } from '../../types'
 export interface SvgContoursDrawProps<T extends Contour> {
   contours: T[]
   showOutline: boolean
+  showPolygonLabel: boolean
   focusedContour: T | null
   pixelToCanvas: (point: Point) => Point
   polygonAttrs?: (
@@ -42,4 +43,10 @@ export interface SvgContourViewerProps<T extends Contour> {
    * Since the outline is expressed by drawing two lines, it can be deactivated in a performance-sensitive situation
    */
   showOutline?: boolean
+
+  /**
+   * polygon label notation flag variable
+   * Default value is false
+   */
+  showPolygonLabel?: boolean
 }
