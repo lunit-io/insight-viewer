@@ -9,4 +9,5 @@ export const LINKS = [
   { href: 'overlay', name: 'Overlay' },
   { href: 'interaction', name: 'Interaction' },
   { href: 'use-overlay-context', name: 'UseOverlayContext' },
+  { href: 'contour', name: 'Contour' },
 ]
