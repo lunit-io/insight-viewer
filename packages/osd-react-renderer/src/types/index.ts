@@ -44,12 +44,12 @@ export interface TiledImageProps extends NodeProps {
 
 export interface ViewportEventHandlers
   extends Partial<
-      Record<
-        keyof typeof ViewerEventHandlers,
-        OpenSeadragon.EventHandler<OpenSeadragon.ViewerEvent>
-      >
-    >,
-    NodeProps {}
+  Record<
+    keyof typeof ViewerEventHandlers,
+    OpenSeadragon.EventHandler<OpenSeadragon.ViewerEvent>
+  >
+  >,
+  NodeProps { }
 
 export interface ViewportProps extends ViewerProps {
   defaultZoomLevel?: number
@@ -90,6 +90,7 @@ export enum ViewerEventHandlers {
   onAnimationFinish = 'animation-finish',
   onAnimationStart = 'animation-start',
   onCanvasClick = 'canvas-click',
+  onCanvasContextMenu = 'canvas-contextmenu',
   onCanvasDoubleClick = 'canvas-double-click',
   onCanvasDrag = 'canvas-drag',
   onCanvasDragEnd = 'canvas-drag-end',
