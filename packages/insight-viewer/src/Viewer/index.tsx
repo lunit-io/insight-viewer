@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
 import { WithChildren, Viewport } from '../types'
-import { BASE_VIEWPORT } from '../const'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
@@ -17,7 +16,7 @@ export function InsightViewer({
   children,
 }: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
-  const viewportRef = useRef<Viewport>(viewport ?? BASE_VIEWPORT) // viewport props
+  const viewportRef = useRef<Partial<Viewport>>(viewport ?? {}) // viewport props
 
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)

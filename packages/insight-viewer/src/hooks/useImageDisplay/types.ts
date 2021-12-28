@@ -6,7 +6,7 @@ export interface UseImageDisplay {
   (prop: {
     element: Element
     image: Image
-    viewportRef: MutableRefObject<Viewport>
+    viewportRef: MutableRefObject<Partial<Viewport>>
     onViewportChange?: OnViewportChange
   }): void
 }
