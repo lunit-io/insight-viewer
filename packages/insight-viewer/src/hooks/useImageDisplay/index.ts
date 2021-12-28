@@ -56,9 +56,6 @@ const useImageDisplay: UseImageDisplay = ({
       }
     }
 
-    if (image._imageSeriesKey !== undefined)
-      imageSeriesKey = image._imageSeriesKey
-
     const displayViewport =
       image._imageSeriesKey === undefined // In case of single frame image.
         ? resetViewportRef?.current // Reset viewport
@@ -71,6 +68,9 @@ const useImageDisplay: UseImageDisplay = ({
         ? viewportRef.current._initialViewport // The first render.
         : displayViewport
     )
+
+    if (image._imageSeriesKey !== undefined)
+      imageSeriesKey = image._imageSeriesKey
 
     // Save the user-defined initial viewport for reset.
     if (viewportRef.current._initialViewport) {
