@@ -9,6 +9,7 @@ import InsightViewer, {
   useViewport,
   SvgContourViewer,
 } from '@lunit/insight-viewer'
+import { IMAGES } from '../../../const'
 import contours from '../Contour/contours'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 
@@ -31,7 +32,7 @@ const getSvgContours = (contourList: Contours): Contour[] =>
 
 function SvgContourContainer(): JSX.Element {
   const { loadingState, image } = useImage({
-    wadouri: 'wadouri:/Case08.dcm',
+    wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
   const svgContours = getSvgContours(contours)
