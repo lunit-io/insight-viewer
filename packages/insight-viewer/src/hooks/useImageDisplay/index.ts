@@ -13,7 +13,7 @@ import {
 import { BasicViewport } from '../../types'
 import { UseImageDisplay } from './types'
 
-let imageSeriesKey: number
+let imageSeriesKey: string
 
 /**
  * @param element The HTML Element enabled for Cornerstone.

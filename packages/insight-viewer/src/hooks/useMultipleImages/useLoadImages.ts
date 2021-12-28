@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import { uid } from 'uid'
 import { noop } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
@@ -22,7 +23,7 @@ interface State {
   _currentIndex: number
 }
 
-let _imageSeriesKey = Date.now() // Detect whether the image series are changed.
+let _imageSeriesKey: string // Detect whether the image series are changed.
 
 /**
  * @param imageIds The images urls to load.
@@ -67,7 +68,7 @@ export const useLoadImages: UseLoadImages = ({
     }))
 
     // Update _imageSeriesKey When the image series are changed.
-    _imageSeriesKey += 1
+    _imageSeriesKey = uid()
 
     loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe(
       {
