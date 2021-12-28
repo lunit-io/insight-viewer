@@ -1,5 +1,5 @@
 /**
- * @fileoverview Display the single frame cornerstone image in a given HTML element and set viewport.
+ * @fileoverview Display image in a given HTML element and set viewport.
  */
 import { useEffect, useRef } from 'react'
 import {
@@ -69,8 +69,13 @@ const useImageDisplay: UseImageDisplay = ({
         : displayViewport
     )
 
-    if (image._imageSeriesKey !== undefined)
+    // In case of multiframe image, update imageSeriesKey.
+    if (
+      image._imageSeriesKey !== undefined &&
+      imageSeriesKey !== image._imageSeriesKey
+    ) {
       imageSeriesKey = image._imageSeriesKey
+    }
 
     // Save the user-defined initial viewport for reset.
     if (viewportRef.current._initialViewport) {
