@@ -28,7 +28,7 @@
   "scripts": {
     "build": "yarn run clean & yarn run compile",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
-    "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json -f modern,esm,cjs",
+    "compile": "microbundle src/*.ts --jsx React.createElement --tsconfig tsconfig.build.json -f modern,esm,cjs",
     "clean": "rimraf dist *.tsbuildinfo",
     "test": "yarn jest"
   },
