@@ -1,9 +1,9 @@
-import cornerstone, { EnabledElement } from 'cornerstone-core'
-import {
-  CornerstoneImage,
-  CornerstoneViewport,
-  CornerstoneViewportParam,
-} from './types'
+import cornerstone, {
+  CanvasCoordinate,
+  EnabledElement,
+  PixelCoordinate,
+} from 'cornerstone-core'
+import { CornerstoneImage, CornerstoneViewport } from './types'
 import { formatCornerstoneViewport } from '../common/formatViewport'
 
 export function enable(element: HTMLDivElement): void {
@@ -25,7 +25,7 @@ export function getCornerstone(): typeof cornerstone {
 export function displayImage(
   element: HTMLDivElement,
   image: CornerstoneImage,
-  viewportOption?: CornerstoneViewportParam
+  viewportOption?: cornerstone.Viewport
 ): {
   viewport: CornerstoneViewport
   defaultViewport: CornerstoneViewport
@@ -59,7 +59,7 @@ export function getViewport(
 
 export function setViewport(
   element: HTMLDivElement,
-  viewport: CornerstoneViewportParam
+  viewport: cornerstone.Viewport
 ): ReturnType<typeof cornerstone.setViewport> {
   return cornerstone.setViewport(element, viewport)
 }
@@ -75,4 +75,11 @@ export function setToPixelCoordinateSystem(
   context: CanvasRenderingContext2D
 ): ReturnType<typeof cornerstone.setToPixelCoordinateSystem> {
   return cornerstone.setToPixelCoordinateSystem(element, context)
+}
+
+export function pixelToCanvas(
+  element: HTMLElement,
+  points: PixelCoordinate
+): CanvasCoordinate {
+  return cornerstone.pixelToCanvas(element, points)
 }
