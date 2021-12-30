@@ -1,14 +1,17 @@
 /**
  * @fileoverview Loads images(Dicom/Web) and return the loaded images and loading states of them.
  */
-import { useLoadImages } from './useLoadImages'
-
+import { useRef, useEffect } from 'react'
 import { CONFIG } from '../../const'
 import { HTTP, ImageId } from '../../types'
-import { ImagesLoadState } from './types'
+import { noop } from '../../utils/common'
+import { useLoadImages } from './useLoadImages'
+import { ImagesLoadState, OnImagesLoaded } from './types'
 
 interface UseMultiframeImages {
-  (props: Partial<HTTP> & ImageId): ImagesLoadState
+  (
+    props: Partial<HTTP> & ImageId & { onImagesLoaded?: OnImagesLoaded }
+  ): ImagesLoadState
 }
 
 /**
@@ -22,13 +25,22 @@ interface UseMultiframeImages {
 export const useMultipleImages: UseMultiframeImages = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
+  onImagesLoaded = noop,
   ...rest
 }) => {
+  const onImagesLoadedRef = useRef<OnImagesLoaded>()
+
   const { loadingStates, images: loadedImages = [] } = useLoadImages({
     ...rest,
     onError,
     requestInterceptor,
+    onImagesLoaded: onImagesLoadedRef.current,
   })
+
+  useEffect(() => {
+    if (onImagesLoadedRef?.current) return
+    onImagesLoadedRef.current = onImagesLoaded
+  }, [onImagesLoaded])
 
   return {
     loadingStates,

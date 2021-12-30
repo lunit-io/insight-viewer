@@ -1,22 +1,29 @@
-import { useEffect, useState } from 'react'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { useEffect, useState, useRef } from 'react'
+import { uid } from 'uid'
+import { noop } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
 import { HTTP, LoadingState, ImageId } from '../../types'
-import { Loaded, ImagesLoadState } from './types'
+import { Image } from '../../Viewer/types'
+import { Loaded, ImagesLoadState, OnImagesLoaded } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 import { getImageIdsAndScheme } from './getImageIdsAndScheme'
 
 interface UseLoadImages {
-  ({ onError, requestInterceptor, ...rest }: HTTP & ImageId): ImagesLoadState
+  ({
+    onError,
+    requestInterceptor,
+    ...rest
+  }: HTTP & ImageId & { onImagesLoaded?: OnImagesLoaded }): ImagesLoadState
 }
 
 interface State {
-  images: CornerstoneImage[]
   loadingStates: Map<number, LoadingState>
   _currentIndex: number
 }
+
+let _imageSeriesKey: string // Detect whether the image series are changed.
 
 /**
  * @param imageIds The images urls to load.
@@ -31,34 +38,46 @@ interface State {
 export const useLoadImages: UseLoadImages = ({
   onError,
   requestInterceptor,
+  onImagesLoaded = noop,
   ...rest
 }) => {
   const { ids: imageIds, scheme: imageScheme } = getImageIdsAndScheme(rest)
-  const [{ images, loadingStates }, setState] = useState<State>({
-    images: [],
+  const [{ loadingStates }, setState] = useState<State>({
     loadingStates: getLoadingStateMap(
       Array.isArray(imageIds) ? imageIds.length : 0
     ),
     _currentIndex: -1,
   })
 
+  // The "_imageSeriesKey" is used for persisting viewport when the image frame is changed.
+  // When the image series are updated, the "_imageSeriesKey" is updated. It makes the viewport to be reset.
+  // As long as the _imageSeriesKey is the same, the viewport persists.
+  const imagesRef = useRef<Image[]>([])
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
-    if (!imageIds || imageIds.length === 0 || !imageScheme) return // No images to load
+    // No images to load
+    if (!imageIds || imageIds.length === 0 || !imageScheme) return
     if (!hasLoader) return // No image loader
 
     // Initialize first image loading state.
+    imagesRef.current = []
     setState((prev: State) => ({
       ...prev,
       loadingStates: prev.loadingStates.set(0, LOADING_STATE.LOADING),
     }))
 
+    // Update _imageSeriesKey When the image series are changed.
+    _imageSeriesKey = uid()
+
     loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe(
       {
         next: ({ image, loaded }: Loaded) => {
+          imagesRef.current = [
+            ...imagesRef.current,
+            { ...image, _imageSeriesKey },
+          ]
           setState((prev: State) => ({
-            images: [...prev.images, image],
             loadingStates: updateLoadedStates({
               size: imageIds.length,
               stateMap: prev.loadingStates,
@@ -77,12 +96,22 @@ export const useLoadImages: UseLoadImages = ({
             ),
           }))
         },
+        complete: () => {
+          onImagesLoaded()
+        },
       }
     )
-  }, [imageIds, imageScheme, onError, requestInterceptor, hasLoader])
+  }, [
+    imageIds,
+    imageScheme,
+    onError,
+    onImagesLoaded,
+    requestInterceptor,
+    hasLoader,
+  ])
 
   return {
-    images,
+    images: imagesRef.current,
     loadingStates: Array.from(loadingStates.values()),
   }
 }

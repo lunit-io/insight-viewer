@@ -1,4 +1,5 @@
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { Image } from '../../Viewer/types'
 import { HTTP, LoaderType, LoadingState } from '../../types'
 
 export interface Loaded {
@@ -8,10 +9,14 @@ export interface Loaded {
 
 export interface ImagesLoadState {
   loadingStates: LoadingState[]
-  images: CornerstoneImage[]
+  images: Image[]
 }
 
 export type Props = {
   imageIds: string[]
   type?: LoaderType
 } & Partial<HTTP>
+
+export interface OnImagesLoaded {
+  (): void
+}

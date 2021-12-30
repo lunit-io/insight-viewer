@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Stack, Button, Text } from '@chakra-ui/react'
 import { IMAGES } from '../../const'
+import { noop } from '../../utils'
 
 const images = {
   image1: IMAGES[0],
@@ -9,23 +10,30 @@ const images = {
 }
 
 type Image = keyof typeof images
+export interface OnSelect {
+  (v: Image): void
+}
+interface Prop {
+  onSelect?: (v: Image) => void
+}
 
 export default function useImageSelect(): {
-  ImageSelect: () => JSX.Element
+  ImageSelect: (prop: Prop) => JSX.Element
   selected: string
 } {
   const [selected, setSelected] = useState<Image>('image1')
 
-  const handleClick = (v: Image) => {
-    setSelected(v)
-  }
+  function ImageSelect({ onSelect = noop }: Prop): JSX.Element {
+    const handleClick = (v: Image) => () => {
+      setSelected(v)
+      onSelect(v)
+    }
 
-  function ImageSelect(): JSX.Element {
     return (
       <Stack spacing={4} direction="row">
         <Button
           colorScheme="blue"
-          onClick={() => handleClick('image1')}
+          onClick={handleClick('image1')}
           isActive={selected === 'image1'}
           className="button1"
         >
@@ -33,7 +41,7 @@ export default function useImageSelect(): {
         </Button>
         <Button
           colorScheme="blue"
-          onClick={() => handleClick('image2')}
+          onClick={handleClick('image2')}
           isActive={selected === 'image2'}
           className="button2"
         >
@@ -41,7 +49,7 @@ export default function useImageSelect(): {
         </Button>
         <Button
           colorScheme="blue"
-          onClick={() => handleClick('image3')}
+          onClick={handleClick('image3')}
           isActive={selected === 'image3'}
           className="button3"
         >

@@ -31,6 +31,7 @@ export function displayImage(
   defaultViewport: CornerstoneViewport
   image: CornerstoneImage
 } {
+  // Returns a default viewport for display the specified image on the specified enabled element.
   const defaultViewport = cornerstone.getDefaultViewportForImage(element, image)
   const viewport = viewportOption
     ? formatCornerstoneViewport(defaultViewport, viewportOption)
@@ -82,4 +83,11 @@ export function pixelToCanvas(
   points: PixelCoordinate
 ): CanvasCoordinate {
   return cornerstone.pixelToCanvas(element, points)
+}
+
+export function getDefaultViewportForImage(
+  element: HTMLDivElement,
+  image: CornerstoneImage
+): ReturnType<typeof cornerstone.getDefaultViewportForImage> {
+  return cornerstone.getDefaultViewportForImage(element, image)
 }

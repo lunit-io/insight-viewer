@@ -24,8 +24,8 @@ export interface BasicViewport {
   windowCenter: number
 }
 export type Viewport = BasicViewport & {
-  _default?: Partial<BasicViewport>
-  _reset?: Partial<BasicViewport>
+  _initialViewport?: Partial<BasicViewport>
+  _resetViewport?: Partial<BasicViewport>
 }
 
 export type Point = [number, number]
