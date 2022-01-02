@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "source": "src/index.ts",
   "scripts": {
-    "build": "microbundle --source src/index.ts --target browser --output dist --sourcemap false"
+    "build": "microbundle --target browser --output dist --sourcemap false"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@mui/material": "^5.2.6",
+    "@mui/utils": "^5.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

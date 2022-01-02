@@ -1,15 +1,9 @@
-import { createTheme } from '@mui/material/styles'
+import * as colors from './colors'
 
-const theme = createTheme({
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontSize: '1rem',
-        },
-      },
-    },
-  },
-})
+export { colors }
 
-export default theme
+export { default as cxr } from './cxr'
+
+export { default as mmg } from './mmg'
+
+export { default as scope } from './scope'
