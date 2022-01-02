@@ -1,0 +1,28 @@
+{
+  "name": "@lunit/mui-theme",
+  "version": "1.0.0",
+  "description": "An MUI theme as a quick implement of Lunit design system",
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "scripts": {
+    "build": "microbundle --source src/index.ts --target browser --output dist --sourcemap false"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lunit-io/frontend-components",
+    "directory": "packages/mui-theme"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "microbundle": "^0.14.2"
+  },
+  "dependencies": {
+    "@mui/material": "^5.2.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "peerDependencies": {
+    "@mui/material": "5.x"
+  }
+}
