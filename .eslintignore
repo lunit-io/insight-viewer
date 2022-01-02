@@ -8,7 +8,6 @@ built-storybooks
 .storybook
 .yarn
 .pnp.js
-**/*.d.ts
 **/.next/**
 **/_next/**
 **/dist/**
