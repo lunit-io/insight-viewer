@@ -3,8 +3,10 @@
   "version": "5.1.0-alpha.6",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    ".": "./dist/index.esm.js",
+    "./contour": "./dist/contour.esm.js"
+  },
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -27,6 +29,7 @@
   "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/insight-viewer#readme",
   "scripts": {
     "build": "yarn run clean & yarn run compile",
+    "postbuild": "echo I run after the build script",
     "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
     "compile": "microbundle src/*.ts --jsx React.createElement --tsconfig tsconfig.build.json -f modern,esm,cjs",
     "clean": "rimraf dist *.tsbuildinfo",
