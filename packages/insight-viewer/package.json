@@ -27,12 +27,12 @@
   "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/insight-viewer#readme",
   "scripts": {
     "build": "scripty",
-    "postbuild": "scripty",
     "dev": "scripty",
     "compile": "scripty",
     "clean": "scripty",
     "test": "scripty",
-    "prepublish": "scripty"
+    "prepublish": "scripty",
+    "publish": "scripty"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
