@@ -2,8 +2,17 @@
   "name": "@lunit/mui-theme",
   "version": "0.1.0",
   "description": "An MUI theme as a quick implement of Lunit design system",
-  "main": "dist/index.js",
+  "main": "./dist/mui-theme.js",
+  "exports": "./dist/mui-theme.modern.js",
+  "module": "./dist/mui-theme.esm.js",
+  "unpkg": "./dist/mui-theme.umd.js",
   "source": "src/index.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "microbundle --target browser --output dist --sourcemap false"
   },

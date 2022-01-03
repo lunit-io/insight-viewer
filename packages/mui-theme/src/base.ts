@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material/styles'
+import type { ThemeOptions } from '@mui/material/styles'
 
-const theme = createTheme({
+const baseOptions: ThemeOptions = {
   typography: {
     fontFamily: [
       'Pretendard',
@@ -16,6 +16,6 @@ const theme = createTheme({
       'sans-serif',
     ].join(','),
   },
-})
+}
 
-export default theme
+export default baseOptions
