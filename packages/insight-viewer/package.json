@@ -28,12 +28,12 @@
   "license": "MIT",
   "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/insight-viewer#readme",
   "scripts": {
-    "build": "yarn run clean & yarn run compile",
-    "postbuild": "echo I run after the build script",
-    "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
-    "compile": "microbundle src/*.ts --jsx React.createElement --tsconfig tsconfig.build.json -f modern,esm,cjs",
-    "clean": "rimraf dist *.tsbuildinfo",
-    "test": "yarn jest"
+    "build": "scripty",
+    "postbuild": "scripty",
+    "dev": "scripty",
+    "compile": "scripty",
+    "clean": "scripty",
+    "test": "scripty"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+echo I run after the build script
