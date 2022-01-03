@@ -1,4 +1,10 @@
 module.exports = {
+  staticDirs: [
+    "../public",
+  ],
+  features: {
+    emotionAlias: false, // https://github.com/mui-org/material-ui/issues/24282#issuecomment-967747802
+  },
   "stories": [
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
