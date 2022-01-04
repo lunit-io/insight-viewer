@@ -29,11 +29,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install Packages
+        run: yarn install --prefer-offline
+
       - name: Yarn build
         id: yarn-build
-        run: |
-          yarn install --prefer-offline
-          yarn doc:insight-viewer
+        run: yarn doc:insight-viewer
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
