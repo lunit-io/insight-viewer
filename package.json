@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build:osd-react-renderer": "lerna run --scope @lunit/osd-react-renderer build",
+    "build:mui-theme": "lerna run --scope @lunit/mui-theme build",
     "test": "lerna run test",
     "test:insight-viewer": "lerna run --scope @lunit/insight-viewer test && lerna run --scope @lunit/insight-viewer-docs test",
     "doc:insight-viewer": "lerna run --scope @lunit/insight-viewer build && lerna run --scope @lunit/insight-viewer-docs doc",
