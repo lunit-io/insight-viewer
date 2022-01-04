@@ -5,7 +5,7 @@ export interface SvgContourDrawerProps<T extends Contour> {
   width?: number
   height?: number
 
-  contours?: T[]
+  contours: T[]
 
   /**
    * Whether the drawing function is enabled
