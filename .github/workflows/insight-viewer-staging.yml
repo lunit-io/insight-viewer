@@ -1,4 +1,4 @@
-name: Deploy insight-viewer on production
+name: "Deploy insight-viewer on staging"
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Deploy insight-viewer on develop
+name: "Deploy insight-viewer on feature preview"
 
 on:
   pull_request:
