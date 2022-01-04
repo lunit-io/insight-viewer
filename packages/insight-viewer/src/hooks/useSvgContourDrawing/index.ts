@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { UseSvgContourDrawingProps } from './types'
 import { Contour, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
-import { hitTestContours } from '../../utils/common/hitTestContours'
+import { checkFocusedContour } from '../../utils/common/checkFocusedContour'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.preventDefault()
@@ -83,7 +83,7 @@ function useSvgContourDrawing<T extends Contour>({
       if (contours.length === 0) return
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      const focusedContourElement = hitTestContours(contours, pixelPosition)
+      const focusedContourElement = checkFocusedContour(contours, pixelPosition)
 
       setFocusedContour(focusedContourElement)
       onFocus(focusedContourElement)

@@ -1,7 +1,7 @@
 import pointInPolygon from 'point-in-polygon'
 import { Contour, Point } from '../../types'
 
-export function hitTestContours<T extends Contour>(
+export function checkFocusedContour<T extends Contour>(
   contours: T[],
   cursor: Point
 ): T | null {
