@@ -1,5 +1,6 @@
 export { InsightViewer as default } from './Viewer'
 export { SvgContourViewer } from './Viewer/SvgContourViewer'
+export { SvgContourDrawer } from './Viewer/SvgContourDrawer'
 export { useMultipleImages } from './hooks/useMultipleImages'
 export { useViewport } from './hooks/useViewport'
 export { useInteraction } from './hooks/useInteraction'
