@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect } from 'react'
 import { WithChildren, ProgressComponent, OnViewportChange } from '../../types'
 import { getViewport } from '../../utils/cornerstoneHelper'
-import { formatViewport } from '../../utils/common/formatViewport'
+import { formatViewerViewport } from '../../utils/common/formatViewport'
 import LoadingProgress from '../LoadingProgress'
 import useResize from './useResize'
 
@@ -28,7 +28,7 @@ const Forwarded = forwardRef<
     // update Viewer's viewport prop to change
     if (onViewportChange) {
       const viewport = getViewport(resizeRef.current)
-      onViewportChange(formatViewport(viewport))
+      onViewportChange(formatViewerViewport(viewport))
     }
   }, [width, height, resizeRef, imageEnabled, onViewportChange])
 
