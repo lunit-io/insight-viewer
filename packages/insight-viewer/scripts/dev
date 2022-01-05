@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "┏━━━ 🏃‍♀️ DEV ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json
