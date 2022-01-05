@@ -100,7 +100,7 @@ function draw({
   baseCanvas: HTMLCanvasElement | null
   heatmapCanvas: HTMLCanvasElement | undefined
   heatmapData: ImageData | undefined
-} & Omit<OverlayContext, 'viewport' | 'pixelToCanvas'>) {
+} & Omit<OverlayContext, 'viewport' | 'pixelToCanvas' | 'pageToPixel'>) {
   if (!heatmapData || !baseCanvas || !heatmapCanvas) return
   const baseCanvasContext = baseCanvas.getContext('2d')
   clear(baseCanvas, baseCanvasContext)
