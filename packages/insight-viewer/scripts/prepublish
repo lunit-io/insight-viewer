@@ -4,4 +4,4 @@ yarn run build
 cp ./README.md ./dist/README.md
 cp ./CHANGELOG.md ./dist/CHANGELOG.md
 cp ./LICENSE ./dist/LICENSE
-node dist/SetupPackage.js
+node ./SetupPackage.js
