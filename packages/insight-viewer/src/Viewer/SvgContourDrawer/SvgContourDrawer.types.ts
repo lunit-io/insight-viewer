@@ -8,13 +8,6 @@ export interface SvgContourDrawerProps<T extends Contour> {
   contours: T[]
 
   /**
-   * Whether the drawing function is enabled
-   *
-   * When inputting as HTMLElement, MouseEvent is handled using the HTMLElement
-   */
-  draw?: boolean | HTMLElement | null
-
-  /**
    * When Mouse Over on a Contour
    * Required to determine focusedContour
    */
@@ -28,9 +21,6 @@ export interface SvgContourDrawerProps<T extends Contour> {
 
   className?: string
   style?: CSSProperties
-
-  /** In the process of drawing, you can deactivate the animation expressed on the line */
-  animateStroke?: boolean
 
   /** Access Device Settings */
   device?:

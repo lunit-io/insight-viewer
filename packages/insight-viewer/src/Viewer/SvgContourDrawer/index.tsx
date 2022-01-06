@@ -7,14 +7,12 @@ import { SvgContourDrawerProps } from './SvgContourDrawer.types'
 import useSvgContourDrawing from '../../hooks/useSvgContourDrawing'
 
 export function SvgContourDrawer<T extends Contour>({
-  draw,
   style,
   width,
   height,
   device,
   contours,
   className,
-  animateStroke,
   onAdd,
   onFocus,
   onRemove,
@@ -22,10 +20,8 @@ export function SvgContourDrawer<T extends Contour>({
   const svgRef = useRef<SVGSVGElement>(null)
   const [polygon] = useSvgContourDrawing({
     svgElement: svgRef,
-    draw,
     device,
     contours,
-    animateStroke,
     onAdd,
     onFocus,
     onRemove,
