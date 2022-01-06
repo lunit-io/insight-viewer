@@ -68,6 +68,8 @@ module.exports = {
           '**/*.spec.tsx',
           '**/mocks/*',
           '**/mocks.ts',
+          '**/*.stories.ts',
+          '**/*.stories.tsx',
         ],
       },
     ],

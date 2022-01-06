@@ -14,7 +14,10 @@
   ],
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "microbundle --target browser --output dist --sourcemap false"
+    "build": "microbundle --target browser --output dist --sourcemap false",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "repository": {
     "type": "git",
@@ -23,8 +26,19 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.4.9",
+    "@storybook/manager-webpack5": "^6.4.9",
+    "@storybook/react": "^6.4.9",
     "@tsconfig/recommended": "^1.0.1",
-    "microbundle": "^0.14.2"
+    "babel-loader": "^8.2.3",
+    "chromatic": "^6.3.3",
+    "microbundle": "^0.14.2",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0"
   },
   "dependencies": {
     "@mui/material": "^5.2.6",
