@@ -28,7 +28,7 @@ export function SvgContourDrawer<T extends Contour>({
   })
   const { pixelToCanvas } = useOverlayContext()
 
-  const transformedPoints: Point[] = polygon.map(point => pixelToCanvas(point))
+  const transformedPoints: Point[] = polygon.map(pixelToCanvas)
   const polygonPoints = transformedPoints.map(([x, y]) => `${x},${y}`).join(' ')
 
   return (
