@@ -10,4 +10,5 @@ export const LINKS = [
   { href: 'interaction', name: 'Interaction' },
   { href: 'use-overlay-context', name: 'UseOverlayContext' },
   { href: 'viewport-reset', name: 'Viewport Reset' },
+  { href: 'contour', name: 'Contour' },
 ]
