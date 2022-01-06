@@ -22,7 +22,10 @@ export interface SvgContourDrawerProps<T extends Contour> {
   className?: string
   style?: CSSProperties
 
-  /** Access Device Settings */
+  /**
+   * Access Device Settings
+   * Only the function for mouse is implemented, and it is not applied
+   */
   device?:
     | 'all'
     | 'mouse-only'
