@@ -42,6 +42,7 @@
     "cornerstone-web-image-loader": "^2.1.1",
     "dicom-parser": "^1.8.7",
     "ky": "^0.27.0",
+    "point-in-polygon": "^1.1.0",
     "react-resize-detector": "^6.7.0",
     "rxjs": "^7.0.0",
     "uid": "^2.0.0"
@@ -51,6 +52,7 @@
     "@types/cornerstone-core": "^2.3.0",
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.3",
+    "@types/point-in-polygon": "^1.1.1",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",

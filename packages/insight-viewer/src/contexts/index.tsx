@@ -6,6 +6,7 @@ import {
   PixelCoordinate,
 } from '../utils/cornerstoneHelper/types'
 import {
+  pageToPixel as pageToPixelUtil,
   pixelToCanvas as pixelToCanvasUtil,
   setToPixelCoordinateSystem as setToPixelCoordinateSystemUtil,
   getEnabledElement,
@@ -15,6 +16,7 @@ export interface OverlayContext {
   enabledElement: EnabledElement | null
   setToPixelCoordinateSystem: (context: CanvasRenderingContext2D) => void
   pixelToCanvas: (point: Point) => Point
+  pageToPixel: (point: Point) => Point
   viewport: Viewport
 }
 
@@ -22,6 +24,7 @@ const contextDefaultValue: OverlayContext = {
   enabledElement: null,
   setToPixelCoordinateSystem: () => {},
   pixelToCanvas: () => ({} as Point),
+  pageToPixel: () => ({} as Point),
   viewport: BASE_VIEWPORT,
 }
 const Context = createContext<OverlayContext>(contextDefaultValue)
@@ -61,7 +64,19 @@ export function OverlayContextProvider({
       _pixelCoordinateBrand: 'pixel',
     }
     const { x, y } = pixelToCanvasUtil(enabledElement.element, pixelCoordinate)
+    return [x, y]
+  }
 
+  function pageToPixel([xPosition, yPosition]: Point): Point {
+    if (!enabledElement?.element) {
+      throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
+    }
+
+    const { x, y } = pageToPixelUtil(
+      enabledElement.element,
+      xPosition,
+      yPosition
+    )
     return [x, y]
   }
 
@@ -83,6 +98,7 @@ export function OverlayContextProvider({
       value={{
         setToPixelCoordinateSystem,
         pixelToCanvas,
+        pageToPixel,
         enabledElement,
         viewport,
       }}

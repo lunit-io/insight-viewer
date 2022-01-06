@@ -18,9 +18,7 @@ function svgContoursDraw<T extends Contour>({
   return contours.map(contour => {
     const { polygon, label, id, labelPosition: _labelPosition } = contour
     const isFocusedPolygon = polygon === focusedContour?.polygon
-    const transformedPoints: Point[] = polygon.map(point =>
-      pixelToCanvas(point)
-    )
+    const transformedPoints: Point[] = polygon.map(pixelToCanvas)
 
     const polygonAttributes =
       typeof polygonAttrs === 'function'

@@ -91,3 +91,11 @@ export function getDefaultViewportForImage(
 ): ReturnType<typeof cornerstone.getDefaultViewportForImage> {
   return cornerstone.getDefaultViewportForImage(element, image)
 }
+
+export function pageToPixel(
+  element: HTMLElement,
+  pageX: number,
+  pageY: number
+): PixelCoordinate {
+  return cornerstone.pageToPixel(element, pageX, pageY)
+}
