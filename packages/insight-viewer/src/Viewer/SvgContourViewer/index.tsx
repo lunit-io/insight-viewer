@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
 import { Contour, Point } from '../../types'
-import { svgStyle, polygonStyle } from './SvgContourViewer.styles'
+import { svgStyle, textStyle, polygonStyle } from './SvgContourViewer.styles'
 import {
   SvgContoursDrawProps,
   SvgContourViewerProps,
@@ -36,19 +36,28 @@ function svgContoursDraw<T extends Contour>({
       <React.Fragment key={id}>
         {showOutline && (
           <polygon
-            style={{ ...polygonStyle, ...polygonAttributes?.style }}
-            data-border="border"
+            style={{
+              ...polygonStyle[isFocusedPolygon ? 'focus' : 'outline'],
+              ...polygonAttributes?.style,
+            }}
             data-focus={isFocusedPolygon || undefined}
             points={polygonPoints}
           />
         )}
         <polygon
-          style={{ ...polygonStyle, ...polygonAttributes?.style }}
+          style={{
+            ...polygonStyle[isFocusedPolygon ? 'focus' : 'default'],
+            ...polygonAttributes?.style,
+          }}
           data-focus={isFocusedPolygon || undefined}
           points={polygonPoints}
         />
         {showPolygonLabel && labelPosition && (
-          <text x={labelPosition[0]} y={labelPosition[1]}>
+          <text
+            style={{ ...textStyle[isFocusedPolygon ? 'focus' : 'default'] }}
+            x={labelPosition[0]}
+            y={labelPosition[1]}
+          >
             {label ?? id}
           </text>
         )}
@@ -76,7 +85,7 @@ export function SvgContourViewer<T extends Contour>({
       ref={svgRef}
       width={width}
       height={height}
-      style={{ ...svgStyle, ...style }}
+      style={{ ...svgStyle.default, ...style }}
       className={className}
     >
       {contours.length === 0 || !enabledElement
