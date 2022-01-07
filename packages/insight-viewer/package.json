@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "5.1.0-alpha.6",
+  "version": "5.1.0-alpha.7",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -54,8 +54,8 @@
     "@types/cornerstone-core": "^2.3.0",
     "@types/jest": "^26.0.24",
     "@types/node": "^17.0.7",
-    "@types/react": "^17.0.3",
     "@types/point-in-polygon": "^1.1.1",
+    "@types/react": "^17.0.3",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",
