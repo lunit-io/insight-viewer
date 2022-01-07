@@ -1,6 +1,6 @@
 import { deepmerge } from '@mui/utils'
-import base from '../base'
-import { mmg } from '../colors'
+import base from './base'
+import { mmg } from './colors'
 
 const mmgOptions = deepmerge(base, {
   palette: {

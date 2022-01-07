@@ -1,6 +1,6 @@
 import { deepmerge } from '@mui/utils'
-import base from '../base'
-import { scope } from '../colors'
+import base from './base'
+import { scope } from './colors'
 
 const scopeOptions = deepmerge(base, {
   palette: {
