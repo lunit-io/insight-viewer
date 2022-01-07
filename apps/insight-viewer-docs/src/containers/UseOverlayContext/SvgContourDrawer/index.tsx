@@ -38,7 +38,7 @@ function SvgContourContainer(): JSX.Element {
     removeAllContours,
   } = useContour<Contour>({ mode: 'contour' })
 
-  const addViewLabelContour = (polygon: Point[] | []) => {
+  const addViewLabelContour = (polygon: Point[]) => {
     if (polygon.length === 0) return
 
     const labelPosition = polylabel([polygon], 1) as Point
