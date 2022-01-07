@@ -1,7 +1,7 @@
 {
   "name": "@lunit/mui-theme",
   "version": "0.1.0",
-  "description": "An MUI theme as a quick implement of Lunit design system",
+  "description": "An MUI theme as a quick implementation of the Lunit design system",
   "main": "./dist/mui-theme.js",
   "exports": "./dist/mui-theme.modern.js",
   "module": "./dist/mui-theme.esm.js",
