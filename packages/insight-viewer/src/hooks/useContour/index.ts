@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import polylabel from 'polylabel'
 import { Contour, Point } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
@@ -50,6 +51,7 @@ export function useContour<T extends Contour>({
               ({
                 ...addedContour,
                 id: nextId ?? i,
+                labelPosition: polylabel([addedContour.polygon], 1),
               } as T)
           )
         : []
@@ -72,6 +74,7 @@ export function useContour<T extends Contour>({
     let contour: T | null = null
 
     setContours(prevContours => {
+      const labelPosition = polylabel([polygon], 1)
       const currentId =
         prevContours.length === 0
           ? nextId ?? 1
@@ -81,6 +84,7 @@ export function useContour<T extends Contour>({
         ...initalContours,
         id: currentId,
         polygon,
+        labelPosition,
         lineWidth: 1.5,
         ...contourInfo,
       } as T
