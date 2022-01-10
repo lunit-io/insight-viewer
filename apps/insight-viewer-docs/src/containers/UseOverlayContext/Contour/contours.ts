@@ -1,4 +1,7 @@
-const contours = [
+/* eslint-disable import/no-unresolved */
+import { Contours } from '@lunit/insight-viewer'
+
+const contours: Contours = [
   [
     [1901, 1835],
     [1900, 1836],

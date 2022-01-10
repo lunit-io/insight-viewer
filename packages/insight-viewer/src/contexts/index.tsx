@@ -1,8 +1,13 @@
-import { EnabledElement } from 'cornerstone-core'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { WithChildren, Viewport } from '../types'
-import { BASE_VIEWPORT } from '../const'
+import { WithChildren, Viewport, Point } from '../types'
+import { BASE_VIEWPORT, ERROR_MESSAGE } from '../const'
 import {
+  EnabledElement,
+  PixelCoordinate,
+} from '../utils/cornerstoneHelper/types'
+import {
+  pageToPixel as pageToPixelUtil,
+  pixelToCanvas as pixelToCanvasUtil,
   setToPixelCoordinateSystem as setToPixelCoordinateSystemUtil,
   getEnabledElement,
 } from '../utils/cornerstoneHelper'
@@ -10,12 +15,16 @@ import {
 export interface OverlayContext {
   enabledElement: EnabledElement | null
   setToPixelCoordinateSystem: (context: CanvasRenderingContext2D) => void
+  pixelToCanvas: (point: Point) => Point
+  pageToPixel: (point: Point) => Point
   viewport: Viewport
 }
 
 const contextDefaultValue: OverlayContext = {
   enabledElement: null,
   setToPixelCoordinateSystem: () => {},
+  pixelToCanvas: () => ({} as Point),
+  pageToPixel: () => ({} as Point),
   viewport: BASE_VIEWPORT,
 }
 const Context = createContext<OverlayContext>(contextDefaultValue)
@@ -34,10 +43,41 @@ export function OverlayContextProvider({
     null
   )
   const [, setUpdateCount] = React.useState(0)
+
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
-    if (!enabledElement?.element) return
+    if (!enabledElement?.element) {
+      throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
+    }
+
     context.setTransform(1, 0, 0, 1, 0, 0)
     setToPixelCoordinateSystemUtil(enabledElement, context)
+  }
+
+  function pixelToCanvas([xPosition, yPosition]: Point): Point {
+    if (!enabledElement?.element) {
+      throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
+    }
+
+    const pixelCoordinate: PixelCoordinate = {
+      x: xPosition,
+      y: yPosition,
+      _pixelCoordinateBrand: 'pixel',
+    }
+    const { x, y } = pixelToCanvasUtil(enabledElement.element, pixelCoordinate)
+    return [x, y]
+  }
+
+  function pageToPixel([xPosition, yPosition]: Point): Point {
+    if (!enabledElement?.element) {
+      throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
+    }
+
+    const { x, y } = pageToPixelUtil(
+      enabledElement.element,
+      xPosition,
+      yPosition
+    )
+    return [x, y]
   }
 
   // when viewport prop is changed, Overlay context should be changed as well.
@@ -55,7 +95,13 @@ export function OverlayContextProvider({
 
   return (
     <Context.Provider
-      value={{ setToPixelCoordinateSystem, enabledElement, viewport }}
+      value={{
+        setToPixelCoordinateSystem,
+        pixelToCanvas,
+        pageToPixel,
+        enabledElement,
+        viewport,
+      }}
     >
       {children}
     </Context.Provider>

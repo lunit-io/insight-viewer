@@ -1,17 +1,21 @@
 /**
  * @fileoverview Loads an image(Dicom/Web) and return the loaded image and loading state of it.
  */
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useRef } from 'react'
 import { LOADING_STATE, CONFIG } from '../../const'
 import { LoadingState, ImageId, HTTP } from '../../types'
 import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { noop } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
 import { loadImage } from './loadImage'
 import { getImageIdAndScheme } from './getImageIdAndScheme'
 
+interface OnImageLoaded {
+  (): void
+}
 interface UseImage {
-  (props: Partial<HTTP> & ImageId): {
+  (props: Partial<HTTP> & ImageId & { onImageLoaded?: OnImageLoaded }): {
     loadingState: LoadingState
     image: CornerstoneImage | undefined
   }
@@ -28,15 +32,22 @@ interface UseImage {
 export const useImage: UseImage = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
+  onImageLoaded = noop,
   ...rest
 }) => {
   const { id: imageId, scheme: imageScheme } = getImageIdAndScheme(rest)
+  const onImageLoadedRef = useRef<OnImageLoaded>()
 
   const [{ loadingState, image }, dispatch] = useReducer(
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
   )
   const hasLoader = useImageLoader(rest, onError)
+
+  useEffect(() => {
+    if (onImageLoadedRef?.current) return
+    onImageLoadedRef.current = onImageLoaded
+  }, [onImageLoaded])
 
   useEffect(() => {
     if (!hasLoader || !imageId || !imageScheme) return
@@ -53,6 +64,10 @@ export const useImage: UseImage = ({
           type: LOADING_STATE.SUCCESS,
           payload: res,
         })
+
+        setTimeout(() => {
+          onImageLoadedRef.current?.()
+        }, 0)
       })
       .catch(() => dispatch({ type: LOADING_STATE.FAIL }))
   }, [hasLoader, imageId, imageScheme, requestInterceptor, onError])

@@ -1,11 +1,13 @@
 export { InsightViewer as default } from './Viewer'
+export { SvgContourViewer } from './Viewer/SvgContourViewer'
+export { SvgContourDrawer } from './Viewer/SvgContourDrawer'
 export { useMultipleImages } from './hooks/useMultipleImages'
 export { useViewport } from './hooks/useViewport'
 export { useInteraction } from './hooks/useInteraction'
 export { useImage } from './hooks/useImage'
 export { useFrame } from './hooks/useFrame'
 export type { Interaction, SetInteraction } from './hooks/useInteraction/types'
-export type { Viewport, ViewerError } from './types'
+export type { Viewport, ViewerError, Contours, Contour, Point } from './types'
 export type {
   DragEvent,
   Click,

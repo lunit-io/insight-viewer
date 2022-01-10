@@ -1,14 +1,14 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "5.1.0-alpha.6",
+  "version": "5.1.0-alpha.7",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    ".": "./dist/index.esm.js",
+    "./contour": "./dist/contour.esm.js"
+  },
   "types": "dist/types/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lunit-io/frontend-components",
@@ -26,11 +26,13 @@
   "license": "MIT",
   "homepage": "https://github.com/lunit-io/frontend-components/tree/master/packages/insight-viewer#readme",
   "scripts": {
-    "build": "yarn run clean & yarn run compile",
-    "dev": "microbundle watch -f esm --jsx React.createElement --tsconfig tsconfig.json",
-    "compile": "microbundle --jsx React.createElement --tsconfig tsconfig.build.json -f modern,esm,cjs",
-    "clean": "rimraf dist *.tsbuildinfo",
-    "test": "yarn jest"
+    "build": "scripty",
+    "dev": "scripty",
+    "compile": "scripty",
+    "clean": "scripty",
+    "test": "scripty",
+    "prepublish": "scripty",
+    "publish": "scripty"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,18 +44,23 @@
     "cornerstone-web-image-loader": "^2.1.1",
     "dicom-parser": "^1.8.7",
     "ky": "^0.27.0",
+    "point-in-polygon": "^1.1.0",
     "react-resize-detector": "^6.7.0",
-    "rxjs": "^7.0.0"
+    "rxjs": "^7.0.0",
+    "uid": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
     "@types/cornerstone-core": "^2.3.0",
     "@types/jest": "^26.0.24",
+    "@types/node": "^17.0.7",
+    "@types/point-in-polygon": "^1.1.1",
     "@types/react": "^17.0.3",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
     "microbundle": "^0.13.0",
     "react-is": "^17.0.2",
+    "scripty": "^2.0.0",
     "ts-jest": "^26.5.4"
   },
   "peerDependencies": {

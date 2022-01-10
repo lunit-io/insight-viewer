@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable one-var */
 /* eslint-disable no-param-reassign */
@@ -99,7 +100,7 @@ function draw({
   baseCanvas: HTMLCanvasElement | null
   heatmapCanvas: HTMLCanvasElement | undefined
   heatmapData: ImageData | undefined
-} & Omit<OverlayContext, 'viewport'>) {
+} & Omit<OverlayContext, 'viewport' | 'pixelToCanvas' | 'pageToPixel'>) {
   if (!heatmapData || !baseCanvas || !heatmapCanvas) return
   const baseCanvasContext = baseCanvas.getContext('2d')
   clear(baseCanvas, baseCanvasContext)
