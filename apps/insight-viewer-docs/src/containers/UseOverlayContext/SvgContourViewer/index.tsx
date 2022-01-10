@@ -1,18 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react'
-import polylabel from 'polylabel'
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
-  Point,
   Contour,
-  Contours,
   useImage,
+  useContour,
   useViewport,
   SvgContourViewer,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import contours from '../Contour/contours'
+import mockContours from '../Contour/contours'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 import CodeBlock from '../../../components/CodeBlock'
 import { CODE } from './Code'
@@ -26,21 +24,15 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 500, height: 500 }
 
-/** This function return mock Contour Data */
-const getSvgContours = (contourList: Contours): Contour[] =>
-  contourList.map((points, index) => ({
-    polygon: points,
-    id: index,
-    lineWidth: 1,
-    labelPosition: polylabel([points], 1) as Point,
-  }))
-
 function SvgContourContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const svgContours = getSvgContours(contours)
+  const { contours, focusedContour } = useContour<Contour>({
+    mode: 'contour',
+    initalContours: mockContours,
+  })
 
   return (
     <>
@@ -53,10 +45,10 @@ function SvgContourContainer(): JSX.Element {
           >
             {loadingState === 'success' && (
               <SvgContourViewer
-                focusedContour={null}
+                focusedContour={focusedContour}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={svgContours}
+                contours={contours}
                 polygonAttrs={getPolygonStyles}
                 showPolygonLabel
               />
