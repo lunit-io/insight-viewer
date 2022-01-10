@@ -1,10 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react'
-import polylabel from 'polylabel'
 import { Box, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
-  Point,
   Contour,
   useImage,
   useContour,
@@ -38,13 +36,6 @@ function SvgContourContainer(): JSX.Element {
     removeAllContours,
   } = useContour<Contour>({ mode: 'contour' })
 
-  const addViewLabelContour = (polygon: Point[]) => {
-    if (polygon.length === 0) return
-
-    const labelPosition = polylabel([polygon], 1) as Point
-    addContour(polygon, { labelPosition, lineWidth: 0.5 })
-  }
-
   return (
     <>
       <Button
@@ -75,7 +66,7 @@ function SvgContourContainer(): JSX.Element {
                   width={DEFAULT_SIZE.width}
                   height={DEFAULT_SIZE.height}
                   contours={contours}
-                  onAdd={addViewLabelContour}
+                  onAdd={addContour}
                   onFocus={focusContour}
                   onRemove={removeContour}
                 />
