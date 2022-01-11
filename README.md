@@ -97,6 +97,8 @@ project.json
 
 ### typescript project reference
 
+app tsconfig.json
+
 ```json
 {
   "references": [
@@ -104,5 +106,15 @@ project.json
       "path": "../../packages/{PACKAGE_NAME}/tsconfig.build.json"
     }
   ]
+}
+```
+
+pacakge tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "composite": true
+  }
 }
 ```
