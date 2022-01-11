@@ -1,74 +1,56 @@
 export const CODE = `\
-import React from 'react'
-import polylabel from 'polylabel'
-import InsightViewer, { Point, Contour, SvgContourViewer, useViewport } from '@lunit/insight-viewer'
+  import React from 'react'
+  import { Box } from '@chakra-ui/react'
+  import { Resizable } from 're-resizable'
+  import InsightViewer, {
+    Contour,
+    useImage,
+    useContour,
+    useViewport,
+    SvgContourViewer,
+  } from '@lunit/insight-viewer'
+  import { IMAGES } from '../../../const'
+  import mockContours from '../Contour/contours'
+  import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 
-const style = {
-  width: '500px',
-  height: '500px'
-}
+  const style = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  } as const
 
-/** Mock svg Size */
-const DEFAULT_SIZE = { width: 500, height: 500 }
+  /** Mock svg Size */
+  const DEFAULT_SIZE = { width: 500, height: 500 }
 
-/** Mock contour list */
-const mockContourList = [
-  [
-    [1901, 1835],
-    [1900, 1836],
-    [1898, 1836],
-    [1897, 1837],
-    [1896, 1837],
-    ....
-  ],
-  [
-    ....
-]
+  function SvgContourContainer(): JSX.Element {
+    const { loadingState, image } = useImage({
+      wadouri: IMAGES[12],
+    })
+    const { viewport, setViewport } = useViewport()
+    const { contours, focusedContour } = useContour<Contour>({ mode: 'contour', initalContours: mockContours })
 
-/**
- * This function return mock Contour Data
- *
- * The labeling property is [number, number].
- *
- * If you want to place the label in the center of each polygon
- * Please refer to using the polylabel library below.
- *
- * Otherwise, you just have to enter the position you want.
-*/
-const getSvgContours = (contourList: Contours): Contour[] =>
-  contourList.map((points, index) => ({
-    polygon: points,
-    id: index,
-    lineWidth: 1,
-    labelPosition: polylabel([points], 1) as Point
-  }))
-
-export default function App() {
-  const { loadingState, image } = useImage({
-    web: IMAGE_ID,
-  })
-  const { viewport, setViewport } = useViewport()
-
-  const mockContours = getSvgContours(mockContourList)
-
-  return (
-    <div style={style}> // Wrapper size is required because InsightViewer's width/height is '100%'.
-      <InsightViewer
-        image={image}
-        viewport={viewport}
-        onViewportChange={setViewport}
-      >
-        {loadingState === 'success' && (
-          <SvgContourViewer
-            focusedContour={null}
-            width={DEFAULT_SIZE.width}
-            height={DEFAULT_SIZE.height}
-            contours={mockContours}
-            showPolygonLabel // If this prop is not used, the polygon label will not be visible.
-          />
-        )}
-      </InsightViewer>
-    </div>
-  )
+    return (
+      <Box data-cy-loaded={loadingState}>
+        <Resizable style={style} defaultSize={DEFAULT_SIZE}>
+          <InsightViewer
+            image={image}
+            viewport={viewport}
+            onViewportChange={setViewport}
+          >
+            {loadingState === 'success' && (
+              <SvgContourViewer
+                width={DEFAULT_SIZE.width}
+                height={DEFAULT_SIZE.height}
+                contours={contours}
+                focusedContour={focusedContour}
+                polygonAttrs={getPolygonStyles}
+                showPolygonLabel
+              />
+            )}
+          </InsightViewer>
+        </Resizable>
+      </Box>
+    )
+  }
 }
 `
