@@ -39,6 +39,7 @@ function SvgContourContainer(): JSX.Element {
   return (
     <>
       <Button
+        data-cy-name="remove-button"
         marginBottom="10px"
         colorScheme="blue"
         onClick={removeAllContours}
