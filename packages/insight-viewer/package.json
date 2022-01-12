@@ -32,7 +32,8 @@
     "clean": "scripty",
     "test": "scripty",
     "prepublish": "scripty",
-    "publish": "scripty"
+    "publish": "scripty",
+    "jest-test": "yarn jest"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
