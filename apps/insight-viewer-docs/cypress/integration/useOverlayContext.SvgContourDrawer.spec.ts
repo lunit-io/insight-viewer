@@ -1,9 +1,6 @@
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import {
-  MOCK_CONTOURS,
-  ID1_POLYGON_HOVER_POSITION,
-} from '../support/mockContours'
+import { MOCK_CONTOURS, ID1_POLYGON_HOVER_POSITION } from '../../mocks/contours'
 
 const drawMockPolygon = () => {
   const wrapper = cy.get('.cornerstone-canvas-wrapper')

@@ -1,7 +1,7 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
-import contours from '../../src/containers/UseOverlayContext/Contour/contours'
+import { CONTOURS } from '../../mocks/contours'
 
 describe(
   'Svg Contour Viewer',
@@ -21,7 +21,7 @@ describe(
         .click()
         .get('polygon')
         .its('length')
-        .should('eq', contours.length)
+        .should('eq', CONTOURS.length)
     })
   }
 )

@@ -10,7 +10,7 @@ import InsightViewer, {
   SvgContourViewer,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import mockContours from '../Contour/contours'
+import { CONTOURS } from '../../../../mocks/contours'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 import CodeBlock from '../../../components/CodeBlock'
 import { CODE } from './Code'
@@ -31,7 +31,7 @@ function SvgContourContainer(): JSX.Element {
   const { viewport, setViewport } = useViewport()
   const { contours, focusedContour } = useContour<Contour>({
     mode: 'contour',
-    initalContours: mockContours,
+    initalContours: CONTOURS,
   })
 
   return (
