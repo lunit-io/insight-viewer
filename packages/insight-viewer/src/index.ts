@@ -1,4 +1,5 @@
 export { InsightViewer as default } from './Viewer'
+export { HeatmapViewer } from './Viewer/HeatmapViewer'
 export { SvgContourViewer } from './Viewer/SvgContourViewer'
 export { SvgContourDrawer } from './Viewer/SvgContourDrawer'
 export { useMultipleImages } from './hooks/useMultipleImages'
