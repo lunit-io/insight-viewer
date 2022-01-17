@@ -10,7 +10,7 @@ import getHeatmapImageData from '../../utils/HeatmapViewer/getHeatmapImageData'
 function useHeatmapDrawing({
   posMap,
   threshold,
-}: HeatmapViewerProps): RefObject<HTMLCanvasElement>[] {
+}: HeatmapViewerProps): [RefObject<HTMLCanvasElement>] {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const baseCanvas = canvasRef?.current
   const { enabledElement, setToPixelCoordinateSystem } = useOverlayContext()
