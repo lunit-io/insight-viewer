@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef, RefObject } from 'react'
 
-import { UseHeatmapDrawingProps } from './types'
+import { HeatmapViewerProps } from '../../Viewer/HeatmapViewer/HeatmapViewer.types'
 import { useOverlayContext } from '../../contexts'
 
 import drawHeatmap from '../../utils/HeatmapViewer/drawHeatmap'
@@ -10,8 +10,9 @@ import getHeatmapImageData from '../../utils/HeatmapViewer/getHeatmapImageData'
 function useHeatmapDrawing({
   posMap,
   threshold,
-  baseCanvas,
-}: UseHeatmapDrawingProps): void {
+}: HeatmapViewerProps): RefObject<HTMLCanvasElement>[] {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const baseCanvas = canvasRef?.current
   const { enabledElement, setToPixelCoordinateSystem } = useOverlayContext()
   const { heatmapData, heatmapCanvas } = useMemo(
     () =>
@@ -38,6 +39,8 @@ function useHeatmapDrawing({
     setToPixelCoordinateSystem,
     enabledElement,
   ])
+
+  return [canvasRef]
 }
 
 export default useHeatmapDrawing
