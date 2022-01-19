@@ -40,18 +40,17 @@ export default function getHeatmapImageData({
     return { heatmapData: null, heatmapCanvas: null }
   }
 
-  let offset, pixVal, posProb
   // convert prob_map into a heatmap on the canvas
   for (let i = 0; i < heatmapHeight; i += 1) {
     for (let j = 0; j < heatmapWidth; j += 1) {
-      offset = (i * heatmapWidth + j) * 4
-      posProb = posMap[i][j]
+      const offset = (i * heatmapWidth + j) * 4
+      const posProb = posMap[i][j]
 
       const thPosProb = (posProb - threshold) / (1 - threshold)
       if (posProb < threshold) {
         pixels[offset + 3] = 0
       } else {
-        pixVal = getRGBArray(thPosProb)
+        const pixVal = getRGBArray(thPosProb)
 
         pixels[offset] = pixVal[0]
         pixels[offset + 1] = pixVal[1]
