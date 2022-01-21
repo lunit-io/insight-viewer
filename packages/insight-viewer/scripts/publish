@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 echo "┏━━━ 🚀 PUBLISH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-yarn lerna version --ignore-changes 'packages/osd-react-renderer/**' 'apps/osd-viewer-demo/**'
+yarn lerna version
 cd dist && yarn lerna publish
