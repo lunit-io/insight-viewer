@@ -33,7 +33,8 @@
     "test": "scripty"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "directory": "dist"
   },
   "dependencies": {
     "consola": "2.15.3",
