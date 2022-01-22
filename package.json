@@ -16,10 +16,12 @@
   },
   "scripts": {
     "test": "lerna run test",
-    "build": "lerna run --scope @lunit/insight-viewer build && lerna run --scope @lunit/insight-viewer-docs doc",
+    "build": "scripty",
     "publish": "lerna publish",
     "prepublish": "scripty",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "local-publish": "scripty",
+    "local-unpublish": "scripty"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
