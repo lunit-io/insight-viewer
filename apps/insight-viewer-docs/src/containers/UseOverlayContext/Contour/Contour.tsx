@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-properties */
 import { useRef, useEffect, CSSProperties } from 'react'
@@ -141,8 +142,8 @@ function draw({
 
   const scaledThickness = Math.max(CONTOUR_THICKNESS, 1)
 
-  contours.forEach(points => {
-    const transformedPoints: [number, number][] = points.map(point => [
+  contours.forEach(contour => {
+    const transformedPoints: [number, number][] = contour.polygon.map(point => [
       point[0],
       point[1],
     ])
