@@ -16,9 +16,8 @@
   },
   "scripts": {
     "test": "lerna run test",
-    "test:insight-viewer": "lerna run --scope @lunit/insight-viewer test && lerna run --scope @lunit/insight-viewer-docs test",
-    "doc:insight-viewer": "lerna run --scope @lunit/insight-viewer build && lerna run --scope @lunit/insight-viewer-docs doc",
-    "publish:insight-viewer": "lerna run --scope @lunit/insight-viewer publish",
+    "build": "lerna run --scope @lunit/insight-viewer build && lerna run --scope @lunit/insight-viewer-docs doc",
+    "publish": "lerna run --scope @lunit/insight-viewer publish",
     "postinstall": "husky install"
   },
   "devDependencies": {

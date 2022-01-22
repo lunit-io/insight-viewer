@@ -34,7 +34,7 @@ jobs:
 
       - name: Yarn build
         id: yarn-build
-        run: yarn doc:insight-viewer
+        run: yarn build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
