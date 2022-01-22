@@ -4,7 +4,7 @@
 import { useRef, useEffect, CSSProperties } from 'react'
 import { useOverlayContext } from '@lunit/insight-viewer'
 import annotations from './annotations'
-import contours from './contours'
+import { CONTOURS } from '../../../../mocks/contours'
 
 const style: CSSProperties = {
   position: 'absolute',
@@ -128,7 +128,7 @@ function draw({
   canvas: HTMLCanvasElement | null
   setToPixelCoordinateSystem: (context: CanvasRenderingContext2D) => void
 }) {
-  if (!contours || !canvas) return
+  if (!CONTOURS || !canvas) return
   const context = canvas.getContext('2d')
   clear(canvas, context)
   const { offsetWidth, offsetHeight } = canvas
@@ -142,7 +142,7 @@ function draw({
 
   const scaledThickness = Math.max(CONTOUR_THICKNESS, 1)
 
-  contours.forEach(contour => {
+  CONTOURS.forEach(contour => {
     const transformedPoints: [number, number][] = contour.polygon.map(point => [
       point[0],
       point[1],
