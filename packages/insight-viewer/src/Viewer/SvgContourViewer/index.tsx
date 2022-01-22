@@ -31,11 +31,13 @@ function svgContoursDraw<T extends Contour>({
     const polygonPoints = transformedPoints
       .map(([x, y]) => `${x},${y}`)
       .join(' ')
+    const polygonLabel = label ?? id
 
     return (
       <React.Fragment key={id}>
         {showOutline && (
           <polygon
+            data-cy-id={polygonLabel}
             style={{
               ...polygonStyle[isFocusedPolygon ? 'focus' : 'outline'],
               ...polygonAttributes?.style,
@@ -45,6 +47,7 @@ function svgContoursDraw<T extends Contour>({
           />
         )}
         <polygon
+          data-cy-id={polygonLabel}
           style={{
             ...polygonStyle[isFocusedPolygon ? 'focus' : 'default'],
             ...polygonAttributes?.style,
@@ -58,7 +61,7 @@ function svgContoursDraw<T extends Contour>({
             x={labelPosition[0]}
             y={labelPosition[1]}
           >
-            {label ?? id}
+            {polygonLabel}
           </text>
         )}
       </React.Fragment>

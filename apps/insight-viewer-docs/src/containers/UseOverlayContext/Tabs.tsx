@@ -15,10 +15,10 @@ export default function ProgressTabs(): JSX.Element {
   return (
     <Tabs isLazy onChange={handleChange}>
       <TabList>
-        <Tab>Heatmap</Tab>
-        <Tab>Contour</Tab>
-        <Tab>SvgContourViewer</Tab>
-        <Tab>SvgContourDrawer</Tab>
+        <Tab data-cy-tab="heatmap">Heatmap</Tab>
+        <Tab data-cy-tab="contour">Contour</Tab>
+        <Tab data-cy-tab="viewer">SvgContourViewer</Tab>
+        <Tab data-cy-tab="drawer">SvgContourDrawer</Tab>
       </TabList>
 
       <TabPanels>
