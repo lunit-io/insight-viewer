@@ -46,6 +46,7 @@
     "node-filter-async": "^2.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
+    "scripty": "^2.0.0",
     "typescript": "^4.2.3"
   }
 }
