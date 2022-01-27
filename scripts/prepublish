@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+echo "┏━━━ PREPUBLISH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+yarn run build
+cp ./packages/insight-viewer/README.md ./packages/insight-viewer/dist/README.md
+cp ./packages/insight-viewer/CHANGELOG.md ./packages/insight-viewer/dist/CHANGELOG.md
+cp ./packages/insight-viewer/LICENSE ./packages/insight-viewer/dist/LICENSE
+node ./packages/insight-viewer/setupPackage.js
