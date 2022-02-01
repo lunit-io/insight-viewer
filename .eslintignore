@@ -12,3 +12,4 @@ built-storybooks
 **/.next/**
 **/_next/**
 **/dist/**
+apps/cra-demo/**
