@@ -18,7 +18,7 @@
     "test": "lerna run test",
     "build": "scripty",
     "publish": "lerna publish",
-    "prepublish": "scripty",
+    "prepublishOnly": "scripty",
     "postinstall": "husky install",
     "local-publish": "scripty",
     "local-unpublish": "scripty"
