@@ -1676,6 +1676,21 @@
   dependencies:
     chalk "^4.0.0"
 
+"@cornerstonejs/codec-charls@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@cornerstonejs/codec-charls/-/codec-charls-0.1.1.tgz#e55d4aa908732d0cc902888b7f3856c5a996df7f"
+  integrity sha512-Y250DGVzmownJ7WgpHxNqWvfTnv4/malaKm/tWm0xE1FxhQE8iErMWFpKxpNDk3MdfXO4/98piVsUwmJMiWoDQ==
+
+"@cornerstonejs/codec-libjpeg-turbo-8bit@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@cornerstonejs/codec-libjpeg-turbo-8bit/-/codec-libjpeg-turbo-8bit-0.0.7.tgz#2ea9b575eed19e6e7e3701b7a50a4ae0ffbef0c4"
+  integrity sha512-qgm6BuVAy5mNP8SJ+A6+VbmPnqgj8jPvJrw4HbUoAzndmf9/VHjTYwawn3kmZWya5ErFAsXQ6c0U0noB1LKAiA==
+
+"@cornerstonejs/codec-openjpeg@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@cornerstonejs/codec-openjpeg/-/codec-openjpeg-0.1.0.tgz#5bca10ae2980ff681ebcdace2074a0adaf12ad86"
+  integrity sha512-9mwseBidYPQ1rGPcUU8JriQnzUi5Bgtontqca7gw47uzxC4Zamoc1Kuho5LUpbS1LSnOLePOkDrg/LCYhJIq8g==
+
 "@cypress/request@^2.88.5":
   version "2.88.6"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.6.tgz#a970dd675befc6bdf8a8921576c01f51cc5798e9"
@@ -5216,18 +5231,21 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cornerstone-core@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/cornerstone-core/-/cornerstone-core-2.3.0.tgz#b16430b0dc3883c795fbbd5f64d0f6357f91c889"
-  integrity sha512-1LiCfRIlQvR1j8OhF7/3pvvQvvnTYZUywEkuoEo5K5mMrlKdrQMS75uW1uXb/nXShQDJyyjtTCQSVGgv2yHA+w==
+cornerstone-core@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/cornerstone-core/-/cornerstone-core-2.6.1.tgz#f9a29a49057f286e8c969c7020e979d567449d42"
+  integrity sha512-LAXjXwNnK2W65ZxpE7phVLjbijkYUrAQIGv5xqKjK8+dmIGlBxqvPHnyGwEqVDyKOWVrpXP6ymUPwrGGRwzgMg==
 
-cornerstone-wado-image-loader@^3.3.1:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/cornerstone-wado-image-loader/-/cornerstone-wado-image-loader-3.3.2.tgz#da27db9024ecc943ca87dd2384eb9731bc2b039d"
-  integrity sha512-Yy0DtfSMlflMS5RMQhX9YnXiYYkZz99nnXG2qtBRvzvSdwqiElIpE13sKw0Ohi4mqNwrWRx0xt8utk0HKnAXyw==
+cornerstone-wado-image-loader@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/cornerstone-wado-image-loader/-/cornerstone-wado-image-loader-4.1.2.tgz#89527e6793c7e2b66a4d8a5db2ca5c51b52fb1bd"
+  integrity sha512-9dtCgU6Lidp5wY914rNUckLqNHmjvIzL3uYU8b3EMqb9+tfTRQINm0kJq/rgchiyxnc1AW3FhrDf9DYgcfspyQ==
   dependencies:
-    dicom-parser "^1.8.3"
-    pako "^1.0.10"
+    "@cornerstonejs/codec-charls" "^0.1.1"
+    "@cornerstonejs/codec-libjpeg-turbo-8bit" "^0.0.7"
+    "@cornerstonejs/codec-openjpeg" "^0.1.0"
+    dicom-parser "^1.8.9"
+    pako "^2.0.4"
 
 cornerstone-web-image-loader@^2.1.1:
   version "2.1.1"
@@ -5714,10 +5732,15 @@ dezalgo@^1.0.0:
     asap "^2.0.0"
     wrappy "1"
 
-dicom-parser@^1.8.3, dicom-parser@^1.8.7:
+dicom-parser@^1.8.7:
   version "1.8.8"
   resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.8.tgz#2eefec545eb47ba3ba6c759a9ed6277dc7eaa6a2"
   integrity sha512-yTuHYdimnxv+oN1sVZVQlifYlVCYH0B4nHFNvH4vGKxNLz2t4fqisMbeRslcZWBw9rU4NHxI49kGqniFdTC0Dg==
+
+dicom-parser@^1.8.9:
+  version "1.8.11"
+  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.11.tgz#ffd86289a6b85bb0047379084b57fcc1b28fe7f8"
+  integrity sha512-KbxEDqv4Stynv5AxDh90+jY7MtPvI2uyOG62yD8zKu/pcZqoQYfPX44rB0ULjpxt6YIfXfajrs7B1L97RbjNsg==
 
 diff-sequences@^26.6.2:
   version "26.6.2"
@@ -10045,7 +10068,12 @@ pacote@^11.2.6:
     ssri "^8.0.1"
     tar "^6.1.0"
 
-pako@^1.0.10, pako@~1.0.5:
+pako@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.4.tgz#6cebc4bbb0b6c73b0d5b8d7e8476e2b2fbea576d"
+  integrity sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==
+
+pako@~1.0.5:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
