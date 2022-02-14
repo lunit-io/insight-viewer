@@ -8,9 +8,9 @@ import { loadCornerstoneImages } from './loadCornerstoneImages'
 
 const { requestInterceptor } = CONFIG
 const IMAGES = [
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm',
+  'wadouri:https://example/CT000000.dcm',
+  'wadouri:https://example/CT000001.dcm',
+  'wadouri:https://example/CT000002.dcm',
 ]
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
 const mockLoadCornerstoneImages = loadCornerstoneImages as jest.Mock
