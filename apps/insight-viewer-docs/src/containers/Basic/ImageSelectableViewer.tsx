@@ -8,6 +8,19 @@ export default function ImageSelectableViewer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
     wadouri: selected,
+    loaderOptions: {
+      webWorkerManagerOptions: {
+        webWorkerTaskPaths: [
+          'http://localhost:3000/workers/610.bundle.min.worker.js',
+          'http://localhost:3000/workers/888.bundle.min.worker.js',
+        ],
+        taskConfiguration: {
+          decodeTask: {
+            initializeCodecsOnStartup: false,
+          },
+        },
+      },
+    },
   })
 
   return (
