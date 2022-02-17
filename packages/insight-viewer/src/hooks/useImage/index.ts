@@ -4,7 +4,10 @@
 import { useEffect, useReducer, useRef } from 'react'
 import { LOADING_STATE, CONFIG } from '../../const'
 import { LoadingState, ImageId, HTTP } from '../../types'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import {
+  CornerstoneImage,
+  WadoImageLoaderOptions,
+} from '../../utils/cornerstoneHelper'
 import { noop } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
@@ -15,7 +18,13 @@ interface OnImageLoaded {
   (): void
 }
 interface UseImage {
-  (props: Partial<HTTP> & ImageId & { onImageLoaded?: OnImageLoaded }): {
+  (
+    props: Partial<HTTP> &
+      ImageId & {
+        onImageLoaded?: OnImageLoaded
+        loaderOptions?: WadoImageLoaderOptions
+      }
+  ): {
     loadingState: LoadingState
     image: CornerstoneImage | undefined
   }
@@ -33,6 +42,7 @@ export const useImage: UseImage = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
   onImageLoaded = noop,
+  loaderOptions,
   ...rest
 }) => {
   const { id: imageId, scheme: imageScheme } = getImageIdAndScheme(rest)
@@ -42,7 +52,7 @@ export const useImage: UseImage = ({
     imageLoadReducer,
     INITIAL_IMAGE_LOAD_STATE
   )
-  const hasLoader = useImageLoader(rest, onError)
+  const hasLoader = useImageLoader(rest, onError, loaderOptions)
 
   useEffect(() => {
     if (onImageLoadedRef?.current) return
