@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0-alpha.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.1.0-alpha.7...@lunit/insight-viewer@5.2.0-alpha.0) (2022-02-18)
+
+
+### Features
+
+* **viewer:** add _persistentViewport property to loaded image value for multiframe image reset ([55d76a4](https://github.com/lunit-io/frontend-components/commit/55d76a49f35b0587201555df9156e27a2db39cea))
+* **viewer:** add comment to SvgContourDrawer device prop ([cba7750](https://github.com/lunit-io/frontend-components/commit/cba7750fb6dfd29eacf146fb2e5f2aee5713379a))
+* **viewer:** add contour sub package ([c2cd42f](https://github.com/lunit-io/frontend-components/commit/c2cd42f72d3fb525e3e72a2c27ea3de88eed39d5))
+* **viewer:** add Contour, Contours, Point type ([1746dca](https://github.com/lunit-io/frontend-components/commit/1746dcadfa9083670f41801a16304c92670b7f27))
+* **viewer:** add EnabledElement, PixelCoordinate type to helper ([9b70756](https://github.com/lunit-io/frontend-components/commit/9b7075656ff3e8879ca8f14a7635cc11221ddb3f))
+* **viewer:** add error message constant and apply enabledElement error ([34ac0f3](https://github.com/lunit-io/frontend-components/commit/34ac0f38f2defa2dc9568b5a7cb6bf14abfbcb74))
+* **viewer:** add hitTestContours ([168e167](https://github.com/lunit-io/frontend-components/commit/168e16768831a92baef215329d389e28a09e7f43))
+* **viewer:** add labelPosition prop to Contour interface ([d6819f9](https://github.com/lunit-io/frontend-components/commit/d6819f90534ec90cb5c17135dd15590934a88452))
+* **viewer:** add loader options to useImage hook ([3b9167f](https://github.com/lunit-io/frontend-components/commit/3b9167fc4321df3c482024c1ce22326b97368b14))
+* **viewer:** add noop util for set default callback prop value ([cbc0902](https://github.com/lunit-io/frontend-components/commit/cbc09026afb49b171a5c68706a94a91226e899b2))
+* **viewer:** add onImageLoaded prop to useImage hook ([db576cf](https://github.com/lunit-io/frontend-components/commit/db576cf61ad3c2b636a9d3a6d99a9801f410a103))
+* **viewer:** add onImagesLoaded prop to useMultiframeImages hook ([7723b4f](https://github.com/lunit-io/frontend-components/commit/7723b4f5bb29d2094bf9051f85cac4e7cdbd919e))
+* **viewer:** add pageToPixel cornerstoneHelper util function ([eed1196](https://github.com/lunit-io/frontend-components/commit/eed1196636857d81f97df297f99c380e292d54f6))
+* **viewer:** add pageToPixel util function to OverlayContextProvider ([cf85c92](https://github.com/lunit-io/frontend-components/commit/cf85c92528842d10b05b34aa48ed1e2e7998b90f))
+* **viewer:** add pixelToCanvas cornerstone util function ([35e6d47](https://github.com/lunit-io/frontend-components/commit/35e6d4708e5012096a34e2f9dc313a437975c4b4))
+* **viewer:** add pixelToCanvas util function to OverlayContextProvider ([2cb6312](https://github.com/lunit-io/frontend-components/commit/2cb63127699c89e7f257800e5d339e8d43ca5238))
+* **viewer:** add showPolygonLabel prop to SvgContourViewer ([6e21021](https://github.com/lunit-io/frontend-components/commit/6e21021d7559e6c93bd10ca582d8bd0c59ee0500))
+* **viewer:** add svg, polygon style for SvgContourViewer ([4a570a9](https://github.com/lunit-io/frontend-components/commit/4a570a9e2abafea7705ba5a19e40188680ca296f))
+* **viewer:** add SvgContourDrawer component ([fefb118](https://github.com/lunit-io/frontend-components/commit/fefb11838b2388f46e1c881c662cf42325282cbf))
+* **viewer:** add SvgContourDrawer props interface ([a3f3941](https://github.com/lunit-io/frontend-components/commit/a3f39411fd199c9b409fe3f3df4fae74fc1e5f9d))
+* **viewer:** add SvgContourDrawer styles ([d8550ed](https://github.com/lunit-io/frontend-components/commit/d8550ed0bf26f459f1e8b128e34fb1df63c83b35))
+* **viewer:** add SvgContourDrawer to index for export component ([d38d4d8](https://github.com/lunit-io/frontend-components/commit/d38d4d87021a6c745827f38326274ee137f99d09))
+* **viewer:** add SvgContourViewer component ([205ad0d](https://github.com/lunit-io/frontend-components/commit/205ad0d48dc6ce042644a37d80b3906593091fef))
+* **viewer:** add SvgContourViewer component, util function type ([12eb471](https://github.com/lunit-io/frontend-components/commit/12eb471f59df7aec888da4b45037755fc0db2830))
+* **viewer:** add UseImageDisplay type and Image type ([c7ce0e8](https://github.com/lunit-io/frontend-components/commit/c7ce0e85750093284d4160b6060ee7469a7c5d82))
+* **viewer:** add useMultiFrameImageDisplay hook ([f7de621](https://github.com/lunit-io/frontend-components/commit/f7de62106bb29322f6b3c56e32e5e7f75368bbd3))
+* **viewer:** add useSvContourDrawingProps type ([10c2861](https://github.com/lunit-io/frontend-components/commit/10c2861bb9a9b580fb114ca0b4689354e7244f0f))
+* **viewer:** add useSvgContourDrawing hook for set mouse events ([b70e6a7](https://github.com/lunit-io/frontend-components/commit/b70e6a75776c12955a6804e8c143cb7273b1b6fa))
+* **viewer:** apply EnabledElement, PixelCoordinate to util type ([92907df](https://github.com/lunit-io/frontend-components/commit/92907dfac80bb979c375063a32027ceb1d520cbf))
+* **viewer:** apply export type and SvgContourViewer component ([47d75af](https://github.com/lunit-io/frontend-components/commit/47d75af454f723c0b0e8638e01af80eb359d4991))
+* **viewer:** delete contours  optional type to SvgContourDrawer prop ([b8b3010](https://github.com/lunit-io/frontend-components/commit/b8b3010085d9a7ff6114ddbc2c7036a63291d739))
+* **viewer:** delete defaultViewport message util ([ccd9273](https://github.com/lunit-io/frontend-components/commit/ccd92736bfbad95daf4ae3fa37a7e7fe59eb2ccb))
+* **viewer:** delete unused constant CornerstoneViewportParam ([c90edfe](https://github.com/lunit-io/frontend-components/commit/c90edfea0c013b81b652d795cc8a6772fbd5c57d))
+* **viewer:** delete unused cornerstone type constant ([d684c25](https://github.com/lunit-io/frontend-components/commit/d684c2565ff224e6e61de437ef680a1a85b15a9d))
+* **viewer:** delete unused SvgContourDrawerprops ([0c9259d](https://github.com/lunit-io/frontend-components/commit/0c9259d2975a352a6587bdd4637212950072f26a))
+* **viewer:** delete useless code ([b2c46aa](https://github.com/lunit-io/frontend-components/commit/b2c46aa4aeb2dc225b01723afd166d1469bf412e))
+* **viewer:** do not set default viewportRef value ([5e26b18](https://github.com/lunit-io/frontend-components/commit/5e26b1801dd15eb515ef9db41b492bd9d9835703))
+* **viewer:** modify Contours type value ([2ba5a43](https://github.com/lunit-io/frontend-components/commit/2ba5a433651a279e4419d26ee94bef4cc34ee4fe))
+* **viewer:** modify wrong import value of formatViewport ([d257095](https://github.com/lunit-io/frontend-components/commit/d257095682b533dde04e9d8a44fb9c9bd8f4bcea))
+* **viewer:** rename border to outline ([610c862](https://github.com/lunit-io/frontend-components/commit/610c8626bcc54fb7577a900a6bab26ec80430370))
+* **viewer:** rename hitTestContours to checkFocusedContour ([f319a38](https://github.com/lunit-io/frontend-components/commit/f319a389a98efde63fc07f00855fd5fec28aed61))
+* **viewer:** rename isBorder to showBorder ([20debde](https://github.com/lunit-io/frontend-components/commit/20debde8e19c75da9682f45b4c7307cfddacc11d))
+* **viewer:** replace _persistentViewport with _imageSeriesKey ([f497588](https://github.com/lunit-io/frontend-components/commit/f497588f2e3b3cda670e01f6b3a009d4faac9334))
+* **viewer:** replace useDefaultViewport hook with cornerstonejs"s getDefaultViewportForImage ([e15a1eb](https://github.com/lunit-io/frontend-components/commit/e15a1eba6a025a600e8e46e379aae4a2eb9c8998))
+* **viewer:** reset viewport when image is changed ([49432c4](https://github.com/lunit-io/frontend-components/commit/49432c49b22c5ff073c11a36f9904085a5b52003))
+* **viewer:** set default viewport value for Viewer ([0f85270](https://github.com/lunit-io/frontend-components/commit/0f85270c20879d64dc0fbb478359342f989d2798))
+* **viewer:** svgContourViewer, Drawer test ([#181](https://github.com/lunit-io/frontend-components/issues/181)) ([b6e8dbe](https://github.com/lunit-io/frontend-components/commit/b6e8dbe4c78e72cd4f406b0c09adf492b75f48c0)), closes [#177](https://github.com/lunit-io/frontend-components/issues/177) [#178](https://github.com/lunit-io/frontend-components/issues/178)
+* **viewer:** update _imageSeriesKey before starting loading multiframe images ([3586a1c](https://github.com/lunit-io/frontend-components/commit/3586a1c0e31058294c9cf2561bba4a8ab703b316))
+* **viewer:** update contour.tsx to be contour.ts ([127b05d](https://github.com/lunit-io/frontend-components/commit/127b05d8deee940e0ec242de48026ecf590d51ae))
+* **viewer:** update imageSeriesKey after display image ([09d898b](https://github.com/lunit-io/frontend-components/commit/09d898b29c6a845827eaf5d3ed40cda8c05ab9f0))
+* **viewer:** update incorrect comment ([4bf21a9](https://github.com/lunit-io/frontend-components/commit/4bf21a97a173018da1c77b40984aa7ca0f88c127))
+* **viewer:** update useImageDisplay hook ([0d47781](https://github.com/lunit-io/frontend-components/commit/0d4778110ff399c9911a930ffb3acf53d1600bb9))
+* **viewer:** update useImageDisplay hook ([f34235e](https://github.com/lunit-io/frontend-components/commit/f34235e3f12acc5bb3ead8f8dd945c5e8f196acf))
+* **viewer:** use contour hook, add SvgContourDrawer docs ([#178](https://github.com/lunit-io/frontend-components/issues/178)) ([23e7ec9](https://github.com/lunit-io/frontend-components/commit/23e7ec963a1954ce6c733c638d4839f34d4fc740))
+* **viewer:** use uid as imageSeriesKey ([21a9428](https://github.com/lunit-io/frontend-components/commit/21a9428113295aba99fdca2382f88a47624cdc12))
+* **viewer:** useSingleFrameImageDisplay hook ([d73b65c](https://github.com/lunit-io/frontend-components/commit/d73b65cccc4bf7cbcc0845a26c292ef3f5666466))
+
+
+
+
+
 # [5.1.0-alpha.6](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.1.0-alpha.2...@lunit/insight-viewer@5.1.0-alpha.6) (2021-11-03)
 
 
