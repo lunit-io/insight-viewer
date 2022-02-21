@@ -3,6 +3,10 @@
 /* eslint-disable one-var */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
+
+/**
+ * the example code of Heatmap Viewer
+ */
 import { useRef, useEffect, CSSProperties, useMemo } from 'react'
 import { useOverlayContext, OverlayContext } from '@lunit/insight-viewer'
 import posMap from './posMap'
