@@ -1,0 +1,66 @@
+import React, { ReactElement } from 'react'
+
+import { Contour } from '../../types'
+import { PolygonViewerProps } from './PolygonViewer.types'
+import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
+import {
+  textStyle,
+  polygonStyle,
+} from '../AnnotationViewer/AnnotationViewer.styles'
+
+export function PolygonViewer<T extends Contour>({
+  contour,
+  showOutline,
+  showPolygonLabel,
+  focusedContour,
+  polygonAttrs,
+  pixelToCanvas,
+}: PolygonViewerProps<T>): ReactElement {
+  const {
+    isFocusedPolygon,
+    polygonAttributes,
+    labelPosition,
+    polygonLabel,
+    polygonPoints,
+  } = getPolyViewerInfo({
+    contour,
+    showOutline,
+    focusedContour,
+    pixelToCanvas,
+    polygonAttrs,
+  })
+
+  return (
+    <>
+      {showOutline && (
+        <polygon
+          data-cy-id={polygonLabel}
+          style={{
+            ...polygonStyle[isFocusedPolygon ? 'focus' : 'outline'],
+            ...polygonAttributes?.style,
+          }}
+          data-focus={isFocusedPolygon || undefined}
+          points={polygonPoints}
+        />
+      )}
+      <polygon
+        data-cy-id={polygonLabel}
+        style={{
+          ...polygonStyle[isFocusedPolygon ? 'focus' : 'default'],
+          ...polygonAttributes?.style,
+        }}
+        data-focus={isFocusedPolygon || undefined}
+        points={polygonPoints}
+      />
+      {showPolygonLabel && labelPosition && (
+        <text
+          style={{ ...textStyle[isFocusedPolygon ? 'focus' : 'default'] }}
+          x={labelPosition[0]}
+          y={labelPosition[1]}
+        >
+          {polygonLabel}
+        </text>
+      )}
+    </>
+  )
+}
