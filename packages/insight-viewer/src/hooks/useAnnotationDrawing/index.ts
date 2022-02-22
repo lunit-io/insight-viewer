@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState, useEffect } from 'react'
-import { UseSvgContourDrawingProps } from './types'
+import { UseAnnotationDrawingProps } from './types'
 import { Contour, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
+import { checkFocusedCircle } from '../../utils/common/checkFocusedCircle'
 import { checkFocusedContour } from '../../utils/common/checkFocusedContour'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
@@ -11,16 +12,17 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.stopImmediatePropagation()
 }
 
-function useSvgContourDrawing<T extends Contour>({
-  svgElement,
+function useAnnotationDrawing<T extends Contour>({
+  mode,
   contours,
+  svgElement,
   onAdd,
   onFocus,
   onRemove,
-}: UseSvgContourDrawingProps<T>): Point[][] {
+}: UseAnnotationDrawingProps<T>): Point[][] {
   const [polygon, setPolygon] = useState<Point[]>([])
-  const [focusedContour, setFocusedContour] = useState<T | null>(null)
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
+  const [focusedContour, setFocusedContour] = useState<T | null>(null)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
 
@@ -33,7 +35,17 @@ function useSvgContourDrawing<T extends Contour>({
       if (polygon.length > 0 && isDrawingMode) {
         const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
 
-        setPolygon(prevState => [...prevState, pixelPosition])
+        setPolygon(prevState => {
+          if (mode === 'polygon' || mode === 'line') {
+            return [...prevState, pixelPosition]
+          }
+
+          if (mode === 'circle') {
+            return [prevState[0], pixelPosition]
+          }
+
+          return prevState
+        })
       }
     }
 
@@ -83,7 +95,10 @@ function useSvgContourDrawing<T extends Contour>({
       if (contours.length === 0) return
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      const focusedContourElement = checkFocusedContour(contours, pixelPosition)
+      const focusedContourElement =
+        mode === 'polygon' || mode === 'line'
+          ? checkFocusedContour(contours, pixelPosition)
+          : checkFocusedCircle(contours, pixelPosition)
 
       setFocusedContour(focusedContourElement)
       onFocus(focusedContourElement)
@@ -169,6 +184,7 @@ function useSvgContourDrawing<T extends Contour>({
       deactiveMouseDrawEvents()
     }
   }, [
+    mode,
     contours,
     svgElement,
     polygon,
@@ -184,4 +200,4 @@ function useSvgContourDrawing<T extends Contour>({
   return [polygon]
 }
 
-export default useSvgContourDrawing
+export default useAnnotationDrawing
