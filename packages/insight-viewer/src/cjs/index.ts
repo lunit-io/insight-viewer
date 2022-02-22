@@ -1,6 +1,7 @@
 import { InsightViewer } from '../Viewer'
-import { SvgContourViewer } from '../Viewer/SvgContourViewer'
-import { SvgContourDrawer } from '../Viewer/SvgContourDrawer'
+import { Annotation } from '../Viewer/Annotation'
+import { AnnotationViewer } from '../Viewer/AnnotationViewer'
+import { AnnotationDrawer } from '../Viewer/AnnotationDrawer'
 import { useMultipleImages } from '../hooks/useMultipleImages'
 import { useViewport } from '../hooks/useViewport'
 import { useInteraction } from '../hooks/useInteraction'
@@ -22,8 +23,9 @@ export type {
 export type { OverlayContext } from '../contexts'
 
 Object.assign(InsightViewer, {
-  SvgContourViewer,
-  SvgContourDrawer,
+  Annotation,
+  AnnotationViewer,
+  AnnotationDrawer,
   useMultipleImages,
   useViewport,
   useInteraction,
