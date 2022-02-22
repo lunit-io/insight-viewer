@@ -82,5 +82,5 @@ export interface Contour {
    */
   dataAttrs?: { [attr: string]: string }
 
-  lineWidth: number
+  lineWidth?: number
 }

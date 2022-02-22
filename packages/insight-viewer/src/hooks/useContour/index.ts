@@ -89,7 +89,7 @@ export function useContour<T extends Contour>({
         id: currentId,
         polygon,
         labelPosition,
-        lineWidth: 1.5,
+        lineWidth: contourInfo?.lineWidth ?? 1.5,
         ...contourInfo,
       } as T
 

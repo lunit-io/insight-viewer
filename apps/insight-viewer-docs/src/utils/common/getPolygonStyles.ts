@@ -11,6 +11,6 @@ export const getPolygonStyles = (
   isBorder: boolean
 ): SVGProps<SVGPolygonElement> => ({
   style: {
-    strokeWidth: contour.lineWidth * 3 + (isBorder ? 4 : 0),
+    strokeWidth: (contour.lineWidth ?? 1) * 3 + (isBorder ? 4 : 0),
   },
 })
