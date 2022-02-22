@@ -19,13 +19,12 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 interface UseContourProps<T extends Contour> {
   nextId?: number
   initalContours?: Omit<T, 'id'>[]
-  mode?: 'contour' | 'point' | 'circle' | 'line' // The mode feature has not been implemented yet
+  mode?: 'polygon' | 'point' | 'circle' | 'line' // The mode feature has not been implemented yet
 }
 
 interface ContourDrawingState<T extends Contour> {
   contours: T[]
   focusedContour: T | null
-
   addContour: (
     polygon: Point[],
     contourInfo?: Omit<T, 'id' | 'polygon'>
@@ -39,6 +38,7 @@ interface ContourDrawingState<T extends Contour> {
 export function useContour<T extends Contour>({
   nextId,
   initalContours,
+  mode = 'polygon',
 }: UseContourProps<T>): ContourDrawingState<T> {
   const [contours, setContours] = useState<T[]>([])
   const [focusedContour, setFocusedContour] = useState<T | null>(null)
@@ -63,10 +63,14 @@ export function useContour<T extends Contour>({
     contourInfo: Partial<Omit<T, 'id' | 'polygon'>> | undefined
   ): T | null => {
     if (
-      !getIsPolygonAreaGreaterThanArea(polygon) ||
-      getIsComplexPolygon(polygon)
+      mode === 'polygon' &&
+      (!getIsPolygonAreaGreaterThanArea(polygon) ||
+        getIsComplexPolygon(polygon))
     )
       return null
+    if (mode === 'line' && !getIsPolygonAreaGreaterThanArea(polygon))
+      return null
+    if (mode === 'circle' && polygon.length < 2) return null
     if (contourInfo?.dataAttrs) {
       validateDataAttrs(contourInfo?.dataAttrs)
     }
