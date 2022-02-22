@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react'
 import { CornerstoneImage } from '../utils/cornerstoneHelper'
 import { ProgressComponent, Viewport, OnViewportChange } from '../types'
 import { SetFrame } from '../hooks/useMultipleImages/useFrame'
@@ -17,4 +18,9 @@ export type ViewerProp = {
   onViewportChange?: OnViewportChange
   onFrameChange?: SetFrame
   interaction?: Interaction
+}
+
+export type AnnotationStyleType = 'default' | 'focus' | 'outline' | 'highlight'
+export type AnnotationStyle = {
+  [styleType in AnnotationStyleType]?: CSSProperties
 }
