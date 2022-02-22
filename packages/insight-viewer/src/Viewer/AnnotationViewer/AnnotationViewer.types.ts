@@ -1,21 +1,9 @@
 import { CSSProperties, SVGProps } from 'react'
 import { Contour, Point } from '../../types'
 
-export interface SvgContoursDrawProps<T extends Contour> {
-  contours: T[]
-  showOutline: boolean
-  showPolygonLabel: boolean
-  focusedContour: T | null
-  pixelToCanvas: (point: Point) => Point
-  polygonAttrs?: (
-    contour: Contour,
-    showOutline: boolean
-  ) => SVGProps<SVGPolygonElement>
-}
-
-export interface SvgContourViewerProps<T extends Contour> {
-  width: number
-  height: number
+export interface AnnotationViewerProps<T extends Contour> {
+  width?: number
+  height?: number
 
   /** Contour focused by user interaction such as mouse over */
   contours: T[]
@@ -49,4 +37,13 @@ export interface SvgContourViewerProps<T extends Contour> {
    * Default value is false
    */
   showPolygonLabel?: boolean
+
+  mode?: 'polygon' | 'line' | 'circle'
+}
+
+export interface AnnotationsDrawProps<T extends Contour>
+  extends Omit<AnnotationViewerProps<T>, 'width' | 'height'> {
+  mode: 'polygon' | 'line' | 'circle'
+  showOutline: boolean
+  pixelToCanvas: (point: Point) => Point
 }

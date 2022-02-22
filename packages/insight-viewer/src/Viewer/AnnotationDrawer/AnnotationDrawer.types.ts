@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react'
 import { Contour, Point } from '../../types'
 
-export interface SvgContourDrawerProps<T extends Contour> {
+export interface AnnotationDrawerProps<T extends Contour> {
   width?: number
   height?: number
 
@@ -32,4 +32,6 @@ export interface SvgContourDrawerProps<T extends Contour> {
     | 'touch-only'
     | 'stylus-only'
     | 'mouse-and-stylus'
+
+  mode?: 'polygon' | 'line' | 'circle'
 }
