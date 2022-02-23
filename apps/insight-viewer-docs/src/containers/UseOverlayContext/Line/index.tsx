@@ -39,7 +39,7 @@ function LineContainer(): JSX.Element {
               height={700}
               contours={initialContours}
               focusedContour={null}
-              mode="line"
+              mode="curvedLine"
             />
           )}
         </InsightViewer>

@@ -33,7 +33,7 @@ function LineDrawerContainer(): JSX.Element {
     removeContour,
     focusContour,
     removeAllContours,
-  } = useContour<Contour>({ mode: 'line' })
+  } = useContour<Contour>({ mode: 'curvedLine' })
 
   return (
     <>
@@ -55,7 +55,7 @@ function LineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
-                mode="line"
+                mode="curvedLine"
                 showPolygonLabel
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
