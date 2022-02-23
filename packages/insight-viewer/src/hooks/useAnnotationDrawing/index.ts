@@ -22,6 +22,7 @@ function useAnnotationDrawing<T extends Contour>({
 }: UseAnnotationDrawingProps<T>): Point[][] {
   const [polygon, setPolygon] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
+  const [isOverlappedDrawing, setIsOverlappedDrawing] = useState<boolean>(false)
   const [focusedContour, setFocusedContour] = useState<T | null>(null)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
@@ -86,6 +87,11 @@ function useAnnotationDrawing<T extends Contour>({
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
       setPolygon([pixelPosition])
+
+      if (focusedContour) {
+        setIsOverlappedDrawing(true)
+      }
+
       setIsDrawingMode(true)
     }
 
@@ -107,7 +113,11 @@ function useAnnotationDrawing<T extends Contour>({
     const handleClickToRemove = (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (!focusedContour || isDrawingMode) return
+      if (!focusedContour || isOverlappedDrawing) {
+        setIsOverlappedDrawing(false)
+        return
+      }
+
       onRemove(focusedContour)
     }
 
@@ -191,6 +201,7 @@ function useAnnotationDrawing<T extends Contour>({
     isDrawingMode,
     focusedContour,
     enabledElement,
+    isOverlappedDrawing,
     onAdd,
     onFocus,
     onRemove,
