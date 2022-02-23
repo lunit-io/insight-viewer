@@ -19,7 +19,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function CurvedLineContainer(): JSX.Element {
+function FreeLineContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -39,7 +39,7 @@ function CurvedLineContainer(): JSX.Element {
               height={700}
               contours={initialContours}
               focusedContour={null}
-              mode="curvedLine"
+              mode="freeLine"
             />
           )}
         </InsightViewer>
@@ -48,4 +48,4 @@ function CurvedLineContainer(): JSX.Element {
   )
 }
 
-export default CurvedLineContainer
+export default FreeLineContainer

@@ -21,7 +21,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function CurvedLineDrawerContainer(): JSX.Element {
+function FreeLineDrawerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -33,7 +33,7 @@ function CurvedLineDrawerContainer(): JSX.Element {
     removeContour,
     focusContour,
     removeAllContours,
-  } = useContour<Contour>({ mode: 'curvedLine' })
+  } = useContour<Contour>({ mode: 'freeLine' })
 
   return (
     <>
@@ -55,7 +55,7 @@ function CurvedLineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
-                mode="curvedLine"
+                mode="freeLine"
                 showPolygonLabel
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
@@ -74,4 +74,4 @@ function CurvedLineDrawerContainer(): JSX.Element {
   )
 }
 
-export default CurvedLineDrawerContainer
+export default FreeLineDrawerContainer

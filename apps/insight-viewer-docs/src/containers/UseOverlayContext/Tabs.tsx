@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Heatmap from './Heatmap'
 import Contour from './Contour'
-import CurvedLineContainer from './CurvedLine'
-import CurvedLineDrawerContainer from './CurvedLineDrawer'
+import FreeLineContainer from './FreeLine'
+import FreeLineDrawerContainer from './FreeLineDrawer'
 import PolygonContainer from './PolygonViewer'
 import PolygonDrawerContainer from './PolygonDrawer'
 
@@ -21,8 +21,8 @@ export default function ProgressTabs(): JSX.Element {
         <Tab data-cy-tab="contour">Contour</Tab>
         <Tab data-cy-tab="viewer">Polygon</Tab>
         <Tab data-cy-tab="drawer">PolygonDrawer</Tab>
-        <Tab data-cy-tab="Line">CurvedLine</Tab>
-        <Tab data-cy-tab="LineDrawer">CurvedLineDrawer</Tab>
+        <Tab data-cy-tab="FreeLine">FreeLine</Tab>
+        <Tab data-cy-tab="FreeLineDrawer">FreeLineDrawer</Tab>
       </TabList>
 
       <TabPanels>
@@ -39,10 +39,10 @@ export default function ProgressTabs(): JSX.Element {
           {active === 3 && <PolygonDrawerContainer />}
         </TabPanel>
         <TabPanel p={0} pt={6}>
-          {active === 4 && <CurvedLineContainer />}
+          {active === 4 && <FreeLineContainer />}
         </TabPanel>
         <TabPanel p={0} pt={6}>
-          {active === 5 && <CurvedLineDrawerContainer />}
+          {active === 5 && <FreeLineDrawerContainer />}
         </TabPanel>
       </TabPanels>
     </Tabs>
