@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import { Contour, Point } from '../../types'
+import { Contour, Point, AnnotationMode } from '../../types'
 
 export interface AnnotationDrawerProps<T extends Contour> {
   width?: number
@@ -33,5 +33,5 @@ export interface AnnotationDrawerProps<T extends Contour> {
     | 'stylus-only'
     | 'mouse-and-stylus'
 
-  mode?: 'polygon' | 'line' | 'circle'
+  mode?: AnnotationMode
 }

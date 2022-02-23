@@ -31,7 +31,7 @@ function AnnotationsDraw<T extends Contour>({
     return (
       <React.Fragment key={contour.id}>
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
-        {mode === 'line' && <LineViewer {...viewerProps} />}
+        {mode === 'curvedLine' && <LineViewer {...viewerProps} />}
       </React.Fragment>
     )
   })

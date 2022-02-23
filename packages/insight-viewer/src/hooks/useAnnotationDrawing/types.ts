@@ -1,4 +1,4 @@
-import { Point, Contour } from '../../types'
+import { Point, Contour, AnnotationMode } from '../../types'
 
 export interface UseAnnotationDrawingProps<T extends Contour> {
   svgElement: React.RefObject<SVGSVGElement> | null
@@ -12,5 +12,5 @@ export interface UseAnnotationDrawingProps<T extends Contour> {
   onAdd: (polygon: Point[]) => void
   onFocus: (contour: T | null) => void
   onRemove: (contour: T) => void
-  mode: 'polygon' | 'line' | 'circle'
+  mode: AnnotationMode
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { Contour, Point } from '../../types'
+import { Contour, Point, AnnotationMode } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
 
@@ -19,7 +19,7 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 interface UseContourProps<T extends Contour> {
   nextId?: number
   initalContours?: Omit<T, 'id'>[]
-  mode?: 'polygon' | 'point' | 'circle' | 'line' // The mode feature has not been implemented yet
+  mode?: AnnotationMode
 }
 
 interface ContourDrawingState<T extends Contour> {
@@ -68,7 +68,7 @@ export function useContour<T extends Contour>({
         getIsComplexPolygon(polygon))
     )
       return null
-    if (mode === 'line' && !getIsPolygonAreaGreaterThanArea(polygon))
+    if (mode === 'curvedLine' && !getIsPolygonAreaGreaterThanArea(polygon))
       return null
     if (mode === 'circle' && polygon.length < 2) return null
     if (contourInfo?.dataAttrs) {

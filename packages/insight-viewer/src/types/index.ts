@@ -89,3 +89,5 @@ export type AnnotationStyleType = 'default' | 'focus' | 'outline' | 'highlight'
 export type AnnotationStyle = {
   [styleType in AnnotationStyleType]?: CSSProperties
 }
+
+export type AnnotationMode = 'polygon' | 'curvedLine' | 'circle'

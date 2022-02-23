@@ -1,5 +1,5 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Contour, Point } from '../../types'
+import { Contour, Point, AnnotationMode } from '../../types'
 
 export interface AnnotationViewerProps<T extends Contour> {
   width?: number
@@ -38,12 +38,12 @@ export interface AnnotationViewerProps<T extends Contour> {
    */
   showPolygonLabel?: boolean
 
-  mode?: 'polygon' | 'line' | 'circle'
+  mode?: AnnotationMode
 }
 
 export interface AnnotationsDrawProps<T extends Contour>
   extends Omit<AnnotationViewerProps<T>, 'width' | 'height'> {
-  mode: 'polygon' | 'line' | 'circle'
+  mode: AnnotationMode
   showOutline: boolean
   pixelToCanvas: (point: Point) => Point
 }
