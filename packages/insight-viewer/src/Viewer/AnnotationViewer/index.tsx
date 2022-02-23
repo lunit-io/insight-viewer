@@ -6,7 +6,7 @@ import {
   AnnotationsDrawProps,
   AnnotationViewerProps,
 } from './AnnotationViewer.types'
-import { LineViewer } from '../LineViewer'
+import { CurvedLineViewer } from '../CurvedLineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
 function AnnotationsDraw<T extends Contour>({
@@ -31,7 +31,7 @@ function AnnotationsDraw<T extends Contour>({
     return (
       <React.Fragment key={contour.id}>
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
-        {mode === 'curvedLine' && <LineViewer {...viewerProps} />}
+        {mode === 'curvedLine' && <CurvedLineViewer {...viewerProps} />}
       </React.Fragment>
     )
   })

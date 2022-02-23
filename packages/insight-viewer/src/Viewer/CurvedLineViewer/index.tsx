@@ -1,21 +1,21 @@
 import React, { ReactElement } from 'react'
 
 import { Contour } from '../../types'
-import { LineViewerProps } from './LineViewer.types'
+import { CurvedLineViewerProps } from './CurvedLineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import {
   textStyle,
   polylineStyle,
 } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function LineViewer<T extends Contour>({
+export function CurvedLineViewer<T extends Contour>({
   contour,
   showOutline,
   showPolygonLabel,
   focusedContour,
   polygonAttrs,
   pixelToCanvas,
-}: LineViewerProps<T>): ReactElement {
+}: CurvedLineViewerProps<T>): ReactElement {
   const {
     isFocusedPolygon,
     polygonAttributes,
