@@ -1,4 +1,4 @@
-import { AnnotationStyle } from '../types'
+import { AnnotationStyle } from '../../types'
 
 export const svgStyle: AnnotationStyle = {
   default: {

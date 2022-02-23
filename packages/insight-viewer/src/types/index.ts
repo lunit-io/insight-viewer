@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, CSSProperties } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -83,4 +83,9 @@ export interface Contour {
   dataAttrs?: { [attr: string]: string }
 
   lineWidth?: number
+}
+
+export type AnnotationStyleType = 'default' | 'focus' | 'outline' | 'highlight'
+export type AnnotationStyle = {
+  [styleType in AnnotationStyleType]?: CSSProperties
 }
