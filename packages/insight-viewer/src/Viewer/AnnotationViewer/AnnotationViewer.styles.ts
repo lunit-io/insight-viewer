@@ -62,7 +62,7 @@ export const polylineStyle: AnnotationStyle = {
   },
   focus: {
     stroke: 'rgb(255, 194, 17)',
-    fill: 'rgba(0, 0, 0, 0.4)',
+    fill: 'transparent',
     strokeWidth: '3px',
   },
 }
