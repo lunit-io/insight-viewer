@@ -21,7 +21,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function LineDrawerContainer(): JSX.Element {
+function CurvedLineDrawerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -74,4 +74,4 @@ function LineDrawerContainer(): JSX.Element {
   )
 }
 
-export default LineDrawerContainer
+export default CurvedLineDrawerContainer
