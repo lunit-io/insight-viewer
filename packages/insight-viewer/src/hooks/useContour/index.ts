@@ -68,7 +68,7 @@ export function useContour<T extends Contour>({
         getIsComplexPolygon(polygon))
     )
       return null
-    if (mode === 'curvedLine' && !getIsPolygonAreaGreaterThanArea(polygon))
+    if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(polygon))
       return null
     if (mode === 'circle' && polygon.length < 2) return null
     if (contourInfo?.dataAttrs) {

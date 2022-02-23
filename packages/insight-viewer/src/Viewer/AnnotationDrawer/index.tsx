@@ -38,7 +38,7 @@ export function AnnotationDrawer<T extends Contour>({
       style={{ ...svgStyle.default, ...style }}
       className={className}
     >
-      {(mode === 'polygon' || mode === 'curvedLine') && (
+      {(mode === 'polygon' || mode === 'freeLine') && (
         <PolylineDrawer polygon={polygon} />
       )}
     </svg>
