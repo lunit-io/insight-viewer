@@ -7,6 +7,7 @@ import {
   AnnotationViewerProps,
 } from './AnnotationViewer.types'
 import { FreeLineViewer } from '../FreeLineViewer'
+import { StraightLineViewer } from '../StraightLineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
 function AnnotationsDraw<T extends Contour>({
@@ -32,6 +33,7 @@ function AnnotationsDraw<T extends Contour>({
       <React.Fragment key={contour.id}>
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
         {mode === 'freeLine' && <FreeLineViewer {...viewerProps} />}
+        {mode === 'straightLine' && <StraightLineViewer {...viewerProps} />}
       </React.Fragment>
     )
   })

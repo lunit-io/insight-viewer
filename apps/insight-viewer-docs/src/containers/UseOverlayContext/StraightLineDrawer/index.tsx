@@ -55,7 +55,7 @@ function StraightLineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
-                mode="freeLine"
+                mode="straightLine"
                 showPolygonLabel
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
