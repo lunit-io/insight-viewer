@@ -90,4 +90,4 @@ export type AnnotationStyle = {
   [styleType in AnnotationStyleType]?: CSSProperties
 }
 
-export type AnnotationMode = 'polygon' | 'freeLine' | 'circle' | 'straightLine'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'

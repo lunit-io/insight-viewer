@@ -41,7 +41,7 @@ function useAnnotationDrawing<T extends Contour>({
             return [...prevState, pixelPosition]
           }
 
-          if (mode === 'circle' || mode === 'straightLine') {
+          if (mode === 'circle' || mode === 'line') {
             return [prevState[0], pixelPosition]
           }
 
@@ -102,7 +102,7 @@ function useAnnotationDrawing<T extends Contour>({
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
       const focusedContourElement =
-        mode === 'polygon' || mode === 'freeLine' || mode === 'straightLine'
+        mode === 'polygon' || mode === 'freeLine' || mode === 'line'
           ? checkFocusedContour(contours, pixelPosition)
           : checkFocusedCircle(contours, pixelPosition)
 

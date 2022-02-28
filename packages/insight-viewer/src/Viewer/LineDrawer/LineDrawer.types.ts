@@ -1,5 +1,5 @@
 import { Point } from '../../types'
 
-export interface StraightLineDrawerProps {
+export interface LineDrawerProps {
   polygon: Point[]
 }

@@ -1,12 +1,10 @@
 import React, { ReactElement } from 'react'
 
 import { useOverlayContext } from '../../contexts'
-import { StraightLineDrawerProps } from './StraightLineDrawer.types'
+import { LineDrawerProps } from './LineDrawer.types'
 import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
 
-export function StraightLineDrawer({
-  polygon,
-}: StraightLineDrawerProps): ReactElement {
+export function LineDrawer({ polygon }: LineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
   const polygonPoints = polygon
