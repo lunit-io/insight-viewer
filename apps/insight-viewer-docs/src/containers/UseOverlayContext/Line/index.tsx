@@ -19,7 +19,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function StraightLineContainer(): JSX.Element {
+function LineContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -39,7 +39,7 @@ function StraightLineContainer(): JSX.Element {
               height={700}
               contours={initialContours}
               focusedContour={null}
-              mode="straightLine"
+              mode="line"
             />
           )}
         </InsightViewer>
@@ -48,4 +48,4 @@ function StraightLineContainer(): JSX.Element {
   )
 }
 
-export default StraightLineContainer
+export default LineContainer

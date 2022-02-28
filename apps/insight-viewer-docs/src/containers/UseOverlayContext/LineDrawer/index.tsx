@@ -21,7 +21,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function StraightLineDrawerContainer(): JSX.Element {
+function LineDrawerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -33,7 +33,7 @@ function StraightLineDrawerContainer(): JSX.Element {
     removeContour,
     focusContour,
     removeAllContours,
-  } = useContour<Contour>({ mode: 'straightLine' })
+  } = useContour<Contour>({ mode: 'line' })
 
   return (
     <>
@@ -55,7 +55,7 @@ function StraightLineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
-                mode="straightLine"
+                mode="line"
                 showPolygonLabel
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
@@ -74,4 +74,4 @@ function StraightLineDrawerContainer(): JSX.Element {
   )
 }
 
-export default StraightLineDrawerContainer
+export default LineDrawerContainer
