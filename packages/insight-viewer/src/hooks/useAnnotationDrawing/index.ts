@@ -36,6 +36,10 @@ function useAnnotationDrawing<T extends Contour>({
       if (polygon.length > 0 && isDrawingMode) {
         const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
 
+        if (focusedContour) {
+          setIsOverlappedDrawing(true)
+        }
+
         setPolygon(prevState => {
           if (mode === 'polygon' || mode === 'freeLine') {
             return [...prevState, pixelPosition]
@@ -52,7 +56,7 @@ function useAnnotationDrawing<T extends Contour>({
 
     const handleMouseUpToEndDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      deactiveMouseDrawEvents()
+      deactivateMouseDrawEvents()
       activateInitialEvents()
 
       onAdd(polygon)
@@ -62,7 +66,7 @@ function useAnnotationDrawing<T extends Contour>({
 
     const handleMouseLeaveToCancelDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      deactiveMouseDrawEvents()
+      deactivateMouseDrawEvents()
       activateInitialEvents()
 
       setPolygon([])
@@ -72,7 +76,7 @@ function useAnnotationDrawing<T extends Contour>({
     const handleKeyDownToCancelMouseDraw = (event: KeyboardEvent) => {
       if (event.code === 'Escape') {
         setPreProcessEvent(event)
-        deactiveMouseDrawEvents()
+        deactivateMouseDrawEvents()
         activateInitialEvents()
 
         setPolygon([])
@@ -87,12 +91,8 @@ function useAnnotationDrawing<T extends Contour>({
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
       setPolygon([pixelPosition])
-
-      if (focusedContour) {
-        setIsOverlappedDrawing(true)
-      }
-
       setIsDrawingMode(true)
+      setIsOverlappedDrawing(false)
     }
 
     const handleMouseMoveToFindFocus = (event: MouseEvent) => {
@@ -114,7 +114,6 @@ function useAnnotationDrawing<T extends Contour>({
       event.stopPropagation()
 
       if (!focusedContour || isOverlappedDrawing) {
-        setIsOverlappedDrawing(false)
         return
       }
 
@@ -124,61 +123,34 @@ function useAnnotationDrawing<T extends Contour>({
     const activateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.addEventListener(
-        'mousemove',
-        handleMouseMoveToFindFocus
-      )
-      enabledElement.element.addEventListener(
-        'mousedown',
-        handleMouseDownToStartDraw
-      )
+      enabledElement.element.addEventListener('mousemove', handleMouseMoveToFindFocus)
+      enabledElement.element.addEventListener('mousedown', handleMouseDownToStartDraw)
       enabledElement.element.addEventListener('click', handleClickToRemove)
     }
 
     const deactivateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.removeEventListener(
-        'mousemove',
-        handleMouseMoveToFindFocus
-      )
-      enabledElement.element.removeEventListener(
-        'mousedown',
-        handleMouseDownToStartDraw
-      )
+      enabledElement.element.removeEventListener('mousemove', handleMouseMoveToFindFocus)
+      enabledElement.element.removeEventListener('mousedown', handleMouseDownToStartDraw)
       enabledElement.element.removeEventListener('click', handleClickToRemove)
     }
 
     const activeMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.addEventListener(
-        'mousemove',
-        handleMouseMoveToDraw
-      )
+      enabledElement.element.addEventListener('mousemove', handleMouseMoveToDraw)
       enabledElement.element.addEventListener('mouseup', handleMouseUpToEndDraw)
-      enabledElement.element.addEventListener(
-        'mouseleave',
-        handleMouseLeaveToCancelDraw
-      )
+      enabledElement.element.addEventListener('mouseleave', handleMouseLeaveToCancelDraw)
       window.addEventListener('keydown', handleKeyDownToCancelMouseDraw)
     }
 
-    const deactiveMouseDrawEvents = () => {
+    const deactivateMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.removeEventListener(
-        'mousemove',
-        handleMouseMoveToDraw
-      )
-      enabledElement.element.removeEventListener(
-        'mouseup',
-        handleMouseUpToEndDraw
-      )
-      enabledElement.element.removeEventListener(
-        'mouseleave',
-        handleMouseLeaveToCancelDraw
-      )
+      enabledElement.element.removeEventListener('mousemove', handleMouseMoveToDraw)
+      enabledElement.element.removeEventListener('mouseup', handleMouseUpToEndDraw)
+      enabledElement.element.removeEventListener('mouseleave', handleMouseLeaveToCancelDraw)
       window.removeEventListener('keydown', handleKeyDownToCancelMouseDraw)
     }
 
@@ -191,7 +163,7 @@ function useAnnotationDrawing<T extends Contour>({
     // eslint-disable-next-line consistent-return
     return () => {
       deactivateInitialEvents()
-      deactiveMouseDrawEvents()
+      deactivateMouseDrawEvents()
     }
   }, [
     mode,
