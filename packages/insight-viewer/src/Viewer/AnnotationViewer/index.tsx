@@ -2,7 +2,10 @@ import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
 import { Contour } from '../../types'
 import { svgStyle } from './AnnotationViewer.styles'
-import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
+import {
+  AnnotationsDrawProps,
+  AnnotationViewerProps,
+} from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
@@ -28,7 +31,9 @@ function AnnotationsDraw<T extends Contour>({
     return (
       <React.Fragment key={contour.id}>
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
-        {mode === 'freeLine' || (mode === 'line' && <LineViewer {...viewerProps} />)}
+        {(mode === 'freeLine' || mode === 'line') && (
+          <LineViewer {...viewerProps} />
+        )}
       </React.Fragment>
     )
   })
@@ -50,7 +55,13 @@ export function AnnotationViewer<T extends Contour>({
   const { pixelToCanvas, enabledElement } = useOverlayContext()
 
   return (
-    <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+    <svg
+      ref={svgRef}
+      width={width}
+      height={height}
+      style={{ ...svgStyle.default, ...style }}
+      className={className}
+    >
       {contours.length === 0 || !enabledElement
         ? null
         : AnnotationsDraw({
