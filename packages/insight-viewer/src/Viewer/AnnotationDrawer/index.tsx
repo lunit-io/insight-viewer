@@ -6,6 +6,7 @@ import { svgStyle } from './AnnotationDrawer.styles'
 import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useSvgContourDrawing from '../../hooks/useAnnotationDrawing'
 import { PolylineDrawer } from '../PolylineDrawer'
+import { LineDrawer } from '../LineDrawer'
 
 export function AnnotationDrawer<T extends Contour>({
   style,
@@ -38,9 +39,10 @@ export function AnnotationDrawer<T extends Contour>({
       style={{ ...svgStyle.default, ...style }}
       className={className}
     >
-      {(mode === 'polygon' || mode === 'freeLine' || mode === 'line') && (
+      {(mode === 'polygon' || mode === 'freeLine') && (
         <PolylineDrawer polygon={polygon} />
       )}
+      {mode === 'line' && <LineDrawer line={polygon} />}
     </svg>
   )
 }

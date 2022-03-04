@@ -56,7 +56,7 @@ function LineDrawerContainer(): JSX.Element {
               <Annotation
                 isDrawing
                 mode="line"
-                showPolygonLabel
+                showPolygonLabel={false}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 contours={contours}
