@@ -4,7 +4,10 @@ import { useOverlayContext } from '../../contexts'
 import { PolylineDrawerProps } from './PolylineDrawer.types'
 import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
 
-export function PolylineDrawer({ polygon }: PolylineDrawerProps): ReactElement {
+export function PolylineDrawer({
+  mode,
+  polygon,
+}: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
   const polygonPoints = polygon
@@ -18,7 +21,14 @@ export function PolylineDrawer({ polygon }: PolylineDrawerProps): ReactElement {
     <>
       {polygon && polygon.length > 0 && (
         <>
-          <polyline style={polyline.default} points={polygonPoints} />
+          <polyline
+            style={
+              mode === 'freeLine'
+                ? { ...polyline.default, fill: 'transparent' }
+                : polyline.default
+            }
+            points={polygonPoints}
+          />
           <polyline style={polyline.highlight} points={polygonPoints} />
         </>
       )}

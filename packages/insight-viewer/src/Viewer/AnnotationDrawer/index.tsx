@@ -39,7 +39,7 @@ export function AnnotationDrawer<T extends Contour>({
       className={className}
     >
       {(mode === 'polygon' || mode === 'freeLine') && (
-        <PolylineDrawer polygon={polygon} />
+        <PolylineDrawer polygon={polygon} mode={mode} />
       )}
     </svg>
   )
