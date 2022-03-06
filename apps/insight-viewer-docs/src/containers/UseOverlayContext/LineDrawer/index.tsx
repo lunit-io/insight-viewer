@@ -69,6 +69,7 @@ function LineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
+                isArrow={isArrow}
                 mode="line"
                 showPolygonLabel={false}
                 width={DEFAULT_SIZE.width}
@@ -79,7 +80,6 @@ function LineDrawerContainer(): JSX.Element {
                 onAdd={addContour}
                 onFocus={focusContour}
                 onRemove={removeContour}
-                isArrow={isArrow}
               />
             )}
           </InsightViewer>

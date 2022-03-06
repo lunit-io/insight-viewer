@@ -8,7 +8,7 @@ import InsightViewer, {
   Annotation,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { initialContours } from '../../../../mocks/lines'
+import { initialContours } from '../../../../mocks/freeLines'
 
 const style = {
   display: 'flex',
