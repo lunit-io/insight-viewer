@@ -2,34 +2,31 @@ import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
 import { Contour } from '../../types'
 import { svgStyle } from './AnnotationViewer.styles'
-import {
-  AnnotationsDrawProps,
-  AnnotationViewerProps,
-} from './AnnotationViewer.types'
+import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { FreeLineViewer } from '../FreeLineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
 function AnnotationsDraw<T extends Contour>({
   mode,
-  contours,
+  annotations,
   showOutline,
-  showPolygonLabel,
-  focusedContour,
-  polygonAttrs,
+  showAnnotationLabel,
+  focusedAnnotation,
+  annotationAttrs,
   pixelToCanvas,
 }: AnnotationsDrawProps<T>) {
-  return contours.map(contour => {
+  return annotations.map(annotation => {
     const viewerProps = {
-      contour,
+      annotation,
       showOutline,
-      focusedContour,
-      showPolygonLabel,
-      polygonAttrs,
+      focusedAnnotation,
+      showAnnotationLabel,
+      annotationAttrs,
       pixelToCanvas,
     }
 
     return (
-      <React.Fragment key={contour.id}>
+      <React.Fragment key={annotation.id}>
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
         {mode === 'freeLine' && <FreeLineViewer {...viewerProps} />}
       </React.Fragment>
@@ -41,35 +38,29 @@ export function AnnotationViewer<T extends Contour>({
   style,
   width,
   height,
-  contours,
+  annotations,
   className,
-  focusedContour,
+  focusedAnnotation,
   mode = 'polygon',
   showOutline = false,
-  showPolygonLabel = false,
-  polygonAttrs,
+  showAnnotationLabel = false,
+  annotationAttrs,
 }: AnnotationViewerProps<T>): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { pixelToCanvas, enabledElement } = useOverlayContext()
 
   return (
-    <svg
-      ref={svgRef}
-      width={width}
-      height={height}
-      style={{ ...svgStyle.default, ...style }}
-      className={className}
-    >
-      {contours.length === 0 || !enabledElement
+    <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+      {annotations.length === 0 || !enabledElement
         ? null
         : AnnotationsDraw({
             mode,
-            contours,
-            focusedContour,
+            annotations,
+            focusedAnnotation,
             showOutline,
-            showPolygonLabel,
+            showAnnotationLabel,
             pixelToCanvas,
-            polygonAttrs,
+            annotationAttrs,
           })}
     </svg>
   )

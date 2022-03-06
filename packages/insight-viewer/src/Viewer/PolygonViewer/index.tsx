@@ -3,31 +3,22 @@ import React, { ReactElement } from 'react'
 import { Contour } from '../../types'
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
-import {
-  textStyle,
-  polygonStyle,
-} from '../AnnotationViewer/AnnotationViewer.styles'
+import { textStyle, polygonStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
 export function PolygonViewer<T extends Contour>({
-  contour,
+  annotation,
   showOutline,
-  showPolygonLabel,
-  focusedContour,
-  polygonAttrs,
+  showAnnotationLabel,
+  focusedAnnotation,
+  annotationAttrs,
   pixelToCanvas,
 }: PolygonViewerProps<T>): ReactElement {
-  const {
-    isFocusedPolygon,
-    polygonAttributes,
-    labelPosition,
-    polygonLabel,
-    polygonPoints,
-  } = getPolyViewerInfo({
-    contour,
+  const { isFocusedPolygon, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+    annotation,
     showOutline,
-    focusedContour,
+    focusedAnnotation,
     pixelToCanvas,
-    polygonAttrs,
+    annotationAttrs,
   })
 
   return (
@@ -52,7 +43,7 @@ export function PolygonViewer<T extends Contour>({
         data-focus={isFocusedPolygon || undefined}
         points={polygonPoints}
       />
-      {showPolygonLabel && labelPosition && (
+      {showAnnotationLabel && labelPosition && (
         <text
           style={{ ...textStyle[isFocusedPolygon ? 'focus' : 'default'] }}
           x={labelPosition[0]}

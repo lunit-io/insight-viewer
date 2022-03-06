@@ -3,11 +3,8 @@ import { AnnotationsDrawProps } from '../../Viewer/AnnotationViewer/AnnotationVi
 import { Contour, Point } from '../../types'
 
 interface GetPolyViewerInfoProps<T extends Contour>
-  extends Omit<
-    AnnotationsDrawProps<T>,
-    'mode' | 'contours' | 'showPolygonLabel'
-  > {
-  contour: T
+  extends Omit<AnnotationsDrawProps<T>, 'mode' | 'annotations' | 'showAnnotationLabel'> {
+  annotation: T
 }
 
 interface getPolyViewerInfoReturnType {
@@ -19,24 +16,19 @@ interface getPolyViewerInfoReturnType {
 }
 
 export function getPolyViewerInfo<T extends Contour>({
-  contour,
+  annotation,
   showOutline,
-  focusedContour,
+  focusedAnnotation,
   pixelToCanvas,
-  polygonAttrs,
+  annotationAttrs,
 }: GetPolyViewerInfoProps<T>): getPolyViewerInfoReturnType {
-  const { polygon, label, id, labelPosition: _labelPosition } = contour
-  const isFocusedPolygon = polygon === focusedContour?.polygon
+  const { polygon, label, id, labelPosition: _labelPosition } = annotation
+  const isFocusedPolygon = polygon === focusedAnnotation?.polygon
   const polygonLabel = label ?? id
 
-  const polygonAttributes =
-    typeof polygonAttrs === 'function'
-      ? polygonAttrs(contour, showOutline)
-      : undefined
+  const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
 
-  const labelPosition = _labelPosition
-    ? pixelToCanvas(_labelPosition)
-    : undefined
+  const labelPosition = _labelPosition ? pixelToCanvas(_labelPosition) : undefined
 
   const polygonPoints: string = polygon
     .map(point => {
