@@ -8,24 +8,22 @@ import { AnnotationDrawer } from '../AnnotationDrawer'
 export function Annotation<T extends Contour>({
   width,
   height,
-  contours,
-  focusedContour,
+  annotations,
+  focusedAnnotation,
   className,
   style,
   showOutline,
-  showPolygonLabel,
+  showAnnotationLabel,
   mode,
   device,
   isDrawing = false,
-  polygonAttrs,
+  annotationAttrs,
   onFocus,
   onAdd,
   onRemove,
 }: AnnotationProps<T>): JSX.Element {
   if (isDrawing && (!onFocus || !onAdd || !onRemove)) {
-    throw new Error(
-      'Please also add onFocus, onAdd, onRemove if you enable drawing mode'
-    )
+    throw new Error('Please also add onFocus, onAdd, onRemove if you enable drawing mode')
   }
 
   return (
@@ -33,20 +31,20 @@ export function Annotation<T extends Contour>({
       <AnnotationViewer
         width={width}
         height={height}
-        contours={contours}
-        focusedContour={focusedContour}
+        annotations={annotations}
+        focusedAnnotation={focusedAnnotation}
         className={className}
         style={style}
         showOutline={showOutline}
-        showPolygonLabel={showPolygonLabel}
+        showAnnotationLabel={showAnnotationLabel}
         mode={mode}
-        polygonAttrs={polygonAttrs}
+        annotationAttrs={annotationAttrs}
       />
       {isDrawing && onAdd && onFocus && onRemove && (
         <AnnotationDrawer
           width={width}
           height={height}
-          contours={contours}
+          annotations={annotations}
           className={className}
           style={style}
           device={device}

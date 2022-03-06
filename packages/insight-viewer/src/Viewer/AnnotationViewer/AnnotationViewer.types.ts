@@ -6,9 +6,9 @@ export interface AnnotationViewerProps<T extends Contour> {
   height?: number
 
   /** Contour focused by user interaction such as mouse over */
-  contours: T[]
+  annotations: T[]
 
-  focusedContour: T | null
+  focusedAnnotation: T | null
 
   /** <svg className={}> */
   className?: string
@@ -17,14 +17,11 @@ export interface AnnotationViewerProps<T extends Contour> {
   style?: CSSProperties
 
   /**
-   * You can set the attributes of individual polygon objects
+   * You can set the attributes of individual annotation objects
    * If you set properties such as strokeWidth, the Style set in Styled Components is ignored
    * It is best not to use it as much as possible except in special cases
    */
-  polygonAttrs?: (
-    contour: Contour,
-    showOutline: boolean
-  ) => SVGProps<SVGPolygonElement>
+  annotationAttrs?: (contour: Contour, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
   /**
    * Draw an outline on the line
@@ -33,16 +30,15 @@ export interface AnnotationViewerProps<T extends Contour> {
   showOutline?: boolean
 
   /**
-   * polygon label notation flag variable
+   * annotation label notation flag variable
    * Default value is false
    */
-  showPolygonLabel?: boolean
+  showAnnotationLabel?: boolean
 
   mode?: AnnotationMode
 }
 
-export interface AnnotationsDrawProps<T extends Contour>
-  extends Omit<AnnotationViewerProps<T>, 'width' | 'height'> {
+export interface AnnotationsDrawProps<T extends Contour> extends Omit<AnnotationViewerProps<T>, 'width' | 'height'> {
   mode: AnnotationMode
   showOutline: boolean
   pixelToCanvas: (point: Point) => Point
