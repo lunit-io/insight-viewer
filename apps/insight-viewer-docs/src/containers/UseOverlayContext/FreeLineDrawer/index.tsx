@@ -2,13 +2,7 @@
 import React from 'react'
 import { Box, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  Contour,
-  useImage,
-  useContour,
-  useViewport,
-  Annotation,
-} from '@lunit/insight-viewer'
+import InsightViewer, { Contour, useImage, useAnnotation, useViewport, Annotation } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 
@@ -26,32 +20,17 @@ function FreeLineDrawerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const {
-    contours,
-    focusedContour,
-    addContour,
-    removeContour,
-    focusContour,
-    removeAllContours,
-  } = useContour<Contour>({ mode: 'freeLine' })
+  const { annotations, focusedAnnotation, addAnnotation, removeAnnotation, focusAnnotation, removeAllAnnotation } =
+    useAnnotation<Contour>({ mode: 'freeLine' })
 
   return (
     <>
-      <Button
-        data-cy-name="remove-button"
-        marginBottom="10px"
-        colorScheme="blue"
-        onClick={removeAllContours}
-      >
+      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
         remove all
       </Button>
       <Box data-cy-loaded={loadingState}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
@@ -59,12 +38,12 @@ function FreeLineDrawerContainer(): JSX.Element {
                 showPolygonLabel
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={contours}
-                focusedContour={focusedContour}
+                contours={annotations}
+                focusedContour={focusedAnnotation}
                 polygonAttrs={getPolygonStyles}
-                onAdd={addContour}
-                onFocus={focusContour}
-                onRemove={removeContour}
+                onAdd={addAnnotation}
+                onFocus={focusAnnotation}
+                onRemove={removeAnnotation}
               />
             )}
           </InsightViewer>

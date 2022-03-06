@@ -6,7 +6,7 @@ import { Resizable } from 're-resizable'
 import InsightViewer, {
   Contour,
   useImage,
-  useContour,
+  useAnnotation,
   useViewport,
   Annotation,
 } from '@lunit/insight-viewer'
@@ -30,7 +30,7 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { contours, focusedContour } = useContour<Contour>({
+  const { contours, focusedContour } = useAnnotation<Contour>({
     mode: 'polygon',
     initalContours: CONTOURS,
   })

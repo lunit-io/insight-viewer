@@ -2,13 +2,7 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  Contour,
-  useImage,
-  useContour,
-  useViewport,
-  Annotation,
-} from '@lunit/insight-viewer'
+import InsightViewer, { Contour, useImage, useAnnotation, useViewport, Annotation } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { CONTOURS } from '../../../../mocks/contours'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
@@ -29,26 +23,22 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { contours, focusedContour } = useContour<Contour>({
+  const { annotations, focusedAnnotation } = useAnnotation<Contour>({
     mode: 'polygon',
-    initalContours: CONTOURS,
+    initalAnnotation: CONTOURS,
   })
 
   return (
     <>
       <Box data-cy-loaded={loadingState}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
               <Annotation
-                focusedContour={focusedContour}
+                focusedContour={focusedAnnotation}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={contours}
+                contours={annotations}
                 polygonAttrs={getPolygonStyles}
                 showPolygonLabel
                 mode="polygon" // If no mode is defined, the default value is polygon.
