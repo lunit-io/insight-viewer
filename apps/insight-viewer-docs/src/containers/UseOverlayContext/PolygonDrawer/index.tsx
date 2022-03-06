@@ -35,10 +35,10 @@ function PolygonDrawerContainer(): JSX.Element {
               <Annotation
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={annotations}
-                focusedContour={focusedAnnotation}
-                polygonAttrs={getPolygonStyles}
-                showPolygonLabel
+                annotations={annotations}
+                focusedAnnotation={focusedAnnotation}
+                annotationAttrs={getPolygonStyles}
+                showAnnotationLabel
                 onAdd={addAnnotation}
                 onFocus={focusAnnotation}
                 onRemove={removeAnnotation}

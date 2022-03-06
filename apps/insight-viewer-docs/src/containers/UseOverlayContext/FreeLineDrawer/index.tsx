@@ -35,12 +35,12 @@ function FreeLineDrawerContainer(): JSX.Element {
               <Annotation
                 isDrawing
                 mode="freeLine"
-                showPolygonLabel
+                showAnnotationLabel
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={annotations}
-                focusedContour={focusedAnnotation}
-                polygonAttrs={getPolygonStyles}
+                annotations={annotations}
+                focusedAnnotation={focusedAnnotation}
+                annotationAttrs={getPolygonStyles}
                 onAdd={addAnnotation}
                 onFocus={focusAnnotation}
                 onRemove={removeAnnotation}

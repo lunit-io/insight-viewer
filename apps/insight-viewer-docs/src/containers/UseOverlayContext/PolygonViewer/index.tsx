@@ -35,12 +35,12 @@ function PolygonContainer(): JSX.Element {
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
               <Annotation
-                focusedContour={focusedAnnotation}
+                focusedAnnotation={focusedAnnotation}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={annotations}
-                polygonAttrs={getPolygonStyles}
-                showPolygonLabel
+                annotations={annotations}
+                annotationAttrs={getPolygonStyles}
+                showAnnotationLabel
                 mode="polygon" // If no mode is defined, the default value is polygon.
               />
             )}
