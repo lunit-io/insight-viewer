@@ -34,4 +34,5 @@ export interface AnnotationDrawerProps<T extends Contour> {
     | 'mouse-and-stylus'
 
   mode?: AnnotationMode
+  isArrow?: boolean
 }

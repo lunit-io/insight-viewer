@@ -17,6 +17,7 @@ export function Annotation<T extends Contour>({
   mode,
   device,
   isDrawing = false,
+  isArrow = false,
   polygonAttrs,
   onFocus,
   onAdd,
@@ -51,6 +52,7 @@ export function Annotation<T extends Contour>({
           style={style}
           device={device}
           mode={mode}
+          isArrow={isArrow}
           onAdd={onAdd}
           onFocus={onFocus}
           onRemove={onRemove}

@@ -8,10 +8,10 @@ const ARROW_LENGTH = 60
 const ARROW_CENTER_POSITION = -10 // this number must be negative
 const ARROW_DEGREE = 0.7 // this number range is 0.5 ~ 1
 
-export function LineDrawer({ line }: LineDrawerProps): ReactElement {
+export function LineDrawer({ line, isArrow }: LineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  if (line.length === 2) {
+  if (line.length === 2 && isArrow) {
     const [tail, head] = line
 
     const angle = Math.atan2(tail[1] - head[1], tail[0] - head[0])

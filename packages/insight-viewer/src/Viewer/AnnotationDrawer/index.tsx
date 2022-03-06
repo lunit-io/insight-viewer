@@ -15,6 +15,7 @@ export function AnnotationDrawer<T extends Contour>({
   device,
   contours,
   className,
+  isArrow,
   mode = 'polygon',
   onAdd,
   onFocus,
@@ -42,7 +43,7 @@ export function AnnotationDrawer<T extends Contour>({
       {(mode === 'polygon' || mode === 'freeLine') && (
         <PolylineDrawer polygon={polygon} />
       )}
-      {mode === 'line' && <LineDrawer line={polygon} />}
+      {mode === 'line' && <LineDrawer line={polygon} isArrow={isArrow} />}
     </svg>
   )
 }

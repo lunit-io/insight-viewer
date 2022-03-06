@@ -4,6 +4,7 @@ import { AnnotationViewerProps } from '../AnnotationViewer/AnnotationViewer.type
 export interface AnnotationProps<T extends Contour>
   extends AnnotationViewerProps<T> {
   isDrawing?: boolean
+  isArrow?: boolean
   onFocus?: (contour: T | null) => void
   onAdd?: (polygon: Point[]) => void
   onRemove?: (contour: T) => void
