@@ -5,7 +5,7 @@ export interface AnnotationDrawerProps<T extends Contour> {
   width?: number
   height?: number
 
-  contours: T[]
+  annotations: T[]
 
   /**
    * When Mouse Over on a Contour
@@ -26,12 +26,7 @@ export interface AnnotationDrawerProps<T extends Contour> {
    * Access Device Settings
    * Only the function for mouse is implemented, and it is not applied
    */
-  device?:
-    | 'all'
-    | 'mouse-only'
-    | 'touch-only'
-    | 'stylus-only'
-    | 'mouse-and-stylus'
+  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 
   mode?: AnnotationMode
 }

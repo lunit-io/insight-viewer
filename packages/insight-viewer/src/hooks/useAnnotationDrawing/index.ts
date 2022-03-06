@@ -14,16 +14,16 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
 
 function useAnnotationDrawing<T extends Contour>({
   mode,
-  contours,
+  annotations,
   svgElement,
   onAdd,
   onFocus,
   onRemove,
 }: UseAnnotationDrawingProps<T>): Point[][] {
-  const [polygon, setPolygon] = useState<Point[]>([])
+  const [annotation, setAnnotation] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
   const [isOverlappedDrawing, setIsOverlappedDrawing] = useState<boolean>(false)
-  const [focusedContour, setFocusedContour] = useState<T | null>(null)
+  const [focusedAnnotation, setFocusedAnnotation] = useState<T | null>(null)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
 
@@ -33,14 +33,14 @@ function useAnnotationDrawing<T extends Contour>({
     const handleMouseMoveToDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
 
-      if (polygon.length > 0 && isDrawingMode) {
+      if (annotation.length > 0 && isDrawingMode) {
         const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
 
-        if (focusedContour) {
+        if (focusedAnnotation) {
           setIsOverlappedDrawing(true)
         }
 
-        setPolygon(prevState => {
+        setAnnotation(prevState => {
           if (mode === 'polygon' || mode === 'freeLine') {
             return [...prevState, pixelPosition]
           }
@@ -59,8 +59,8 @@ function useAnnotationDrawing<T extends Contour>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      onAdd(polygon)
-      setPolygon([])
+      onAdd(annotation)
+      setAnnotation([])
       setIsDrawingMode(false)
     }
 
@@ -69,7 +69,7 @@ function useAnnotationDrawing<T extends Contour>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      setPolygon([])
+      setAnnotation([])
       setIsDrawingMode(false)
     }
 
@@ -79,7 +79,7 @@ function useAnnotationDrawing<T extends Contour>({
         deactivateMouseDrawEvents()
         activateInitialEvents()
 
-        setPolygon([])
+        setAnnotation([])
         setIsDrawingMode(false)
       }
     }
@@ -90,7 +90,7 @@ function useAnnotationDrawing<T extends Contour>({
       activeMouseDrawEvents()
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      setPolygon([pixelPosition])
+      setAnnotation([pixelPosition])
       setIsDrawingMode(true)
       setIsOverlappedDrawing(false)
     }
@@ -98,26 +98,26 @@ function useAnnotationDrawing<T extends Contour>({
     const handleMouseMoveToFindFocus = (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (contours.length === 0) return
+      if (annotations.length === 0) return
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      const focusedContourElement =
+      const focusedAnnotationElement =
         mode === 'polygon' || mode === 'freeLine'
-          ? checkFocusedContour(contours, pixelPosition)
-          : checkFocusedCircle(contours, pixelPosition)
+          ? checkFocusedContour(annotations, pixelPosition)
+          : checkFocusedCircle(annotations, pixelPosition)
 
-      setFocusedContour(focusedContourElement)
-      onFocus(focusedContourElement)
+      setFocusedAnnotation(focusedAnnotationElement)
+      onFocus(focusedAnnotationElement)
     }
 
     const handleClickToRemove = (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (!focusedContour || isOverlappedDrawing) {
+      if (!focusedAnnotation || isOverlappedDrawing) {
         return
       }
 
-      onRemove(focusedContour)
+      onRemove(focusedAnnotation)
     }
 
     const activateInitialEvents = () => {
@@ -154,7 +154,7 @@ function useAnnotationDrawing<T extends Contour>({
       window.removeEventListener('keydown', handleKeyDownToCancelMouseDraw)
     }
 
-    if (polygon.length > 0) {
+    if (annotation.length > 0) {
       activeMouseDrawEvents()
     } else {
       activateInitialEvents()
@@ -167,11 +167,11 @@ function useAnnotationDrawing<T extends Contour>({
     }
   }, [
     mode,
-    contours,
+    annotations,
     svgElement,
-    polygon,
+    annotation,
     isDrawingMode,
-    focusedContour,
+    focusedAnnotation,
     enabledElement,
     isOverlappedDrawing,
     onAdd,
@@ -180,7 +180,7 @@ function useAnnotationDrawing<T extends Contour>({
     pageToPixel,
   ])
 
-  return [polygon]
+  return [annotation]
 }
 
 export default useAnnotationDrawing

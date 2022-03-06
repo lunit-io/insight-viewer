@@ -12,7 +12,7 @@ export function AnnotationDrawer<T extends Contour>({
   width,
   height,
   device,
-  contours,
+  annotations,
   className,
   mode = 'polygon',
   onAdd,
@@ -20,10 +20,10 @@ export function AnnotationDrawer<T extends Contour>({
   onRemove,
 }: AnnotationDrawerProps<T>): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [polygon] = useSvgContourDrawing({
+  const [annotation] = useSvgContourDrawing({
     mode,
     device,
-    contours,
+    annotations,
     svgElement: svgRef,
     onAdd,
     onFocus,
@@ -39,7 +39,7 @@ export function AnnotationDrawer<T extends Contour>({
       className={className}
     >
       {(mode === 'polygon' || mode === 'freeLine') && (
-        <PolylineDrawer polygon={polygon} mode={mode} />
+        <PolylineDrawer polygon={annotation} mode={mode} />
       )}
     </svg>
   )
