@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -34,6 +34,11 @@ function LineDrawerContainer(): JSX.Element {
     focusContour,
     removeAllContours,
   } = useContour<Contour>({ mode: 'line' })
+  const [isArrow, setIsArrow] = useState(false)
+
+  const handleArrowMode = () => {
+    setIsArrow(!isArrow)
+  }
 
   return (
     <>
@@ -44,6 +49,15 @@ function LineDrawerContainer(): JSX.Element {
         onClick={removeAllContours}
       >
         remove all
+      </Button>
+      <Button
+        data-cy-name="line-mode-button"
+        marginBottom="10px"
+        marginLeft="10px"
+        colorScheme="blue"
+        onClick={handleArrowMode}
+      >
+        {isArrow ? 'OFF ARROW MODE' : 'ON ARROW MODE'}
       </Button>
       <Box data-cy-loaded={loadingState}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
@@ -65,6 +79,7 @@ function LineDrawerContainer(): JSX.Element {
                 onAdd={addContour}
                 onFocus={focusContour}
                 onRemove={removeContour}
+                isArrow={isArrow}
               />
             )}
           </InsightViewer>
