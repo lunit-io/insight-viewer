@@ -41,7 +41,7 @@ function useAnnotationDrawing<T extends Contour>({
             return [...prevState, pixelPosition]
           }
 
-          if (mode === 'circle' || mode === 'line') {
+          if (mode === 'circle' || mode === 'line' || mode === 'arrowLine') {
             return [prevState[0], pixelPosition]
           }
 

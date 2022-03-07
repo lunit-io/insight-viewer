@@ -3,9 +3,17 @@ import React, { ReactElement } from 'react'
 import { useOverlayContext } from '../../contexts'
 import { PolylineDrawerProps } from './PolylineDrawer.types'
 import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
+import { getArrowPosition } from '../../utils/common/getArrowPosition'
 
-export function PolylineDrawer({ polygon }: PolylineDrawerProps): ReactElement {
+export function PolylineDrawer({
+  polygon,
+  mode,
+}: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
+
+  if (mode === 'arrowLine') {
+    polygon.splice(1, 0, ...getArrowPosition(polygon))
+  }
 
   const polygonPoints = polygon
     .map(point => {

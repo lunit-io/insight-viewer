@@ -10,7 +10,9 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 
   Object.keys(dataAttrs).forEach(attr => {
     if (!/^data-/.test(attr)) {
-      throw new Error(`Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
+      throw new Error(
+        `Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`
+      )
     }
   })
 }
@@ -24,7 +26,10 @@ interface UseContourProps<T extends Contour> {
 interface ContourDrawingState<T extends Contour> {
   contours: T[]
   focusedContour: T | null
-  addContour: (polygon: Point[], contourInfo?: Omit<T, 'id' | 'polygon'>) => T | null
+  addContour: (
+    polygon: Point[],
+    contourInfo?: Omit<T, 'id' | 'polygon'>
+  ) => T | null
   focusContour: (contour: T | null) => void
   updateContour: (contour: T, patch: Partial<T>) => void
   removeContour: (contour: T) => void
@@ -54,10 +59,20 @@ export function useContour<T extends Contour>({
     )
   }, [initalContours, nextId])
 
-  const addContour = (polygon: Point[], contourInfo: Partial<Omit<T, 'id' | 'polygon'>> | undefined): T | null => {
-    if (mode === 'polygon' && (!getIsPolygonAreaGreaterThanArea(polygon) || getIsComplexPolygon(polygon))) return null
-    if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(polygon)) return null
-    if (mode === 'line' && !isValidLength(polygon)) return null
+  const addContour = (
+    polygon: Point[],
+    contourInfo: Partial<Omit<T, 'id' | 'polygon'>> | undefined
+  ): T | null => {
+    if (
+      mode === 'polygon' &&
+      (!getIsPolygonAreaGreaterThanArea(polygon) ||
+        getIsComplexPolygon(polygon))
+    )
+      return null
+    if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(polygon))
+      return null
+    if (mode === 'line' || (mode === 'arrowLine' && !isValidLength(polygon)))
+      return null
     if (mode === 'circle' && polygon.length < 2) return null
     if (contourInfo?.dataAttrs) {
       validateDataAttrs(contourInfo?.dataAttrs)
@@ -67,7 +82,10 @@ export function useContour<T extends Contour>({
 
     setContours(prevContours => {
       const labelPosition = polylabel([polygon], 1)
-      const currentId = prevContours.length === 0 ? nextId ?? 1 : Math.max(...prevContours.map(({ id }) => id), 0) + 1
+      const currentId =
+        prevContours.length === 0
+          ? nextId ?? 1
+          : Math.max(...prevContours.map(({ id }) => id), 0) + 1
 
       contour = {
         ...initalContours,
@@ -85,7 +103,9 @@ export function useContour<T extends Contour>({
   }
 
   const focusContour = (contour: T | null) => {
-    setFocusedContour(prevFocusedContour => (contour !== prevFocusedContour ? contour : prevFocusedContour))
+    setFocusedContour(prevFocusedContour =>
+      contour !== prevFocusedContour ? contour : prevFocusedContour
+    )
   }
 
   const removeContour = (contour: T) => {
@@ -118,12 +138,16 @@ export function useContour<T extends Contour>({
 
     setContours(prevContours => {
       const nextContours = [...prevContours]
-      const index: number = nextContours.findIndex(({ id }) => nextContour.id === id)
+      const index: number = nextContours.findIndex(
+        ({ id }) => nextContour.id === id
+      )
 
       if (index > -1) {
         nextContours[index] = nextContour
 
-        setFocusedContour(prevFocusedContour => (contour === prevFocusedContour ? nextContour : prevFocusedContour))
+        setFocusedContour(prevFocusedContour =>
+          contour === prevFocusedContour ? nextContour : prevFocusedContour
+        )
       }
 
       return nextContours
