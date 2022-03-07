@@ -2,7 +2,13 @@
 import React from 'react'
 import { Box, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { Contour, useImage, useAnnotation, useViewport, Annotation } from '@lunit/insight-viewer'
+import InsightViewer, {
+  AnnotationOverlay,
+  useImage,
+  useAnnotation,
+  useViewport,
+  Annotation,
+} from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 
@@ -21,7 +27,7 @@ function PolygonDrawerContainer(): JSX.Element {
   })
   const { viewport, setViewport } = useViewport()
   const { annotations, focusedAnnotation, addAnnotation, removeAnnotation, focusAnnotation, removeAllAnnotation } =
-    useAnnotation<Contour>({ mode: 'polygon' })
+    useAnnotation<Annotation>({ mode: 'polygon' })
 
   return (
     <>
@@ -32,7 +38,7 @@ function PolygonDrawerContainer(): JSX.Element {
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
-              <Annotation
+              <AnnotationOverlay
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 annotations={annotations}

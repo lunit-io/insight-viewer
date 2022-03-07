@@ -4,7 +4,7 @@ import React from 'react'
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
-  Contour,
+  AnnotationOverlay,
   useImage,
   useAnnotation,
   useViewport,
@@ -30,28 +30,24 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { contours, focusedContour } = useAnnotation<Contour>({
+  const { annotations, focusedAnnotation } = useAnnotation<Annotation>({
     mode: 'polygon',
-    initalContours: CONTOURS,
+    initalAnnotation: CONTOURS,
   })
 
   return (
     <>
       <Box data-cy-loaded={loadingState}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
-              <Annotation
-                focusedContour={focusedContour}
+              <AnnotationOverlay
+                focusedAnnotation={focusedAnnotation}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                contours={contours}
-                polygonAttrs={getPolygonStyles}
-                showPolygonLabel
+                annotations={annotations}
+                annotationAttrs={getPolygonStyles}
+                showAnnotationLabel
                 mode="polygon" // If no mode is defined, the default value is polygon.
               />
             )}
@@ -64,4 +60,6 @@ function PolygonContainer(): JSX.Element {
     </>
   )
 }
+
+export default PolygonContainer
 `

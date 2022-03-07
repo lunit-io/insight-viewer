@@ -2,9 +2,15 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { Contour, useImage, useAnnotation, useViewport, Annotation } from '@lunit/insight-viewer'
+import InsightViewer, {
+  AnnotationOverlay,
+  useImage,
+  useAnnotation,
+  useViewport,
+  Annotation,
+} from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { CONTOURS } from '../../../../mocks/contours'
+import { ANNOTATIONS } from '../../../../mocks/annotations'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 import CodeBlock from '../../../components/CodeBlock'
 import { CODE } from './Code'
@@ -23,9 +29,9 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, focusedAnnotation } = useAnnotation<Contour>({
+  const { annotations, focusedAnnotation } = useAnnotation<Annotation>({
     mode: 'polygon',
-    initalAnnotation: CONTOURS,
+    initalAnnotation: ANNOTATIONS,
   })
 
   return (
@@ -34,7 +40,7 @@ function PolygonContainer(): JSX.Element {
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
-              <Annotation
+              <AnnotationOverlay
                 focusedAnnotation={focusedAnnotation}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}

@@ -2,9 +2,9 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useViewport, Annotation } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, AnnotationOverlay } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { initialContours } from '../../../../mocks/lines'
+import { initialAnnotation } from '../../../../mocks/lines'
 
 const style = {
   display: 'flex',
@@ -26,10 +26,10 @@ function FreeLineContainer(): JSX.Element {
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
-            <Annotation
+            <AnnotationOverlay
               width={700}
               height={700}
-              annotations={initialContours}
+              annotations={initialAnnotation}
               focusedAnnotation={null}
               mode="freeLine"
             />

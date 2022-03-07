@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
-import { Contour } from '@lunit/insight-viewer'
+import { Annotation } from '@lunit/insight-viewer'
 
-const contours: Contour[] = [
+const contours: Annotation[] = [
   {
     polygon: [
       [1901, 1835],
