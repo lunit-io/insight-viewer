@@ -1,10 +1,12 @@
 import { SVGProps } from 'react'
-import { AnnotationsDrawProps } from '../../Viewer/AnnotationViewer/AnnotationViewer.types'
 import { Annotation, Point } from '../../types'
 
-interface GetPolyViewerInfoProps<T extends Annotation>
-  extends Omit<AnnotationsDrawProps<T>, 'mode' | 'annotations' | 'showAnnotationLabel'> {
+interface GetPolyViewerInfoProps<T extends Annotation> {
   annotation: T
+  focusedAnnotation: T | null
+  showOutline: boolean
+  pixelToCanvas: (point: Point) => Point
+  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
 interface getPolyViewerInfoReturnType {
