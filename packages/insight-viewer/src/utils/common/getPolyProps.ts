@@ -1,8 +1,8 @@
 import { SVGProps } from 'react'
 import { AnnotationsDrawProps } from '../../Viewer/AnnotationViewer/AnnotationViewer.types'
-import { Contour, Point } from '../../types'
+import { Annotation, Point } from '../../types'
 
-interface GetPolyViewerInfoProps<T extends Contour>
+interface GetPolyViewerInfoProps<T extends Annotation>
   extends Omit<AnnotationsDrawProps<T>, 'mode' | 'annotations' | 'showAnnotationLabel'> {
   annotation: T
 }
@@ -15,7 +15,7 @@ interface getPolyViewerInfoReturnType {
   polygonLabel: string | number
 }
 
-export function getPolyViewerInfo<T extends Contour>({
+export function getPolyViewerInfo<T extends Annotation>({
   annotation,
   showOutline,
   focusedAnnotation,

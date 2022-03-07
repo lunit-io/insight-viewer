@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState, useEffect } from 'react'
 import { UseAnnotationDrawingProps } from './types'
-import { Contour, Point } from '../../types'
+import { Annotation, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { checkFocusedCircle } from '../../utils/common/checkFocusedCircle'
 import { checkFocusedContour } from '../../utils/common/checkFocusedContour'
@@ -12,7 +12,7 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.stopImmediatePropagation()
 }
 
-function useAnnotationDrawing<T extends Contour>({
+function useAnnotationDrawing<T extends Annotation>({
   mode,
   annotations,
   svgElement,

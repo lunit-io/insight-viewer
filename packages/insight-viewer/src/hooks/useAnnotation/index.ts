@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { Contour, Point, AnnotationMode } from '../../types'
+import { Annotation, Point, AnnotationMode } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
 
@@ -9,18 +9,18 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 
   Object.keys(dataAttrs).forEach(attr => {
     if (!/^data-/.test(attr)) {
-      throw new Error(`Contour.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
+      throw new Error(`Annotation.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
     }
   })
 }
 
-interface UseAnnotationProps<T extends Contour> {
+interface UseAnnotationProps<T extends Annotation> {
   nextId?: number
   initalAnnotation?: Omit<T, 'id'>[]
   mode?: AnnotationMode
 }
 
-interface AnnotationDrawingState<T extends Contour> {
+interface AnnotationDrawingState<T extends Annotation> {
   annotations: T[]
   focusedAnnotation: T | null
   addAnnotation: (polygon: Point[], annotationInfo?: Omit<T, 'id' | 'polygon'>) => T | null
@@ -30,7 +30,7 @@ interface AnnotationDrawingState<T extends Contour> {
   removeAllAnnotation: () => void
 }
 
-export function useAnnotation<T extends Contour>({
+export function useAnnotation<T extends Annotation>({
   nextId,
   initalAnnotation,
   mode = 'polygon',
