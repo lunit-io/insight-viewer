@@ -9,6 +9,7 @@ import PolygonContainer from './PolygonViewer'
 import PolygonDrawerContainer from './PolygonDrawer'
 import LineContainer from './Line'
 import LineDrawerContainer from './LineDrawer'
+import ArrowLineDrawerContainer from './ArrowLineDrawer'
 
 export default function ProgressTabs(): JSX.Element {
   const [active, setActive] = useState(0)
@@ -28,6 +29,7 @@ export default function ProgressTabs(): JSX.Element {
         <Tab data-cy-tab="FreeLineDrawer">FreeLineDrawer</Tab>
         <Tab data-cy-tab="Line">Line</Tab>
         <Tab data-cy-tab="LineDrawer">LineDrawer</Tab>
+        <Tab data-cy-tab="ArrowLineDrawer">ArrowLineDrawer</Tab>
       </TabList>
 
       <TabPanels>
@@ -54,6 +56,9 @@ export default function ProgressTabs(): JSX.Element {
         </TabPanel>
         <TabPanel p={0} pt={8}>
           {active === 7 && <LineDrawerContainer />}
+        </TabPanel>
+        <TabPanel p={0} pt={9}>
+          {active === 8 && <ArrowLineDrawerContainer />}
         </TabPanel>
       </TabPanels>
     </Tabs>

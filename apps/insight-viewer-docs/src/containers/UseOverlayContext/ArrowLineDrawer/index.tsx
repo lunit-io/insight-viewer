@@ -21,7 +21,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function ArrowLineDrawerContainer(): JSX.Element {
+function LineDrawerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -33,7 +33,7 @@ function ArrowLineDrawerContainer(): JSX.Element {
     removeContour,
     focusContour,
     removeAllContours,
-  } = useContour<Contour>({ mode: 'line' })
+  } = useContour<Contour>({ mode: 'arrowLine' })
 
   return (
     <>
@@ -55,7 +55,7 @@ function ArrowLineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <Annotation
                 isDrawing
-                mode="line"
+                mode="arrowLine"
                 showPolygonLabel={false}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
@@ -74,4 +74,4 @@ function ArrowLineDrawerContainer(): JSX.Element {
   )
 }
 
-export default ArrowLineDrawerContainer
+export default LineDrawerContainer
