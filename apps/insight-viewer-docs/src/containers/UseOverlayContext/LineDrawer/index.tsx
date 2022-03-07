@@ -42,7 +42,7 @@ function LineDrawerContainer(): JSX.Element {
               <AnnotationOverlay
                 isDrawing
                 mode={MODE}
-                showAnnotationLabel
+                showAnnotationLabel={false}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 annotations={annotations}

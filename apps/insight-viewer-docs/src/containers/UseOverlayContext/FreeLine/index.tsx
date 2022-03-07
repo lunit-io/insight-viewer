@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport, AnnotationOverlay } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { initialAnnotation } from '../../../../mocks/lines'
+import { initialAnnotation } from '../../../../mocks/freeLines'
 
 const style = {
   display: 'flex',
