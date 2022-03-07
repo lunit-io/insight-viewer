@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 import { UseAnnotationDrawingProps } from './types'
 import { Annotation, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
-import { checkFocusedCircle } from '../../utils/common/checkFocusedCircle'
-import { checkFocusedContour } from '../../utils/common/checkFocusedContour'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.preventDefault()
@@ -17,13 +15,9 @@ function useAnnotationDrawing<T extends Annotation>({
   annotations,
   svgElement,
   onAdd,
-  onFocus,
-  onRemove,
 }: UseAnnotationDrawingProps<T>): Point[][] {
   const [annotation, setAnnotation] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
-  const [isOverlappedDrawing, setIsOverlappedDrawing] = useState<boolean>(false)
-  const [focusedAnnotation, setFocusedAnnotation] = useState<T | null>(null)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
 
@@ -35,10 +29,6 @@ function useAnnotationDrawing<T extends Annotation>({
 
       if (annotation.length > 0 && isDrawingMode) {
         const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-
-        if (focusedAnnotation) {
-          setIsOverlappedDrawing(true)
-        }
 
         setAnnotation(prevState => {
           if (mode === 'polygon' || mode === 'freeLine') {
@@ -92,7 +82,6 @@ function useAnnotationDrawing<T extends Annotation>({
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
       setAnnotation([pixelPosition])
       setIsDrawingMode(true)
-      setIsOverlappedDrawing(false)
     }
 
     const handleMouseMoveToFindFocus = (event: MouseEvent) => {
@@ -123,17 +112,13 @@ function useAnnotationDrawing<T extends Annotation>({
     const activateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.addEventListener('mousemove', handleMouseMoveToFindFocus)
       enabledElement.element.addEventListener('mousedown', handleMouseDownToStartDraw)
-      enabledElement.element.addEventListener('click', handleClickToRemove)
     }
 
     const deactivateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.removeEventListener('mousemove', handleMouseMoveToFindFocus)
       enabledElement.element.removeEventListener('mousedown', handleMouseDownToStartDraw)
-      enabledElement.element.removeEventListener('click', handleClickToRemove)
     }
 
     const activeMouseDrawEvents = () => {
@@ -165,20 +150,7 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateInitialEvents()
       deactivateMouseDrawEvents()
     }
-  }, [
-    mode,
-    annotations,
-    svgElement,
-    annotation,
-    isDrawingMode,
-    focusedAnnotation,
-    enabledElement,
-    isOverlappedDrawing,
-    onAdd,
-    onFocus,
-    onRemove,
-    pageToPixel,
-  ])
+  }, [mode, annotations, svgElement, annotation, isDrawingMode, enabledElement, onAdd, pageToPixel])
 
   return [annotation]
 }
