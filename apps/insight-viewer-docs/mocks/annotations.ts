@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { Annotation } from '@lunit/insight-viewer'
 
-export const CONTOURS: Annotation[] = [
+export const ANNOTATIONS: Annotation[] = [
   {
     polygon: [
       [1901, 1835],
@@ -3616,7 +3616,7 @@ export const CONTOURS: Annotation[] = [
   },
 ]
 
-export const MOCK_CONTOURS = [
+export const MOCK_ANNOTATIONS = [
   [
     [533, 552],
     [526, 553],

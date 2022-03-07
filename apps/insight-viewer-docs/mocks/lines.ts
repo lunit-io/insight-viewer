@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
-import { Contour } from '@lunit/insight-viewer'
+import { Annotation } from '@lunit/insight-viewer'
 
-export function labelFunction(contour: Contour): string {
-  return `Annotation(${contour.id})`
+export function labelFunction(annotation: Annotation): string {
+  return `Annotation(${annotation.id})`
 }
 
 export const categoryColors = {
@@ -10,7 +10,7 @@ export const categoryColors = {
   abnormal: '#dc3912',
 } as const
 
-export const initialContours: Contour[] = [
+export const initialAnnotation: Annotation[] = [
   {
     id: 1,
     polygon: [

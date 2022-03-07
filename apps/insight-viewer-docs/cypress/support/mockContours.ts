@@ -1,4 +1,4 @@
-export const MOCK_CONTOURS = [
+export const MOCK_ANNOTATIONS = [
   [
     [533, 552],
     [526, 553],
