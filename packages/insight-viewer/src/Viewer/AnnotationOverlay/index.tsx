@@ -22,8 +22,8 @@ export function AnnotationOverlay<T extends Annotation>({
   onAdd,
   onRemove,
 }: AnnotationOverlayProps<T>): JSX.Element {
-  if (isDrawing && (!onFocus || !onAdd || !onRemove)) {
-    throw new Error('Please also add onFocus, onAdd, onRemove if you enable drawing mode')
+  if (isDrawing && !onAdd) {
+    throw new Error('Please also add onAdd if you enable drawing mode')
   }
 
   return (
@@ -39,6 +39,8 @@ export function AnnotationOverlay<T extends Annotation>({
         showAnnotationLabel={showAnnotationLabel}
         mode={mode}
         annotationAttrs={annotationAttrs}
+        onFocus={onFocus}
+        onRemove={onRemove}
       />
       {isDrawing && onAdd && onFocus && onRemove && (
         <AnnotationDrawer
@@ -50,8 +52,6 @@ export function AnnotationOverlay<T extends Annotation>({
           device={device}
           mode={mode}
           onAdd={onAdd}
-          onFocus={onFocus}
-          onRemove={onRemove}
         />
       )}
     </>
