@@ -14,6 +14,8 @@ function AnnotationsDraw<T extends Annotation>({
   focusedAnnotation,
   annotationAttrs,
   pixelToCanvas,
+  onFocus,
+  onRemove,
 }: AnnotationsDrawProps<T>) {
   return annotations.map(annotation => {
     const viewerProps = {
@@ -25,11 +27,31 @@ function AnnotationsDraw<T extends Annotation>({
       pixelToCanvas,
     }
 
+    const handleAnnotationClick = () => {
+      if (!onRemove) return
+      onRemove(annotation)
+    }
+
+    const handleAnnotationFocus = () => {
+      if (!onFocus) return
+      onFocus(annotation)
+    }
+
+    const handleAnnotationFocusOut = () => {
+      if (!onFocus) return
+      onFocus(null)
+    }
+
     return (
-      <React.Fragment key={annotation.id}>
+      <g
+        key={annotation.id}
+        onClick={handleAnnotationClick}
+        onMouseOver={handleAnnotationFocus}
+        onMouseLeave={handleAnnotationFocusOut}
+      >
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
         {(mode === 'freeLine' || mode === 'line') && <LineViewer {...viewerProps} />}
-      </React.Fragment>
+      </g>
     )
   })
 }
@@ -45,6 +67,8 @@ export function AnnotationViewer<T extends Annotation>({
   showOutline = false,
   showAnnotationLabel = false,
   annotationAttrs,
+  onFocus,
+  onRemove,
 }: AnnotationViewerProps<T>): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { pixelToCanvas, enabledElement } = useOverlayContext()
@@ -61,6 +85,8 @@ export function AnnotationViewer<T extends Annotation>({
             showAnnotationLabel,
             pixelToCanvas,
             annotationAttrs,
+            onFocus,
+            onRemove,
           })}
     </svg>
   )

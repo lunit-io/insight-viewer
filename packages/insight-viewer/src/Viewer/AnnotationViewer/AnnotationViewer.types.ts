@@ -23,6 +23,9 @@ export interface AnnotationViewerProps<T extends Annotation> {
    */
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
+  onFocus?: (annotation: T | null) => void
+  onRemove?: (annotation: T) => void
+
   /**
    * Draw an outline on the line
    * Since the outline is expressed by drawing two lines, it can be deactivated in a performance-sensitive situation
