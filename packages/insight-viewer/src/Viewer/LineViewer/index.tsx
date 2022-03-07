@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 
 import { Annotation } from '../../types'
-import { FreeLineViewerProps } from './FreeLineViewer.types'
+import { FreeLineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function FreeLineViewer<T extends Annotation>({
+export function LineViewer<T extends Annotation>({
   annotation,
   showOutline,
   showAnnotationLabel,

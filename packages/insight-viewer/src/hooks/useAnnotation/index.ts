@@ -3,6 +3,7 @@ import polylabel from 'polylabel'
 import { Annotation, Point, AnnotationMode } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
+import { isValidLength } from '../../utils/common/isValidLength'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
@@ -59,6 +60,7 @@ export function useAnnotation<T extends Annotation>({
   ): T | null => {
     if (mode === 'polygon' && (!getIsPolygonAreaGreaterThanArea(polygon) || getIsComplexPolygon(polygon))) return null
     if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(polygon)) return null
+    if (mode === 'line' && !isValidLength(polygon)) return null
     if (mode === 'circle' && polygon.length < 2) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)
