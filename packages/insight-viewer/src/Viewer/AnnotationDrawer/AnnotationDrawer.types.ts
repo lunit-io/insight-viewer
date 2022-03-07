@@ -7,17 +7,8 @@ export interface AnnotationDrawerProps<T extends Annotation> {
 
   annotations: T[]
 
-  /**
-   * When Mouse Over on a annotation
-   * Required to determine focused Annotation
-   */
-  onFocus: (annotation: T | null) => void
-
   /** When drawing is complete and a new annotation occurs */
   onAdd: (polygon: Point[]) => void
-
-  /** Needed to delete a specific annotation by clicking on it */
-  onRemove: (annotation: T) => void
 
   className?: string
   style?: CSSProperties
