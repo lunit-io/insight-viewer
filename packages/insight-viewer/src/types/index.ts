@@ -7,11 +7,7 @@ export type WithChildren<T = Record<string, unknown>> = T & {
 export type Element = HTMLDivElement | null
 export type ViewerError = Error & { status?: number }
 export type OnError = (e: ViewerError) => void
-export type ProgressComponent = ({
-  progress,
-}: {
-  progress: number
-}) => JSX.Element
+export type ProgressComponent = ({ progress }: { progress: number }) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
 export interface BasicViewport {
   scale: number
@@ -39,8 +35,7 @@ export interface HTTP {
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 export type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]
-export type ImageLoaderScheme =
-  typeof IMAGE_LOADER_SCHEME[keyof typeof IMAGE_LOADER_SCHEME]
+export type ImageLoaderScheme = typeof IMAGE_LOADER_SCHEME[keyof typeof IMAGE_LOADER_SCHEME]
 export type ImageId =
   | {
       [IMAGE_LOADER_SCHEME.WADO]: string | string[] | undefined
@@ -58,13 +53,13 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export interface Contour {
+export interface Annotation {
   /** Serves as id by contour */
   id: number
 
   /**
    * The method used is different depending on the mode
-   * - (mode: contour) = [[x, y], [x, y], [x, y]...]
+   * - (mode: polygon) = [[x, y], [x, y], [x, y]...]
    * - (mode: circle) = [[centerX, centerY][radius, ]]
    * - (mode: point) = [[x, y]]
    */
