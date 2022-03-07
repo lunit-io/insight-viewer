@@ -53,16 +53,16 @@ export const polylineStyle: AnnotationStyle = {
     strokeWidth: '3px',
     stroke: '#ffffff',
     transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
-    fill: 'transparent',
+    fill: 'none',
   },
   outline: {
-    fill: 'transparent',
+    fill: 'none',
     strokeWidth: '3px',
     stroke: '#000000',
   },
   focus: {
     stroke: 'rgb(255, 194, 17)',
-    fill: 'transparent',
+    fill: 'none',
     strokeWidth: '3px',
   },
 }
