@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 
-import { Contour } from '../../types'
+import { Annotation } from '../../types'
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polygonStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function PolygonViewer<T extends Contour>({
+export function PolygonViewer<T extends Annotation>({
   annotation,
   showOutline,
   showAnnotationLabel,

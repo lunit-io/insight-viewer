@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 
-import { Contour } from '../../types'
+import { Annotation } from '../../types'
 import { FreeLineViewerProps } from './FreeLineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function FreeLineViewer<T extends Contour>({
+export function FreeLineViewer<T extends Annotation>({
   annotation,
   showOutline,
   showAnnotationLabel,

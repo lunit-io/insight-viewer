@@ -1,6 +1,7 @@
-import { Contour } from '../../types'
+import { Annotation } from '../../types'
 import { AnnotationsDrawProps } from '../AnnotationViewer/AnnotationViewer.types'
 
-export interface FreeLineViewerProps<T extends Contour> extends Omit<AnnotationsDrawProps<T>, 'annotations' | 'mode'> {
+export interface FreeLineViewerProps<T extends Annotation>
+  extends Omit<AnnotationsDrawProps<T>, 'annotations' | 'mode'> {
   annotation: T
 }

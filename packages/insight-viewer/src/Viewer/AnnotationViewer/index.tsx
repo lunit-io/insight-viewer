@@ -1,12 +1,12 @@
 import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
-import { Contour } from '../../types'
+import { Annotation } from '../../types'
 import { svgStyle } from './AnnotationViewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { FreeLineViewer } from '../FreeLineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
-function AnnotationsDraw<T extends Contour>({
+function AnnotationsDraw<T extends Annotation>({
   mode,
   annotations,
   showOutline,
@@ -34,7 +34,7 @@ function AnnotationsDraw<T extends Contour>({
   })
 }
 
-export function AnnotationViewer<T extends Contour>({
+export function AnnotationViewer<T extends Annotation>({
   style,
   width,
   height,

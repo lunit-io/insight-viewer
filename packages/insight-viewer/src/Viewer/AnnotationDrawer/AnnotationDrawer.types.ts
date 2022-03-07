@@ -1,23 +1,23 @@
 import { CSSProperties } from 'react'
-import { Contour, Point, AnnotationMode } from '../../types'
+import { Annotation, Point, AnnotationMode } from '../../types'
 
-export interface AnnotationDrawerProps<T extends Contour> {
+export interface AnnotationDrawerProps<T extends Annotation> {
   width?: number
   height?: number
 
   annotations: T[]
 
   /**
-   * When Mouse Over on a Contour
-   * Required to determine focusedContour
+   * When Mouse Over on a annotation
+   * Required to determine focused Annotation
    */
-  onFocus: (contour: T | null) => void
+  onFocus: (annotation: T | null) => void
 
-  /** When drawing is complete and a new contour occurs */
+  /** When drawing is complete and a new annotation occurs */
   onAdd: (polygon: Point[]) => void
 
-  /** Needed to delete a specific contour by clicking on it */
-  onRemove: (contour: T) => void
+  /** Needed to delete a specific annotation by clicking on it */
+  onRemove: (annotation: T) => void
 
   className?: string
   style?: CSSProperties
