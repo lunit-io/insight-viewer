@@ -1,9 +1,6 @@
-import { CSSProperties } from 'react'
+import { AnnotationStyle } from '../../types'
 
-type ContourStyleType = 'default' | 'highlight'
-type ContourStyle = { [styleType in ContourStyleType]?: CSSProperties }
-
-export const svgStyle: ContourStyle = {
+export const svgStyle: AnnotationStyle = {
   default: {
     position: 'absolute',
     top: 0,
@@ -13,7 +10,7 @@ export const svgStyle: ContourStyle = {
   },
 }
 
-export const polyline: ContourStyle = {
+export const polyline: AnnotationStyle = {
   default: {
     fill: 'rgba(255, 244, 0, 0.2)',
     strokeWidth: '5px',

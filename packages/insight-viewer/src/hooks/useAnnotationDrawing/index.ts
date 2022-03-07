@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState, useEffect } from 'react'
-import { UseSvgContourDrawingProps } from './types'
-import { Contour, Point } from '../../types'
+import { UseAnnotationDrawingProps } from './types'
+import { Annotation, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
+import { checkFocusedCircle } from '../../utils/common/checkFocusedCircle'
 import { checkFocusedContour } from '../../utils/common/checkFocusedContour'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
@@ -11,16 +12,18 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.stopImmediatePropagation()
 }
 
-function useSvgContourDrawing<T extends Contour>({
+function useAnnotationDrawing<T extends Annotation>({
+  mode,
+  annotations,
   svgElement,
-  contours,
   onAdd,
   onFocus,
   onRemove,
-}: UseSvgContourDrawingProps<T>): Point[][] {
-  const [polygon, setPolygon] = useState<Point[]>([])
-  const [focusedContour, setFocusedContour] = useState<T | null>(null)
+}: UseAnnotationDrawingProps<T>): Point[][] {
+  const [annotation, setAnnotation] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
+  const [isOverlappedDrawing, setIsOverlappedDrawing] = useState<boolean>(false)
+  const [focusedAnnotation, setFocusedAnnotation] = useState<T | null>(null)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
 
@@ -30,39 +33,53 @@ function useSvgContourDrawing<T extends Contour>({
     const handleMouseMoveToDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
 
-      if (polygon.length > 0 && isDrawingMode) {
+      if (annotation.length > 0 && isDrawingMode) {
         const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
 
-        setPolygon(prevState => [...prevState, pixelPosition])
+        if (focusedAnnotation) {
+          setIsOverlappedDrawing(true)
+        }
+
+        setAnnotation(prevState => {
+          if (mode === 'polygon' || mode === 'freeLine') {
+            return [...prevState, pixelPosition]
+          }
+
+          if (mode === 'circle') {
+            return [prevState[0], pixelPosition]
+          }
+
+          return prevState
+        })
       }
     }
 
     const handleMouseUpToEndDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      deactiveMouseDrawEvents()
+      deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      onAdd(polygon)
-      setPolygon([])
+      onAdd(annotation)
+      setAnnotation([])
       setIsDrawingMode(false)
     }
 
     const handleMouseLeaveToCancelDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      deactiveMouseDrawEvents()
+      deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      setPolygon([])
+      setAnnotation([])
       setIsDrawingMode(false)
     }
 
     const handleKeyDownToCancelMouseDraw = (event: KeyboardEvent) => {
       if (event.code === 'Escape') {
         setPreProcessEvent(event)
-        deactiveMouseDrawEvents()
+        deactivateMouseDrawEvents()
         activateInitialEvents()
 
-        setPolygon([])
+        setAnnotation([])
         setIsDrawingMode(false)
       }
     }
@@ -73,91 +90,71 @@ function useSvgContourDrawing<T extends Contour>({
       activeMouseDrawEvents()
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      setPolygon([pixelPosition])
+      setAnnotation([pixelPosition])
       setIsDrawingMode(true)
+      setIsOverlappedDrawing(false)
     }
 
     const handleMouseMoveToFindFocus = (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (contours.length === 0) return
+      if (annotations.length === 0) return
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      const focusedContourElement = checkFocusedContour(contours, pixelPosition)
+      const focusedAnnotationElement =
+        mode === 'polygon' || mode === 'freeLine'
+          ? checkFocusedContour(annotations, pixelPosition)
+          : checkFocusedCircle(annotations, pixelPosition)
 
-      setFocusedContour(focusedContourElement)
-      onFocus(focusedContourElement)
+      setFocusedAnnotation(focusedAnnotationElement)
+      onFocus(focusedAnnotationElement)
     }
 
     const handleClickToRemove = (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (!focusedContour || isDrawingMode) return
-      onRemove(focusedContour)
+      if (!focusedAnnotation || isOverlappedDrawing) {
+        return
+      }
+
+      onRemove(focusedAnnotation)
     }
 
     const activateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.addEventListener(
-        'mousemove',
-        handleMouseMoveToFindFocus
-      )
-      enabledElement.element.addEventListener(
-        'mousedown',
-        handleMouseDownToStartDraw
-      )
+      enabledElement.element.addEventListener('mousemove', handleMouseMoveToFindFocus)
+      enabledElement.element.addEventListener('mousedown', handleMouseDownToStartDraw)
       enabledElement.element.addEventListener('click', handleClickToRemove)
     }
 
     const deactivateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.removeEventListener(
-        'mousemove',
-        handleMouseMoveToFindFocus
-      )
-      enabledElement.element.removeEventListener(
-        'mousedown',
-        handleMouseDownToStartDraw
-      )
+      enabledElement.element.removeEventListener('mousemove', handleMouseMoveToFindFocus)
+      enabledElement.element.removeEventListener('mousedown', handleMouseDownToStartDraw)
       enabledElement.element.removeEventListener('click', handleClickToRemove)
     }
 
     const activeMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.addEventListener(
-        'mousemove',
-        handleMouseMoveToDraw
-      )
+      enabledElement.element.addEventListener('mousemove', handleMouseMoveToDraw)
       enabledElement.element.addEventListener('mouseup', handleMouseUpToEndDraw)
-      enabledElement.element.addEventListener(
-        'mouseleave',
-        handleMouseLeaveToCancelDraw
-      )
+      enabledElement.element.addEventListener('mouseleave', handleMouseLeaveToCancelDraw)
       window.addEventListener('keydown', handleKeyDownToCancelMouseDraw)
     }
 
-    const deactiveMouseDrawEvents = () => {
+    const deactivateMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
-      enabledElement.element.removeEventListener(
-        'mousemove',
-        handleMouseMoveToDraw
-      )
-      enabledElement.element.removeEventListener(
-        'mouseup',
-        handleMouseUpToEndDraw
-      )
-      enabledElement.element.removeEventListener(
-        'mouseleave',
-        handleMouseLeaveToCancelDraw
-      )
+      enabledElement.element.removeEventListener('mousemove', handleMouseMoveToDraw)
+      enabledElement.element.removeEventListener('mouseup', handleMouseUpToEndDraw)
+      enabledElement.element.removeEventListener('mouseleave', handleMouseLeaveToCancelDraw)
       window.removeEventListener('keydown', handleKeyDownToCancelMouseDraw)
     }
 
-    if (polygon.length > 0) {
+    if (annotation.length > 0) {
       activeMouseDrawEvents()
     } else {
       activateInitialEvents()
@@ -166,22 +163,24 @@ function useSvgContourDrawing<T extends Contour>({
     // eslint-disable-next-line consistent-return
     return () => {
       deactivateInitialEvents()
-      deactiveMouseDrawEvents()
+      deactivateMouseDrawEvents()
     }
   }, [
-    contours,
+    mode,
+    annotations,
     svgElement,
-    polygon,
+    annotation,
     isDrawingMode,
-    focusedContour,
+    focusedAnnotation,
     enabledElement,
+    isOverlappedDrawing,
     onAdd,
     onFocus,
     onRemove,
     pageToPixel,
   ])
 
-  return [polygon]
+  return [annotation]
 }
 
-export default useSvgContourDrawing
+export default useAnnotationDrawing

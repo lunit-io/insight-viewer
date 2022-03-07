@@ -1,9 +1,6 @@
-import { CSSProperties } from 'react'
+import { AnnotationStyle } from '../../types'
 
-type ContourStyleType = 'default' | 'focus' | 'outline'
-type ContourStyle = { [styleType in ContourStyleType]?: CSSProperties }
-
-export const svgStyle: ContourStyle = {
+export const svgStyle: AnnotationStyle = {
   default: {
     position: 'absolute',
     top: 0,
@@ -13,7 +10,7 @@ export const svgStyle: ContourStyle = {
   },
 }
 
-export const textStyle: ContourStyle = {
+export const textStyle: AnnotationStyle = {
   default: {
     fill: '#ffffff',
     fontWeight: 600,
@@ -33,7 +30,7 @@ export const textStyle: ContourStyle = {
   },
 }
 
-export const polygonStyle: ContourStyle = {
+export const polygonStyle: AnnotationStyle = {
   default: {
     fill: 'transparent',
     strokeWidth: '3px',
@@ -47,6 +44,25 @@ export const polygonStyle: ContourStyle = {
   focus: {
     stroke: 'rgb(255, 194, 17)',
     fill: 'rgba(0, 0, 0, 0.4)',
+    strokeWidth: '3px',
+  },
+}
+
+export const polylineStyle: AnnotationStyle = {
+  default: {
+    strokeWidth: '3px',
+    stroke: '#ffffff',
+    transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
+    fill: 'transparent',
+  },
+  outline: {
+    fill: 'transparent',
+    strokeWidth: '3px',
+    stroke: '#000000',
+  },
+  focus: {
+    stroke: 'rgb(255, 194, 17)',
+    fill: 'transparent',
     strokeWidth: '3px',
   },
 }

@@ -1,6 +1,6 @@
-import { Contour, Point } from '../types'
+import { Annotation, Point } from '../types'
 
-const MOCK_CONTOUR_LIST: Contour[] = [
+const MOCK_CONTOUR_LIST: Annotation[] = [
   {
     id: 1,
     polygon: [
@@ -116,7 +116,7 @@ const MOCK_CONTOUR_LIST: Contour[] = [
   },
 ]
 
-const ID1_CONTOUR: Contour = {
+const ID1_CONTOUR: Annotation = {
   id: 1,
   polygon: [
     [1729.2285714285715, 1052.8157142857142],
@@ -167,7 +167,7 @@ const ID1_CONTOUR: Contour = {
   labelPosition: [1724.9342857142858, 1048.5214285714285],
 }
 
-const ID2_CONTOUR: Contour = {
+const ID2_CONTOUR: Annotation = {
   id: 2,
   polygon: [
     [1446.76, 919.2157142857143],
@@ -311,9 +311,7 @@ const COMPLEX_POLYGON: Point[] = [
   [1717.777142857143, 907.7642857142857],
 ]
 
-const ID1_CONTOUR_FOCUS_POSITION: Point = [
-  1717.777142857143, 1048.9985714285715,
-]
+const ID1_CONTOUR_FOCUS_POSITION: Point = [1717.777142857143, 1048.9985714285715]
 const ID2_CONTOUR_FOCUS_POSITION: Point = [1423.857142857143, 942.1185714285714]
 
 const NOT_FOCUS_POSITION: Point = [1194, 1216]
