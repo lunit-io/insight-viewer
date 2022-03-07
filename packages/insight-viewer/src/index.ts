@@ -1,5 +1,5 @@
 export { InsightViewer as default } from './Viewer'
-export { Annotation } from './Viewer/Annotation'
+export { AnnotationOverlay } from './Viewer/AnnotationOverlay'
 export { AnnotationViewer } from './Viewer/AnnotationViewer'
 export { AnnotationDrawer } from './Viewer/AnnotationDrawer'
 export { HeatmapViewer } from './Viewer/HeatmapViewer'

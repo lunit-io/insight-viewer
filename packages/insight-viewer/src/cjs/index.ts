@@ -1,5 +1,5 @@
 import { InsightViewer } from '../Viewer'
-import { Annotation } from '../Viewer/Annotation'
+import { AnnotationOverlay } from '../Viewer/AnnotationOverlay'
 import { AnnotationViewer } from '../Viewer/AnnotationViewer'
 import { AnnotationDrawer } from '../Viewer/AnnotationDrawer'
 import { useMultipleImages } from '../hooks/useMultipleImages'
@@ -12,13 +12,13 @@ import { useDicomFile } from '../hooks/useDicomFile'
 import { useOverlayContext } from '../contexts'
 
 export type { Interaction, SetInteraction } from '../hooks/useInteraction/types'
-export type { Viewport, ViewerError, Contours, Contour, Point } from '../types'
+export type { Viewport, ViewerError, Contours, Annotation, Point } from '../types'
 export type { DragEvent, Click, Drag, Wheel } from '../hooks/useInteraction/types'
 
 export type { OverlayContext } from '../contexts'
 
 Object.assign(InsightViewer, {
-  Annotation,
+  AnnotationOverlay,
   AnnotationViewer,
   AnnotationDrawer,
   useMultipleImages,
