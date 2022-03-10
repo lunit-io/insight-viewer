@@ -84,31 +84,6 @@ function useAnnotationDrawing<T extends Annotation>({
       setIsDrawingMode(true)
     }
 
-    const handleMouseMoveToFindFocus = (event: MouseEvent) => {
-      event.stopPropagation()
-
-      if (annotations.length === 0) return
-
-      const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      const focusedAnnotationElement =
-        mode === 'polygon' || mode === 'freeLine' || mode === 'line'
-          ? checkFocusedContour(annotations, pixelPosition)
-          : checkFocusedCircle(annotations, pixelPosition)
-
-      setFocusedAnnotation(focusedAnnotationElement)
-      onFocus(focusedAnnotationElement)
-    }
-
-    const handleClickToRemove = (event: MouseEvent) => {
-      event.stopPropagation()
-
-      if (!focusedAnnotation || isOverlappedDrawing) {
-        return
-      }
-
-      onRemove(focusedAnnotation)
-    }
-
     const activateInitialEvents = () => {
       if (!enabledElement || !enabledElement.element) return
 
