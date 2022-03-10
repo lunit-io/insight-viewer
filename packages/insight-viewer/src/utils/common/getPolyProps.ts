@@ -10,7 +10,7 @@ interface GetPolyViewerInfoProps<T extends Annotation> {
 }
 
 interface getPolyViewerInfoReturnType {
-  isSelectedPolygon: boolean
+  isSelectedAnnotation: boolean
   polygonAttributes: SVGProps<SVGPolygonElement> | undefined
   labelPosition: Point | undefined
   polygonPoints: string
@@ -24,15 +24,14 @@ export function getPolyViewerInfo<T extends Annotation>({
   pixelToCanvas,
   annotationAttrs,
 }: GetPolyViewerInfoProps<T>): getPolyViewerInfoReturnType {
-  const { polygon, label, id, labelPosition: _labelPosition } = annotation
-  const isSelectedPolygon = polygon === selectedAnnotation?.polygon
+  const { layer, label, id, labelPosition: _labelPosition } = annotation
+  const isSelectedAnnotation = layer === selectedAnnotation?.layer
   const polygonLabel = label ?? id
 
   const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
-
   const labelPosition = _labelPosition ? pixelToCanvas(_labelPosition) : undefined
 
-  const polygonPoints: string = polygon
+  const polygonPoints: string = layer.points
     .map(point => {
       const [x, y] = pixelToCanvas(point)
       return `${x},${y}`
@@ -40,7 +39,7 @@ export function getPolyViewerInfo<T extends Annotation>({
     .join(' ')
 
   return {
-    isSelectedPolygon,
+    isSelectedAnnotation,
     polygonAttributes,
     labelPosition,
     polygonPoints,

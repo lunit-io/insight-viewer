@@ -13,7 +13,7 @@ export function LineViewer<T extends Annotation>({
   annotationAttrs,
   pixelToCanvas,
 }: FreeLineViewerProps<T>): ReactElement {
-  const { isSelectedPolygon, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
     selectedAnnotation,
@@ -27,25 +27,25 @@ export function LineViewer<T extends Annotation>({
         <polyline
           data-cy-id={polygonLabel}
           style={{
-            ...polylineStyle[isSelectedPolygon ? 'select' : 'outline'],
+            ...polylineStyle[isSelectedAnnotation ? 'select' : 'outline'],
             ...polygonAttributes?.style,
           }}
-          data-select={isSelectedPolygon || undefined}
+          data-select={isSelectedAnnotation || undefined}
           points={polygonPoints}
         />
       )}
       <polyline
         data-cy-id={polygonLabel}
         style={{
-          ...polylineStyle[isSelectedPolygon ? 'select' : 'default'],
+          ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'],
           ...polygonAttributes?.style,
         }}
-        data-select={isSelectedPolygon || undefined}
+        data-select={isSelectedAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
         <text
-          style={{ ...textStyle[isSelectedPolygon ? 'select' : 'default'] }}
+          style={{ ...textStyle[isSelectedAnnotation ? 'select' : 'default'] }}
           x={labelPosition[0]}
           y={labelPosition[1]}
         >
