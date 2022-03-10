@@ -23,7 +23,7 @@ interface UseAnnotationProps<T extends Annotation> {
 
 interface AnnotationDrawingState<T extends Annotation> {
   annotations: T[]
-  focusedAnnotation: T | null
+  selectedAnnotation: T | null
   addAnnotation: (polygon: Point[], annotationInfo?: Omit<T, 'id' | 'polygon'>) => T | null
   focusAnnotation: (annotation: T | null) => void
   updateAnnotation: (annotation: T, patch: Partial<T>) => void
@@ -37,7 +37,7 @@ export function useAnnotation<T extends Annotation>({
   mode = 'polygon',
 }: UseAnnotationProps<T>): AnnotationDrawingState<T> {
   const [annotations, setAnnotations] = useState<T[]>([])
-  const [focusedAnnotation, setFocusedAnnotation] = useState<T | null>(null)
+  const [selectedAnnotation, setFocusedAnnotation] = useState<T | null>(null)
 
   useEffect(() => {
     setAnnotations(() =>
@@ -147,7 +147,7 @@ export function useAnnotation<T extends Annotation>({
 
   return {
     annotations,
-    focusedAnnotation,
+    selectedAnnotation,
     addAnnotation,
     removeAnnotation,
     updateAnnotation,

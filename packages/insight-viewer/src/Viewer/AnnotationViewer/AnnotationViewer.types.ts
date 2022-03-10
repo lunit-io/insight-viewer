@@ -8,7 +8,7 @@ export interface AnnotationViewerProps<T extends Annotation> {
   /** Annotation focused by user interaction such as mouse over */
   annotations: T[]
 
-  focusedAnnotation: T | null
+  selectedAnnotation: T | null
 
   /** <svg className={}> */
   className?: string

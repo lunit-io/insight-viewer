@@ -9,14 +9,14 @@ export function LineViewer<T extends Annotation>({
   annotation,
   showOutline,
   showAnnotationLabel,
-  focusedAnnotation,
+  selectedAnnotation,
   annotationAttrs,
   pixelToCanvas,
 }: FreeLineViewerProps<T>): ReactElement {
-  const { isFocusedPolygon, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+  const { isSelectedPolygon, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
-    focusedAnnotation,
+    selectedAnnotation,
     pixelToCanvas,
     annotationAttrs,
   })
@@ -27,25 +27,25 @@ export function LineViewer<T extends Annotation>({
         <polyline
           data-cy-id={polygonLabel}
           style={{
-            ...polylineStyle[isFocusedPolygon ? 'focus' : 'outline'],
+            ...polylineStyle[isSelectedPolygon ? 'select' : 'outline'],
             ...polygonAttributes?.style,
           }}
-          data-focus={isFocusedPolygon || undefined}
+          data-select={isSelectedPolygon || undefined}
           points={polygonPoints}
         />
       )}
       <polyline
         data-cy-id={polygonLabel}
         style={{
-          ...polylineStyle[isFocusedPolygon ? 'focus' : 'default'],
+          ...polylineStyle[isSelectedPolygon ? 'select' : 'default'],
           ...polygonAttributes?.style,
         }}
-        data-focus={isFocusedPolygon || undefined}
+        data-select={isSelectedPolygon || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
         <text
-          style={{ ...textStyle[isFocusedPolygon ? 'focus' : 'default'] }}
+          style={{ ...textStyle[isSelectedPolygon ? 'select' : 'default'] }}
           x={labelPosition[0]}
           y={labelPosition[1]}
         >

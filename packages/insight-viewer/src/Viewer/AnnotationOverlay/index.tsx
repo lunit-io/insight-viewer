@@ -9,7 +9,7 @@ export function AnnotationOverlay<T extends Annotation>({
   width,
   height,
   annotations,
-  focusedAnnotation,
+  selectedAnnotation,
   className,
   style,
   showOutline,
@@ -32,7 +32,7 @@ export function AnnotationOverlay<T extends Annotation>({
         width={width}
         height={height}
         annotations={annotations}
-        focusedAnnotation={focusedAnnotation}
+        selectedAnnotation={selectedAnnotation}
         className={className}
         style={style}
         showOutline={showOutline}
