@@ -30,7 +30,7 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, focusAnnotation } = useAnnotation<Annotation>({
+  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation<Annotation>({
     mode: 'polygon',
     initalAnnotation: ANNOTATIONS,
   })
@@ -56,7 +56,7 @@ function PolygonContainer(): JSX.Element {
                 annotationAttrs={getPolygonStyles}
                 showAnnotationLabel
                 mode="polygon" // If no mode is defined, the default value is polygon.
-                onFocus={isEdit ? focusAnnotation : undefined}
+                onFocus={isEdit ? selectAnnotation : undefined}
                 onRemove={isEdit ? removeAnnotation : undefined}
               />
             )}

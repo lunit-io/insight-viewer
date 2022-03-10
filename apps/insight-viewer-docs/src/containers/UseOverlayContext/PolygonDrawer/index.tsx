@@ -26,7 +26,7 @@ function PolygonDrawerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, focusAnnotation, removeAllAnnotation } =
+  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation, removeAllAnnotation } =
     useAnnotation<Annotation>({ mode: 'polygon' })
 
   return (
@@ -46,7 +46,7 @@ function PolygonDrawerContainer(): JSX.Element {
                 annotationAttrs={getPolygonStyles}
                 showAnnotationLabel
                 onAdd={addAnnotation}
-                onFocus={focusAnnotation}
+                onFocus={selectAnnotation}
                 onRemove={removeAnnotation}
                 isDrawing
                 mode="polygon" // If no mode is defined, the default value is polygon.
