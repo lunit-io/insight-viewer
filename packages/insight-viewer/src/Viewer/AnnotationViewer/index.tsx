@@ -3,7 +3,7 @@ import { useOverlayContext } from '../../contexts'
 import { Annotation } from '../../types'
 import { svgStyle } from './AnnotationViewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
-import { FreeLineViewer } from '../FreeLineViewer'
+import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
 function AnnotationsDraw<T extends Annotation>({
@@ -28,7 +28,7 @@ function AnnotationsDraw<T extends Annotation>({
     return (
       <React.Fragment key={annotation.id}>
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
-        {mode === 'freeLine' && <FreeLineViewer {...viewerProps} />}
+        {(mode === 'freeLine' || mode === 'line') && <LineViewer {...viewerProps} />}
       </React.Fragment>
     )
   })

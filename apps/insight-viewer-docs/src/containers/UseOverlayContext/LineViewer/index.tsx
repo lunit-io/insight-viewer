@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport, AnnotationOverlay } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { initialAnnotation } from '../../../../mocks/freeLines'
+import { initialAnnotation } from '../../../../mocks/lines'
 
 const style = {
   display: 'flex',
@@ -15,7 +15,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function FreeLineContainer(): JSX.Element {
+function LineContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
@@ -31,7 +31,8 @@ function FreeLineContainer(): JSX.Element {
               height={700}
               annotations={initialAnnotation}
               focusedAnnotation={null}
-              mode="freeLine"
+              showAnnotationLabel={false}
+              mode="line"
             />
           )}
         </InsightViewer>
@@ -40,4 +41,4 @@ function FreeLineContainer(): JSX.Element {
   )
 }
 
-export default FreeLineContainer
+export default LineContainer
