@@ -89,8 +89,8 @@ export function useAnnotation<T extends Annotation>({
   }
 
   const selectAnnotation = (annotation: T | null) => {
-    setSelectedAnnotation(prevSelectedAnnotatio =>
-      annotation !== prevSelectedAnnotatio ? annotation : prevSelectedAnnotatio
+    setSelectedAnnotation(prevSelectedAnnotation =>
+      annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
     )
   }
 
@@ -129,8 +129,8 @@ export function useAnnotation<T extends Annotation>({
       if (index > -1) {
         nextAnnotations[index] = nextAnnotation
 
-        setSelectedAnnotation(prevSelectedAnnotatio =>
-          annotation === prevSelectedAnnotatio ? nextAnnotation : prevSelectedAnnotatio
+        setSelectedAnnotation(prevSelectedAnnotation =>
+          annotation === prevSelectedAnnotation ? nextAnnotation : prevSelectedAnnotation
         )
       }
 
