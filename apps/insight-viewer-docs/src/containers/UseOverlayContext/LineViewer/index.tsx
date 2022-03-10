@@ -30,7 +30,7 @@ function LineContainer(): JSX.Element {
               width={700}
               height={700}
               annotations={initialAnnotation}
-              focusedAnnotation={null}
+              selectedAnnotation={null}
               showAnnotationLabel={false}
               mode="line"
             />
