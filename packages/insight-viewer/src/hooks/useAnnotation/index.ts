@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { Annotation, Point, AnnotationMode } from '../../types'
+import { Annotation, AnnotationMode, AnnotationLayer } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
 import { isValidLength } from '../../utils/common/isValidLength'
@@ -24,7 +24,7 @@ interface UseAnnotationProps<T extends Annotation> {
 interface AnnotationDrawingState<T extends Annotation> {
   annotations: T[]
   selectedAnnotation: T | null
-  addAnnotation: (polygon: Point[], annotationInfo?: Omit<T, 'id' | 'polygon'>) => T | null
+  addAnnotation: (layer: AnnotationLayer, annotationInfo?: Omit<T, 'id' | 'layer'>) => T | null
   selectAnnotation: (annotation: T | null) => void
   updateAnnotation: (annotation: T, patch: Partial<T>) => void
   removeAnnotation: (annotation: T) => void
@@ -47,7 +47,7 @@ export function useAnnotation<T extends Annotation>({
               ({
                 ...addedAnnotation,
                 id: nextId ?? i,
-                labelPosition: polylabel([addedAnnotation.polygon], 1),
+                labelPosition: polylabel([addedAnnotation.layer.points], 1),
               } as T)
           )
         : []
@@ -55,13 +55,17 @@ export function useAnnotation<T extends Annotation>({
   }, [initalAnnotation, nextId])
 
   const addAnnotation = (
-    polygon: Point[],
-    annotationInfo: Partial<Omit<T, 'id' | 'polygon'>> | undefined
+    layer: AnnotationLayer,
+    annotationInfo: Partial<Omit<T, 'id' | 'layer'>> | undefined
   ): T | null => {
-    if (mode === 'polygon' && (!getIsPolygonAreaGreaterThanArea(polygon) || getIsComplexPolygon(polygon))) return null
-    if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(polygon)) return null
-    if (mode === 'line' && !isValidLength(polygon)) return null
-    if (mode === 'circle' && polygon.length < 2) return null
+    if (layer.type !== mode) throw Error('The mode of component and hook is different')
+    if (
+      layer.type === 'polygon' &&
+      (!getIsPolygonAreaGreaterThanArea(layer.points) || getIsComplexPolygon(layer.points))
+    )
+      return null
+    if (layer.type === 'freeLine' && !getIsPolygonAreaGreaterThanArea(layer.points)) return null
+    if (layer.type === 'line' && !isValidLength(layer.points)) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
@@ -69,14 +73,14 @@ export function useAnnotation<T extends Annotation>({
     let annotation: T | null = null
 
     setAnnotations(prevAnnotations => {
-      const labelPosition = polylabel([polygon], 1)
+      const labelPosition = polylabel([layer.points], 1)
       const currentId =
         prevAnnotations.length === 0 ? nextId ?? 1 : Math.max(...prevAnnotations.map(({ id }) => id), 0) + 1
 
       annotation = {
         ...initalAnnotation,
         id: currentId,
-        polygon,
+        layer,
         labelPosition,
         lineWidth: annotationInfo?.lineWidth ?? 1.5,
         ...annotationInfo,
