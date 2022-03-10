@@ -25,7 +25,7 @@ interface AnnotationDrawingState<T extends Annotation> {
   annotations: T[]
   selectedAnnotation: T | null
   addAnnotation: (polygon: Point[], annotationInfo?: Omit<T, 'id' | 'polygon'>) => T | null
-  focusAnnotation: (annotation: T | null) => void
+  selectAnnotation: (annotation: T | null) => void
   updateAnnotation: (annotation: T, patch: Partial<T>) => void
   removeAnnotation: (annotation: T) => void
   removeAllAnnotation: () => void
@@ -37,7 +37,7 @@ export function useAnnotation<T extends Annotation>({
   mode = 'polygon',
 }: UseAnnotationProps<T>): AnnotationDrawingState<T> {
   const [annotations, setAnnotations] = useState<T[]>([])
-  const [selectedAnnotation, setFocusedAnnotation] = useState<T | null>(null)
+  const [selectedAnnotation, setSelectedAnnotation] = useState<T | null>(null)
 
   useEffect(() => {
     setAnnotations(() =>
@@ -88,9 +88,9 @@ export function useAnnotation<T extends Annotation>({
     return annotation
   }
 
-  const focusAnnotation = (annotation: T | null) => {
-    setFocusedAnnotation(prevFocusedAnnotation =>
-      annotation !== prevFocusedAnnotation ? annotation : prevFocusedAnnotation
+  const selectAnnotation = (annotation: T | null) => {
+    setSelectedAnnotation(prevSelectedAnnotatio =>
+      annotation !== prevSelectedAnnotatio ? annotation : prevSelectedAnnotatio
     )
   }
 
@@ -108,7 +108,7 @@ export function useAnnotation<T extends Annotation>({
       return prevAnnotations
     })
 
-    setFocusedAnnotation(null)
+    setSelectedAnnotation(null)
   }
 
   const updateAnnotation = (annotation: T, patch: Partial<Omit<T, 'id'>>) => {
@@ -129,8 +129,8 @@ export function useAnnotation<T extends Annotation>({
       if (index > -1) {
         nextAnnotations[index] = nextAnnotation
 
-        setFocusedAnnotation(prevFocusedAnnotation =>
-          annotation === prevFocusedAnnotation ? nextAnnotation : prevFocusedAnnotation
+        setSelectedAnnotation(prevSelectedAnnotatio =>
+          annotation === prevSelectedAnnotatio ? nextAnnotation : prevSelectedAnnotatio
         )
       }
 
@@ -142,7 +142,7 @@ export function useAnnotation<T extends Annotation>({
 
   const removeAllAnnotation = () => {
     setAnnotations([])
-    setFocusedAnnotation(null)
+    setSelectedAnnotation(null)
   }
 
   return {
@@ -151,7 +151,7 @@ export function useAnnotation<T extends Annotation>({
     addAnnotation,
     removeAnnotation,
     updateAnnotation,
-    focusAnnotation,
+    selectAnnotation,
     removeAllAnnotation,
   }
 }
