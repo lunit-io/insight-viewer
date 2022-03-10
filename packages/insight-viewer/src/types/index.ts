@@ -53,17 +53,42 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
+export interface PolygonLayer {
+  type: 'polygon'
+
+  // (mode: polygon) = [[x, y], [x, y], [x, y]...]
+  points: Point[]
+}
+
+export interface FreeLineLayer {
+  type: 'freeLine'
+
+  // (mode: freeLine) = [[x, y], [x, y], [x, y]...]
+  points: Point[]
+}
+
+export interface LineLayer {
+  type: 'line'
+
+  // (mode: line) = [[x, y], [x, y]]
+  points: [Point, Point]
+}
+
+export interface CircleLayer {
+  type: 'circle'
+
+  // (mode: circle) = [[x, y], [x, y]]
+  points: [Point, Point]
+}
+
+export type AnnotationPoints = Point[] | [Point, Point]
+export type AnnotationLayer = PolygonLayer | FreeLineLayer | LineLayer | CircleLayer
+
 export interface Annotation {
   /** Serves as id by contour */
   id: number
 
-  /**
-   * The method used is different depending on the mode
-   * - (mode: polygon) = [[x, y], [x, y], [x, y]...]
-   * - (mode: circle) = [[centerX, centerY][radius, ]]
-   * - (mode: point) = [[x, y]]
-   */
-  polygon: Point[]
+  layer: AnnotationLayer
 
   /** If label is present, it will output instead of id */
   label?: string
