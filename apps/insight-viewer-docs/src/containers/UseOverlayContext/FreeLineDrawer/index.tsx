@@ -26,7 +26,7 @@ function FreeLineDrawerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, focusedAnnotation, addAnnotation, removeAnnotation, focusAnnotation, removeAllAnnotation } =
+  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation, removeAllAnnotation } =
     useAnnotation<Annotation>({ mode: 'freeLine' })
 
   return (
@@ -45,10 +45,10 @@ function FreeLineDrawerContainer(): JSX.Element {
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 annotations={annotations}
-                focusedAnnotation={focusedAnnotation}
+                selectedAnnotation={selectedAnnotation}
                 annotationAttrs={getPolygonStyles}
                 onAdd={addAnnotation}
-                onFocus={focusAnnotation}
+                onFocus={selectAnnotation}
                 onRemove={removeAnnotation}
               />
             )}

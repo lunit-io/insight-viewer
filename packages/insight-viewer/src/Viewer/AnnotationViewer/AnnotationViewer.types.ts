@@ -8,7 +8,7 @@ export interface AnnotationViewerProps<T extends Annotation> {
   /** Annotation focused by user interaction such as mouse over */
   annotations: T[]
 
-  focusedAnnotation: T | null
+  selectedAnnotation: T | null
 
   /** <svg className={}> */
   className?: string
@@ -22,6 +22,9 @@ export interface AnnotationViewerProps<T extends Annotation> {
    * It is best not to use it as much as possible except in special cases
    */
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
+
+  onFocus?: (annotation: T | null) => void
+  onRemove?: (annotation: T) => void
 
   /**
    * Draw an outline on the line

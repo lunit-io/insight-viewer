@@ -80,7 +80,7 @@ export interface Annotation {
   lineWidth?: number
 }
 
-export type AnnotationStyleType = 'default' | 'focus' | 'outline' | 'highlight'
+export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
 export type AnnotationStyle = {
   [styleType in AnnotationStyleType]?: CSSProperties
 }

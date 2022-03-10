@@ -11,25 +11,47 @@ function AnnotationsDraw<T extends Annotation>({
   annotations,
   showOutline,
   showAnnotationLabel,
-  focusedAnnotation,
+  selectedAnnotation,
   annotationAttrs,
   pixelToCanvas,
+  onFocus,
+  onRemove,
 }: AnnotationsDrawProps<T>) {
   return annotations.map(annotation => {
     const viewerProps = {
       annotation,
       showOutline,
-      focusedAnnotation,
+      selectedAnnotation,
       showAnnotationLabel,
       annotationAttrs,
       pixelToCanvas,
     }
 
+    const handleAnnotationClick = () => {
+      if (!onRemove) return
+      onRemove(annotation)
+    }
+
+    const handleAnnotationFocus = () => {
+      if (!onFocus) return
+      onFocus(annotation)
+    }
+
+    const handleAnnotationFocusOut = () => {
+      if (!onFocus) return
+      onFocus(null)
+    }
+
     return (
-      <React.Fragment key={annotation.id}>
+      <g
+        key={annotation.id}
+        onClick={handleAnnotationClick}
+        onMouseOver={handleAnnotationFocus}
+        onMouseLeave={handleAnnotationFocusOut}
+      >
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
         {(mode === 'freeLine' || mode === 'line') && <LineViewer {...viewerProps} />}
-      </React.Fragment>
+      </g>
     )
   })
 }
@@ -40,11 +62,13 @@ export function AnnotationViewer<T extends Annotation>({
   height,
   annotations,
   className,
-  focusedAnnotation,
+  selectedAnnotation,
   mode = 'polygon',
   showOutline = false,
   showAnnotationLabel = false,
   annotationAttrs,
+  onFocus,
+  onRemove,
 }: AnnotationViewerProps<T>): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { pixelToCanvas, enabledElement } = useOverlayContext()
@@ -56,11 +80,13 @@ export function AnnotationViewer<T extends Annotation>({
         : AnnotationsDraw({
             mode,
             annotations,
-            focusedAnnotation,
+            selectedAnnotation,
             showOutline,
             showAnnotationLabel,
             pixelToCanvas,
             annotationAttrs,
+            onFocus,
+            onRemove,
           })}
     </svg>
   )

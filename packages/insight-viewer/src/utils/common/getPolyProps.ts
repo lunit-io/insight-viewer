@@ -1,14 +1,16 @@
 import { SVGProps } from 'react'
-import { AnnotationsDrawProps } from '../../Viewer/AnnotationViewer/AnnotationViewer.types'
 import { Annotation, Point } from '../../types'
 
-interface GetPolyViewerInfoProps<T extends Annotation>
-  extends Omit<AnnotationsDrawProps<T>, 'mode' | 'annotations' | 'showAnnotationLabel'> {
+interface GetPolyViewerInfoProps<T extends Annotation> {
   annotation: T
+  selectedAnnotation: T | null
+  showOutline: boolean
+  pixelToCanvas: (point: Point) => Point
+  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
 interface getPolyViewerInfoReturnType {
-  isFocusedPolygon: boolean
+  isSelectedPolygon: boolean
   polygonAttributes: SVGProps<SVGPolygonElement> | undefined
   labelPosition: Point | undefined
   polygonPoints: string
@@ -18,12 +20,12 @@ interface getPolyViewerInfoReturnType {
 export function getPolyViewerInfo<T extends Annotation>({
   annotation,
   showOutline,
-  focusedAnnotation,
+  selectedAnnotation,
   pixelToCanvas,
   annotationAttrs,
 }: GetPolyViewerInfoProps<T>): getPolyViewerInfoReturnType {
   const { polygon, label, id, labelPosition: _labelPosition } = annotation
-  const isFocusedPolygon = polygon === focusedAnnotation?.polygon
+  const isSelectedPolygon = polygon === selectedAnnotation?.polygon
   const polygonLabel = label ?? id
 
   const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
@@ -38,7 +40,7 @@ export function getPolyViewerInfo<T extends Annotation>({
     .join(' ')
 
   return {
-    isFocusedPolygon,
+    isSelectedPolygon,
     polygonAttributes,
     labelPosition,
     polygonPoints,
