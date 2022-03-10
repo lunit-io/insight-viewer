@@ -26,7 +26,7 @@ function PolygonDrawerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, focusedAnnotation, addAnnotation, removeAnnotation, focusAnnotation, removeAllAnnotation } =
+  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, focusAnnotation, removeAllAnnotation } =
     useAnnotation<Annotation>({ mode: 'polygon' })
 
   return (
@@ -42,7 +42,7 @@ function PolygonDrawerContainer(): JSX.Element {
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 annotations={annotations}
-                focusedAnnotation={focusedAnnotation}
+                selectedAnnotation={selectedAnnotation}
                 annotationAttrs={getPolygonStyles}
                 showAnnotationLabel
                 onAdd={addAnnotation}

@@ -27,7 +27,7 @@ function FreeLineContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, focusedAnnotation, removeAnnotation, focusAnnotation } = useAnnotation<Annotation>({
+  const { annotations, selectedAnnotation, removeAnnotation, focusAnnotation } = useAnnotation<Annotation>({
     mode: 'freeLine',
     initalAnnotation: initialAnnotation,
   })
@@ -48,7 +48,7 @@ function FreeLineContainer(): JSX.Element {
               width={700}
               height={700}
               annotations={annotations}
-              focusedAnnotation={focusedAnnotation}
+              selectedAnnotation={selectedAnnotation}
               mode="freeLine"
               onFocus={isEdit ? focusAnnotation : undefined}
               onRemove={isEdit ? removeAnnotation : undefined}

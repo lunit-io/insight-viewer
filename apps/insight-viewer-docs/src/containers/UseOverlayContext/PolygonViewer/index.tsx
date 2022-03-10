@@ -30,7 +30,7 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, focusedAnnotation, removeAnnotation, focusAnnotation } = useAnnotation<Annotation>({
+  const { annotations, selectedAnnotation, removeAnnotation, focusAnnotation } = useAnnotation<Annotation>({
     mode: 'polygon',
     initalAnnotation: ANNOTATIONS,
   })
@@ -49,7 +49,7 @@ function PolygonContainer(): JSX.Element {
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
               <AnnotationOverlay
-                focusedAnnotation={focusedAnnotation}
+                selectedAnnotation={selectedAnnotation}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 annotations={annotations}
