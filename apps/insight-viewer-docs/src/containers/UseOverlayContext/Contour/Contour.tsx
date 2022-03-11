@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-properties */
 import { useRef, useEffect, CSSProperties } from 'react'
-import { useOverlayContext } from '@lunit/insight-viewer'
+import { useOverlayContext, AnnotationLayer, CircleLayer } from '@lunit/insight-viewer'
 import annotations from './annotations'
 import { CONTOURS } from '../../../../mocks/contours'
 
@@ -128,7 +128,8 @@ function draw({
   const scaledThickness = Math.max(CONTOUR_THICKNESS, 1)
 
   CONTOURS.forEach(contour => {
-    const transformedPoints: [number, number][] = contour.layer.points.map(point => [point[0], point[1]])
+    const layer = contour.layer as Exclude<AnnotationLayer, CircleLayer>
+    const transformedPoints: [number, number][] = layer.points.map(point => [point[0], point[1]])
     drawContour({
       ctx: context,
       points: transformedPoints,
