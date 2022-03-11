@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import { Annotation, AnnotationMode, AnnotationLayer, HeadType } from '../../types'
+import { Annotation, AnnotationMode, Point, HeadType } from '../../types'
 
 export interface AnnotationDrawerProps<T extends Annotation> {
   width?: number
@@ -8,7 +8,7 @@ export interface AnnotationDrawerProps<T extends Annotation> {
   annotations: T[]
 
   /** When drawing is complete and a new annotation occurs */
-  onAdd: (layer: AnnotationLayer) => void
+  onAdd: (points: Point[], drawingMode: AnnotationMode) => void
 
   className?: string
   style?: CSSProperties

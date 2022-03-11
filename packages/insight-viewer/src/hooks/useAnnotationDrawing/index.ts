@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState, useEffect } from 'react'
 import { UseAnnotationDrawingProps } from './types'
-import { Annotation, AnnotationLayer, AnnotationPoints, Point } from '../../types'
+import { Annotation, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
@@ -16,7 +16,7 @@ function useAnnotationDrawing<T extends Annotation>({
   svgElement,
   onAdd,
 }: UseAnnotationDrawingProps<T>): Point[][] {
-  const [annotation, setAnnotation] = useState<AnnotationPoints>([])
+  const [annotation, setAnnotation] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
@@ -49,12 +49,7 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      const drewAnnotation = {
-        type: mode,
-        points: annotation,
-      } as AnnotationLayer
-
-      onAdd(drewAnnotation)
+      onAdd(annotation, mode)
       setAnnotation([])
       setIsDrawingMode(false)
     }
