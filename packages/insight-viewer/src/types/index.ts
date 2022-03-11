@@ -77,8 +77,9 @@ export interface LineLayer {
 export interface CircleLayer {
   type: 'circle'
 
-  // (mode: circle) = [[x, y], [x, y]]
-  points: [Point, Point]
+  // (mode: circle) = center: [x, y], radius: number
+  center: Point
+  radius: number
 }
 
 export type AnnotationPoints = Point[] | [Point, Point]
