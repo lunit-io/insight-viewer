@@ -1,5 +1,5 @@
 import { SVGProps } from 'react'
-import { Annotation, Point } from '../../types'
+import { Annotation, AnnotationLayer, CircleLayer, Point } from '../../types'
 
 interface GetPolyViewerInfoProps<T extends Annotation> {
   annotation: T
@@ -24,7 +24,9 @@ export function getPolyViewerInfo<T extends Annotation>({
   pixelToCanvas,
   annotationAttrs,
 }: GetPolyViewerInfoProps<T>): getPolyViewerInfoReturnType {
-  const { layer, label, id, labelPosition: _labelPosition } = annotation
+  const { label, id, labelPosition: _labelPosition } = annotation
+  const layer = annotation.layer as Exclude<AnnotationLayer, CircleLayer>
+
   const isSelectedAnnotation = layer === selectedAnnotation?.layer
   const polygonLabel = label ?? id
 
