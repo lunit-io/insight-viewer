@@ -50,7 +50,7 @@ function AnnotationsDraw<T extends Annotation>({
         onMouseLeave={handleAnnotationFocusOut}
       >
         {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
-        {(mode === 'freeLine' || mode === 'line' || mode === 'arrowLine') && <LineViewer {...viewerProps} />}
+        {(mode === 'freeLine' || mode === 'line') && <LineViewer {...viewerProps} />}
       </g>
     )
   })
