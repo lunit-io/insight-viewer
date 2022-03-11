@@ -8,6 +8,8 @@ import FreeLineContainer from './FreeLine'
 import FreeLineDrawerContainer from './FreeLineDrawer'
 import LineContainer from './LineViewer'
 import LineDrawerContainer from './LineDrawer'
+import ArrowLineContainer from './ArrowLineViewer'
+import ArrowLineDrawerContainer from './ArrowLineDrawer'
 
 export default function ProgressTabs(): JSX.Element {
   const [active, setActive] = useState(0)
@@ -27,6 +29,8 @@ export default function ProgressTabs(): JSX.Element {
         <Tab data-cy-tab="FreeLineDrawer">FreeLineDrawer</Tab>
         <Tab data-cy-tab="LineViewer">LineViewer</Tab>
         <Tab data-cy-tab="LineDrawer">LineDrawer</Tab>
+        <Tab data-cy-tab="ArrowLineViewer">ArrowLineViewer</Tab>
+        <Tab data-cy-tab="ArrowLineDrawer">ArrowLineDrawer</Tab>
       </TabList>
 
       <TabPanels>
@@ -53,6 +57,12 @@ export default function ProgressTabs(): JSX.Element {
         </TabPanel>
         <TabPanel p={0} pt={8}>
           {active === 7 && <LineDrawerContainer />}
+        </TabPanel>
+        <TabPanel p={0} pt={9}>
+          {active === 8 && <ArrowLineContainer />}
+        </TabPanel>
+        <TabPanel p={0} pt={10}>
+          {active === 9 && <ArrowLineDrawerContainer />}
         </TabPanel>
       </TabPanels>
     </Tabs>
