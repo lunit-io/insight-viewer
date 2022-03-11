@@ -60,7 +60,7 @@ export function useAnnotation<T extends Annotation>({
   ): T | null => {
     if (mode === 'polygon' && (!getIsPolygonAreaGreaterThanArea(polygon) || getIsComplexPolygon(polygon))) return null
     if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(polygon)) return null
-    if (mode === 'line' && !isValidLength(polygon)) return null
+    if ((mode === 'line' || mode === 'arrowLine') && !isValidLength(polygon)) return null
     if (mode === 'circle' && polygon.length < 2) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)

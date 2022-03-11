@@ -6,6 +6,7 @@ import { svgStyle } from './AnnotationDrawer.styles'
 import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useAnnotationDrawing from '../../hooks/useAnnotationDrawing'
 import { PolylineDrawer } from '../PolylineDrawer'
+import { getArrowPosition } from '../../utils/common/getArrowPosition'
 
 export function AnnotationDrawer<T extends Annotation>({
   style,
@@ -26,11 +27,15 @@ export function AnnotationDrawer<T extends Annotation>({
     onAdd,
   })
 
+  if (mode === 'arrowLine') {
+    annotation.splice(1, 0, ...getArrowPosition(annotation))
+  }
+
   return (
     <>
       {annotation.length > 1 ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {(mode === 'polygon' || mode === 'freeLine' || mode === 'line') && (
+          {(mode === 'polygon' || mode === 'freeLine' || mode === 'line' || mode === 'arrowLine') && (
             <PolylineDrawer polygon={annotation} mode={mode} />
           )}
         </svg>
