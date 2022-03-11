@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { Annotation, AnnotationMode, AnnotationLayer } from '../../types'
+import { Annotation, AnnotationMode, Point } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
+import { getCircleRadius } from '../../utils/common/getCircleRadius'
 import { isValidLength } from '../../utils/common/isValidLength'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
@@ -24,7 +25,7 @@ interface UseAnnotationProps<T extends Annotation> {
 interface AnnotationDrawingState<T extends Annotation> {
   annotations: T[]
   selectedAnnotation: T | null
-  addAnnotation: (layer: AnnotationLayer, annotationInfo?: Omit<T, 'id' | 'layer'>) => T | null
+  addAnnotation: (point: Point[], drawingMode: AnnotationMode, annotationInfo?: Omit<T, 'id' | 'layer'>) => T | null
   selectAnnotation: (annotation: T | null) => void
   updateAnnotation: (annotation: T, patch: Partial<T>) => void
   removeAnnotation: (annotation: T) => void
@@ -42,30 +43,29 @@ export function useAnnotation<T extends Annotation>({
   useEffect(() => {
     setAnnotations(() =>
       initalAnnotation
-        ? initalAnnotation.map<T>(
-            (addedAnnotation, i) =>
-              ({
-                ...addedAnnotation,
-                id: nextId ?? i,
-                labelPosition: polylabel([addedAnnotation.layer.points], 1),
-              } as T)
-          )
+        ? initalAnnotation.map<T>((addedAnnotation, i) => {
+            const { layer } = addedAnnotation
+            const annotiaotnLabelPoints = layer.type === 'circle' ? [layer.center] : layer.points
+
+            return {
+              ...addedAnnotation,
+              id: nextId ?? i,
+              labelPosition: polylabel([annotiaotnLabelPoints], 1),
+            } as T
+          })
         : []
     )
   }, [initalAnnotation, nextId])
 
   const addAnnotation = (
-    layer: AnnotationLayer,
+    points: Point[],
+    drawingMode: AnnotationMode,
     annotationInfo: Partial<Omit<T, 'id' | 'layer'>> | undefined
   ): T | null => {
-    if (layer.type !== mode) throw Error('The mode of component and hook is different')
-    if (
-      layer.type === 'polygon' &&
-      (!getIsPolygonAreaGreaterThanArea(layer.points) || getIsComplexPolygon(layer.points))
-    )
-      return null
-    if (layer.type === 'freeLine' && !getIsPolygonAreaGreaterThanArea(layer.points)) return null
-    if (layer.type === 'line' && !isValidLength(layer.points)) return null
+    if (drawingMode !== mode) throw Error('The mode of component and hook is different')
+    if (mode === 'polygon' && (!getIsPolygonAreaGreaterThanArea(points) || getIsComplexPolygon(points))) return null
+    if (mode === 'freeLine' && !getIsPolygonAreaGreaterThanArea(points)) return null
+    if (mode === 'line' && !isValidLength(points)) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
@@ -73,18 +73,35 @@ export function useAnnotation<T extends Annotation>({
     let annotation: T | null = null
 
     setAnnotations(prevAnnotations => {
-      const labelPosition = polylabel([layer.points], 1)
+      const labelPosition = polylabel([points], 1)
       const currentId =
         prevAnnotations.length === 0 ? nextId ?? 1 : Math.max(...prevAnnotations.map(({ id }) => id), 0) + 1
 
       annotation = {
         ...initalAnnotation,
         id: currentId,
-        layer,
         labelPosition,
         lineWidth: annotationInfo?.lineWidth ?? 1.5,
         ...annotationInfo,
       } as T
+
+      if (mode === 'circle') {
+        annotation.layer = {
+          type: 'circle',
+          center: points[0],
+          radius: getCircleRadius(points),
+        }
+      } else if (mode === 'line') {
+        annotation.layer = {
+          type: 'line',
+          points: [points[0], points[1]],
+        }
+      } else {
+        annotation.layer = {
+          type: mode,
+          points,
+        }
+      }
 
       return [...prevAnnotations, annotation]
     })
