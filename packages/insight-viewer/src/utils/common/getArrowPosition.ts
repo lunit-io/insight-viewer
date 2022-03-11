@@ -1,8 +1,8 @@
 import { Point } from '../../types'
 
-const ARROW_LENGTH = 60
-const ARROW_CENTER_POSITION = -10 // this number must be negative
-const ARROW_DEGREE = 0.7 // this number range is 0.5 ~ 1
+const ARROW_LENGTH = 25
+const ARROW_CENTER_POSITION = -20 // this number must be negative
+const ARROW_DEGREE = 0.8 // this number range is 0.5 ~ 1
 
 export function getArrowPosition(line: Point[]): Point[] {
   if (line.length !== 2) {
