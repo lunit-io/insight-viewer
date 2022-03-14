@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { UseAnnotationDrawingProps } from './types'
 import { Annotation, Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
+import { getAnnotationLayer } from '../../utils/common/getAnnotationLayer'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.preventDefault()
@@ -49,7 +50,9 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      onAdd(annotationPoints, mode)
+      const annotationLayer = getAnnotationLayer(annotationPoints, mode)
+
+      onAdd(annotationLayer)
       setAnnotationPoints([])
       setIsDrawingMode(false)
     }
