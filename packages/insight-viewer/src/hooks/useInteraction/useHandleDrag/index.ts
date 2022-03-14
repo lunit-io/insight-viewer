@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { tap, switchMap, map, takeUntil, filter } from 'rxjs/operators'
 import { Element, OnViewportChange } from '../../../types'
@@ -13,7 +13,6 @@ import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import { preventContextMenu } from '../utils'
 import control from './control'
 
-let subscription: Subscription
 type DragType = typeof PRIMARY_DRAG | typeof SECONDARY_DRAG
 
 /**
@@ -91,6 +90,8 @@ export default function useHandleDrag({
   interaction,
   onViewportChange,
 }: ViewportInteraction): void {
+  const subscriptionRef = useRef<Subscription>()
+
   useEffect(() => {
     if (!interaction || !element) return undefined
     // Restore context menu display.
@@ -107,7 +108,7 @@ export default function useHandleDrag({
     const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
     let dragType: DragType | undefined
 
-    subscription = mousedown$
+    subscriptionRef.current = mousedown$
       .pipe(
         tap(({ button }) => {
           // tap operator for side effect
@@ -155,7 +156,7 @@ export default function useHandleDrag({
       })
 
     return () => {
-      subscription.unsubscribe()
+      subscriptionRef?.current?.unsubscribe()
     }
   }, [element, interaction, onViewportChange])
 }

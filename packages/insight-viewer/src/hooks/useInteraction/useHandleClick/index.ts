@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { fromEvent, Subscription } from 'rxjs'
 import { map, filter, tap } from 'rxjs/operators'
 import { ViewportInteraction } from '../types'
@@ -7,7 +7,6 @@ import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
 import { preventContextMenu } from '../utils'
 import { getViewport } from '../../../utils/cornerstoneHelper'
 
-let subscription: Subscription
 type ClickType = typeof PRIMARY_CLICK | typeof SECONDARY_CLICK
 
 function getCoord(element: Element, viewport?: Viewport) {
@@ -26,6 +25,8 @@ export default function useHandleClick({
   interaction,
   viewport,
 }: ViewportInteraction): void {
+  const subscriptionRef = useRef<Subscription>()
+
   useEffect(() => {
     if (!interaction || !element) return undefined
     // Restore context menu display.
@@ -41,7 +42,7 @@ export default function useHandleClick({
     let clickType: ClickType | undefined
     if (!interaction) return undefined
 
-    subscription = mousedown$
+    subscriptionRef.current = mousedown$
       .pipe(
         tap(({ button }) => {
           // tap operator for side effect
@@ -71,7 +72,7 @@ export default function useHandleClick({
           )
       })
     return () => {
-      subscription.unsubscribe()
+      subscriptionRef?.current?.unsubscribe()
     }
   }, [element, interaction, viewport])
 
