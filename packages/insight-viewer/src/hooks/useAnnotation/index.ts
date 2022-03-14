@@ -25,7 +25,7 @@ interface UseAnnotationProps<T extends Annotation> {
 interface AnnotationDrawingState<T extends Annotation> {
   annotations: T[]
   selectedAnnotation: T | null
-  addAnnotation: (point: Point[], drawingMode: AnnotationMode, annotationInfo?: Omit<T, 'id' | 'layer'>) => T | null
+  addAnnotation: (layer: AnnotationLayer, annotationInfo?: Omit<T, 'id' | 'layer'>) => T | null
   selectAnnotation: (annotation: T | null) => void
   updateAnnotation: (annotation: T, patch: Partial<T>) => void
   removeAnnotation: (annotation: T) => void
