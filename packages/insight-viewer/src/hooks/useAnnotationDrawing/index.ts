@@ -16,7 +16,7 @@ function useAnnotationDrawing<T extends Annotation>({
   svgElement,
   onAdd,
 }: UseAnnotationDrawingProps<T>): Point[][] {
-  const [annotation, setAnnotation] = useState<Point[]>([])
+  const [annotationPoints, setAnnotationPoints] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
   const { pageToPixel, enabledElement } = useOverlayContext()
@@ -27,10 +27,10 @@ function useAnnotationDrawing<T extends Annotation>({
     const handleMouseMoveToDraw = (event: MouseEvent) => {
       setPreProcessEvent(event)
 
-      if (annotation.length > 0 && isDrawingMode) {
+      if (annotationPoints.length > 0 && isDrawingMode) {
         const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
 
-        setAnnotation(prevState => {
+        setAnnotationPoints(prevState => {
           if (mode === 'polygon' || mode === 'freeLine') {
             return [...prevState, pixelPosition]
           }
@@ -49,8 +49,8 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      onAdd(annotation, mode)
-      setAnnotation([])
+      onAdd(annotationPoints, mode)
+      setAnnotationPoints([])
       setIsDrawingMode(false)
     }
 
@@ -59,7 +59,7 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      setAnnotation([])
+      setAnnotationPoints([])
       setIsDrawingMode(false)
     }
 
@@ -69,7 +69,7 @@ function useAnnotationDrawing<T extends Annotation>({
         deactivateMouseDrawEvents()
         activateInitialEvents()
 
-        setAnnotation([])
+        setAnnotationPoints([])
         setIsDrawingMode(false)
       }
     }
@@ -80,7 +80,7 @@ function useAnnotationDrawing<T extends Annotation>({
       activeMouseDrawEvents()
 
       const pixelPosition: Point = pageToPixel([event.pageX, event.pageY])
-      setAnnotation([pixelPosition])
+      setAnnotationPoints([pixelPosition])
       setIsDrawingMode(true)
     }
 
@@ -114,7 +114,7 @@ function useAnnotationDrawing<T extends Annotation>({
       window.removeEventListener('keydown', handleKeyDownToCancelMouseDraw)
     }
 
-    if (annotation.length > 0) {
+    if (annotationPoints.length > 0) {
       activeMouseDrawEvents()
     } else {
       activateInitialEvents()
@@ -125,9 +125,9 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateInitialEvents()
       deactivateMouseDrawEvents()
     }
-  }, [mode, annotations, svgElement, annotation, isDrawingMode, enabledElement, onAdd, pageToPixel])
+  }, [mode, annotations, svgElement, annotationPoints, isDrawingMode, enabledElement, onAdd, pageToPixel])
 
-  return [annotation]
+  return [annotationPoints]
 }
 
 export default useAnnotationDrawing
