@@ -11,7 +11,7 @@ const Layout = dynamic(() => import('../components/Layout'), { ssr: false })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if (typeof window !== 'undefined' && !config.IS_CYPRESS) {
-  const { worker } = require('../mocks/browser')
+  const { worker } = require('../../mocks/browser')
 
   worker.start({
     onUnhandledRequest: 'bypass',

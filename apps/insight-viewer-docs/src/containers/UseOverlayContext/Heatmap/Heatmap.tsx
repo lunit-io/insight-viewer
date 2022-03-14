@@ -7,6 +7,16 @@ import { useRef, useEffect, CSSProperties, useMemo } from 'react'
 import { useOverlayContext, OverlayContext } from '@lunit/insight-viewer'
 import posMap from './posMap'
 
+interface HeatmapDrawProps
+  extends Pick<
+    OverlayContext,
+    'setToPixelCoordinateSystem' | 'enabledElement'
+  > {
+  baseCanvas: HTMLCanvasElement | null
+  heatmapCanvas: HTMLCanvasElement | undefined
+  heatmapData: ImageData | undefined
+}
+
 const threshold = 0.1
 
 const style: CSSProperties = {
@@ -96,11 +106,7 @@ function draw({
   heatmapData,
   setToPixelCoordinateSystem,
   enabledElement,
-}: {
-  baseCanvas: HTMLCanvasElement | null
-  heatmapCanvas: HTMLCanvasElement | undefined
-  heatmapData: ImageData | undefined
-} & Omit<OverlayContext, 'viewport' | 'pixelToCanvas' | 'pageToPixel'>) {
+}: HeatmapDrawProps) {
   if (!heatmapData || !baseCanvas || !heatmapCanvas) return
   const baseCanvasContext = baseCanvas.getContext('2d')
   clear(baseCanvas, baseCanvasContext)

@@ -13,7 +13,7 @@ export default function App() {
   const { image } = useImage({
     wadouri: IMAGE_ID,
   })
-
+  
   return (
     <Wrapper>
       <InsightViewer image={image}>

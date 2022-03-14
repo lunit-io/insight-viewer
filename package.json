@@ -16,10 +16,12 @@
   },
   "scripts": {
     "test": "lerna run test",
-    "test:insight-viewer": "lerna run --scope @lunit/insight-viewer test && lerna run --scope @lunit/insight-viewer-docs test",
-    "doc:insight-viewer": "lerna run --scope @lunit/insight-viewer build && lerna run --scope @lunit/insight-viewer-docs doc",
-    "publish:insight-viewer": "lerna run --scope @lunit/insight-viewer publish",
-    "postinstall": "husky install"
+    "build": "scripty",
+    "publish": "lerna publish",
+    "prepublish": "scripty",
+    "postinstall": "husky install",
+    "local-publish": "scripty",
+    "local-unpublish": "scripty"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
@@ -44,6 +46,7 @@
     "node-filter-async": "^2.0.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
+    "scripty": "^2.0.0",
     "typescript": "^4.2.3"
   }
 }

@@ -5,8 +5,7 @@ import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { loadImage } from './loadImage'
 import { loadCornerstoneImage } from './loadCornerstoneImage'
 
-const IMAGE_ID =
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm'
+const IMAGE_ID = 'wadouri:https://example/CT000000.dcm'
 const defaultParam = {
   onError: CONFIG.onError,
   requestInterceptor: CONFIG.requestInterceptor,
