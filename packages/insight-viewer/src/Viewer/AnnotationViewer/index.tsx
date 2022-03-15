@@ -1,12 +1,11 @@
 import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
-import { Annotation } from '../../types'
 import { svgStyle } from './AnnotationViewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
-function AnnotationsDraw<T extends Annotation>({
+function AnnotationsDraw({
   mode,
   annotations,
   showOutline,
@@ -16,10 +15,9 @@ function AnnotationsDraw<T extends Annotation>({
   pixelToCanvas,
   onFocus,
   onRemove,
-}: AnnotationsDrawProps<T>) {
+}: AnnotationsDrawProps) {
   return annotations.map(annotation => {
     const viewerProps = {
-      annotation,
       showOutline,
       selectedAnnotation,
       showAnnotationLabel,
@@ -49,14 +47,17 @@ function AnnotationsDraw<T extends Annotation>({
         onMouseOver={handleAnnotationFocus}
         onMouseLeave={handleAnnotationFocusOut}
       >
-        {mode === 'polygon' && <PolygonViewer {...viewerProps} />}
-        {(mode === 'freeLine' || mode === 'line') && <LineViewer {...viewerProps} />}
+        {mode === 'polygon' && annotation.type === 'polygon' && (
+          <PolygonViewer annotation={annotation} {...viewerProps} />
+        )}
+        {((mode === 'freeLine' && annotation.type === 'freeLine') ||
+          (mode === 'line' && annotation.type === 'line')) && <LineViewer annotation={annotation} {...viewerProps} />}
       </g>
     )
   })
 }
 
-export function AnnotationViewer<T extends Annotation>({
+export function AnnotationViewer({
   style,
   width,
   height,
@@ -69,7 +70,7 @@ export function AnnotationViewer<T extends Annotation>({
   annotationAttrs,
   onFocus,
   onRemove,
-}: AnnotationViewerProps<T>): JSX.Element {
+}: AnnotationViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { pixelToCanvas, enabledElement } = useOverlayContext()
 
