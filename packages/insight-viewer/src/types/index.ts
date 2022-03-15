@@ -53,43 +53,13 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export interface PolygonLayer {
-  type: 'polygon'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
 
-  // (mode: polygon) = [[x, y], [x, y], [x, y]...]
-  points: Point[]
-}
-
-export interface FreeLineLayer {
-  type: 'freeLine'
-
-  // (mode: freeLine) = [[x, y], [x, y], [x, y]...]
-  points: Point[]
-}
-
-export interface LineLayer {
-  type: 'line'
-
-  // (mode: line) = [[x, y], [x, y]]
-  points: [Point, Point]
-}
-
-export interface CircleLayer {
-  type: 'circle'
-
-  // (mode: circle) = center: [x, y], radius: number
-  center: Point
-  radius: number
-}
-
-export type AnnotationPoints = Point[] | [Point, Point]
-export type AnnotationLayer = PolygonLayer | FreeLineLayer | LineLayer | CircleLayer
-
-export interface Annotation {
+export interface AnnotationBase {
   /** Serves as id by contour */
   id: number
 
-  layer: AnnotationLayer
+  type: AnnotationMode
 
   /** If label is present, it will output instead of id */
   label?: string
@@ -106,10 +76,32 @@ export interface Annotation {
   lineWidth?: number
 }
 
+export interface LineAnnotation extends AnnotationBase {
+  type: 'line'
+  points: [Point, Point]
+}
+
+export interface PolygonAnnotation extends AnnotationBase {
+  type: 'polygon'
+  points: Point[]
+}
+
+export interface FreeLineAnnotation extends AnnotationBase {
+  type: 'freeLine'
+  points: Point[]
+}
+
+export interface CircleAnnotation extends AnnotationBase {
+  type: 'circle'
+  center: Point
+  radius: number
+}
+
+export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation
+
 export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
 export type AnnotationStyle = {
   [styleType in AnnotationStyleType]?: CSSProperties
 }
 
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
 export type HeadType = 'normal' | 'arrow'
