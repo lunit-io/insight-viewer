@@ -1,18 +1,17 @@
 import React, { ReactElement } from 'react'
 
-import { Annotation } from '../../types'
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polygonStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function PolygonViewer<T extends Annotation>({
+export function PolygonViewer({
   annotation,
   showOutline,
   showAnnotationLabel,
   selectedAnnotation,
   annotationAttrs,
   pixelToCanvas,
-}: PolygonViewerProps<T>): ReactElement {
+}: PolygonViewerProps): ReactElement {
   const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,

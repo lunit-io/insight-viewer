@@ -1,7 +1,3 @@
-import { Annotation } from '../../types'
-import { AnnotationsDrawProps } from '../AnnotationViewer/AnnotationViewer.types'
+import { PolygonAnnotation, AnnotationViewerProps } from '../../types'
 
-export interface PolygonViewerProps<T extends Annotation>
-  extends Omit<AnnotationsDrawProps<T>, 'annotations' | 'mode'> {
-  annotation: T
-}
+export type PolygonViewerProps = AnnotationViewerProps<PolygonAnnotation>

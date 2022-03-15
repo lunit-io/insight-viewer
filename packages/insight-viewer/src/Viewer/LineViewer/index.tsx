@@ -1,18 +1,17 @@
 import React, { ReactElement } from 'react'
 
-import { Annotation } from '../../types'
-import { FreeLineViewerProps } from './LineViewer.types'
+import { LineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function LineViewer<T extends Annotation>({
+export function LineViewer({
   annotation,
   showOutline,
   showAnnotationLabel,
   selectedAnnotation,
   annotationAttrs,
   pixelToCanvas,
-}: FreeLineViewerProps<T>): ReactElement {
+}: LineViewerProps): ReactElement {
   const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
