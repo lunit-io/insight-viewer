@@ -17,13 +17,13 @@ export type {
   Annotation,
   Point,
   HeadType,
-  PolygonLayer,
-  LineLayer,
-  FreeLineLayer,
-  CircleLayer,
+  AnnotationBase,
+  PolygonAnnotation,
+  LineAnnotation,
+  FreeLineAnnotation,
+  CircleAnnotation,
   AnnotationMode,
-  AnnotationLayer,
-  AnnotationPoints,
+  AnnotationViewerProps,
 } from './types'
 export type { DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
 export { useDicomFile } from './hooks/useDicomFile'
