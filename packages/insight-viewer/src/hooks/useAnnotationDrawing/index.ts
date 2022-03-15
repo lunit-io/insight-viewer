@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState, useEffect } from 'react'
 import { UseAnnotationDrawingProps } from './types'
-import { Annotation, Point } from '../../types'
+import { Point } from '../../types'
 import { useOverlayContext } from '../../contexts'
-import { getAnnotationLayer } from '../../utils/common/getAnnotationLayer'
+import { getDrewAnnotation } from '../../utils/common/getDrewAnnotation'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.preventDefault()
@@ -11,12 +11,7 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.stopImmediatePropagation()
 }
 
-function useAnnotationDrawing<T extends Annotation>({
-  mode,
-  annotations,
-  svgElement,
-  onAdd,
-}: UseAnnotationDrawingProps<T>): Point[][] {
+function useAnnotationDrawing({ mode, annotations, svgElement, onAdd }: UseAnnotationDrawingProps): Point[][] {
   const [annotationPoints, setAnnotationPoints] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
@@ -50,9 +45,13 @@ function useAnnotationDrawing<T extends Annotation>({
       deactivateMouseDrawEvents()
       activateInitialEvents()
 
-      const annotationLayer = getAnnotationLayer(annotationPoints, mode)
+      // TODO: Change conditional statement when adding Point function
+      if (annotationPoints.length > 1) {
+        const drewAnnotation = getDrewAnnotation(annotationPoints, mode, annotations)
 
-      onAdd(annotationLayer)
+        onAdd(drewAnnotation)
+      }
+
       setAnnotationPoints([])
       setIsDrawingMode(false)
     }
