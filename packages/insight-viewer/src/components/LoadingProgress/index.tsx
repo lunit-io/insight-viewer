@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Subscription, merge } from 'rxjs'
 import {
   loadingProgressMessage,
@@ -6,8 +6,6 @@ import {
 } from '../../utils/messageService'
 import { getProgress } from '../../utils/common/getProgress'
 import { ProgressComponent } from '../../types'
-
-let subscription: Subscription
 
 const style = {
   position: 'absolute',
@@ -22,6 +20,7 @@ export default function LoadingProgress({
 }: {
   Progress: ProgressComponent
 }): JSX.Element {
+  const subscriptionRef = useRef<Subscription>()
   const [{ progress, hidden }, setState] = useState<{
     progress?: number
     hidden: boolean
@@ -39,7 +38,7 @@ export default function LoadingProgress({
     let totalCount = 1
     let _progress = 0
 
-    subscription = merge(progress$, loadedCount$).subscribe(prop => {
+    subscriptionRef.current = merge(progress$, loadedCount$).subscribe(prop => {
       if (typeof prop === 'number') {
         _progress = prop
       } else {
@@ -60,7 +59,7 @@ export default function LoadingProgress({
 
     return () => {
       isCancelled = true
-      subscription.unsubscribe()
+      subscriptionRef?.current?.unsubscribe()
     }
   }, [])
 
