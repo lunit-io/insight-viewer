@@ -1,11 +1,11 @@
-import { Annotation, AnnotationLayer, HeadType } from '../../types'
+import { Annotation, HeadType } from '../../types'
 import { AnnotationViewerProps } from '../AnnotationViewer/AnnotationViewer.types'
 
-export interface AnnotationOverlayProps<T extends Annotation> extends AnnotationViewerProps<T> {
+export interface AnnotationOverlayProps extends AnnotationViewerProps {
   isDrawing?: boolean
   head?: HeadType
-  onFocus?: (annotation: T | null) => void
-  onAdd?: (layer: AnnotationLayer) => void
-  onRemove?: (annotation: T) => void
+  onFocus?: (annotation: Annotation | null) => void
+  onAdd?: (annotation: Annotation) => void
+  onRemove?: (annotation: Annotation) => void
   device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 }

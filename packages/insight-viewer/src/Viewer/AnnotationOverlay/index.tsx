@@ -1,11 +1,10 @@
 import React from 'react'
 
 import { AnnotationOverlayProps } from './AnnotationOverlay.types'
-import { Annotation } from '../../types'
 import { AnnotationViewer } from '../AnnotationViewer'
 import { AnnotationDrawer } from '../AnnotationDrawer'
 
-export function AnnotationOverlay<T extends Annotation>({
+export function AnnotationOverlay({
   width,
   height,
   annotations,
@@ -22,7 +21,7 @@ export function AnnotationOverlay<T extends Annotation>({
   onFocus,
   onAdd,
   onRemove,
-}: AnnotationOverlayProps<T>): JSX.Element {
+}: AnnotationOverlayProps): JSX.Element {
   if (isDrawing && !onAdd) {
     throw new Error('Please also add onAdd if you enable drawing mode')
   }
