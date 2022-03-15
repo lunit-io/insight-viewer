@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, CSSProperties } from 'react'
+import { Dispatch, SetStateAction, CSSProperties, SVGProps } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -102,6 +102,15 @@ export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation
 export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
 export type AnnotationStyle = {
   [styleType in AnnotationStyleType]?: CSSProperties
+}
+
+export interface AnnotationViewerProps<T extends AnnotationBase> {
+  annotation: T
+  showOutline: boolean
+  showAnnotationLabel?: boolean
+  selectedAnnotation: Annotation | null
+  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
+  pixelToCanvas: (point: Point) => Point
 }
 
 export type HeadType = 'normal' | 'arrow'
