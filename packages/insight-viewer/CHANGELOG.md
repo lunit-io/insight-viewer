@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0-alpha.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.2.0-alpha.0...@lunit/insight-viewer@5.3.0-alpha.0) (2022-03-15)
+
+
+### Features
+
+* **viewer:** add line mode ([2cf4169](https://github.com/lunit-io/frontend-components/commit/2cf41693ed50adcf3cef7fc06a3cb0fd89a87b3d))
+* **viewer:** add line type ([e39f5c9](https://github.com/lunit-io/frontend-components/commit/e39f5c9702962499b39b471b62a1075d58edb182))
+* **viewer:** replace local subscription value with subscriptionRef ([dfc5837](https://github.com/lunit-io/frontend-components/commit/dfc5837b22ea4eaa6cd80d8539957c8106afdcdf))
+* **viewer:** replace local subscription value with subscriptionRef ([ab6b5fa](https://github.com/lunit-io/frontend-components/commit/ab6b5fad69bc87c74e45016db11c8631ff8070bc))
+
+
+
+
+
 # [5.2.0-alpha.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.1.0-alpha.7...@lunit/insight-viewer@5.2.0-alpha.0) (2022-02-18)
 
 
