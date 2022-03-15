@@ -2,13 +2,7 @@
 import React, { useState, ChangeEvent } from 'react'
 import { Box, Switch } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  useImage,
-  useViewport,
-  useAnnotation,
-  AnnotationOverlay,
-  Annotation,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, useAnnotation, AnnotationOverlay } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { initialAnnotation } from '../../../../mocks/lines'
 
@@ -27,7 +21,7 @@ function LineContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation<Annotation>({
+  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
     mode: 'line',
     initalAnnotation: initialAnnotation,
   })

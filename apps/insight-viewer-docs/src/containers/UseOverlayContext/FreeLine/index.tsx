@@ -2,13 +2,7 @@
 import React, { useState, ChangeEvent } from 'react'
 import { Box, Switch } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  useAnnotation,
-  useImage,
-  useViewport,
-  AnnotationOverlay,
-  Annotation,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useAnnotation, useImage, useViewport, AnnotationOverlay } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { initialAnnotation } from '../../../../mocks/freeLines'
 
@@ -27,7 +21,7 @@ function FreeLineContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation<Annotation>({
+  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
     mode: 'freeLine',
     initalAnnotation: initialAnnotation,
   })

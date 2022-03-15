@@ -2,14 +2,7 @@
 import React, { useState } from 'react'
 import { Box, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  AnnotationOverlay,
-  useImage,
-  useAnnotation,
-  useViewport,
-  Annotation,
-  HeadType,
-} from '@lunit/insight-viewer'
+import InsightViewer, { AnnotationOverlay, useImage, useAnnotation, useViewport, HeadType } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
 
@@ -29,7 +22,7 @@ function LineDrawerContainer(): JSX.Element {
   })
   const { viewport, setViewport } = useViewport()
   const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation, removeAllAnnotation } =
-    useAnnotation<Annotation>({ mode: MODE })
+    useAnnotation({ mode: MODE })
   const [head, setHead] = useState<HeadType>('normal')
 
   const handleHeadShape = () => {
