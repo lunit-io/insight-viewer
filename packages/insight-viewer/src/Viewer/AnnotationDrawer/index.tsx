@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useRef } from 'react'
 
-import { Annotation } from '../../types'
 import { svgStyle } from './AnnotationDrawer.styles'
 import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useAnnotationDrawing from '../../hooks/useAnnotationDrawing'
 import { PolylineDrawer } from '../PolylineDrawer'
 
-export function AnnotationDrawer<T extends Annotation>({
+export function AnnotationDrawer({
   style,
   width,
   height,
@@ -17,7 +16,7 @@ export function AnnotationDrawer<T extends Annotation>({
   head = 'normal',
   mode = 'polygon',
   onAdd,
-}: AnnotationDrawerProps<T>): JSX.Element {
+}: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const [annotationPoints] = useAnnotationDrawing({
     mode,
