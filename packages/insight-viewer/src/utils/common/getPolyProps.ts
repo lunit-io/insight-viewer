@@ -1,9 +1,9 @@
 import { SVGProps } from 'react'
-import { Annotation, AnnotationLayer, CircleLayer, Point } from '../../types'
+import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Point } from '../../types'
 
-interface GetPolyViewerInfoProps<T extends Annotation> {
-  annotation: T
-  selectedAnnotation: T | null
+interface GetPolyViewerInfoProps {
+  annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation
+  selectedAnnotation: Annotation | null
   showOutline: boolean
   pixelToCanvas: (point: Point) => Point
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
@@ -17,23 +17,22 @@ interface getPolyViewerInfoReturnType {
   polygonLabel: string | number
 }
 
-export function getPolyViewerInfo<T extends Annotation>({
+export function getPolyViewerInfo({
   annotation,
   showOutline,
   selectedAnnotation,
   pixelToCanvas,
   annotationAttrs,
-}: GetPolyViewerInfoProps<T>): getPolyViewerInfoReturnType {
-  const { label, id, labelPosition: _labelPosition } = annotation
-  const layer = annotation.layer as Exclude<AnnotationLayer, CircleLayer>
+}: GetPolyViewerInfoProps): getPolyViewerInfoReturnType {
+  const { label, id, labelPosition: _labelPosition, points } = annotation
 
-  const isSelectedAnnotation = layer === selectedAnnotation?.layer
+  const isSelectedAnnotation = annotation === selectedAnnotation
   const polygonLabel = label ?? id
 
   const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
   const labelPosition = _labelPosition ? pixelToCanvas(_labelPosition) : undefined
 
-  const polygonPoints: string = layer.points
+  const polygonPoints: string = points
     .map(point => {
       const [x, y] = pixelToCanvas(point)
       return `${x},${y}`
