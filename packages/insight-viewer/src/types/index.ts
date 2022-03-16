@@ -53,7 +53,7 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
+export type AnnotationMode = 'line' | 'freeLine' | 'arrowLine' | 'polygon' | 'circle'
 
 export interface AnnotationBase {
   /** Serves as id by contour */
@@ -81,13 +81,18 @@ export interface LineAnnotation extends AnnotationBase {
   points: [Point, Point]
 }
 
-export interface PolygonAnnotation extends AnnotationBase {
-  type: 'polygon'
+export interface FreeLineAnnotation extends AnnotationBase {
+  type: 'freeLine'
   points: Point[]
 }
 
-export interface FreeLineAnnotation extends AnnotationBase {
-  type: 'freeLine'
+export interface ArrowLineAnnotation extends AnnotationBase {
+  type: 'arrowLine'
+  points: [Point, Point]
+}
+
+export interface PolygonAnnotation extends AnnotationBase {
+  type: 'polygon'
   points: Point[]
 }
 
@@ -97,7 +102,12 @@ export interface CircleAnnotation extends AnnotationBase {
   radius: number
 }
 
-export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation
+export type Annotation =
+  | PolygonAnnotation
+  | ArrowLineAnnotation
+  | FreeLineAnnotation
+  | LineAnnotation
+  | CircleAnnotation
 
 export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
 export type AnnotationStyle = {
