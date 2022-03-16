@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -8,6 +8,7 @@ import InsightViewer, {
   useAnnotation,
   useViewport,
   Annotation,
+  HeadType,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
@@ -29,11 +30,25 @@ function LineDrawerContainer(): JSX.Element {
   const { viewport, setViewport } = useViewport()
   const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation, removeAllAnnotation } =
     useAnnotation<Annotation>({ mode: MODE })
+  const [head, setHead] = useState<HeadType>('normal')
+
+  const handleHeadShape = () => {
+    setHead(head === 'normal' ? 'arrow' : 'normal')
+  }
 
   return (
     <>
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
         remove all
+      </Button>
+      <Button
+        data-cy-name="head-mode"
+        marginBottom="10px"
+        marginLeft="10px"
+        colorScheme="blue"
+        onClick={handleHeadShape}
+      >
+        {head === 'normal' ? 'arrow' : 'normal'}
       </Button>
       <Box data-cy-loaded={loadingState}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
@@ -41,6 +56,7 @@ function LineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <AnnotationOverlay
                 isDrawing
+                head={head}
                 mode={MODE}
                 showAnnotationLabel={false}
                 width={DEFAULT_SIZE.width}

@@ -86,3 +86,4 @@ export type AnnotationStyle = {
 }
 
 export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
+export type HeadType = 'normal' | 'arrow'

@@ -35,7 +35,7 @@ function useAnnotationDrawing<T extends Annotation>({
             return [...prevState, pixelPosition]
           }
 
-          if (mode === 'circle' || mode === 'line') {
+          if (mode === 'circle' || mode === 'line' || mode === 'arrowLine') {
             return [prevState[0], pixelPosition]
           }
 

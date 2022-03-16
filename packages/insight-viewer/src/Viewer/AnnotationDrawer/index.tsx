@@ -14,6 +14,7 @@ export function AnnotationDrawer<T extends Annotation>({
   device,
   annotations,
   className,
+  head = 'normal',
   mode = 'polygon',
   onAdd,
 }: AnnotationDrawerProps<T>): JSX.Element {
@@ -31,7 +32,7 @@ export function AnnotationDrawer<T extends Annotation>({
       {annotation.length > 1 ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {(mode === 'polygon' || mode === 'freeLine' || mode === 'line') && (
-            <PolylineDrawer polygon={annotation} mode={mode} />
+            <PolylineDrawer polygon={annotation} mode={mode} head={head} />
           )}
         </svg>
       ) : null}

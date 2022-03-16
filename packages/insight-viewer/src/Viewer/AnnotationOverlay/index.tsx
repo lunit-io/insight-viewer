@@ -17,6 +17,7 @@ export function AnnotationOverlay<T extends Annotation>({
   mode,
   device,
   isDrawing = false,
+  head = 'normal',
   annotationAttrs,
   onFocus,
   onAdd,
@@ -52,6 +53,7 @@ export function AnnotationOverlay<T extends Annotation>({
           device={device}
           mode={mode}
           onAdd={onAdd}
+          head={head}
         />
       )}
     </>
