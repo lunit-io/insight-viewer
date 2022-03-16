@@ -40,6 +40,8 @@ function AnnotationsDraw({
       onFocus(null)
     }
 
+    if (annotation.type !== mode) return null
+
     return (
       <g
         key={annotation.id}
@@ -47,11 +49,10 @@ function AnnotationsDraw({
         onMouseOver={handleAnnotationFocus}
         onMouseLeave={handleAnnotationFocusOut}
       >
-        {mode === 'polygon' && annotation.type === 'polygon' && (
-          <PolygonViewer annotation={annotation} {...viewerProps} />
+        {annotation.type === 'polygon' && <PolygonViewer annotation={annotation} {...viewerProps} />}
+        {(annotation.type === 'freeLine' || annotation.type === 'line') && (
+          <LineViewer annotation={annotation} {...viewerProps} />
         )}
-        {((mode === 'freeLine' && annotation.type === 'freeLine') ||
-          (mode === 'line' && annotation.type === 'line')) && <LineViewer annotation={annotation} {...viewerProps} />}
       </g>
     )
   })
