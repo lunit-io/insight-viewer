@@ -1,8 +1,15 @@
 import { SVGProps } from 'react'
-import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Point } from '../../types'
+import {
+  Annotation,
+  PolygonAnnotation,
+  FreeLineAnnotation,
+  LineAnnotation,
+  Point,
+  ArrowLineAnnotation,
+} from '../../types'
 
 interface GetPolyViewerInfoProps {
-  annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation
+  annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation | ArrowLineAnnotation
   selectedAnnotation: Annotation | null
   showOutline: boolean
   pixelToCanvas: (point: Point) => Point
