@@ -122,5 +122,3 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
   pixelToCanvas: (point: Point) => Point
 }
-
-export type HeadType = 'normal' | 'arrow'
