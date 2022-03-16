@@ -16,7 +16,6 @@ export function AnnotationOverlay({
   mode,
   device,
   isDrawing = false,
-  head = 'normal',
   annotationAttrs,
   onFocus,
   onAdd,
@@ -52,7 +51,6 @@ export function AnnotationOverlay({
           device={device}
           mode={mode}
           onAdd={onAdd}
-          head={head}
         />
       )}
     </>
