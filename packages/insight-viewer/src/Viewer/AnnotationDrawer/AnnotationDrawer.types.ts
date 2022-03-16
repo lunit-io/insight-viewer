@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import { Annotation, AnnotationMode, HeadType } from '../../types'
+import { Annotation, AnnotationMode } from '../../types'
 
 export interface AnnotationDrawerProps {
   width?: number
@@ -20,5 +20,4 @@ export interface AnnotationDrawerProps {
   device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 
   mode?: AnnotationMode
-  head?: HeadType
 }
