@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { LineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
+import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
 export function LineViewer({
@@ -20,6 +21,18 @@ export function LineViewer({
     annotationAttrs,
   })
 
+  const getArrowPoints = () => {
+    const arrowPosition = getArrowPosition(annotation.points)
+    const arrowPoints = arrowPosition
+      .map(point => {
+        const [x, y] = pixelToCanvas(point)
+        return `${x},${y}`
+      })
+      .join()
+
+    return arrowPoints
+  }
+
   return (
     <>
       {showOutline && (
@@ -31,6 +44,12 @@ export function LineViewer({
           }}
           data-select={isSelectedAnnotation || undefined}
           points={polygonPoints}
+        />
+      )}
+      {annotation.type === 'arrowLine' && (
+        <polyline
+          style={{ ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'], ...polygonAttributes?.style }}
+          points={getArrowPoints()}
         />
       )}
       <polyline
