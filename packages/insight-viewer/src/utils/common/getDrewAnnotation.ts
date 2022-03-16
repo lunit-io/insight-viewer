@@ -21,10 +21,10 @@ export function getDrewAnnotation(points: Point[], mode: AnnotationMode, annotat
       center: points[0],
       radius: getCircleRadius(points),
     }
-  } else if (mode === 'line') {
+  } else if (mode === 'line' || mode === 'arrowLine') {
     drewAnnotation = {
       ...defaultAnnotationInfo,
-      type: 'line',
+      type: mode,
       points: [points[0], points[1]],
     }
   } else {
