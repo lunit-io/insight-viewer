@@ -13,12 +13,14 @@ export function AnnotationDrawer({
   device,
   annotations,
   className,
+  lineHead = 'normal',
   mode = 'polygon',
   onAdd,
 }: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const [annotationPoints] = useAnnotationDrawing({
     mode,
+    lineHead,
     device,
     annotations,
     svgElement: svgRef,
@@ -29,8 +31,8 @@ export function AnnotationDrawer({
     <>
       {annotationPoints.length > 1 ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {(mode === 'polygon' || mode === 'freeLine' || mode === 'line' || mode === 'arrowLine') && (
-            <PolylineDrawer polygon={annotationPoints} mode={mode} />
+          {(mode === 'polygon' || mode === 'freeLine' || mode === 'line') && (
+            <PolylineDrawer polygon={annotationPoints} mode={mode} lineHead={lineHead} />
           )}
         </svg>
       ) : null}
