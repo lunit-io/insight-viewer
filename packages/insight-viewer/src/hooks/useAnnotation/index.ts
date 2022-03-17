@@ -67,8 +67,7 @@ export function useAnnotation({
     )
       return null
     if (annotation.type === 'freeLine' && !getIsPolygonAreaGreaterThanArea(annotation.points)) return null
-    if ((annotation.type === 'line' || annotation.type === 'arrowLine') && !isValidLength(annotation.points))
-      return null
+    if (annotation.type === 'line' && !isValidLength(annotation.points)) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
