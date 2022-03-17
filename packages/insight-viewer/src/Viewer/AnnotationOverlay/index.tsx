@@ -14,6 +14,7 @@ export function AnnotationOverlay({
   showOutline,
   showAnnotationLabel,
   mode,
+  lineHead,
   device,
   isDrawing = false,
   annotationAttrs,
@@ -50,6 +51,7 @@ export function AnnotationOverlay({
           style={style}
           device={device}
           mode={mode}
+          lineHead={lineHead}
           onAdd={onAdd}
         />
       )}
