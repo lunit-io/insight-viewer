@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 
 import { LineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
-import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
 export function LineViewer({
@@ -13,25 +12,14 @@ export function LineViewer({
   annotationAttrs,
   pixelToCanvas,
 }: LineViewerProps): ReactElement {
-  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
-    annotation,
-    showOutline,
-    selectedAnnotation,
-    pixelToCanvas,
-    annotationAttrs,
-  })
-
-  const getArrowPoints = () => {
-    const arrowPosition = getArrowPosition(annotation.points)
-    const arrowPoints = arrowPosition
-      .map(point => {
-        const [x, y] = pixelToCanvas(point)
-        return `${x},${y}`
-      })
-      .join()
-
-    return arrowPoints
-  }
+  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints, headPoints } =
+    getPolyViewerInfo({
+      annotation,
+      showOutline,
+      selectedAnnotation,
+      pixelToCanvas,
+      annotationAttrs,
+    })
 
   return (
     <>
@@ -46,10 +34,10 @@ export function LineViewer({
           points={polygonPoints}
         />
       )}
-      {annotation.type === 'arrowLine' && (
+      {annotation.type === 'line' && headPoints && (
         <polyline
           style={{ ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'], ...polygonAttributes?.style }}
-          points={getArrowPoints()}
+          points={headPoints}
         />
       )}
       <polyline

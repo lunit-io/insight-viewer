@@ -1,3 +1,3 @@
-import { LineAnnotation, AnnotationViewerProps, FreeLineAnnotation, ArrowLineAnnotation } from '../../types'
+import { LineAnnotation, AnnotationViewerProps, FreeLineAnnotation } from '../../types'
 
-export type LineViewerProps = AnnotationViewerProps<LineAnnotation | FreeLineAnnotation | ArrowLineAnnotation>
+export type LineViewerProps = AnnotationViewerProps<LineAnnotation | FreeLineAnnotation>
