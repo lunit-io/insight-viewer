@@ -1,9 +1,10 @@
 /* eslint-disable import/no-unresolved */
-import { Annotation } from '@lunit/insight-viewer'
+import { PolygonAnnotation } from '@lunit/insight-viewer'
 
-export const ANNOTATIONS: Annotation[] = [
+export const ANNOTATIONS: PolygonAnnotation[] = [
   {
-    polygon: [
+    type: 'polygon',
+    points: [
       [1901, 1835],
       [1900, 1836],
       [1898, 1836],
@@ -561,7 +562,8 @@ export const ANNOTATIONS: Annotation[] = [
     lineWidth: 1,
   },
   {
-    polygon: [
+    type: 'polygon',
+    points: [
       [682, 1301],
       [681, 1302],
       [665, 1302],
@@ -2027,7 +2029,8 @@ export const ANNOTATIONS: Annotation[] = [
     lineWidth: 1,
   },
   {
-    polygon: [
+    type: 'polygon',
+    points: [
       [1795, 1055],
       [1794, 1056],
       [1782, 1056],
@@ -2917,7 +2920,8 @@ export const ANNOTATIONS: Annotation[] = [
     lineWidth: 1,
   },
   {
-    polygon: [
+    type: 'polygon',
+    points: [
       [653, 578],
       [652, 579],
       [628, 579],

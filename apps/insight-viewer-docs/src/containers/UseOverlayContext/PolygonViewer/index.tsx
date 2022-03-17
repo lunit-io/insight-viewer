@@ -2,13 +2,7 @@
 import React, { useState, ChangeEvent } from 'react'
 import { Box, Switch } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  AnnotationOverlay,
-  useImage,
-  useAnnotation,
-  useViewport,
-  Annotation,
-} from '@lunit/insight-viewer'
+import InsightViewer, { AnnotationOverlay, useImage, useAnnotation, useViewport } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { ANNOTATIONS } from '../../../../mocks/annotations'
 import { getPolygonStyles } from '../../../utils/common/getPolygonStyles'
@@ -30,7 +24,7 @@ function PolygonContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation<Annotation>({
+  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
     mode: 'polygon',
     initalAnnotation: ANNOTATIONS,
   })

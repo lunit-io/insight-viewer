@@ -4,7 +4,7 @@ import { Box, Switch } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport, useAnnotation, AnnotationOverlay } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { initialAnnotation } from '../../../../mocks/lines'
+import { initialAnnotation } from '../../../../mocks/arrowLine'
 
 const style = {
   display: 'flex',
@@ -15,14 +15,14 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function LineContainer(): JSX.Element {
+function ArrowLineContainer(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false)
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
   const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
-    mode: 'line',
+    mode: 'arrowLine',
     initalAnnotation: initialAnnotation,
   })
 
@@ -46,7 +46,7 @@ function LineContainer(): JSX.Element {
               showAnnotationLabel={false}
               onFocus={isEdit ? selectAnnotation : undefined}
               onRemove={isEdit ? removeAnnotation : undefined}
-              mode="line"
+              mode="arrowLine"
             />
           )}
         </InsightViewer>
@@ -55,4 +55,4 @@ function LineContainer(): JSX.Element {
   )
 }
 
-export default LineContainer
+export default ArrowLineContainer

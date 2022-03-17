@@ -1,19 +1,16 @@
 /* eslint-disable import/no-unresolved */
-import { Annotation } from '@lunit/insight-viewer'
-
-export function labelFunction(annotation: Annotation): string {
-  return `Annotation(${annotation.id})`
-}
+import { FreeLineAnnotation } from '@lunit/insight-viewer'
 
 export const categoryColors = {
   normal: '#3366cc',
   abnormal: '#dc3912',
 } as const
 
-export const initialAnnotation: Annotation[] = [
+export const initialAnnotation: FreeLineAnnotation[] = [
   {
     id: 1,
-    polygon: [
+    type: 'freeLine',
+    points: [
       [771.1257142857143, 552.77],
       [771.1257142857143, 548.9528571428572],
       [774.9428571428572, 548.9528571428572],
@@ -132,7 +129,8 @@ export const initialAnnotation: Annotation[] = [
   },
   {
     id: 2,
-    polygon: [
+    type: 'freeLine',
+    points: [
       [1729.2285714285715, 865.7757142857143],
       [1733.0457142857142, 861.9585714285714],
       [1733.0457142857142, 858.1414285714286],
@@ -209,7 +207,8 @@ export const initialAnnotation: Annotation[] = [
   },
   {
     id: 3,
-    polygon: [
+    type: 'freeLine',
+    points: [
       [1133.7542857142857, 1537.5928571428572],
       [1133.7542857142857, 1537.5928571428572],
       [1129.9371428571428, 1537.5928571428572],
@@ -275,7 +274,8 @@ export const initialAnnotation: Annotation[] = [
   },
   {
     id: 4,
-    polygon: [
+    type: 'freeLine',
+    points: [
       [1992.6114285714284, 1694.0957142857144],
       [1992.6114285714284, 1690.2785714285715],
       [1992.6114285714284, 1690.2785714285715],
@@ -322,7 +322,8 @@ export const initialAnnotation: Annotation[] = [
   },
   {
     id: 5,
-    polygon: [
+    type: 'freeLine',
+    points: [
       [1599.4457142857143, 1476.5185714285715],
       [1599.4457142857143, 1476.5185714285715],
       [1595.6285714285714, 1476.5185714285715],
@@ -370,7 +371,8 @@ export const initialAnnotation: Annotation[] = [
   },
   {
     id: 6,
-    polygon: [
+    type: 'freeLine',
+    points: [
       [717.6857142857143, 1556.6785714285713],
       [717.6857142857143, 1556.6785714285713],
       [706.2342857142858, 1560.4957142857143],

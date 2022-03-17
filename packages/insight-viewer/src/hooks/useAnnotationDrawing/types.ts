@@ -1,9 +1,9 @@
-import { Point, Annotation, AnnotationMode } from '../../types'
+import { AnnotationMode, Annotation } from '../../types'
 
-export interface UseAnnotationDrawingProps<T extends Annotation> {
+export interface UseAnnotationDrawingProps {
   svgElement: React.RefObject<SVGSVGElement> | null
   device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
-  annotations: T[]
+  annotations: Annotation[]
   mode: AnnotationMode
-  onAdd: (polygon: Point[]) => void
+  onAdd: (annotation: Annotation) => void
 }

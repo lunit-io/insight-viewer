@@ -1,19 +1,18 @@
 import React, { ReactElement } from 'react'
 
-import { Annotation } from '../../types'
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polygonStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function PolygonViewer<T extends Annotation>({
+export function PolygonViewer({
   annotation,
   showOutline,
   showAnnotationLabel,
   selectedAnnotation,
   annotationAttrs,
   pixelToCanvas,
-}: PolygonViewerProps<T>): ReactElement {
-  const { isSelectedPolygon, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+}: PolygonViewerProps): ReactElement {
+  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
     selectedAnnotation,
@@ -27,25 +26,25 @@ export function PolygonViewer<T extends Annotation>({
         <polygon
           data-cy-id={polygonLabel}
           style={{
-            ...polygonStyle[isSelectedPolygon ? 'select' : 'outline'],
+            ...polygonStyle[isSelectedAnnotation ? 'select' : 'outline'],
             ...polygonAttributes?.style,
           }}
-          data-select={isSelectedPolygon || undefined}
+          data-select={isSelectedAnnotation || undefined}
           points={polygonPoints}
         />
       )}
       <polygon
         data-cy-id={polygonLabel}
         style={{
-          ...polygonStyle[isSelectedPolygon ? 'select' : 'default'],
+          ...polygonStyle[isSelectedAnnotation ? 'select' : 'default'],
           ...polygonAttributes?.style,
         }}
-        data-select={isSelectedPolygon || undefined}
+        data-select={isSelectedAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
         <text
-          style={{ ...textStyle[isSelectedPolygon ? 'select' : 'default'] }}
+          style={{ ...textStyle[isSelectedAnnotation ? 'select' : 'default'] }}
           x={labelPosition[0]}
           y={labelPosition[1]}
         >

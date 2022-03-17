@@ -15,13 +15,13 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function FreeLineDrawerContainer(): JSX.Element {
+function ArrowLineDrawerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
   const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation, removeAllAnnotation } =
-    useAnnotation({ mode: 'freeLine' })
+    useAnnotation({ mode: 'arrowLine' })
 
   return (
     <>
@@ -34,8 +34,8 @@ function FreeLineDrawerContainer(): JSX.Element {
             {loadingState === 'success' && (
               <AnnotationOverlay
                 isDrawing
-                mode="freeLine"
-                showAnnotationLabel
+                mode="arrowLine"
+                showAnnotationLabel={false}
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
                 annotations={annotations}
@@ -53,4 +53,4 @@ function FreeLineDrawerContainer(): JSX.Element {
   )
 }
 
-export default FreeLineDrawerContainer
+export default ArrowLineDrawerContainer

@@ -1,7 +1,3 @@
-import { Annotation } from '../../types'
-import { AnnotationsDrawProps } from '../AnnotationViewer/AnnotationViewer.types'
+import { LineAnnotation, AnnotationViewerProps, FreeLineAnnotation, ArrowLineAnnotation } from '../../types'
 
-export interface FreeLineViewerProps<T extends Annotation>
-  extends Omit<AnnotationsDrawProps<T>, 'annotations' | 'mode'> {
-  annotation: T
-}
+export type LineViewerProps = AnnotationViewerProps<LineAnnotation | FreeLineAnnotation | ArrowLineAnnotation>

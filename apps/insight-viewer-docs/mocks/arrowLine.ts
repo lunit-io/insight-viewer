@@ -1,10 +1,10 @@
 /* eslint-disable import/no-unresolved */
-import { LineAnnotation } from '@lunit/insight-viewer'
+import { ArrowLineAnnotation } from '@lunit/insight-viewer'
 
-export const initialAnnotation: LineAnnotation[] = [
+export const initialAnnotation: ArrowLineAnnotation[] = [
   {
     id: 1,
-    type: 'line',
+    type: 'arrowLine',
     points: [
       [164.19999999999993, 510.7814285714286],
       [91.67428571428566, 850.5071428571429],
@@ -15,7 +15,7 @@ export const initialAnnotation: LineAnnotation[] = [
   {
     id: 2,
 
-    type: 'line',
+    type: 'arrowLine',
     points: [
       [244.35999999999996, 1159.6957142857143],
       [400.8628571428571, 1629.2042857142858],
@@ -25,7 +25,7 @@ export const initialAnnotation: LineAnnotation[] = [
   },
   {
     id: 3,
-    type: 'line',
+    type: 'arrowLine',
     points: [
       [377.9599999999999, 1900.2214285714285],
       [855.1028571428571, 1835.33],
@@ -35,7 +35,7 @@ export const initialAnnotation: LineAnnotation[] = [
   },
   {
     id: 4,
-    type: 'line',
+    type: 'arrowLine',
     points: [
       [973.4342857142858, 2308.655714285714],
       [1591.8114285714287, 1850.5985714285714],
@@ -45,7 +45,7 @@ export const initialAnnotation: LineAnnotation[] = [
   },
   {
     id: 5,
-    type: 'line',
+    type: 'arrowLine',
     points: [
       [1828.4742857142858, 2343.01],
       [1855.1942857142858, 1403.9928571428572],
@@ -55,7 +55,7 @@ export const initialAnnotation: LineAnnotation[] = [
   },
   {
     id: 6,
-    type: 'line',
+    type: 'arrowLine',
     points: [
       [1813.2057142857143, 861.9585714285714],
       [1328.4285714285713, 1251.307142857143],

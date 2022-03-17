@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, CSSProperties } from 'react'
+import { Dispatch, SetStateAction, CSSProperties, SVGProps } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -53,17 +53,13 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export interface Annotation {
+export type AnnotationMode = 'line' | 'freeLine' | 'arrowLine' | 'polygon' | 'circle'
+
+export interface AnnotationBase {
   /** Serves as id by contour */
   id: number
 
-  /**
-   * The method used is different depending on the mode
-   * - (mode: polygon) = [[x, y], [x, y], [x, y]...]
-   * - (mode: circle) = [[centerX, centerY][radius, ]]
-   * - (mode: point) = [[x, y]]
-   */
-  polygon: Point[]
+  type: AnnotationMode
 
   /** If label is present, it will output instead of id */
   label?: string
@@ -80,10 +76,49 @@ export interface Annotation {
   lineWidth?: number
 }
 
+export interface LineAnnotation extends AnnotationBase {
+  type: 'line'
+  points: [Point, Point]
+}
+
+export interface FreeLineAnnotation extends AnnotationBase {
+  type: 'freeLine'
+  points: Point[]
+}
+
+export interface ArrowLineAnnotation extends AnnotationBase {
+  type: 'arrowLine'
+  points: [Point, Point]
+}
+
+export interface PolygonAnnotation extends AnnotationBase {
+  type: 'polygon'
+  points: Point[]
+}
+
+export interface CircleAnnotation extends AnnotationBase {
+  type: 'circle'
+  center: Point
+  radius: number
+}
+
+export type Annotation =
+  | PolygonAnnotation
+  | ArrowLineAnnotation
+  | FreeLineAnnotation
+  | LineAnnotation
+  | CircleAnnotation
+
 export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
 export type AnnotationStyle = {
   [styleType in AnnotationStyleType]?: CSSProperties
 }
 
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
-export type HeadType = 'normal' | 'arrow'
+export interface AnnotationViewerProps<T extends AnnotationBase> {
+  annotation: T
+  showOutline: boolean
+  showAnnotationLabel?: boolean
+  selectedAnnotation: Annotation | null
+  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
+  pixelToCanvas: (point: Point) => Point
+}

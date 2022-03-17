@@ -1,19 +1,19 @@
 import React, { ReactElement } from 'react'
 
-import { Annotation } from '../../types'
-import { FreeLineViewerProps } from './LineViewer.types'
+import { LineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
+import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 
-export function LineViewer<T extends Annotation>({
+export function LineViewer({
   annotation,
   showOutline,
   showAnnotationLabel,
   selectedAnnotation,
   annotationAttrs,
   pixelToCanvas,
-}: FreeLineViewerProps<T>): ReactElement {
-  const { isSelectedPolygon, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+}: LineViewerProps): ReactElement {
+  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
     selectedAnnotation,
@@ -21,31 +21,49 @@ export function LineViewer<T extends Annotation>({
     annotationAttrs,
   })
 
+  const getArrowPoints = () => {
+    const arrowPosition = getArrowPosition(annotation.points)
+    const arrowPoints = arrowPosition
+      .map(point => {
+        const [x, y] = pixelToCanvas(point)
+        return `${x},${y}`
+      })
+      .join()
+
+    return arrowPoints
+  }
+
   return (
     <>
       {showOutline && (
         <polyline
           data-cy-id={polygonLabel}
           style={{
-            ...polylineStyle[isSelectedPolygon ? 'select' : 'outline'],
+            ...polylineStyle[isSelectedAnnotation ? 'select' : 'outline'],
             ...polygonAttributes?.style,
           }}
-          data-select={isSelectedPolygon || undefined}
+          data-select={isSelectedAnnotation || undefined}
           points={polygonPoints}
+        />
+      )}
+      {annotation.type === 'arrowLine' && (
+        <polyline
+          style={{ ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'], ...polygonAttributes?.style }}
+          points={getArrowPoints()}
         />
       )}
       <polyline
         data-cy-id={polygonLabel}
         style={{
-          ...polylineStyle[isSelectedPolygon ? 'select' : 'default'],
+          ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'],
           ...polygonAttributes?.style,
         }}
-        data-select={isSelectedPolygon || undefined}
+        data-select={isSelectedAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
         <text
-          style={{ ...textStyle[isSelectedPolygon ? 'select' : 'default'] }}
+          style={{ ...textStyle[isSelectedAnnotation ? 'select' : 'default'] }}
           x={labelPosition[0]}
           y={labelPosition[1]}
         >

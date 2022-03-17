@@ -1,14 +1,14 @@
 import { CSSProperties } from 'react'
-import { Annotation, Point, AnnotationMode, HeadType } from '../../types'
+import { Annotation, AnnotationMode } from '../../types'
 
-export interface AnnotationDrawerProps<T extends Annotation> {
+export interface AnnotationDrawerProps {
   width?: number
   height?: number
 
-  annotations: T[]
+  annotations: Annotation[]
 
   /** When drawing is complete and a new annotation occurs */
-  onAdd: (polygon: Point[]) => void
+  onAdd: (annotation: Annotation) => void
 
   className?: string
   style?: CSSProperties
@@ -20,5 +20,4 @@ export interface AnnotationDrawerProps<T extends Annotation> {
   device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 
   mode?: AnnotationMode
-  head?: HeadType
 }

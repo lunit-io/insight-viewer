@@ -1,14 +1,14 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Annotation, Point, AnnotationMode } from '../../types'
+import { Point, AnnotationMode, Annotation } from '../../types'
 
-export interface AnnotationViewerProps<T extends Annotation> {
+export interface AnnotationViewerProps {
   width?: number
   height?: number
 
   /** Annotation focused by user interaction such as mouse over */
-  annotations: T[]
+  annotations: Annotation[]
 
-  selectedAnnotation: T | null
+  selectedAnnotation: Annotation | null
 
   /** <svg className={}> */
   className?: string
@@ -23,8 +23,8 @@ export interface AnnotationViewerProps<T extends Annotation> {
    */
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
-  onFocus?: (annotation: T | null) => void
-  onRemove?: (annotation: T) => void
+  onFocus?: (annotation: Annotation | null) => void
+  onRemove?: (annotation: Annotation) => void
 
   /**
    * Draw an outline on the line
@@ -41,7 +41,7 @@ export interface AnnotationViewerProps<T extends Annotation> {
   mode?: AnnotationMode
 }
 
-export interface AnnotationsDrawProps<T extends Annotation> extends Omit<AnnotationViewerProps<T>, 'width' | 'height'> {
+export interface AnnotationsDrawProps extends Omit<AnnotationViewerProps, 'width' | 'height'> {
   mode: AnnotationMode
   showOutline: boolean
   pixelToCanvas: (point: Point) => Point
