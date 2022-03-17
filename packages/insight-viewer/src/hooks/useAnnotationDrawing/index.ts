@@ -11,7 +11,13 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.stopImmediatePropagation()
 }
 
-function useAnnotationDrawing({ mode, annotations, svgElement, onAdd }: UseAnnotationDrawingProps): Point[][] {
+function useAnnotationDrawing({
+  mode,
+  lineHead,
+  annotations,
+  svgElement,
+  onAdd,
+}: UseAnnotationDrawingProps): Point[][] {
   const [annotationPoints, setAnnotationPoints] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
@@ -31,7 +37,7 @@ function useAnnotationDrawing({ mode, annotations, svgElement, onAdd }: UseAnnot
             return [...prevState, pixelPosition]
           }
 
-          if (mode === 'circle' || mode === 'line' || mode === 'arrowLine') {
+          if (mode === 'circle' || mode === 'line') {
             return [prevState[0], pixelPosition]
           }
 
@@ -47,7 +53,7 @@ function useAnnotationDrawing({ mode, annotations, svgElement, onAdd }: UseAnnot
 
       // TODO: Change conditional statement when adding Point function
       if (annotationPoints.length > 1) {
-        const drewAnnotation = getDrewAnnotation(annotationPoints, mode, annotations)
+        const drewAnnotation = getDrewAnnotation(annotationPoints, mode, lineHead, annotations)
 
         onAdd(drewAnnotation)
       }
@@ -127,7 +133,7 @@ function useAnnotationDrawing({ mode, annotations, svgElement, onAdd }: UseAnnot
       deactivateInitialEvents()
       deactivateMouseDrawEvents()
     }
-  }, [mode, annotations, svgElement, annotationPoints, isDrawingMode, enabledElement, onAdd, pageToPixel])
+  }, [mode, annotations, lineHead, svgElement, annotationPoints, isDrawingMode, enabledElement, onAdd, pageToPixel])
 
   return [annotationPoints]
 }
