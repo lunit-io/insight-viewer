@@ -5,7 +5,7 @@ import { PolylineDrawerProps } from './PolylineDrawer.types'
 import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 
-export function PolylineDrawer({ mode, polygon }: PolylineDrawerProps): ReactElement {
+export function PolylineDrawer({ mode, lineHead, polygon }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
   const polylinePoints = polygon
@@ -31,7 +31,7 @@ export function PolylineDrawer({ mode, polygon }: PolylineDrawerProps): ReactEle
     <>
       {polygon && polygon.length > 0 && (
         <>
-          {mode === 'arrowLine' && <polyline style={polyline.default} points={getArrowPoints()} />}
+          {lineHead === 'arrow' && <polyline style={polyline.default} points={getArrowPoints()} />}
           <polyline
             style={mode === 'freeLine' ? { ...polyline.default, fill: 'transparent' } : polyline.default}
             points={polylinePoints}

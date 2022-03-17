@@ -1,8 +1,14 @@
 import polylabel from 'polylabel'
+import { getArrowPosition } from './getArrowPosition'
 import { getCircleRadius } from './getCircleRadius'
-import { Annotation, AnnotationMode, Point } from '../../types'
+import { Annotation, AnnotationMode, LineHeadMode, Point } from '../../types'
 
-export function getDrewAnnotation(points: Point[], mode: AnnotationMode, annotations: Annotation[]): Annotation {
+export function getDrewAnnotation(
+  points: Point[],
+  mode: AnnotationMode,
+  lineHead: LineHeadMode,
+  annotations: Annotation[]
+): Annotation {
   const [xPosition, yPosition] = polylabel([points], 1)
   const currentId = annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1
 
@@ -21,11 +27,12 @@ export function getDrewAnnotation(points: Point[], mode: AnnotationMode, annotat
       center: points[0],
       radius: getCircleRadius(points),
     }
-  } else if (mode === 'line' || mode === 'arrowLine') {
+  } else if (mode === 'line') {
     drewAnnotation = {
       ...defaultAnnotationInfo,
       type: mode,
       points: [points[0], points[1]],
+      headPoints: lineHead === 'arrow' ? getArrowPosition(points) : undefined,
     }
   } else {
     drewAnnotation = {
