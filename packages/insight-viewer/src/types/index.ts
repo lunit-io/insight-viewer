@@ -14,6 +14,7 @@ export interface BasicViewport {
   invert: boolean
   hflip: boolean
   vflip: boolean
+  rotation: number
   x: number
   y: number
   windowWidth: number
