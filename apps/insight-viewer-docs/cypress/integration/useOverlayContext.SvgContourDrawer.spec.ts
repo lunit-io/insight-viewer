@@ -1,6 +1,6 @@
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { MOCK_CONTOURS, ID1_POLYGON_HOVER_POSITION } from '../../mocks/contours'
+import { MOCK_CONTOURS } from '../../mocks/contours'
 
 const drawMockPolygon = () => {
   const wrapper = cy.get('.cornerstone-canvas-wrapper')
@@ -50,29 +50,21 @@ describe(
 
     it('when hovering over a polygon, the polyline color is rgb(255, 194, 17)', () => {
       cy.get('.cornerstone-canvas-wrapper')
-        .trigger('mousemove', {
-          pageX: ID1_POLYGON_HOVER_POSITION[0],
-          pageY: ID1_POLYGON_HOVER_POSITION[1],
-        })
         .get('[data-cy-id="1"]')
+        .trigger('mouseover')
+        .children('polygon')
         .should('have.css', 'stroke', 'rgb(255, 194, 17)')
         .get('[data-cy-id="2"]')
+        .children('polygon')
         .should('have.css', 'stroke', 'rgb(255, 255, 255)')
     })
 
     it('when drew polygon click the polygon removed', () => {
-      cy.get('[data-cy-id="1"]')
-        .click({ force: true })
-        .should('not.exist')
-        .get('[data-cy-id="2"]')
-        .should('exist')
+      cy.get('[data-cy-id="1"]').click({ force: true }).should('not.exist').get('[data-cy-id="2"]').should('exist')
     })
 
     it('when remove all button click the polygon removed', () => {
-      cy.get('[data-cy-name="remove-button"]')
-        .click()
-        .get('polygon')
-        .should('not.exist')
+      cy.get('[data-cy-name="remove-button"]').click().get('polygon').should('not.exist')
     })
   }
 )

@@ -24,7 +24,6 @@ export function PolygonViewer({
     <>
       {showOutline && (
         <polygon
-          data-cy-id={polygonLabel}
           style={{
             ...polygonStyle[isSelectedAnnotation ? 'select' : 'outline'],
             ...polygonAttributes?.style,
@@ -34,7 +33,6 @@ export function PolygonViewer({
         />
       )}
       <polygon
-        data-cy-id={polygonLabel}
         style={{
           ...polygonStyle[isSelectedAnnotation ? 'select' : 'default'],
           ...polygonAttributes?.style,

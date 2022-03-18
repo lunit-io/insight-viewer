@@ -44,6 +44,7 @@ function AnnotationsDraw({
 
     return (
       <g
+        data-cy-id={annotation.id}
         key={annotation.id}
         onClick={handleAnnotationClick}
         onMouseOver={handleAnnotationFocus}
