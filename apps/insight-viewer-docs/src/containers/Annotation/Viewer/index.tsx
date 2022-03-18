@@ -64,10 +64,10 @@ function AnnotationViewerContainer(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditSwitchClick} className="edit-control" isChecked={isEdit} />
+        edit mode <Switch onChange={handleEditSwitchClick} isChecked={isEdit} />
       </Box>
       <Box>
-        show label <Switch onChange={handleShowLabelSwitchClick} className="show-control" isChecked={isShowLabel} />
+        show label <Switch onChange={handleShowLabelSwitchClick} isChecked={isShowLabel} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
         <Stack direction="row">
