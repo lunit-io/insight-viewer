@@ -6,7 +6,7 @@ export const categoryColors = {
   abnormal: '#dc3912',
 } as const
 
-export const initialAnnotation: FreeLineAnnotation[] = [
+export const FREELINE_ANNOTATIONS: FreeLineAnnotation[] = [
   {
     id: 1,
     type: 'freeLine',

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { PolygonAnnotation } from '@lunit/insight-viewer'
 
-export const ANNOTATIONS: PolygonAnnotation[] = [
+export const POLYGON_ANNOTATIONS: PolygonAnnotation[] = [
   {
     type: 'polygon',
     points: [
