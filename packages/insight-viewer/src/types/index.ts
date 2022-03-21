@@ -53,6 +53,11 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
+export type ViewerStyleType = 'default' | 'select' | 'outline' | 'highlight'
+export type ViewerStyle = {
+  [styleType in ViewerStyleType]?: CSSProperties
+}
+
 export type LineHeadMode = 'normal' | 'arrow'
 export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
 
@@ -102,16 +107,42 @@ export interface CircleAnnotation extends AnnotationBase {
 
 export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation
 
-export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
-export type AnnotationStyle = {
-  [styleType in AnnotationStyleType]?: CSSProperties
-}
-
 export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotation: T
   showOutline: boolean
-  showAnnotationLabel?: boolean
+  showAnnotationLabel: boolean
   selectedAnnotation: Annotation | null
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
+  pixelToCanvas: (point: Point) => Point
+}
+
+export type MeasurementMode = 'ruler' | 'circle'
+export interface MeasurementBase {
+  id: number
+  type: MeasurementMode
+  label?: string
+  labelPosition?: Point
+  lineWidth?: number
+  dataAttrs?: { [attr: string]: string }
+}
+
+export interface RulerMeasurement extends MeasurementBase {
+  type: 'ruler'
+  points: [Point, Point]
+  length: number | null
+}
+
+export interface CircleMeasurement extends MeasurementBase {
+  type: 'circle'
+  center: Point
+  radius: number
+}
+
+export type Measurement = RulerMeasurement | CircleMeasurement
+
+export interface MeasurementViewerProps<T extends MeasurementBase> {
+  measurement: T
+  showMeasurementLabel: boolean
+  selectedMeasurement: Measurement | null
   pixelToCanvas: (point: Point) => Point
 }
