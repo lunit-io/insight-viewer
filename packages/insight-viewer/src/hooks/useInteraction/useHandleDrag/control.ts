@@ -10,11 +10,16 @@ const adjust: DragEventHandler = (viewport, event) => ({
   windowCenter: viewport.voi.windowCenter + event.deltaY / viewport.scale,
 })
 
+const zoom: DragEventHandler = (viewport, event) => ({
+  scale: viewport.scale + event.deltaX / 100,
+})
+
 type Control = Record<DragAction, DragEventHandler>
 
 const control: Control = {
   pan,
   adjust,
+  zoom,
 }
 
 export default control
