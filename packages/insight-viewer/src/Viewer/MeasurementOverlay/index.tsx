@@ -41,7 +41,7 @@ export function MeasurementOverlay({
         onFocus={onFocus}
         onRemove={onRemove}
       />
-      {isDrawing && onAdd && onFocus && onRemove && (
+      {isDrawing && onAdd && (
         <MeasurementDrawer
           width={width}
           height={height}
