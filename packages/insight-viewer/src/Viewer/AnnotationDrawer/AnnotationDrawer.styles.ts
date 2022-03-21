@@ -1,6 +1,6 @@
-import { AnnotationStyle } from '../../types'
+import { ViewerStyle } from '../../types'
 
-export const svgStyle: AnnotationStyle = {
+export const svgStyle: ViewerStyle = {
   default: {
     position: 'absolute',
     top: 0,
@@ -10,7 +10,7 @@ export const svgStyle: AnnotationStyle = {
   },
 }
 
-export const polyline: AnnotationStyle = {
+export const polyline: ViewerStyle = {
   default: {
     fill: 'rgba(255, 244, 0, 0.2)',
     strokeWidth: '5px',
