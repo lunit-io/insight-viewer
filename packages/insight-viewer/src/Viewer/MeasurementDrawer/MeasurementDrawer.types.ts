@@ -1,0 +1,23 @@
+import { CSSProperties } from 'react'
+import { Measurement, MeasurementMode } from '../../types'
+
+export interface MeasurementDrawerProps {
+  width?: number
+  height?: number
+
+  measurements: Measurement[]
+
+  /** When drawing is complete and a new annotation occurs */
+  onAdd: (annotation: Measurement) => void
+
+  className?: string
+  style?: CSSProperties
+
+  /**
+   * Access Device Settings
+   * Only the function for mouse is implemented, and it is not applied
+   */
+  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
+
+  mode?: MeasurementMode
+}
