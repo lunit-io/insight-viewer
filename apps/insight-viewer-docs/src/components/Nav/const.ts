@@ -12,4 +12,5 @@ export const LINKS = [
   { href: 'viewport-reset', name: 'Viewport Reset' },
   { href: 'contour', name: 'Contour' },
   { href: 'annotation', name: 'Annotation' },
+  { href: 'measurement', name: 'Measurement' },
 ]
