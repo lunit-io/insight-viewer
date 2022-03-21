@@ -25,7 +25,7 @@ export type {
   AnnotationMode,
   AnnotationViewerProps,
 } from './types'
-export type { DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
+export type { DragAction, DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
 export { useDicomFile } from './hooks/useDicomFile'
 export { useOverlayContext } from './contexts'
 export type { OverlayContext } from './contexts'

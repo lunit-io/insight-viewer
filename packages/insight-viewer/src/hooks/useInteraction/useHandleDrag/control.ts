@@ -1,16 +1,16 @@
-import { DragEvent, Pan, Adjust } from '../types'
+import { DragAction, DragEventHandler } from '../types'
 
-const pan: Pan = (viewport, delta) => ({
-  x: viewport.translation.x + delta.x / viewport.scale,
-  y: viewport.translation.y + delta.y / viewport.scale,
+const pan: DragEventHandler = (viewport, event) => ({
+  x: viewport.translation.x + event.deltaX / viewport.scale,
+  y: viewport.translation.y + event.deltaY / viewport.scale,
 })
 
-const adjust: Adjust = (viewport, delta) => ({
-  windowWidth: viewport.voi.windowWidth + delta.x / viewport.scale,
-  windowCenter: viewport.voi.windowCenter + delta.y / viewport.scale,
+const adjust: DragEventHandler = (viewport, event) => ({
+  windowWidth: viewport.voi.windowWidth + event.deltaX / viewport.scale,
+  windowCenter: viewport.voi.windowCenter + event.deltaY / viewport.scale,
 })
 
-type Control = Record<DragEvent, typeof pan | typeof adjust>
+type Control = Record<DragAction, DragEventHandler>
 
 const control: Control = {
   pan,
