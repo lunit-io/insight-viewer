@@ -1,10 +1,10 @@
 import { Box, RadioGroup, Radio, Stack } from '@chakra-ui/react'
-import { DragEvent } from '@lunit/insight-viewer'
+import { DragAction } from '@lunit/insight-viewer'
 
 export default function Control({
   onChange,
 }: {
-  onChange: (type: string) => (value: DragEvent | 'none') => void
+  onChange: (type: string) => (value: DragAction | 'none') => void
 }): JSX.Element {
   return (
     <Box mb={6}>
@@ -22,6 +22,9 @@ export default function Control({
               <Radio value="adjust" className="primary-drag-adjust">
                 adjust
               </Radio>
+              <Radio value="zoom" className="primary-drag-zoom">
+                zoom
+              </Radio>
             </Stack>
           </RadioGroup>
         </Box>
@@ -37,6 +40,9 @@ export default function Control({
               </Radio>
               <Radio value="adjust" className="secondary-drag-adjust">
                 adjust
+              </Radio>
+              <Radio value="zoom" className="secondary-drag-zoom">
+                zoom
               </Radio>
             </Stack>
           </RadioGroup>

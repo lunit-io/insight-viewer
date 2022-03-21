@@ -7,27 +7,16 @@ export default function OverlayLayer({
   viewport: Viewport
 }): JSX.Element {
   return (
-    <Box
-      position="absolute"
-      top="0"
-      left="0"
-      w="100%"
-      h="100%"
-      p="4"
-      color="blue.200"
-      textShadow="1px 1px 1px black"
-    >
+    <Box position="absolute" top="0" left="0" w="100%" h="100%" p="4" color="blue.200" textShadow="1px 1px 1px black">
       <UnorderedList>
         <ListItem>
-          scale: <span data-cy-scale>{scale}</span>
+          scale: <span data-cy-scale>{scale.toFixed(2)}</span>
         </ListItem>
         <ListItem>
-          hflip/vflip: <span data-cy-hflip>{`${hflip}`}</span> /{' '}
-          <span data-cy-vflip>{`${vflip}`}</span>
+          hflip/vflip: <span data-cy-hflip>{`${hflip}`}</span> / <span data-cy-vflip>{`${vflip}`}</span>
         </ListItem>
         <ListItem>
-          translation: <span data-cy-x>{x?.toFixed(2)}</span> /{' '}
-          <span data-cy-y>{y?.toFixed(2)}</span>
+          translation: <span data-cy-x>{x?.toFixed(2)}</span> / <span data-cy-y>{y?.toFixed(2)}</span>
         </ListItem>
         <ListItem>
           invert: <span data-cy-invert>{`${invert}`}</span>
