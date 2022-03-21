@@ -5,7 +5,7 @@ import { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementView
 import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
 
-function AnnotationsDraw({
+function MeasurementsDraw({
   mode,
   measurements,
   showOutline,
@@ -76,7 +76,7 @@ export function MeasurementViewer({
     <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
       {measurements.length === 0 || !enabledElement
         ? null
-        : AnnotationsDraw({
+        : MeasurementsDraw({
             mode,
             measurements,
             selectedMeasurement,
