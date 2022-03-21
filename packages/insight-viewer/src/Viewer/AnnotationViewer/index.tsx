@@ -6,7 +6,6 @@ import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
 function AnnotationsDraw({
-  mode,
   annotations,
   showOutline,
   showAnnotationLabel,
@@ -40,8 +39,6 @@ function AnnotationsDraw({
       onFocus(null)
     }
 
-    if (annotation.type !== mode) return null
-
     return (
       <g
         data-cy-id={annotation.id}
@@ -66,7 +63,6 @@ export function AnnotationViewer({
   annotations,
   className,
   selectedAnnotation,
-  mode = 'polygon',
   showOutline = false,
   showAnnotationLabel = false,
   annotationAttrs,
@@ -81,7 +77,6 @@ export function AnnotationViewer({
       {annotations.length === 0 || !enabledElement
         ? null
         : AnnotationsDraw({
-            mode,
             annotations,
             selectedAnnotation,
             showOutline,
