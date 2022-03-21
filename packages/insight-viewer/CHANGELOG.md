@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.3.0-alpha.1...@lunit/insight-viewer@5.3.0) (2022-03-18)
+
+
+### Features
+
+* **viewer:** add arrowLine mode ([2410acf](https://github.com/lunit-io/frontend-components/commit/2410acf434fb6e90e432d8d2be04c31603939da7))
+* **viewer:** add arrowLine type ([cd3ebbd](https://github.com/lunit-io/frontend-components/commit/cd3ebbdf601b585266f57b86bea9c44c20beb5d2))
+* **viewer:** change arrow shape ([db03701](https://github.com/lunit-io/frontend-components/commit/db03701f428d6d56305786ecc9b875e86b0c8388))
+* **viewer:** make head property to control arrow line ([46e06d1](https://github.com/lunit-io/frontend-components/commit/46e06d149731e03dabecca71c39e3dab0bff427d))
+* **viewer:** remove arrowLine from annotationMode and add HeadType ([f01f0ca](https://github.com/lunit-io/frontend-components/commit/f01f0cac8d268fc3e273afa4f6e163d0d1f726e0))
+
+
+
+
+
+# [5.3.0-alpha.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.3.0-alpha.0...@lunit/insight-viewer@5.3.0-alpha.1) (2022-03-15)
+
+**Note:** Version bump only for package @lunit/insight-viewer
+
+
+
+
+
+# [5.3.0-alpha.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.2.0-alpha.0...@lunit/insight-viewer@5.3.0-alpha.0) (2022-03-15)
+
+
+### Features
+
+* **viewer:** add line mode ([2cf4169](https://github.com/lunit-io/frontend-components/commit/2cf41693ed50adcf3cef7fc06a3cb0fd89a87b3d))
+* **viewer:** add line type ([e39f5c9](https://github.com/lunit-io/frontend-components/commit/e39f5c9702962499b39b471b62a1075d58edb182))
+* **viewer:** replace local subscription value with subscriptionRef ([dfc5837](https://github.com/lunit-io/frontend-components/commit/dfc5837b22ea4eaa6cd80d8539957c8106afdcdf))
+* **viewer:** replace local subscription value with subscriptionRef ([ab6b5fa](https://github.com/lunit-io/frontend-components/commit/ab6b5fad69bc87c74e45016db11c8631ff8070bc))
+
+
+
+
+
 # [5.2.0-alpha.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.1.0-alpha.7...@lunit/insight-viewer@5.2.0-alpha.0) (2022-02-18)
 
 

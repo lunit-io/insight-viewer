@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, CSSProperties, SVGProps } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -7,11 +7,7 @@ export type WithChildren<T = Record<string, unknown>> = T & {
 export type Element = HTMLDivElement | null
 export type ViewerError = Error & { status?: number }
 export type OnError = (e: ViewerError) => void
-export type ProgressComponent = ({
-  progress,
-}: {
-  progress: number
-}) => JSX.Element
+export type ProgressComponent = ({ progress }: { progress: number }) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
 export interface BasicViewport {
   scale: number
@@ -39,8 +35,7 @@ export interface HTTP {
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 export type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]
-export type ImageLoaderScheme =
-  typeof IMAGE_LOADER_SCHEME[keyof typeof IMAGE_LOADER_SCHEME]
+export type ImageLoaderScheme = typeof IMAGE_LOADER_SCHEME[keyof typeof IMAGE_LOADER_SCHEME]
 export type ImageId =
   | {
       [IMAGE_LOADER_SCHEME.WADO]: string | string[] | undefined
@@ -58,17 +53,14 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export interface Contour {
+export type LineHeadMode = 'normal' | 'arrow'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
+
+export interface AnnotationBase {
   /** Serves as id by contour */
   id: number
 
-  /**
-   * The method used is different depending on the mode
-   * - (mode: contour) = [[x, y], [x, y], [x, y]...]
-   * - (mode: circle) = [[centerX, centerY][radius, ]]
-   * - (mode: point) = [[x, y]]
-   */
-  polygon: Point[]
+  type: AnnotationMode
 
   /** If label is present, it will output instead of id */
   label?: string
@@ -82,5 +74,44 @@ export interface Contour {
    */
   dataAttrs?: { [attr: string]: string }
 
-  lineWidth: number
+  lineWidth?: number
+}
+
+export interface LineAnnotation extends AnnotationBase {
+  type: 'line'
+  points: [Point, Point]
+
+  headPoints?: Point[]
+}
+
+export interface FreeLineAnnotation extends AnnotationBase {
+  type: 'freeLine'
+  points: Point[]
+}
+
+export interface PolygonAnnotation extends AnnotationBase {
+  type: 'polygon'
+  points: Point[]
+}
+
+export interface CircleAnnotation extends AnnotationBase {
+  type: 'circle'
+  center: Point
+  radius: number
+}
+
+export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation
+
+export type AnnotationStyleType = 'default' | 'select' | 'outline' | 'highlight'
+export type AnnotationStyle = {
+  [styleType in AnnotationStyleType]?: CSSProperties
+}
+
+export interface AnnotationViewerProps<T extends AnnotationBase> {
+  annotation: T
+  showOutline: boolean
+  showAnnotationLabel?: boolean
+  selectedAnnotation: Annotation | null
+  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
+  pixelToCanvas: (point: Point) => Point
 }

@@ -52,9 +52,7 @@ function drawAnnotation({
   }
 }) {
   const { anchor, foot, text } = annotation
-  const length = Math.sqrt(
-    Math.pow(anchor[0] - foot[0], 2) + Math.pow(anchor[1] - foot[1], 2)
-  )
+  const length = Math.sqrt(Math.pow(anchor[0] - foot[0], 2) + Math.pow(anchor[1] - foot[1], 2))
   const vectorX = (anchor[0] - foot[0]) / length
   const vectorY = (anchor[1] - foot[1]) / length
   const arrowX = vectorX * Math.max(16, 4)
@@ -80,14 +78,8 @@ function drawAnnotation({
   ctx.fillStyle = 'white'
   ctx.beginPath()
   ctx.moveTo(anchor[0], anchor[1])
-  ctx.lineTo(
-    anchor[0] - arrowX - arrowY * 0.5,
-    anchor[1] - arrowY + arrowX * 0.5
-  )
-  ctx.lineTo(
-    anchor[0] - arrowX + arrowY * 0.5,
-    anchor[1] - arrowY - arrowX * 0.5
-  )
+  ctx.lineTo(anchor[0] - arrowX - arrowY * 0.5, anchor[1] - arrowY + arrowX * 0.5)
+  ctx.lineTo(anchor[0] - arrowX + arrowY * 0.5, anchor[1] - arrowY - arrowX * 0.5)
   ctx.closePath()
   ctx.fill()
   ctx.stroke()
@@ -98,21 +90,14 @@ function drawAnnotation({
   ctx.strokeStyle = 'black'
   ctx.lineWidth = (scaledLineWidth / 3) * 2
   const textMetrics = ctx.measureText(text)
-  const textX =
-    anchor[0] - foot[0] < 0
-      ? foot[0] + scaledLineWidth
-      : foot[0] - textMetrics.width - scaledLineWidth
-  const textY =
-    anchor[1] - foot[1] < 0 ? foot[1] + scaledLineWidth * 7 : foot[1]
+  const textX = anchor[0] - foot[0] < 0 ? foot[0] + scaledLineWidth : foot[0] - textMetrics.width - scaledLineWidth
+  const textY = anchor[1] - foot[1] < 0 ? foot[1] + scaledLineWidth * 7 : foot[1]
   ctx.strokeText(text, textX, textY)
   ctx.fillText(text, textX, textY)
   ctx.restore()
 }
 
-function clear(
-  canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D | null
-) {
+function clear(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D | null) {
   if (!context) return
   context.save()
   // Use the identity matrix while clearing the canvas
@@ -143,10 +128,7 @@ function draw({
   const scaledThickness = Math.max(CONTOUR_THICKNESS, 1)
 
   CONTOURS.forEach(contour => {
-    const transformedPoints: [number, number][] = contour.polygon.map(point => [
-      point[0],
-      point[1],
-    ])
+    const transformedPoints: [number, number][] = contour.points.map(point => [point[0], point[1]])
     drawContour({
       ctx: context,
       points: transformedPoints,

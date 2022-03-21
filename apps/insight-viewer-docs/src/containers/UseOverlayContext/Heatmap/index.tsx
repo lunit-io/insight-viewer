@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -5,11 +6,12 @@ import InsightViewer, {
   useViewport,
   useInteraction,
   Viewport,
+  HeatmapViewer,
 } from '@lunit/insight-viewer'
 import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
 import { IMAGES } from '../../../const'
-import Heatmap from './Heatmap'
+import posMap from './posMap'
 import { CODE } from '../Code'
 
 const style = {
@@ -82,7 +84,9 @@ function HeatmapContainer(): JSX.Element {
             onViewportChange={setViewport}
             interaction={interaction}
           >
-            {loadingState === 'success' && <Heatmap />}
+            {loadingState === 'success' && (
+              <HeatmapViewer posMap={posMap} threshold={0.15} />
+            )}
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </Resizable>
