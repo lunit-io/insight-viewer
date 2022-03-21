@@ -111,6 +111,11 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
         switchMap(start => {
           let lastX = start.pageX
           let lastY = start.pageY
+          const { top, left, width, height } = element?.getBoundingClientRect()
+          /** relative x position from center of the viewer */
+          const startX = start.pageX - (left + width / 2)
+          /** relative y position from center of the viewer */
+          const startY = start.pageY - (top + height / 2)
           return mousemove$.pipe(
             map((move: MouseEvent) => {
               move.preventDefault()
@@ -120,8 +125,8 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
               lastY = move.pageY
 
               return {
-                startX: start.pageX,
-                startY: start.pageY,
+                startX,
+                startY,
                 deltaX,
                 deltaY,
               }

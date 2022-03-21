@@ -10,9 +10,16 @@ const adjust: DragEventHandler = (viewport, event) => ({
   windowCenter: viewport.voi.windowCenter + event.deltaY / viewport.scale,
 })
 
-const zoom: DragEventHandler = (viewport, event) => ({
-  scale: viewport.scale + event.deltaX / 100,
-})
+const zoom: DragEventHandler = (viewport, event) => {
+  const newScale = Math.max(0.01, viewport.scale + event.deltaX / 100)
+  const newX = viewport.translation.x + event.startX * (1 / newScale - 1 / viewport.scale)
+  const newY = viewport.translation.y + event.startY * (1 / newScale - 1 / viewport.scale)
+  return {
+    scale: newScale,
+    x: newX,
+    y: newY,
+  }
+}
 
 type Control = Record<DragAction, DragEventHandler>
 
