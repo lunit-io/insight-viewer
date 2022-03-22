@@ -49,27 +49,27 @@ function AnnotationViewerContainer(): JSX.Element {
     initalAnnotation: INITIAL_ANNOTATIONS[annotationMode],
   })
 
-  const handleEditSwitchClick = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEdit(event.target.checked)
   }
 
-  const handleShowLabelSwitchClick = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsShowLabel(event.target.checked)
   }
 
-  const handleAnnotationModeClick = (mode: AnnotationMode) => {
+  const handleAnnotationModeChange = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
   }
 
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditSwitchClick} isChecked={isEdit} />
+        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
       </Box>
       <Box>
-        show label <Switch onChange={handleShowLabelSwitchClick} isChecked={isShowLabel} />
+        show label <Switch onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
-      <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
+      <RadioGroup onChange={handleAnnotationModeChange} value={annotationMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="polygon">Polygon</Radio>
