@@ -47,3 +47,6 @@ export const RULER_TEXT_POSITION_SPACING = {
   x: 10,
   y: 15,
 }
+
+// The ruler min length is 0.1mm
+export const RULER_MIN_LENGTH = 0.1
