@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
 import { MeasurementMode, Measurement, MeasurementBase } from '../../types'
+import { RULER_MIN_LENGTH } from '../../const'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
@@ -58,7 +59,11 @@ export function useMeasurement({
     measurementInfo: Pick<Measurement, 'dataAttrs'> | undefined
   ): Measurement | null => {
     if (measurement.type !== mode) throw Error('The mode of component and hook is different')
-    if (measurement.type === 'ruler' && measurement.length && measurement.length < 2) return null
+    if (
+      measurement.type === 'ruler' &&
+      (measurement.length === 0 || (measurement.length && measurement.length < RULER_MIN_LENGTH))
+    )
+      return null
     if (measurementInfo?.dataAttrs) {
       validateDataAttrs(measurementInfo?.dataAttrs)
     }
