@@ -44,27 +44,27 @@ function MeasurementViewerContainer(): JSX.Element {
     initalMeasurement: INITIAL_MEASUREMENTS[measurementMode],
   })
 
-  const handleEditSwitchClick = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEdit(event.target.checked)
   }
 
-  const handleShowLabelSwitchClick = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsShowLabel(event.target.checked)
   }
 
-  const handleMeasurementModeClick = (mode: MeasurementMode) => {
+  const handleMeasurementModeChange = (mode: MeasurementMode) => {
     setMeasurementMode(mode)
   }
 
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditSwitchClick} isChecked={isEdit} />
+        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
       </Box>
       <Box>
-        show label <Switch onChange={handleShowLabelSwitchClick} isChecked={isShowLabel} />
+        show label <Switch onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
-      <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
+      <RadioGroup onChange={handleMeasurementModeChange} value={measurementMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="ruler">Ruler</Radio>
