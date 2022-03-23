@@ -120,8 +120,6 @@ export type MeasurementMode = 'ruler' | 'circle'
 export interface MeasurementBase {
   id: number
   type: MeasurementMode
-  label?: string
-  labelPosition?: Point
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
 }
