@@ -46,7 +46,7 @@ export function RulerViewer({
         <text
           style={{ ...textStyle[isSelectedMeasurement ? 'select' : 'default'] }}
           x={endPointX + RULER_TEXT_POSITION_SPACING.x}
-          y={endPointY - RULER_TEXT_POSITION_SPACING.y}
+          y={endPointY + RULER_TEXT_POSITION_SPACING.y}
         >
           {`${length}mm`}
         </text>

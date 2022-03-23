@@ -28,7 +28,7 @@ export function RulerDrawer({ points }: RulerDrawerProps): ReactElement | null {
           <text
             style={{ ...textStyle.default }}
             x={endPointX + RULER_TEXT_POSITION_SPACING.x}
-            y={endPointY - RULER_TEXT_POSITION_SPACING.y}
+            y={endPointY + RULER_TEXT_POSITION_SPACING.y}
           >
             {lineLength}
           </text>
