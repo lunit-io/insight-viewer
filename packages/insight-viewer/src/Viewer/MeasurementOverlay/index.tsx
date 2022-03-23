@@ -12,7 +12,6 @@ export function MeasurementOverlay({
   className,
   style,
   showOutline,
-  showMeasurementLabel,
   mode,
   device,
   isDrawing = false,
@@ -35,7 +34,6 @@ export function MeasurementOverlay({
         className={className}
         style={style}
         showOutline={showOutline}
-        showMeasurementLabel={showMeasurementLabel}
         mode={mode}
         measurementAttrs={measurementAttrs}
         onFocus={onFocus}

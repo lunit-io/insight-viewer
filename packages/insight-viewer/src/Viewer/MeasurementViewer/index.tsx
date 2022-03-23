@@ -9,7 +9,6 @@ function MeasurementsDraw({
   mode,
   measurements,
   showOutline,
-  showMeasurementLabel,
   selectedMeasurement,
   measurementAttrs,
   pixelToCanvas,
@@ -20,7 +19,6 @@ function MeasurementsDraw({
     const viewerProps = {
       showOutline,
       selectedMeasurement,
-      showMeasurementLabel,
       measurementAttrs,
       pixelToCanvas,
     }
@@ -64,7 +62,6 @@ export function MeasurementViewer({
   selectedMeasurement,
   mode = 'ruler',
   showOutline = false,
-  showMeasurementLabel = false,
   measurementAttrs,
   onFocus,
   onRemove,
@@ -81,7 +78,6 @@ export function MeasurementViewer({
             measurements,
             selectedMeasurement,
             showOutline,
-            showMeasurementLabel,
             pixelToCanvas,
             measurementAttrs,
             onFocus,

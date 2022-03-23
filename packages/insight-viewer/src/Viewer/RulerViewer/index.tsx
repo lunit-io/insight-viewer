@@ -4,18 +4,11 @@ import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 import { RULER_TEXT_POSITION_SPACING } from '../../const'
 
-export function RulerViewer({
-  measurement,
-  showMeasurementLabel,
-  selectedMeasurement,
-  pixelToCanvas,
-}: RulerViewerProps): ReactElement {
-  const { id, label, length, points, labelPosition: _labelPosition } = measurement
+export function RulerViewer({ measurement, selectedMeasurement, pixelToCanvas }: RulerViewerProps): ReactElement {
+  const { id, length, points } = measurement
   const [endPointX, endPointY] = pixelToCanvas(points[1])
   const isSelectedMeasurement = measurement === selectedMeasurement
-  const rulerLabel = label ?? id
 
-  const labelPosition = _labelPosition ? pixelToCanvas(_labelPosition) : undefined
   const polygonPoints: string = points
     .map(point => {
       const [x, y] = pixelToCanvas(point)
@@ -26,22 +19,13 @@ export function RulerViewer({
   return (
     <>
       <polyline
-        data-cy-id={rulerLabel}
+        data-cy-id={id}
         style={{
           ...polylineStyle[isSelectedMeasurement ? 'select' : 'default'],
         }}
         data-select={isSelectedMeasurement || undefined}
         points={polygonPoints}
       />
-      {showMeasurementLabel && labelPosition && (
-        <text
-          style={{ ...textStyle[isSelectedMeasurement ? 'select' : 'default'] }}
-          x={labelPosition[0] + RULER_TEXT_POSITION_SPACING.x}
-          y={labelPosition[1] - RULER_TEXT_POSITION_SPACING.y}
-        >
-          {rulerLabel}
-        </text>
-      )}
       {length && (
         <text
           style={{ ...textStyle[isSelectedMeasurement ? 'select' : 'default'] }}

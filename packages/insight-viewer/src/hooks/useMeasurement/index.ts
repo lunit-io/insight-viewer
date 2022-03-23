@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import polylabel from 'polylabel'
 import { MeasurementMode, Measurement, MeasurementBase } from '../../types'
 import { RULER_MIN_LENGTH } from '../../const'
 
@@ -40,16 +39,13 @@ export function useMeasurement({
   useEffect(() => {
     setMeasurements(() =>
       initalMeasurement
-        ? initalMeasurement.map<Measurement>((addedMeasurement, i) => {
-            const annotiaotnLabelPoints =
-              addedMeasurement.type === 'circle' ? [addedMeasurement.center] : addedMeasurement.points
-
-            return {
-              ...addedMeasurement,
-              id: nextId ?? i,
-              labelPosition: polylabel([annotiaotnLabelPoints], 1),
-            } as Measurement
-          })
+        ? initalMeasurement.map<Measurement>(
+            (addedMeasurement, i) =>
+              ({
+                ...addedMeasurement,
+                id: nextId ?? i,
+              } as Measurement)
+          )
         : []
     )
   }, [initalMeasurement, nextId])
