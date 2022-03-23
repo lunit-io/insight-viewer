@@ -34,7 +34,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 function MeasurementViewerContainer(): JSX.Element {
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
   const [isEdit, setIsEdit] = useState(false)
-  const [isShowLabel, setIsShowLabel] = useState(false)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
@@ -48,10 +48,6 @@ function MeasurementViewerContainer(): JSX.Element {
     setIsEdit(event.target.checked)
   }
 
-  const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsShowLabel(event.target.checked)
-  }
-
   const handleMeasurementModeChange = (mode: MeasurementMode) => {
     setMeasurementMode(mode)
   }
@@ -60,9 +56,6 @@ function MeasurementViewerContainer(): JSX.Element {
     <Box data-cy-loaded={loadingState}>
       <Box>
         edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
-      </Box>
-      <Box>
-        show label <Switch onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
       <RadioGroup onChange={handleMeasurementModeChange} value={measurementMode}>
         <Stack direction="row">
@@ -80,7 +73,6 @@ function MeasurementViewerContainer(): JSX.Element {
               measurements={measurements}
               selectedMeasurement={selectedMeasurement}
               mode={measurementMode}
-              showMeasurementLabel={isShowLabel}
               onFocus={isEdit ? selectMeasurement : undefined}
               onRemove={isEdit ? removeMeasurement : undefined}
             />

@@ -60,7 +60,6 @@ function MeasurementDrawerContainer(): JSX.Element {
                 height={DEFAULT_SIZE.height}
                 measurements={measurements}
                 selectedMeasurement={selectedMeasurement}
-                showMeasurementLabel
                 onAdd={addMeasurement}
                 onFocus={selectMeasurement}
                 onRemove={removeMeasurement}
