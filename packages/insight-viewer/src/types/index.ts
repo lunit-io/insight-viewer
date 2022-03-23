@@ -142,7 +142,6 @@ export type Measurement = RulerMeasurement | CircleMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
-  showMeasurementLabel: boolean
   selectedMeasurement: Measurement | null
   pixelToCanvas: (point: Point) => Point
 }

@@ -32,18 +32,11 @@ export interface MeasurementViewerProps {
    */
   showOutline?: boolean
 
-  /**
-   * measurement label notation flag variable
-   * Default value is false
-   */
-  showMeasurementLabel?: boolean
-
   mode?: MeasurementMode
 }
 
 export interface MeasurementsDrawProps extends Omit<MeasurementViewerProps, 'width' | 'height'> {
   mode: MeasurementMode
   showOutline: boolean
-  showMeasurementLabel: boolean
   pixelToCanvas: (point: Point) => Point
 }
