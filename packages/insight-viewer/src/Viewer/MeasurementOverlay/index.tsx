@@ -1,56 +1,53 @@
 import React from 'react'
 
-import { AnnotationOverlayProps } from './AnnotationOverlay.types'
-import { AnnotationViewer } from '../AnnotationViewer'
-import { AnnotationDrawer } from '../AnnotationDrawer'
+import { MeasurementOverlayProps } from './MeasurementOverlay.types'
+import { MeasurementViewer } from '../MeasurementViewer'
+import { MeasurementDrawer } from '../MeasurementDrawer'
 
-export function AnnotationOverlay({
+export function MeasurementOverlay({
   width,
   height,
-  annotations,
-  selectedAnnotation,
+  measurements,
+  selectedMeasurement,
   className,
   style,
   showOutline,
-  showAnnotationLabel,
   mode,
-  lineHead,
   device,
   isDrawing = false,
-  annotationAttrs,
+  measurementAttrs,
   onFocus,
   onAdd,
   onRemove,
-}: AnnotationOverlayProps): JSX.Element {
+}: MeasurementOverlayProps): JSX.Element {
   if (isDrawing && !onAdd) {
     throw new Error('Please also add onAdd if you enable drawing mode')
   }
 
   return (
     <>
-      <AnnotationViewer
+      <MeasurementViewer
         width={width}
         height={height}
-        annotations={annotations}
-        selectedAnnotation={selectedAnnotation}
+        measurements={measurements}
+        selectedMeasurement={selectedMeasurement}
         className={className}
         style={style}
         showOutline={showOutline}
-        showAnnotationLabel={showAnnotationLabel}
-        annotationAttrs={annotationAttrs}
+        mode={mode}
+        measurementAttrs={measurementAttrs}
         onFocus={onFocus}
         onRemove={onRemove}
       />
       {isDrawing && onAdd && (
-        <AnnotationDrawer
+        <MeasurementDrawer
           width={width}
           height={height}
-          annotations={annotations}
+          measurements={measurements}
           className={className}
           style={style}
           device={device}
           mode={mode}
-          lineHead={lineHead}
           onAdd={onAdd}
         />
       )}

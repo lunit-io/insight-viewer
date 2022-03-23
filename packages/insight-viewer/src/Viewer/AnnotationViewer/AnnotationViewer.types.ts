@@ -41,5 +41,6 @@ export interface AnnotationViewerProps {
 
 export interface AnnotationsDrawProps extends Omit<AnnotationViewerProps, 'width' | 'height'> {
   showOutline: boolean
+  showAnnotationLabel: boolean
   pixelToCanvas: (point: Point) => Point
 }

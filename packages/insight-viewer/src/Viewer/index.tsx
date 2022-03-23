@@ -47,17 +47,8 @@ export function InsightViewer({
   }, [viewport])
 
   return (
-    <ViewerWrapper
-      ref={elRef}
-      Progress={Progress}
-      onViewportChange={onViewportChange}
-      imageEnabled={!!image}
-    >
-      <OverlayContextProvider
-        element={elRef.current}
-        imageEnabled={!!image}
-        viewport={viewport}
-      >
+    <ViewerWrapper ref={elRef} Progress={Progress} onViewportChange={onViewportChange} imageEnabled={!!image}>
+      <OverlayContextProvider image={image} element={elRef.current} imageEnabled={!!image} viewport={viewport}>
         {children}
       </OverlayContextProvider>
     </ViewerWrapper>

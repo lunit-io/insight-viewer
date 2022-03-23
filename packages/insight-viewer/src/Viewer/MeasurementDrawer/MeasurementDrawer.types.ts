@@ -1,11 +1,11 @@
 import { SVGProps } from 'react'
-import { Annotation, AnnotationMode, LineHeadMode } from '../../types'
+import { Measurement, MeasurementMode } from '../../types'
 
-export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
-  annotations: Annotation[]
+export interface MeasurementDrawerProps extends SVGProps<SVGSVGElement> {
+  measurements: Measurement[]
 
   /** When drawing is complete and a new annotation occurs */
-  onAdd: (annotation: Annotation) => void
+  onAdd: (annotation: Measurement) => void
 
   /**
    * Access Device Settings
@@ -13,6 +13,5 @@ export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
    */
   device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 
-  mode?: AnnotationMode
-  lineHead?: LineHeadMode
+  mode?: MeasurementMode
 }
