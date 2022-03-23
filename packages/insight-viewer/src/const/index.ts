@@ -45,7 +45,7 @@ export const ERROR_MESSAGE = {
 
 export const RULER_TEXT_POSITION_SPACING = {
   x: 10,
-  y: 15,
+  y: 20,
 }
 
 // The ruler min length is 0.1mm
