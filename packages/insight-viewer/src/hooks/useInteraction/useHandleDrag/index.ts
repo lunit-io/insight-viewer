@@ -3,12 +3,8 @@ import { fromEvent, Subscription } from 'rxjs'
 import { tap, switchMap, map, takeUntil, filter } from 'rxjs/operators'
 import { Element, OnViewportChange } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
-import {
-  getViewport,
-  setViewport,
-  CornerstoneViewport,
-} from '../../../utils/cornerstoneHelper'
-import { Interaction, DragEvent, ViewportInteraction } from '../types'
+import { getViewport, setViewport, CornerstoneViewport } from '../../../utils/cornerstoneHelper'
+import { DragCoords, Interaction, DragAction, ViewportInteraction } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import { preventContextMenu } from '../utils'
 import control from './control'
@@ -39,10 +35,7 @@ function handleViewportByDrag({
   dragType: DragType
   element: Element
   viewport: CornerstoneViewport
-  dragged: {
-    x: number
-    y: number
-  }
+  dragged: DragCoords
   onViewportChange?: OnViewportChange
 }): void {
   const dragHandler = interaction[dragType]
@@ -50,9 +43,8 @@ function handleViewportByDrag({
   /**
    * If a drag handler is pre-defined, call the drag control function provided by default.
    * It results in the Viewer's viewport update.
-   * @param dragEventType 'pan' | 'adjust'
    */
-  function updateViewportByDrag(dragEventType?: DragEvent): void {
+  function updateViewportByDrag(dragEventType?: DragAction): void {
     if (!dragEventType) return
 
     // If there is a viewport setter, set a new viewport which is triggered by interaction.
@@ -65,10 +57,7 @@ function handleViewportByDrag({
       // If no viewport setter, just update cornerstone viewport.
       setViewport(
         <HTMLDivElement>element,
-        formatCornerstoneViewport(
-          viewport,
-          control[dragEventType]?.(viewport, dragged)
-        )
+        formatCornerstoneViewport(viewport, control[dragEventType]?.(viewport, dragged))
       )
     }
   }
@@ -78,18 +67,20 @@ function handleViewportByDrag({
       updateViewportByDrag(dragHandler)
       break
     case 'function':
-      dragHandler({ viewport, delta: dragged })
+      dragHandler({
+        viewport,
+        delta: {
+          x: dragged.deltaX,
+          y: dragged.deltaY,
+        },
+      })
       break
     default:
       break
   }
 }
 
-export default function useHandleDrag({
-  element,
-  interaction,
-  onViewportChange,
-}: ViewportInteraction): void {
+export default function useHandleDrag({ element, interaction, onViewportChange }: ViewportInteraction): void {
   const subscriptionRef = useRef<Subscription>()
 
   useEffect(() => {
@@ -97,13 +88,9 @@ export default function useHandleDrag({
     // Restore context menu display.
     element?.removeEventListener('contextmenu', preventContextMenu)
     // No drag interaction.
-    if (!(interaction[PRIMARY_DRAG] || interaction[SECONDARY_DRAG]))
-      return undefined
+    if (!(interaction[PRIMARY_DRAG] || interaction[SECONDARY_DRAG])) return undefined
 
-    const mousedown$ = fromEvent<MouseEvent>(
-      <HTMLDivElement>element,
-      'mousedown'
-    )
+    const mousedown$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousedown')
     const mousemove$ = fromEvent<MouseEvent>(document, 'mousemove')
     const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
     let dragType: DragType | undefined
@@ -124,6 +111,11 @@ export default function useHandleDrag({
         switchMap(start => {
           let lastX = start.pageX
           let lastY = start.pageY
+          const { top, left, width, height } = element?.getBoundingClientRect()
+          /** relative x position from center of the viewer */
+          const startX = start.pageX - (left + width / 2)
+          /** relative y position from center of the viewer */
+          const startY = start.pageY - (top + height / 2)
           return mousemove$.pipe(
             map((move: MouseEvent) => {
               move.preventDefault()
@@ -133,8 +125,10 @@ export default function useHandleDrag({
               lastY = move.pageY
 
               return {
-                x: deltaX,
-                y: deltaY,
+                startX,
+                startY,
+                deltaX,
+                deltaY,
               }
             }),
             takeUntil(mouseup$)

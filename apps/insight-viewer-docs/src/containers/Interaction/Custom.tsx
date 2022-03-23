@@ -37,13 +37,7 @@ export default function App(): JSX.Element {
   })
 
   const customPan: Drag = ({ viewport, delta }) => {
-    consola.info(
-      'pan',
-      viewport.translation?.x,
-      viewport.translation?.y,
-      delta.x,
-      delta.y
-    )
+    consola.info('pan', viewport.translation?.x, viewport.translation?.y, delta.x, delta.y)
 
     setViewport(prev => ({
       ...prev,
@@ -53,17 +47,19 @@ export default function App(): JSX.Element {
   }
 
   const customAdjust: Drag = ({ viewport, delta }) => {
-    consola.info(
-      'adjust',
-      viewport.voi.windowWidth,
-      viewport.voi.windowCenter,
-      delta.x,
-      delta.y
-    )
+    consola.info('adjust', viewport.voi.windowWidth, viewport.voi.windowCenter, delta.x, delta.y)
     setViewport(prev => ({
       ...prev,
       windowWidth: prev.windowWidth + delta.x / prev.scale,
       windowCenter: prev.windowCenter + delta.y / prev.scale,
+    }))
+  }
+
+  const customZoom: Drag = ({ viewport, delta }) => {
+    consola.info('zoom', viewport.scale, delta.x, delta.y)
+    setViewport(prev => ({
+      ...prev,
+      scale: prev.scale + delta.x / 100,
     }))
   }
 
@@ -84,6 +80,7 @@ export default function App(): JSX.Element {
   const customDrag = {
     pan: customPan,
     adjust: customAdjust,
+    zoom: customZoom,
   }
 
   const customClick = {
@@ -104,10 +101,7 @@ export default function App(): JSX.Element {
     return (value: string) => {
       setInteraction((prev: Interaction) => ({
         ...prev,
-        [type]:
-          value === 'none'
-            ? undefined
-            : customClick[type as keyof typeof customClick],
+        [type]: value === 'none' ? undefined : customClick[type as keyof typeof customClick],
       }))
     }
   }
@@ -147,10 +141,7 @@ export default function App(): JSX.Element {
       </Stack>
 
       <Box>
-        <CodeBlock
-          code={CUSTOM_CODE}
-          codeSandbox={CODE_SANDBOX.customInteraction}
-        />
+        <CodeBlock code={CUSTOM_CODE} codeSandbox={CODE_SANDBOX.customInteraction} />
       </Box>
     </Box>
   )

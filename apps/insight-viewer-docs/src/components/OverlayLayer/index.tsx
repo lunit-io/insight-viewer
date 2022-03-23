@@ -10,7 +10,7 @@ export default function OverlayLayer({
     <Box position="absolute" top="0" left="0" w="100%" h="100%" p="4" color="blue.200" textShadow="1px 1px 1px black">
       <UnorderedList>
         <ListItem>
-          scale: <span data-cy-scale>{scale}</span>
+          scale: <span data-cy-scale>{scale.toFixed(2)}</span>
         </ListItem>
         <ListItem>
           hflip/vflip: <span data-cy-hflip>{`${hflip}`}</span> / <span data-cy-vflip>{`${vflip}`}</span>

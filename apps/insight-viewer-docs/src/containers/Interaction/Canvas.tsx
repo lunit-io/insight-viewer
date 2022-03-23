@@ -7,7 +7,6 @@ const style: React.CSSProperties = {
   left: 0,
   width: '100%',
   height: '100%',
-  zIndex: 10,
 }
 
 const BOX_WIDTH = 100
@@ -34,11 +33,7 @@ function drawRect({ context, canvas, x, y, scale }: Prop) {
   context.restore()
 }
 
-export default function Canvas({
-  viewport,
-}: {
-  viewport: Viewport
-}): JSX.Element {
+export default function Canvas({ viewport }: { viewport: Viewport }): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
 

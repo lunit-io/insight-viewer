@@ -1,39 +1,25 @@
-import {
-  DRAG,
-  PRIMARY_DRAG,
-  SECONDARY_DRAG,
-  PRIMARY_CLICK,
-  SECONDARY_CLICK,
-  MOUSEWHEEL,
-} from './const'
+import { DRAG, PRIMARY_DRAG, SECONDARY_DRAG, PRIMARY_CLICK, SECONDARY_CLICK, MOUSEWHEEL } from './const'
 import { CornerstoneViewport } from '../../utils/cornerstoneHelper'
 import { Element, Viewport, OnViewportChange } from '../../types'
 
-export type DragEvent = keyof typeof DRAG
+export type DragAction = keyof typeof DRAG
+/** @deprecated in flavor of DragAction */
+export type DragEvent = DragAction
 export type Click = (offsetX: number, offsetY: number) => void
-export interface Coord {
-  x: number
-  y: number
+export interface DragCoords {
+  startX: number
+  startY: number
+  deltaX: number
+  deltaY: number
 }
-export type Drag = ({
-  viewport,
-  delta,
-}: {
-  viewport: CornerstoneViewport
-  delta: Coord
-}) => void
-export type Pan = (viewport: CornerstoneViewport, delta: Coord) => Coord
-export type Adjust = (
-  viewport: CornerstoneViewport,
-  delta: Coord
-) => {
-  windowWidth: number
-  windowCenter: number
-}
+export type Drag = ({ viewport, delta }: { viewport: CornerstoneViewport; delta: { x: number; y: number } }) => void
+export type DragEventHandler = (viewport: CornerstoneViewport, dragEvent: DragCoords) => Partial<Viewport>
+
 export type Wheel = (deltaX: number, deltaY: number) => void
+
 export interface DragInteraction {
-  [PRIMARY_DRAG]: DragEvent | Drag | undefined
-  [SECONDARY_DRAG]: DragEvent | Drag | undefined
+  [PRIMARY_DRAG]: DragAction | Drag | undefined
+  [SECONDARY_DRAG]: DragAction | Drag | undefined
 }
 
 export interface ClickInteraction {
