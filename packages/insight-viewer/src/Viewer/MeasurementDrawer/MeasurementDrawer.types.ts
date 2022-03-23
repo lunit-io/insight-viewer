@@ -1,17 +1,11 @@
-import { CSSProperties } from 'react'
+import { SVGProps } from 'react'
 import { Measurement, MeasurementMode } from '../../types'
 
-export interface MeasurementDrawerProps {
-  width?: number
-  height?: number
-
+export interface MeasurementDrawerProps extends SVGProps<SVGSVGElement> {
   measurements: Measurement[]
 
   /** When drawing is complete and a new annotation occurs */
   onAdd: (annotation: Measurement) => void
-
-  className?: string
-  style?: CSSProperties
 
   /**
    * Access Device Settings
