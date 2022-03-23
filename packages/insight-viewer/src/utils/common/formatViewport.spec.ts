@@ -1,7 +1,4 @@
-import {
-  formatViewerViewport,
-  formatCornerstoneViewport,
-} from './formatViewport'
+import { formatViewerViewport, formatCornerstoneViewport } from './formatViewport'
 import { DefaultViewport } from './const'
 import { CORNERSTONE_VIEWPORT_MOCK } from '../../mocks/const'
 
@@ -12,6 +9,7 @@ describe('formatViewerViewport:', () => {
       invert: CORNERSTONE_VIEWPORT_MOCK.invert,
       hflip: CORNERSTONE_VIEWPORT_MOCK.hflip,
       vflip: CORNERSTONE_VIEWPORT_MOCK.vflip,
+      rotation: CORNERSTONE_VIEWPORT_MOCK.rotation,
       x: CORNERSTONE_VIEWPORT_MOCK.translation.x,
       y: CORNERSTONE_VIEWPORT_MOCK.translation.y,
       windowWidth: CORNERSTONE_VIEWPORT_MOCK.voi.windowWidth,
@@ -69,6 +67,13 @@ describe('formatCornerstoneViewport:', () => {
             vflip: false,
           })
         ).toEqual({ ...viewportData, vflip: false })
+      })
+      it('roration', () => {
+        expect(
+          formatCornerstoneViewport(viewportData, {
+            rotation: 90,
+          })
+        ).toEqual({ ...viewportData, rotation: 90 })
       })
     })
 
