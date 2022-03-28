@@ -6,7 +6,7 @@ import { RULER_TEXT_POSITION_SPACING } from '../../const'
 import { useOverlayContext } from '../../contexts'
 import { getLineLength } from '../../utils/common/getLineLength'
 
-export function RulerDrawer({ points }: RulerDrawerProps): ReactElement | null {
+export function RulerDrawer({ points, setEditTargetPoint }: RulerDrawerProps): ReactElement | null {
   const { image, pixelToCanvas } = useOverlayContext()
 
   const [startPoint, endPoint] = points
@@ -24,7 +24,7 @@ export function RulerDrawer({ points }: RulerDrawerProps): ReactElement | null {
     <>
       {points && points.length > 0 && image ? (
         <>
-          <polyline style={polyline.default} points={linePoints} />
+          <polyline onMouseDown={() => setEditTargetPoint('line')} style={polyline.default} points={linePoints} />
           <text
             style={{ ...textStyle.default }}
             x={endPointX + RULER_TEXT_POSITION_SPACING.x}
