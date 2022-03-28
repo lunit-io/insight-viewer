@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
-import React, { useState } from 'react'
-import { Box, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
+import React, { useState, ChangeEvent } from 'react'
+import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   MeasurementOverlay,
@@ -22,6 +22,8 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function MeasurementDrawerContainer(): JSX.Element {
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
+  const [isEdit, setIsEdit] = useState(false)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
@@ -29,8 +31,10 @@ function MeasurementDrawerContainer(): JSX.Element {
   const { viewport, setViewport } = useViewport()
   const {
     measurements,
+    hoveredMeasurement,
     selectedMeasurement,
     addMeasurement,
+    hoverMeasurement,
     removeMeasurement,
     selectMeasurement,
     removeAllMeasurement,
@@ -40,11 +44,18 @@ function MeasurementDrawerContainer(): JSX.Element {
     setMeasurementMode(mode)
   }
 
+  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsEdit(event.target.checked)
+  }
+
   return (
     <>
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllMeasurement}>
         remove all
       </Button>
+      <Box>
+        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+      </Box>
       <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
         <Stack direction="row">
           <Radio value="ruler">Ruler</Radio>
@@ -60,9 +71,12 @@ function MeasurementDrawerContainer(): JSX.Element {
                 height={DEFAULT_SIZE.height}
                 measurements={measurements}
                 selectedMeasurement={selectedMeasurement}
+                hoveredMeasurement={hoveredMeasurement}
                 onAdd={addMeasurement}
-                onFocus={selectMeasurement}
+                onFocus={hoverMeasurement}
+                onSelect={selectMeasurement}
                 onRemove={removeMeasurement}
+                isEditing={isEdit}
                 isDrawing
                 mode={measurementMode} // If no mode is defined, the default value is ruler.
               />
