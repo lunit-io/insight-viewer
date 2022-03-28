@@ -1,5 +1,5 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Point, Measurement } from '../../types'
+import { Measurement } from '../../types'
 
 export interface MeasurementViewerProps {
   width?: number
@@ -39,5 +39,4 @@ export interface MeasurementViewerProps {
 export interface MeasurementsDrawProps extends Omit<MeasurementViewerProps, 'width' | 'height' | 'mode'> {
   isEditing: boolean
   showOutline: boolean
-  pixelToCanvas: (point: Point) => Point
 }

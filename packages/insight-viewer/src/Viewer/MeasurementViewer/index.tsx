@@ -11,7 +11,6 @@ function MeasurementsDraw({
   showOutline,
   hoveredMeasurement,
   measurementAttrs,
-  pixelToCanvas,
   onFocus,
   onRemove,
   onSelect,
@@ -21,7 +20,6 @@ function MeasurementsDraw({
       showOutline,
       hoveredMeasurement,
       measurementAttrs,
-      pixelToCanvas,
     }
 
     const handleMeasurementClick = () => {
@@ -72,7 +70,7 @@ export function MeasurementViewer({
   onSelect,
 }: MeasurementViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
-  const { pixelToCanvas, enabledElement } = useOverlayContext()
+  const { enabledElement } = useOverlayContext()
 
   return (
     <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
@@ -83,7 +81,6 @@ export function MeasurementViewer({
             measurements,
             hoveredMeasurement,
             showOutline,
-            pixelToCanvas,
             measurementAttrs,
             onFocus,
             onRemove,

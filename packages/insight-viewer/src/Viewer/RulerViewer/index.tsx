@@ -4,14 +4,14 @@ import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 import { RULER_TEXT_POSITION_SPACING } from '../../const'
 
-export function RulerViewer({ measurement, hoveredMeasurement, pixelToCanvas }: RulerViewerProps): ReactElement {
+export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { id, length, points } = measurement
-  const [endPointX, endPointY] = pixelToCanvas(points[1])
+  const [endPointX, endPointY] = points[1]
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const polygonPoints: string = points
     .map(point => {
-      const [x, y] = pixelToCanvas(point)
+      const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
