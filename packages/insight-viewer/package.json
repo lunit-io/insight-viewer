@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "5.4.0",
+  "version": "5.4.1",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "source": "src/index.ts",
   "main": "dist/index.js",
