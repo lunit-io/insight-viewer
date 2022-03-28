@@ -54,7 +54,9 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type ViewerStyleType = 'default' | 'select' | 'outline' | 'highlight'
+export type EditPoint = 'startPoint' | 'endPoint' | 'line'
+
+export type ViewerStyleType = 'default' | 'select' | 'hover' | 'outline' | 'highlight'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
@@ -141,6 +143,6 @@ export type Measurement = RulerMeasurement | CircleMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
-  selectedMeasurement: Measurement | null
+  hoveredMeasurement: Measurement | null
   pixelToCanvas: (point: Point) => Point
 }
