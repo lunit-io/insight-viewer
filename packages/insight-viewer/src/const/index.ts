@@ -51,3 +51,5 @@ export const RULER_TEXT_POSITION_SPACING = {
 
 // The ruler min length is 0.1mm
 export const RULER_MIN_LENGTH = 0.1
+
+export const EDIT_CIRCLE_RADIUS = 4
