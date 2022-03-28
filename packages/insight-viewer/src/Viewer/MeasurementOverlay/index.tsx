@@ -8,6 +8,7 @@ export function MeasurementOverlay({
   width,
   height,
   measurements,
+  hoveredMeasurement,
   selectedMeasurement,
   className,
   style,
@@ -15,9 +16,11 @@ export function MeasurementOverlay({
   mode,
   device,
   isDrawing = false,
+  isEditing,
   measurementAttrs,
-  onFocus,
   onAdd,
+  onFocus,
+  onSelect,
   onRemove,
 }: MeasurementOverlayProps): JSX.Element {
   if (isDrawing && !onAdd) {
@@ -30,25 +33,29 @@ export function MeasurementOverlay({
         width={width}
         height={height}
         measurements={measurements}
-        selectedMeasurement={selectedMeasurement}
+        hoveredMeasurement={hoveredMeasurement}
         className={className}
         style={style}
         showOutline={showOutline}
-        mode={mode}
+        isEditing={isEditing}
         measurementAttrs={measurementAttrs}
         onFocus={onFocus}
         onRemove={onRemove}
+        onSelect={onSelect}
       />
       {isDrawing && onAdd && (
         <MeasurementDrawer
           width={width}
           height={height}
+          selectedMeasurement={selectedMeasurement}
           measurements={measurements}
           className={className}
           style={style}
           device={device}
+          isEditing={isEditing}
           mode={mode}
           onAdd={onAdd}
+          onSelectMeasurement={onSelect}
         />
       )}
     </>
