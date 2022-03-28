@@ -6,46 +6,50 @@ import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
 
 function MeasurementsDraw({
-  mode,
+  isEditing,
   measurements,
   showOutline,
-  selectedMeasurement,
+  hoveredMeasurement,
   measurementAttrs,
   pixelToCanvas,
   onFocus,
   onRemove,
+  onSelect,
 }: MeasurementsDrawProps) {
   return measurements.map(measurement => {
     const viewerProps = {
       showOutline,
-      selectedMeasurement,
+      hoveredMeasurement,
       measurementAttrs,
       pixelToCanvas,
     }
 
-    const handleAnnotationClick = () => {
+    const handleMeasurementClick = () => {
+      if (isEditing && onSelect) {
+        onSelect(measurement)
+        return
+      }
+
       if (!onRemove) return
       onRemove(measurement)
     }
 
-    const handleAnnotationFocus = () => {
+    const handleMeasurementFocus = () => {
       if (!onFocus) return
       onFocus(measurement)
     }
 
-    const handleAnnotationFocusOut = () => {
+    const handleMeasurementFocusOut = () => {
       if (!onFocus) return
       onFocus(null)
     }
 
-    if (measurement.type !== mode) return null
-
     return (
       <g
         key={measurement.id}
-        onClick={handleAnnotationClick}
-        onMouseOver={handleAnnotationFocus}
-        onMouseLeave={handleAnnotationFocusOut}
+        onClick={handleMeasurementClick}
+        onMouseOver={handleMeasurementFocus}
+        onMouseLeave={handleMeasurementFocusOut}
       >
         {measurement.type === 'ruler' && <RulerViewer measurement={measurement} {...viewerProps} />}
       </g>
@@ -59,12 +63,13 @@ export function MeasurementViewer({
   height,
   measurements,
   className,
-  selectedMeasurement,
-  mode = 'ruler',
+  hoveredMeasurement,
+  isEditing = false,
   showOutline = false,
   measurementAttrs,
   onFocus,
   onRemove,
+  onSelect,
 }: MeasurementViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { pixelToCanvas, enabledElement } = useOverlayContext()
@@ -74,14 +79,15 @@ export function MeasurementViewer({
       {measurements.length === 0 || !enabledElement
         ? null
         : MeasurementsDraw({
-            mode,
+            isEditing,
             measurements,
-            selectedMeasurement,
+            hoveredMeasurement,
             showOutline,
             pixelToCanvas,
             measurementAttrs,
             onFocus,
             onRemove,
+            onSelect,
           })}
     </svg>
   )
