@@ -1,6 +1,7 @@
 export const DRAG = {
   pan: 'pan',
   adjust: 'adjust',
+  zoom: 'zoom',
 } as const
 
 export const MOUSE_WHEEL = {

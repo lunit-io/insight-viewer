@@ -45,20 +45,14 @@ export default function App(): JSX.Element {
   }
 
   const handleFrame: Wheel = (_, deltaY) => {
-    if (deltaY !== 0)
-      setFrame(prev =>
-        Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME)
-      )
+    if (deltaY !== 0) setFrame(prev => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
   }
 
   const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
       setViewport(prev => ({
         ...prev,
-        scale: Math.min(
-          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-          MAX_SCALE
-        ),
+        scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
       }))
   }
 
@@ -70,8 +64,7 @@ export default function App(): JSX.Element {
   function handleWheel(value: string) {
     setInteraction((prev: Interaction) => ({
       ...prev,
-      mouseWheel:
-        value === 'none' ? undefined : handler[value as keyof typeof handler],
+      mouseWheel: value === 'none' ? undefined : handler[value as keyof typeof handler],
     }))
   }
 
@@ -88,12 +81,7 @@ export default function App(): JSX.Element {
           </Box>
         </Box>
         <Box>
-          <Button
-            colorScheme="blue"
-            onClick={resetViewport}
-            className="reset"
-            mb="0px"
-          >
+          <Button colorScheme="blue" onClick={resetViewport} className="reset" mb="0px">
             Reset
           </Button>
         </Box>
@@ -108,17 +96,14 @@ export default function App(): JSX.Element {
             viewport={viewport}
             Progress={CustomProgress}
           >
-            <OverlayLayer viewport={viewport} />
             <Canvas viewport={viewport} />
+            <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>
       </Stack>
 
       <Box>
-        <CodeBlock
-          code={BASE_CODE}
-          codeSandbox={CODE_SANDBOX.builtInInteraction}
-        />
+        <CodeBlock code={BASE_CODE} codeSandbox={CODE_SANDBOX.builtInInteraction} />
       </Box>
     </Box>
   )

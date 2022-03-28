@@ -1,18 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { WithChildren, Viewport, Point } from '../types'
 import { BASE_VIEWPORT, ERROR_MESSAGE } from '../const'
-import {
-  EnabledElement,
-  PixelCoordinate,
-} from '../utils/cornerstoneHelper/types'
+import { EnabledElement, PixelCoordinate } from '../utils/cornerstoneHelper/types'
 import {
   pageToPixel as pageToPixelUtil,
   pixelToCanvas as pixelToCanvasUtil,
   setToPixelCoordinateSystem as setToPixelCoordinateSystemUtil,
   getEnabledElement,
 } from '../utils/cornerstoneHelper'
+import { Image } from '../Viewer/types'
 
 export interface OverlayContext {
+  image: Image | null
   enabledElement: EnabledElement | null
   setToPixelCoordinateSystem: (context: CanvasRenderingContext2D) => void
   pixelToCanvas: (point: Point) => Point
@@ -21,6 +20,7 @@ export interface OverlayContext {
 }
 
 const contextDefaultValue: OverlayContext = {
+  image: null,
   enabledElement: null,
   setToPixelCoordinateSystem: () => {},
   pixelToCanvas: () => ({} as Point),
@@ -30,18 +30,18 @@ const contextDefaultValue: OverlayContext = {
 const Context = createContext<OverlayContext>(contextDefaultValue)
 
 export function OverlayContextProvider({
+  image,
   element,
   imageEnabled,
   viewport = BASE_VIEWPORT,
   children,
 }: WithChildren<{
+  image: Image
   element: HTMLElement | null
   imageEnabled: boolean
   viewport: Viewport | undefined
 }>): JSX.Element {
-  const [enabledElement, setEnabledElement] = useState<EnabledElement | null>(
-    null
-  )
+  const [enabledElement, setEnabledElement] = useState<EnabledElement | null>(null)
   const [, setUpdateCount] = React.useState(0)
 
   function setToPixelCoordinateSystem(context: CanvasRenderingContext2D) {
@@ -72,11 +72,7 @@ export function OverlayContextProvider({
       throw new Error(ERROR_MESSAGE.ENABLED_ELEMENT_NOT_READY)
     }
 
-    const { x, y } = pageToPixelUtil(
-      enabledElement.element,
-      xPosition,
-      yPosition
-    )
+    const { x, y } = pageToPixelUtil(enabledElement.element, xPosition, yPosition)
     return [x, y]
   }
 
@@ -96,6 +92,7 @@ export function OverlayContextProvider({
   return (
     <Context.Provider
       value={{
+        image,
         setToPixelCoordinateSystem,
         pixelToCanvas,
         pageToPixel,

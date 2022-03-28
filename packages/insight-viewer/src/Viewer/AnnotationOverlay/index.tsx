@@ -37,12 +37,11 @@ export function AnnotationOverlay({
         style={style}
         showOutline={showOutline}
         showAnnotationLabel={showAnnotationLabel}
-        mode={mode}
         annotationAttrs={annotationAttrs}
         onFocus={onFocus}
         onRemove={onRemove}
       />
-      {isDrawing && onAdd && onFocus && onRemove && (
+      {isDrawing && onAdd && (
         <AnnotationDrawer
           width={width}
           height={height}

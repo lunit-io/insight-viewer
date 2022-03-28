@@ -33,6 +33,7 @@ export const BASE_VIEWPORT = {
   invert: false,
   hflip: false,
   vflip: false,
+  rotation: 0,
   x: 0,
   y: 0,
   windowWidth: 0,
@@ -40,6 +41,13 @@ export const BASE_VIEWPORT = {
 }
 
 export const ERROR_MESSAGE = {
-  ENABLED_ELEMENT_NOT_READY:
-    'enabledElement value is null, Please check the enabledElement value.',
+  ENABLED_ELEMENT_NOT_READY: 'enabledElement value is null, Please check the enabledElement value.',
 } as const
+
+export const RULER_TEXT_POSITION_SPACING = {
+  x: 10,
+  y: 20,
+}
+
+// The ruler min length is 0.1mm
+export const RULER_MIN_LENGTH = 0.1

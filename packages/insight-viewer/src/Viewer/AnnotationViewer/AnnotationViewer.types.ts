@@ -1,5 +1,5 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Point, AnnotationMode, Annotation } from '../../types'
+import { Point, Annotation } from '../../types'
 
 export interface AnnotationViewerProps {
   width?: number
@@ -37,12 +37,10 @@ export interface AnnotationViewerProps {
    * Default value is false
    */
   showAnnotationLabel?: boolean
-
-  mode?: AnnotationMode
 }
 
 export interface AnnotationsDrawProps extends Omit<AnnotationViewerProps, 'width' | 'height'> {
-  mode: AnnotationMode
   showOutline: boolean
+  showAnnotationLabel: boolean
   pixelToCanvas: (point: Point) => Point
 }

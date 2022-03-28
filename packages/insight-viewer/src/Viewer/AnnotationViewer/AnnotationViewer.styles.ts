@@ -1,6 +1,6 @@
-import { AnnotationStyle } from '../../types'
+import { ViewerStyle } from '../../types'
 
-export const svgStyle: AnnotationStyle = {
+export const svgStyle: ViewerStyle = {
   default: {
     position: 'absolute',
     top: 0,
@@ -10,7 +10,7 @@ export const svgStyle: AnnotationStyle = {
   },
 }
 
-export const textStyle: AnnotationStyle = {
+export const textStyle: ViewerStyle = {
   default: {
     fill: '#ffffff',
     fontWeight: 600,
@@ -30,7 +30,7 @@ export const textStyle: AnnotationStyle = {
   },
 }
 
-export const polygonStyle: AnnotationStyle = {
+export const polygonStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     strokeWidth: '3px',
@@ -48,7 +48,7 @@ export const polygonStyle: AnnotationStyle = {
   },
 }
 
-export const polylineStyle: AnnotationStyle = {
+export const polylineStyle: ViewerStyle = {
   default: {
     strokeWidth: '3px',
     stroke: '#ffffff',

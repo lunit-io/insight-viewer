@@ -1,17 +1,11 @@
-import { CSSProperties } from 'react'
+import { SVGProps } from 'react'
 import { Annotation, AnnotationMode, LineHeadMode } from '../../types'
 
-export interface AnnotationDrawerProps {
-  width?: number
-  height?: number
-
+export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
   annotations: Annotation[]
 
   /** When drawing is complete and a new annotation occurs */
   onAdd: (annotation: Annotation) => void
-
-  className?: string
-  style?: CSSProperties
 
   /**
    * Access Device Settings

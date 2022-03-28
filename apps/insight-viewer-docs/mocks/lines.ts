@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { LineAnnotation } from '@lunit/insight-viewer'
 
-export const initialAnnotation: LineAnnotation[] = [
+export const LINE_ANNOTATIONS: LineAnnotation[] = [
   {
     id: 1,
     type: 'line',

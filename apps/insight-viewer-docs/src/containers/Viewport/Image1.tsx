@@ -1,10 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Stack, Switch, Button } from '@chakra-ui/react'
-import InsightViewer, {
-  useImage,
-  useViewport,
-  Viewport,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CustomProgress from '../../components/CustomProgress'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -15,8 +11,7 @@ export default function Image1(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[0],
   })
-  const { viewport, setViewport, resetViewport, initialized } =
-    useViewport(INITIAL_VIEWPORT1)
+  const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT1)
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
@@ -92,11 +87,7 @@ export default function Image1(): JSX.Element {
                 />
               </Box>
             </Box>
-            <Button
-              colorScheme="blue"
-              onClick={resetViewport}
-              className="reset"
-            >
+            <Button colorScheme="blue" onClick={resetViewport} className="reset">
               Reset
             </Button>
           </Stack>
@@ -138,6 +129,8 @@ export default function Image1(): JSX.Element {
                 />
               </Box>
             </Box>
+          </Stack>
+          <Stack spacing="24px" mt={3} direction="row">
             <Box>
               <Box>scale {viewport.scale}</Box>
               <Box>
@@ -153,6 +146,24 @@ export default function Image1(): JSX.Element {
                   }}
                   className="scale-control"
                   value={viewport?.scale ?? 0}
+                />
+              </Box>
+            </Box>
+            <Box>
+              <Box>rotation {viewport.rotation}</Box>
+              <Box>
+                <input
+                  type="range"
+                  id="rotation"
+                  name="rotation"
+                  min="0"
+                  max="360"
+                  step="5"
+                  onChange={e => {
+                    updateViewport('rotation', Number(e.target.value))
+                  }}
+                  className="rotation-control"
+                  value={viewport?.rotation ?? 0}
                 />
               </Box>
             </Box>
@@ -187,12 +198,7 @@ export default function Image1(): JSX.Element {
       </Stack>
       <Box data-cy-loaded={loadingState} data-cy-viewport={initialized}>
         <ViewerWrapper className="viewer1">
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-            Progress={CustomProgress}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>

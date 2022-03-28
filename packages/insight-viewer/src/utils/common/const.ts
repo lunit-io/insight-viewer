@@ -5,6 +5,7 @@ export const DefaultViewport: Viewport = {
   invert: false,
   hflip: false,
   vflip: false,
+  rotation: 0,
   x: 0,
   y: 0,
   windowWidth: 0,
