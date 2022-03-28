@@ -35,8 +35,8 @@ export function MeasurementDrawer({
 
   const getEditPointPosition = () => {
     const [startPoint, endPoint] = points
-    const [startPointX, startPointY] = pixelToCanvas(startPoint)
-    const [endPointX, endPointY] = pixelToCanvas(endPoint)
+    const [startPointX, startPointY] = startPoint
+    const [endPointX, endPointY] = endPoint
 
     return { startPointX, startPointY, endPointX, endPointY }
   }
