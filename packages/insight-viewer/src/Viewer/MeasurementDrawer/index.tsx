@@ -6,7 +6,6 @@ import { svgStyle, circleStyle } from './MeasurementDrawer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 import { EDIT_CIRCLE_RADIUS } from '../../const'
-import { useOverlayContext } from '../../contexts'
 
 export function MeasurementDrawer({
   style,
@@ -23,8 +22,6 @@ export function MeasurementDrawer({
 }: MeasurementDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const { pixelToCanvas } = useOverlayContext()
-
   const { points, setEditTargetPoint } = useMeasurementPointsHandler({
     mode,
     device,
@@ -38,8 +35,8 @@ export function MeasurementDrawer({
 
   const getEditPointPosition = () => {
     const [startPoint, endPoint] = points
-    const [startPointX, startPointY] = pixelToCanvas(startPoint)
-    const [endPointX, endPointY] = pixelToCanvas(endPoint)
+    const [startPointX, startPointY] = startPoint
+    const [endPointX, endPointY] = endPoint
 
     return { startPointX, startPointY, endPointX, endPointY }
   }

@@ -7,14 +7,14 @@ import { useOverlayContext } from '../../contexts'
 import { getLineLength } from '../../utils/common/getLineLength'
 
 export function RulerDrawer({ points, setEditTargetPoint }: RulerDrawerProps): ReactElement | null {
-  const { image, pixelToCanvas } = useOverlayContext()
+  const { image } = useOverlayContext()
 
   const [startPoint, endPoint] = points
-  const [endPointX, endPointY] = pixelToCanvas(endPoint)
+  const [endPointX, endPointY] = endPoint
 
   const linePoints = points
     .map(point => {
-      const [x, y] = pixelToCanvas(point)
+      const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
