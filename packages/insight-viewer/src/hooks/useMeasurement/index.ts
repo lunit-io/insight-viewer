@@ -20,8 +20,10 @@ interface UseMeasurementProps {
 
 interface MeasurementDrawingState {
   measurements: Measurement[]
+  hoveredMeasurement: Measurement | null
   selectedMeasurement: Measurement | null
   addMeasurement: (measurement: Measurement, measurementInfo?: Pick<Measurement, 'dataAttrs'>) => Measurement | null
+  hoverMeasurement: (measurement: Measurement | null) => void
   selectMeasurement: (measurement: Measurement | null) => void
   updateMeasurement: (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => void
   removeMeasurement: (measurement: Measurement) => void
@@ -34,6 +36,7 @@ export function useMeasurement({
   mode = 'ruler',
 }: UseMeasurementProps): MeasurementDrawingState {
   const [measurements, setMeasurements] = useState<Measurement[]>([])
+  const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
   const [selectedMeasurement, setSelectedMeasurement] = useState<Measurement | null>(null)
 
   useEffect(() => {
@@ -69,9 +72,9 @@ export function useMeasurement({
     return measurement
   }
 
-  const selectMeasurement = (measurement: Measurement | null) => {
-    setSelectedMeasurement(prevSelectedMeasurement =>
-      measurement !== prevSelectedMeasurement ? measurement : prevSelectedMeasurement
+  const hoverMeasurement = (measurement: Measurement | null) => {
+    setHoveredMeasurement(prevHoveredMeasurement =>
+      measurement !== prevHoveredMeasurement ? measurement : prevHoveredMeasurement
     )
   }
 
@@ -90,6 +93,14 @@ export function useMeasurement({
     })
 
     setSelectedMeasurement(null)
+  }
+
+  const selectMeasurement = (measurement: Measurement | null) => {
+    if (measurement) removeMeasurement(measurement)
+
+    setSelectedMeasurement(prevSelectedMeasurement =>
+      measurement !== prevSelectedMeasurement ? measurement : prevSelectedMeasurement
+    )
   }
 
   const updateMeasurement = (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => {
@@ -128,8 +139,10 @@ export function useMeasurement({
 
   return {
     measurements,
+    hoveredMeasurement,
     selectedMeasurement,
     addMeasurement,
+    hoverMeasurement,
     removeMeasurement,
     updateMeasurement,
     selectMeasurement,
