@@ -20,7 +20,7 @@ export default function useMeasurementPointsHandler({
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
   const [editPoint, setEditPoint] = useState<Point | null>(null)
-  const [editTarget, setEditTarget] = useState<EditMode | null>(null)
+  const [editMode, setEditMode] = useState<EditMode | null>(null)
 
   const { image } = useOverlayContext()
 
@@ -43,12 +43,12 @@ export default function useMeasurementPointsHandler({
 
   const addDrawingPoint = (point: Point) => {
     setPoints(prevPoints => {
-      const isPrepareEditing = isEditing && selectedMeasurement && !editTarget
+      const isPrepareEditing = isEditing && selectedMeasurement && !editMode
 
       if (prevPoints.length === 0 || isPrepareEditing) return prevPoints
 
-      if (isEditing && selectedMeasurement && editTarget && editPoint) {
-        const editedPoints = getMeasurementEditingPoints(prevPoints, point, editPoint, editTarget, mode, setEditPoint)
+      if (isEditing && selectedMeasurement && editMode && editPoint) {
+        const editedPoints = getMeasurementEditingPoints(prevPoints, point, editPoint, editMode, mode, setEditPoint)
 
         return editedPoints
       }
@@ -62,7 +62,7 @@ export default function useMeasurementPointsHandler({
   const cancelDrawing = () => {
     setPoints([])
     setEditPoint(null)
-    setEditTarget(null)
+    setEditMode(null)
     onSelectMeasurement(null)
   }
 
@@ -75,10 +75,10 @@ export default function useMeasurementPointsHandler({
     cancelDrawing()
   }
 
-  const setEditTargetPoint = (targetPoint: EditMode) => {
+  const setMeasurementEditMode = (targetPoint: EditMode) => {
     if (!isEditing || !selectedMeasurement) return
 
-    setEditTarget(targetPoint)
+    setEditMode(targetPoint)
   }
 
   useDrawingHandler({
@@ -93,5 +93,5 @@ export default function useMeasurementPointsHandler({
     addDrewMeasurement,
   })
 
-  return { points, setEditTargetPoint }
+  return { points, setMeasurementEditMode }
 }

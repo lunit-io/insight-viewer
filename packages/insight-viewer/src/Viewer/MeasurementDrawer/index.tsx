@@ -22,7 +22,7 @@ export function MeasurementDrawer({
 }: MeasurementDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const { points, setEditTargetPoint } = useMeasurementPointsHandler({
+  const { points, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
     device,
     isEditing,
@@ -45,18 +45,18 @@ export function MeasurementDrawer({
     <>
       {points.length > 1 ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {mode === 'ruler' && <RulerDrawer setEditTargetPoint={setEditTargetPoint} points={points} />}
+          {mode === 'ruler' && <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
           {isEditing && selectedMeasurement && (
             <>
               <circle
-                onMouseDown={() => setEditTargetPoint('startPoint')}
+                onMouseDown={() => setMeasurementEditMode('startPoint')}
                 cx={getEditPointPosition().startPointX}
                 cy={getEditPointPosition().startPointY}
                 r={EDIT_CIRCLE_RADIUS}
                 style={circleStyle.default}
               />
               <circle
-                onMouseDown={() => setEditTargetPoint('endPoint')}
+                onMouseDown={() => setMeasurementEditMode('endPoint')}
                 cx={getEditPointPosition().endPointX}
                 cy={getEditPointPosition().endPointY}
                 r={EDIT_CIRCLE_RADIUS}
