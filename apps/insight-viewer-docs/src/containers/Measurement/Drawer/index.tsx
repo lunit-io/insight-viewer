@@ -22,7 +22,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function MeasurementDrawerContainer(): JSX.Element {
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
 
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
@@ -45,7 +45,7 @@ function MeasurementDrawerContainer(): JSX.Element {
   }
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsEdit(event.target.checked)
+    setIsEditing(event.target.checked)
   }
 
   return (
@@ -54,7 +54,7 @@ function MeasurementDrawerContainer(): JSX.Element {
         remove all
       </Button>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+        edit mode <Switch onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
       <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
         <Stack direction="row">
@@ -76,7 +76,7 @@ function MeasurementDrawerContainer(): JSX.Element {
                 onFocus={hoverMeasurement}
                 onSelect={selectMeasurement}
                 onRemove={removeMeasurement}
-                isEditing={isEdit}
+                isEditing={isEditing}
                 isDrawing
                 mode={measurementMode} // If no mode is defined, the default value is ruler.
               />
