@@ -33,14 +33,6 @@ export function MeasurementDrawer({
     addMeasurement: onAdd,
   })
 
-  const getEditPointPosition = () => {
-    const [startPoint, endPoint] = points
-    const [startPointX, startPointY] = startPoint
-    const [endPointX, endPointY] = endPoint
-
-    return { startPointX, startPointY, endPointX, endPointY }
-  }
-
   return (
     <>
       {points.length > 1 ? (
@@ -50,15 +42,15 @@ export function MeasurementDrawer({
             <>
               <circle
                 onMouseDown={() => setMeasurementEditMode('startPoint')}
-                cx={getEditPointPosition().startPointX}
-                cy={getEditPointPosition().startPointY}
+                cx={points[0][0]}
+                cy={points[0][1]}
                 r={EDIT_CIRCLE_RADIUS}
                 style={circleStyle.default}
               />
               <circle
                 onMouseDown={() => setMeasurementEditMode('endPoint')}
-                cx={getEditPointPosition().endPointX}
-                cy={getEditPointPosition().endPointY}
+                cx={points[1][0]}
+                cy={points[1][1]}
                 r={EDIT_CIRCLE_RADIUS}
                 style={circleStyle.default}
               />
