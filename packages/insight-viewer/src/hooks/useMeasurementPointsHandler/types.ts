@@ -1,6 +1,6 @@
 import { RefObject } from 'react'
 
-import { Point, MeasurementMode, Measurement, EditPoint } from '../../types'
+import { Point, MeasurementMode, Measurement, EditMode } from '../../types'
 
 export interface UseMeasurementPointsHandlerProps {
   isEditing: boolean
@@ -15,5 +15,5 @@ export interface UseMeasurementPointsHandlerProps {
 
 export interface UseMeasurementPointsHandlerReturnType {
   points: Point[]
-  setEditTargetPoint: (targetPoint: EditPoint) => void
+  setEditTargetPoint: (targetPoint: EditMode) => void
 }

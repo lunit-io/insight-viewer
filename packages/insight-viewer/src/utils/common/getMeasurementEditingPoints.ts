@@ -1,12 +1,12 @@
 import { SetStateAction, Dispatch } from 'react'
-import { Point, EditPoint, MeasurementMode } from '../../types'
+import { Point, EditMode, MeasurementMode } from '../../types'
 import { getMoveRulerPoints } from './getMoveRulerPoints'
 
 export function getMeasurementEditingPoints(
   prevPoints: Point[],
   currentPoint: Point,
   editPoint: Point,
-  target: EditPoint,
+  target: EditMode,
   mode: MeasurementMode,
   setEditPoint: Dispatch<SetStateAction<Point | null>>
 ): Point[] {
