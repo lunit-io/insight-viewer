@@ -16,5 +16,6 @@ export const circleStyle: ViewerStyle = {
     stroke: 'rgb(255, 224, 0)',
     transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
     fill: 'rgb(255, 224, 0)',
+    cursor: 'move',
   },
 }
