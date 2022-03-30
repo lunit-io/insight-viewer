@@ -67,8 +67,14 @@ export default function useMeasurementPointsHandler({
   }
 
   const addDrewMeasurement = () => {
+    if (isEditing && selectedMeasurement && editMode) {
+      setEditMode(null)
+      return
+    }
+
     if (points.length > 1) {
       const drewMeasurement = getDrewMeasurement(points, mode, measurements, image)
+
       addMeasurement(drewMeasurement)
     }
 
