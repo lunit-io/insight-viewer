@@ -26,6 +26,7 @@ export const polylineStyle: ViewerStyle = {
     stroke: 'rgb(255, 194, 17)',
     fill: 'none',
     strokeWidth: '3px',
+    cursor: 'pointer',
   },
 }
 
@@ -46,5 +47,6 @@ export const textStyle: ViewerStyle = {
     fill: 'rgb(255, 194, 17)',
     fontWeight: 600,
     textAnchor: 'middle',
+    cursor: 'pointer',
   },
 }
