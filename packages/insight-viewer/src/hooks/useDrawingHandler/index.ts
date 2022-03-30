@@ -35,12 +35,14 @@ function useDrawingHandler({
       deactivateMouseDrawEvents()
 
       addDrewMeasurement()
+      cancelDrawing()
     }
 
     const handleMouseLeave = (event: MouseEvent) => {
       setPreProcessEvent(event)
       deactivateMouseDrawEvents()
 
+      addDrewMeasurement()
       cancelDrawing()
     }
 
@@ -49,6 +51,7 @@ function useDrawingHandler({
         setPreProcessEvent(event)
         deactivateMouseDrawEvents()
 
+        addDrewMeasurement()
         cancelDrawing()
       }
     }
