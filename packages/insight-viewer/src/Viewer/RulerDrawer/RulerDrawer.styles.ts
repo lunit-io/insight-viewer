@@ -18,6 +18,6 @@ export const polyline: ViewerStyle = {
     fill: 'rgba(255, 244, 0, 0.2)',
     strokeWidth: '5px',
     stroke: 'rgb(255, 224, 0)',
-    cursor: 'pointer',
+    cursor: 'grab',
   },
 }
