@@ -24,6 +24,8 @@ export default function useMeasurementPointsHandler({
 
   const { image } = useOverlayContext()
 
+  const isMeasurementEditing = isEditing && selectedMeasurement && editMode
+
   useEffect(() => {
     if (!isEditing || !selectedMeasurement) return
 
@@ -60,6 +62,11 @@ export default function useMeasurementPointsHandler({
   }
 
   const cancelDrawing = () => {
+    if (isMeasurementEditing) {
+      setEditMode(null)
+      return
+    }
+
     setPoints([])
     setEditPoint(null)
     setEditMode(null)
@@ -67,18 +74,13 @@ export default function useMeasurementPointsHandler({
   }
 
   const addDrewMeasurement = () => {
-    if (isEditing && selectedMeasurement && editMode) {
-      setEditMode(null)
-      return
-    }
+    if (isMeasurementEditing) return
 
     if (points.length > 1) {
       const drewMeasurement = getDrewMeasurement(points, mode, measurements, image)
 
       addMeasurement(drewMeasurement)
     }
-
-    cancelDrawing()
   }
 
   const setMeasurementEditMode = (targetPoint: EditMode) => {
