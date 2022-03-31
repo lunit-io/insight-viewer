@@ -39,7 +39,14 @@ function MeasurementViewerContainer(): JSX.Element {
     wadouri: IMAGES[11],
   })
   const { viewport, setViewport } = useViewport()
-  const { measurements, selectedMeasurement, removeMeasurement, selectMeasurement } = useMeasurement({
+  const {
+    measurements,
+    hoveredMeasurement,
+    selectedMeasurement,
+    removeMeasurement,
+    selectMeasurement,
+    hoverMeasurement,
+  } = useMeasurement({
     mode: measurementMode,
     initalMeasurement: INITIAL_MEASUREMENTS[measurementMode],
   })
@@ -71,9 +78,11 @@ function MeasurementViewerContainer(): JSX.Element {
               width={700}
               height={700}
               measurements={measurements}
+              hoveredMeasurement={hoveredMeasurement}
               selectedMeasurement={selectedMeasurement}
               mode={measurementMode}
-              onFocus={isEdit ? selectMeasurement : undefined}
+              onSelect={selectMeasurement}
+              onFocus={isEdit ? hoverMeasurement : undefined}
               onRemove={isEdit ? removeMeasurement : undefined}
             />
           )}

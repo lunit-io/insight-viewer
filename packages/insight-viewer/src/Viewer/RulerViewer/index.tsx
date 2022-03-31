@@ -4,14 +4,14 @@ import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 import { RULER_TEXT_POSITION_SPACING } from '../../const'
 
-export function RulerViewer({ measurement, selectedMeasurement, pixelToCanvas }: RulerViewerProps): ReactElement {
+export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { id, length, points } = measurement
-  const [endPointX, endPointY] = pixelToCanvas(points[1])
-  const isSelectedMeasurement = measurement === selectedMeasurement
+  const [endPointX, endPointY] = points[1]
+  const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const polygonPoints: string = points
     .map(point => {
-      const [x, y] = pixelToCanvas(point)
+      const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
@@ -21,14 +21,14 @@ export function RulerViewer({ measurement, selectedMeasurement, pixelToCanvas }:
       <polyline
         data-cy-id={id}
         style={{
-          ...polylineStyle[isSelectedMeasurement ? 'select' : 'default'],
+          ...polylineStyle[isHoveredMeasurement ? 'hover' : 'default'],
         }}
-        data-select={isSelectedMeasurement || undefined}
+        data-select={isHoveredMeasurement || undefined}
         points={polygonPoints}
       />
       {length && (
         <text
-          style={{ ...textStyle[isSelectedMeasurement ? 'select' : 'default'] }}
+          style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
           x={endPointX + RULER_TEXT_POSITION_SPACING.x}
           y={endPointY + RULER_TEXT_POSITION_SPACING.y}
         >

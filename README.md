@@ -1,6 +1,8 @@
 # Lunit Front-End Packages
 
-This repository is a monorepo managed using yarn workspaces, typescript, and lerna.  
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
+This repository is a monorepo managed using yarn workspaces, typescript, and lerna.
 Each public sub-package is independently published to NPM.
 
 ## Docs

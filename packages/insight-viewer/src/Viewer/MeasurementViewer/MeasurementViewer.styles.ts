@@ -22,16 +22,17 @@ export const polylineStyle: ViewerStyle = {
     strokeWidth: '3px',
     stroke: '#000000',
   },
-  select: {
+  hover: {
     stroke: 'rgb(255, 194, 17)',
     fill: 'none',
     strokeWidth: '3px',
+    cursor: 'pointer',
   },
 }
 
 export const textStyle: ViewerStyle = {
   default: {
-    fill: '#ffffff',
+    fill: '#09a9c4',
     fontWeight: 600,
     textAnchor: 'middle',
   },
@@ -42,9 +43,10 @@ export const textStyle: ViewerStyle = {
     stroke: '#000000',
     strokeWidth: '2.5px',
   },
-  select: {
+  hover: {
     fill: 'rgb(255, 194, 17)',
     fontWeight: 600,
     textAnchor: 'middle',
+    cursor: 'pointer',
   },
 }
