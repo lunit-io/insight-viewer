@@ -5,7 +5,6 @@ interface GetPolyViewerInfoProps {
   annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation
   selectedAnnotation: Annotation | null
   showOutline: boolean
-  pixelToCanvas: (point: Point) => Point
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
@@ -22,7 +21,6 @@ export function getPolyViewerInfo({
   annotation,
   showOutline,
   selectedAnnotation,
-  pixelToCanvas,
   annotationAttrs,
 }: GetPolyViewerInfoProps): getPolyViewerInfoReturnType {
   const { label, id, labelPosition: _labelPosition, points } = annotation
@@ -31,11 +29,11 @@ export function getPolyViewerInfo({
   const polygonLabel = label ?? id
 
   const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
-  const labelPosition = _labelPosition ? pixelToCanvas(_labelPosition) : undefined
+  const labelPosition = _labelPosition || undefined
 
   const polygonPoints: string = points
     .map(point => {
-      const [x, y] = pixelToCanvas(point)
+      const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
@@ -44,7 +42,7 @@ export function getPolyViewerInfo({
     annotation.type === 'line' && annotation?.headPoints
       ? annotation.headPoints
           .map(point => {
-            const [x, y] = pixelToCanvas(point)
+            const [x, y] = point
             return `${x},${y}`
           })
           .join()
