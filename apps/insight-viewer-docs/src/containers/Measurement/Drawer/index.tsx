@@ -38,7 +38,7 @@ function MeasurementDrawerContainer(): JSX.Element {
     removeMeasurement,
     selectMeasurement,
     removeAllMeasurement,
-  } = useMeasurement({ mode: measurementMode })
+  } = useMeasurement({})
 
   const handleMeasurementModeClick = (mode: MeasurementMode) => {
     setMeasurementMode(mode)

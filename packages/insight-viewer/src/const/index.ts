@@ -53,3 +53,5 @@ export const RULER_TEXT_POSITION_SPACING = {
 export const RULER_MIN_LENGTH = 0.1
 
 export const EDIT_CIRCLE_RADIUS = 4
+
+export const CIRCLE_MIN_RADIUS = 10

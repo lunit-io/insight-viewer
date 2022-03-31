@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { MeasurementMode, Measurement, MeasurementBase } from '../../types'
-import { RULER_MIN_LENGTH } from '../../const'
+import { Measurement, MeasurementBase } from '../../types'
+import { RULER_MIN_LENGTH, CIRCLE_MIN_RADIUS } from '../../const'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
@@ -15,7 +15,6 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 interface UseMeasurementProps {
   nextId?: number
   initalMeasurement?: Measurement[]
-  mode?: MeasurementMode
 }
 
 interface MeasurementDrawingState {
@@ -30,11 +29,7 @@ interface MeasurementDrawingState {
   removeAllMeasurement: () => void
 }
 
-export function useMeasurement({
-  nextId,
-  initalMeasurement,
-  mode = 'ruler',
-}: UseMeasurementProps): MeasurementDrawingState {
+export function useMeasurement({ nextId, initalMeasurement }: UseMeasurementProps): MeasurementDrawingState {
   const [measurements, setMeasurements] = useState<Measurement[]>([])
   const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
   const [selectedMeasurement, setSelectedMeasurement] = useState<Measurement | null>(null)
@@ -57,12 +52,12 @@ export function useMeasurement({
     measurement: Measurement,
     measurementInfo: Pick<Measurement, 'dataAttrs'> | undefined
   ): Measurement | null => {
-    if (measurement.type !== mode) throw Error('The mode of component and hook is different')
     if (
       measurement.type === 'ruler' &&
       (measurement.length === 0 || (measurement.length && measurement.length < RULER_MIN_LENGTH))
     )
       return null
+    if (measurement.type === 'circle' && measurement.radius < CIRCLE_MIN_RADIUS) return null
     if (measurementInfo?.dataAttrs) {
       validateDataAttrs(measurementInfo?.dataAttrs)
     }
