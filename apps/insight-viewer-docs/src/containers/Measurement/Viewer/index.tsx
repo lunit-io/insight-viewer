@@ -12,6 +12,7 @@ import InsightViewer, {
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { RULER_MEASUREMENTS } from '../../../../mocks/ruler'
+import { CIRCLE_MEASUREMENTS } from '../../../../mocks/circles'
 
 export type InitalMeasurements = {
   [mode in MeasurementMode]: Measurement[]
@@ -19,7 +20,7 @@ export type InitalMeasurements = {
 
 const INITIAL_MEASUREMENTS: InitalMeasurements = {
   ruler: RULER_MEASUREMENTS,
-  circle: RULER_MEASUREMENTS,
+  circle: CIRCLE_MEASUREMENTS,
 }
 
 const style = {
