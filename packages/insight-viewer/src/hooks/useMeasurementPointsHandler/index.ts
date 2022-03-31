@@ -10,7 +10,6 @@ import useDrawingHandler from '../useDrawingHandler'
 
 export default function useMeasurementPointsHandler({
   mode,
-  device,
   isEditing,
   svgElement,
   measurements,
@@ -91,14 +90,11 @@ export default function useMeasurementPointsHandler({
 
   useDrawingHandler({
     mode,
-    device,
-    isEditing,
     svgElement,
-    selectedMeasurement,
     addStartPoint,
     addDrawingPoint,
     cancelDrawing,
-    addDrewMeasurement,
+    addDrewElement: addDrewMeasurement,
   })
 
   return { points, setMeasurementEditMode }
