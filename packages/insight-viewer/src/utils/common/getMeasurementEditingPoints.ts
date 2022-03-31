@@ -6,19 +6,23 @@ export function getMeasurementEditingPoints(
   prevPoints: Point[],
   currentPoint: Point,
   editPoint: Point,
-  target: EditMode,
+  editMode: EditMode,
   mode: MeasurementMode,
   setEditPoint: Dispatch<SetStateAction<Point | null>>
 ): Point[] {
-  if (mode === 'ruler' && target === 'startPoint') {
+  if (mode === 'ruler' && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
   }
 
-  if (mode === 'ruler' && target === 'endPoint') {
+  if (mode === 'ruler' && editMode === 'endPoint') {
     return [prevPoints[0], currentPoint]
   }
 
-  if (mode === 'ruler' && target === 'line') {
+  if (mode === 'circle' && (editMode === 'startPoint' || editMode === 'endPoint')) {
+    return [prevPoints[0], currentPoint]
+  }
+
+  if ((mode === 'circle' || mode === 'ruler') && editMode === 'line') {
     const movedPoint = getMoveRulerPoints({ prevPoints, editStartPoint: editPoint, currentPoint })
     setEditPoint(currentPoint)
 
