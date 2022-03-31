@@ -15,7 +15,7 @@ function useDrawingHandler({
   addStartPoint,
   addDrawingPoint,
   cancelDrawing,
-  addDrewMeasurement,
+  addDrewElement,
 }: UseDrawingHandlerProps): void {
   const { pageToPixel, pixelToCanvas, enabledElement } = useOverlayContext()
 
@@ -34,7 +34,7 @@ function useDrawingHandler({
       setPreProcessEvent(event)
       deactivateMouseDrawEvents()
 
-      addDrewMeasurement()
+      addDrewElement()
       cancelDrawing()
     }
 
@@ -42,7 +42,7 @@ function useDrawingHandler({
       setPreProcessEvent(event)
       deactivateMouseDrawEvents()
 
-      addDrewMeasurement()
+      addDrewElement()
       cancelDrawing()
     }
 
@@ -51,7 +51,7 @@ function useDrawingHandler({
         setPreProcessEvent(event)
         deactivateMouseDrawEvents()
 
-        addDrewMeasurement()
+        addDrewElement()
         cancelDrawing()
       }
     }
@@ -97,7 +97,7 @@ function useDrawingHandler({
     pageToPixel,
     pixelToCanvas,
     addDrawingPoint,
-    addDrewMeasurement,
+    addDrewElement,
     cancelDrawing,
     addStartPoint,
   ])
