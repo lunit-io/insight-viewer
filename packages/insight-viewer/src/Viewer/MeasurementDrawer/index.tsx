@@ -2,6 +2,7 @@
 import React, { useRef } from 'react'
 
 import { RulerDrawer } from '../RulerDrawer'
+import { CircleDrawer } from '../CircleDrawer'
 import { svgStyle, circleStyle } from './MeasurementDrawer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
@@ -21,8 +22,9 @@ export function MeasurementDrawer({
   onSelectMeasurement,
 }: MeasurementDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
+  const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
 
-  const { points, setMeasurementEditMode } = useMeasurementPointsHandler({
+  const { points, editPoints, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
     device,
     isEditing,
@@ -37,20 +39,21 @@ export function MeasurementDrawer({
     <>
       {points.length > 1 ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {mode === 'ruler' && <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
-          {isEditing && selectedMeasurement && (
+          {drawingMode === 'ruler' && <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
+          {drawingMode === 'circle' && <CircleDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
+          {isEditing && selectedMeasurement && editPoints && (
             <>
               <circle
                 onMouseDown={() => setMeasurementEditMode('startPoint')}
-                cx={points[0][0]}
-                cy={points[0][1]}
+                cx={editPoints[0]}
+                cy={editPoints[1]}
                 r={EDIT_CIRCLE_RADIUS}
                 style={circleStyle.default}
               />
               <circle
                 onMouseDown={() => setMeasurementEditMode('endPoint')}
-                cx={points[1][0]}
-                cy={points[1][1]}
+                cx={editPoints[2]}
+                cy={editPoints[3]}
                 r={EDIT_CIRCLE_RADIUS}
                 style={circleStyle.default}
               />
