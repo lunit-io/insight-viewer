@@ -3,10 +3,10 @@ import React, { useRef } from 'react'
 
 import { RulerDrawer } from '../RulerDrawer'
 import { CircleDrawer } from '../CircleDrawer'
-import { svgStyle, circleStyle } from './MeasurementDrawer.styles'
+import { EditPointer } from '../../components/EditPointer'
+import { svgStyle } from './MeasurementDrawer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
-import { EDIT_CIRCLE_RADIUS } from '../../const'
 
 export function MeasurementDrawer({
   style,
@@ -43,19 +43,17 @@ export function MeasurementDrawer({
           {drawingMode === 'circle' && <CircleDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
           {isEditing && selectedMeasurement && editPoints && (
             <>
-              <circle
-                onMouseDown={() => setMeasurementEditMode('startPoint')}
+              <EditPointer
+                setMeasurementEditMode={setMeasurementEditMode}
+                editMode="startPoint"
                 cx={editPoints[0]}
                 cy={editPoints[1]}
-                r={EDIT_CIRCLE_RADIUS}
-                style={circleStyle.default}
               />
-              <circle
-                onMouseDown={() => setMeasurementEditMode('endPoint')}
+              <EditPointer
+                setMeasurementEditMode={setMeasurementEditMode}
+                editMode="endPoint"
                 cx={editPoints[2]}
                 cy={editPoints[3]}
-                r={EDIT_CIRCLE_RADIUS}
-                style={circleStyle.default}
               />
             </>
           )}
