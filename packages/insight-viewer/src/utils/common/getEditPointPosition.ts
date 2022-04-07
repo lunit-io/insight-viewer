@@ -1,4 +1,4 @@
-import { Point, Measurement } from '../../types'
+import { Point, Measurement, MeasurementMode } from '../../types'
 import { getCircleRadius } from './getCircleRadius'
 import { getCircleEditPoints } from './getCircleEditPoints'
 
@@ -6,13 +6,14 @@ export type GetEditPointPositionReturnType = [number, number, number, number]
 
 export function getEditPointPosition(
   points: Point[],
+  mode: MeasurementMode,
   editMeasurement: Measurement | null
 ): GetEditPointPositionReturnType | null {
-  if (points.length < 2 || !editMeasurement) return null
+  if (points.length < 2) return null
 
   const [startPoint, endPoint] = points
 
-  if (editMeasurement.type === 'circle') {
+  if ((editMeasurement && editMeasurement.type === 'circle') || mode === 'circle') {
     const radius = getCircleRadius(points)
     const editPoints = getCircleEditPoints(startPoint, radius)
 
