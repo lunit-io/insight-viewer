@@ -29,10 +29,10 @@ export default function useMeasurementPointsHandler({
   const isMeasurementEditing = isEditing && selectedMeasurement && editMode
 
   useEffect(() => {
-    const editPoints = getEditPointPosition(points, selectedMeasurement)
+    const editPoints = getEditPointPosition(points, mode, selectedMeasurement)
 
     setEditTargetPoints(editPoints)
-  }, [points, selectedMeasurement])
+  }, [points, mode, selectedMeasurement])
 
   useEffect(() => {
     if (!isEditing || !selectedMeasurement) return
