@@ -41,7 +41,7 @@ export function MeasurementDrawer({
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {drawingMode === 'ruler' && <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
           {drawingMode === 'circle' && <CircleDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
-          {isEditing && selectedMeasurement && editPoints && (
+          {editPoints && (
             <>
               <EditPointer
                 setMeasurementEditMode={setMeasurementEditMode}
