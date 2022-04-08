@@ -4,6 +4,7 @@ import { UseMeasurementPointsHandlerProps, UseMeasurementPointsHandlerReturnType
 import { Point, EditMode } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { getDrewMeasurement } from '../../utils/common/getDrewMeasurement'
+import { getEditPointPosition, GetEditPointPositionReturnType } from '../../utils/common/getEditPointPosition'
 import { getMeasurementDrawingPoints } from '../../utils/common/getMeasurementDrawingPoints'
 import { getMeasurementEditingPoints } from '../../utils/common/getMeasurementEditingPoints'
 import useDrawingHandler from '../useDrawingHandler'
@@ -20,6 +21,7 @@ export default function useMeasurementPointsHandler({
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
   const [editPoint, setEditPoint] = useState<Point | null>(null)
+  const [editTargetPoints, setEditTargetPoints] = useState<GetEditPointPositionReturnType | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
 
   const { image } = useOverlayContext()
@@ -27,10 +29,24 @@ export default function useMeasurementPointsHandler({
   const isMeasurementEditing = isEditing && selectedMeasurement && editMode
 
   useEffect(() => {
+    const editPoints = getEditPointPosition(points, mode, selectedMeasurement)
+
+    setEditTargetPoints(editPoints)
+  }, [points, mode, selectedMeasurement])
+
+  useEffect(() => {
     if (!isEditing || !selectedMeasurement) return
 
     if (selectedMeasurement.type === 'ruler') {
       setPoints(selectedMeasurement.points)
+    }
+
+    if (selectedMeasurement.type === 'circle') {
+      const { center, radius } = selectedMeasurement
+      const [x, y] = center
+      const endPoint: Point = [x + radius, y]
+
+      setPoints([center, endPoint])
     }
   }, [isEditing, selectedMeasurement])
 
@@ -50,7 +66,14 @@ export default function useMeasurementPointsHandler({
       if (prevPoints.length === 0 || isPrepareEditing) return prevPoints
 
       if (isEditing && selectedMeasurement && editMode && editPoint) {
-        const editedPoints = getMeasurementEditingPoints(prevPoints, point, editPoint, editMode, mode, setEditPoint)
+        const editedPoints = getMeasurementEditingPoints(
+          prevPoints,
+          point,
+          editPoint,
+          editMode,
+          selectedMeasurement.type,
+          setEditPoint
+        )
 
         return editedPoints
       }
@@ -77,7 +100,8 @@ export default function useMeasurementPointsHandler({
     if (isMeasurementEditing) return
 
     if (points.length > 1) {
-      const drewMeasurement = getDrewMeasurement(points, mode, measurements, image)
+      const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
+      const drewMeasurement = getDrewMeasurement(points, drawingMode, measurements, image)
 
       addMeasurement(drewMeasurement)
     }
@@ -101,5 +125,5 @@ export default function useMeasurementPointsHandler({
     addDrewMeasurement,
   })
 
-  return { points, setMeasurementEditMode }
+  return { points, editPoints: editTargetPoints, setMeasurementEditMode }
 }

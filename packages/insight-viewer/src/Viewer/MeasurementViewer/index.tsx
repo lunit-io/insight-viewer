@@ -4,6 +4,7 @@ import { svgStyle } from './MeasurementViewer.styles'
 import { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
 import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
+import { CircleViewer } from '../CircleViewer'
 
 function MeasurementsDraw({
   isEditing,
@@ -50,6 +51,7 @@ function MeasurementsDraw({
         onMouseLeave={handleMeasurementFocusOut}
       >
         {measurement.type === 'ruler' && <RulerViewer measurement={measurement} {...viewerProps} />}
+        {measurement.type === 'circle' && <CircleViewer measurement={measurement} {...viewerProps} />}
       </g>
     )
   })
