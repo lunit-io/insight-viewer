@@ -50,7 +50,8 @@ export const RULER_TEXT_POSITION_SPACING = {
 }
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
-  x: 70,
+  x: 60,
+  y: 30,
 }
 
 // The ruler min length is 0.1mm
@@ -61,3 +62,5 @@ export const EDIT_CIRCLE_RADIUS = 4
 export const CIRCLE_MIN_RADIUS = 10
 
 export const CIRCLE_EDIT_POINT_ANGLE = { START_ANGLE: -45, END_ANGLE: 135 }
+
+export const CIRCLE_TEXT_POINT_ANGLE = 135
