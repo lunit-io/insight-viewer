@@ -68,7 +68,7 @@ function MeasurementViewerContainer(): JSX.Element {
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="ruler">Ruler</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
+          <Radio value="circle">Circle</Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>

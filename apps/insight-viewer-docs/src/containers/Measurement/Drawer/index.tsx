@@ -59,7 +59,7 @@ function MeasurementDrawerContainer(): JSX.Element {
       <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
         <Stack direction="row">
           <Radio value="ruler">Ruler</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
+          <Radio value="circle">Circle</Radio>
         </Stack>
       </RadioGroup>
       <Box data-cy-loaded={loadingState}>
