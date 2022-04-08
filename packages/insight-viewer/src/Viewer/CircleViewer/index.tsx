@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
 
 import { CircleViewerProps } from './CircleViewer.types'
-import { circleStyle } from './CircleViewer.styles'
+import { circleStyle, textStyle } from './CircleViewer.styles'
+import { CIRCLE_TEXT_POSITION_SPACING } from '../../const'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { id, center, radius } = measurement
@@ -20,6 +21,13 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         cy={centerY}
         r={radius}
       />
+      <text
+        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+        x={centerX + radius + CIRCLE_TEXT_POSITION_SPACING.x}
+        y={centerY}
+      >
+        {`radius: ${radius.toFixed(2)}`}
+      </text>
     </>
   )
 }
