@@ -3,11 +3,14 @@ import React, { ReactElement } from 'react'
 import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle, textStyle } from './CircleViewer.styles'
 import { CIRCLE_TEXT_POSITION_SPACING } from '../../const'
+import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { id, center, radius } = measurement
   const [centerX, centerY] = center
   const isHoveredMeasurement = measurement === hoveredMeasurement
+
+  const textPosition = getCircleTextPosition(center, radius)
 
   return (
     <>
@@ -23,10 +26,10 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       />
       <text
         style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
-        x={centerX + radius + CIRCLE_TEXT_POSITION_SPACING.x}
-        y={centerY}
+        x={textPosition[0] + CIRCLE_TEXT_POSITION_SPACING.x}
+        y={textPosition[1] + CIRCLE_TEXT_POSITION_SPACING.y}
       >
-        {`radius: ${radius.toFixed(2)}`}
+        {`radius: ${radius.toFixed(2)}mm`}
       </text>
     </>
   )
