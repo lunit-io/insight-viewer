@@ -10,13 +10,11 @@ export function PolygonViewer({
   showAnnotationLabel,
   selectedAnnotation,
   annotationAttrs,
-  pixelToCanvas,
 }: PolygonViewerProps): ReactElement {
   const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
     selectedAnnotation,
-    pixelToCanvas,
     annotationAttrs,
   })
 

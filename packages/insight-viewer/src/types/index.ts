@@ -116,7 +116,6 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   showAnnotationLabel: boolean
   selectedAnnotation: Annotation | null
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
-  pixelToCanvas: (point: Point) => Point
 }
 
 export type MeasurementMode = 'ruler' | 'circle'
