@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.4.1...@lunit/insight-viewer@5.4.2) (2022-04-20)
+
+
+### Bug Fixes
+
+* **viewer:** missed exports on cjs build ([ae0c70a](https://github.com/lunit-io/frontend-components/commit/ae0c70a5fa25990690bd8f929591aed8a474f195))
+
+
+
+
+
 ## [5.4.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.4.0...@lunit/insight-viewer@5.4.1) (2022-03-28)
 
 **Note:** Version bump only for package @lunit/insight-viewer
