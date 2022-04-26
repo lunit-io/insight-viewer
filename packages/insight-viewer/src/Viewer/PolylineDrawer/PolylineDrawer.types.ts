@@ -1,7 +1,7 @@
 import { Point, AnnotationMode, LineHeadMode } from '../../types'
 
 export interface PolylineDrawerProps {
-  polygon: Point[]
+  points: Point[]
   mode: AnnotationMode
   lineHead: LineHeadMode
 }

@@ -1,13 +1,13 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "5.4.2",
+  "version": "5.5.0",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
-  "source": "src/index.ts",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "exports": {
-    ".": "./dist/index.esm.js",
-    "./contour": "./dist/contour.esm.js"
+    "require": "./dist/index.js",
+    "import": "./dist/index.esm.js"
   },
   "types": "dist/types/index.d.ts",
   "repository": {

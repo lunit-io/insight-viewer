@@ -54,7 +54,9 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type ViewerStyleType = 'default' | 'select' | 'outline' | 'highlight'
+export type EditMode = 'startPoint' | 'endPoint' | 'line'
+
+export type ViewerStyleType = 'default' | 'select' | 'hover' | 'outline' | 'highlight'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
@@ -114,7 +116,6 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   showAnnotationLabel: boolean
   selectedAnnotation: Annotation | null
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
-  pixelToCanvas: (point: Point) => Point
 }
 
 export type MeasurementMode = 'ruler' | 'circle'
@@ -141,6 +142,5 @@ export type Measurement = RulerMeasurement | CircleMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
-  selectedMeasurement: Measurement | null
-  pixelToCanvas: (point: Point) => Point
+  hoveredMeasurement: Measurement | null
 }

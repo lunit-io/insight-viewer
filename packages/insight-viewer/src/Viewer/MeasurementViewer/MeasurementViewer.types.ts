@@ -1,5 +1,5 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Point, MeasurementMode, Measurement } from '../../types'
+import { Measurement } from '../../types'
 
 export interface MeasurementViewerProps {
   width?: number
@@ -8,13 +8,15 @@ export interface MeasurementViewerProps {
   /** Measurement focused by user interaction such as mouse over */
   measurements: Measurement[]
 
-  selectedMeasurement: Measurement | null
+  hoveredMeasurement: Measurement | null
 
   /** <svg className={}> */
   className?: string
 
   /** <svg style={}> */
   style?: CSSProperties
+
+  isEditing?: boolean
 
   /**
    * You can set the attributes of individual measurement objects
@@ -23,6 +25,7 @@ export interface MeasurementViewerProps {
    */
   measurementAttrs?: (measurement: Measurement, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
+  onSelect: (measurement: Measurement | null) => void
   onFocus?: (measurement: Measurement | null) => void
   onRemove?: (measurement: Measurement) => void
 
@@ -31,12 +34,9 @@ export interface MeasurementViewerProps {
    * Since the outline is expressed by drawing two lines, it can be deactivated in a performance-sensitive situation
    */
   showOutline?: boolean
-
-  mode?: MeasurementMode
 }
 
-export interface MeasurementsDrawProps extends Omit<MeasurementViewerProps, 'width' | 'height'> {
-  mode: MeasurementMode
+export interface MeasurementsDrawProps extends Omit<MeasurementViewerProps, 'width' | 'height' | 'mode'> {
+  isEditing: boolean
   showOutline: boolean
-  pixelToCanvas: (point: Point) => Point
 }

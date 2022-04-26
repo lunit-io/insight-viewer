@@ -1,38 +1,27 @@
 import { ViewerStyle } from '../../types'
 
-export const svgStyle: ViewerStyle = {
-  default: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-  },
-}
-
-export const polylineStyle: ViewerStyle = {
+export const circleStyle: ViewerStyle = {
   default: {
     strokeWidth: '3px',
     stroke: '#ffffff',
     transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
-    fill: 'none',
+    fill: 'transparent',
   },
   outline: {
-    fill: 'none',
+    fill: 'transparent',
     strokeWidth: '3px',
     stroke: '#000000',
   },
   hover: {
     stroke: 'rgb(255, 194, 17)',
-    fill: 'none',
+    fill: 'rgba(0, 0, 0, 0.4)',
     strokeWidth: '3px',
-    cursor: 'pointer',
   },
 }
 
 export const textStyle: ViewerStyle = {
   default: {
-    fill: '#09a9c4',
+    fill: '#ffffff',
     fontWeight: 600,
     textAnchor: 'middle',
   },
@@ -47,6 +36,5 @@ export const textStyle: ViewerStyle = {
     fill: 'rgb(255, 194, 17)',
     fontWeight: 600,
     textAnchor: 'middle',
-    cursor: 'pointer',
   },
 }

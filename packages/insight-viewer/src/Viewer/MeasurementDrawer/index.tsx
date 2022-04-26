@@ -2,34 +2,61 @@
 import React, { useRef } from 'react'
 
 import { RulerDrawer } from '../RulerDrawer'
+import { CircleDrawer } from '../CircleDrawer'
+import { EditPointer } from '../../components/EditPointer'
 import { svgStyle } from './MeasurementDrawer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
-import useMeasurementDrawing from '../../hooks/useMeasurementDrawing'
+import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 
 export function MeasurementDrawer({
   style,
   width,
   height,
   device,
+  isEditing = false,
   measurements,
+  selectedMeasurement,
   className,
   mode = 'ruler',
   onAdd,
+  onSelectMeasurement,
 }: MeasurementDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [measurementPoints] = useMeasurementDrawing({
+  const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
+
+  const { points, editPoints, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
     device,
+    isEditing,
     measurements,
     svgElement: svgRef,
-    onAdd,
+    selectedMeasurement,
+    onSelectMeasurement,
+    addMeasurement: onAdd,
   })
 
   return (
     <>
-      {measurementPoints.length > 1 ? (
+      {points.length > 1 ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {mode === 'ruler' && <RulerDrawer points={measurementPoints} />}
+          {drawingMode === 'ruler' && <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
+          {drawingMode === 'circle' && <CircleDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
+          {editPoints && (
+            <>
+              <EditPointer
+                setMeasurementEditMode={setMeasurementEditMode}
+                editMode="startPoint"
+                cx={editPoints[0]}
+                cy={editPoints[1]}
+              />
+              <EditPointer
+                setMeasurementEditMode={setMeasurementEditMode}
+                editMode="endPoint"
+                cx={editPoints[2]}
+                cy={editPoints[3]}
+              />
+            </>
+          )}
         </svg>
       ) : null}
     </>

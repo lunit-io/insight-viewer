@@ -12,6 +12,7 @@ import InsightViewer, {
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 import { RULER_MEASUREMENTS } from '../../../../mocks/ruler'
+import { CIRCLE_MEASUREMENTS } from '../../../../mocks/circles'
 
 export type InitalMeasurements = {
   [mode in MeasurementMode]: Measurement[]
@@ -19,7 +20,7 @@ export type InitalMeasurements = {
 
 const INITIAL_MEASUREMENTS: InitalMeasurements = {
   ruler: RULER_MEASUREMENTS,
-  circle: RULER_MEASUREMENTS,
+  circle: CIRCLE_MEASUREMENTS,
 }
 
 const style = {
@@ -39,8 +40,14 @@ function MeasurementViewerContainer(): JSX.Element {
     wadouri: IMAGES[11],
   })
   const { viewport, setViewport } = useViewport()
-  const { measurements, selectedMeasurement, removeMeasurement, selectMeasurement } = useMeasurement({
-    mode: measurementMode,
+  const {
+    measurements,
+    hoveredMeasurement,
+    selectedMeasurement,
+    removeMeasurement,
+    selectMeasurement,
+    hoverMeasurement,
+  } = useMeasurement({
     initalMeasurement: INITIAL_MEASUREMENTS[measurementMode],
   })
 
@@ -61,7 +68,7 @@ function MeasurementViewerContainer(): JSX.Element {
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="ruler">Ruler</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
+          <Radio value="circle">Circle</Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>
@@ -71,9 +78,11 @@ function MeasurementViewerContainer(): JSX.Element {
               width={700}
               height={700}
               measurements={measurements}
+              hoveredMeasurement={hoveredMeasurement}
               selectedMeasurement={selectedMeasurement}
               mode={measurementMode}
-              onFocus={isEdit ? selectMeasurement : undefined}
+              onSelect={selectMeasurement}
+              onFocus={isEdit ? hoverMeasurement : undefined}
               onRemove={isEdit ? removeMeasurement : undefined}
             />
           )}

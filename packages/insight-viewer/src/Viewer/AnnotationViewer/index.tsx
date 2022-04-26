@@ -11,7 +11,6 @@ function AnnotationsDraw({
   showAnnotationLabel,
   selectedAnnotation,
   annotationAttrs,
-  pixelToCanvas,
   onFocus,
   onRemove,
 }: AnnotationsDrawProps) {
@@ -21,7 +20,6 @@ function AnnotationsDraw({
       selectedAnnotation,
       showAnnotationLabel,
       annotationAttrs,
-      pixelToCanvas,
     }
 
     const handleAnnotationClick = () => {
@@ -70,7 +68,7 @@ export function AnnotationViewer({
   onRemove,
 }: AnnotationViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
-  const { pixelToCanvas, enabledElement } = useOverlayContext()
+  const { enabledElement } = useOverlayContext()
 
   return (
     <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
@@ -81,7 +79,6 @@ export function AnnotationViewer({
             selectedAnnotation,
             showOutline,
             showAnnotationLabel,
-            pixelToCanvas,
             annotationAttrs,
             onFocus,
             onRemove,

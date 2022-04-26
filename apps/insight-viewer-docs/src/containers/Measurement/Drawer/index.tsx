@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
-import React, { useState } from 'react'
-import { Box, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
+import React, { useState, ChangeEvent } from 'react'
+import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   MeasurementOverlay,
@@ -22,6 +22,8 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function MeasurementDrawerContainer(): JSX.Element {
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
+  const [isEditing, setIsEditing] = useState(false)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
@@ -29,15 +31,21 @@ function MeasurementDrawerContainer(): JSX.Element {
   const { viewport, setViewport } = useViewport()
   const {
     measurements,
+    hoveredMeasurement,
     selectedMeasurement,
     addMeasurement,
+    hoverMeasurement,
     removeMeasurement,
     selectMeasurement,
     removeAllMeasurement,
-  } = useMeasurement({ mode: measurementMode })
+  } = useMeasurement({})
 
   const handleMeasurementModeClick = (mode: MeasurementMode) => {
     setMeasurementMode(mode)
+  }
+
+  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsEditing(event.target.checked)
   }
 
   return (
@@ -45,10 +53,13 @@ function MeasurementDrawerContainer(): JSX.Element {
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllMeasurement}>
         remove all
       </Button>
+      <Box>
+        edit mode <Switch onChange={handleEditModeChange} isChecked={isEditing} />
+      </Box>
       <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
         <Stack direction="row">
           <Radio value="ruler">Ruler</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
+          <Radio value="circle">Circle</Radio>
         </Stack>
       </RadioGroup>
       <Box data-cy-loaded={loadingState}>
@@ -60,9 +71,12 @@ function MeasurementDrawerContainer(): JSX.Element {
                 height={DEFAULT_SIZE.height}
                 measurements={measurements}
                 selectedMeasurement={selectedMeasurement}
+                hoveredMeasurement={hoveredMeasurement}
                 onAdd={addMeasurement}
-                onFocus={selectMeasurement}
+                onFocus={hoverMeasurement}
+                onSelect={selectMeasurement}
                 onRemove={removeMeasurement}
+                isEditing={isEditing}
                 isDrawing
                 mode={measurementMode} // If no mode is defined, the default value is ruler.
               />
