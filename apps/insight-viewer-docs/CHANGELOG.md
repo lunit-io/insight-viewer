@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.3.0...@lunit/insight-viewer-docs@5.5.0) (2022-04-26)
+
+
+### Features
+
+* **viewer-docs:** add zoom by drag to viewport page ([c45fb80](https://github.com/lunit-io/frontend-components/commit/c45fb805c51de64aa23b6b986991b08011ebcd2a))
+* **viewer-docs:** add zoom to custom interaction tab ([32364c8](https://github.com/lunit-io/frontend-components/commit/32364c876f54b7186bb137d3c8e35f27bb498e40))
+* **viewer-docs:** remove unused component page ([3701984](https://github.com/lunit-io/frontend-components/commit/37019841bd667d86057ee6575b2c6b785f3a0925))
+
+
+
+
+
 ## [5.4.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.4.1...@lunit/insight-viewer-docs@5.4.2) (2022-04-20)
 
 **Note:** Version bump only for package @lunit/insight-viewer-docs
