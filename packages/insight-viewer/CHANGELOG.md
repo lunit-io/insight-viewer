@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.3.0...@lunit/insight-viewer@5.5.0) (2022-04-26)
+
+
+### Bug Fixes
+
+* **viewer:** add missed rotation property ([7c11253](https://github.com/lunit-io/frontend-components/commit/7c1125336195d01b00a3d900d6c1d38573b21d81))
+* **viewer:** missed exports on cjs build ([b6b0629](https://github.com/lunit-io/frontend-components/commit/b6b0629d19a4b26a775c5a0d55ceb44cc353d8e6))
+
+
+### Features
+
+* **viewer:** add basic zoom by drag ([ea2a43c](https://github.com/lunit-io/frontend-components/commit/ea2a43c311345ad473ff4ced201c617982ede2b3))
+* **viewer:** add rotation field to viewport ([6565e15](https://github.com/lunit-io/frontend-components/commit/6565e1542976d2139f0d40ffc67da224788988de))
+* **viewer:** remove unused component ([6161480](https://github.com/lunit-io/frontend-components/commit/6161480ce8e1630724c6a787f7401abec8dcdb27))
+* **viewer:** zoom in / out from drag starting point ([e72ea98](https://github.com/lunit-io/frontend-components/commit/e72ea98edacf92b5c53c8772222cf9640b1ef168))
+
+
+
+
+
 ## [5.4.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.4.1...@lunit/insight-viewer@5.4.2) (2022-04-20)
 
 
