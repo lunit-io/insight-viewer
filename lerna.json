@@ -6,7 +6,7 @@
   "stream": true,
   "command": {
     "publish": {
-      "allowBranch": ["release/*"],
+      "allowBranch": ["release/*", "hotfix/*"],
       "message": "chore(release): publish release",
       "conventionalCommits": true,
       "ignoreChanges": ["**/__test__/**", "**/*.{md,mdx}", "**/*.spec.ts", "LICENSE"]
