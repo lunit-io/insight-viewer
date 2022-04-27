@@ -3,13 +3,14 @@
   "version": "5.5.0",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "source": "src/index.ts",
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.esm.js"
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
   },
-  "types": "dist/types/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "types": "./dist/types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/lunit-io/frontend-components",
@@ -60,7 +61,7 @@
     "@types/react": "^17.0.3",
     "eslint-import-resolver-node": "^0.3.4",
     "jest": "^26.6.3",
-    "microbundle": "^0.13.0",
+    "microbundle": "^0.15.0",
     "react-is": "^17.0.2",
     "ts-jest": "^26.5.4"
   },
