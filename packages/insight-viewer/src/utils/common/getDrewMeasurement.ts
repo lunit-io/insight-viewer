@@ -11,7 +11,6 @@ export function getDrewMeasurement(
 ): Measurement {
   const [startPoint, endPoint] = points
   const currentId = measurements.length === 0 ? 1 : Math.max(...measurements.map(({ id }) => id), 0) + 1
-  const lineLength = image ? Number(getLineLength(startPoint, endPoint, image)?.toFixed(2)) : null
 
   const defaultMeasurementInfo: Pick<Measurement, 'id' | 'lineWidth'> = {
     id: currentId,
@@ -20,14 +19,16 @@ export function getDrewMeasurement(
 
   let drewMeasurement: Measurement
 
-  if (mode === 'circle') {
+  if (mode === 'circle' && image) {
     drewMeasurement = {
       ...defaultMeasurementInfo,
       type: 'circle',
       center: startPoint,
-      radius: getCircleRadius(points),
+      radius: getCircleRadius([startPoint, endPoint], image),
     }
   } else {
+    const lineLength = image ? Number(getLineLength(startPoint, endPoint, image)?.toFixed(2)) : null
+
     drewMeasurement = {
       ...defaultMeasurementInfo,
       type: 'ruler',
