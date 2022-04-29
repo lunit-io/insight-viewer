@@ -5,13 +5,18 @@ import { circleStyle, textStyle } from './CircleDrawer.styles'
 import { CircleDrawerProps } from './CircleDrawer.types'
 import { getCircleRadius } from '../../utils/common/getCircleRadius'
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+import { getLineLengthWithoutImage } from '../../utils/common/getLineLengthWithoutImage'
 import { CIRCLE_TEXT_POSITION_SPACING } from '../../const'
+import { useOverlayContext } from '../../contexts'
 
 export function CircleDrawer({ points, setMeasurementEditMode }: CircleDrawerProps): ReactElement | null {
-  const radius = getCircleRadius(points)
-  const textPosition = getCircleTextPosition(points[0], radius)
+  const { image, pixelToCanvas } = useOverlayContext()
 
-  const [cx, cy] = points[0]
+  const [startPoint, endPoint] = points.map(pixelToCanvas)
+  const radius = getCircleRadius(points, image)
+  const drawingRadius = getLineLengthWithoutImage(startPoint, endPoint)
+  const textPosition = getCircleTextPosition(startPoint, drawingRadius)
+  const [cx, cy] = startPoint
 
   return (
     <>
@@ -20,7 +25,7 @@ export function CircleDrawer({ points, setMeasurementEditMode }: CircleDrawerPro
         style={circleStyle.default}
         cx={cx}
         cy={cy}
-        r={radius}
+        r={drawingRadius}
       />
       <text
         style={{ ...textStyle.default }}
