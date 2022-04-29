@@ -1,20 +1,22 @@
+/* eslint-disable no-restricted-properties */
 import { Point, Measurement, MeasurementMode } from '../../types'
-import { getCircleRadius } from './getCircleRadius'
 import { getCircleEditPoints } from './getCircleEditPoints'
+import { getLineLengthWithoutImage } from './getLineLengthWithoutImage'
 
-export type GetEditPointPositionReturnType = [number, number, number, number]
+export type EditPoints = [number, number, number, number]
 
 export function getEditPointPosition(
   points: Point[],
   mode: MeasurementMode,
   editMeasurement: Measurement | null
-): GetEditPointPositionReturnType | null {
+): EditPoints | null {
   if (points.length < 2) return null
 
-  const [startPoint, endPoint] = points
+  const startPoint = points[0]
+  const endPoint = points[1]
 
   if ((editMeasurement && editMeasurement.type === 'circle') || mode === 'circle') {
-    const radius = getCircleRadius(points)
+    const radius = getLineLengthWithoutImage(points[0], points[1])
     const editPoints = getCircleEditPoints(startPoint, radius)
 
     return editPoints
