@@ -1,10 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Stack, Button } from '@chakra-ui/react'
-import InsightViewer, {
-  useImage,
-  useViewport,
-  Viewport,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, Viewport, AnnotationOverlay, useAnnotation } from '@lunit/insight-viewer'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CustomProgress from '../../components/CustomProgress'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -15,8 +11,11 @@ export default function Image1(): JSX.Element {
   const { image } = useImage({
     wadouri: IMAGES[11],
   })
-  const { viewport, setViewport, resetViewport } =
-    useViewport(INITIAL_VIEWPORT2)
+  const { viewport, setViewport, resetViewport } = useViewport(INITIAL_VIEWPORT2)
+
+  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
+    mode: 'polygon',
+  })
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
@@ -98,11 +97,7 @@ export default function Image1(): JSX.Element {
                 />
               </Box>
             </Box>
-            <Button
-              colorScheme="blue"
-              onClick={resetViewport}
-              className="reset2"
-            >
+            <Button colorScheme="blue" onClick={resetViewport} className="reset2">
               Reset
             </Button>
           </Stack>
@@ -110,13 +105,18 @@ export default function Image1(): JSX.Element {
       </Stack>
       <Box>
         <ViewerWrapper className="viewer2">
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-            Progress={CustomProgress}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
             <OverlayLayer viewport={viewport} />
+            <AnnotationOverlay
+              isDrawing
+              mode="polygon"
+              annotations={annotations}
+              selectedAnnotation={selectedAnnotation}
+              showAnnotationLabel
+              onAdd={addAnnotation}
+              onFocus={selectAnnotation}
+              onRemove={removeAnnotation}
+            />
           </InsightViewer>
         </ViewerWrapper>
       </Box>

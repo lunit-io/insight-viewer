@@ -136,6 +136,7 @@ export interface CircleMeasurement extends MeasurementBase {
   type: 'circle'
   center: Point
   radius: number
+  endPoint?: Point
 }
 
 export type Measurement = RulerMeasurement | CircleMeasurement

@@ -4,7 +4,7 @@ import { UseMeasurementPointsHandlerProps, UseMeasurementPointsHandlerReturnType
 import { Point, EditMode } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { getDrewMeasurement } from '../../utils/common/getDrewMeasurement'
-import { getEditPointPosition, GetEditPointPositionReturnType } from '../../utils/common/getEditPointPosition'
+import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getMeasurementDrawingPoints } from '../../utils/common/getMeasurementDrawingPoints'
 import { getMeasurementEditingPoints } from '../../utils/common/getMeasurementEditingPoints'
 import useDrawingHandler from '../useDrawingHandler'
@@ -20,7 +20,7 @@ export default function useMeasurementPointsHandler({
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
   const [editPoint, setEditPoint] = useState<Point | null>(null)
-  const [editTargetPoints, setEditTargetPoints] = useState<GetEditPointPositionReturnType | null>(null)
+  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
 
   const { image } = useOverlayContext()
@@ -28,10 +28,10 @@ export default function useMeasurementPointsHandler({
   const isMeasurementEditing = isEditing && selectedMeasurement && editMode
 
   useEffect(() => {
-    const editPoints = getEditPointPosition(points, mode, selectedMeasurement)
+    const editPoints = getEditPointPosition(image, points, mode, selectedMeasurement)
 
     setEditTargetPoints(editPoints)
-  }, [points, mode, selectedMeasurement])
+  }, [image, points, mode, selectedMeasurement])
 
   useEffect(() => {
     if (!isEditing || !selectedMeasurement) return
@@ -41,11 +41,10 @@ export default function useMeasurementPointsHandler({
     }
 
     if (selectedMeasurement.type === 'circle') {
-      const { center, radius } = selectedMeasurement
+      const { center, endPoint, radius } = selectedMeasurement
       const [x, y] = center
-      const endPoint: Point = [x + radius, y]
 
-      setPoints([center, endPoint])
+      setPoints([center, endPoint ?? [x + radius, y]])
     }
   }, [isEditing, selectedMeasurement])
 

@@ -7,18 +7,16 @@ import { useOverlayContext } from '../../contexts'
 import { getLineLength } from '../../utils/common/getLineLength'
 
 export function RulerDrawer({ points, setMeasurementEditMode }: RulerDrawerProps): ReactElement | null {
-  const { image } = useOverlayContext()
+  const { image, pixelToCanvas } = useOverlayContext()
 
-  const [startPoint, endPoint] = points
-  const [endPointX, endPointY] = endPoint
-
-  const linePoints = points
+  const canvasPoints = points.map(pixelToCanvas)
+  const linePoints = canvasPoints
     .map(point => {
       const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
-  const lineLength = image ? `${getLineLength(startPoint, endPoint, image)?.toFixed(2)}mm` : null
+  const lineLength = image ? `${getLineLength(points[0], points[1], image)?.toFixed(2)}mm` : null
 
   return (
     <>
@@ -27,8 +25,8 @@ export function RulerDrawer({ points, setMeasurementEditMode }: RulerDrawerProps
           <polyline onMouseDown={() => setMeasurementEditMode('line')} style={polyline.default} points={linePoints} />
           <text
             style={{ ...textStyle.default }}
-            x={endPointX + RULER_TEXT_POSITION_SPACING.x}
-            y={endPointY + RULER_TEXT_POSITION_SPACING.y}
+            x={points[1][0] + RULER_TEXT_POSITION_SPACING.x}
+            y={points[1][1] + RULER_TEXT_POSITION_SPACING.y}
           >
             {lineLength}
           </text>

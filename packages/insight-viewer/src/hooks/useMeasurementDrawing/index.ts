@@ -15,7 +15,7 @@ function useMeasurementDrawing({ mode, measurements, svgElement, onAdd }: UseMea
   const [measurementPoints, setMeasurementPoints] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
-  const { pageToPixel, enabledElement, image } = useOverlayContext()
+  const { pageToPixel, pixelToCanvas, enabledElement, image } = useOverlayContext()
 
   useEffect(() => {
     if (!svgElement || !enabledElement) return
@@ -122,7 +122,18 @@ function useMeasurementDrawing({ mode, measurements, svgElement, onAdd }: UseMea
       deactivateInitialEvents()
       deactivateMouseDrawEvents()
     }
-  }, [mode, measurements, svgElement, image, measurementPoints, isDrawingMode, enabledElement, onAdd, pageToPixel])
+  }, [
+    mode,
+    measurements,
+    svgElement,
+    image,
+    measurementPoints,
+    isDrawingMode,
+    enabledElement,
+    onAdd,
+    pageToPixel,
+    pixelToCanvas,
+  ])
 
   return [measurementPoints]
 }

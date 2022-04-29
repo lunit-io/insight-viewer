@@ -1,10 +1,6 @@
 import { useCallback } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
-import InsightViewer, {
-  useImage,
-  useViewport,
-  Viewport,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
 import useImageSelect from '../../Basic/useImageSelect'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
@@ -21,8 +17,7 @@ export default function Image1(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: selected,
   })
-  const { viewport, setViewport, resetViewport, initialized } =
-    useViewport(INITIAL_VIEWPORT)
+  const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT)
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
@@ -81,11 +76,7 @@ export default function Image1(): JSX.Element {
                 />
               </Box>
             </Box>
-            <Button
-              colorScheme="blue"
-              onClick={resetViewport}
-              className="reset"
-            >
+            <Button colorScheme="blue" onClick={resetViewport} className="reset">
               Reset
             </Button>
           </Stack>
@@ -176,12 +167,7 @@ export default function Image1(): JSX.Element {
       </Stack>
       <Box data-cy-loaded={loadingState} data-cy-viewport={initialized}>
         <ViewerWrapper className="viewer1">
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-            Progress={CustomProgress}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>

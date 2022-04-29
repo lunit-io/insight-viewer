@@ -4,13 +4,22 @@ import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle, textStyle } from './CircleViewer.styles'
 import { CIRCLE_TEXT_POSITION_SPACING } from '../../const'
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+import { useOverlayContext } from '../../contexts'
+import { Point } from '../../types'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
-  const { id, center, radius } = measurement
-  const [centerX, centerY] = center
-  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const { pixelToCanvas } = useOverlayContext()
 
-  const textPosition = getCircleTextPosition(center, radius)
+  const { id, center, radius } = measurement
+  const endPoint: Point = [center[0] + radius, center[1]]
+  const points: [Point, Point] = [center, endPoint]
+
+  const canvasPoints = points.map(pixelToCanvas)
+  const drawingRadius = Math.abs(canvasPoints[0][0] - canvasPoints[1][0])
+  const textPosition = getCircleTextPosition(pixelToCanvas(center), drawingRadius)
+
+  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const [cx, cy] = canvasPoints[0]
 
   return (
     <>
@@ -20,9 +29,9 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
           ...circleStyle[isHoveredMeasurement ? 'hover' : 'default'],
         }}
         data-focus={isHoveredMeasurement || undefined}
-        cx={centerX}
-        cy={centerY}
-        r={radius}
+        cx={cx}
+        cy={cy}
+        r={drawingRadius}
       />
       <text
         style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}

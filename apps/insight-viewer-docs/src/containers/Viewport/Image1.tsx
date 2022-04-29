@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import { Box, Stack, Switch, Button } from '@chakra-ui/react'
-import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, Viewport, AnnotationOverlay, useAnnotation } from '@lunit/insight-viewer'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CustomProgress from '../../components/CustomProgress'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -12,6 +12,9 @@ export default function Image1(): JSX.Element {
     wadouri: IMAGES[0],
   })
   const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT1)
+  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
+    mode: 'polygon',
+  })
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
@@ -200,6 +203,16 @@ export default function Image1(): JSX.Element {
         <ViewerWrapper className="viewer1">
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
             <OverlayLayer viewport={viewport} />
+            <AnnotationOverlay
+              isDrawing
+              mode="polygon"
+              annotations={annotations}
+              selectedAnnotation={selectedAnnotation}
+              showAnnotationLabel
+              onAdd={addAnnotation}
+              onFocus={selectAnnotation}
+              onRemove={removeAnnotation}
+            />
           </InsightViewer>
         </ViewerWrapper>
       </Box>
