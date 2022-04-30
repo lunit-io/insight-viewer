@@ -17,7 +17,7 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 
 interface UseAnnotationProps {
   nextId?: number
-  initalAnnotation?: Annotation[]
+  initialAnnotation?: Annotation[]
   mode?: AnnotationMode
 }
 
@@ -33,7 +33,7 @@ interface AnnotationDrawingState {
 
 export function useAnnotation({
   nextId,
-  initalAnnotation,
+  initialAnnotation,
   mode = 'polygon',
 }: UseAnnotationProps): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
@@ -41,8 +41,8 @@ export function useAnnotation({
 
   useEffect(() => {
     setAnnotations(() =>
-      initalAnnotation
-        ? initalAnnotation.map<Annotation>((addedAnnotation, i) => {
+      initialAnnotation
+        ? initialAnnotation.map<Annotation>((addedAnnotation, i) => {
             const annotiaotnLabelPoints =
               addedAnnotation.type === 'circle' ? [addedAnnotation.center] : addedAnnotation.points
 
@@ -54,7 +54,7 @@ export function useAnnotation({
           })
         : []
     )
-  }, [initalAnnotation, nextId])
+  }, [initialAnnotation, nextId])
 
   const addAnnotation = (
     annotation: Annotation,

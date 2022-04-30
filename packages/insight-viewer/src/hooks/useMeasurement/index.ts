@@ -14,7 +14,7 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 
 interface UseMeasurementProps {
   nextId?: number
-  initalMeasurement?: Measurement[]
+  initialMeasurement?: Measurement[]
 }
 
 interface MeasurementDrawingState {
@@ -29,15 +29,15 @@ interface MeasurementDrawingState {
   removeAllMeasurement: () => void
 }
 
-export function useMeasurement({ nextId, initalMeasurement }: UseMeasurementProps): MeasurementDrawingState {
+export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementProps): MeasurementDrawingState {
   const [measurements, setMeasurements] = useState<Measurement[]>([])
   const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
   const [selectedMeasurement, setSelectedMeasurement] = useState<Measurement | null>(null)
 
   useEffect(() => {
     setMeasurements(() =>
-      initalMeasurement
-        ? initalMeasurement.map<Measurement>(
+      initialMeasurement
+        ? initialMeasurement.map<Measurement>(
             (addedMeasurement, i) =>
               ({
                 ...addedMeasurement,
@@ -46,7 +46,7 @@ export function useMeasurement({ nextId, initalMeasurement }: UseMeasurementProp
           )
         : []
     )
-  }, [initalMeasurement, nextId])
+  }, [initialMeasurement, nextId])
 
   const addMeasurement = (
     measurement: Measurement,
