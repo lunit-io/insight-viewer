@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import { LineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { useOverlayContext } from '../../contexts'
 
 export function LineViewer({
   annotation,
@@ -11,12 +12,15 @@ export function LineViewer({
   selectedAnnotation,
   annotationAttrs,
 }: LineViewerProps): ReactElement {
+  const { pixelToCanvas } = useOverlayContext()
+
   const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints, headPoints } =
     getPolyViewerInfo({
       annotation,
       showOutline,
       selectedAnnotation,
       annotationAttrs,
+      pixelToCanvas,
     })
 
   return (

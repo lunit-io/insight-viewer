@@ -1,10 +1,12 @@
+/* eslint-disable no-restricted-properties */
 import { useState, useEffect } from 'react'
 
 import { UseMeasurementPointsHandlerProps, UseMeasurementPointsHandlerReturnType } from './types'
 import { Point, EditMode } from '../../types'
 import { useOverlayContext } from '../../contexts'
+import { calculateDistance } from '../../utils/common/calculateDistance'
 import { getDrewMeasurement } from '../../utils/common/getDrewMeasurement'
-import { getEditPointPosition, GetEditPointPositionReturnType } from '../../utils/common/getEditPointPosition'
+import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getMeasurementDrawingPoints } from '../../utils/common/getMeasurementDrawingPoints'
 import { getMeasurementEditingPoints } from '../../utils/common/getMeasurementEditingPoints'
 import useDrawingHandler from '../useDrawingHandler'
@@ -20,18 +22,19 @@ export default function useMeasurementPointsHandler({
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
   const [editPoint, setEditPoint] = useState<Point | null>(null)
-  const [editTargetPoints, setEditTargetPoints] = useState<GetEditPointPositionReturnType | null>(null)
+  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
 
-  const { image } = useOverlayContext()
+  const { image, pixelToCanvas } = useOverlayContext()
 
   const isMeasurementEditing = isEditing && selectedMeasurement && editMode
 
   useEffect(() => {
-    const editPoints = getEditPointPosition(points, mode, selectedMeasurement)
+    const pixelPoints = points.map(pixelToCanvas)
+    const editPoints = getEditPointPosition(pixelPoints, mode, selectedMeasurement)
 
     setEditTargetPoints(editPoints)
-  }, [points, mode, selectedMeasurement])
+  }, [image, points, mode, selectedMeasurement, pixelToCanvas])
 
   useEffect(() => {
     if (!isEditing || !selectedMeasurement) return
@@ -42,12 +45,12 @@ export default function useMeasurementPointsHandler({
 
     if (selectedMeasurement.type === 'circle') {
       const { center, radius } = selectedMeasurement
-      const [x, y] = center
-      const endPoint: Point = [x + radius, y]
+      const calculatedDistance = calculateDistance(radius, image)
+      const endPoint: Point = [center[0] + (calculatedDistance ?? 0), center[1]]
 
       setPoints([center, endPoint])
     }
-  }, [isEditing, selectedMeasurement])
+  }, [image, isEditing, selectedMeasurement])
 
   const addStartPoint = (point: Point) => {
     if (isEditing && selectedMeasurement) {

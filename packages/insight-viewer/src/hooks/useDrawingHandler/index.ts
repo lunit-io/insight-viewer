@@ -16,7 +16,7 @@ function useDrawingHandler({
   cancelDrawing,
   addDrewElement,
 }: UseDrawingHandlerProps): void {
-  const { pageToPixel, pixelToCanvas, enabledElement } = useOverlayContext()
+  const { pageToPixel, enabledElement } = useOverlayContext()
 
   useEffect(() => {
     if (!svgElement || !enabledElement) return
@@ -24,9 +24,9 @@ function useDrawingHandler({
     const handleMouseMove = (event: MouseEvent) => {
       setPreProcessEvent(event)
 
-      const canvasPoint = pixelToCanvas(pageToPixel([event.pageX, event.pageY]))
+      const point = pageToPixel([event.pageX, event.pageY])
 
-      addDrawingPoint(canvasPoint)
+      addDrawingPoint(point)
     }
 
     const handleMouseUp = (event: MouseEvent) => {
@@ -58,9 +58,9 @@ function useDrawingHandler({
     const handleMouseDown = (event: MouseEvent) => {
       activeMouseDrawEvents()
 
-      const canvasPoint = pixelToCanvas(pageToPixel([event.pageX, event.pageY]))
+      const point = pageToPixel([event.pageX, event.pageY])
 
-      addStartPoint(canvasPoint)
+      addStartPoint(point)
     }
 
     const activeMouseDrawEvents = () => {
@@ -89,16 +89,7 @@ function useDrawingHandler({
     return () => {
       deactivateMouseDrawEvents()
     }
-  }, [
-    svgElement,
-    enabledElement,
-    pageToPixel,
-    pixelToCanvas,
-    addDrawingPoint,
-    addDrewElement,
-    cancelDrawing,
-    addStartPoint,
-  ])
+  }, [svgElement, enabledElement, pageToPixel, addDrawingPoint, addDrewElement, cancelDrawing, addStartPoint])
 }
 
 export default useDrawingHandler
