@@ -21,7 +21,7 @@ function useAnnotationDrawing({
   const [annotationPoints, setAnnotationPoints] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
-  const { pageToPixel, enabledElement } = useOverlayContext()
+  const { pageToPixel, enabledElement, image } = useOverlayContext()
 
   useEffect(() => {
     if (!svgElement || !enabledElement) return
@@ -53,7 +53,7 @@ function useAnnotationDrawing({
 
       // TODO: Change conditional statement when adding Point function
       if (annotationPoints.length > 1) {
-        const drewAnnotation = getDrewAnnotation(annotationPoints, mode, lineHead, annotations)
+        const drewAnnotation = getDrewAnnotation(image, annotationPoints, mode, lineHead, annotations)
 
         onAdd(drewAnnotation)
       }
@@ -133,7 +133,18 @@ function useAnnotationDrawing({
       deactivateInitialEvents()
       deactivateMouseDrawEvents()
     }
-  }, [mode, annotations, lineHead, svgElement, annotationPoints, isDrawingMode, enabledElement, onAdd, pageToPixel])
+  }, [
+    mode,
+    annotations,
+    lineHead,
+    svgElement,
+    annotationPoints,
+    isDrawingMode,
+    enabledElement,
+    onAdd,
+    pageToPixel,
+    image,
+  ])
 
   return [annotationPoints]
 }

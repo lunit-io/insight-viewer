@@ -4,6 +4,7 @@ import { Point, AnnotationMode, Annotation, LineHeadMode } from '../../types'
 import { getDrewAnnotation } from '../../utils/common/getDrewAnnotation'
 import { getAnnotationDrawingPoints } from '../../utils/common/getAnnotationDrawingPoints'
 import useDrawingHandler from '../useDrawingHandler'
+import { useOverlayContext } from '../../contexts'
 
 interface UseAnnotationPointsHandlerProps {
   mode: AnnotationMode
@@ -27,6 +28,8 @@ export default function useAnnotationPointsHandler({
   const [points, setPoints] = useState<Point[]>([])
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false)
 
+  const { image } = useOverlayContext()
+
   const addStartPoint = (point: Point) => {
     setPoints([point])
     setIsDrawingMode(true)
@@ -44,7 +47,7 @@ export default function useAnnotationPointsHandler({
 
   const addDrewAnnotation = () => {
     if (points.length > 1) {
-      const drewAnnotation = getDrewAnnotation(points, mode, lineHead, annotations)
+      const drewAnnotation = getDrewAnnotation(image, points, mode, lineHead, annotations)
 
       addAnnotation(drewAnnotation)
     }

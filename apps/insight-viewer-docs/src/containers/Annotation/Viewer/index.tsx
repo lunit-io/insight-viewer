@@ -46,7 +46,7 @@ function AnnotationViewerContainer(): JSX.Element {
   const { viewport, setViewport } = useViewport()
   const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
     mode: annotationMode,
-    initalAnnotation: INITIAL_ANNOTATIONS[annotationMode],
+    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
   })
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {

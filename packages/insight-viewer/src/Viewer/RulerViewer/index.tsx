@@ -3,18 +3,22 @@ import React, { ReactElement } from 'react'
 import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 import { RULER_TEXT_POSITION_SPACING } from '../../const'
+import { useOverlayContext } from '../../contexts'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
-  const { id, length, points } = measurement
-  const [endPointX, endPointY] = points[1]
-  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const { pixelToCanvas } = useOverlayContext()
 
-  const polygonPoints: string = points
+  const { id, points, length } = measurement
+  const canvasPoints = points.map(pixelToCanvas)
+
+  const poygonPoints: string = canvasPoints
     .map(point => {
       const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
+  const [endPointX, endPointY] = canvasPoints[1]
+  const isHoveredMeasurement = measurement === hoveredMeasurement
 
   return (
     <>
@@ -24,7 +28,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           ...polylineStyle[isHoveredMeasurement ? 'hover' : 'default'],
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={polygonPoints}
+        points={poygonPoints}
       />
       {length && (
         <text
@@ -32,7 +36,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           x={endPointX + RULER_TEXT_POSITION_SPACING.x}
           y={endPointY + RULER_TEXT_POSITION_SPACING.y}
         >
-          {`${length}mm`}
+          {length}mm
         </text>
       )}
     </>

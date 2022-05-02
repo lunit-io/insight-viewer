@@ -48,7 +48,7 @@ function MeasurementViewerContainer(): JSX.Element {
     selectMeasurement,
     hoverMeasurement,
   } = useMeasurement({
-    initalMeasurement: INITIAL_MEASUREMENTS[measurementMode],
+    initialMeasurement: INITIAL_MEASUREMENTS[measurementMode],
   })
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {

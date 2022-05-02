@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
 import { textStyle, polygonStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { useOverlayContext } from '../../contexts'
 
 export function PolygonViewer({
   annotation,
@@ -11,11 +12,14 @@ export function PolygonViewer({
   selectedAnnotation,
   annotationAttrs,
 }: PolygonViewerProps): ReactElement {
+  const { pixelToCanvas } = useOverlayContext()
+
   const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
     selectedAnnotation,
     annotationAttrs,
+    pixelToCanvas,
   })
 
   return (
