@@ -64,3 +64,5 @@ export const CIRCLE_MIN_RADIUS = 10
 export const CIRCLE_EDIT_POINT_ANGLE = { START_ANGLE: -45, END_ANGLE: 135 }
 
 export const CIRCLE_TEXT_POINT_ANGLE = 135
+
+export const TEXT_PADDING = 4

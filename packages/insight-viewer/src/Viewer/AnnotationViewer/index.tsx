@@ -4,6 +4,7 @@ import { svgStyle } from './AnnotationViewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
+import { TextViewer } from '../TextViewer'
 
 function AnnotationsDraw({
   annotations,
@@ -49,6 +50,7 @@ function AnnotationsDraw({
         {(annotation.type === 'freeLine' || annotation.type === 'line') && (
           <LineViewer annotation={annotation} {...viewerProps} />
         )}
+        {annotation.type === 'text' && <TextViewer annotation={annotation} {...viewerProps} />}
       </g>
     )
   })

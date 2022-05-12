@@ -13,18 +13,21 @@ export const svgStyle: ViewerStyle = {
 export const textStyle: ViewerStyle = {
   default: {
     fill: '#ffffff',
-    fontWeight: 600,
-    textAnchor: 'middle',
-  },
-  outline: {
-    fill: 'transparent',
-    fontWeight: 600,
-    textAnchor: 'middle',
+    paintOrder: 'stroke',
     stroke: '#000000',
-    strokeWidth: '2.5px',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontWeight: 600,
+    textAnchor: 'middle',
   },
   select: {
-    fill: 'rgb(255, 194, 17)',
+    fill: '#00FFF0',
+    paintOrder: 'stroke',
+    stroke: '#000000',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
     fontWeight: 600,
     textAnchor: 'middle',
   },
@@ -64,5 +67,17 @@ export const polylineStyle: ViewerStyle = {
     stroke: 'rgb(255, 194, 17)',
     fill: 'none',
     strokeWidth: '3px',
+  },
+}
+
+export const textBoxStyle: ViewerStyle = {
+  default: {
+    fill: 'transparent',
+    stroke: 'transparent',
+  },
+  select: {
+    fill: 'transparent',
+    stroke: 'rgb(0, 201, 234)',
+    strokeWidth: '1px',
   },
 }
