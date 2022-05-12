@@ -14,16 +14,18 @@ import { IMAGES } from '../../../const'
 import { FREELINE_ANNOTATIONS } from '../../../../mocks/freeLines'
 import { POLYGON_ANNOTATIONS } from '../../../../mocks/polygons'
 import { LINE_ANNOTATIONS } from '../../../../mocks/lines'
+import { TEXT_ANNOTATIONS } from '../../../../mocks/texts'
 
-export type InitalAnnotations = {
+export type InitialAnnotations = {
   [mode in AnnotationMode]: Annotation[]
 }
 
-const INITIAL_ANNOTATIONS: InitalAnnotations = {
+const INITIAL_ANNOTATIONS: InitialAnnotations = {
   line: LINE_ANNOTATIONS,
   freeLine: FREELINE_ANNOTATIONS,
   polygon: POLYGON_ANNOTATIONS,
-  // TODO: // TODO: Changed the mock data when adding Circle mode
+  text: TEXT_ANNOTATIONS,
+  // TODO: Changed the mock data when adding Circle mode
   circle: POLYGON_ANNOTATIONS,
 }
 
@@ -75,6 +77,7 @@ function AnnotationViewerContainer(): JSX.Element {
           <Radio value="polygon">Polygon</Radio>
           <Radio value="line">line</Radio>
           <Radio value="freeLine">Free Line</Radio>
+          <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
