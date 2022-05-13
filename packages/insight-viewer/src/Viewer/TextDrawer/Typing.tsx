@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { TypingProps } from './Typing.types'
-import { textBoxStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { textStyle, textBoxStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
@@ -14,7 +14,7 @@ export function Typing({ points, onFinish }: TypingProps): React.ReactElement | 
 
   const handleBlur = (): void => {
     if (editArea && onFinish) {
-      onFinish(editArea.innerText)
+      onFinish(editArea.innerText.replace(/\n\n/g, '\n')) // remove contentEditable + innerText problem
     }
   }
   useEffect(() => {
@@ -36,9 +36,10 @@ export function Typing({ points, onFinish }: TypingProps): React.ReactElement | 
           ref={div => setEditArea(div)}
           onBlur={handleBlur}
           style={{
+            ...textStyle.select,
             width: dimensions[0],
             height: dimensions[1],
-            padding: TEXT_PADDING,
+            paddingLeft: TEXT_PADDING,
             color: '#ffffff',
             outline: 'none',
           }}

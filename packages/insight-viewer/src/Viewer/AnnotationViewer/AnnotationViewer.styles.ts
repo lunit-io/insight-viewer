@@ -1,5 +1,8 @@
 import { ViewerStyle } from '../../types'
 
+export const TEXT_SIZE = 14
+export const LINE_HEIGHT = 1.4
+
 export const svgStyle: ViewerStyle = {
   default: {
     position: 'absolute',
@@ -18,6 +21,8 @@ export const textStyle: ViewerStyle = {
     strokeWidth: '1px',
     strokeLinecap: 'butt',
     strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
     fontWeight: 600,
     textAnchor: 'middle',
   },
@@ -28,6 +33,8 @@ export const textStyle: ViewerStyle = {
     strokeWidth: '1px',
     strokeLinecap: 'butt',
     strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
     fontWeight: 600,
     textAnchor: 'middle',
   },

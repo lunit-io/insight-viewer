@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TextViewerProps } from './TextViewer.types'
-import { textStyle, textBoxStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { textStyle, textBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../AnnotationViewer/AnnotationViewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
@@ -23,7 +23,11 @@ export function TextViewer({ annotation, selectedAnnotation }: TextViewerProps):
         x={start[0] + TEXT_PADDING}
         y={start[1] + TEXT_PADDING}
       >
-        {annotation.label}
+        {annotation.label.split('\n').map((line, index) => (
+          <tspan x={start[0] + TEXT_PADDING} y={start[1] + index * TEXT_SIZE * LINE_HEIGHT + TEXT_PADDING} key={index}>
+            {line}
+          </tspan>
+        ))}
       </text>
       <rect style={textBoxStyle.default} x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]} />
     </>

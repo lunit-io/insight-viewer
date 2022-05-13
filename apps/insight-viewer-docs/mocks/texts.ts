@@ -18,6 +18,6 @@ export const TEXT_ANNOTATIONS: TextAnnotation[] = [
       [200, 603.8125],
       [300, 826.8125],
     ],
-    label: 'text 2',
+    label: 'text\nwith\n\nnew line',
   },
 ]
