@@ -5,7 +5,7 @@ export function getAnnotationDrawingPoints(prevPoints: Point[], point: Point, mo
     return [...prevPoints, point]
   }
 
-  if (mode === 'circle' || mode === 'line') {
+  if (mode === 'circle' || mode === 'line' || mode === 'text') {
     return [prevPoints[0], point]
   }
 
