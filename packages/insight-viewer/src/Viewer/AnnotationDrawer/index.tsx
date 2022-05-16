@@ -28,8 +28,8 @@ export function AnnotationDrawer({
     addAnnotation: mode === 'text' ? a => setTempAnnotation(a as TextAnnotation) : onAdd,
   })
   const handleFinish = (text: string) => {
-    if (tempAnnotation) {
-      setTempAnnotation(undefined)
+    setTempAnnotation(undefined)
+    if (tempAnnotation && text !== '') {
       onAdd({ ...tempAnnotation, label: text })
     }
   }
