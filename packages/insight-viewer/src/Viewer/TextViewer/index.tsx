@@ -29,7 +29,13 @@ export function TextViewer({ annotation, selectedAnnotation }: TextViewerProps):
           </tspan>
         ))}
       </text>
-      <rect style={textBoxStyle.default} x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]} />
+      <rect
+        style={{ ...textBoxStyle[isSelectedAnnotation ? 'select' : 'default'] }}
+        x={start[0]}
+        y={start[1]}
+        width={dimensions[0]}
+        height={dimensions[1]}
+      />
     </>
   )
 }
