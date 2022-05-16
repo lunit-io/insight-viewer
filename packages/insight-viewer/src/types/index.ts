@@ -62,7 +62,7 @@ export type ViewerStyle = {
 }
 
 export type LineHeadMode = 'normal' | 'arrow'
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text'
 
 export interface AnnotationBase {
   /** Serves as id by contour */
@@ -108,7 +108,13 @@ export interface CircleAnnotation extends AnnotationBase {
   radius: number
 }
 
-export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation
+export interface TextAnnotation extends AnnotationBase {
+  type: 'text'
+  points: [Point, Point]
+  label: string
+}
+
+export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation | TextAnnotation
 
 export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotation: T

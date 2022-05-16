@@ -26,6 +26,7 @@ export type {
   LineAnnotation,
   FreeLineAnnotation,
   CircleAnnotation,
+  TextAnnotation,
   AnnotationMode,
   AnnotationViewerProps,
   Measurement,

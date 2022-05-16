@@ -44,6 +44,7 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="polygon">Polygon</Radio>
           <Radio value="line">line</Radio>
           <Radio value="freeLine">Free Line</Radio>
+          <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>

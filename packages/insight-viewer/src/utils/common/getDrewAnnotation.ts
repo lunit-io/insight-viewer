@@ -36,6 +36,13 @@ export function getDrewAnnotation(
       points: [points[0], points[1]],
       headPoints: lineHead === 'arrow' ? getArrowPosition(points) : undefined,
     }
+  } else if (mode === 'text') {
+    drewAnnotation = {
+      ...defaultAnnotationInfo,
+      type: mode,
+      points: [points[0], points[1]],
+      label: '',
+    }
   } else {
     drewAnnotation = {
       ...defaultAnnotationInfo,
