@@ -24,8 +24,10 @@ interface UseAnnotationProps {
 interface AnnotationDrawingState {
   annotations: Annotation[]
   hoveredAnnotation: Annotation | null
+  selectedAnnotation: Annotation | null
   addAnnotation: (annotation: Annotation, annotationInfo?: Pick<Annotation, 'dataAttrs'>) => Annotation | null
   hoverAnnotation: (annotation: Annotation | null) => void
+  selectAnnotation: (annotation: Annotation | null) => void
   updateAnnotation: (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => void
   removeAnnotation: (annotation: Annotation) => void
   removeAllAnnotation: () => void
@@ -38,6 +40,7 @@ export function useAnnotation({
 }: UseAnnotationProps): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
   const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
+  const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
 
   useEffect(() => {
     setAnnotations(() =>
@@ -100,6 +103,14 @@ export function useAnnotation({
     setHoveredAnnotation(null)
   }
 
+  const selectAnnotation = (annotation: Annotation | null) => {
+    if (annotation) removeAnnotation(annotation)
+
+    setSelectedAnnotation(prevSelectedAnnotation =>
+      annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
+    )
+  }
+
   const updateAnnotation = (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => {
     if (patch.dataAttrs) {
       validateDataAttrs(patch.dataAttrs)
@@ -132,15 +143,18 @@ export function useAnnotation({
   const removeAllAnnotation = () => {
     setAnnotations([])
     setHoveredAnnotation(null)
+    setSelectedAnnotation(null)
   }
 
   return {
     annotations,
     hoveredAnnotation,
+    selectedAnnotation,
     addAnnotation,
     removeAnnotation,
     updateAnnotation,
     hoverAnnotation,
+    selectAnnotation,
     removeAllAnnotation,
   }
 }

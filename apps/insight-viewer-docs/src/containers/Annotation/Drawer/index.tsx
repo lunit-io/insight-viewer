@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
-import React, { useState } from 'react'
-import { Box, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
+import React, { ChangeEvent, useState } from 'react'
+import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   useAnnotation,
@@ -22,15 +22,29 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
+  const [isEditing, setIsEditing] = useState(false)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, hoveredAnnotation, addAnnotation, removeAnnotation, hoverAnnotation, removeAllAnnotation } =
-    useAnnotation({ mode: annotationMode })
+  const {
+    annotations,
+    hoveredAnnotation,
+    selectedAnnotation,
+    addAnnotation,
+    removeAnnotation,
+    hoverAnnotation,
+    selectAnnotation,
+    removeAllAnnotation,
+  } = useAnnotation({ mode: annotationMode })
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
+  }
+
+  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsEditing(event.target.checked)
   }
 
   return (
@@ -38,6 +52,9 @@ function AnnotationDrawerContainer(): JSX.Element {
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
         remove all
       </Button>
+      <Box>
+        edit mode <Switch onChange={handleEditModeChange} isChecked={isEditing} />
+      </Box>
       <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
@@ -53,15 +70,18 @@ function AnnotationDrawerContainer(): JSX.Element {
           {loadingState === 'success' && (
             <AnnotationOverlay
               isDrawing
+              isEditing={isEditing}
               width={700}
               height={700}
               mode={annotationMode}
               annotations={annotations}
               hoveredAnnotation={hoveredAnnotation}
+              selectedAnnotation={selectedAnnotation}
               showAnnotationLabel
               onAdd={addAnnotation}
               onFocus={hoverAnnotation}
               onRemove={removeAnnotation}
+              onSelect={selectAnnotation}
             />
           )}
         </InsightViewer>

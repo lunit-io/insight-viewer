@@ -16,6 +16,8 @@ export interface AnnotationViewerProps {
   /** <svg style={}> */
   style?: CSSProperties
 
+  isEditing?: boolean
+
   /**
    * You can set the attributes of individual annotation objects
    * If you set properties such as strokeWidth, the Style set in Styled Components is ignored

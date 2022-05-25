@@ -7,12 +7,16 @@ import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useAnnotationPointsHandler from '../../hooks/useAnnotationPointsHandler'
 import { PolylineDrawer } from '../PolylineDrawer'
 import { TextDrawer, TypingDrawer } from '../TextDrawer'
+import { EditPointer } from '../../components/EditPointer'
 
 export function AnnotationDrawer({
   style,
   width,
   height,
+  isEditing = false,
   annotations,
+  selectedAnnotation,
+  onSelectAnnotation,
   className,
   lineHead = 'normal',
   mode = 'polygon',
@@ -20,10 +24,13 @@ export function AnnotationDrawer({
 }: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const [tempAnnotation, setTempAnnotation] = useState<TextAnnotation>()
-  const { points } = useAnnotationPointsHandler({
+  const { points, editPoints, setAnnotationEditMode } = useAnnotationPointsHandler({
+    isEditing,
     mode,
     lineHead,
     annotations,
+    selectedAnnotation,
+    onSelectAnnotation,
     svgElement: svgRef,
     addAnnotation: mode === 'text' ? a => setTempAnnotation(a as TextAnnotation) : onAdd,
   })
@@ -39,9 +46,30 @@ export function AnnotationDrawer({
       {points.length > 1 && (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {(mode === 'polygon' || mode === 'freeLine' || mode === 'line') && (
-            <PolylineDrawer points={points} mode={mode} lineHead={lineHead} />
+            <PolylineDrawer
+              points={points}
+              mode={mode}
+              lineHead={lineHead}
+              setAnnotationEditMode={setAnnotationEditMode}
+            />
           )}
-          {mode === 'text' && <TextDrawer points={points} />}
+          {mode === 'text' && <TextDrawer points={points} setAnnotationEditMode={setAnnotationEditMode} />}
+          {editPoints && (
+            <>
+              <EditPointer
+                setEditMode={setAnnotationEditMode}
+                editMode="startPoint"
+                cx={editPoints[0]}
+                cy={editPoints[1]}
+              />
+              <EditPointer
+                setEditMode={setAnnotationEditMode}
+                editMode="endPoint"
+                cx={editPoints[2]}
+                cy={editPoints[3]}
+              />
+            </>
+          )}
         </svg>
       )}
       {tempAnnotation && (

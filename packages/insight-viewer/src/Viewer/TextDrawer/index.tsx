@@ -6,7 +6,7 @@ import { useOverlayContext } from '../../contexts'
 
 export { Typing as TypingDrawer } from './Typing'
 
-export function TextDrawer({ points }: TextDrawerProps): React.ReactElement | null {
+export function TextDrawer({ points, setAnnotationEditMode }: TextDrawerProps): React.ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
   const canvasPoints = points.map(pixelToCanvas)
   const [start, end] = canvasPoints
@@ -17,7 +17,14 @@ export function TextDrawer({ points }: TextDrawerProps): React.ReactElement | nu
 
   return (
     <>
-      <rect style={textBoxStyle.select} x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]} />
+      <rect
+        style={textBoxStyle.select}
+        x={start[0]}
+        y={start[1]}
+        width={dimensions[0]}
+        height={dimensions[1]}
+        onMouseDown={() => setAnnotationEditMode('move')}
+      />
     </>
   )
 }
