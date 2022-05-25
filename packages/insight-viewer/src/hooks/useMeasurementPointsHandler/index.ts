@@ -31,7 +31,7 @@ export default function useMeasurementPointsHandler({
 
   useEffect(() => {
     const pixelPoints = points.map(pixelToCanvas)
-    const editPoints = getEditPointPosition(pixelPoints, mode, selectedMeasurement)
+    const editPoints = getEditPointPosition(pixelPoints, selectedMeasurement)
 
     setEditTargetPoints(editPoints)
   }, [image, points, mode, selectedMeasurement, pixelToCanvas])

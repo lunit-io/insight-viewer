@@ -54,7 +54,7 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type EditMode = 'startPoint' | 'endPoint' | 'line'
+export type EditMode = 'startPoint' | 'endPoint' | 'move'
 
 export type ViewerStyleType = 'default' | 'select' | 'hover' | 'outline' | 'highlight'
 export type ViewerStyle = {

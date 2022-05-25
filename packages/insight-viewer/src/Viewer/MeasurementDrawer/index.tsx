@@ -44,13 +44,13 @@ export function MeasurementDrawer({
           {editPoints && (
             <>
               <EditPointer
-                setMeasurementEditMode={setMeasurementEditMode}
+                setEditMode={setMeasurementEditMode}
                 editMode="startPoint"
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
               <EditPointer
-                setMeasurementEditMode={setMeasurementEditMode}
+                setEditMode={setMeasurementEditMode}
                 editMode="endPoint"
                 cx={editPoints[2]}
                 cy={editPoints[3]}
