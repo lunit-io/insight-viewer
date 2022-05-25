@@ -39,7 +39,7 @@ export function AnnotationOverlay({
         showAnnotationLabel={showAnnotationLabel}
         annotationAttrs={annotationAttrs}
         onFocus={onFocus}
-        onRemove={onRemove}
+        onClick={onRemove}
       />
       {isDrawing && onAdd && (
         <AnnotationDrawer

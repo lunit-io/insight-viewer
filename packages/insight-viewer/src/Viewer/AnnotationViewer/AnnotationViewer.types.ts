@@ -24,7 +24,7 @@ export interface AnnotationViewerProps {
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
   onFocus?: (annotation: Annotation | null) => void
-  onRemove?: (annotation: Annotation) => void
+  onClick?: (annotation: Annotation) => void
 
   /**
    * Draw an outline on the line

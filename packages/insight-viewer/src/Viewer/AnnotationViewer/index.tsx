@@ -13,7 +13,7 @@ function AnnotationsDraw({
   selectedAnnotation,
   annotationAttrs,
   onFocus,
-  onRemove,
+  onClick,
 }: AnnotationsDrawProps) {
   return annotations.map(annotation => {
     const viewerProps = {
@@ -24,8 +24,9 @@ function AnnotationsDraw({
     }
 
     const handleAnnotationClick = () => {
-      if (!onRemove) return
-      onRemove(annotation)
+      if (onClick) {
+        onClick(annotation)
+      }
     }
 
     const handleAnnotationFocus = () => {
@@ -67,7 +68,7 @@ export function AnnotationViewer({
   showAnnotationLabel = false,
   annotationAttrs,
   onFocus,
-  onRemove,
+  onClick,
 }: AnnotationViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
@@ -83,7 +84,7 @@ export function AnnotationViewer({
             showAnnotationLabel,
             annotationAttrs,
             onFocus,
-            onRemove,
+            onClick,
           })}
     </svg>
   )
