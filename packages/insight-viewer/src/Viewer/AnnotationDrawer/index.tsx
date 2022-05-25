@@ -32,9 +32,18 @@ export function AnnotationDrawer({
     selectedAnnotation,
     onSelectAnnotation,
     svgElement: svgRef,
-    addAnnotation: mode === 'text' ? a => setTempAnnotation(a as TextAnnotation) : onAdd,
+    addAnnotation:
+      mode === 'text'
+        ? a => {
+            if (a.label) {
+              onAdd(a)
+            } else {
+              setTempAnnotation(a as TextAnnotation)
+            }
+          }
+        : onAdd,
   })
-  const handleFinish = (text: string) => {
+  const handleTypingFinish = (text: string) => {
     setTempAnnotation(undefined)
     if (tempAnnotation && text !== '') {
       onAdd({ ...tempAnnotation, label: text })
@@ -53,7 +62,13 @@ export function AnnotationDrawer({
               setAnnotationEditMode={setAnnotationEditMode}
             />
           )}
-          {mode === 'text' && <TextDrawer points={points} setAnnotationEditMode={setAnnotationEditMode} />}
+          {mode === 'text' && (
+            <TextDrawer
+              points={points}
+              setAnnotationEditMode={setAnnotationEditMode}
+              label={selectedAnnotation?.type === 'text' ? selectedAnnotation.label : undefined}
+            />
+          )}
           {editPoints && (
             <>
               <EditPointer
@@ -74,7 +89,7 @@ export function AnnotationDrawer({
       )}
       {tempAnnotation && (
         <svg width={width} height={height} style={{ ...svgStyle.default, ...style }}>
-          <TypingDrawer points={tempAnnotation.points} onFinish={handleFinish} />
+          <TypingDrawer points={tempAnnotation.points} onFinish={handleTypingFinish} />
         </svg>
       )}
     </>
