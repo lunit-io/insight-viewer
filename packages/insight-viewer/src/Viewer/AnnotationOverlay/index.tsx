@@ -8,7 +8,7 @@ export function AnnotationOverlay({
   width,
   height,
   annotations,
-  selectedAnnotation,
+  hoveredAnnotation,
   className,
   style,
   showOutline,
@@ -32,7 +32,7 @@ export function AnnotationOverlay({
         width={width}
         height={height}
         annotations={annotations}
-        selectedAnnotation={selectedAnnotation}
+        hoveredAnnotation={hoveredAnnotation}
         className={className}
         style={style}
         showOutline={showOutline}

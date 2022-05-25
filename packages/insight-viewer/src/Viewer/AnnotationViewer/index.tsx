@@ -10,7 +10,7 @@ function AnnotationsDraw({
   annotations,
   showOutline,
   showAnnotationLabel,
-  selectedAnnotation,
+  hoveredAnnotation,
   annotationAttrs,
   onFocus,
   onClick,
@@ -18,7 +18,7 @@ function AnnotationsDraw({
   return annotations.map(annotation => {
     const viewerProps = {
       showOutline,
-      selectedAnnotation,
+      hoveredAnnotation,
       showAnnotationLabel,
       annotationAttrs,
     }
@@ -63,7 +63,7 @@ export function AnnotationViewer({
   height,
   annotations,
   className,
-  selectedAnnotation,
+  hoveredAnnotation,
   showOutline = false,
   showAnnotationLabel = false,
   annotationAttrs,
@@ -79,7 +79,7 @@ export function AnnotationViewer({
         ? null
         : AnnotationsDraw({
             annotations,
-            selectedAnnotation,
+            hoveredAnnotation,
             showOutline,
             showAnnotationLabel,
             annotationAttrs,

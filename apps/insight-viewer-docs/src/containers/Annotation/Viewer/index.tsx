@@ -46,7 +46,7 @@ function AnnotationViewerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
+  const { annotations, hoveredAnnotation, removeAnnotation, hoverAnnotation } = useAnnotation({
     mode: annotationMode,
     initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
   })
@@ -88,10 +88,10 @@ function AnnotationViewerContainer(): JSX.Element {
               width={700}
               height={700}
               annotations={annotations}
-              selectedAnnotation={selectedAnnotation}
+              hoveredAnnotation={hoveredAnnotation}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onFocus={isEdit ? selectAnnotation : undefined}
+              onFocus={isEdit ? hoverAnnotation : undefined}
               onRemove={isEdit ? removeAnnotation : undefined}
             />
           )}

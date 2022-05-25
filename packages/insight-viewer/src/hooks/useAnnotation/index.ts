@@ -23,9 +23,9 @@ interface UseAnnotationProps {
 
 interface AnnotationDrawingState {
   annotations: Annotation[]
-  selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   addAnnotation: (annotation: Annotation, annotationInfo?: Pick<Annotation, 'dataAttrs'>) => Annotation | null
-  selectAnnotation: (annotation: Annotation | null) => void
+  hoverAnnotation: (annotation: Annotation | null) => void
   updateAnnotation: (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => void
   removeAnnotation: (annotation: Annotation) => void
   removeAllAnnotation: () => void
@@ -37,19 +37,19 @@ export function useAnnotation({
   mode = 'polygon',
 }: UseAnnotationProps): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
-  const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
+  const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
 
   useEffect(() => {
     setAnnotations(() =>
       initialAnnotation
         ? initialAnnotation.map<Annotation>((addedAnnotation, i) => {
-            const annotiaotnLabelPoints =
+            const annotationLabelPoints =
               addedAnnotation.type === 'circle' ? [addedAnnotation.center] : addedAnnotation.points
 
             return {
               ...addedAnnotation,
               id: nextId ?? i,
-              labelPosition: polylabel([annotiaotnLabelPoints], 1),
+              labelPosition: polylabel([annotationLabelPoints], 1),
             } as Annotation
           })
         : []
@@ -77,9 +77,9 @@ export function useAnnotation({
     return annotation
   }
 
-  const selectAnnotation = (annotation: Annotation | null) => {
-    setSelectedAnnotation(prevSelectedAnnotation =>
-      annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
+  const hoverAnnotation = (annotation: Annotation | null) => {
+    setHoveredAnnotation(prevHoveredAnnotation =>
+      annotation !== prevHoveredAnnotation ? annotation : prevHoveredAnnotation
     )
   }
 
@@ -97,7 +97,7 @@ export function useAnnotation({
       return prevAnnotations
     })
 
-    setSelectedAnnotation(null)
+    setHoveredAnnotation(null)
   }
 
   const updateAnnotation = (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => {
@@ -118,8 +118,8 @@ export function useAnnotation({
       if (index > -1) {
         nextAnnotations[index] = nextAnnotation
 
-        setSelectedAnnotation(prevSelectedAnnotation =>
-          annotation === prevSelectedAnnotation ? nextAnnotation : prevSelectedAnnotation
+        setHoveredAnnotation(prevHoveredAnnotation =>
+          annotation === prevHoveredAnnotation ? nextAnnotation : prevHoveredAnnotation
         )
       }
 
@@ -131,16 +131,16 @@ export function useAnnotation({
 
   const removeAllAnnotation = () => {
     setAnnotations([])
-    setSelectedAnnotation(null)
+    setHoveredAnnotation(null)
   }
 
   return {
     annotations,
-    selectedAnnotation,
+    hoveredAnnotation,
     addAnnotation,
     removeAnnotation,
     updateAnnotation,
-    selectAnnotation,
+    hoverAnnotation,
     removeAllAnnotation,
   }
 }

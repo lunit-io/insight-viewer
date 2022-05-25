@@ -3,14 +3,14 @@ import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Poin
 
 interface GetPolyViewerInfoProps {
   annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation
-  selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   showOutline: boolean
   pixelToCanvas: (point: Point) => Point
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
 interface getPolyViewerInfoReturnType {
-  isSelectedAnnotation: boolean
+  isHoveredAnnotation: boolean
   polygonAttributes: SVGProps<SVGPolygonElement> | undefined
   labelPosition: Point | undefined
   polygonPoints: string
@@ -21,13 +21,13 @@ interface getPolyViewerInfoReturnType {
 export function getPolyViewerInfo({
   annotation,
   showOutline,
-  selectedAnnotation,
+  hoveredAnnotation,
   annotationAttrs,
   pixelToCanvas,
 }: GetPolyViewerInfoProps): getPolyViewerInfoReturnType {
   const { label, id, labelPosition: _labelPosition, points } = annotation
 
-  const isSelectedAnnotation = annotation === selectedAnnotation
+  const isHoveredAnnotation = annotation === hoveredAnnotation
   const polygonLabel = label ?? id
 
   const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
@@ -51,7 +51,7 @@ export function getPolyViewerInfo({
       : null
 
   return {
-    isSelectedAnnotation,
+    isHoveredAnnotation,
     polygonAttributes,
     labelPosition,
     headPoints,

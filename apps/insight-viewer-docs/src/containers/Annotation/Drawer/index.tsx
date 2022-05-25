@@ -26,7 +26,7 @@ function AnnotationDrawerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, addAnnotation, removeAnnotation, selectAnnotation, removeAllAnnotation } =
+  const { annotations, hoveredAnnotation, addAnnotation, removeAnnotation, hoverAnnotation, removeAllAnnotation } =
     useAnnotation({ mode: annotationMode })
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
@@ -57,10 +57,10 @@ function AnnotationDrawerContainer(): JSX.Element {
               height={700}
               mode={annotationMode}
               annotations={annotations}
-              selectedAnnotation={selectedAnnotation}
+              hoveredAnnotation={hoveredAnnotation}
               showAnnotationLabel
               onAdd={addAnnotation}
-              onFocus={selectAnnotation}
+              onFocus={hoverAnnotation}
               onRemove={removeAnnotation}
             />
           )}

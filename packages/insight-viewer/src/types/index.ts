@@ -120,7 +120,7 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotation: T
   showOutline: boolean
   showAnnotationLabel: boolean
-  selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
