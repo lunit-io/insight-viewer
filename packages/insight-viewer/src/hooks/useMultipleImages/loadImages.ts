@@ -1,8 +1,7 @@
 /**
  * @fileoverview Loads images sequentially.
  */
-import { from, Observable } from 'rxjs'
-import { concatMap, map, catchError } from 'rxjs/operators'
+import { from, concatMap, map, catchError, Observable } from 'rxjs'
 import { loadedCountMessageMessage } from '../../utils/messageService'
 import { normalizeError } from '../../utils/common'
 import { RequestInterceptor, ImageLoaderScheme } from '../../types'
@@ -27,11 +26,7 @@ interface LoadImages {
  * @returns Observable<{ image, loaded }>. image is cornerstone image. loaded is the numbe of loaded images.
  * @throws If image fetching fails.
  */
-export const loadImages: LoadImages = ({
-  images,
-  imageScheme,
-  requestInterceptor,
-}) => {
+export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor }) => {
   let loaded = 0
   // Should send message before loading starts, because subscriber needs total value.
   loadedCountMessageMessage.sendMessage({
@@ -41,9 +36,7 @@ export const loadImages: LoadImages = ({
 
   return from(images).pipe(
     // Sequential Requests.
-    concatMap(image =>
-      loadCornerstoneImages(image, imageScheme, requestInterceptor)
-    ),
+    concatMap(image => loadCornerstoneImages(image, imageScheme, requestInterceptor)),
     map(image => {
       loaded += 1
       loadedCountMessageMessage.sendMessage({
