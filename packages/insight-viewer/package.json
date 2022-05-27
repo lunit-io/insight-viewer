@@ -43,7 +43,7 @@
     "cornerstone-wado-image-loader": "^4.1.3",
     "cornerstone-web-image-loader": "^2.1.1",
     "dicom-parser": "^1.8.13",
-    "ky": "^0.27.0",
+    "ky": "^0.30.0",
     "point-in-polygon": "^1.1.0",
     "polylabel": "^1.1.0",
     "react-resize-detector": "^6.7.0",
