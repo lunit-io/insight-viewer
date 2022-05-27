@@ -5263,10 +5263,10 @@ cornerstone-core@^2.6.1:
   resolved "https://registry.yarnpkg.com/cornerstone-core/-/cornerstone-core-2.6.1.tgz#f9a29a49057f286e8c969c7020e979d567449d42"
   integrity sha512-LAXjXwNnK2W65ZxpE7phVLjbijkYUrAQIGv5xqKjK8+dmIGlBxqvPHnyGwEqVDyKOWVrpXP6ymUPwrGGRwzgMg==
 
-cornerstone-wado-image-loader@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/cornerstone-wado-image-loader/-/cornerstone-wado-image-loader-4.1.2.tgz#89527e6793c7e2b66a4d8a5db2ca5c51b52fb1bd"
-  integrity sha512-9dtCgU6Lidp5wY914rNUckLqNHmjvIzL3uYU8b3EMqb9+tfTRQINm0kJq/rgchiyxnc1AW3FhrDf9DYgcfspyQ==
+cornerstone-wado-image-loader@^4.1.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/cornerstone-wado-image-loader/-/cornerstone-wado-image-loader-4.1.3.tgz#6053606ca6dd588d341f1117bb205822000192d1"
+  integrity sha512-1JOI1IFrpDNK96Z7Qmi50fmIlx81Ur67WfjmD371jtsbygIeh+K7p3pvate722IcLUwJZ3dbBEDY/voaD+HUXQ==
   dependencies:
     "@cornerstonejs/codec-charls" "^0.1.1"
     "@cornerstonejs/codec-libjpeg-turbo-8bit" "^0.0.7"
@@ -5764,10 +5764,10 @@ dezalgo@^1.0.0:
     asap "^2.0.0"
     wrappy "1"
 
-dicom-parser@^1.8.7:
-  version "1.8.8"
-  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.8.tgz#2eefec545eb47ba3ba6c759a9ed6277dc7eaa6a2"
-  integrity sha512-yTuHYdimnxv+oN1sVZVQlifYlVCYH0B4nHFNvH4vGKxNLz2t4fqisMbeRslcZWBw9rU4NHxI49kGqniFdTC0Dg==
+dicom-parser@^1.8.13:
+  version "1.8.13"
+  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.13.tgz#ce1122bf4363f21b09450e5a47e85ad323926daa"
+  integrity sha512-8M53FPHS4zM3zvu5fdIWdatqrjpiG2+2M6RJ0IxwqLF4gvCYRsqUIusxYaOiNU0sWaptUpnXeZiXunP0LOIcQw==
 
 dicom-parser@^1.8.9:
   version "1.8.11"
@@ -11654,12 +11654,19 @@ rxjs@^6.4.0, rxjs@^6.6.0, rxjs@^6.6.7:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^7.0.0, rxjs@^7.1.0, rxjs@^7.2.0:
+rxjs@^7.1.0, rxjs@^7.2.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.3.0.tgz#39fe4f3461dc1e50be1475b2b85a0a88c1e938c6"
   integrity sha512-p2yuGIg9S1epc3vrjKf6iVb3RCaAYjYskkO+jHIaV0IjOPlJop4UnodOoFb2xeNwlguqLYvGw1b1McillYb5Gw==
   dependencies:
     tslib "~2.1.0"
+
+rxjs@^7.5.5:
+  version "7.5.5"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.5.tgz#2ebad89af0f560f460ad5cc4213219e1f7dd4e9f"
+  integrity sha512-sy+H0pQofO95VDmFLzyaw9xNJU4KTRSwQIGM6+iG3SypAtCiLDzpeG8sJrNCWn2Up9km+KhkvTdbkrdy+yzZdw==
+  dependencies:
+    tslib "^2.1.0"
 
 sade@^1.7.4:
   version "1.7.4"
