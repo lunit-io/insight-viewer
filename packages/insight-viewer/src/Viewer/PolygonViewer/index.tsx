@@ -27,7 +27,7 @@ export function PolygonViewer({
       {showOutline && (
         <polygon
           style={{
-            ...polygonStyle[isHoveredAnnotation ? 'select' : 'outline'],
+            ...polygonStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
           }}
           data-select={isHoveredAnnotation || undefined}
@@ -36,18 +36,14 @@ export function PolygonViewer({
       )}
       <polygon
         style={{
-          ...polygonStyle[isHoveredAnnotation ? 'select' : 'default'],
+          ...polygonStyle.default,
           ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
-        <text
-          style={{ ...textStyle[isHoveredAnnotation ? 'select' : 'default'] }}
-          x={labelPosition[0]}
-          y={labelPosition[1]}
-        >
+        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
           {polygonLabel}
         </text>
       )}
