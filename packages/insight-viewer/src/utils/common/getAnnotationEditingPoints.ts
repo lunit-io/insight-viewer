@@ -10,11 +10,11 @@ export function getAnnotationEditingPoints(
   mode: AnnotationMode,
   setEditPoint: Dispatch<SetStateAction<Point | null>>
 ): Point[] {
-  if (mode === 'line' && editMode === 'startPoint') {
+  if ((mode === 'line' || mode === 'text') && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
   }
 
-  if (mode === 'line' && editMode === 'endPoint') {
+  if ((mode === 'line' || mode === 'text') && editMode === 'endPoint') {
     return [prevPoints[0], currentPoint]
   }
 
