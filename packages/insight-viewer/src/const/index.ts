@@ -1,5 +1,3 @@
-import consola from 'consola'
-
 export const IMAGE_LOADER_SCHEME = {
   WADO: 'wadouri',
   DICOMFILE: 'dicomfile',
@@ -13,7 +11,8 @@ export const LOADER_TYPE = {
 
 export const CONFIG = {
   onError: function handleError(e: Error): void {
-    consola.error(e)
+    // eslint-disable-next-line no-console
+    console.error(e)
   },
   Progress: undefined,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
