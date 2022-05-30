@@ -23,7 +23,7 @@ export function RulerDrawer({ points, setMeasurementEditMode }: RulerDrawerProps
     <>
       {canvasPoints && canvasPoints.length > 0 && image ? (
         <>
-          <polyline onMouseDown={() => setMeasurementEditMode('line')} style={polyline.default} points={linePoints} />
+          <polyline onMouseDown={() => setMeasurementEditMode('move')} style={polyline.default} points={linePoints} />
           <text
             style={{ ...textStyle.default }}
             x={endPointX + RULER_TEXT_POSITION_SPACING.x}

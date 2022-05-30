@@ -21,7 +21,7 @@ export function CircleDrawer({ points, setMeasurementEditMode }: CircleDrawerPro
   return (
     <>
       <circle
-        onMouseDown={() => setMeasurementEditMode('line')}
+        onMouseDown={() => setMeasurementEditMode('move')}
         style={circleStyle.default}
         cx={cx}
         cy={cy}

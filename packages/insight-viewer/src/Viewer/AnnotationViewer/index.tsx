@@ -10,22 +10,23 @@ function AnnotationsDraw({
   annotations,
   showOutline,
   showAnnotationLabel,
-  selectedAnnotation,
+  hoveredAnnotation,
   annotationAttrs,
   onFocus,
-  onRemove,
+  onClick,
 }: AnnotationsDrawProps) {
   return annotations.map(annotation => {
     const viewerProps = {
       showOutline,
-      selectedAnnotation,
+      hoveredAnnotation,
       showAnnotationLabel,
       annotationAttrs,
     }
 
     const handleAnnotationClick = () => {
-      if (!onRemove) return
-      onRemove(annotation)
+      if (onClick) {
+        onClick(annotation)
+      }
     }
 
     const handleAnnotationFocus = () => {
@@ -62,12 +63,12 @@ export function AnnotationViewer({
   height,
   annotations,
   className,
-  selectedAnnotation,
+  hoveredAnnotation,
   showOutline = false,
   showAnnotationLabel = false,
   annotationAttrs,
   onFocus,
-  onRemove,
+  onClick,
 }: AnnotationViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
@@ -78,12 +79,12 @@ export function AnnotationViewer({
         ? null
         : AnnotationsDraw({
             annotations,
-            selectedAnnotation,
+            hoveredAnnotation,
             showOutline,
             showAnnotationLabel,
             annotationAttrs,
             onFocus,
-            onRemove,
+            onClick,
           })}
     </svg>
   )

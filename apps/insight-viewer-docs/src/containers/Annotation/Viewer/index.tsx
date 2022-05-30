@@ -46,10 +46,10 @@ function AnnotationViewerContainer(): JSX.Element {
     wadouri: IMAGES[12],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
-    mode: annotationMode,
-    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
-  })
+  const { annotations, hoveredAnnotation, selectedAnnotation, removeAnnotation, hoverAnnotation, selectAnnotation } =
+    useAnnotation({
+      initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
+    })
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEdit(event.target.checked)
@@ -88,11 +88,13 @@ function AnnotationViewerContainer(): JSX.Element {
               width={700}
               height={700}
               annotations={annotations}
+              hoveredAnnotation={hoveredAnnotation}
               selectedAnnotation={selectedAnnotation}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onFocus={isEdit ? selectAnnotation : undefined}
+              onFocus={isEdit ? hoverAnnotation : undefined}
               onRemove={isEdit ? removeAnnotation : undefined}
+              onSelect={selectAnnotation}
             />
           )}
         </InsightViewer>

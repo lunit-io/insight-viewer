@@ -54,7 +54,7 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type EditMode = 'startPoint' | 'endPoint' | 'line'
+export type EditMode = 'startPoint' | 'endPoint' | 'move'
 
 export type ViewerStyleType = 'default' | 'select' | 'hover' | 'outline' | 'highlight'
 export type ViewerStyle = {
@@ -120,7 +120,7 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotation: T
   showOutline: boolean
   showAnnotationLabel: boolean
-  selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 

@@ -7,13 +7,13 @@ interface EditPointerProps {
   cx: number
   cy: number
   editMode: EditMode
-  setMeasurementEditMode: (editMode: EditMode) => void
+  setEditMode: (editMode: EditMode) => void
 }
 
-export function EditPointer({ cx, cy, editMode, setMeasurementEditMode }: EditPointerProps): JSX.Element {
+export function EditPointer({ cx, cy, editMode, setEditMode }: EditPointerProps): JSX.Element {
   return (
     <circle
-      onMouseDown={() => setMeasurementEditMode(editMode)}
+      onMouseDown={() => setEditMode(editMode)}
       cx={cx}
       cy={cy}
       r={EDIT_CIRCLE_RADIUS}

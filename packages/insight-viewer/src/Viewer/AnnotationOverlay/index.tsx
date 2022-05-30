@@ -8,6 +8,7 @@ export function AnnotationOverlay({
   width,
   height,
   annotations,
+  hoveredAnnotation,
   selectedAnnotation,
   className,
   style,
@@ -17,9 +18,11 @@ export function AnnotationOverlay({
   lineHead,
   device,
   isDrawing = false,
+  isEditing,
   annotationAttrs,
   onFocus,
   onAdd,
+  onSelect,
   onRemove,
 }: AnnotationOverlayProps): JSX.Element {
   if (isDrawing && !onAdd) {
@@ -32,26 +35,29 @@ export function AnnotationOverlay({
         width={width}
         height={height}
         annotations={annotations}
-        selectedAnnotation={selectedAnnotation}
+        hoveredAnnotation={hoveredAnnotation}
         className={className}
         style={style}
         showOutline={showOutline}
         showAnnotationLabel={showAnnotationLabel}
         annotationAttrs={annotationAttrs}
         onFocus={onFocus}
-        onRemove={onRemove}
+        onClick={isEditing ? onSelect : onRemove}
       />
       {isDrawing && onAdd && (
         <AnnotationDrawer
           width={width}
           height={height}
           annotations={annotations}
+          selectedAnnotation={selectedAnnotation}
           className={className}
           style={style}
           device={device}
+          isEditing={isEditing}
           mode={mode}
           lineHead={lineHead}
           onAdd={onAdd}
+          onSelectAnnotation={onSelect}
         />
       )}
     </>

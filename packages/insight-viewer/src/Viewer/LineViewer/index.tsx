@@ -9,16 +9,16 @@ export function LineViewer({
   annotation,
   showOutline,
   showAnnotationLabel,
-  selectedAnnotation,
+  hoveredAnnotation,
   annotationAttrs,
 }: LineViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints, headPoints } =
+  const { isHoveredAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints, headPoints } =
     getPolyViewerInfo({
       annotation,
       showOutline,
-      selectedAnnotation,
+      hoveredAnnotation,
       annotationAttrs,
       pixelToCanvas,
     })
@@ -28,30 +28,30 @@ export function LineViewer({
       {showOutline && (
         <polyline
           style={{
-            ...polylineStyle[isSelectedAnnotation ? 'select' : 'outline'],
+            ...polylineStyle[isHoveredAnnotation ? 'select' : 'outline'],
             ...polygonAttributes?.style,
           }}
-          data-select={isSelectedAnnotation || undefined}
+          data-select={isHoveredAnnotation || undefined}
           points={polygonPoints}
         />
       )}
       {annotation.type === 'line' && headPoints && (
         <polyline
-          style={{ ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'], ...polygonAttributes?.style }}
+          style={{ ...polylineStyle[isHoveredAnnotation ? 'select' : 'default'], ...polygonAttributes?.style }}
           points={headPoints}
         />
       )}
       <polyline
         style={{
-          ...polylineStyle[isSelectedAnnotation ? 'select' : 'default'],
+          ...polylineStyle[isHoveredAnnotation ? 'select' : 'default'],
           ...polygonAttributes?.style,
         }}
-        data-select={isSelectedAnnotation || undefined}
+        data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
         <text
-          style={{ ...textStyle[isSelectedAnnotation ? 'select' : 'default'] }}
+          style={{ ...textStyle[isHoveredAnnotation ? 'select' : 'default'] }}
           x={labelPosition[0]}
           y={labelPosition[1]}
         >
