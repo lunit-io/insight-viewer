@@ -21,4 +21,9 @@ export const polyline: ViewerStyle = {
     strokeWidth: '2.5px',
     fill: 'transparent',
   },
+  select: {
+    stroke: '#00FFF0',
+    strokeWidth: '2px',
+    fill: 'transparent',
+  },
 }
