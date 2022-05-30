@@ -8,8 +8,8 @@ interface EditPointerProps {
   cx: number
   cy: number
   editMode: EditMode
-  isSelectedMode: boolean
-  isHighlightMode: boolean
+  isSelectedMode?: boolean
+  isHighlightMode?: boolean
   setEditMode: (editMode: EditMode) => void
 }
 
