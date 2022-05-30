@@ -13,9 +13,36 @@ export const svgStyle: ViewerStyle = {
 export const circleStyle: ViewerStyle = {
   default: {
     strokeWidth: '3px',
-    stroke: 'rgb(255, 224, 0)',
-    transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
-    fill: 'rgb(255, 224, 0)',
+    stroke: '#ffffff',
+    fill: '#ffffff',
+    cursor: 'move',
+  },
+  highlight: {
+    strokeWidth: '3px',
+    stroke: '#00FFF0',
+    fill: '#00FFF0',
+    cursor: 'move',
+  },
+  select: {
+    strokeWidth: '3px',
+    stroke: '#FFD600',
+    fill: '#FFD600',
+    cursor: 'move',
+  },
+  outline: {
+    strokeWidth: '4px',
+    stroke: '#000000',
+    fill: 'transparent',
+  },
+  selectedOutline: {
+    strokeWidth: '5px',
+    stroke: '#ffffff',
+    fill: 'transparent',
+  },
+  hover: {
+    strokeWidth: '3px',
+    stroke: '#FFD600',
+    fill: '#FFD600',
     cursor: 'move',
   },
 }
