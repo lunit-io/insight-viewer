@@ -26,7 +26,7 @@ export const textStyle: ViewerStyle = {
     fontWeight: 600,
     textAnchor: 'middle',
   },
-  hover: {
+  select: {
     fill: '#00FFF0',
     paintOrder: 'stroke',
     stroke: '#000000',
@@ -81,7 +81,7 @@ export const textBoxStyle: ViewerStyle = {
     fill: 'transparent',
     stroke: 'transparent',
   },
-  hover: {
+  select: {
     fill: 'transparent',
     stroke: 'rgb(0, 201, 234)',
     strokeWidth: '1px',
