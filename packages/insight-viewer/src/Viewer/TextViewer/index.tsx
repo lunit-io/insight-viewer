@@ -16,7 +16,7 @@ export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): 
     <>
       <text
         style={{
-          ...textStyle[isHoveredAnnotation ? 'hover' : 'default'],
+          ...textStyle[isHoveredAnnotation ? 'select' : 'default'],
           textAnchor: 'start',
           dominantBaseline: 'hanging',
         }}
@@ -30,7 +30,7 @@ export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): 
         ))}
       </text>
       <rect
-        style={{ ...textBoxStyle[isHoveredAnnotation ? 'hover' : 'default'] }}
+        style={{ ...textBoxStyle[isHoveredAnnotation ? 'select' : 'default'] }}
         x={start[0]}
         y={start[1]}
         width={dimensions[0]}
