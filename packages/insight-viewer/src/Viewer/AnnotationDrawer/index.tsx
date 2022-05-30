@@ -24,6 +24,14 @@ export function AnnotationDrawer({
 }: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const [tempAnnotation, setTempAnnotation] = useState<TextAnnotation>()
+
+  const handleTypingFinish = (text: string) => {
+    setTempAnnotation(undefined)
+    if (tempAnnotation && text !== '') {
+      onAdd({ ...tempAnnotation, label: text })
+    }
+  }
+
   const { points, editPoints, setAnnotationEditMode } = useAnnotationPointsHandler({
     isEditing,
     mode,
@@ -43,26 +51,22 @@ export function AnnotationDrawer({
           }
         : onAdd,
   })
-  const handleTypingFinish = (text: string) => {
-    setTempAnnotation(undefined)
-    if (tempAnnotation && text !== '') {
-      onAdd({ ...tempAnnotation, label: text })
-    }
-  }
+
+  const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
 
   return (
     <>
       {points.length > 1 && (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {(mode === 'polygon' || mode === 'freeLine' || mode === 'line') && (
+          {(drawingMode === 'polygon' || drawingMode === 'freeLine' || drawingMode === 'line') && (
             <PolylineDrawer
               points={points}
-              mode={mode}
+              mode={drawingMode}
               lineHead={lineHead}
               setAnnotationEditMode={setAnnotationEditMode}
             />
           )}
-          {mode === 'text' && (
+          {drawingMode === 'text' && (
             <TextDrawer
               points={points}
               setAnnotationEditMode={setAnnotationEditMode}
