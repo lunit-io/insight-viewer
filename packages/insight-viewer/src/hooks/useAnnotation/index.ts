@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { AnnotationMode, Annotation, AnnotationBase } from '../../types'
+import { Annotation, AnnotationBase } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
 import { isValidLength } from '../../utils/common/isValidLength'
@@ -18,7 +18,6 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
 interface UseAnnotationProps {
   nextId?: number
   initialAnnotation?: Annotation[]
-  mode?: AnnotationMode
 }
 
 interface AnnotationDrawingState {
@@ -33,11 +32,7 @@ interface AnnotationDrawingState {
   removeAllAnnotation: () => void
 }
 
-export function useAnnotation({
-  nextId,
-  initialAnnotation,
-  mode = 'polygon',
-}: UseAnnotationProps): AnnotationDrawingState {
+export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationProps = {}): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
   const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
@@ -63,7 +58,6 @@ export function useAnnotation({
     annotation: Annotation,
     annotationInfo: Pick<Annotation, 'dataAttrs'> | undefined
   ): Annotation | null => {
-    if (annotation.type !== mode) throw Error('The mode of component and hook is different')
     if (
       annotation.type === 'polygon' &&
       (!getIsPolygonAreaGreaterThanArea(annotation.points) || getIsComplexPolygon(annotation.points))

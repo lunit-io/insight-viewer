@@ -37,7 +37,7 @@ function AnnotationDrawerContainer(): JSX.Element {
     hoverAnnotation,
     selectAnnotation,
     removeAllAnnotation,
-  } = useAnnotation({ mode: annotationMode })
+  } = useAnnotation()
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
