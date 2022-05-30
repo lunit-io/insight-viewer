@@ -32,7 +32,7 @@ export function AnnotationDrawer({
     }
   }
 
-  const { points, editPoints, setAnnotationEditMode } = useAnnotationPointsHandler({
+  const { points, editPoints, currentEditMode, setAnnotationEditMode } = useAnnotationPointsHandler({
     isEditing,
     mode,
     lineHead,
@@ -53,7 +53,7 @@ export function AnnotationDrawer({
   })
 
   const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
-  const isSelectedMode = isEditing && selectedAnnotation != null
+  const isSelectedAnnotation = isEditing && selectedAnnotation != null
 
   return (
     <>
@@ -63,7 +63,7 @@ export function AnnotationDrawer({
             <PolylineDrawer
               points={points}
               mode={drawingMode}
-              isSelectedMode={isSelectedMode}
+              isSelectedMode={isSelectedAnnotation}
               lineHead={lineHead}
               setAnnotationEditMode={setAnnotationEditMode}
             />
@@ -71,7 +71,7 @@ export function AnnotationDrawer({
           {drawingMode === 'text' && (
             <TextDrawer
               points={points}
-              isSelectedMode={isSelectedMode}
+              isSelectedMode={isSelectedAnnotation}
               setAnnotationEditMode={setAnnotationEditMode}
               label={selectedAnnotation?.type === 'text' ? selectedAnnotation.label : undefined}
             />
@@ -81,12 +81,16 @@ export function AnnotationDrawer({
               <EditPointer
                 setEditMode={setAnnotationEditMode}
                 editMode="startPoint"
+                isSelectedMode={currentEditMode === 'startPoint'}
+                isHighlightMode={isSelectedAnnotation}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
               <EditPointer
                 setEditMode={setAnnotationEditMode}
                 editMode="endPoint"
+                isHighlightMode={isSelectedAnnotation}
+                isSelectedMode={currentEditMode === 'endPoint'}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
               />
