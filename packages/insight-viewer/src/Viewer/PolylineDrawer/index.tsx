@@ -39,12 +39,12 @@ export function PolylineDrawer({ mode, lineHead, points, setAnnotationEditMode }
             />
           )}
           <polyline
-            style={mode === 'freeLine' ? { ...polyline.default, fill: 'transparent' } : polyline.default}
+            style={polyline.outline}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
           <polyline
-            style={polyline.highlight}
+            style={mode === 'freeLine' ? { ...polyline.default, fill: 'transparent' } : polyline.default}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
