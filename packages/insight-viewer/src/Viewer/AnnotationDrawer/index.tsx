@@ -53,6 +53,7 @@ export function AnnotationDrawer({
   })
 
   const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
+  const isSelectedMode = isEditing && selectedAnnotation != null
 
   return (
     <>
@@ -62,6 +63,7 @@ export function AnnotationDrawer({
             <PolylineDrawer
               points={points}
               mode={drawingMode}
+              isSelectedMode={isSelectedMode}
               lineHead={lineHead}
               setAnnotationEditMode={setAnnotationEditMode}
             />
@@ -69,6 +71,7 @@ export function AnnotationDrawer({
           {drawingMode === 'text' && (
             <TextDrawer
               points={points}
+              isSelectedMode={isSelectedMode}
               setAnnotationEditMode={setAnnotationEditMode}
               label={selectedAnnotation?.type === 'text' ? selectedAnnotation.label : undefined}
             />
