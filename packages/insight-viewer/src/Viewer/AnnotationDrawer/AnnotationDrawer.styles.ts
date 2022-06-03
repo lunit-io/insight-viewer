@@ -12,7 +12,7 @@ export const svgStyle: ViewerStyle = {
 
 export const polyline: ViewerStyle = {
   default: {
-    fill: 'rgba(255, 255, 255, 0.2)',
+    fill: 'transparent',
     strokeWidth: '2px',
     stroke: '#FAFAFB',
   },
