@@ -6,7 +6,6 @@ import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
 
 export function PolylineDrawer({
-  mode,
   lineHead,
   points,
   isSelectedMode,
@@ -50,11 +49,7 @@ export function PolylineDrawer({
             />
           )}
           <polyline
-            style={
-              mode === 'freeLine'
-                ? { ...polyline[isSelectedMode ? 'select' : 'default'], fill: 'transparent' }
-                : polyline[isSelectedMode ? 'select' : 'default']
-            }
+            style={polyline[isSelectedMode ? 'select' : 'default']}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
