@@ -16,6 +16,7 @@ export interface UseMeasurementPointsHandlerProps {
 
 export interface UseMeasurementPointsHandlerReturnType {
   points: Point[]
+  canvasPoints: Point[]
   textPoint: Point | null
   editPoints: EditPoints | null
   setMeasurementEditMode: (targetPoint: EditMode) => void
