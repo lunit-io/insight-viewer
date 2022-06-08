@@ -23,6 +23,7 @@ export default function useMeasurementPointsHandler({
   onSelectMeasurement,
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
+  const [canvasPoints, setCanvasPoints] = useState<Point[]>([])
   const [textPoint, setTextPoint] = useState<Point | null>(null)
   const [editPoint, setEditPoint] = useState<Point | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
@@ -33,9 +34,10 @@ export default function useMeasurementPointsHandler({
   const isMeasurementEditing = isEditing && selectedMeasurement && editMode
 
   useEffect(() => {
-    const pixelPoints = points.map(pixelToCanvas)
-    const editPoints = getEditPointPosition(pixelPoints, selectedMeasurement)
+    const convertedPoints = points.map(pixelToCanvas)
+    const editPoints = getEditPointPosition(convertedPoints, selectedMeasurement)
 
+    setCanvasPoints(convertedPoints)
     setEditTargetPoints(editPoints)
   }, [image, points, mode, selectedMeasurement, pixelToCanvas])
 
@@ -139,5 +141,11 @@ export default function useMeasurementPointsHandler({
     addDrewElement: addDrewMeasurement,
   })
 
-  return { points, textPoint, editPoints: editTargetPoints, setMeasurementEditMode }
+  return {
+    points,
+    canvasPoints,
+    editPoints: editTargetPoints,
+    textPoint: textPoint ? pixelToCanvas(textPoint) : null,
+    setMeasurementEditMode,
+  }
 }
