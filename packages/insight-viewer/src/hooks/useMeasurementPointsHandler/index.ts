@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-properties */
 import { useState, useEffect } from 'react'
 
 import { UseMeasurementPointsHandlerProps, UseMeasurementPointsHandlerReturnType } from './types'
@@ -6,6 +5,9 @@ import { Point, EditMode } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { calculateDistance } from '../../utils/common/calculateDistance'
 import { getDrewMeasurement } from '../../utils/common/getDrewMeasurement'
+import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
+import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+import { getLineLengthWithoutImage } from '../../utils/common/getLineLengthWithoutImage'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getMeasurementDrawingPoints } from '../../utils/common/getMeasurementDrawingPoints'
 import { getMeasurementEditingPoints } from '../../utils/common/getMeasurementEditingPoints'
@@ -21,9 +23,10 @@ export default function useMeasurementPointsHandler({
   onSelectMeasurement,
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
+  const [textPoint, setTextPoint] = useState<Point | null>(null)
   const [editPoint, setEditPoint] = useState<Point | null>(null)
-  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
+  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
 
@@ -84,6 +87,18 @@ export default function useMeasurementPointsHandler({
 
       return drawingPoints
     })
+
+    setTextPoint(() => {
+      if (points.length < 2) return null
+
+      if (mode === 'ruler') {
+        return getRulerTextPosition(point)
+      }
+      // mode === 'circle'
+      const drawingRadius = getLineLengthWithoutImage(points[0], points[1])
+
+      return getCircleTextPosition(points[0], drawingRadius)
+    })
   }
 
   const cancelDrawing = () => {
@@ -101,9 +116,9 @@ export default function useMeasurementPointsHandler({
   const addDrewMeasurement = () => {
     if (isMeasurementEditing) return
 
-    if (points.length > 1) {
+    if (points.length > 1 && textPoint) {
       const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
-      const drewMeasurement = getDrewMeasurement(points, drawingMode, measurements, image)
+      const drewMeasurement = getDrewMeasurement(points, textPoint, drawingMode, measurements, image)
 
       addMeasurement(drewMeasurement)
     }
@@ -124,5 +139,5 @@ export default function useMeasurementPointsHandler({
     addDrewElement: addDrewMeasurement,
   })
 
-  return { points, editPoints: editTargetPoints, setMeasurementEditMode }
+  return { points, textPoint, editPoints: editTargetPoints, setMeasurementEditMode }
 }

@@ -130,6 +130,7 @@ export interface MeasurementBase {
   type: MeasurementMode
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
+  textPoint: Point
 }
 
 export interface RulerMeasurement extends MeasurementBase {

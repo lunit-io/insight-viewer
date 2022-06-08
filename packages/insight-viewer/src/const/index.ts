@@ -50,7 +50,7 @@ export const RULER_TEXT_POSITION_SPACING = {
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
   x: 60,
-  y: 30,
+  y: 10,
 }
 
 // The ruler min length is 0.1mm
