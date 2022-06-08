@@ -1,7 +1,8 @@
 import { Point, EditMode } from '../../types'
 
 export interface RulerDrawerProps {
+  points: Point[]
   textPoint: Point
-  rulerPoints: Point[]
+  canvasPoints: Point[]
   setMeasurementEditMode: (targetPoint: EditMode) => void
 }
