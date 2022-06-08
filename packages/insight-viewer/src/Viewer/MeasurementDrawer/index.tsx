@@ -24,7 +24,7 @@ export function MeasurementDrawer({
   const svgRef = useRef<SVGSVGElement>(null)
   const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
 
-  const { points, editPoints, textPoint, setMeasurementEditMode } = useMeasurementPointsHandler({
+  const { points, canvasPoints, editPoints, textPoint, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
     device,
     isEditing,
@@ -40,10 +40,20 @@ export function MeasurementDrawer({
       {points.length > 1 && textPoint != null ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {drawingMode === 'ruler' && (
-            <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} rulerPoints={points} textPoint={textPoint} />
+            <RulerDrawer
+              setMeasurementEditMode={setMeasurementEditMode}
+              points={points}
+              canvasPoints={canvasPoints}
+              textPoint={textPoint}
+            />
           )}
           {drawingMode === 'circle' && (
-            <CircleDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} textPoint={textPoint} />
+            <CircleDrawer
+              setMeasurementEditMode={setMeasurementEditMode}
+              points={points}
+              canvasPoints={canvasPoints}
+              textPoint={textPoint}
+            />
           )}
           {editPoints && (
             <>
