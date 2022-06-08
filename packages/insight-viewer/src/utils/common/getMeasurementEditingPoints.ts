@@ -3,13 +3,13 @@ import { Point, EditMode, MeasurementMode } from '../../types'
 import { getMovedPoints } from './getMovedPoints'
 
 export function getMeasurementEditingPoints(
-  prevPoints: Point[],
+  prevPoints: [Point, Point],
   currentPoint: Point,
   editPoint: Point,
   editMode: EditMode,
   mode: MeasurementMode,
   setEditPoint: Dispatch<SetStateAction<Point | null>>
-): Point[] {
+): [Point, Point] {
   if (mode === 'ruler' && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
   }
