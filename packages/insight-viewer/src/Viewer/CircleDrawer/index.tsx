@@ -7,15 +7,18 @@ import { getCircleRadius } from '../../utils/common/getCircleRadius'
 import { getLineLengthWithoutImage } from '../../utils/common/getLineLengthWithoutImage'
 import { useOverlayContext } from '../../contexts'
 
-export function CircleDrawer({ points, textPoint, setMeasurementEditMode }: CircleDrawerProps): ReactElement | null {
-  const { image, pixelToCanvas } = useOverlayContext()
+export function CircleDrawer({
+  points,
+  canvasPoints,
+  textPoint,
+  setMeasurementEditMode,
+}: CircleDrawerProps): ReactElement | null {
+  const { image } = useOverlayContext()
 
-  const [startPoint, endPoint] = points.map(pixelToCanvas)
-  const [textPointX, textPointY] = pixelToCanvas(textPoint)
+  const [cx, cy] = canvasPoints[0]
+
   const radius = getCircleRadius(points, image)
-
-  const drawingRadius = getLineLengthWithoutImage(startPoint, endPoint)
-  const [cx, cy] = startPoint
+  const drawingRadius = getLineLengthWithoutImage(canvasPoints[0], canvasPoints[1])
 
   return (
     <>
@@ -26,7 +29,7 @@ export function CircleDrawer({ points, textPoint, setMeasurementEditMode }: Circ
         cy={cy}
         r={drawingRadius}
       />
-      <text style={{ ...textStyle.default }} x={textPointX} y={textPointY}>
+      <text style={{ ...textStyle.default }} x={textPoint[0]} y={textPoint[1]}>
         {`radius: ${radius.toFixed(2)}mm`}
       </text>
     </>
