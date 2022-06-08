@@ -37,7 +37,7 @@ export function MeasurementDrawer({
 
   return (
     <>
-      {points.length > 1 && textPoint != null ? (
+      {points && textPoint ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {drawingMode === 'ruler' && (
             <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} rulerPoints={points} textPoint={textPoint} />
