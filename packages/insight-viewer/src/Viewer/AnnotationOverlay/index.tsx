@@ -12,7 +12,7 @@ export function AnnotationOverlay({
   selectedAnnotation,
   className,
   style,
-  showOutline = true,
+  showOutline,
   showAnnotationLabel,
   mode,
   lineHead,

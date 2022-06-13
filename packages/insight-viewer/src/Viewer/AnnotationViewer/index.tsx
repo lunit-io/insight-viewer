@@ -64,7 +64,7 @@ export function AnnotationViewer({
   annotations,
   className,
   hoveredAnnotation,
-  showOutline = false,
+  showOutline = true,
   showAnnotationLabel = false,
   annotationAttrs,
   onFocus,
