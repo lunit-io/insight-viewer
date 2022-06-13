@@ -13,17 +13,17 @@ export const svgStyle: ViewerStyle = {
 export const polyline: ViewerStyle = {
   default: {
     fill: 'transparent',
-    strokeWidth: '2px',
+    strokeWidth: '3px',
     stroke: '#FAFAFB',
   },
   outline: {
     stroke: '#000000',
-    strokeWidth: '2.5px',
+    strokeWidth: '4px',
     fill: 'transparent',
   },
   select: {
     stroke: '#00FFF0',
-    strokeWidth: '2px',
+    strokeWidth: '3px',
     fill: 'transparent',
   },
 }

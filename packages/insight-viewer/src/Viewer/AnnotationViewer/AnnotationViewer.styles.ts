@@ -43,35 +43,35 @@ export const textStyle: ViewerStyle = {
 export const polygonStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
-    strokeWidth: '2px',
+    strokeWidth: '3px',
     stroke: '#FAFAFB',
   },
   outline: {
     fill: 'transparent',
-    strokeWidth: '2.5px',
+    strokeWidth: '4px',
     stroke: '#000000',
   },
   hoveredOutline: {
     fill: 'transparent',
-    strokeWidth: '2.5px',
+    strokeWidth: '3px',
     stroke: '#99999B',
   },
 }
 
 export const polylineStyle: ViewerStyle = {
   default: {
-    strokeWidth: '2px',
+    strokeWidth: '3px',
     stroke: '#ffffff',
     fill: 'transparent',
   },
   outline: {
     fill: 'transparent',
-    strokeWidth: '2.5px',
+    strokeWidth: '4px',
     stroke: '#000000',
   },
   hoveredOutline: {
     fill: 'transparent',
-    strokeWidth: '2.5px',
+    strokeWidth: '3px',
     stroke: '#99999B',
   },
 }
