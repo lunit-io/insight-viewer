@@ -4,11 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "clean": "rimraf .next *.tsbuildinfo",
-    "build": "yarn run clean && ENV=production next build",
-    "export": "rimraf ../../dist && ENV=production next export -o ../../dist",
+    "build": "next build && next export -o ../../dist",
     "start": "next start",
-    "doc": "yarn run build && yarn run export",
     "start:server": "yarn build && yarn start",
     "percy:cypress": "percy exec -- cypress run",
     "cypress-open": "cypress open",
