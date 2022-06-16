@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "lerna run test",
-    "build": "scripty",
+    "build": "lerna run build",
     "postinstall": "husky install",
     "prepublishOnly": "scripty",
     "publish": "lerna publish",
