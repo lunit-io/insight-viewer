@@ -96,7 +96,7 @@ export default function useMeasurementPointsHandler({
       }
 
       if (mode === 'ruler') {
-        return getRulerTextPosition(point)
+        return getRulerTextPosition(points[1])
       }
       // mode === 'circle'
       const drawingRadius = getLineLengthWithoutImage(points[0], points[1])
