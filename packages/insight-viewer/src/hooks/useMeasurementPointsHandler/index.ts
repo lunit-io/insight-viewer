@@ -22,7 +22,7 @@ export default function useMeasurementPointsHandler({
   addMeasurement,
   onSelectMeasurement,
 }: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
-  const [points, setPoints] = useState<Point[]>([])
+  const [points, setPoints] = useState<[Point, Point] | null>(null)
   const [textPoint, setTextPoint] = useState<Point | null>(null)
   const [editPoint, setEditPoint] = useState<Point | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
@@ -33,6 +33,8 @@ export default function useMeasurementPointsHandler({
   const isMeasurementEditing = isEditing && selectedMeasurement && editMode
 
   useEffect(() => {
+    if (points == null) return
+
     const pixelPoints = points.map(pixelToCanvas)
     const editPoints = getEditPointPosition(pixelPoints, selectedMeasurement)
 
@@ -61,14 +63,14 @@ export default function useMeasurementPointsHandler({
       return
     }
 
-    setPoints([point])
+    setPoints([point, point])
   }
 
   const addDrawingPoint = (point: Point) => {
     setPoints(prevPoints => {
       const isPrepareEditing = isEditing && selectedMeasurement && !editMode
 
-      if (prevPoints.length === 0 || isPrepareEditing) return prevPoints
+      if (prevPoints == null || isPrepareEditing) return prevPoints
 
       if (isEditing && selectedMeasurement && editMode && editPoint) {
         const editedPoints = getMeasurementEditingPoints(
@@ -89,10 +91,12 @@ export default function useMeasurementPointsHandler({
     })
 
     setTextPoint(() => {
-      if (points.length < 2) return null
+      if (points == null) {
+        return points
+      }
 
       if (mode === 'ruler') {
-        return getRulerTextPosition(point)
+        return getRulerTextPosition(points[1])
       }
       // mode === 'circle'
       const drawingRadius = getLineLengthWithoutImage(points[0], points[1])
@@ -107,21 +111,19 @@ export default function useMeasurementPointsHandler({
       return
     }
 
-    setPoints([])
+    setPoints(null)
     setEditPoint(null)
     setEditMode(null)
     onSelectMeasurement(null)
   }
 
   const addDrewMeasurement = () => {
-    if (isMeasurementEditing) return
+    if (isMeasurementEditing || points == null || textPoint == null) return
 
-    if (points.length > 1 && textPoint) {
-      const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
-      const drewMeasurement = getDrewMeasurement(points, textPoint, drawingMode, measurements, image)
+    const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
+    const drewMeasurement = getDrewMeasurement(points, textPoint, drawingMode, measurements, image)
 
-      addMeasurement(drewMeasurement)
-    }
+    addMeasurement(drewMeasurement)
   }
 
   const setMeasurementEditMode = (targetPoint: EditMode) => {
