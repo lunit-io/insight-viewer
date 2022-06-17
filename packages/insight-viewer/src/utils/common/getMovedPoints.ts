@@ -1,7 +1,7 @@
 import { Point } from '../../types'
 
 interface GetMoveRulerPointsProp {
-  prevPoints: [Point, Point]
+  prevPoints: Point[]
   editStartPoint: Point
   currentPoint: Point
 }
