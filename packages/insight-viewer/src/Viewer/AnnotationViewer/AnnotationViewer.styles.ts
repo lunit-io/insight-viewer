@@ -25,6 +25,20 @@ export const textStyle: ViewerStyle = {
     lineHeight: LINE_HEIGHT,
     fontWeight: 600,
     textAnchor: 'middle',
+    cursor: 'pointer',
+  },
+  hover: {
+    fill: '#00FFF0',
+    paintOrder: 'stroke',
+    stroke: '#000000',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
+    fontWeight: 600,
+    textAnchor: 'middle',
+    cursor: 'pointer',
   },
   select: {
     fill: '#00FFF0',
@@ -87,6 +101,12 @@ export const textBoxStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     stroke: 'transparent',
+    cursor: 'pointer',
+  },
+  hover: {
+    fill: 'transparent',
+    stroke: 'rgb(0, 201, 234)',
+    strokeWidth: '1px',
     cursor: 'pointer',
   },
   select: {
