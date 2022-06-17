@@ -3,7 +3,7 @@ import { getLineLength } from './getLineLength'
 import { Image } from '../../Viewer/types'
 import { Point, Measurement, MeasurementMode } from '../../types'
 
-export function getDrewMeasurement(
+export function getMeasurement(
   points: Point[],
   textPoint: Point,
   mode: MeasurementMode,
