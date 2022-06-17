@@ -6,7 +6,8 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test"]
+        "cacheableOperations": ["build", "test"],
+        "cacheDirectory": ".nx_cache"
       }
     }
   },

@@ -60,3 +60,5 @@ built-storybooks
 
 # dcm binary
 *.dcm
+
+.nx_cache
