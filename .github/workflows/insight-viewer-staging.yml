@@ -61,7 +61,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
           aws-region: us-east-1
 
-      - name: Deploy
+      - name: Deploy Docs
         env:
           HOST: insight-viewer.s.lunit.io
         run: |

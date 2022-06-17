@@ -43,5 +43,15 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "./next",
+          "../../dist"
+        ]
+      }
+    }
   }
 }

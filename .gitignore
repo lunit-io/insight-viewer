@@ -6,9 +6,6 @@ node_modules
 # testing
 coverage
 
-# next.js
-.next
-
 # production
 build/
 dist/
@@ -63,6 +60,3 @@ built-storybooks
 
 # dcm binary
 *.dcm
-
-# for apps development
-apps/insight-public/
