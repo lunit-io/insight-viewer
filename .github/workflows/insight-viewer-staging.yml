@@ -32,13 +32,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Restore node_modules
+      - name: Restore Nx cache
         uses: actions/cache@v3
         with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+          path: .nx_cache
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nx
 
       - name: Install Packages
         run: yarn install --prefer-offline --frozen-lockfile
@@ -61,7 +59,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
           aws-region: us-east-1
 
-      - name: Deploy
+      - name: Deploy Docs
         env:
           HOST: insight-viewer.s.lunit.io
         run: |
