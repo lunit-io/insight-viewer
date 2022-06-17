@@ -3,7 +3,7 @@ name: "Deploy insight-viewer on staging"
 on:
   push:
     branches:
-      - releases/insight-viewer
+      - develop
     paths:
       - .github/workflows/insight-viewer-staging.yml
       - packages/insight-viewer/**
