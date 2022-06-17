@@ -37,6 +37,7 @@ export const textStyle: ViewerStyle = {
     lineHeight: LINE_HEIGHT,
     fontWeight: 600,
     textAnchor: 'middle',
+    cursor: 'grab',
   },
 }
 
@@ -45,16 +46,19 @@ export const polygonStyle: ViewerStyle = {
     fill: 'transparent',
     strokeWidth: '3px',
     stroke: '#FAFAFB',
+    cursor: 'pointer',
   },
   outline: {
     fill: 'transparent',
     strokeWidth: '4px',
     stroke: '#000000',
+    cursor: 'pointer',
   },
   hoveredOutline: {
     fill: 'transparent',
     strokeWidth: '3px',
     stroke: '#99999B',
+    cursor: 'pointer',
   },
 }
 
@@ -63,16 +67,19 @@ export const polylineStyle: ViewerStyle = {
     strokeWidth: '3px',
     stroke: '#ffffff',
     fill: 'transparent',
+    cursor: 'pointer',
   },
   outline: {
     fill: 'transparent',
     strokeWidth: '4px',
     stroke: '#000000',
+    cursor: 'pointer',
   },
   hoveredOutline: {
     fill: 'transparent',
     strokeWidth: '3px',
     stroke: '#99999B',
+    cursor: 'pointer',
   },
 }
 
@@ -80,10 +87,12 @@ export const textBoxStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     stroke: 'transparent',
+    cursor: 'pointer',
   },
   select: {
     fill: 'transparent',
     stroke: 'rgb(0, 201, 234)',
     strokeWidth: '1px',
+    cursor: 'grab',
   },
 }
