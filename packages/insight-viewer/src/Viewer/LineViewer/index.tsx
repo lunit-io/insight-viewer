@@ -28,7 +28,7 @@ export function LineViewer({
       {showOutline && (
         <polyline
           style={{
-            ...polylineStyle[isHoveredAnnotation ? 'select' : 'outline'],
+            ...polylineStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
           }}
           data-select={isHoveredAnnotation || undefined}
@@ -36,25 +36,18 @@ export function LineViewer({
         />
       )}
       {annotation.type === 'line' && headPoints && (
-        <polyline
-          style={{ ...polylineStyle[isHoveredAnnotation ? 'select' : 'default'], ...polygonAttributes?.style }}
-          points={headPoints}
-        />
+        <polyline style={{ ...polylineStyle.default, ...polygonAttributes?.style }} points={headPoints} />
       )}
       <polyline
         style={{
-          ...polylineStyle[isHoveredAnnotation ? 'select' : 'default'],
+          ...polylineStyle.default,
           ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
-        <text
-          style={{ ...textStyle[isHoveredAnnotation ? 'select' : 'default'] }}
-          x={labelPosition[0]}
-          y={labelPosition[1]}
-        >
+        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
           {polygonLabel}
         </text>
       )}

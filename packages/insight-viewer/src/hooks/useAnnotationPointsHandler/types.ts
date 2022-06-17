@@ -15,5 +15,6 @@ export interface UseAnnotationPointsHandlerProps {
 export interface UseAnnotationPointsHandlerReturnType {
   points: Point[]
   editPoints: EditPoints | null
+  currentEditMode: EditMode | null
   setAnnotationEditMode: (targetPoint: EditMode) => void
 }

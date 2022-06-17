@@ -1,8 +1,8 @@
-import { Point, AnnotationMode, LineHeadMode, EditMode } from '../../types'
+import { Point, LineHeadMode, EditMode } from '../../types'
 
 export interface PolylineDrawerProps {
   points: Point[]
-  mode: AnnotationMode
+  isSelectedMode: boolean
   lineHead: LineHeadMode
   setAnnotationEditMode: (mode: EditMode) => void
 }

@@ -56,7 +56,14 @@ export type ImageId =
 
 export type EditMode = 'startPoint' | 'endPoint' | 'move'
 
-export type ViewerStyleType = 'default' | 'select' | 'hover' | 'outline' | 'highlight'
+export type ViewerStyleType =
+  | 'default'
+  | 'select'
+  | 'hover'
+  | 'outline'
+  | 'hoveredOutline'
+  | 'selectedOutline'
+  | 'highlight'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }

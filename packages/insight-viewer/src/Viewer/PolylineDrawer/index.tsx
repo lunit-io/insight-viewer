@@ -5,7 +5,12 @@ import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
 
-export function PolylineDrawer({ mode, lineHead, points, setAnnotationEditMode }: PolylineDrawerProps): ReactElement {
+export function PolylineDrawer({
+  lineHead,
+  points,
+  isSelectedMode,
+  setAnnotationEditMode,
+}: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
   const polylinePoints = points
@@ -31,20 +36,20 @@ export function PolylineDrawer({ mode, lineHead, points, setAnnotationEditMode }
     <>
       {points && points.length > 0 && (
         <>
+          <polyline
+            style={polyline.outline}
+            onMouseDown={() => setAnnotationEditMode('move')}
+            points={polylinePoints}
+          />
           {lineHead === 'arrow' && (
             <polyline
-              style={polyline.default}
+              style={polyline[isSelectedMode ? 'select' : 'default']}
               onMouseDown={() => setAnnotationEditMode('move')}
               points={getArrowPoints()}
             />
           )}
           <polyline
-            style={mode === 'freeLine' ? { ...polyline.default, fill: 'transparent' } : polyline.default}
-            onMouseDown={() => setAnnotationEditMode('move')}
-            points={polylinePoints}
-          />
-          <polyline
-            style={polyline.highlight}
+            style={polyline[isSelectedMode ? 'select' : 'default']}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />

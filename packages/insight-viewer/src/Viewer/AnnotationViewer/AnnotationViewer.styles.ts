@@ -44,17 +44,17 @@ export const polygonStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     strokeWidth: '3px',
-    stroke: '#ffffff',
+    stroke: '#FAFAFB',
   },
   outline: {
     fill: 'transparent',
-    strokeWidth: '7px',
+    strokeWidth: '4px',
     stroke: '#000000',
   },
-  select: {
-    stroke: 'rgb(255, 194, 17)',
-    fill: 'rgba(0, 0, 0, 0.4)',
+  hoveredOutline: {
+    fill: 'transparent',
     strokeWidth: '3px',
+    stroke: '#99999B',
   },
 }
 
@@ -62,18 +62,17 @@ export const polylineStyle: ViewerStyle = {
   default: {
     strokeWidth: '3px',
     stroke: '#ffffff',
-    transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
-    fill: 'none',
+    fill: 'transparent',
   },
   outline: {
-    fill: 'none',
-    strokeWidth: '3px',
+    fill: 'transparent',
+    strokeWidth: '4px',
     stroke: '#000000',
   },
-  select: {
-    stroke: 'rgb(255, 194, 17)',
-    fill: 'none',
+  hoveredOutline: {
+    fill: 'transparent',
     strokeWidth: '3px',
+    stroke: '#99999B',
   },
 }
 

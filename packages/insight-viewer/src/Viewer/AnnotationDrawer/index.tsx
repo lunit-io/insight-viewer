@@ -32,7 +32,7 @@ export function AnnotationDrawer({
     }
   }
 
-  const { points, editPoints, setAnnotationEditMode } = useAnnotationPointsHandler({
+  const { points, editPoints, currentEditMode, setAnnotationEditMode } = useAnnotationPointsHandler({
     isEditing,
     mode,
     lineHead,
@@ -53,6 +53,7 @@ export function AnnotationDrawer({
   })
 
   const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
+  const isSelectedAnnotation = isEditing && selectedAnnotation != null
 
   return (
     <>
@@ -61,7 +62,7 @@ export function AnnotationDrawer({
           {(drawingMode === 'polygon' || drawingMode === 'freeLine' || drawingMode === 'line') && (
             <PolylineDrawer
               points={points}
-              mode={drawingMode}
+              isSelectedMode={isSelectedAnnotation}
               lineHead={lineHead}
               setAnnotationEditMode={setAnnotationEditMode}
             />
@@ -69,6 +70,7 @@ export function AnnotationDrawer({
           {drawingMode === 'text' && (
             <TextDrawer
               points={points}
+              isSelectedMode={isSelectedAnnotation}
               setAnnotationEditMode={setAnnotationEditMode}
               label={selectedAnnotation?.type === 'text' ? selectedAnnotation.label : undefined}
             />
@@ -78,12 +80,16 @@ export function AnnotationDrawer({
               <EditPointer
                 setEditMode={setAnnotationEditMode}
                 editMode="startPoint"
+                isSelectedMode={currentEditMode === 'startPoint'}
+                isHighlightMode={isSelectedAnnotation}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
               <EditPointer
                 setEditMode={setAnnotationEditMode}
                 editMode="endPoint"
+                isHighlightMode={isSelectedAnnotation}
+                isSelectedMode={currentEditMode === 'endPoint'}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
               />

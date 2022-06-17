@@ -125,5 +125,5 @@ export default function useAnnotationPointsHandler({
     addDrewElement: addDrewAnnotation,
   })
 
-  return { points, editPoints: editTargetPoints, setAnnotationEditMode }
+  return { points, editPoints: editTargetPoints, currentEditMode: editMode, setAnnotationEditMode }
 }
