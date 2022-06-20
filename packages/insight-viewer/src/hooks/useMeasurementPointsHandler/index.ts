@@ -30,10 +30,8 @@ export default function useMeasurementPointsHandler({
 
   const { image, pixelToCanvas } = useOverlayContext()
 
-  const isEditingDrawingMode = isEditing && selectedMeasurement
-
   useEffect(() => {
-    if (!isEditingDrawingMode) return
+    if (!isEditing || selectedMeasurement == null) return
 
     const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement, image)
 
@@ -50,10 +48,10 @@ export default function useMeasurementPointsHandler({
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
     setDrawingMeasurement(editTargetDrawingMeasurement)
-  }, [image, isEditing, selectedMeasurement, isEditingDrawingMode, pixelToCanvas])
+  }, [image, isEditing, selectedMeasurement, pixelToCanvas])
 
   const addStartPoint = (point: Point) => {
-    if (isEditingDrawingMode) {
+    if (isEditing && selectedMeasurement != null) {
       setEditStartPoint(point)
       return
     }
@@ -69,7 +67,7 @@ export default function useMeasurementPointsHandler({
   }
 
   const addDrawingPoint = (point: Point) => {
-    if (isEditingDrawingMode && !editMode) return
+    if (isEditing && selectedMeasurement != null && !editMode) return
 
     setDrawingMeasurement(() => {
       if (!measurement) return null
@@ -94,7 +92,7 @@ export default function useMeasurementPointsHandler({
       const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
-      const drawingMode = isEditingDrawingMode ? selectedMeasurement.type : mode
+      const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
 
       const currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
       setMeasurement(currentMeasurement)
@@ -106,7 +104,7 @@ export default function useMeasurementPointsHandler({
   }
 
   const cancelDrawing = () => {
-    if (isEditingDrawingMode && editMode) {
+    if (isEditing && selectedMeasurement != null && editMode) {
       setEditMode(null)
       return
     }
