@@ -43,7 +43,7 @@ function AnnotationViewerContainer(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false)
   const [isShowLabel, setIsShowLabel] = useState(false)
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[12],
+    wadouri: IMAGES[11],
   })
   const { viewport, setViewport } = useViewport()
   const { annotations, hoveredAnnotation, selectedAnnotation, removeAnnotation, hoverAnnotation, selectAnnotation } =
