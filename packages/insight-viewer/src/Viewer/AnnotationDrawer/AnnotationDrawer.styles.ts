@@ -15,15 +15,18 @@ export const polyline: ViewerStyle = {
     fill: 'transparent',
     strokeWidth: '3px',
     stroke: '#FAFAFB',
+    cursor: 'grab',
   },
   outline: {
     stroke: '#000000',
     strokeWidth: '4px',
     fill: 'transparent',
+    cursor: 'grab',
   },
   select: {
     stroke: '#00FFF0',
     strokeWidth: '3px',
     fill: 'transparent',
+    cursor: 'grab',
   },
 }
