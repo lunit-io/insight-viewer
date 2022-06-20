@@ -35,12 +35,9 @@ export function MeasurementDrawer({
     addMeasurement: onAdd,
   })
 
-  const isDrawingMeasurement =
-    measurement && (measurement.type === 'ruler' ? measurement.length !== 0 : measurement.radius !== 0)
-
   return (
     <>
-      {isDrawingMeasurement ? (
+      {measurement && (measurement.type === 'ruler' ? measurement.length !== 0 : measurement.radius !== 0) ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {drawingMode === 'ruler' && measurement.type === 'ruler' && (
             <RulerDrawer measurement={measurement} setMeasurementEditMode={setMeasurementEditMode} />
