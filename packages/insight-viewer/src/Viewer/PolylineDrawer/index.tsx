@@ -33,7 +33,7 @@ export function PolylineDrawer({
   }
 
   const closingPoints = points
-    .filter((point, index) => {
+    .filter((_, index) => {
       if (index === 0 || index === points.length - 1) {
         return true
       }
