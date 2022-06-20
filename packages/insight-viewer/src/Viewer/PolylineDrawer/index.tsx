@@ -32,6 +32,15 @@ export function PolylineDrawer({
     return arrowPoints
   }
 
+  const closingPoints = points
+    .filter((point, index) => {
+      if (index === 0 || index === points.length - 1) {
+        return true
+      }
+      return false
+    })
+    .map(point => pixelToCanvas(point))
+
   return (
     <>
       {points && points.length > 0 && (
@@ -53,6 +62,26 @@ export function PolylineDrawer({
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
+          {isSelectedMode && (
+            <>
+              <line
+                style={polyline.outline}
+                x1={closingPoints[0][0]}
+                y1={closingPoints[0][1]}
+                x2={closingPoints[1][0]}
+                y2={closingPoints[1][1]}
+                onMouseDown={() => setAnnotationEditMode('move')}
+              />
+              <line
+                style={polyline.select}
+                x1={closingPoints[0][0]}
+                y1={closingPoints[0][1]}
+                x2={closingPoints[1][0]}
+                y2={closingPoints[1][1]}
+                onMouseDown={() => setAnnotationEditMode('move')}
+              />
+            </>
+          )}
         </>
       )}
     </>
