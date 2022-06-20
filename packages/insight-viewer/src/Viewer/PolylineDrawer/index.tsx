@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
+import polylabel from 'polylabel'
 
 import { PolylineDrawerProps } from './PolylineDrawer.types'
 import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
+import { textStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
 
@@ -9,6 +11,7 @@ export function PolylineDrawer({
   lineHead,
   points,
   isSelectedMode,
+  selectedAnnotationLabel,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -32,6 +35,8 @@ export function PolylineDrawer({
     return arrowPoints
   }
 
+  const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
+
   return (
     <>
       {points && points.length > 0 && (
@@ -54,6 +59,11 @@ export function PolylineDrawer({
             points={polylinePoints}
           />
         </>
+      )}
+      {selectedAnnotationLabel && labelPosition && (
+        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
+          {selectedAnnotationLabel}
+        </text>
       )}
     </>
   )
