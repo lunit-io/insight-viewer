@@ -11,8 +11,8 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
 
 function useDrawingHandler({
   svgElement,
-  setInitialMeasurement,
-  addDrawingMeasurement,
+  setInitialElement,
+  addDrawingElement,
   cancelDrawing,
   addDrewElement,
 }: UseDrawingHandlerProps): void {
@@ -26,7 +26,7 @@ function useDrawingHandler({
 
       const point = pageToPixel([event.pageX, event.pageY])
 
-      addDrawingMeasurement(point)
+      addDrawingElement(point)
     }
 
     const handleMouseUp = (event: MouseEvent) => {
@@ -60,7 +60,7 @@ function useDrawingHandler({
 
       const point = pageToPixel([event.pageX, event.pageY])
 
-      setInitialMeasurement(point)
+      setInitialElement(point)
     }
 
     const activeMouseDrawEvents = () => {
@@ -89,15 +89,7 @@ function useDrawingHandler({
     return () => {
       deactivateMouseDrawEvents()
     }
-  }, [
-    svgElement,
-    enabledElement,
-    pageToPixel,
-    addDrawingMeasurement,
-    addDrewElement,
-    cancelDrawing,
-    setInitialMeasurement,
-  ])
+  }, [svgElement, enabledElement, pageToPixel, addDrawingElement, addDrewElement, cancelDrawing, setInitialElement])
 }
 
 export default useDrawingHandler
