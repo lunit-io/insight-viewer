@@ -63,6 +63,7 @@ export function AnnotationDrawer({
             <PolylineDrawer
               points={points}
               isSelectedMode={isSelectedAnnotation}
+              isPolygonSelected={selectedAnnotation?.type === 'polygon'}
               lineHead={lineHead}
               setAnnotationEditMode={setAnnotationEditMode}
             />

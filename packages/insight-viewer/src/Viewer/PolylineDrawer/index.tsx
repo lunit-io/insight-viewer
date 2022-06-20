@@ -9,6 +9,7 @@ export function PolylineDrawer({
   lineHead,
   points,
   isSelectedMode,
+  isPolygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -32,56 +33,30 @@ export function PolylineDrawer({
     return arrowPoints
   }
 
-  const closingPoints = points
-    .filter((_, index) => {
-      if (index === 0 || index === points.length - 1) {
-        return true
-      }
-      return false
-    })
-    .map(point => pixelToCanvas(point))
+  const PolylineElement = (props: React.SVGProps<SVGPolygonElement | SVGPolylineElement>) =>
+    isPolygonSelected ? <polygon {...props} /> : <polyline {...props} />
 
   return (
     <>
       {points && points.length > 0 && (
         <>
-          <polyline
+          <PolylineElement
             style={polyline.outline}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
           {lineHead === 'arrow' && (
-            <polyline
+            <PolylineElement
               style={polyline[isSelectedMode ? 'select' : 'default']}
               onMouseDown={() => setAnnotationEditMode('move')}
               points={getArrowPoints()}
             />
           )}
-          <polyline
+          <PolylineElement
             style={polyline[isSelectedMode ? 'select' : 'default']}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
-          {isSelectedMode && (
-            <>
-              <line
-                style={polyline.outline}
-                x1={closingPoints[0][0]}
-                y1={closingPoints[0][1]}
-                x2={closingPoints[1][0]}
-                y2={closingPoints[1][1]}
-                onMouseDown={() => setAnnotationEditMode('move')}
-              />
-              <line
-                style={polyline.select}
-                x1={closingPoints[0][0]}
-                y1={closingPoints[0][1]}
-                x2={closingPoints[1][0]}
-                y2={closingPoints[1][1]}
-                onMouseDown={() => setAnnotationEditMode('move')}
-              />
-            </>
-          )}
         </>
       )}
     </>
