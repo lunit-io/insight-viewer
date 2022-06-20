@@ -134,8 +134,8 @@ export default function useMeasurementPointsHandler({
   useDrawingHandler({
     mode,
     svgElement,
-    setInitialMeasurement,
-    addDrawingMeasurement,
+    setInitialElement: setInitialMeasurement,
+    addDrawingElement: addDrawingMeasurement,
     cancelDrawing,
     addDrewElement: addDrewMeasurement,
   })

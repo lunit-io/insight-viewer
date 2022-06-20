@@ -119,8 +119,8 @@ export default function useAnnotationPointsHandler({
   useDrawingHandler({
     mode,
     svgElement,
-    addStartPoint,
-    addDrawingPoint,
+    setInitialElement: addStartPoint,
+    addDrawingElement: addDrawingPoint,
     cancelDrawing,
     addDrewElement: addDrewAnnotation,
   })
