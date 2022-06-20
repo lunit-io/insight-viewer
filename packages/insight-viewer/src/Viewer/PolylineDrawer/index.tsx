@@ -5,10 +5,17 @@ import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
 
+const PolylineElement = ({
+  isPolygon,
+  ...rest
+}: React.SVGProps<SVGPolygonElement | SVGPolylineElement> & { isPolygon: boolean }) =>
+  isPolygon ? <polygon {...rest} /> : <polyline {...rest} />
+
 export function PolylineDrawer({
   lineHead,
   points,
   isSelectedMode,
+  isPolygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -36,19 +43,22 @@ export function PolylineDrawer({
     <>
       {points && points.length > 0 && (
         <>
-          <polyline
+          <PolylineElement
+            isPolygon={!!isPolygonSelected}
             style={polyline.outline}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
           {lineHead === 'arrow' && (
-            <polyline
+            <PolylineElement
+              isPolygon={!!isPolygonSelected}
               style={polyline[isSelectedMode ? 'select' : 'default']}
               onMouseDown={() => setAnnotationEditMode('move')}
               points={getArrowPoints()}
             />
           )}
-          <polyline
+          <PolylineElement
+            isPolygon={!!isPolygonSelected}
             style={polyline[isSelectedMode ? 'select' : 'default']}
             onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}

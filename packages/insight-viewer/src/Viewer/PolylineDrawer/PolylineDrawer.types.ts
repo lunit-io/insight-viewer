@@ -5,4 +5,5 @@ export interface PolylineDrawerProps {
   isSelectedMode: boolean
   lineHead: LineHeadMode
   setAnnotationEditMode: (mode: EditMode) => void
+  isPolygonSelected?: boolean
 }
