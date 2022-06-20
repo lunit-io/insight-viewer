@@ -4,5 +4,6 @@ export interface PolylineDrawerProps {
   points: Point[]
   isSelectedMode: boolean
   lineHead: LineHeadMode
+  selectedAnnotationLabel: string | number | null
   setAnnotationEditMode: (mode: EditMode) => void
 }

@@ -64,6 +64,7 @@ export function AnnotationDrawer({
               points={points}
               isSelectedMode={isSelectedAnnotation}
               lineHead={lineHead}
+              selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}
               setAnnotationEditMode={setAnnotationEditMode}
             />
           )}
