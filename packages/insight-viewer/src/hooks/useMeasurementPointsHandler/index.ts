@@ -50,7 +50,7 @@ export default function useMeasurementPointsHandler({
     setDrawingMeasurement(editTargetDrawingMeasurement)
   }, [image, isEditing, selectedMeasurement, pixelToCanvas])
 
-  const addStartPoint = (point: Point) => {
+  const setInitialMeasurement = (point: Point) => {
     if (isEditing && selectedMeasurement != null) {
       setEditStartPoint(point)
       return
@@ -134,7 +134,7 @@ export default function useMeasurementPointsHandler({
   useDrawingHandler({
     mode,
     svgElement,
-    addStartPoint,
+    setInitialMeasurement,
     addDrawingPoint,
     cancelDrawing,
     addDrewElement: addDrewMeasurement,
