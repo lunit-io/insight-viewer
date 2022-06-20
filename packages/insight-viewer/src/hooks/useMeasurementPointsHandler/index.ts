@@ -66,7 +66,7 @@ export default function useMeasurementPointsHandler({
     setDrawingMeasurement(currentDrawingMeasurement)
   }
 
-  const addDrawingPoint = (point: Point) => {
+  const addDrawingMeasurement = (point: Point) => {
     if (isEditing && selectedMeasurement != null && !editMode) return
 
     setDrawingMeasurement(() => {
@@ -135,7 +135,7 @@ export default function useMeasurementPointsHandler({
     mode,
     svgElement,
     setInitialMeasurement,
-    addDrawingPoint,
+    addDrawingMeasurement,
     cancelDrawing,
     addDrewElement: addDrewMeasurement,
   })
