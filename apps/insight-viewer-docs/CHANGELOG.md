@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.5.2...@lunit/insight-viewer-docs@5.6.0) (2022-06-22)
+
+
+### Bug Fixes
+
+* **viewer-docs:** remove broken nav ([0362f9d](https://github.com/lunit-io/frontend-components/commit/0362f9d265f3783b3c528dd01b40e81175364dee))
+* **viewer:** delete annotation type mode validation logic, mode props ([0911c7c](https://github.com/lunit-io/frontend-components/commit/0911c7c58f7aace49937ac21f87b4a52530d1d46))
+
+
+### Features
+
+* **viewer-docs:** add text annotation to viewer ([1f9c54c](https://github.com/lunit-io/frontend-components/commit/1f9c54c907509fdb75600d710f8ae8d16ff6d3ce))
+* **viewer-docs:** change sample images ([4e44ec7](https://github.com/lunit-io/frontend-components/commit/4e44ec7781d09b57b8f01e2ae0222f71f671c0c8))
+* **viewer-docs:** update annotation mock data ([f47d1e7](https://github.com/lunit-io/frontend-components/commit/f47d1e7b4f2ba7f0658e40757bedd309f605ad82))
+* **viewer:** add edit feature to annotations ([8e2a29c](https://github.com/lunit-io/frontend-components/commit/8e2a29cebee4f4226d27506ca2b42d7c06f868a1))
+* **viewer:** add TextDrawer ([274ccd8](https://github.com/lunit-io/frontend-components/commit/274ccd8ea247022ebae45feb2a88ec724b0e22ae))
+* **viewer:** handle multiline text in TextAnnotation ([b1e09c0](https://github.com/lunit-io/frontend-components/commit/b1e09c02f65cef6f3d417742ebfc5c4a5e5b0f68))
+
+
+
+
+
 ## [5.5.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.5.1...@lunit/insight-viewer-docs@5.5.2) (2022-05-02)
 
 **Note:** Version bump only for package @lunit/insight-viewer-docs
