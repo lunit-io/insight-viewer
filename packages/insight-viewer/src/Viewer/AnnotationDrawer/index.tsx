@@ -65,6 +65,7 @@ export function AnnotationDrawer({
               isSelectedMode={isSelectedAnnotation}
               isPolygonSelected={selectedAnnotation?.type === 'polygon'}
               lineHead={lineHead}
+              selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}
               setAnnotationEditMode={setAnnotationEditMode}
             />
           )}
