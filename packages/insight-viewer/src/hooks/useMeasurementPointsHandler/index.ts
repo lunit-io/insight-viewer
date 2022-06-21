@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { UseMeasurementPointsHandlerProps, UseMeasurementPointsHandlerReturnType } from './types'
+import { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
 import { Point, EditMode, Measurement, DrawingMeasurement } from '../../types'
 import { useOverlayContext } from '../../contexts'
 
@@ -21,7 +21,7 @@ export default function useMeasurementPointsHandler({
   selectedMeasurement,
   addMeasurement,
   onSelectMeasurement,
-}: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
+}: UseMeasurementPointsHandlerParams): UseMeasurementPointsHandlerReturnType {
   const [editMode, setEditMode] = useState<EditMode | null>(null)
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)

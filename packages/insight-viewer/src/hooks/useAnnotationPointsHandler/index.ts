@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-properties */
 import { useState, useEffect } from 'react'
 
-import { UseAnnotationPointsHandlerProps, UseAnnotationPointsHandlerReturnType } from './types'
+import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
 import { Point, EditMode } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { calculateDistance } from '../../utils/common/calculateDistance'
@@ -20,7 +20,7 @@ export default function useAnnotationPointsHandler({
   selectedAnnotation,
   addAnnotation,
   onSelectAnnotation,
-}: UseAnnotationPointsHandlerProps): UseAnnotationPointsHandlerReturnType {
+}: UseAnnotationPointsHandlerParams): UseAnnotationPointsHandlerReturnType {
   const [points, setPoints] = useState<Point[]>([])
   const [editPoint, setEditPoint] = useState<Point | null>(null)
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)

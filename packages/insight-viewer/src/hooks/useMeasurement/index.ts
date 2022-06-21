@@ -12,7 +12,7 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   })
 }
 
-interface UseMeasurementProps {
+interface UseMeasurementParams {
   nextId?: number
   initialMeasurement?: Measurement[]
 }
@@ -29,7 +29,7 @@ interface MeasurementDrawingState {
   removeAllMeasurement: () => void
 }
 
-export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementProps): MeasurementDrawingState {
+export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementParams): MeasurementDrawingState {
   const [measurements, setMeasurements] = useState<Measurement[]>([])
   const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
   const [selectedMeasurement, setSelectedMeasurement] = useState<Measurement | null>(null)

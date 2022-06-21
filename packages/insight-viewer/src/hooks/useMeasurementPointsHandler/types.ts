@@ -3,7 +3,7 @@ import { RefObject } from 'react'
 import { EditPoints } from '../../utils/common/getEditPointPosition'
 import { MeasurementMode, Measurement, DrawingMeasurement, EditMode } from '../../types'
 
-export interface UseMeasurementPointsHandlerProps {
+export interface UseMeasurementPointsHandlerParams {
   isEditing: boolean
   mode: MeasurementMode
   measurements: Measurement[]

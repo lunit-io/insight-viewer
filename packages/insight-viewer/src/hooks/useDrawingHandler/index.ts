@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect } from 'react'
-import { UseDrawingHandlerProps } from './types'
+import { UseDrawingHandlerParams } from './types'
 import { useOverlayContext } from '../../contexts'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
@@ -15,7 +15,7 @@ function useDrawingHandler({
   addDrawingElement,
   cancelDrawing,
   addDrewElement,
-}: UseDrawingHandlerProps): void {
+}: UseDrawingHandlerParams): void {
   const { pageToPixel, enabledElement } = useOverlayContext()
 
   useEffect(() => {

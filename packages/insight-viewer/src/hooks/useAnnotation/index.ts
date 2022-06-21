@@ -15,7 +15,7 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   })
 }
 
-interface UseAnnotationProps {
+interface UseAnnotationParams {
   nextId?: number
   initialAnnotation?: Annotation[]
 }
@@ -32,7 +32,7 @@ interface AnnotationDrawingState {
   removeAllAnnotation: () => void
 }
 
-export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationProps = {}): AnnotationDrawingState {
+export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams = {}): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
   const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
