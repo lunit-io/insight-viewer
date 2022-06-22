@@ -1,9 +1,9 @@
 import { MeasurementMode, AnnotationMode, Point } from '../../types'
 
-export interface UseDrawingHandlerProps {
+export interface UseDrawingHandlerParams {
   mode: MeasurementMode | AnnotationMode
   svgElement: React.RefObject<SVGSVGElement> | null
-  addStartPoint: (point: Point) => void
+  setInitialPoint: (point: Point) => void
   addDrawingPoint: (point: Point) => void
   cancelDrawing: () => void
   addDrewElement: () => void

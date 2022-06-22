@@ -1,14 +1,12 @@
-import { SetStateAction, Dispatch } from 'react'
 import { Point, EditMode, MeasurementMode } from '../../types'
 import { getMovedPoints } from './getMovedPoints'
 
 export function getMeasurementEditingPoints(
   prevPoints: [Point, Point],
   currentPoint: Point,
-  editPoint: Point,
+  editStartPoint: Point,
   editMode: EditMode,
-  mode: MeasurementMode,
-  setEditPoint: Dispatch<SetStateAction<Point | null>>
+  mode: MeasurementMode
 ): [Point, Point] {
   if (mode === 'ruler' && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
@@ -23,8 +21,7 @@ export function getMeasurementEditingPoints(
   }
 
   if ((mode === 'circle' || mode === 'ruler') && editMode === 'move') {
-    const movedPoint = getMovedPoints({ prevPoints, editStartPoint: editPoint, currentPoint })
-    setEditPoint(currentPoint)
+    const movedPoint = getMovedPoints({ prevPoints, editStartPoint, currentPoint })
 
     return movedPoint
   }

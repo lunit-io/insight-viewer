@@ -1,7 +1,6 @@
-import { Point, EditMode } from '../../types'
+import { EditMode, DrawingCircleMeasurement } from '../../types'
 
 export interface CircleDrawerProps {
-  points: [Point, Point]
-  textPoint: Point
+  measurement: DrawingCircleMeasurement
   setMeasurementEditMode: (targetPoint: EditMode) => void
 }

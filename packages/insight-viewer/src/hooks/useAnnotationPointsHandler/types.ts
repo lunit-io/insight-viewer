@@ -1,7 +1,7 @@
 import { Point, AnnotationMode, Annotation, LineHeadMode, EditMode } from '../../types'
 import { EditPoints } from '../../utils/common/getEditPointPosition'
 
-export interface UseAnnotationPointsHandlerProps {
+export interface UseAnnotationPointsHandlerParams {
   isEditing: boolean
   mode: AnnotationMode
   lineHead: LineHeadMode

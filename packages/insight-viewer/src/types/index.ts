@@ -152,7 +152,17 @@ export interface CircleMeasurement extends MeasurementBase {
   radius: number
 }
 
+export interface DrawingRulerMeasurement extends RulerMeasurement {
+  linePoints: string
+}
+
+export interface DrawingCircleMeasurement extends CircleMeasurement {
+  drawingRadius: number
+}
+
 export type Measurement = RulerMeasurement | CircleMeasurement
+
+export type DrawingMeasurement = DrawingRulerMeasurement | DrawingCircleMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
