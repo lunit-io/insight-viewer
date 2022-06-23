@@ -6,6 +6,9 @@ import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
 import { TextViewer } from '../TextViewer'
 
+const annotationStyle: React.CSSProperties = {
+  pointerEvents: 'auto',
+}
 function AnnotationsDraw({
   annotations,
   showOutline,
@@ -46,6 +49,7 @@ function AnnotationsDraw({
         onClick={handleAnnotationClick}
         onMouseOver={handleAnnotationFocus}
         onMouseLeave={handleAnnotationFocusOut}
+        style={annotationStyle}
       >
         {annotation.type === 'polygon' && <PolygonViewer annotation={annotation} {...viewerProps} />}
         {(annotation.type === 'freeLine' || annotation.type === 'line') && (
