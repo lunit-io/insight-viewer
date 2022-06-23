@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.5.2...@lunit/insight-viewer@5.6.0) (2022-06-22)
+
+
+### Bug Fixes
+
+* **viewer:** delete annotation type mode validation logic, mode props ([0911c7c](https://github.com/lunit-io/frontend-components/commit/0911c7c58f7aace49937ac21f87b4a52530d1d46))
+* **viewer:** edit text annotation size with edit points ([4be554c](https://github.com/lunit-io/frontend-components/commit/4be554ca7a917c38c1ba2b24abb532d96e10bc28))
+* **viewer:** not add annotation if text is empty ([640a673](https://github.com/lunit-io/frontend-components/commit/640a6733675d407ef764948bb2ce6907e1782141))
+* **viewer:** preserve text on edit ([549cda0](https://github.com/lunit-io/frontend-components/commit/549cda04963de1c8f538f2ab74be2ac52fde2a59))
+* **viewer:** rename addDrawingPoint to addDrawingMeasurement ([7aa5a7a](https://github.com/lunit-io/frontend-components/commit/7aa5a7a0335598fba7891fff94d750f8e02df6fa))
+* **viewer:** rename addStartPoint to setInitialMeasurement ([503502d](https://github.com/lunit-io/frontend-components/commit/503502d31e628f532bf6664a00e321c38aef7221))
+* **viewer:** rename Element to Point of useDrawingHandler hook params ([bdf87c8](https://github.com/lunit-io/frontend-components/commit/bdf87c8937320c97b35ec126a568e7f3d3d6c31f))
+* **viewer:** rename hook parameter type props to params ([ac57356](https://github.com/lunit-io/frontend-components/commit/ac5735617224c258af96f87f9a7759218b4792ed))
+* **viewer:** rename measurement to Element ([fa52052](https://github.com/lunit-io/frontend-components/commit/fa52052c6dfdf8c62662608eb6346a2c1bacad8a))
+* **viewer:** show drown annotation box on viewer when hover ([6c1230b](https://github.com/lunit-io/frontend-components/commit/6c1230bfd0f92ba330a74e1fc487007d192016a5))
+* **viewer:** show polygon closing line while editing ([1467c95](https://github.com/lunit-io/frontend-components/commit/1467c954f7036f1c5c956f38df02e1931748db77))
+* **viewer:** unused variable ([b27f364](https://github.com/lunit-io/frontend-components/commit/b27f3645b9b85a97ea2dcd6a5581f4666f68c3c6))
+* **viewer:** use annotation's type on edit ([3c44188](https://github.com/lunit-io/frontend-components/commit/3c44188bde6f9f3d385cbfb31d1a0c1bcfdca528))
+* **viewer:** use polygon elements only while editing polygon ([4097dd0](https://github.com/lunit-io/frontend-components/commit/4097dd055fd801195f22003a69c4042bd3882632))
+* **viewer:** use polygon only while editing polygon ([67fe253](https://github.com/lunit-io/frontend-components/commit/67fe253b61cadfb61a4d9838cb1f0ca64d865c00))
+
+
+### Features
+
+* **viewer:** add currentEditMode to useAnnotationPointsHandler return ([b5e1ae8](https://github.com/lunit-io/frontend-components/commit/b5e1ae86794d3604e097853dbc7b3abf588b18dc))
+* **viewer:** add DrawingMeasurement type for Drawer component ([f533463](https://github.com/lunit-io/frontend-components/commit/f533463dfdeb503790645b198adaab9e1fadc377))
+* **viewer:** add edit feature to annotations ([8e2a29c](https://github.com/lunit-io/frontend-components/commit/8e2a29cebee4f4226d27506ca2b42d7c06f868a1))
+* **viewer:** add getCircleCenterAndEndPoint util function ([4af03e6](https://github.com/lunit-io/frontend-components/commit/4af03e680287dd143f6383ab0270985ddb411c94))
+* **viewer:** add getDrawingMeasurement util function ([9734bb2](https://github.com/lunit-io/frontend-components/commit/9734bb2f0d00ab009d1175aaa9e128b98ebef46c))
+* **viewer:** add getExistingMeasurementPoints util function ([09d5b82](https://github.com/lunit-io/frontend-components/commit/09d5b828d5ef675353800ae2a5e3adea3241f259))
+* **viewer:** add getMeasurementPoints for get edit, draw points ([d25370b](https://github.com/lunit-io/frontend-components/commit/d25370b0779a0baac820890c203a534bd986be14))
+* **viewer:** add getTextPosition util function ([de70663](https://github.com/lunit-io/frontend-components/commit/de70663acfd2e1ea60c18aab0347b26a4969795b))
+* **viewer:** add hover style to text, textbox of AnnotationViewer ([2d68e7e](https://github.com/lunit-io/frontend-components/commit/2d68e7e413e476d734bb67a33aa3b75ba5c17733))
+* **viewer:** add hoveredOutline style to ViewerStyleType type ([ec22676](https://github.com/lunit-io/frontend-components/commit/ec22676769460861c90af6c2ffa4f10c862614dc))
+* **viewer:** add isSelectedMode prop to Drawer, select style ([d082db8](https://github.com/lunit-io/frontend-components/commit/d082db8c95544eb087426ebbf927fca734e175e2))
+* **viewer:** add measurement set method to useMeasurementPointsHandler ([8e18f64](https://github.com/lunit-io/frontend-components/commit/8e18f6404360a08c562e17e602679d3042d036d5))
+* **viewer:** add select style to AnnotationDrawer ([87ae829](https://github.com/lunit-io/frontend-components/commit/87ae829fe1cab7edc73df963eecc5904423c663d))
+* **viewer:** add selectedAnnotationLabel prop to PolylineDrawer ([30d241a](https://github.com/lunit-io/frontend-components/commit/30d241af388314b5f384747be414b2eb710825c0))
+* **viewer:** add selectedOutline to ViewerStyleType ([5199726](https://github.com/lunit-io/frontend-components/commit/51997261df67db88aea6c4e9626aa688d4f380a3))
+* **viewer:** add TextAnnotation and its viewer ([6cda1e5](https://github.com/lunit-io/frontend-components/commit/6cda1e5796b0d687e2362d2d6c3b6ac66cc24eb4))
+* **viewer:** add TextDrawer ([274ccd8](https://github.com/lunit-io/frontend-components/commit/274ccd8ea247022ebae45feb2a88ec724b0e22ae))
+* **viewer:** add viewer style to circle style ([2673c1c](https://github.com/lunit-io/frontend-components/commit/2673c1cc9d40ff01fd88bf64b68add5098e56ad2))
+* **viewer:** apply current points index 0 to ruler position ([d586abc](https://github.com/lunit-io/frontend-components/commit/d586abc56761ede84b6c8fa7938c79972ce1a68d))
+* **viewer:** apply cursor grab style to AnnotationDrawer component ([054dbd1](https://github.com/lunit-io/frontend-components/commit/054dbd1aa6f08fb7e09b3ab853a3d8d279ca775a))
+* **viewer:** apply cursor style to AnnotationViewer component ([0b5b6ec](https://github.com/lunit-io/frontend-components/commit/0b5b6ec671d6f695d9c3a307457142e1f46b395f))
+* **viewer:** apply default value to showOutline prop ([8725d87](https://github.com/lunit-io/frontend-components/commit/8725d87edaeda2340b1901289526717c5fc5764b))
+* **viewer:** apply default value true to AnnotationViewer showOutline ([b55266d](https://github.com/lunit-io/frontend-components/commit/b55266d5c009473d123bffea18f54f5826940ae0))
+* **viewer:** apply drawing measurement to MeasurementDrawer component ([9acfe38](https://github.com/lunit-io/frontend-components/commit/9acfe388d7159a7e3a9a5e7f3f44f2f08095a38a))
+* **viewer:** apply DrawingMeasurement type to CircleDrawer component ([7eaec7f](https://github.com/lunit-io/frontend-components/commit/7eaec7f07234ef9e4dbb01572adda93d2ae8ef36))
+* **viewer:** apply DrawingMeasurement type to RulerDrawer component ([ab18f3f](https://github.com/lunit-io/frontend-components/commit/ab18f3f1b7a2a12cabe73a536a340290bd53a81e))
+* **viewer:** apply drawingMode to getTextPosition parameter ([f546de1](https://github.com/lunit-io/frontend-components/commit/f546de13b30b55ebc2bebb66479e188248deeff5))
+* **viewer:** apply hover style to rect, text tag of TextViewer ([aeb9749](https://github.com/lunit-io/frontend-components/commit/aeb974971fb3a4d0a633421f90542c1858928959))
+* **viewer:** apply hover style to TextViewer component ([0abb676](https://github.com/lunit-io/frontend-components/commit/0abb676b937444a260c6998b385bd644a4f4ac24))
+* **viewer:** apply modified params naming to points handler hook ([1fc9a38](https://github.com/lunit-io/frontend-components/commit/1fc9a38871866eeb927e4a1ec8be69c2139d1af2))
+* **viewer:** apply optional type to EditPointer props ([7c3e976](https://github.com/lunit-io/frontend-components/commit/7c3e9766d0910f09b484f504e5f32215c7edafc0))
+* **viewer:** apply select, highlight style to EditPointer ([ba6a4e3](https://github.com/lunit-io/frontend-components/commit/ba6a4e352ace83058afbaf391debe2f42b759c98))
+* **viewer:** apply selectedAnnotationLabel to PolylineDrawer ([faeab07](https://github.com/lunit-io/frontend-components/commit/faeab078142dd213c1ad90edf62ae88e849e4fbc))
+* **viewer:** apply setInitialElement, addDrawingElement to PointsHander ([330b5a0](https://github.com/lunit-io/frontend-components/commit/330b5a0a85dd3e69fa73543b0bb4b9180dd2afd3))
+* **viewer:** apply transparent style to polyline fill ([e6cd0ca](https://github.com/lunit-io/frontend-components/commit/e6cd0cadfae790284eb9481a13dd8752d369a42b))
+* **viewer:** delete hover style to text, polygon tag ([76df078](https://github.com/lunit-io/frontend-components/commit/76df07844e6b0b1fd571af63b8dcb065c4278f94))
+* **viewer:** delete isDrawingMeasurement constant to MeasurementDrawer ([3573ff2](https://github.com/lunit-io/frontend-components/commit/3573ff294fff79856db849ed2e9c6871554b8be0))
+* **viewer:** delete isEditingDrawingMode to points handler hook ([ee25999](https://github.com/lunit-io/frontend-components/commit/ee259997f6141c7754e88334f1f4c4e04429db8e))
+* **viewer:** delete mode prop to PolylineDrawer component ([36dd1fc](https://github.com/lunit-io/frontend-components/commit/36dd1fc555f305fee701d14ef7cfb8cda4a4e1f4))
+* **viewer:** delete points, textPoint of UseMeasurementPointsHandler ([24d091b](https://github.com/lunit-io/frontend-components/commit/24d091b911316216624375b862bb87a1922c3d2a))
+* **viewer:** delete unused drawingMode constant to MeasurementDrawer ([508e616](https://github.com/lunit-io/frontend-components/commit/508e6164ec1925780e9d84629685ed3b45a4e8a7))
+* **viewer:** delete unused useAnnotation, MeasurementDrawing hook ([a170766](https://github.com/lunit-io/frontend-components/commit/a170766337fc5b9445c1c1bd7cbf7a76d489fe23))
+* **viewer:** fix naming select to hover and modify storke width, color ([afe2a3c](https://github.com/lunit-io/frontend-components/commit/afe2a3c2d398a7f747be335ccaf0e3b39ddd1fda))
+* **viewer:** handle multiline text in TextAnnotation ([b1e09c0](https://github.com/lunit-io/frontend-components/commit/b1e09c02f65cef6f3d417742ebfc5c4a5e5b0f68))
+* **viewer:** modify Annotation Drawer, Viewer polyline, polygon style ([ddc3eef](https://github.com/lunit-io/frontend-components/commit/ddc3eefcf93633639f80d16eba7769a49e9502b1))
+* **viewer:** modify circle style ([7de11be](https://github.com/lunit-io/frontend-components/commit/7de11be3828c5b7c69b598b12d2140a45aa9b2f1))
+* **viewer:** modify CircleDrawer points prop type ([f1ef01e](https://github.com/lunit-io/frontend-components/commit/f1ef01e47b82ae111504eb518327ffa8aa811e92))
+* **viewer:** modify conditional to rendering MeasurementDrawer ([15c49ed](https://github.com/lunit-io/frontend-components/commit/15c49edda2d314b600f1c9ecf45e796e59585b47))
+* **viewer:** modify edit circle radius value 4 to 3 ([b21e5f5](https://github.com/lunit-io/frontend-components/commit/b21e5f5350081b5a986a5615c786b461cd59a5c6))
+* **viewer:** modify getMeasurementDrawingPoints points type ([460833e](https://github.com/lunit-io/frontend-components/commit/460833eb02208e7dac0a21461c45e68040562b63))
+* **viewer:** modify getMeasurementEditingPoints points type ([f8c5750](https://github.com/lunit-io/frontend-components/commit/f8c5750d4044637783318ae6f126ba13b41f0307))
+* **viewer:** modify getMovedPoints points type ([6236aa3](https://github.com/lunit-io/frontend-components/commit/6236aa342fae93bf99e3d2f8ca164933997d8501))
+* **viewer:** modify getMovedPoints prevPoints [Point, Point] to Point[] ([92cb0b2](https://github.com/lunit-io/frontend-components/commit/92cb0b23acb4e66d79f630ebb46d1346a7fff450))
+* **viewer:** modify hover to select to TextViewer rect, text style ([0d214e6](https://github.com/lunit-io/frontend-components/commit/0d214e6475b946f3020de1314091fefe6d5b4fef))
+* **viewer:** modify Points type Point[] to [Point, Point] ([0fe4bb4](https://github.com/lunit-io/frontend-components/commit/0fe4bb43b97ec9f6c754fc6738f6029ffe7361da))
+* **viewer:** modify polyline default style and add outline style ([27acde5](https://github.com/lunit-io/frontend-components/commit/27acde5c85901631c46b71a9789c657342c32682))
+* **viewer:** modify RulerDrawer points prop type ([b9f71d3](https://github.com/lunit-io/frontend-components/commit/b9f71d3ae1a55097f8feb0490d0385e674772583))
+* **viewer:** modify textBox, text style hover to select ([df861e1](https://github.com/lunit-io/frontend-components/commit/df861e15340fa25d21a1c904e4a71b4fb25e43a4))
+* **viewer:** rename editStartPoint of getMeasurementEditingPoints ([ce7591d](https://github.com/lunit-io/frontend-components/commit/ce7591dfad5862a1a697d9d873f1a9cc4ecf2dae))
+* **viewer:** rename getDrewMeasurement to getMeasurement ([41adbf2](https://github.com/lunit-io/frontend-components/commit/41adbf238eeed4d2c3b7171ef208618a24dece92))
+
+
+
+
+
 ## [5.5.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.5.1...@lunit/insight-viewer@5.5.2) (2022-05-02)
 
 

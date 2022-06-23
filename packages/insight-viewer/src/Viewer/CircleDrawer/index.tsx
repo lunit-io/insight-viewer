@@ -3,35 +3,20 @@ import React, { ReactElement } from 'react'
 
 import { circleStyle, textStyle } from './CircleDrawer.styles'
 import { CircleDrawerProps } from './CircleDrawer.types'
-import { getCircleRadius } from '../../utils/common/getCircleRadius'
-import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
-import { getLineLengthWithoutImage } from '../../utils/common/getLineLengthWithoutImage'
-import { CIRCLE_TEXT_POSITION_SPACING } from '../../const'
-import { useOverlayContext } from '../../contexts'
 
-export function CircleDrawer({ points, setMeasurementEditMode }: CircleDrawerProps): ReactElement | null {
-  const { image, pixelToCanvas } = useOverlayContext()
-
-  const [startPoint, endPoint] = points.map(pixelToCanvas)
-  const radius = getCircleRadius(points, image)
-  const drawingRadius = getLineLengthWithoutImage(startPoint, endPoint)
-  const textPosition = getCircleTextPosition(startPoint, drawingRadius)
-  const [cx, cy] = startPoint
+export function CircleDrawer({ measurement, setMeasurementEditMode }: CircleDrawerProps): ReactElement | null {
+  const { center, radius, textPoint, drawingRadius } = measurement
 
   return (
     <>
       <circle
-        onMouseDown={() => setMeasurementEditMode('line')}
+        onMouseDown={() => setMeasurementEditMode('move')}
         style={circleStyle.default}
-        cx={cx}
-        cy={cy}
+        cx={center[0]}
+        cy={center[1]}
         r={drawingRadius}
       />
-      <text
-        style={{ ...textStyle.default }}
-        x={textPosition[0] + CIRCLE_TEXT_POSITION_SPACING.x}
-        y={textPosition[1] + CIRCLE_TEXT_POSITION_SPACING.y}
-      >
+      <text style={{ ...textStyle.default }} x={textPoint[0]} y={textPoint[1]}>
         {`radius: ${radius.toFixed(2)}mm`}
       </text>
     </>

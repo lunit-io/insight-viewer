@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { fromEvent, Subscription } from 'rxjs'
-import { map, filter, tap } from 'rxjs/operators'
+import { fromEvent, map, filter, tap, Subscription } from 'rxjs'
 import { ViewportInteraction } from '../types'
 import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
@@ -15,16 +14,11 @@ function getCoord(element: Element, viewport?: Viewport) {
     return { x, y }
   }
 
-  const { translation: { x = 0, y = 0 } = {} } =
-    getViewport(<HTMLDivElement>element) ?? {}
+  const { translation: { x = 0, y = 0 } = {} } = getViewport(<HTMLDivElement>element) ?? {}
   return { x, y }
 }
 
-export default function useHandleClick({
-  element,
-  interaction,
-  viewport,
-}: ViewportInteraction): void {
+export default function useHandleClick({ element, interaction, viewport }: ViewportInteraction): void {
   const subscriptionRef = useRef<Subscription>()
 
   useEffect(() => {
@@ -32,13 +26,9 @@ export default function useHandleClick({
     // Restore context menu display.
     element?.removeEventListener('contextmenu', preventContextMenu)
     // No click interaction.
-    if (!(interaction[PRIMARY_CLICK] || interaction[SECONDARY_CLICK]))
-      return undefined
+    if (!(interaction[PRIMARY_CLICK] || interaction[SECONDARY_CLICK])) return undefined
 
-    const mousedown$ = fromEvent<MouseEvent>(
-      <HTMLDivElement>element,
-      'mousedown'
-    )
+    const mousedown$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousedown')
     let clickType: ClickType | undefined
     if (!interaction) return undefined
 
@@ -66,10 +56,7 @@ export default function useHandleClick({
         const { x, y } = getCoord(element, viewport)
 
         if (clickType)
-          interaction[clickType]?.(
-            -x + clientX - currentTargetRect.left,
-            -y + clientY - currentTargetRect.top
-          )
+          interaction[clickType]?.(-x + clientX - currentTargetRect.left, -y + clientY - currentTargetRect.top)
       })
     return () => {
       subscriptionRef?.current?.unsubscribe()

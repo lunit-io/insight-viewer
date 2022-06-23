@@ -9,6 +9,7 @@ export const RULER_MEASUREMENTS: Measurement[] = [
       [213.57714285714283, 205.39428571428567],
     ],
     length: 26.13,
+    textPoint: [223.57714285714283, 225.39428571428567],
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const RULER_MEASUREMENTS: Measurement[] = [
       [225.27999999999997, 291.7028571428571],
     ],
     length: 22.5,
+    textPoint: [235.27999999999997, 311.7028571428571],
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ export const RULER_MEASUREMENTS: Measurement[] = [
       [266.23999999999995, 239.77142857142854],
     ],
     length: 41.33,
+    textPoint: [276.23999999999995, 259.77142857142854],
   },
   {
     id: 4,
@@ -36,5 +39,6 @@ export const RULER_MEASUREMENTS: Measurement[] = [
       [224.5485714285714, 366.3085714285714],
     ],
     length: 38.2,
+    textPoint: [234.5485714285714, 386.3085714285714],
   },
 ]

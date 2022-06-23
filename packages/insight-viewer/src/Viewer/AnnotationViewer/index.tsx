@@ -4,27 +4,29 @@ import { svgStyle } from './AnnotationViewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
+import { TextViewer } from '../TextViewer'
 
 function AnnotationsDraw({
   annotations,
   showOutline,
   showAnnotationLabel,
-  selectedAnnotation,
+  hoveredAnnotation,
   annotationAttrs,
   onFocus,
-  onRemove,
+  onClick,
 }: AnnotationsDrawProps) {
   return annotations.map(annotation => {
     const viewerProps = {
       showOutline,
-      selectedAnnotation,
+      hoveredAnnotation,
       showAnnotationLabel,
       annotationAttrs,
     }
 
     const handleAnnotationClick = () => {
-      if (!onRemove) return
-      onRemove(annotation)
+      if (onClick) {
+        onClick(annotation)
+      }
     }
 
     const handleAnnotationFocus = () => {
@@ -49,6 +51,7 @@ function AnnotationsDraw({
         {(annotation.type === 'freeLine' || annotation.type === 'line') && (
           <LineViewer annotation={annotation} {...viewerProps} />
         )}
+        {annotation.type === 'text' && <TextViewer annotation={annotation} {...viewerProps} />}
       </g>
     )
   })
@@ -60,12 +63,12 @@ export function AnnotationViewer({
   height,
   annotations,
   className,
-  selectedAnnotation,
-  showOutline = false,
+  hoveredAnnotation,
+  showOutline = true,
   showAnnotationLabel = false,
   annotationAttrs,
   onFocus,
-  onRemove,
+  onClick,
 }: AnnotationViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
@@ -76,12 +79,12 @@ export function AnnotationViewer({
         ? null
         : AnnotationsDraw({
             annotations,
-            selectedAnnotation,
+            hoveredAnnotation,
             showOutline,
             showAnnotationLabel,
             annotationAttrs,
             onFocus,
-            onRemove,
+            onClick,
           })}
     </svg>
   )

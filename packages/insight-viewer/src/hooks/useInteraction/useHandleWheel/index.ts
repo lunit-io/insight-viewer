@@ -1,13 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { fromEvent, Subscription } from 'rxjs'
-import { filter, tap } from 'rxjs/operators'
+import { fromEvent, filter, tap, Subscription } from 'rxjs'
 import { ViewportInteraction } from '../types'
 
-export default function useHandleWheel({
-  element,
-  interaction,
-  onViewportChange,
-}: ViewportInteraction): void {
+export default function useHandleWheel({ element, interaction, onViewportChange }: ViewportInteraction): void {
   const subscriptionRef = useRef<Subscription>()
 
   useEffect(() => {

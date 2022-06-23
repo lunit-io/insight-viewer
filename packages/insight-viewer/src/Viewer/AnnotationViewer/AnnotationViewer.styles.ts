@@ -1,5 +1,8 @@
 import { ViewerStyle } from '../../types'
 
+export const TEXT_SIZE = 14
+export const LINE_HEIGHT = 1.4
+
 export const svgStyle: ViewerStyle = {
   default: {
     position: 'absolute',
@@ -13,20 +16,42 @@ export const svgStyle: ViewerStyle = {
 export const textStyle: ViewerStyle = {
   default: {
     fill: '#ffffff',
-    fontWeight: 600,
-    textAnchor: 'middle',
-  },
-  outline: {
-    fill: 'transparent',
-    fontWeight: 600,
-    textAnchor: 'middle',
+    paintOrder: 'stroke',
     stroke: '#000000',
-    strokeWidth: '2.5px',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
+    fontWeight: 600,
+    textAnchor: 'middle',
+    cursor: 'pointer',
+  },
+  hover: {
+    fill: '#00FFF0',
+    paintOrder: 'stroke',
+    stroke: '#000000',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
+    fontWeight: 600,
+    textAnchor: 'middle',
+    cursor: 'pointer',
   },
   select: {
-    fill: 'rgb(255, 194, 17)',
+    fill: '#00FFF0',
+    paintOrder: 'stroke',
+    stroke: '#000000',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
     fontWeight: 600,
     textAnchor: 'middle',
+    cursor: 'grab',
   },
 }
 
@@ -34,17 +59,20 @@ export const polygonStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     strokeWidth: '3px',
-    stroke: '#ffffff',
+    stroke: '#FAFAFB',
+    cursor: 'pointer',
   },
   outline: {
     fill: 'transparent',
-    strokeWidth: '7px',
+    strokeWidth: '4px',
     stroke: '#000000',
+    cursor: 'pointer',
   },
-  select: {
-    stroke: 'rgb(255, 194, 17)',
-    fill: 'rgba(0, 0, 0, 0.4)',
+  hoveredOutline: {
+    fill: 'transparent',
     strokeWidth: '3px',
+    stroke: '#99999B',
+    cursor: 'pointer',
   },
 }
 
@@ -52,17 +80,39 @@ export const polylineStyle: ViewerStyle = {
   default: {
     strokeWidth: '3px',
     stroke: '#ffffff',
-    transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
-    fill: 'none',
+    fill: 'transparent',
+    cursor: 'pointer',
   },
   outline: {
-    fill: 'none',
-    strokeWidth: '3px',
+    fill: 'transparent',
+    strokeWidth: '4px',
     stroke: '#000000',
+    cursor: 'pointer',
+  },
+  hoveredOutline: {
+    fill: 'transparent',
+    strokeWidth: '3px',
+    stroke: '#99999B',
+    cursor: 'pointer',
+  },
+}
+
+export const textBoxStyle: ViewerStyle = {
+  default: {
+    fill: 'transparent',
+    stroke: 'transparent',
+    cursor: 'pointer',
+  },
+  hover: {
+    fill: 'transparent',
+    stroke: 'rgb(0, 201, 234)',
+    strokeWidth: '1px',
+    cursor: 'pointer',
   },
   select: {
-    stroke: 'rgb(255, 194, 17)',
-    fill: 'none',
-    strokeWidth: '3px',
+    fill: 'transparent',
+    stroke: 'rgb(0, 201, 234)',
+    strokeWidth: '1px',
+    cursor: 'grab',
   },
 }

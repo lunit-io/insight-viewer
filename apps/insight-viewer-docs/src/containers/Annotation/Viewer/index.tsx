@@ -14,16 +14,18 @@ import { IMAGES } from '../../../const'
 import { FREELINE_ANNOTATIONS } from '../../../../mocks/freeLines'
 import { POLYGON_ANNOTATIONS } from '../../../../mocks/polygons'
 import { LINE_ANNOTATIONS } from '../../../../mocks/lines'
+import { TEXT_ANNOTATIONS } from '../../../../mocks/texts'
 
-export type InitalAnnotations = {
+export type InitialAnnotations = {
   [mode in AnnotationMode]: Annotation[]
 }
 
-const INITIAL_ANNOTATIONS: InitalAnnotations = {
+const INITIAL_ANNOTATIONS: InitialAnnotations = {
   line: LINE_ANNOTATIONS,
   freeLine: FREELINE_ANNOTATIONS,
   polygon: POLYGON_ANNOTATIONS,
-  // TODO: // TODO: Changed the mock data when adding Circle mode
+  text: TEXT_ANNOTATIONS,
+  // TODO: Changed the mock data when adding Circle mode
   circle: POLYGON_ANNOTATIONS,
 }
 
@@ -41,13 +43,13 @@ function AnnotationViewerContainer(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false)
   const [isShowLabel, setIsShowLabel] = useState(false)
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[12],
+    wadouri: IMAGES[11],
   })
   const { viewport, setViewport } = useViewport()
-  const { annotations, selectedAnnotation, removeAnnotation, selectAnnotation } = useAnnotation({
-    mode: annotationMode,
-    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
-  })
+  const { annotations, hoveredAnnotation, selectedAnnotation, removeAnnotation, hoverAnnotation, selectAnnotation } =
+    useAnnotation({
+      initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
+    })
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEdit(event.target.checked)
@@ -75,6 +77,7 @@ function AnnotationViewerContainer(): JSX.Element {
           <Radio value="polygon">Polygon</Radio>
           <Radio value="line">line</Radio>
           <Radio value="freeLine">Free Line</Radio>
+          <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
@@ -85,11 +88,13 @@ function AnnotationViewerContainer(): JSX.Element {
               width={700}
               height={700}
               annotations={annotations}
+              hoveredAnnotation={hoveredAnnotation}
               selectedAnnotation={selectedAnnotation}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onFocus={isEdit ? selectAnnotation : undefined}
+              onFocus={isEdit ? hoverAnnotation : undefined}
               onRemove={isEdit ? removeAnnotation : undefined}
+              onSelect={selectAnnotation}
             />
           )}
         </InsightViewer>

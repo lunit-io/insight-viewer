@@ -3,8 +3,9 @@ import { getLineLength } from './getLineLength'
 import { Image } from '../../Viewer/types'
 import { Point, Measurement, MeasurementMode } from '../../types'
 
-export function getDrewMeasurement(
+export function getMeasurement(
   points: Point[],
+  textPoint: Point,
   mode: MeasurementMode,
   measurements: Measurement[],
   image: Image | null
@@ -25,8 +26,10 @@ export function getDrewMeasurement(
       type: 'circle',
       center: startPoint,
       radius: getCircleRadius([startPoint, endPoint], image),
+      textPoint,
     }
   } else {
+    // Ruler mode
     const lineLength = image ? Number(getLineLength(startPoint, endPoint, image)?.toFixed(2)) : null
 
     drewMeasurement = {
@@ -34,6 +37,7 @@ export function getDrewMeasurement(
       type: 'ruler',
       points: [startPoint, endPoint],
       length: lineLength,
+      textPoint,
     }
   }
 

@@ -22,9 +22,8 @@ export function MeasurementDrawer({
   onSelectMeasurement,
 }: MeasurementDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
-  const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
 
-  const { points, editPoints, setMeasurementEditMode } = useMeasurementPointsHandler({
+  const { editPoints, measurement, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
     device,
     isEditing,
@@ -37,20 +36,24 @@ export function MeasurementDrawer({
 
   return (
     <>
-      {points.length > 1 ? (
+      {measurement && (measurement.type === 'ruler' ? measurement.length !== 0 : measurement.radius !== 0) ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {drawingMode === 'ruler' && <RulerDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
-          {drawingMode === 'circle' && <CircleDrawer setMeasurementEditMode={setMeasurementEditMode} points={points} />}
+          {measurement.type === 'ruler' && (
+            <RulerDrawer measurement={measurement} setMeasurementEditMode={setMeasurementEditMode} />
+          )}
+          {measurement.type === 'circle' && (
+            <CircleDrawer measurement={measurement} setMeasurementEditMode={setMeasurementEditMode} />
+          )}
           {editPoints && (
             <>
               <EditPointer
-                setMeasurementEditMode={setMeasurementEditMode}
+                setEditMode={setMeasurementEditMode}
                 editMode="startPoint"
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
               <EditPointer
-                setMeasurementEditMode={setMeasurementEditMode}
+                setEditMode={setMeasurementEditMode}
                 editMode="endPoint"
                 cx={editPoints[2]}
                 cy={editPoints[3]}

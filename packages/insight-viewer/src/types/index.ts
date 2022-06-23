@@ -54,15 +54,22 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type EditMode = 'startPoint' | 'endPoint' | 'line'
+export type EditMode = 'startPoint' | 'endPoint' | 'move'
 
-export type ViewerStyleType = 'default' | 'select' | 'hover' | 'outline' | 'highlight'
+export type ViewerStyleType =
+  | 'default'
+  | 'select'
+  | 'hover'
+  | 'outline'
+  | 'hoveredOutline'
+  | 'selectedOutline'
+  | 'highlight'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
 
 export type LineHeadMode = 'normal' | 'arrow'
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text'
 
 export interface AnnotationBase {
   /** Serves as id by contour */
@@ -108,13 +115,19 @@ export interface CircleAnnotation extends AnnotationBase {
   radius: number
 }
 
-export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation
+export interface TextAnnotation extends AnnotationBase {
+  type: 'text'
+  points: [Point, Point]
+  label: string
+}
+
+export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation | TextAnnotation
 
 export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotation: T
   showOutline: boolean
   showAnnotationLabel: boolean
-  selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
@@ -124,6 +137,7 @@ export interface MeasurementBase {
   type: MeasurementMode
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
+  textPoint: Point
 }
 
 export interface RulerMeasurement extends MeasurementBase {
@@ -138,7 +152,17 @@ export interface CircleMeasurement extends MeasurementBase {
   radius: number
 }
 
+export interface DrawingRulerMeasurement extends RulerMeasurement {
+  linePoints: string
+}
+
+export interface DrawingCircleMeasurement extends CircleMeasurement {
+  drawingRadius: number
+}
+
 export type Measurement = RulerMeasurement | CircleMeasurement
+
+export type DrawingMeasurement = DrawingRulerMeasurement | DrawingCircleMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T

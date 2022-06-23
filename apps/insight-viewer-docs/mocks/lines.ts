@@ -6,8 +6,8 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
     id: 1,
     type: 'line',
     points: [
-      [69.99999999999999, 133.8125],
-      [50.99999999999999, 222.8125],
+      [209, 401],
+      [152, 668],
     ],
 
     lineWidth: 1.5,
@@ -17,8 +17,8 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
 
     type: 'line',
     points: [
-      [90.99999999999999, 303.8125],
-      [132, 426.8125],
+      [272, 911],
+      [396, 1280],
     ],
     lineWidth: 1.5,
   },
@@ -26,8 +26,8 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
     id: 3,
     type: 'line',
     points: [
-      [125.99999999999999, 497.81249999999994],
-      [251, 480.81249999999994],
+      [272, 911],
+      [396, 1280],
     ],
     lineWidth: 1.5,
   },
@@ -35,8 +35,8 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
     id: 4,
     type: 'line',
     points: [
-      [282, 604.8124999999999],
-      [444, 484.81249999999994],
+      [846, 1814],
+      [1332, 1454],
     ],
     lineWidth: 1.5,
   },
@@ -44,8 +44,8 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
     id: 5,
     type: 'line',
     points: [
-      [506, 613.8125],
-      [513, 367.8125],
+      [1518, 1841],
+      [1539, 1103],
     ],
     lineWidth: 1.5,
   },
@@ -53,8 +53,8 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
     id: 6,
     type: 'line',
     points: [
-      [502, 225.81249999999997],
-      [374.99999999999994, 327.8125],
+      [1506, 677],
+      [1124, 983],
     ],
     lineWidth: 1.5,
   },

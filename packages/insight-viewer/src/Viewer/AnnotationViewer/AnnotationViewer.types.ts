@@ -8,13 +8,15 @@ export interface AnnotationViewerProps {
   /** Annotation focused by user interaction such as mouse over */
   annotations: Annotation[]
 
-  selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
 
   /** <svg className={}> */
   className?: string
 
   /** <svg style={}> */
   style?: CSSProperties
+
+  isEditing?: boolean
 
   /**
    * You can set the attributes of individual annotation objects
@@ -24,7 +26,7 @@ export interface AnnotationViewerProps {
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
   onFocus?: (annotation: Annotation | null) => void
-  onRemove?: (annotation: Annotation) => void
+  onClick?: (annotation: Annotation) => void
 
   /**
    * Draw an outline on the line

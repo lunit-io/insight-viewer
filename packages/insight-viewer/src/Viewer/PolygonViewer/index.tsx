@@ -9,15 +9,15 @@ export function PolygonViewer({
   annotation,
   showOutline,
   showAnnotationLabel,
-  selectedAnnotation,
+  hoveredAnnotation,
   annotationAttrs,
 }: PolygonViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const { isSelectedAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+  const { isHoveredAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
-    selectedAnnotation,
+    hoveredAnnotation,
     annotationAttrs,
     pixelToCanvas,
   })
@@ -27,27 +27,23 @@ export function PolygonViewer({
       {showOutline && (
         <polygon
           style={{
-            ...polygonStyle[isSelectedAnnotation ? 'select' : 'outline'],
+            ...polygonStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
           }}
-          data-select={isSelectedAnnotation || undefined}
+          data-select={isHoveredAnnotation || undefined}
           points={polygonPoints}
         />
       )}
       <polygon
         style={{
-          ...polygonStyle[isSelectedAnnotation ? 'select' : 'default'],
+          ...polygonStyle.default,
           ...polygonAttributes?.style,
         }}
-        data-select={isSelectedAnnotation || undefined}
+        data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
-        <text
-          style={{ ...textStyle[isSelectedAnnotation ? 'select' : 'default'] }}
-          x={labelPosition[0]}
-          y={labelPosition[1]}
-        >
+        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
           {polygonLabel}
         </text>
       )}

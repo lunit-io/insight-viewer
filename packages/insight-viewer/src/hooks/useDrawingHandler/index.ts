@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect } from 'react'
-import { UseDrawingHandlerProps } from './types'
+import { UseDrawingHandlerParams } from './types'
 import { useOverlayContext } from '../../contexts'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
@@ -11,11 +11,11 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
 
 function useDrawingHandler({
   svgElement,
-  addStartPoint,
+  setInitialPoint,
   addDrawingPoint,
   cancelDrawing,
   addDrewElement,
-}: UseDrawingHandlerProps): void {
+}: UseDrawingHandlerParams): void {
   const { pageToPixel, enabledElement } = useOverlayContext()
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function useDrawingHandler({
 
       const point = pageToPixel([event.pageX, event.pageY])
 
-      addStartPoint(point)
+      setInitialPoint(point)
     }
 
     const activeMouseDrawEvents = () => {
@@ -89,7 +89,7 @@ function useDrawingHandler({
     return () => {
       deactivateMouseDrawEvents()
     }
-  }, [svgElement, enabledElement, pageToPixel, addDrawingPoint, addDrewElement, cancelDrawing, addStartPoint])
+  }, [svgElement, enabledElement, pageToPixel, addDrawingPoint, addDrewElement, cancelDrawing, setInitialPoint])
 }
 
 export default useDrawingHandler

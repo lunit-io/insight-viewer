@@ -1,5 +1,3 @@
-import consola from 'consola'
-
 export const IMAGE_LOADER_SCHEME = {
   WADO: 'wadouri',
   DICOMFILE: 'dicomfile',
@@ -13,7 +11,8 @@ export const LOADER_TYPE = {
 
 export const CONFIG = {
   onError: function handleError(e: Error): void {
-    consola.error(e)
+    // eslint-disable-next-line no-console
+    console.error(e)
   },
   Progress: undefined,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -51,16 +50,18 @@ export const RULER_TEXT_POSITION_SPACING = {
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
   x: 60,
-  y: 30,
+  y: 10,
 }
 
 // The ruler min length is 0.1mm
 export const RULER_MIN_LENGTH = 0.1
 
-export const EDIT_CIRCLE_RADIUS = 4
+export const EDIT_CIRCLE_RADIUS = 3
 
 export const CIRCLE_MIN_RADIUS = 10
 
 export const CIRCLE_EDIT_POINT_ANGLE = { START_ANGLE: -45, END_ANGLE: 135 }
 
 export const CIRCLE_TEXT_POINT_ANGLE = 135
+
+export const TEXT_PADDING = 4

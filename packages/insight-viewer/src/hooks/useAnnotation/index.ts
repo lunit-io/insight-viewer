@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { AnnotationMode, Annotation, AnnotationBase } from '../../types'
+import { Annotation, AnnotationBase } from '../../types'
 import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
 import { isValidLength } from '../../utils/common/isValidLength'
@@ -15,41 +15,39 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   })
 }
 
-interface UseAnnotationProps {
+interface UseAnnotationParams {
   nextId?: number
   initialAnnotation?: Annotation[]
-  mode?: AnnotationMode
 }
 
 interface AnnotationDrawingState {
   annotations: Annotation[]
+  hoveredAnnotation: Annotation | null
   selectedAnnotation: Annotation | null
   addAnnotation: (annotation: Annotation, annotationInfo?: Pick<Annotation, 'dataAttrs'>) => Annotation | null
+  hoverAnnotation: (annotation: Annotation | null) => void
   selectAnnotation: (annotation: Annotation | null) => void
   updateAnnotation: (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => void
   removeAnnotation: (annotation: Annotation) => void
   removeAllAnnotation: () => void
 }
 
-export function useAnnotation({
-  nextId,
-  initialAnnotation,
-  mode = 'polygon',
-}: UseAnnotationProps): AnnotationDrawingState {
+export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams = {}): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
+  const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
 
   useEffect(() => {
     setAnnotations(() =>
       initialAnnotation
         ? initialAnnotation.map<Annotation>((addedAnnotation, i) => {
-            const annotiaotnLabelPoints =
+            const annotationLabelPoints =
               addedAnnotation.type === 'circle' ? [addedAnnotation.center] : addedAnnotation.points
 
             return {
               ...addedAnnotation,
               id: nextId ?? i,
-              labelPosition: polylabel([annotiaotnLabelPoints], 1),
+              labelPosition: polylabel([annotationLabelPoints], 1),
             } as Annotation
           })
         : []
@@ -60,7 +58,6 @@ export function useAnnotation({
     annotation: Annotation,
     annotationInfo: Pick<Annotation, 'dataAttrs'> | undefined
   ): Annotation | null => {
-    if (annotation.type !== mode) throw Error('The mode of component and hook is different')
     if (
       annotation.type === 'polygon' &&
       (!getIsPolygonAreaGreaterThanArea(annotation.points) || getIsComplexPolygon(annotation.points))
@@ -77,9 +74,9 @@ export function useAnnotation({
     return annotation
   }
 
-  const selectAnnotation = (annotation: Annotation | null) => {
-    setSelectedAnnotation(prevSelectedAnnotation =>
-      annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
+  const hoverAnnotation = (annotation: Annotation | null) => {
+    setHoveredAnnotation(prevHoveredAnnotation =>
+      annotation !== prevHoveredAnnotation ? annotation : prevHoveredAnnotation
     )
   }
 
@@ -97,7 +94,15 @@ export function useAnnotation({
       return prevAnnotations
     })
 
-    setSelectedAnnotation(null)
+    setHoveredAnnotation(null)
+  }
+
+  const selectAnnotation = (annotation: Annotation | null) => {
+    if (annotation) removeAnnotation(annotation)
+
+    setSelectedAnnotation(prevSelectedAnnotation =>
+      annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
+    )
   }
 
   const updateAnnotation = (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => {
@@ -118,8 +123,8 @@ export function useAnnotation({
       if (index > -1) {
         nextAnnotations[index] = nextAnnotation
 
-        setSelectedAnnotation(prevSelectedAnnotation =>
-          annotation === prevSelectedAnnotation ? nextAnnotation : prevSelectedAnnotation
+        setHoveredAnnotation(prevHoveredAnnotation =>
+          annotation === prevHoveredAnnotation ? nextAnnotation : prevHoveredAnnotation
         )
       }
 
@@ -131,15 +136,18 @@ export function useAnnotation({
 
   const removeAllAnnotation = () => {
     setAnnotations([])
+    setHoveredAnnotation(null)
     setSelectedAnnotation(null)
   }
 
   return {
     annotations,
+    hoveredAnnotation,
     selectedAnnotation,
     addAnnotation,
     removeAnnotation,
     updateAnnotation,
+    hoverAnnotation,
     selectAnnotation,
     removeAllAnnotation,
   }

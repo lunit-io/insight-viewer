@@ -1,14 +1,16 @@
-/* eslint-disable no-restricted-properties */
 import { useState, useEffect } from 'react'
 
-import { UseMeasurementPointsHandlerProps, UseMeasurementPointsHandlerReturnType } from './types'
-import { Point, EditMode } from '../../types'
+import { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
+import { Point, EditMode, Measurement, DrawingMeasurement } from '../../types'
 import { useOverlayContext } from '../../contexts'
-import { calculateDistance } from '../../utils/common/calculateDistance'
-import { getDrewMeasurement } from '../../utils/common/getDrewMeasurement'
+
+import { getMeasurement } from '../../utils/common/getMeasurement'
+import { getTextPosition } from '../../utils/common/getTextPosition'
+import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
+import { getDrawingMeasurement } from '../../utils/common/getDrawingMeasurement'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
-import { getMeasurementDrawingPoints } from '../../utils/common/getMeasurementDrawingPoints'
-import { getMeasurementEditingPoints } from '../../utils/common/getMeasurementEditingPoints'
+import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
+
 import useDrawingHandler from '../useDrawingHandler'
 
 export default function useMeasurementPointsHandler({
@@ -19,94 +21,108 @@ export default function useMeasurementPointsHandler({
   selectedMeasurement,
   addMeasurement,
   onSelectMeasurement,
-}: UseMeasurementPointsHandlerProps): UseMeasurementPointsHandlerReturnType {
-  const [points, setPoints] = useState<Point[]>([])
-  const [editPoint, setEditPoint] = useState<Point | null>(null)
-  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
+}: UseMeasurementPointsHandlerParams): UseMeasurementPointsHandlerReturnType {
   const [editMode, setEditMode] = useState<EditMode | null>(null)
+  const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
+  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
+  const [measurement, setMeasurement] = useState<Measurement | null>(null)
+  const [drawingMeasurement, setDrawingMeasurement] = useState<DrawingMeasurement | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
 
-  const isMeasurementEditing = isEditing && selectedMeasurement && editMode
-
   useEffect(() => {
-    const pixelPoints = points.map(pixelToCanvas)
-    const editPoints = getEditPointPosition(pixelPoints, mode, selectedMeasurement)
+    if (!isEditing || selectedMeasurement == null) return
 
-    setEditTargetPoints(editPoints)
-  }, [image, points, mode, selectedMeasurement, pixelToCanvas])
+    const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement, image)
 
-  useEffect(() => {
-    if (!isEditing || !selectedMeasurement) return
+    const currentPoints = selectedMeasurementPoints.map(pixelToCanvas)
 
-    if (selectedMeasurement.type === 'ruler') {
-      setPoints(selectedMeasurement.points)
-    }
+    const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
 
-    if (selectedMeasurement.type === 'circle') {
-      const { center, radius } = selectedMeasurement
-      const calculatedDistance = calculateDistance(radius, image)
-      const endPoint: Point = [center[0] + (calculatedDistance ?? 0), center[1]]
+    const editTargetDrawingMeasurement = getDrawingMeasurement(
+      selectedMeasurementPoints,
+      selectedMeasurement,
+      pixelToCanvas
+    )
 
-      setPoints([center, endPoint])
-    }
-  }, [image, isEditing, selectedMeasurement])
+    setMeasurement(selectedMeasurement)
+    setEditTargetPoints(currentEditPoint)
+    setDrawingMeasurement(editTargetDrawingMeasurement)
+  }, [image, isEditing, selectedMeasurement, pixelToCanvas])
 
-  const addStartPoint = (point: Point) => {
-    if (isEditing && selectedMeasurement) {
-      setEditPoint(point)
+  const setInitialMeasurement = (point: Point) => {
+    if (isEditing && selectedMeasurement != null) {
+      setEditStartPoint(point)
       return
     }
 
-    setPoints([point])
+    const initialStartPoint: [Point, Point] = [point, point]
+    const initialTextPosition = getTextPosition(initialStartPoint, mode)
+
+    const currentMeasurement = getMeasurement(initialStartPoint, initialTextPosition, mode, measurements, image)
+    setMeasurement(currentMeasurement)
+
+    const currentDrawingMeasurement = getDrawingMeasurement(initialStartPoint, currentMeasurement, pixelToCanvas)
+    setDrawingMeasurement(currentDrawingMeasurement)
   }
 
-  const addDrawingPoint = (point: Point) => {
-    setPoints(prevPoints => {
-      const isPrepareEditing = isEditing && selectedMeasurement && !editMode
+  const addDrawingMeasurement = (point: Point) => {
+    if (isEditing && selectedMeasurement != null && !editMode) return
 
-      if (prevPoints.length === 0 || isPrepareEditing) return prevPoints
+    setDrawingMeasurement(() => {
+      if (!measurement) return null
 
-      if (isEditing && selectedMeasurement && editMode && editPoint) {
-        const editedPoints = getMeasurementEditingPoints(
-          prevPoints,
-          point,
-          editPoint,
-          editMode,
-          selectedMeasurement.type,
-          setEditPoint
-        )
+      const prevPoints = getExistingMeasurementPoints(measurement, image)
 
-        return editedPoints
-      }
+      const currentPoints = getMeasurementPoints({
+        mode,
+        point,
+        editMode,
+        isEditing,
+        prevPoints,
+        editStartPoint,
+        selectedMeasurement,
+      })
 
-      const drawingPoints = getMeasurementDrawingPoints(prevPoints, point, mode)
+      setEditStartPoint(point)
 
-      return drawingPoints
+      const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
+
+      const currentTextPosition = getTextPosition(currentPoints, drawingMode)
+
+      const canvasPoints = currentPoints.map(pixelToCanvas)
+      const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
+      setEditTargetPoints(editPoints)
+
+      const currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
+      setMeasurement(currentMeasurement)
+
+      const currentDrawingMeasurement = getDrawingMeasurement(currentPoints, currentMeasurement, pixelToCanvas)
+
+      return currentDrawingMeasurement
     })
   }
 
   const cancelDrawing = () => {
-    if (isMeasurementEditing) {
+    if (isEditing && selectedMeasurement != null && editMode) {
       setEditMode(null)
       return
     }
 
-    setPoints([])
-    setEditPoint(null)
     setEditMode(null)
+    setMeasurement(null)
+    setEditStartPoint(null)
+    setEditTargetPoints(null)
     onSelectMeasurement(null)
+    setDrawingMeasurement(null)
   }
 
   const addDrewMeasurement = () => {
-    if (isMeasurementEditing) return
+    const isEditingMode = editMode && selectedMeasurement
 
-    if (points.length > 1) {
-      const drawingMode = isEditing && selectedMeasurement ? selectedMeasurement.type : mode
-      const drewMeasurement = getDrewMeasurement(points, drawingMode, measurements, image)
+    if (!measurement || isEditingMode) return
 
-      addMeasurement(drewMeasurement)
-    }
+    addMeasurement(measurement)
   }
 
   const setMeasurementEditMode = (targetPoint: EditMode) => {
@@ -118,11 +134,11 @@ export default function useMeasurementPointsHandler({
   useDrawingHandler({
     mode,
     svgElement,
-    addStartPoint,
-    addDrawingPoint,
+    setInitialPoint: setInitialMeasurement,
+    addDrawingPoint: addDrawingMeasurement,
     cancelDrawing,
     addDrewElement: addDrewMeasurement,
   })
 
-  return { points, editPoints: editTargetPoints, setMeasurementEditMode }
+  return { measurement: drawingMeasurement, editPoints: editTargetPoints, setMeasurementEditMode }
 }

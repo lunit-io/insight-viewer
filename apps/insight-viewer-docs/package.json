@@ -1,14 +1,11 @@
 {
   "name": "@lunit/insight-viewer-docs",
-  "version": "5.5.2",
+  "version": "5.6.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "clean": "rimraf .next *.tsbuildinfo",
-    "build": "yarn run clean && ENV=production next build",
-    "export": "rimraf ../../dist && ENV=production next export -o ../../dist",
+    "build": "next build && next export -o ../../dist",
     "start": "next start",
-    "doc": "yarn run build && yarn run export",
     "start:server": "yarn build && yarn start",
     "percy:cypress": "percy exec -- cypress run",
     "cypress-open": "cypress open",
@@ -21,7 +18,7 @@
     "@chakra-ui/react": "^1.5.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@lunit/insight-viewer": "^5.5.2",
+    "@lunit/insight-viewer": "^5.6.0",
     "consola": "^2.15.3",
     "framer-motion": "^4",
     "msw": "^0.35.0",
@@ -46,5 +43,15 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "./next",
+          "../../dist"
+        ]
+      }
+    }
   }
 }

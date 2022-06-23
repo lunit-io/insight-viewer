@@ -12,15 +12,21 @@ export const svgStyle: ViewerStyle = {
 
 export const polyline: ViewerStyle = {
   default: {
-    fill: 'rgba(255, 244, 0, 0.2)',
-    strokeWidth: '5px',
-    stroke: 'rgb(255, 224, 0)',
-  },
-  highlight: {
-    stroke: '#ffffff',
-    strokeWidth: '5px',
-    strokeDasharray: '10, 10',
-    strokeDashoffset: '1000',
     fill: 'transparent',
+    strokeWidth: '3px',
+    stroke: '#FAFAFB',
+    cursor: 'grab',
+  },
+  outline: {
+    stroke: '#000000',
+    strokeWidth: '4px',
+    fill: 'transparent',
+    cursor: 'grab',
+  },
+  select: {
+    stroke: '#00FFF0',
+    strokeWidth: '3px',
+    fill: 'transparent',
+    cursor: 'grab',
   },
 }

@@ -1,6 +1,6 @@
-import { Point, EditMode } from '../../types'
+import { EditMode, DrawingRulerMeasurement } from '../../types'
 
 export interface RulerDrawerProps {
-  points: Point[]
+  measurement: DrawingRulerMeasurement
   setMeasurementEditMode: (targetPoint: EditMode) => void
 }
