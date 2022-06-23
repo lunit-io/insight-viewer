@@ -6,6 +6,9 @@ import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
 import { CircleViewer } from '../CircleViewer'
 
+const measurementStyle: React.CSSProperties = {
+  pointerEvents: 'auto',
+}
 function MeasurementsDraw({
   isEditing,
   measurements,
@@ -49,6 +52,7 @@ function MeasurementsDraw({
         onClick={handleMeasurementClick}
         onMouseOver={handleMeasurementFocus}
         onMouseLeave={handleMeasurementFocusOut}
+        style={measurementStyle}
       >
         {measurement.type === 'ruler' && <RulerViewer measurement={measurement} {...viewerProps} />}
         {measurement.type === 'circle' && <CircleViewer measurement={measurement} {...viewerProps} />}
