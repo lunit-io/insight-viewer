@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.6.0...@lunit/insight-viewer@5.6.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* **viewer:** prevent overlay from blocking interactions of below element ([675344f](https://github.com/lunit-io/frontend-components/commit/675344ffb39b41cfafd8c219a4b452452f52222e))
+
+
+
+
+
 # [5.6.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.5.2...@lunit/insight-viewer@5.6.0) (2022-06-22)
 
 
