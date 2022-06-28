@@ -27,7 +27,15 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       <polyline
         data-cy-id={id}
         style={{
-          ...polylineStyle[isHoveredMeasurement ? 'hover' : 'default'],
+          ...polylineStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
+        }}
+        data-select={isHoveredMeasurement || undefined}
+        points={poygonPoints}
+      />
+      <polyline
+        data-cy-id={id}
+        style={{
+          ...polylineStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}
         points={poygonPoints}

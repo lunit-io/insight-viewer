@@ -2,7 +2,8 @@
 import React, { ReactElement } from 'react'
 
 import { CircleViewerProps } from './CircleViewer.types'
-import { circleStyle, textStyle } from './CircleViewer.styles'
+import { circleStyle } from './CircleViewer.styles'
+import { textStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
 import { calculateDistance } from '../../utils/common/calculateDistance'
 import { useOverlayContext } from '../../contexts'
@@ -28,7 +29,17 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       <circle
         data-cy-id={id}
         style={{
-          ...circleStyle[isHoveredMeasurement ? 'hover' : 'default'],
+          ...circleStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
+        }}
+        data-focus={isHoveredMeasurement || undefined}
+        cx={cx}
+        cy={cy}
+        r={drawingRadius}
+      />
+      <circle
+        data-cy-id={id}
+        style={{
+          ...circleStyle.default,
         }}
         data-focus={isHoveredMeasurement || undefined}
         cx={cx}

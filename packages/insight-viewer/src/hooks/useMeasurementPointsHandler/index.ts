@@ -140,5 +140,10 @@ export default function useMeasurementPointsHandler({
     addDrewElement: addDrewMeasurement,
   })
 
-  return { measurement: drawingMeasurement, editPoints: editTargetPoints, setMeasurementEditMode }
+  return {
+    measurement: drawingMeasurement,
+    currentEditMode: editMode,
+    editPoints: editTargetPoints,
+    setMeasurementEditMode,
+  }
 }
