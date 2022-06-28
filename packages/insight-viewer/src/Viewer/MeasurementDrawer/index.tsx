@@ -23,7 +23,7 @@ export function MeasurementDrawer({
 }: MeasurementDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const { editPoints, measurement, setMeasurementEditMode } = useMeasurementPointsHandler({
+  const { editPoints, measurement, currentEditMode, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
     device,
     isEditing,
@@ -33,6 +33,8 @@ export function MeasurementDrawer({
     onSelectMeasurement,
     addMeasurement: onAdd,
   })
+
+  const isSelectedMeasurement = isEditing && selectedMeasurement != null
 
   return (
     <>
@@ -49,12 +51,16 @@ export function MeasurementDrawer({
               <EditPointer
                 setEditMode={setMeasurementEditMode}
                 editMode="startPoint"
+                isSelectedMode={currentEditMode === 'startPoint'}
+                isHighlightMode={isSelectedMeasurement}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
               <EditPointer
                 setEditMode={setMeasurementEditMode}
                 editMode="endPoint"
+                isSelectedMode={currentEditMode === 'endPoint'}
+                isHighlightMode={isSelectedMeasurement}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
               />
