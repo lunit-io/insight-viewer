@@ -45,7 +45,7 @@ export const ERROR_MESSAGE = {
 
 export const RULER_TEXT_POSITION_SPACING = {
   x: 10,
-  y: 20,
+  y: 15,
 }
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
