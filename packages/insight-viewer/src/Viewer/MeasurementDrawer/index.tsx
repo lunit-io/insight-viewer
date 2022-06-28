@@ -48,7 +48,11 @@ export function MeasurementDrawer({
             />
           )}
           {measurement.type === 'circle' && (
-            <CircleDrawer measurement={measurement} setMeasurementEditMode={setMeasurementEditMode} />
+            <CircleDrawer
+              isSelectedMode={isSelectedMeasurement}
+              measurement={measurement}
+              setMeasurementEditMode={setMeasurementEditMode}
+            />
           )}
           {editPoints && (
             <>
