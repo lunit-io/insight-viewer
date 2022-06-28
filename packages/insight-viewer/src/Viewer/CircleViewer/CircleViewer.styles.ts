@@ -4,37 +4,19 @@ export const circleStyle: ViewerStyle = {
   default: {
     strokeWidth: '3px',
     stroke: '#ffffff',
-    transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
     fill: 'transparent',
+    cursor: 'pointer',
   },
   outline: {
     fill: 'transparent',
-    strokeWidth: '3px',
+    strokeWidth: '4px',
     stroke: '#000000',
+    cursor: 'pointer',
   },
-  hover: {
-    stroke: 'rgb(255, 194, 17)',
-    fill: 'rgba(0, 0, 0, 0.4)',
-    strokeWidth: '3px',
-  },
-}
-
-export const textStyle: ViewerStyle = {
-  default: {
-    fill: '#ffffff',
-    fontWeight: 600,
-    textAnchor: 'middle',
-  },
-  outline: {
+  hoveredOutline: {
     fill: 'transparent',
-    fontWeight: 600,
-    textAnchor: 'middle',
-    stroke: '#000000',
-    strokeWidth: '2.5px',
-  },
-  hover: {
-    fill: 'rgb(255, 194, 17)',
-    fontWeight: 600,
-    textAnchor: 'middle',
+    strokeWidth: '4px',
+    stroke: '#99999B',
+    cursor: 'pointer',
   },
 }
