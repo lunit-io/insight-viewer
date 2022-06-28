@@ -41,7 +41,11 @@ export function MeasurementDrawer({
       {measurement && (measurement.type === 'ruler' ? measurement.length !== 0 : measurement.radius !== 0) ? (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
           {measurement.type === 'ruler' && (
-            <RulerDrawer measurement={measurement} setMeasurementEditMode={setMeasurementEditMode} />
+            <RulerDrawer
+              isSelectedMode={isSelectedMeasurement}
+              measurement={measurement}
+              setMeasurementEditMode={setMeasurementEditMode}
+            />
           )}
           {measurement.type === 'circle' && (
             <CircleDrawer measurement={measurement} setMeasurementEditMode={setMeasurementEditMode} />
