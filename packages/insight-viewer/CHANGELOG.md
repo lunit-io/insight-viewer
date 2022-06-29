@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.6.1...@lunit/insight-viewer@5.6.2) (2022-06-29)
+
+
+### Features
+
+* **viewer:** add currentEditMode to points hook return value ([9d32d03](https://github.com/lunit-io/frontend-components/commit/9d32d03b199f6e6d3d8f429664769de8905e28cb))
+* **viewer:** apply isSelectedMode isHighlightMode to EditPointer ([ed2eb47](https://github.com/lunit-io/frontend-components/commit/ed2eb4707dfe372d5da5fc5d05b526312ea3e5af))
+* **viewer:** apply isSelectedMode prop to CircleDrawer ([a1b95df](https://github.com/lunit-io/frontend-components/commit/a1b95df837cfd4a883f1d560380ec9567ce53900))
+* **viewer:** modify Circle text position x spacing 60 to 45 ([a8a2acf](https://github.com/lunit-io/frontend-components/commit/a8a2acf76ef7043fed60736db51a39b6b2857b19))
+* **viewer:** modify CircleDrawer style and add outline ([4cb36b6](https://github.com/lunit-io/frontend-components/commit/4cb36b66d6fb228660f7ba1f849ad15e2e2938ae))
+* **viewer:** modify CircleViewer style and add outline ([26670b3](https://github.com/lunit-io/frontend-components/commit/26670b3695b45a58e047a9f280deb6ba23b75855))
+* **viewer:** modify ruler text position x spacing 20 to 15 ([4f8284c](https://github.com/lunit-io/frontend-components/commit/4f8284ce09e7cf272c43adfb7f7e799ddc3b51d5))
+* **viewer:** modify RulerDrawer style, add outline style ([0530796](https://github.com/lunit-io/frontend-components/commit/053079601c8f49df66f7b70025aae5f0cd7ef13e))
+* **viewer:** modify RulerViewer style, add outline ([52632df](https://github.com/lunit-io/frontend-components/commit/52632dfb8ae70f528869d6e678e9a0f78e12f326))
+* **viewer:** remove selected annotation with delete key ([15216b9](https://github.com/lunit-io/frontend-components/commit/15216b952ae12004f4900583f106c3fabf1e24cb))
+
+
+
+
+
 ## [5.6.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.6.0...@lunit/insight-viewer@5.6.1) (2022-06-23)
 
 
