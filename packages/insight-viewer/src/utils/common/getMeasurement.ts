@@ -9,7 +9,7 @@ export function getMeasurement(
   mode: MeasurementMode,
   measurements: Measurement[],
   image: Image | null,
-  connectingLinePosition?: [Point, Point],
+  connectingLine: [Point, Point],
   isEditingTextPoint?: boolean
 ): Measurement {
   const [startPoint, endPoint] = points
@@ -19,7 +19,7 @@ export function getMeasurement(
     id: currentId,
     lineWidth: 1.5,
     isEditingTextPoint: isEditingTextPoint || false,
-    connectingLine: connectingLinePosition,
+    connectingLine,
   }
 
   let drewMeasurement: Measurement

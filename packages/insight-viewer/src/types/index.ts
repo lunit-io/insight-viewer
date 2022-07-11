@@ -140,7 +140,7 @@ export interface MeasurementBase {
   dataAttrs?: { [attr: string]: string }
   textPoint: Point
   isEditingTextPoint: boolean
-  connectingLine?: [Point, Point]
+  connectingLine: [Point, Point]
 }
 
 export interface RulerMeasurement extends MeasurementBase {
