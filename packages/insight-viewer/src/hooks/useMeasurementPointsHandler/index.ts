@@ -6,6 +6,7 @@ import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
 import { getTextPosition } from '../../utils/common/getTextPosition'
+import { getConnectingLine } from '../../utils/common/getConnectingLine'
 import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
 import { getDrawingMeasurement } from '../../utils/common/getDrawingMeasurement'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
@@ -57,12 +58,21 @@ export default function useMeasurementPointsHandler({
     }
 
     const initialStartPoint: [Point, Point] = [point, point]
-    const initialTextPosition = getTextPosition(initialStartPoint, mode)
+    const initialTextPosition = getTextPosition(mode, initialStartPoint, measurement)
+    const connectingLinePosition = getConnectingLine(initialStartPoint, initialTextPosition, mode)
 
-    const currentMeasurement = getMeasurement(initialStartPoint, initialTextPosition, mode, measurements, image)
+    const currentMeasurement = getMeasurement(
+      initialStartPoint,
+      initialTextPosition,
+      mode,
+      measurements,
+      image,
+      connectingLinePosition
+    )
     setMeasurement(currentMeasurement)
 
     const currentDrawingMeasurement = getDrawingMeasurement(initialStartPoint, currentMeasurement, pixelToCanvas)
+
     setDrawingMeasurement(currentDrawingMeasurement)
   }
 
@@ -88,13 +98,22 @@ export default function useMeasurementPointsHandler({
 
       const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
 
-      const currentTextPosition = getTextPosition(currentPoints, drawingMode)
+      const currentTextPosition = getTextPosition(drawingMode, currentPoints, measurement, editMode, point)
+      const connectingLinePosition = getConnectingLine(currentPoints, currentTextPosition, measurement.type)
 
-      const canvasPoints = currentPoints.map(pixelToCanvas)
+      const canvasPoints = currentPoints.map(pixelToCanvas) as [Point, Point]
       const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
-      const currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
+      const currentMeasurement = getMeasurement(
+        currentPoints,
+        currentTextPosition,
+        drawingMode,
+        measurements,
+        image,
+        connectingLinePosition,
+        measurement.isEditingTextPoint ? measurement.isEditingTextPoint : editMode === 'textMove'
+      )
       setMeasurement(currentMeasurement)
 
       const currentDrawingMeasurement = getDrawingMeasurement(currentPoints, currentMeasurement, pixelToCanvas)
