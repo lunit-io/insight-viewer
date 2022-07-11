@@ -8,7 +8,7 @@ export function RulerDrawer({
   isSelectedMode,
   setMeasurementEditMode,
 }: RulerDrawerProps): ReactElement | null {
-  const { textPoint, linePoints, length } = measurement
+  const { textPoint, linePoints, connectingPoints, length } = measurement
 
   return (
     <>
@@ -18,9 +18,15 @@ export function RulerDrawer({
         style={polyline[isSelectedMode ? 'select' : 'default']}
         points={linePoints}
       />
-      <text style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-        {`${length}mm`}
+      <text
+        onMouseDown={() => setMeasurementEditMode('textMove')}
+        style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
+        x={textPoint[0]}
+        y={textPoint[1]}
+      >
+        {length}mm
       </text>
+      <polyline style={polyline.dashLine} points={connectingPoints} />
     </>
   )
 }

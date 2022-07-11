@@ -157,10 +157,12 @@ export interface CircleMeasurement extends MeasurementBase {
 
 export interface DrawingRulerMeasurement extends RulerMeasurement {
   linePoints: string
+  connectingPoints: string
 }
 
 export interface DrawingCircleMeasurement extends CircleMeasurement {
   drawingRadius: number
+  connectingPoints: string
 }
 
 export type Measurement = RulerMeasurement | CircleMeasurement

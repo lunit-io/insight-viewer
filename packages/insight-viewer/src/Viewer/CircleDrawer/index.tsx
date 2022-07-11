@@ -1,7 +1,6 @@
-/* eslint-disable no-restricted-properties */
 import React, { ReactElement } from 'react'
 
-import { circleStyle, textStyle } from './CircleDrawer.styles'
+import { circleStyle, textStyle, polyline } from './CircleDrawer.styles'
 import { CircleDrawerProps } from './CircleDrawer.types'
 
 export function CircleDrawer({
@@ -9,7 +8,7 @@ export function CircleDrawer({
   measurement,
   setMeasurementEditMode,
 }: CircleDrawerProps): ReactElement | null {
-  const { center, radius, textPoint, drawingRadius } = measurement
+  const { center, radius, textPoint, connectingPoints, drawingRadius } = measurement
 
   return (
     <>
@@ -27,9 +26,15 @@ export function CircleDrawer({
         cy={center[1]}
         r={drawingRadius}
       />
-      <text style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
+      <text
+        onMouseDown={() => setMeasurementEditMode('textMove')}
+        style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
+        x={textPoint[0]}
+        y={textPoint[1]}
+      >
         {`radius: ${radius.toFixed(2)}mm`}
       </text>
+      <polyline style={polyline.dashLine} points={connectingPoints} />
     </>
   )
 }
