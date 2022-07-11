@@ -54,7 +54,7 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type EditMode = 'startPoint' | 'endPoint' | 'move'
+export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
 
 export type ViewerStyleType =
   | 'default'
@@ -138,6 +138,7 @@ export interface MeasurementBase {
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
   textPoint: Point
+  isEditingTextPoint: boolean
 }
 
 export interface RulerMeasurement extends MeasurementBase {
