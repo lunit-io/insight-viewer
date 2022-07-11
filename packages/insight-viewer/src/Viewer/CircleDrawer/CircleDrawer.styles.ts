@@ -52,3 +52,12 @@ export const textStyle: ViewerStyle = {
     cursor: 'grab',
   },
 }
+
+export const polyline: ViewerStyle = {
+  dashLine: {
+    strokeWidth: '1px',
+    stroke: '#ffffff',
+    fill: 'transparent',
+    strokeDasharray: '5, 5',
+  },
+}

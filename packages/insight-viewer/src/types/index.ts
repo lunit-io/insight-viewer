@@ -64,6 +64,7 @@ export type ViewerStyleType =
   | 'hoveredOutline'
   | 'selectedOutline'
   | 'highlight'
+  | 'dashLine'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
