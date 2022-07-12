@@ -9,16 +9,14 @@ export function getMeasurement(
   mode: MeasurementMode,
   measurements: Measurement[],
   image: Image | null,
-  connectingLine: [Point, Point],
-  isEditingTextPoint?: boolean
+  connectingLine: [Point, Point]
 ): Measurement {
   const [startPoint, endPoint] = points
   const currentId = measurements.length === 0 ? 1 : Math.max(...measurements.map(({ id }) => id), 0) + 1
 
-  const defaultMeasurementInfo: Pick<Measurement, 'id' | 'lineWidth' | 'isEditingTextPoint' | 'connectingLine'> = {
+  const defaultMeasurementInfo: Pick<Measurement, 'id' | 'lineWidth' | 'connectingLine'> = {
     id: currentId,
     lineWidth: 1.5,
-    isEditingTextPoint: isEditingTextPoint || false,
     connectingLine,
   }
 

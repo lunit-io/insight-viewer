@@ -2,17 +2,9 @@ import { getRulerTextPosition } from './getRulerTextPosition'
 import { getCircleTextPosition } from './getCircleTextPosition'
 import { getLineLengthWithoutImage } from './getLineLengthWithoutImage'
 
-import { Point, MeasurementMode, Measurement } from '../../types'
+import { Point, MeasurementMode } from '../../types'
 
-export function getDrawingTextPosition(
-  points: [Point, Point],
-  mode: MeasurementMode,
-  prevDrawingMeasurement: Measurement | null
-): Point {
-  if (prevDrawingMeasurement?.isEditingTextPoint) {
-    return prevDrawingMeasurement.textPoint
-  }
-
+export function getDrawingTextPosition(points: [Point, Point], mode: MeasurementMode): Point {
   if (mode === 'ruler') {
     // index 1 of Points array is the end point in ruler mode
     const rulerTextPosition = getRulerTextPosition(points[1])

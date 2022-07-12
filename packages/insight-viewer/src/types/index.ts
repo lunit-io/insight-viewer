@@ -139,7 +139,6 @@ export interface MeasurementBase {
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
   textPoint: Point
-  isEditingTextPoint: boolean
   connectingLine: [Point, Point]
 }
 
