@@ -10,10 +10,6 @@ export const RULER_MEASUREMENTS: Measurement[] = [
     ],
     length: 26.13,
     textPoint: [223.57714285714283, 225.39428571428567],
-    connectingLine: [
-      [213.57714285714283, 205.39428571428567],
-      [223.57714285714283, 225.39428571428567],
-    ],
   },
   {
     id: 2,
@@ -24,10 +20,6 @@ export const RULER_MEASUREMENTS: Measurement[] = [
     ],
     length: 22.5,
     textPoint: [235.27999999999997, 311.7028571428571],
-    connectingLine: [
-      [225.27999999999997, 291.7028571428571],
-      [235.27999999999997, 311.7028571428571],
-    ],
   },
   {
     id: 3,
@@ -38,10 +30,6 @@ export const RULER_MEASUREMENTS: Measurement[] = [
     ],
     length: 41.33,
     textPoint: [276.23999999999995, 259.77142857142854],
-    connectingLine: [
-      [266.23999999999995, 239.77142857142854],
-      [276.23999999999995, 259.77142857142854],
-    ],
   },
   {
     id: 4,
@@ -52,9 +40,5 @@ export const RULER_MEASUREMENTS: Measurement[] = [
     ],
     length: 38.2,
     textPoint: [234.5485714285714, 386.3085714285714],
-    connectingLine: [
-      [224.5485714285714, 366.3085714285714],
-      [234.5485714285714, 386.3085714285714],
-    ],
   },
 ]
