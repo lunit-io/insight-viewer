@@ -12,15 +12,6 @@ export function getDrawingMeasurement(
   // drawing 시 text 좌표는 pixelToCanvas 를 적용해야하므로 아래 로직을 추가
   const drawingTextPosition = pixelToCanvas(measurement.textPoint)
 
-  const connectingPoints = measurement.connectingLine
-    .map(point => {
-      // drawing 시 point 좌표계는 pixelToCanvas 를 적용해야하므로 아래 로직을 추가
-      const [x, y] = pixelToCanvas(point)
-
-      return `${x},${y}`
-    })
-    .join(' ')
-
   if (measurement.type === 'ruler') {
     const linePoints = measurement.points
       .map(point => {
@@ -31,7 +22,7 @@ export function getDrawingMeasurement(
       })
       .join(' ')
 
-    drawingMeasurement = { ...measurement, linePoints, textPoint: drawingTextPosition, connectingPoints }
+    drawingMeasurement = { ...measurement, linePoints, textPoint: drawingTextPosition }
   } else {
     // measurement.type === 'circle'
     const canvasPoints = points.map(pixelToCanvas)
@@ -45,7 +36,6 @@ export function getDrawingMeasurement(
       drawingRadius,
       center: drawingCenterPosition,
       textPoint: drawingTextPosition,
-      connectingPoints,
     }
   }
 

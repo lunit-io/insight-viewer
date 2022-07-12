@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { circleStyle, textStyle, polyline } from './CircleDrawer.styles'
+import { circleStyle, textStyle } from './CircleDrawer.styles'
 import { CircleDrawerProps } from './CircleDrawer.types'
 
 export function CircleDrawer({
@@ -8,7 +8,7 @@ export function CircleDrawer({
   measurement,
   setMeasurementEditMode,
 }: CircleDrawerProps): ReactElement | null {
-  const { center, radius, textPoint, connectingPoints, drawingRadius } = measurement
+  const { center, radius, textPoint, drawingRadius } = measurement
 
   return (
     <>
@@ -34,7 +34,6 @@ export function CircleDrawer({
       >
         {`radius: ${radius.toFixed(2)}mm`}
       </text>
-      <polyline style={polyline.dashLine} points={connectingPoints} />
     </>
   )
 }
