@@ -139,7 +139,6 @@ export interface MeasurementBase {
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
   textPoint: Point
-  connectingLine: [Point, Point]
 }
 
 export interface RulerMeasurement extends MeasurementBase {

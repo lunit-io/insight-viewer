@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle } from './CircleViewer.styles'
-import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
+import { textStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
 import { calculateDistance } from '../../utils/common/calculateDistance'
 import { useOverlayContext } from '../../contexts'
@@ -12,7 +12,7 @@ import { Point } from '../../types'
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { id, center, radius, textPoint, connectingLine } = measurement
+  const { id, center, radius, textPoint } = measurement
   const calculatedDistance = calculateDistance(radius, image)
   const endPoint: Point = [center[0] + (calculatedDistance ?? 0), center[1]]
   const points: [Point, Point] = [center, endPoint]
@@ -23,13 +23,6 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
 
   const isHoveredMeasurement = measurement === hoveredMeasurement
   const [cx, cy] = pixelStartPoint
-
-  const connectingLinePoints = connectingLine
-    .map(point => {
-      const [x, y] = pixelToCanvas(point)
-      return `${x},${y}`
-    })
-    .join(' ')
 
   return (
     <>
@@ -56,7 +49,6 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPointX} y={textPointY}>
         {`radius: ${radius.toFixed(2)}mm`}
       </text>
-      <polyline style={polylineStyle.dashLine} points={connectingLinePoints} />
     </>
   )
 }
