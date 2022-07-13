@@ -33,6 +33,12 @@ export const polylineStyle: ViewerStyle = {
     stroke: '#99999B',
     cursor: 'pointer',
   },
+  dashLine: {
+    strokeWidth: '1px',
+    stroke: '#ffffff',
+    fill: 'transparent',
+    strokeDasharray: '5, 5',
+  },
 }
 
 export const textStyle: ViewerStyle = {

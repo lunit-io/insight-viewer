@@ -49,7 +49,7 @@ export const RULER_TEXT_POSITION_SPACING = {
 }
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
-  x: 45,
+  x: 75,
   y: 10,
 }
 

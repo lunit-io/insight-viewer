@@ -51,4 +51,10 @@ export const polyline: ViewerStyle = {
     fill: 'transparent',
     cursor: 'grab',
   },
+  dashLine: {
+    strokeWidth: '1px',
+    stroke: '#ffffff',
+    fill: 'transparent',
+    strokeDasharray: '5, 5',
+  },
 }

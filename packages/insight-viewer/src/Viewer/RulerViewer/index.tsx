@@ -1,16 +1,23 @@
 import React, { ReactElement } from 'react'
 
+import { Point } from '../../types'
+
 import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
+import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
+import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
 import { useOverlayContext } from '../../contexts'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const { id, points, length, textPoint } = measurement
+  const { id, points, length } = measurement
 
-  const canvasPoints = points.map(pixelToCanvas)
+  const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
+
+  const textPoint = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(points[1]))
+  const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const poygonPoints: string = canvasPoints
     .map(point => {
@@ -19,8 +26,13 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     })
     .join(' ')
 
-  const [textPointX, textPointY] = pixelToCanvas(textPoint)
-  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const connectingLine = getRulerConnectingLine(canvasPoints, textPoint)
+    .map(point => {
+      const [x, y] = point
+
+      return `${x},${y}`
+    })
+    .join(' ')
 
   return (
     <>
@@ -41,10 +53,11 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={poygonPoints}
       />
       {length && (
-        <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPointX} y={textPointY}>
+        <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
           {length}mm
         </text>
       )}
+      <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>
   )
 }

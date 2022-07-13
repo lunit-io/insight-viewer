@@ -54,7 +54,7 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type EditMode = 'startPoint' | 'endPoint' | 'move'
+export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
 
 export type ViewerStyleType =
   | 'default'
@@ -64,6 +64,7 @@ export type ViewerStyleType =
   | 'hoveredOutline'
   | 'selectedOutline'
   | 'highlight'
+  | 'dashLine'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
@@ -137,7 +138,7 @@ export interface MeasurementBase {
   type: MeasurementMode
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
-  textPoint: Point
+  textPoint: Point | null
 }
 
 export interface RulerMeasurement extends MeasurementBase {
