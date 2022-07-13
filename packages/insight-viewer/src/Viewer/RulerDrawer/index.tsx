@@ -3,12 +3,19 @@ import React, { ReactElement } from 'react'
 import { RulerDrawerProps } from './RulerDrawer.types'
 import { polyline, textStyle } from './RulerDrawer.styles'
 
+import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
+import { useOverlayContext } from '../../contexts'
+
 export function RulerDrawer({
   measurement,
   isSelectedMode,
   setMeasurementEditMode,
 }: RulerDrawerProps): ReactElement | null {
-  const { textPoint, linePoints, length } = measurement
+  const { pixelToCanvas } = useOverlayContext()
+
+  const { textPoint, points, linePoints, length } = measurement
+
+  const [textPointX, textPointY] = pixelToCanvas(textPoint ?? getRulerTextPosition(points[1]))
 
   return (
     <>
@@ -21,8 +28,8 @@ export function RulerDrawer({
       <text
         onMouseDown={() => setMeasurementEditMode('textMove')}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
-        x={textPoint[0]}
-        y={textPoint[1]}
+        x={textPointX}
+        y={textPointY}
       >
         {length}mm
       </text>

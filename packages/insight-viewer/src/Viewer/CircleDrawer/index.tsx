@@ -3,12 +3,19 @@ import React, { ReactElement } from 'react'
 import { circleStyle, textStyle } from './CircleDrawer.styles'
 import { CircleDrawerProps } from './CircleDrawer.types'
 
+import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+import { useOverlayContext } from '../../contexts'
+
 export function CircleDrawer({
   isSelectedMode,
   measurement,
   setMeasurementEditMode,
 }: CircleDrawerProps): ReactElement | null {
+  const { pixelToCanvas } = useOverlayContext()
+
   const { center, radius, textPoint, drawingRadius } = measurement
+
+  const [textPointX, textPointY] = textPoint ? pixelToCanvas(textPoint) : getCircleTextPosition(center, drawingRadius)
 
   return (
     <>
@@ -29,8 +36,8 @@ export function CircleDrawer({
       <text
         onMouseDown={() => setMeasurementEditMode('textMove')}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
-        x={textPoint[0]}
-        y={textPoint[1]}
+        x={textPointX}
+        y={textPointY}
       >
         {`radius: ${radius.toFixed(2)}mm`}
       </text>

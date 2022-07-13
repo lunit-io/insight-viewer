@@ -3,6 +3,8 @@ import React, { ReactElement } from 'react'
 import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
+import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
+
 import { useOverlayContext } from '../../contexts'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
@@ -19,7 +21,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     })
     .join(' ')
 
-  const [textPointX, textPointY] = pixelToCanvas(textPoint)
+  const [textPointX, textPointY] = pixelToCanvas(textPoint ?? getRulerTextPosition(points[1]))
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
   return (
