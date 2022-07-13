@@ -3,25 +3,34 @@ import React, { ReactElement } from 'react'
 
 import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle } from './CircleViewer.styles'
-import { textStyle } from '../MeasurementViewer/MeasurementViewer.styles'
+import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
 import { useOverlayContext } from '../../contexts'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { id, center, radius, textPoint } = measurement
+  const { id, center, radius } = measurement
 
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
 
   const drawingRadius = Math.abs(pixelStartPoint[0] - pixelEndPoint[0])
 
-  const [textPointX, textPointY] = textPoint
-    ? pixelToCanvas(textPoint)
+  const textPoint = measurement.textPoint
+    ? pixelToCanvas(measurement.textPoint)
     : getCircleTextPosition(pixelStartPoint, drawingRadius)
+
+  const connectingLine = getCircleConnectingLine([pixelStartPoint, pixelEndPoint], textPoint)
+    .map(point => {
+      const [x, y] = point
+
+      return `${x},${y}`
+    })
+    .join(' ')
 
   const isHoveredMeasurement = measurement === hoveredMeasurement
   const [cx, cy] = pixelStartPoint
@@ -48,9 +57,10 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         cy={cy}
         r={drawingRadius}
       />
-      <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPointX} y={textPointY}>
+      <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
         {`radius: ${radius.toFixed(2)}mm`}
       </text>
+      <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>
   )
 }
