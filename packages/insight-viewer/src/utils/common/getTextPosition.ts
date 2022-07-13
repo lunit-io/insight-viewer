@@ -1,17 +1,15 @@
-import { getDrawingTextPosition } from './getDrawingTextPosition'
 import { getEditingTextPosition } from './getEditingTextPosition'
 
-import { Point, EditMode, MeasurementMode } from '../../types'
+import { Point, EditMode, Measurement } from '../../types'
 
 export function getTextPosition(
-  mode: MeasurementMode,
-  points: [Point, Point],
+  measurement: Measurement | null,
   editMode?: EditMode | null,
   currentPoint?: Point
-): Point {
+): Point | null {
   if (editMode === 'textMove' && currentPoint) {
     return getEditingTextPosition(currentPoint)
   }
 
-  return getDrawingTextPosition(points, mode)
+  return measurement == null ? null : measurement.textPoint
 }

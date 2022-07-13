@@ -57,7 +57,7 @@ export default function useMeasurementPointsHandler({
     }
 
     const initialStartPoint: [Point, Point] = [point, point]
-    const initialTextPosition = getTextPosition(mode, initialStartPoint)
+    const initialTextPosition = getTextPosition(measurement)
 
     const currentMeasurement = getMeasurement(initialStartPoint, initialTextPosition, mode, measurements, image)
     setMeasurement(currentMeasurement)
@@ -89,7 +89,7 @@ export default function useMeasurementPointsHandler({
 
       const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
 
-      const currentTextPosition = getTextPosition(drawingMode, currentPoints, editMode, point)
+      const currentTextPosition = getTextPosition(measurement, editMode, point)
 
       const canvasPoints = currentPoints.map(pixelToCanvas) as [Point, Point]
       const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
