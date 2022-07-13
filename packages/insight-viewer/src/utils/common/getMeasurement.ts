@@ -5,7 +5,7 @@ import { Point, Measurement, MeasurementMode } from '../../types'
 
 export function getMeasurement(
   points: Point[],
-  textPoint: Point,
+  textPoint: Point | null,
   mode: MeasurementMode,
   measurements: Measurement[],
   image: Image | null
