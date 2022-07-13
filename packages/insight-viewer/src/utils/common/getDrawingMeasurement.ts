@@ -26,13 +26,9 @@ export function getDrawingMeasurement(
     // measurement.type === 'circle'
     const drawingRadius = getLineLengthWithoutImage(canvasPoints[0], canvasPoints[1])
 
-    // drawing 시 center 좌표계는 pixelToCanvas 를 적용해야하므로 아래 로직을 추가
-    const drawingCenterPosition = pixelToCanvas(measurement.center)
-
     drawingMeasurement = {
       ...measurement,
       drawingRadius,
-      center: drawingCenterPosition,
     }
   }
 
