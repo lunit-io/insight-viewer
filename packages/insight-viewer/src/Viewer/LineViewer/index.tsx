@@ -36,7 +36,18 @@ export function LineViewer({
         />
       )}
       {annotation.type === 'line' && headPoints && (
-        <polyline style={{ ...polylineStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+        <>
+          {showOutline && (
+            <polyline
+              style={{
+                ...polylineStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
+                ...polygonAttributes?.style,
+              }}
+              points={headPoints}
+            />
+          )}
+          <polyline style={{ ...polylineStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+        </>
       )}
       <polyline
         style={{

@@ -55,12 +55,20 @@ export function PolylineDrawer({
             points={polylinePoints}
           />
           {lineHead === 'arrow' && (
-            <PolylineElement
-              isPolygon={!!isPolygonSelected}
-              style={polyline[isSelectedMode ? 'select' : 'default']}
-              onMouseDown={() => setAnnotationEditMode('move')}
-              points={getArrowPoints()}
-            />
+            <>
+              <PolylineElement
+                isPolygon={!!isPolygonSelected}
+                style={polyline.outline}
+                onMouseDown={() => setAnnotationEditMode('move')}
+                points={getArrowPoints()}
+              />
+              <PolylineElement
+                isPolygon={!!isPolygonSelected}
+                style={polyline[isSelectedMode ? 'select' : 'default']}
+                onMouseDown={() => setAnnotationEditMode('move')}
+                points={getArrowPoints()}
+              />
+            </>
           )}
           <PolylineElement
             isPolygon={!!isPolygonSelected}
