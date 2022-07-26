@@ -11,10 +11,12 @@ export function calculateDistance(radius: number, image: Image | null): number |
     return Math.sqrt(Math.pow(radius, 2) / Math.pow(image.columnPixelSpacing, 2))
   }
 
-  const imagerPixelSpacing = image.data.elements[IMAGER_PIXEL_SPACING] as unknown as [number, number] | undefined
+  const imagerPixelSpacing = image.data.string(IMAGER_PIXEL_SPACING)
 
-  if (imagerPixelSpacing) {
-    return Math.sqrt(Math.pow(radius, 2) / Math.pow(imagerPixelSpacing[0], 2))
+  if (imagerPixelSpacing.length !== 0) {
+    const [columnPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
+
+    return Math.sqrt(Math.pow(radius, 2) / Math.pow(columnPixelSpacing, 2))
   }
 
   return radius

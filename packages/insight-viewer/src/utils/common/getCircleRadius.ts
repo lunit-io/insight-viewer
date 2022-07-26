@@ -26,7 +26,7 @@ export function getCircleRadius(
 
   const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING)
 
-  if (imagerPixelSpacing) {
+  if (imagerPixelSpacing.length !== 0) {
     const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
 
     return { radius: calcRadius(x, y, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }

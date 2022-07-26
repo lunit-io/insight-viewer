@@ -27,7 +27,7 @@ export function getLineLength(
 
   const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING)
 
-  if (imagerPixelSpacing) {
+  if (imagerPixelSpacing.length !== 0) {
     const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
 
     return { length: calcLength(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
