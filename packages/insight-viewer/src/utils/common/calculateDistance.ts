@@ -4,7 +4,7 @@ import { IMAGER_PIXEL_SPACING } from './const'
 
 export function calculateDistance(radius: number, image: Image | null): number | null {
   if (!image) {
-    return Math.sqrt(Math.pow(radius, 2) / Math.pow(1, 2))
+    return radius
   }
 
   if (image.columnPixelSpacing && image.columnPixelSpacing) {
@@ -17,5 +17,5 @@ export function calculateDistance(radius: number, image: Image | null): number |
     return Math.sqrt(Math.pow(radius, 2) / Math.pow(imagerPixelSpacing[0], 2))
   }
 
-  return Math.sqrt(Math.pow(radius, 2) / Math.pow(1, 2))
+  return radius
 }

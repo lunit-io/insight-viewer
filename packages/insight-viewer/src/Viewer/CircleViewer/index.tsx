@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 
 import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle } from './CircleViewer.styles'
@@ -9,13 +9,11 @@ import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
 import { useOverlayContext } from '../../contexts'
-import checkImageUnit from '../../utils/common/checkImageUnit'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
-  const unit = useMemo(() => checkImageUnit(image), [image])
 
-  const { id, center, radius } = measurement
+  const { id, center, radius, unit } = measurement
 
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)

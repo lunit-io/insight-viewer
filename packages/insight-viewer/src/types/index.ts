@@ -139,7 +139,7 @@ export interface MeasurementBase {
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
   textPoint: Point | null
-  unit: 'mm' | 'px'
+  unit: 'px' | 'mm'
 }
 
 export interface RulerMeasurement extends MeasurementBase {
@@ -170,5 +170,3 @@ export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
   hoveredMeasurement: Measurement | null
 }
-
-export type RulerCalcOption = { unit: 'px' | 'mm'; kind: null | 'pixelSpacing' | 'imagerPixelSpacing' }

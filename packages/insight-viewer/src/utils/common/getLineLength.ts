@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import { Point, RulerCalcOption } from '../../types'
+import { Point } from '../../types'
 import { Image } from '../../Viewer/types'
 import { IMAGER_PIXEL_SPACING } from './const'
 
@@ -13,26 +13,25 @@ const calcLength = ([startX, startY]: Point, [endX, endY]: Point, col: number, r
 export function getLineLength(
   startPoint: Point,
   endPoint: Point,
-  currentImage: Image | null,
-  kind: RulerCalcOption['kind']
-): number {
+  currentImage: Image | null
+): { length: number; unit: 'px' | 'mm' } {
   if (!currentImage) {
-    return calcLength(startPoint, endPoint, 1, 1)
+    return { length: calcLength(startPoint, endPoint, 1, 1), unit: 'px' }
   }
 
-  if (kind === 'pixelSpacing') {
+  if (currentImage.columnPixelSpacing && currentImage.rowPixelSpacing) {
     const { columnPixelSpacing, rowPixelSpacing } = currentImage
 
-    return calcLength(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing)
+    return { length: calcLength(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
-  if (kind === 'imagerPixelSpacing') {
-    const imagerPixelSpacing = currentImage.data.elements[IMAGER_PIXEL_SPACING] as unknown as [number, number]
+  const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING)
 
-    const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing
+  if (imagerPixelSpacing) {
+    const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
 
-    return calcLength(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing)
+    return { length: calcLength(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
-  return calcLength(startPoint, endPoint, 1, 1)
+  return { length: calcLength(startPoint, endPoint, 1, 1), unit: 'px' }
 }

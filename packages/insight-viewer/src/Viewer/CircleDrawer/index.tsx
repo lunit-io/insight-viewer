@@ -17,7 +17,7 @@ export function CircleDrawer({
 }: CircleDrawerProps): ReactElement | null {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { center, radius, unit, drawingRadius } = measurement
+  const { center, radius, drawingRadius, unit } = measurement
 
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]

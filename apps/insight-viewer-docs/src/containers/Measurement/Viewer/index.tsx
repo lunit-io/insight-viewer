@@ -36,7 +36,7 @@ function MeasurementViewerContainer(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false)
 
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[12],
+    wadouri: IMAGES[13],
   })
 
   const { viewport, setViewport } = useViewport()

@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import { Point, RulerCalcOption } from '../../types'
+import { Point } from '../../types'
 import { Image } from '../../Viewer/types'
 import { IMAGER_PIXEL_SPACING } from './const'
 
@@ -12,9 +12,8 @@ const calcRadius = (x: number, y: number, col: number, row: number) => {
 export function getCircleRadius(
   startPoint: Point,
   endPoint: Point,
-  currentImage: Image | null,
-  kind: RulerCalcOption['kind']
-): number {
+  currentImage: Image | null
+): { radius: number; unit: 'px' | 'mm' } {
   const [x1, y1] = startPoint
   const [x2, y2] = endPoint
 
@@ -22,22 +21,16 @@ export function getCircleRadius(
   const y = y2 - y1
 
   if (!currentImage) {
-    return calcRadius(x, y, 1, 1)
+    return { radius: calcRadius(x, y, 1, 1), unit: 'px' }
   }
 
-  if (kind === 'pixelSpacing') {
-    const { columnPixelSpacing, rowPixelSpacing } = currentImage
+  const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING)
 
-    return calcRadius(x, y, columnPixelSpacing, rowPixelSpacing)
+  if (imagerPixelSpacing) {
+    const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
+
+    return { radius: calcRadius(x, y, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
-  if (kind === 'imagerPixelSpacing') {
-    const imagerPixelSpacing = currentImage.data.elements[IMAGER_PIXEL_SPACING] as unknown as [number, number]
-
-    const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing
-
-    return calcRadius(x, y, columnPixelSpacing, rowPixelSpacing)
-  }
-
-  return calcRadius(x, y, 1, 1)
+  return { radius: calcRadius(x, y, 1, 1), unit: 'px' }
 }

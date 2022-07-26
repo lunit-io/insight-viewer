@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 
 import { Point } from '../../types'
 
@@ -8,12 +8,10 @@ import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
 import { useOverlayContext } from '../../contexts'
-import checkImageUnit from '../../utils/common/checkImageUnit'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
-  const { pixelToCanvas, image } = useOverlayContext()
-  const unit = useMemo(() => checkImageUnit(image), [image])
-  const { id, points, length } = measurement
+  const { pixelToCanvas } = useOverlayContext()
+  const { id, points, length, unit } = measurement
 
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
 

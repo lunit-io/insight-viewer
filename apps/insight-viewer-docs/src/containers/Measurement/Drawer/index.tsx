@@ -24,7 +24,7 @@ function MeasurementDrawerContainer(): JSX.Element {
   const [isEditing, setIsEditing] = useState(false)
 
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[12],
+    wadouri: IMAGES[13],
   })
 
   const { viewport, setViewport } = useViewport()
