@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
-import { Point, EditMode, Measurement, DrawingMeasurement } from '../../types'
+import { Point, EditMode, Measurement, DrawingMeasurement, RulerCalcOption } from '../../types'
 import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
@@ -12,6 +12,7 @@ import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPoin
 import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
 
 import useDrawingHandler from '../useDrawingHandler'
+import checkRulerCalcOption from '../../utils/common/checkRulerCalcOption'
 
 export default function useMeasurementPointsHandler({
   mode,
@@ -29,6 +30,8 @@ export default function useMeasurementPointsHandler({
   const [drawingMeasurement, setDrawingMeasurement] = useState<DrawingMeasurement | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
+
+  const rulerCalcOption = useMemo<RulerCalcOption>(() => checkRulerCalcOption(image), [image])
 
   useEffect(() => {
     if (!isEditing || selectedMeasurement == null) return
@@ -59,7 +62,14 @@ export default function useMeasurementPointsHandler({
     const initialStartPoint: [Point, Point] = [point, point]
     const initialTextPosition = getTextPosition(measurement)
 
-    const currentMeasurement = getMeasurement(initialStartPoint, initialTextPosition, mode, measurements, image)
+    const currentMeasurement = getMeasurement(
+      initialStartPoint,
+      initialTextPosition,
+      mode,
+      measurements,
+      image,
+      rulerCalcOption
+    )
     setMeasurement(currentMeasurement)
 
     const currentDrawingMeasurement = getDrawingMeasurement(initialStartPoint, currentMeasurement, pixelToCanvas)
@@ -95,7 +105,14 @@ export default function useMeasurementPointsHandler({
       const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
-      const currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
+      const currentMeasurement = getMeasurement(
+        currentPoints,
+        currentTextPosition,
+        drawingMode,
+        measurements,
+        image,
+        rulerCalcOption
+      )
       setMeasurement(currentMeasurement)
 
       const currentDrawingMeasurement = getDrawingMeasurement(currentPoints, currentMeasurement, pixelToCanvas)

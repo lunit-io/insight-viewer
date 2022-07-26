@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 
 import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle } from './CircleViewer.styles'
@@ -9,15 +9,16 @@ import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
 import { useOverlayContext } from '../../contexts'
+import checkImageUnit from '../../utils/common/checkImageUnit'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
+  const unit = useMemo(() => checkImageUnit(image), [image])
 
   const { id, center, radius } = measurement
 
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
-
   const drawingRadius = Math.abs(pixelStartPoint[0] - pixelEndPoint[0])
 
   const textPoint = measurement.textPoint
@@ -58,7 +59,9 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-        {`radius: ${radius.toFixed(2)}mm`}
+        {`radius: `}
+        {radius.toFixed(2)}
+        {unit}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>

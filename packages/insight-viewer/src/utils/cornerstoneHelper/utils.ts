@@ -1,5 +1,5 @@
+import cornerstone, { CanvasCoordinate, EnabledElement, PixelCoordinate } from 'cornerstone-core'
 import { DataSet } from 'dicom-parser'
-import cornerstone, { CanvasCoordinate, EnabledElement, Image, PixelCoordinate } from 'cornerstone-core'
 import { CornerstoneImage, CornerstoneViewport } from './types'
 import { formatCornerstoneViewport } from '../common/formatViewport'
 
@@ -39,6 +39,12 @@ export function displayImage(
     image,
   }
 }
+
+type Image =
+  | (CornerstoneImage & { _imageSeriesKey?: string } & {
+      data: DataSet
+    })
+  | undefined
 
 type LoadImage = Promise<
   Image & {

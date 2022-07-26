@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React, { useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
@@ -14,11 +13,11 @@ import { IMAGES } from '../../../const'
 import { RULER_MEASUREMENTS } from '../../../../mocks/ruler'
 import { CIRCLE_MEASUREMENTS } from '../../../../mocks/circles'
 
-export type InitalMeasurements = {
+export type InitialMeasurements = {
   [mode in MeasurementMode]: Measurement[]
 }
 
-const INITIAL_MEASUREMENTS: InitalMeasurements = {
+const INITIAL_MEASUREMENTS: InitialMeasurements = {
   ruler: RULER_MEASUREMENTS,
   circle: CIRCLE_MEASUREMENTS,
 }
@@ -37,8 +36,9 @@ function MeasurementViewerContainer(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false)
 
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[11],
+    wadouri: IMAGES[12],
   })
+
   const { viewport, setViewport } = useViewport()
   const {
     measurements,

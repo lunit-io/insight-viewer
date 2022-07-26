@@ -1,8 +1,7 @@
-/* eslint-disable no-restricted-properties */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
-import { Point, EditMode } from '../../types'
+import { Point, EditMode, RulerCalcOption } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { calculateDistance } from '../../utils/common/calculateDistance'
 import { getDrewAnnotation } from '../../utils/common/getDrewAnnotation'
@@ -10,6 +9,7 @@ import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPoin
 import { getAnnotationDrawingPoints } from '../../utils/common/getAnnotationDrawingPoints'
 import { getAnnotationEditingPoints } from '../../utils/common/getAnnotationEditingPoints'
 import useDrawingHandler from '../useDrawingHandler'
+import checkRulerCalcOption from '../../utils/common/checkRulerCalcOption'
 
 export default function useAnnotationPointsHandler({
   mode,
@@ -27,6 +27,8 @@ export default function useAnnotationPointsHandler({
   const [editMode, setEditMode] = useState<EditMode | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
+
+  const rulerCalcOption = useMemo<RulerCalcOption>(() => checkRulerCalcOption(image), [image])
 
   const isAnnotationEditing = isEditing && selectedAnnotation && editMode
 
@@ -102,7 +104,7 @@ export default function useAnnotationPointsHandler({
 
     if (points.length > 1) {
       const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
-      const drewAnnotation = getDrewAnnotation(image, points, drawingMode, lineHead, annotations)
+      const drewAnnotation = getDrewAnnotation(image, points, drawingMode, lineHead, annotations, rulerCalcOption)
       if (selectedAnnotation?.type === 'text') {
         drewAnnotation.label = selectedAnnotation.label
       }

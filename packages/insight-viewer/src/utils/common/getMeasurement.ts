@@ -1,14 +1,15 @@
 import { getCircleRadius } from './getCircleRadius'
 import { getLineLength } from './getLineLength'
 import { Image } from '../../Viewer/types'
-import { Point, Measurement, MeasurementMode } from '../../types'
+import { Point, Measurement, MeasurementMode, RulerCalcOption } from '../../types'
 
 export function getMeasurement(
   points: Point[],
   textPoint: Point | null,
   mode: MeasurementMode,
   measurements: Measurement[],
-  image: Image | null
+  image: Image | null,
+  { unit, kind }: RulerCalcOption
 ): Measurement {
   const [startPoint, endPoint] = points
   const currentId = measurements.length === 0 ? 1 : Math.max(...measurements.map(({ id }) => id), 0) + 1
@@ -18,28 +19,24 @@ export function getMeasurement(
     lineWidth: 1.5,
   }
 
-  let drewMeasurement: Measurement
-
-  if (mode === 'circle' && image) {
-    drewMeasurement = {
+  if (mode === 'circle') {
+    return {
       ...defaultMeasurementInfo,
       type: 'circle',
       center: startPoint,
-      radius: getCircleRadius([startPoint, endPoint], image),
+      radius: getCircleRadius(startPoint, endPoint, image, kind),
       textPoint,
-    }
-  } else {
-    // Ruler mode
-    const lineLength = image ? Number(getLineLength(startPoint, endPoint, image)?.toFixed(2)) : null
-
-    drewMeasurement = {
-      ...defaultMeasurementInfo,
-      type: 'ruler',
-      points: [startPoint, endPoint],
-      length: lineLength,
-      textPoint,
+      unit,
     }
   }
 
-  return drewMeasurement
+  // Ruler mode
+  return {
+    ...defaultMeasurementInfo,
+    type: 'ruler',
+    points: [startPoint, endPoint],
+    length: getLineLength(startPoint, endPoint, image, kind),
+    textPoint,
+    unit,
+  }
 }

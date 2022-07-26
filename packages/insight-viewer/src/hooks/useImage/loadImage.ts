@@ -26,11 +26,13 @@ interface LoadImage {
  */
 export const loadImage: LoadImage = async ({ imageId, imageScheme, requestInterceptor, onError }) => {
   try {
-    return await loadCornerstoneImage({
+    const cornerStoneImage = await loadCornerstoneImage({
       imageId,
       imageScheme,
       requestInterceptor,
     })
+
+    return cornerStoneImage
   } catch (e) {
     onError(normalizeError(e))
     throw e

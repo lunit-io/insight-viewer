@@ -7,18 +7,13 @@ import { GetImage } from './types'
 /**
  * It calls cornerstone.js loadImage. It is pluggable for unit test.
  */
-export const loadCornerstoneImage: GetImage = async ({
-  imageId,
-  imageScheme,
-  requestInterceptor,
-}) => {
+export const loadCornerstoneImage: GetImage = async ({ imageId, imageScheme, requestInterceptor }) => {
   try {
-    return await loadImage(imageId, {
-      loader:
-        imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE
-          ? undefined
-          : getHttpClient(requestInterceptor),
+    const loadedImage = await loadImage(imageId, {
+      loader: imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE ? undefined : getHttpClient(requestInterceptor),
     })
+
+    return loadedImage
   } catch (e) {
     throw normalizeError(e)
   }

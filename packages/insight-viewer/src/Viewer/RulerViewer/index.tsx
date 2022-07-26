@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 
 import { Point } from '../../types'
 
@@ -8,10 +8,11 @@ import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
 import { useOverlayContext } from '../../contexts'
+import checkImageUnit from '../../utils/common/checkImageUnit'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
-  const { pixelToCanvas } = useOverlayContext()
-
+  const { pixelToCanvas, image } = useOverlayContext()
+  const unit = useMemo(() => checkImageUnit(image), [image])
   const { id, points, length } = measurement
 
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
@@ -19,7 +20,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   const textPoint = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(points[1]))
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
-  const poygonPoints: string = canvasPoints
+  const polygonPoints: string = canvasPoints
     .map(point => {
       const [x, y] = point
       return `${x},${y}`
@@ -42,7 +43,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           ...polylineStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={poygonPoints}
+        points={polygonPoints}
       />
       <polyline
         data-cy-id={id}
@@ -50,11 +51,12 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           ...polylineStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={poygonPoints}
+        points={polygonPoints}
       />
       {length && (
         <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-          {length}mm
+          {length}
+          {unit}
         </text>
       )}
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
