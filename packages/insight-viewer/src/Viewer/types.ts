@@ -1,11 +1,12 @@
+import { DataSet } from 'dicom-parser'
 import { CornerstoneImage } from '../utils/cornerstoneHelper'
 import { ProgressComponent, Viewport, OnViewportChange } from '../types'
 import { SetFrame } from '../hooks/useMultipleImages/useFrame'
 import { Interaction } from '../hooks/useInteraction/types'
 
 export type Image =
-  | (CornerstoneImage & {
-      _imageSeriesKey?: string
+  | (CornerstoneImage & { _imageSeriesKey?: string } & {
+      data: DataSet
     })
   | undefined
 

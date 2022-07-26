@@ -1,8 +1,5 @@
-import cornerstone, {
-  CanvasCoordinate,
-  EnabledElement,
-  PixelCoordinate,
-} from 'cornerstone-core'
+import { DataSet } from 'dicom-parser'
+import cornerstone, { CanvasCoordinate, EnabledElement, Image, PixelCoordinate } from 'cornerstone-core'
 import { CornerstoneImage, CornerstoneViewport } from './types'
 import { formatCornerstoneViewport } from '../common/formatViewport'
 
@@ -33,9 +30,7 @@ export function displayImage(
 } {
   // Returns a default viewport for display the specified image on the specified enabled element.
   const defaultViewport = cornerstone.getDefaultViewportForImage(element, image)
-  const viewport = viewportOption
-    ? formatCornerstoneViewport(defaultViewport, viewportOption)
-    : defaultViewport
+  const viewport = viewportOption ? formatCornerstoneViewport(defaultViewport, viewportOption) : defaultViewport
   cornerstone.displayImage(element, image, viewport)
 
   return {
@@ -45,16 +40,18 @@ export function displayImage(
   }
 }
 
-export function loadImage(
-  imageId: string,
-  options?: Record<string, unknown>
-): ReturnType<typeof cornerstone.loadImage> {
-  return cornerstone.loadImage(imageId, options)
+type LoadImage = Promise<
+  Image & {
+    data: DataSet
+  }
+>
+
+export function loadImage(imageId: string, options?: Record<string, unknown>): LoadImage {
+  const cornerstoneImage = cornerstone.loadImage(imageId, options) as LoadImage
+  return cornerstoneImage
 }
 
-export function getViewport(
-  element: HTMLDivElement
-): ReturnType<typeof cornerstone.getViewport> {
+export function getViewport(element: HTMLDivElement): ReturnType<typeof cornerstone.getViewport> {
   return cornerstone.getViewport(element)
 }
 
@@ -65,9 +62,7 @@ export function setViewport(
   return cornerstone.setViewport(element, viewport)
 }
 
-export function getEnabledElement(
-  element: HTMLElement
-): ReturnType<typeof cornerstone.getEnabledElement> {
+export function getEnabledElement(element: HTMLElement): ReturnType<typeof cornerstone.getEnabledElement> {
   return cornerstone.getEnabledElement(element)
 }
 
@@ -78,10 +73,7 @@ export function setToPixelCoordinateSystem(
   return cornerstone.setToPixelCoordinateSystem(element, context)
 }
 
-export function pixelToCanvas(
-  element: HTMLElement,
-  points: PixelCoordinate
-): CanvasCoordinate {
+export function pixelToCanvas(element: HTMLElement, points: PixelCoordinate): CanvasCoordinate {
   return cornerstone.pixelToCanvas(element, points)
 }
 
@@ -92,10 +84,6 @@ export function getDefaultViewportForImage(
   return cornerstone.getDefaultViewportForImage(element, image)
 }
 
-export function pageToPixel(
-  element: HTMLElement,
-  pageX: number,
-  pageY: number
-): PixelCoordinate {
+export function pageToPixel(element: HTMLElement, pageX: number, pageY: number): PixelCoordinate {
   return cornerstone.pageToPixel(element, pageX, pageY)
 }

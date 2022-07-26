@@ -1,11 +1,11 @@
 /**
  * @fileoverview Loads images with cornerstone.js.
  */
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 import { normalizeError } from '../../utils/common'
 import { ImageLoaderScheme } from '../../types'
 import { Props } from './types'
 import { loadCornerstoneImage } from './loadCornerstoneImage'
+import { Image } from '../../Viewer/types'
 
 interface LoadImage {
   ({
@@ -15,7 +15,7 @@ interface LoadImage {
     onError,
   }: Required<Props> & {
     imageScheme: ImageLoaderScheme
-  }): Promise<CornerstoneImage>
+  }): Promise<Image>
 }
 
 /**
@@ -24,12 +24,7 @@ interface LoadImage {
  * @returns Promise<CornerstoneImage>.
  * @throws If image fetching fails.
  */
-export const loadImage: LoadImage = async ({
-  imageId,
-  imageScheme,
-  requestInterceptor,
-  onError,
-}) => {
+export const loadImage: LoadImage = async ({ imageId, imageScheme, requestInterceptor, onError }) => {
   try {
     return await loadCornerstoneImage({
       imageId,

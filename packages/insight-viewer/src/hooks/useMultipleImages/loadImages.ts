@@ -43,6 +43,7 @@ export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor
         loaded,
         total: images.length,
       })
+
       return {
         image,
         loaded,
