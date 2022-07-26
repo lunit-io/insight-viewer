@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "viewer",
+      "path": "./packages/insight-viewer"
+    },
+    {
+      "name": "docs",
+      "path": "./apps/insight-viewer-docs"
+    },
+    {
+      "name": "root",
+      "path": "."
+    }
+  ]
+}
