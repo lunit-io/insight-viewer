@@ -58,7 +58,7 @@ export function CircleDrawer({
         x={textPoint[0]}
         y={textPoint[1]}
       >
-        {`radius: ${radius}${unit}`}
+        {`radius: ${radius.toFixed(1)}${unit}`}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />
     </>

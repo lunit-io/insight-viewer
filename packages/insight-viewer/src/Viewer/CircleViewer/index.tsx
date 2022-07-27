@@ -57,9 +57,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-        {`radius: `}
-        {radius.toFixed(2)}
-        {unit}
+        {`radius: ${radius.toFixed(1)}${unit}`}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>

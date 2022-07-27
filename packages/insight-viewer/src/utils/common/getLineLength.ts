@@ -7,7 +7,7 @@ const calcLength = ([startX, startY]: Point, [endX, endY]: Point, col: number, r
   const xPow = Math.pow(Math.abs(endX - startX) * col, 2)
   const yPow = Math.pow(Math.abs(endY - startY) * row, 2)
 
-  return Number(Math.sqrt(xPow + yPow).toFixed(2))
+  return Math.sqrt(xPow + yPow)
 }
 
 export function getLineLength(

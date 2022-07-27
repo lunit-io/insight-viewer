@@ -53,7 +53,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       />
       {length && (
         <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-          {length.toFixed(2)}
+          {length.toFixed(1)}
           {unit}
         </text>
       )}

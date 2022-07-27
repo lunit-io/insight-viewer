@@ -6,7 +6,7 @@ import { IMAGER_PIXEL_SPACING } from './const'
 const calcRadius = (x: number, y: number, col: number, row: number) => {
   const radius = Math.sqrt(Math.pow(Math.abs(x) * col, 2) + Math.pow(Math.abs(y) * row, 2))
 
-  return Number(radius.toFixed(2))
+  return radius
 }
 
 export function getCircleRadius(

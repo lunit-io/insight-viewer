@@ -42,7 +42,7 @@ export function RulerDrawer({
         x={textPoint[0]}
         y={textPoint[1]}
       >
-        {length}
+        {length.toFixed(1)}
         {unit}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />

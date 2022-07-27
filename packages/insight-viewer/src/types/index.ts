@@ -145,7 +145,7 @@ export interface MeasurementBase {
 export interface RulerMeasurement extends MeasurementBase {
   type: 'ruler'
   points: [Point, Point]
-  length: number | null
+  length: number
 }
 
 export interface CircleMeasurement extends MeasurementBase {
