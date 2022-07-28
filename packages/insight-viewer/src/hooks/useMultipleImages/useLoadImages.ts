@@ -61,7 +61,9 @@ export const useLoadImages: UseLoadImages = ({ onError, requestInterceptor, onIm
 
     loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe({
       next: ({ image, loaded }: Loaded) => {
-        const newImage = { ...image, _imageSeriesKey } as Image
+        if (image === undefined) return
+
+        const newImage = { ...image, _imageSeriesKey }
 
         imagesRef.current.push(newImage)
         setState((prev: State) => ({
