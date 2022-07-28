@@ -40,9 +40,14 @@ export function displayImage(
   }
 }
 
-type LoadImage = Promise<CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }>
+type LoadImage = Promise<CornerstoneImage & { data: DataSet }>
 
 export function loadImage(imageId: string, options?: Record<string, unknown>): LoadImage {
+  /*
+    cornerstone.loadImage() 의 원래 리턴 값은 Promise<CornerstoneImage> 이지만,
+    options로 인하여 data field 가 추가된 것으로 보임
+  */
+
   const cornerstoneImage = cornerstone.loadImage(imageId, options) as LoadImage
   return cornerstoneImage
 }

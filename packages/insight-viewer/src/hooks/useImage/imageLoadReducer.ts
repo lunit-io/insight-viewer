@@ -1,35 +1,38 @@
+import { DataSet } from 'dicom-parser'
 import { LOADING_STATE } from '../../const'
 import { LoadingState } from '../../types'
-import { Image } from '../../Viewer/types'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 export type ImageLoadState = {
   loadingState: LoadingState
-  image?: Image
+  image: (CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }) | undefined
 }
 
-interface ImageLoadAction {
-  type: LoadingState
-  payload?: Image
+type ImageLoadAction = {
+  type: 'initial' | 'loading' | 'fail' | 'success'
+  payload?: CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }
 }
 
 export function imageLoadReducer(state: ImageLoadState, action: ImageLoadAction): ImageLoadState {
-  const { type, payload } = action
+  const { type } = action
 
   switch (type) {
     case LOADING_STATE.LOADING:
       return {
         ...state,
         loadingState: LOADING_STATE.LOADING,
+        image: undefined,
       }
     case LOADING_STATE.SUCCESS:
       return {
         loadingState: LOADING_STATE.SUCCESS,
-        image: payload,
+        image: action.payload,
       }
     case LOADING_STATE.FAIL:
       return {
         ...state,
         loadingState: LOADING_STATE.FAIL,
+        image: undefined,
       }
     default:
       return state

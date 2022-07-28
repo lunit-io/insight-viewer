@@ -1,8 +1,10 @@
+import { DataSet } from 'dicom-parser'
 import { Image } from '../../Viewer/types'
 import { HTTP, LoaderType, LoadingState } from '../../types'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 export interface Loaded {
-  image: NonNullable<Image>
+  image: CornerstoneImage & { data: DataSet }
   loaded: number
 }
 

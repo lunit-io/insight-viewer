@@ -1,11 +1,13 @@
-import { loadImage } from '../../utils/cornerstoneHelper'
+import { DataSet } from 'dicom-parser'
+import { CornerstoneImage, loadImage } from '../../utils/cornerstoneHelper'
 import { RequestInterceptor, ImageLoaderScheme } from '../../types'
 import { IMAGE_LOADER_SCHEME } from '../../const'
 import { getHttpClient } from '../../utils/httpClient'
-import { Image } from '../../Viewer/types'
 
 interface GetLoadImage {
-  (image: string, imageScheme: ImageLoaderScheme, requestInterceptor: RequestInterceptor): Promise<NonNullable<Image>>
+  (image: string, imageScheme: ImageLoaderScheme, requestInterceptor: RequestInterceptor): Promise<
+    CornerstoneImage & { data: DataSet }
+  >
 }
 
 /**

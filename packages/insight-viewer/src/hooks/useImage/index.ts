@@ -24,7 +24,7 @@ interface UseImage {
       }
   ): {
     loadingState: 'initial' | 'loading' | 'fail' | 'success'
-    image?: Image
+    image: Image
   }
 }
 

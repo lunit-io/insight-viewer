@@ -1,14 +1,15 @@
 import { useEffect, useState, useRef } from 'react'
 import { uid } from 'uid'
+import { DataSet } from 'dicom-parser'
 import { noop } from '../../utils/common'
 import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
 import { HTTP, LoadingState, ImageId } from '../../types'
-import { Image } from '../../Viewer/types'
 import { Loaded, ImagesLoadState, OnImagesLoaded } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 import { getImageIdsAndScheme } from './getImageIdsAndScheme'
+import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 interface UseLoadImages {
   ({ onError, requestInterceptor, ...rest }: HTTP & ImageId & { onImagesLoaded?: OnImagesLoaded }): ImagesLoadState
@@ -41,7 +42,7 @@ export const useLoadImages: UseLoadImages = ({ onError, requestInterceptor, onIm
   // The "_imageSeriesKey" is used for persisting viewport when the image frame is changed.
   // When the image series are updated, the "_imageSeriesKey" is updated. It makes the viewport to be reset.
   // As long as the _imageSeriesKey is the same, the viewport persists.
-  const imagesRef = useRef<Image[]>([])
+  const imagesRef = useRef<((CornerstoneImage & { _imageSeriesKey: string; data: DataSet }) | undefined)[]>([])
   const hasLoader = useImageLoader(rest, onError)
 
   useEffect(() => {
