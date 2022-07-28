@@ -1,6 +1,5 @@
-import { DataSet } from 'dicom-parser'
 import { HTTP, RequestInterceptor, ImageLoaderScheme } from '../../types'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { Image } from '../../Viewer/types'
 
 export type Props = {
   imageId: string
@@ -10,4 +9,4 @@ export type GetImage = (arg: {
   imageId: string
   imageScheme: ImageLoaderScheme
   requestInterceptor: RequestInterceptor
-}) => Promise<CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }>
+}) => Promise<NonNullable<Image>>

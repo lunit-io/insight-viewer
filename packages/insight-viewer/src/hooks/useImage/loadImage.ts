@@ -1,12 +1,11 @@
 /**
  * @fileoverview Loads images with cornerstone.js.
  */
-import { DataSet } from 'dicom-parser'
 import { normalizeError } from '../../utils/common'
 import { ImageLoaderScheme } from '../../types'
 import { Props } from './types'
 import { loadCornerstoneImage } from './loadCornerstoneImage'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { Image } from '../../Viewer/types'
 
 interface LoadImage {
   ({
@@ -16,7 +15,7 @@ interface LoadImage {
     onError,
   }: Required<Props> & {
     imageScheme: ImageLoaderScheme
-  }): Promise<CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }>
+  }): Promise<NonNullable<Image>>
 }
 
 /**
