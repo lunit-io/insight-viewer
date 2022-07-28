@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React, { useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
@@ -36,7 +37,7 @@ function MeasurementViewerContainer(): JSX.Element {
   const [isEdit, setIsEdit] = useState(false)
 
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[13],
+    wadouri: IMAGES[11],
   })
 
   const { viewport, setViewport } = useViewport()
