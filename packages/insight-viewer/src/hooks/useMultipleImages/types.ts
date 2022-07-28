@@ -2,7 +2,7 @@ import { Image } from '../../Viewer/types'
 import { HTTP, LoaderType, LoadingState } from '../../types'
 
 export interface Loaded {
-  image: Image
+  image: NonNullable<Image>
   loaded: number
 }
 

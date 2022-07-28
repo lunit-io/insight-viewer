@@ -40,13 +40,7 @@ export function displayImage(
   }
 }
 
-type Image =
-  | (CornerstoneImage & { _imageSeriesKey?: string } & {
-      data: DataSet
-    })
-  | undefined
-
-type LoadImage = Promise<Image>
+type LoadImage = Promise<CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }>
 
 export function loadImage(imageId: string, options?: Record<string, unknown>): LoadImage {
   const cornerstoneImage = cornerstone.loadImage(imageId, options) as LoadImage

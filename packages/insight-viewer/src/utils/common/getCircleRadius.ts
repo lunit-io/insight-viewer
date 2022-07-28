@@ -24,7 +24,17 @@ export function getCircleRadius(
     return { radius: calcRadius(x, y, 1, 1), unit: 'px' }
   }
 
-  const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING)
+  if (currentImage.columnPixelSpacing && currentImage.rowPixelSpacing) {
+    const { columnPixelSpacing, rowPixelSpacing } = currentImage
+
+    return { radius: calcRadius(x, y, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
+  }
+
+  const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING) as string | undefined
+
+  if (!imagerPixelSpacing) {
+    return { radius: calcRadius(x, y, 1, 1), unit: 'px' }
+  }
 
   if (imagerPixelSpacing.length !== 0) {
     const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)

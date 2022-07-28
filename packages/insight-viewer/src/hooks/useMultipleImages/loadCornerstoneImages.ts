@@ -5,7 +5,7 @@ import { getHttpClient } from '../../utils/httpClient'
 import { Image } from '../../Viewer/types'
 
 interface GetLoadImage {
-  (image: string, imageScheme: ImageLoaderScheme, requestInterceptor: RequestInterceptor): Promise<Image>
+  (image: string, imageScheme: ImageLoaderScheme, requestInterceptor: RequestInterceptor): Promise<NonNullable<Image>>
 }
 
 /**

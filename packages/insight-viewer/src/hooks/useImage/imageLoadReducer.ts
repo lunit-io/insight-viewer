@@ -4,7 +4,7 @@ import { Image } from '../../Viewer/types'
 
 export type ImageLoadState = {
   loadingState: LoadingState
-  image: Image
+  image?: Image
 }
 
 interface ImageLoadAction {
