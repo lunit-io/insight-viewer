@@ -46,11 +46,7 @@ type Image =
     })
   | undefined
 
-type LoadImage = Promise<
-  Image & {
-    data: DataSet
-  }
->
+type LoadImage = Promise<Image>
 
 export function loadImage(imageId: string, options?: Record<string, unknown>): LoadImage {
   const cornerstoneImage = cornerstone.loadImage(imageId, options) as LoadImage
