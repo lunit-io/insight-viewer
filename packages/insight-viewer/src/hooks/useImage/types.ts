@@ -9,4 +9,5 @@ export type GetImage = (arg: {
   imageId: string
   imageScheme: ImageLoaderScheme
   requestInterceptor: RequestInterceptor
+  timeout: number
 }) => Promise<ImageWithoutKey>

@@ -17,6 +17,7 @@ export const CONFIG = {
   Progress: undefined,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   requestInterceptor: (_request: Request): void => {},
+  timeout: 60 * 1000,
 }
 
 export const LOADING_STATE = {
