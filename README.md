@@ -97,6 +97,14 @@ project.json
 }
 ```
 
+### vscode workspace Usage
+
+1. click the workspace file in file explore
+
+2. enter the workspace file in vs code, and click the 'open workspace' button
+
+docs: https://code.visualstudio.com/docs/editor/workspaces
+
 ### typescript project reference
 
 app tsconfig.json
