@@ -33,7 +33,6 @@ export function MeasurementDrawer({
     onSelectMeasurement,
     addMeasurement: onAdd,
   })
-
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
 
   return (

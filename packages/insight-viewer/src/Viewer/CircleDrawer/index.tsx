@@ -17,7 +17,7 @@ export function CircleDrawer({
 }: CircleDrawerProps): ReactElement | null {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { center, radius, drawingRadius } = measurement
+  const { center, radius, drawingRadius, unit } = measurement
 
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
@@ -58,7 +58,7 @@ export function CircleDrawer({
         x={textPoint[0]}
         y={textPoint[1]}
       >
-        {`radius: ${radius.toFixed(2)}mm`}
+        {`radius: ${radius.toFixed(1)}${unit}`}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />
     </>

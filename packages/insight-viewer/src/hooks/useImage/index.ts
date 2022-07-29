@@ -1,18 +1,16 @@
+import { useEffect, useReducer, useRef } from 'react'
 /**
  * @fileoverview Loads an image(Dicom/Web) and return the loaded image and loading state of it.
  */
-import { useEffect, useReducer, useRef } from 'react'
 import { LOADING_STATE, CONFIG } from '../../const'
-import { LoadingState, ImageId, HTTP } from '../../types'
-import {
-  CornerstoneImage,
-  WadoImageLoaderOptions,
-} from '../../utils/cornerstoneHelper'
+import { ImageId, HTTP, LoadingState } from '../../types'
+import { WadoImageLoaderOptions } from '../../utils/cornerstoneHelper'
 import { noop } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
 import { imageLoadReducer, INITIAL_IMAGE_LOAD_STATE } from './imageLoadReducer'
 import { loadImage } from './loadImage'
 import { getImageIdAndScheme } from './getImageIdAndScheme'
+import { Image } from '../../Viewer/types'
 
 interface OnImageLoaded {
   (): void
@@ -26,7 +24,7 @@ interface UseImage {
       }
   ): {
     loadingState: LoadingState
-    image: CornerstoneImage | undefined
+    image: Image
   }
 }
 
@@ -48,10 +46,7 @@ export const useImage: UseImage = ({
   const { id: imageId, scheme: imageScheme } = getImageIdAndScheme(rest)
   const onImageLoadedRef = useRef<OnImageLoaded>()
 
-  const [{ loadingState, image }, dispatch] = useReducer(
-    imageLoadReducer,
-    INITIAL_IMAGE_LOAD_STATE
-  )
+  const [imageLoad, dispatch] = useReducer(imageLoadReducer, INITIAL_IMAGE_LOAD_STATE)
   const hasLoader = useImageLoader(rest, onError, loaderOptions)
 
   useEffect(() => {
@@ -82,8 +77,5 @@ export const useImage: UseImage = ({
       .catch(() => dispatch({ type: LOADING_STATE.FAIL }))
   }, [hasLoader, imageId, imageScheme, requestInterceptor, onError])
 
-  return {
-    image,
-    loadingState,
-  }
+  return imageLoad
 }

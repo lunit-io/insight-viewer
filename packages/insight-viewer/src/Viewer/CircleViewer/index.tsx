@@ -13,11 +13,10 @@ import { useOverlayContext } from '../../contexts'
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { id, center, radius } = measurement
+  const { id, center, radius, unit } = measurement
 
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
-
   const drawingRadius = Math.abs(pixelStartPoint[0] - pixelEndPoint[0])
 
   const textPoint = measurement.textPoint
@@ -58,7 +57,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-        {`radius: ${radius.toFixed(2)}mm`}
+        {`radius: ${radius.toFixed(1)}${unit}`}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>

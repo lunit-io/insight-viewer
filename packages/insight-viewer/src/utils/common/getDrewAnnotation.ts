@@ -23,11 +23,13 @@ export function getDrewAnnotation(
   let drewAnnotation: Annotation
 
   if (mode === 'circle') {
+    const [startPoint, endPoint] = points
+    const { radius } = getCircleRadius(startPoint, endPoint, image)
     drewAnnotation = {
       ...defaultAnnotationInfo,
       type: 'circle',
       center: points[0],
-      radius: getCircleRadius(points, image),
+      radius,
     }
   } else if (mode === 'line') {
     drewAnnotation = {

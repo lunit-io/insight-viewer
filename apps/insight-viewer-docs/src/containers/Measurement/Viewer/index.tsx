@@ -14,11 +14,11 @@ import { IMAGES } from '../../../const'
 import { RULER_MEASUREMENTS } from '../../../../mocks/ruler'
 import { CIRCLE_MEASUREMENTS } from '../../../../mocks/circles'
 
-export type InitalMeasurements = {
+export type InitialMeasurements = {
   [mode in MeasurementMode]: Measurement[]
 }
 
-const INITIAL_MEASUREMENTS: InitalMeasurements = {
+const INITIAL_MEASUREMENTS: InitialMeasurements = {
   ruler: RULER_MEASUREMENTS,
   circle: CIRCLE_MEASUREMENTS,
 }
@@ -39,6 +39,7 @@ function MeasurementViewerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
+
   const { viewport, setViewport } = useViewport()
   const {
     measurements,

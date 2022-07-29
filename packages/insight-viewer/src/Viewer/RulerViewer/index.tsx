@@ -11,15 +11,14 @@ import { useOverlayContext } from '../../contexts'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-
-  const { id, points, length } = measurement
+  const { id, points, length, unit } = measurement
 
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
 
   const textPoint = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(points[1]))
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
-  const poygonPoints: string = canvasPoints
+  const polygonPoints: string = canvasPoints
     .map(point => {
       const [x, y] = point
       return `${x},${y}`
@@ -42,7 +41,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           ...polylineStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={poygonPoints}
+        points={polygonPoints}
       />
       <polyline
         data-cy-id={id}
@@ -50,11 +49,12 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           ...polylineStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={poygonPoints}
+        points={polygonPoints}
       />
       {length && (
         <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-          {length}mm
+          {length.toFixed(1)}
+          {unit}
         </text>
       )}
       <polyline style={polylineStyle.dashLine} points={connectingLine} />

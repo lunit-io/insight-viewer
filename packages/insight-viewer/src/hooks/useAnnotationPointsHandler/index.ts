@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-properties */
 import { useState, useEffect } from 'react'
 
 import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
