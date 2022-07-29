@@ -1,9 +1,9 @@
+import { useEffect, useReducer, useRef } from 'react'
 /**
  * @fileoverview Loads an image(Dicom/Web) and return the loaded image and loading state of it.
  */
-import { useEffect, useReducer, useRef } from 'react'
 import { LOADING_STATE, CONFIG } from '../../const'
-import { ImageId, HTTP } from '../../types'
+import { ImageId, HTTP, LoadingState } from '../../types'
 import { WadoImageLoaderOptions } from '../../utils/cornerstoneHelper'
 import { noop } from '../../utils/common'
 import { useImageLoader } from '../useImageLoader'
@@ -23,7 +23,7 @@ interface UseImage {
         loaderOptions?: WadoImageLoaderOptions
       }
   ): {
-    loadingState: 'initial' | 'loading' | 'fail' | 'success'
+    loadingState: LoadingState
     image: Image
   }
 }

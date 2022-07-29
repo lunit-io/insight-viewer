@@ -5,6 +5,7 @@ import { SetFrame } from '../hooks/useMultipleImages/useFrame'
 import { Interaction } from '../hooks/useInteraction/types'
 
 export type Image = (CornerstoneImage & { _imageSeriesKey?: string; data: DataSet }) | undefined
+export type ImageWithoutKey = CornerstoneImage & { data: DataSet }
 
 export type ViewerProp = {
   image: Image

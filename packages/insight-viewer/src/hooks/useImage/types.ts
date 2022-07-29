@@ -1,5 +1,5 @@
 import { HTTP, RequestInterceptor, ImageLoaderScheme } from '../../types'
-import { Image } from '../../Viewer/types'
+import { ImageWithoutKey } from '../../Viewer/types'
 
 export type Props = {
   imageId: string
@@ -9,4 +9,4 @@ export type GetImage = (arg: {
   imageId: string
   imageScheme: ImageLoaderScheme
   requestInterceptor: RequestInterceptor
-}) => Promise<NonNullable<Image>>
+}) => Promise<ImageWithoutKey>

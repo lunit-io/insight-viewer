@@ -8,7 +8,7 @@ import { Element, Viewport, OnViewportChange } from '../types'
 
 interface Prop {
   element: Element
-  image?: CornerstoneImage
+  image: CornerstoneImage | undefined
   viewport?: Viewport
   onViewportChange?: OnViewportChange
 }

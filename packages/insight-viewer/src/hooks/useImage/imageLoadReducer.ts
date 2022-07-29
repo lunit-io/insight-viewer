@@ -8,7 +8,7 @@ export type ImageLoadState = {
 }
 
 type ImageLoadAction = {
-  type: 'initial' | 'loading' | 'fail' | 'success'
+  type: LoadingState
   payload?: Image
 }
 
@@ -20,7 +20,6 @@ export function imageLoadReducer(state: ImageLoadState, action: ImageLoadAction)
       return {
         ...state,
         loadingState: LOADING_STATE.LOADING,
-        image: undefined,
       }
     case LOADING_STATE.SUCCESS:
       return {
@@ -31,7 +30,6 @@ export function imageLoadReducer(state: ImageLoadState, action: ImageLoadAction)
       return {
         ...state,
         loadingState: LOADING_STATE.FAIL,
-        image: undefined,
       }
     default:
       return state

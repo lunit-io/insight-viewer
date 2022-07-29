@@ -5,7 +5,7 @@ import { normalizeError } from '../../utils/common'
 import { ImageLoaderScheme } from '../../types'
 import { Props } from './types'
 import { loadCornerstoneImage } from './loadCornerstoneImage'
-import { Image } from '../../Viewer/types'
+import { ImageWithoutKey } from '../../Viewer/types'
 
 interface LoadImage {
   ({
@@ -15,7 +15,7 @@ interface LoadImage {
     onError,
   }: Required<Props> & {
     imageScheme: ImageLoaderScheme
-  }): Promise<NonNullable<Image>>
+  }): Promise<ImageWithoutKey>
 }
 
 /**

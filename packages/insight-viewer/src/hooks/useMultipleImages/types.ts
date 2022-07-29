@@ -1,10 +1,8 @@
-import { DataSet } from 'dicom-parser'
-import { Image } from '../../Viewer/types'
+import { Image, ImageWithoutKey } from '../../Viewer/types'
 import { HTTP, LoaderType, LoadingState } from '../../types'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
 
 export interface Loaded {
-  image: CornerstoneImage & { data: DataSet }
+  image: ImageWithoutKey
   loaded: number
 }
 
