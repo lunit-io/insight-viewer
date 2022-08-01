@@ -23,18 +23,20 @@ export function PolylineDrawer({
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const polylinePoints = points
+  const canvasPoints = points.map(pixelToCanvas)
+
+  const polylinePoints = canvasPoints
     .map(point => {
-      const [x, y] = pixelToCanvas(point)
+      const [x, y] = point
       return `${x},${y}`
     })
     .join()
 
   const getArrowPoints = () => {
-    const arrowPosition = getArrowPosition(points)
+    const arrowPosition = getArrowPosition(canvasPoints)
     const arrowPoints = arrowPosition
       .map(point => {
-        const [x, y] = pixelToCanvas(point)
+        const [x, y] = point
         return `${x},${y}`
       })
       .join()
