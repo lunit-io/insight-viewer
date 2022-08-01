@@ -44,7 +44,7 @@ export function getPolyViewerInfo({
     .join(' ')
 
   const headPoints: string | null =
-    annotation.type === 'line' && annotation?.headPoints
+    annotation.type === 'line' && annotation.hasArrowHead
       ? getArrowPosition(canvasPoints)
           .map(point => {
             const [x, y] = point
