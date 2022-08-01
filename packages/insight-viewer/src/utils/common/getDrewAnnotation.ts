@@ -1,5 +1,4 @@
 import polylabel from 'polylabel'
-import { getArrowPosition } from './getArrowPosition'
 import { getCircleRadius } from './getCircleRadius'
 import { Annotation, AnnotationMode, LineHeadMode, Point } from '../../types'
 import { Image } from '../../Viewer/types'
@@ -36,7 +35,7 @@ export function getDrewAnnotation(
       ...defaultAnnotationInfo,
       type: mode,
       points: [points[0], points[1]],
-      headPoints: lineHead === 'arrow' ? getArrowPosition(points) : undefined,
+      hasArrowHead: lineHead === 'arrow',
     }
   } else if (mode === 'text') {
     drewAnnotation = {
