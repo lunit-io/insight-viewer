@@ -2,6 +2,7 @@ import polylabel from 'polylabel'
 import { getCircleRadius } from './getCircleRadius'
 import { Annotation, AnnotationMode, LineHeadMode, Point } from '../../types'
 import { Image } from '../../Viewer/types'
+import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
 export function getDrewAnnotation(
   image: Image | null,
@@ -33,6 +34,7 @@ export function getDrewAnnotation(
   } else if (mode === 'line') {
     drewAnnotation = {
       ...defaultAnnotationInfo,
+      labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
       type: mode,
       points: [points[0], points[1]],
       hasArrowHead: lineHead === 'arrow',
