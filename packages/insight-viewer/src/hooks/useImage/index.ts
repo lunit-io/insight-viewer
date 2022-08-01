@@ -21,6 +21,7 @@ interface UseImage {
       ImageId & {
         onImageLoaded?: OnImageLoaded
         loaderOptions?: WadoImageLoaderOptions
+        timeout?: number
       }
   ): {
     loadingState: LoadingState
@@ -39,6 +40,7 @@ interface UseImage {
 export const useImage: UseImage = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
+  timeout = CONFIG.timeout,
   onImageLoaded = noop,
   loaderOptions,
   ...rest
@@ -63,6 +65,7 @@ export const useImage: UseImage = ({
       imageScheme,
       requestInterceptor,
       onError,
+      timeout,
     })
       .then(res => {
         dispatch({
@@ -75,7 +78,7 @@ export const useImage: UseImage = ({
         }, 0)
       })
       .catch(() => dispatch({ type: LOADING_STATE.FAIL }))
-  }, [hasLoader, imageId, imageScheme, requestInterceptor, onError])
+  }, [hasLoader, imageId, imageScheme, requestInterceptor, onError, timeout])
 
   return imageLoad
 }

@@ -11,7 +11,11 @@ import { getImageIdsAndScheme } from './getImageIdsAndScheme'
 import { Image } from '../../Viewer/types'
 
 interface UseLoadImages {
-  ({ onError, requestInterceptor, ...rest }: HTTP & ImageId & { onImagesLoaded?: OnImagesLoaded }): ImagesLoadState
+  ({
+    onError,
+    requestInterceptor,
+    ...rest
+  }: HTTP & ImageId & { onImagesLoaded?: OnImagesLoaded; timeout: number }): ImagesLoadState
 }
 
 interface State {
@@ -31,7 +35,13 @@ let _imageSeriesKey: string // Detect whether the image series are changed.
  * @returns <{ images, loadingStates }> images are CornerstoneImages.
  *  loadingStates are <'initial'|'loading'|'success'|'fail'>[]
  */
-export const useLoadImages: UseLoadImages = ({ onError, requestInterceptor, onImagesLoaded = noop, ...rest }) => {
+export const useLoadImages: UseLoadImages = ({
+  onError,
+  requestInterceptor,
+  onImagesLoaded = noop,
+  timeout,
+  ...rest
+}) => {
   const { ids: imageIds, scheme: imageScheme } = getImageIdsAndScheme(rest)
   const [{ loadingStates }, setState] = useState<State>({
     loadingStates: getLoadingStateMap(Array.isArray(imageIds) ? imageIds.length : 0),
@@ -59,7 +69,7 @@ export const useLoadImages: UseLoadImages = ({ onError, requestInterceptor, onIm
     // Update _imageSeriesKey When the image series are changed.
     _imageSeriesKey = uid()
 
-    loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe({
+    loadImages({ images: imageIds, imageScheme, requestInterceptor, timeout }).subscribe({
       next: ({ image, loaded }: Loaded) => {
         const newImage = { ...image, _imageSeriesKey }
 
@@ -84,7 +94,7 @@ export const useLoadImages: UseLoadImages = ({ onError, requestInterceptor, onIm
         onImagesLoaded()
       },
     })
-  }, [imageIds, imageScheme, onError, onImagesLoaded, requestInterceptor, hasLoader])
+  }, [imageIds, imageScheme, onError, onImagesLoaded, requestInterceptor, hasLoader, timeout])
 
   return {
     images: imagesRef.current,

@@ -9,7 +9,7 @@ import { useLoadImages } from './useLoadImages'
 import { ImagesLoadState, OnImagesLoaded } from './types'
 
 interface UseMultipleImages {
-  (props: Partial<HTTP> & ImageId & { onImagesLoaded?: OnImagesLoaded }): ImagesLoadState
+  (props: Partial<HTTP> & ImageId & { onImagesLoaded?: OnImagesLoaded; timeout?: number }): ImagesLoadState
 }
 
 /**
@@ -23,6 +23,7 @@ interface UseMultipleImages {
 export const useMultipleImages: UseMultipleImages = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
+  timeout = CONFIG.timeout,
   onImagesLoaded = noop,
   ...rest
 }) => {
@@ -32,6 +33,7 @@ export const useMultipleImages: UseMultipleImages = ({
     ...rest,
     onError,
     requestInterceptor,
+    timeout,
     onImagesLoaded: onImagesLoadedRef.current,
   })
 

@@ -13,8 +13,10 @@ interface LoadImage {
     imageScheme,
     requestInterceptor,
     onError,
+    timeout,
   }: Required<Props> & {
     imageScheme: ImageLoaderScheme
+    timeout: number
   }): Promise<ImageWithoutKey>
 }
 
@@ -24,12 +26,13 @@ interface LoadImage {
  * @returns Promise<CornerstoneImage>.
  * @throws If image fetching fails.
  */
-export const loadImage: LoadImage = async ({ imageId, imageScheme, requestInterceptor, onError }) => {
+export const loadImage: LoadImage = async ({ imageId, imageScheme, requestInterceptor, onError, timeout }) => {
   try {
     const cornerStoneImage = await loadCornerstoneImage({
       imageId,
       imageScheme,
       requestInterceptor,
+      timeout,
     })
 
     return cornerStoneImage

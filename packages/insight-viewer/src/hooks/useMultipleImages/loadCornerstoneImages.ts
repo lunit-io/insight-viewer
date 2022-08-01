@@ -4,14 +4,25 @@ import { IMAGE_LOADER_SCHEME } from '../../const'
 import { getHttpClient } from '../../utils/httpClient'
 import { ImageWithoutKey } from '../../Viewer/types'
 
-interface GetLoadImage {
-  (image: string, imageScheme: ImageLoaderScheme, requestInterceptor: RequestInterceptor): Promise<ImageWithoutKey>
+interface GetImage {
+  (arg: {
+    imageId: string
+    imageScheme: ImageLoaderScheme
+    requestInterceptor: RequestInterceptor
+    timeout: number
+  }): Promise<ImageWithoutKey>
 }
 
 /**
  * It calls cornerstone.js loadImage. It is pluggable for unit test.
  */
-export const loadCornerstoneImages: GetLoadImage = (image, imageScheme, requestInterceptor) =>
-  loadImage(image, {
-    loader: imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE ? undefined : getHttpClient(requestInterceptor),
+export const loadCornerstoneImages: GetImage = ({ imageId, imageScheme, requestInterceptor, timeout }) =>
+  loadImage(imageId, {
+    loader:
+      imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE
+        ? undefined
+        : getHttpClient({
+            requestInterceptor,
+            timeout,
+          }),
   })
