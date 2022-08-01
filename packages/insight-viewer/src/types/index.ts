@@ -97,7 +97,7 @@ export interface LineAnnotation extends AnnotationBase {
   type: 'line'
   points: [Point, Point]
 
-  hasArrowHead: boolean
+  hasArrowHead?: boolean
 }
 
 export interface FreeLineAnnotation extends AnnotationBase {
