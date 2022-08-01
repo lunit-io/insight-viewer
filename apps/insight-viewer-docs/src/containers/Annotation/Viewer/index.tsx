@@ -66,7 +66,7 @@ function AnnotationViewerContainer(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+        remove mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
       </Box>
       <Box>
         show label <Switch onChange={handleShowLabelModeChange} isChecked={isShowLabel} />

@@ -63,7 +63,7 @@ function MeasurementViewerContainer(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+        remove mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
       </Box>
       <RadioGroup onChange={handleMeasurementModeChange} value={measurementMode}>
         <Stack direction="row">
