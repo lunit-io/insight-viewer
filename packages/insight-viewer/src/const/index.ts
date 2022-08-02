@@ -44,6 +44,11 @@ export const ERROR_MESSAGE = {
   ENABLED_ELEMENT_NOT_READY: 'enabledElement value is null, Please check the enabledElement value.',
 } as const
 
+export const LINE_TEXT_POSITION_SPACING = {
+  x: 2,
+  y: 5,
+}
+
 export const RULER_TEXT_POSITION_SPACING = {
   x: 10,
   y: 15,
