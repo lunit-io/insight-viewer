@@ -4,6 +4,7 @@ import { Annotation, AnnotationMode, LineHeadMode, Point } from '../../types'
 import { Image } from '../../Viewer/types'
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
+// getDrewAnnotation image가 null 인 경우 추가
 export function getDrewAnnotation(
   image: Image | null,
   points: Point[],
