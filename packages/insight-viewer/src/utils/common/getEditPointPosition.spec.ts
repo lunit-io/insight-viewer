@@ -27,7 +27,6 @@ describe('getEditPointPosition: ', () => {
     ]
 
     const MOCK_EDIT_TARGET: Annotation = {
-      headPoints: undefined,
       id: 1,
       labelPosition: [0, 0],
       lineWidth: 1.5,
