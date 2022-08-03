@@ -7,12 +7,11 @@ import { LINE_TEXT_POSITION_SPACING } from '../../const'
 export function getDrewAnnotation(
   image: Image | null,
   points: Point[],
+  currentId: number,
   mode: AnnotationMode,
-  lineHead: LineHeadMode,
-  annotations: Annotation[]
+  lineHead: LineHeadMode
 ): Annotation {
   const [xPosition, yPosition] = polylabel([points], 1)
-  const currentId = annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1
 
   const defaultAnnotationInfo: Pick<Annotation, 'id' | 'labelPosition' | 'lineWidth'> = {
     id: currentId,

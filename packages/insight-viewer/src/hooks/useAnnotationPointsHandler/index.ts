@@ -101,7 +101,15 @@ export default function useAnnotationPointsHandler({
 
     if (points.length > 1) {
       const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
-      const drewAnnotation = getDrewAnnotation(image, points, drawingMode, lineHead, annotations)
+      const currentId = (() => {
+        if (selectedAnnotation) {
+          return selectedAnnotation.id
+        }
+
+        return annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1
+      })()
+
+      const drewAnnotation = getDrewAnnotation(image, points, currentId, drawingMode, lineHead)
       if (selectedAnnotation?.type === 'text') {
         drewAnnotation.label = selectedAnnotation.label
       }
