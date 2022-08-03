@@ -10,6 +10,7 @@ const defaultParam = {
   onError: CONFIG.onError,
   requestInterceptor: CONFIG.requestInterceptor,
   imageId: IMAGE_ID,
+  timeout: CONFIG.timeout,
   imageScheme: IMAGE_LOADER_SCHEME.WADO,
 }
 const cornerstoneImage = CORNERSTONE_IMAGE_MOCK as unknown as CornerstoneImage
