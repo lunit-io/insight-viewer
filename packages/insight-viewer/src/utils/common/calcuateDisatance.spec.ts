@@ -2,7 +2,7 @@ import { Image } from '../../Viewer/types'
 import { calculateDistance } from './calculateDistance'
 
 describe('calculateDistance:', () => {
-  it('the distance should be calculated with PixelSpacing', () => {
+  it('should calculate with PixelSpacing', () => {
     const MOCK_IMAGE = {
       columnPixelSpacing: 0.7,
       rowPixelSpacing: 0.7,
@@ -14,7 +14,7 @@ describe('calculateDistance:', () => {
     expect(calculateDistance(20, MOCK_IMAGE)).toEqual(28.571428571428573)
   })
 
-  it('the distance should be calculated with ImagerPixelSpacing', () => {
+  it('should calculate with ImagerPixelSpacing', () => {
     const MOCK_IMAGE = {
       data: {
         string: () => '0.6\\0.6',
@@ -27,7 +27,7 @@ describe('calculateDistance:', () => {
     expect(calculateDistance(20, MOCK_IMAGE)).toEqual(33.333333333333336)
   })
 
-  it('the distance should be calculated with no PixelSpacing or ImagerPixelSpacing', () => {
+  it('should be calculate with no PixelSpacing or ImagerPixelSpacing', () => {
     const MOCK_IMAGE = {
       data: {
         string: () => undefined,
@@ -40,11 +40,10 @@ describe('calculateDistance:', () => {
     expect(calculateDistance(20, MOCK_IMAGE)).toEqual(20)
   })
 
-  it('the distance should be null', () => {
-    const MOCK_IMAGE = null
-    expect(calculateDistance(1, MOCK_IMAGE)).toEqual(1)
-    expect(calculateDistance(5, MOCK_IMAGE)).toEqual(5)
-    expect(calculateDistance(10, MOCK_IMAGE)).toEqual(10)
-    expect(calculateDistance(20, MOCK_IMAGE)).toEqual(20)
+  it('should calculate with null Image', () => {
+    expect(calculateDistance(1, null)).toEqual(1)
+    expect(calculateDistance(5, null)).toEqual(5)
+    expect(calculateDistance(10, null)).toEqual(10)
+    expect(calculateDistance(20, null)).toEqual(20)
   })
 })

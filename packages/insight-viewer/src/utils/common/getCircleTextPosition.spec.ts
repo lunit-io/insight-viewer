@@ -2,7 +2,7 @@ import { Point } from '../../types'
 import { getCircleTextPosition } from './getCircleTextPosition'
 
 describe('getCircleTextPosition: ', () => {
-  it('should return the correct position', () => {
+  it('should return the position', () => {
     const MOCK_POINT_1: Point = [0, 0]
     const MOCK_RADIUS_1 = 10
     const MOCK_POINT_2: Point = [10, 10]

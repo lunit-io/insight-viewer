@@ -1,11 +1,18 @@
 import { getAnnotationEditingPoints } from './getAnnotationEditingPoints'
 import { Point } from '../../types'
+import {
+  CIRCLE_MODE,
+  END_POINT_MODE,
+  FREE_LINE_MODE,
+  LINE_MODE,
+  MOVE_MODE,
+  POLYGON_MODE,
+  START_POINT_MODE,
+  TEXT_MODE,
+} from '../../mocks/const'
 
 describe('getAnnotationEditingPoints:', () => {
   it('the polygon should be move', () => {
-    const MODE = 'polygon'
-    const EDIT_MODE = 'move'
-
     const MOCK_PREV_POINTS: Point[] = [
       [175.54285714285712, 137.7028571428571],
       [174.81142857142856, 136.97142857142856],
@@ -70,8 +77,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        EDIT_MODE,
-        MODE,
+        MOVE_MODE,
+        POLYGON_MODE,
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -131,11 +138,7 @@ describe('getAnnotationEditingPoints:', () => {
     ])
     expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(1)
   })
-
   it('free line should be move', () => {
-    const MODE = 'freeLine'
-    const EDIT_MODE = 'move'
-
     const MOCK_PREV_POINTS: Point[] = [
       [175.54285714285712, 137.7028571428571],
       [174.81142857142856, 136.97142857142856],
@@ -155,8 +158,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        EDIT_MODE,
-        MODE,
+        MOVE_MODE,
+        FREE_LINE_MODE,
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -171,11 +174,7 @@ describe('getAnnotationEditingPoints:', () => {
     ])
     expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(1)
   })
-
   it('text should be move', () => {
-    const MODE = 'text'
-    const EDIT_MODE = 'move'
-
     const MOCK_PREV_POINTS: Point[] = [
       [201.87428571428566, 82.11428571428571],
       [319.63428571428557, 149.40571428571428],
@@ -188,21 +187,18 @@ describe('getAnnotationEditingPoints:', () => {
       MOCK_PREV_POINTS,
       MOCK_CURRENT_POINT,
       MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
+      MOVE_MODE,
+      TEXT_MODE,
       MOCK_SET_EDIT_POINT
     )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(1)
+
     expect(result).toStrictEqual([
       [201.87428571428566, 82.11428571428571],
       [319.63428571428557, 149.40571428571428],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(1)
   })
-
   it('text should be resize with firstPoint Mode', () => {
-    const MODE = 'text'
-    const EDIT_MODE = 'startPoint'
-
     const MOCK_PREV_POINTS: Point[] = [
       [129.46285714285713, 36.76571428571428],
       [242.83428571428578, 98.20571428571427],
@@ -211,25 +207,23 @@ describe('getAnnotationEditingPoints:', () => {
     const MOCK_EDIT_POINT: Point = [171.1542857142857, 60.90285714285714]
     const MOCK_SET_EDIT_POINT = jest.fn()
 
-    const result = getAnnotationEditingPoints(
-      MOCK_PREV_POINTS,
-      MOCK_CURRENT_POINT,
-      MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
-      MOCK_SET_EDIT_POINT
-    )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
-    expect(result).toStrictEqual([
+    expect(
+      getAnnotationEditingPoints(
+        MOCK_PREV_POINTS,
+        MOCK_CURRENT_POINT,
+        MOCK_EDIT_POINT,
+        START_POINT_MODE,
+        TEXT_MODE,
+        MOCK_SET_EDIT_POINT
+      )
+    ).toStrictEqual([
       [128.73142857142855, 36.76571428571428],
       [242.83428571428578, 98.20571428571427],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
   })
 
   it('text should be resize with endPoint Mode', () => {
-    const MODE = 'text'
-    const EDIT_MODE = 'endPoint'
-
     const MOCK_PREV_POINTS: Point[] = [
       [128.73142857142855, 36.76571428571428],
       [214.30857142857138, 76.26285714285713],
@@ -238,25 +232,23 @@ describe('getAnnotationEditingPoints:', () => {
     const MOCK_EDIT_POINT: Point = [243.56571428571425, 98.20571428571427]
     const MOCK_SET_EDIT_POINT = jest.fn()
 
-    const result = getAnnotationEditingPoints(
-      MOCK_PREV_POINTS,
-      MOCK_CURRENT_POINT,
-      MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
-      MOCK_SET_EDIT_POINT
-    )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
-    expect(result).toStrictEqual([
+    expect(
+      getAnnotationEditingPoints(
+        MOCK_PREV_POINTS,
+        MOCK_CURRENT_POINT,
+        MOCK_EDIT_POINT,
+        END_POINT_MODE,
+        TEXT_MODE,
+        MOCK_SET_EDIT_POINT
+      )
+    ).toStrictEqual([
       [128.73142857142855, 36.76571428571428],
       [214.30857142857138, 76.26285714285713],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
   })
 
   it('line should be move with firstPoint Mode', () => {
-    const MODE = 'line'
-    const EDIT_MODE = 'startPoint'
-
     const MOCK_PREV_POINTS: Point[] = [
       [129.46285714285713, 36.76571428571428],
       [242.83428571428578, 98.20571428571427],
@@ -269,20 +261,18 @@ describe('getAnnotationEditingPoints:', () => {
       MOCK_PREV_POINTS,
       MOCK_CURRENT_POINT,
       MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
+      START_POINT_MODE,
+      LINE_MODE,
       MOCK_SET_EDIT_POINT
     )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
+
     expect(result).toStrictEqual([
       [128.73142857142855, 36.76571428571428],
       [242.83428571428578, 98.20571428571427],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
   })
   it('line should be move with endPoint Mode', () => {
-    const MODE = 'line'
-    const EDIT_MODE = 'endPoint'
-
     const MOCK_PREV_POINTS: Point[] = [
       [128.73142857142855, 36.76571428571428],
       [214.30857142857138, 76.26285714285713],
@@ -291,24 +281,22 @@ describe('getAnnotationEditingPoints:', () => {
     const MOCK_EDIT_POINT: Point = [243.56571428571425, 98.20571428571427]
     const MOCK_SET_EDIT_POINT = jest.fn()
 
-    const result = getAnnotationEditingPoints(
-      MOCK_PREV_POINTS,
-      MOCK_CURRENT_POINT,
-      MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
-      MOCK_SET_EDIT_POINT
-    )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
-    expect(result).toStrictEqual([
+    expect(
+      getAnnotationEditingPoints(
+        MOCK_PREV_POINTS,
+        MOCK_CURRENT_POINT,
+        MOCK_EDIT_POINT,
+        END_POINT_MODE,
+        LINE_MODE,
+        MOCK_SET_EDIT_POINT
+      )
+    ).toStrictEqual([
       [128.73142857142855, 36.76571428571428],
       [214.30857142857138, 76.26285714285713],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
   })
   it('circle should be resize with firstPoint Mode', () => {
-    const MODE = 'circle'
-    const EDIT_MODE = 'startPoint'
-
     const MOCK_PREV_POINTS: Point[] = [
       [129.46285714285713, 36.76571428571428],
       [242.83428571428578, 98.20571428571427],
@@ -317,24 +305,22 @@ describe('getAnnotationEditingPoints:', () => {
     const MOCK_EDIT_POINT: Point = [171.1542857142857, 60.90285714285714]
     const MOCK_SET_EDIT_POINT = jest.fn()
 
-    const result = getAnnotationEditingPoints(
-      MOCK_PREV_POINTS,
-      MOCK_CURRENT_POINT,
-      MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
-      MOCK_SET_EDIT_POINT
-    )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
-    expect(result).toStrictEqual([
+    expect(
+      getAnnotationEditingPoints(
+        MOCK_PREV_POINTS,
+        MOCK_CURRENT_POINT,
+        MOCK_EDIT_POINT,
+        START_POINT_MODE,
+        CIRCLE_MODE,
+        MOCK_SET_EDIT_POINT
+      )
+    ).toStrictEqual([
       [129.46285714285713, 36.76571428571428],
       [128.73142857142855, 36.76571428571428],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
   })
   it('circle should be resize with endPoint Mode', () => {
-    const MODE = 'circle'
-    const EDIT_MODE = 'endPoint'
-
     const MOCK_PREV_POINTS: Point[] = [
       [128.73142857142855, 36.76571428571428],
       [242.83428571428578, 98.20571428571427],
@@ -347,15 +333,16 @@ describe('getAnnotationEditingPoints:', () => {
       MOCK_PREV_POINTS,
       MOCK_CURRENT_POINT,
       MOCK_EDIT_POINT,
-      EDIT_MODE,
-      MODE,
+      END_POINT_MODE,
+      CIRCLE_MODE,
       MOCK_SET_EDIT_POINT
     )
-    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
+
     expect(result).toStrictEqual([
       [128.73142857142855, 36.76571428571428],
       [214.30857142857138, 76.26285714285713],
     ])
+    expect(MOCK_SET_EDIT_POINT.mock.calls.length).toBe(0)
   })
   // TODO: ADD test case for circle Move
 })

@@ -2,7 +2,7 @@ import { Point } from '../../types'
 import { getMovedPoints } from './getMovedPoints'
 
 describe('getMovedPoints: ', () => {
-  it('should return correct moved points', () => {
+  it('should return the points moved points', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -15,11 +15,9 @@ describe('getMovedPoints: ', () => {
       [40, 60],
       [80, 100],
     ]
-
     const MOCK_CURRENT_POINT_1: Point = [5, 5]
     const MOCK_CURRENT_POINT_2: Point = [15, 15]
     const MOCK_CURRENT_POINT_3: Point = [25, 25]
-
     const MOCK_EDIT_POINT_1: Point = [30, 30]
     const MOCK_EDIT_POINT_2: Point = [50, 60]
     const MOCK_EDIT_POINT_3: Point = [70, 90]

@@ -3,7 +3,6 @@ import { MOCK_POLYGON_LIST, ID1_POLYGON, ID2_POLYGON } from '../../mocks/polygon
 
 describe('getIsPolygonAreaGreaterThanArea: ', () => {
   const MOCK_POLYGON_POINTS_1 = MOCK_POLYGON_LIST[0].points
-
   const MOCK_POLYGON_POINTS_2 = MOCK_POLYGON_LIST[1].points
   const MOCK_POLYGON_POINTS_3 = ID1_POLYGON.points
   const MOCK_POLYGON_POINTS_4 = ID2_POLYGON.points

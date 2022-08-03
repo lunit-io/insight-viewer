@@ -1,9 +1,10 @@
+import { CIRCLE_MODE, RULER_MODE } from '../../mocks/const'
 import { Point, Measurement } from '../../types'
 import { Image } from '../../Viewer/types'
 import { getMeasurement } from './getMeasurement'
 
 describe('getMeasurement: ', () => {
-  it('should return the correct measurement in ruler mode without text, image', () => {
+  it('should return the measurement in ruler mode without text, image', () => {
     const MOCK_POINTS: Point[] = [
       [0, 0],
       [10, 10],
@@ -11,25 +12,8 @@ describe('getMeasurement: ', () => {
       [30, 30],
       [40, 40],
     ]
-    const MOCK_TEXT_POINT = null
-    const MOCK_MEASUREMENTS: Measurement[] = []
-    const MOCK_IMAGE = null
-    const MOCK_MODE = 'ruler'
-
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, MOCK_MODE, MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
-      id: 1,
-      length: 14.142135623730951,
-      lineWidth: 1.5,
-      points: [
-        [0, 0],
-        [10, 10],
-      ],
-      textPoint: null,
-      type: 'ruler',
-      unit: 'px',
-    })
-
-    const MOCK_ADDED_MEASUREMENTS: Measurement[] = [
+    const MOCK_MEASUREMENTS_1: Measurement[] = []
+    const MOCK_MEASUREMENTS_2: Measurement[] = [
       {
         id: 1,
         length: 14.142135623730951,
@@ -43,7 +27,21 @@ describe('getMeasurement: ', () => {
         unit: 'px',
       },
     ]
-    const EXPECTED_2 = {
+
+    expect(getMeasurement(MOCK_POINTS, null, RULER_MODE, MOCK_MEASUREMENTS_1, null)).toStrictEqual({
+      id: 1,
+      length: 14.142135623730951,
+      lineWidth: 1.5,
+      points: [
+        [0, 0],
+        [10, 10],
+      ],
+      textPoint: null,
+      type: 'ruler',
+      unit: 'px',
+    })
+
+    expect(getMeasurement(MOCK_POINTS, null, RULER_MODE, MOCK_MEASUREMENTS_2, null)).toStrictEqual({
       id: 2,
       length: 14.142135623730951,
       lineWidth: 1.5,
@@ -54,14 +52,10 @@ describe('getMeasurement: ', () => {
       textPoint: null,
       type: 'ruler',
       unit: 'px',
-    }
-
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, MOCK_MODE, MOCK_ADDED_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual(
-      EXPECTED_2
-    )
+    })
   })
 
-  it('should return the correct measurement in ruler mode with text, image', () => {
+  it('should return the measurement in ruler mode with text, image', () => {
     const MOCK_POINTS: Point[] = [
       [0, 0],
       [10, 10],
@@ -75,9 +69,8 @@ describe('getMeasurement: ', () => {
       columnPixelSpacing: 0.6,
       rowPixelSpacing: 0.6,
     } as Image
-    const MOCK_MODE = 'ruler'
 
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, MOCK_MODE, MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
+    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, RULER_MODE, MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
       length: 8.48528137423857,
       lineWidth: 1.5,
@@ -91,7 +84,7 @@ describe('getMeasurement: ', () => {
     })
   })
 
-  it('should return the correct measurement in circle mode without text, image', () => {
+  it('should return the measurement in circle mode without text, image', () => {
     const MOCK_POINTS: Point[] = [
       [0, 0],
       [10, 10],
@@ -99,12 +92,9 @@ describe('getMeasurement: ', () => {
       [30, 30],
       [40, 40],
     ]
-    const MOCK_TEXT_POINT = null
     const MOCK_MEASUREMENTS: Measurement[] = []
-    const MOCK_IMAGE = null
-    const MOCK_MODE = 'circle'
 
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, MOCK_MODE, MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
+    expect(getMeasurement(MOCK_POINTS, null, CIRCLE_MODE, MOCK_MEASUREMENTS, null)).toStrictEqual({
       center: [0, 0],
       id: 1,
       lineWidth: 1.5,
@@ -135,12 +125,10 @@ describe('getMeasurement: ', () => {
       unit: 'px',
     }
 
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, MOCK_MODE, MOCK_ADDED_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual(
-      EXPECTED_2
-    )
+    expect(getMeasurement(MOCK_POINTS, null, CIRCLE_MODE, MOCK_ADDED_MEASUREMENTS, null)).toStrictEqual(EXPECTED_2)
   })
 
-  it('should return the correct measurement in circle mode with text, image', () => {
+  it('should return the measurement in circle mode with text, image', () => {
     const MOCK_POINTS: Point[] = [
       [0, 0],
       [10, 10],
@@ -154,9 +142,8 @@ describe('getMeasurement: ', () => {
       columnPixelSpacing: 0.6,
       rowPixelSpacing: 0.6,
     } as Image
-    const MOCK_MODE = 'ruler'
 
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, MOCK_MODE, MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
+    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, RULER_MODE, MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
       length: 8.48528137423857,
       lineWidth: 1.5,

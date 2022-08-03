@@ -4,7 +4,6 @@ import { getLineLength } from './getLineLength'
 
 describe('getLineLength: ', () => {
   it('should return the length of a line without Image', () => {
-    const MOCK_IMAGE = null
     const MOCK_START_POINT_1: Point = [0, 0]
     const MOCK_START_POINT_2: Point = [1, 1]
     const MOCK_START_POINT_3: Point = [2, 2]
@@ -13,15 +12,15 @@ describe('getLineLength: ', () => {
     const MOCK_END_POINT_2: Point = [10, 10]
     const MOCK_END_POINT_3: Point = [20, 20]
 
-    expect(getLineLength(MOCK_START_POINT_1, MOCK_END_POINT_1, MOCK_IMAGE)).toEqual({
+    expect(getLineLength(MOCK_START_POINT_1, MOCK_END_POINT_1, null)).toEqual({
       length: 7.0710678118654755,
       unit: 'px',
     })
-    expect(getLineLength(MOCK_START_POINT_2, MOCK_END_POINT_2, MOCK_IMAGE)).toEqual({
+    expect(getLineLength(MOCK_START_POINT_2, MOCK_END_POINT_2, null)).toEqual({
       length: 12.727922061357855,
       unit: 'px',
     })
-    expect(getLineLength(MOCK_START_POINT_3, MOCK_END_POINT_3, MOCK_IMAGE)).toEqual({
+    expect(getLineLength(MOCK_START_POINT_3, MOCK_END_POINT_3, null)).toEqual({
       length: 25.45584412271571,
       unit: 'px',
     })

@@ -3,8 +3,7 @@ import { Image } from '../../Viewer/types'
 import { getExistingMeasurementPoints } from './getExistingMeasurementPoints'
 
 describe('getExistingMeasurementPoints: ', () => {
-  it('should return the correct position without Image', () => {
-    const MOCK_IMAGE = null
+  it('should return the points without Image', () => {
     const MOCK_MEASUREMENT_1: Measurement = {
       center: [0, 0],
       id: 1,
@@ -24,17 +23,17 @@ describe('getExistingMeasurementPoints: ', () => {
       unit: 'px',
     }
 
-    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_1, MOCK_IMAGE)).toEqual([
+    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_1, null)).toEqual([
       [0, 0],
       [20, 0],
     ])
-    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_2, MOCK_IMAGE)).toEqual([
+    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_2, null)).toEqual([
       [10, 20],
       [40, 20],
     ])
   })
 
-  it('should return the correct position with Image', () => {
+  it('should return the points with Image', () => {
     const MOCK_IMAGE = { columnPixelSpacing: 0.6, rowPixelSpacing: 0.6 } as Image
     const MOCK_MEASUREMENT_1: Measurement = {
       center: [0, 0],

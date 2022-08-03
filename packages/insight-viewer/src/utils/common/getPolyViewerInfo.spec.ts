@@ -1,9 +1,8 @@
-import { Point } from '../../types'
+import { mockPixelToCanvas } from '../../mocks/utils'
 import { getPolyViewerInfo, GetPolyViewerInfoProps } from './getPolyViewerInfo'
 
 describe('getPolyViewerInfo: ', () => {
   it('should return correct poly viewer info', () => {
-    const MOCK_PIXEL_TO_CANVAS = ([x, y]: Point): Point => [x, y]
     const MOCK_PARAM_1: GetPolyViewerInfoProps = {
       annotation: {
         id: 2,
@@ -28,7 +27,7 @@ describe('getPolyViewerInfo: ', () => {
         ],
         hasArrowHead: true,
       },
-      pixelToCanvas: MOCK_PIXEL_TO_CANVAS,
+      pixelToCanvas: mockPixelToCanvas,
     }
     const MOCK_PARAM_2: GetPolyViewerInfoProps = {
       annotation: {
@@ -44,7 +43,7 @@ describe('getPolyViewerInfo: ', () => {
       },
       showOutline: true,
       hoveredAnnotation: null,
-      pixelToCanvas: MOCK_PIXEL_TO_CANVAS,
+      pixelToCanvas: mockPixelToCanvas,
     }
 
     const MOCK_PARAM_3: GetPolyViewerInfoProps = {
@@ -61,7 +60,7 @@ describe('getPolyViewerInfo: ', () => {
       },
       showOutline: true,
       hoveredAnnotation: null,
-      pixelToCanvas: MOCK_PIXEL_TO_CANVAS,
+      pixelToCanvas: mockPixelToCanvas,
     }
 
     expect(getPolyViewerInfo(MOCK_PARAM_1)).toStrictEqual({
@@ -90,6 +89,6 @@ describe('getPolyViewerInfo: ', () => {
       polygonLabel: 6,
       polygonPoints: '404.47999999999996,145.01714285714283 45.34857142857142,262.04571428571427',
     })
-    // TODO: polygonAttributes 이 undefined 아닌 케이스 추가하기
+    // TODO: 기댓값의 polygonAttributes 이 undefined 아닌 케이스 추가하기
   })
 })

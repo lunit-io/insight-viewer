@@ -1,11 +1,10 @@
+import { TEXT_MOVE_MODE } from '../../mocks/const'
 import { Measurement, Point } from '../../types'
 import { getTextPosition } from './getTextPosition'
 
 describe('getTextPosition: ', () => {
   it('should return null when whole params are nullish', () => {
-    const MOCK_MEASUREMENT = null
-
-    expect(getTextPosition(MOCK_MEASUREMENT)).toEqual(null)
+    expect(getTextPosition(null)).toEqual(null)
   })
   it('should return null when only measurement is exist', () => {
     const MOCK_MEASUREMENT_1: Measurement = {
@@ -44,7 +43,6 @@ describe('getTextPosition: ', () => {
     expect(getTextPosition(MOCK_MEASUREMENT_3)).toEqual([40, 10])
   })
   it('should return the correct point when edit mode is textMove and currentPosition is exist', () => {
-    const TEXT_MOVE_MODE = 'textMove'
     const MOCK_MEASUREMENT: Measurement = {
       center: [0, 0],
       id: 1,

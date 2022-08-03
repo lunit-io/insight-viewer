@@ -1,9 +1,9 @@
+import { CIRCLE_MODE, RULER_MODE } from '../../mocks/const'
 import { Point } from '../../types'
 import { getMeasurementDrawingPoints } from './getMeasurementDrawingPoints'
 
 describe('getMeasurementDrawingPoints: ', () => {
-  it('should return correct points ruler mode', () => {
-    const RULER_MODE = 'ruler'
+  it('should return points in ruler mode', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -34,8 +34,7 @@ describe('getMeasurementDrawingPoints: ', () => {
       [25, 25],
     ])
   })
-  it('should return correct points circle mode', () => {
-    const CIRCLE_MODE = 'circle'
+  it('should return the points in circle mode', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],

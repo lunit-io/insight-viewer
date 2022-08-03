@@ -3,7 +3,7 @@ import { Image } from '../../Viewer/types'
 import { getCircleCenterAndEndPoint } from './getCircleCenterAndEndPoint'
 
 describe('getCircleCenterAndEndPoint: ', () => {
-  it('should return the correct position', () => {
+  it('should return the points', () => {
     const MOCK_IMAGE = {
       columnPixelSpacing: 0.7,
       rowPixelSpacing: 0.7,

@@ -2,7 +2,7 @@ import { Point, Annotation, Measurement } from '../../types'
 import { getEditPointPosition } from './getEditPointPosition'
 
 describe('getEditPointPosition: ', () => {
-  it('should return the correct position without editTarget', () => {
+  it('should return the points without editTarget', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
@@ -16,7 +16,7 @@ describe('getEditPointPosition: ', () => {
     expect(getEditPointPosition(MOCK_POINT_2, null)).toEqual([30, 30, 50, 50])
   })
 
-  it('should return the correct position with line type editTarget', () => {
+  it('should return the points with line type editTarget', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
@@ -41,7 +41,7 @@ describe('getEditPointPosition: ', () => {
     expect(getEditPointPosition(MOCK_POINT_2, MOCK_EDIT_TARGET)).toEqual([30, 30, 50, 50])
   })
 
-  it('should return the correct position with circle type editTarget', () => {
+  it('should return the points with circle type editTarget', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],

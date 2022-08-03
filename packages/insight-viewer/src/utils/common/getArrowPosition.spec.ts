@@ -2,14 +2,14 @@ import { Point } from '../../types'
 import { getArrowPosition } from './getArrowPosition'
 
 describe('getArrowPosition:', () => {
-  it('the arrow position return empty array when input array length is same or lower than 2', () => {
+  it('should return empty array when input array length is same or lower than 2', () => {
     const MOCK_EMPTY_POINTS: Point[] = []
     const MOCK_LENGTH_ONE_POINTS: Point[] = [[0, 0]]
 
     expect(getArrowPosition(MOCK_EMPTY_POINTS)).toEqual([])
     expect(getArrowPosition(MOCK_LENGTH_ONE_POINTS)).toEqual([])
   })
-  it('the arrow position return empty array when input array length is bigger than 2', () => {
+  it('should return empty array when input array length is bigger than 2', () => {
     const MOCK_POINTS_1: Point[] = [
       [10, 20],
       [30, 40],
