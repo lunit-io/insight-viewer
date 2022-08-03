@@ -1,5 +1,5 @@
 import { ARROW_HEAD, CIRCLE_MODE, LINE_MODE, NORMAL_HEAD, TEXT_MODE } from '../../mocks/const'
-import { Point, Annotation } from '../../types'
+import { Point } from '../../types'
 import { Image } from '../../Viewer/types'
 import { getDrewAnnotation } from './getDrewAnnotation'
 
@@ -13,25 +13,12 @@ describe('getDrewAnnotation: ', () => {
       [100, 100],
       [150, 150],
     ]
+    const MOCK_ID_1 = 10
+    const MOCK_ID_2 = 15
 
-    const MOCK_ANNOTATION_1: Annotation[] = []
-    const MOCK_ANNOTATION_2: Annotation[] = [
-      {
-        hasArrowHead: false,
-        id: 1,
-        labelPosition: [-2, -5],
-        lineWidth: 1.5,
-        points: [
-          [0, 0],
-          [50, 50],
-        ],
-        type: 'line',
-      },
-    ]
-
-    expect(getDrewAnnotation(null, MOCK_POINTS_1, LINE_MODE, NORMAL_HEAD, MOCK_ANNOTATION_1)).toStrictEqual({
+    expect(getDrewAnnotation(null, MOCK_POINTS_1, MOCK_ID_1, LINE_MODE, NORMAL_HEAD)).toStrictEqual({
       hasArrowHead: false,
-      id: 1,
+      id: 10,
       labelPosition: [-2, -5],
       lineWidth: 1.5,
       points: [
@@ -40,9 +27,9 @@ describe('getDrewAnnotation: ', () => {
       ],
       type: 'line',
     })
-    expect(getDrewAnnotation(null, MOCK_POINTS_2, LINE_MODE, ARROW_HEAD, MOCK_ANNOTATION_2)).toStrictEqual({
+    expect(getDrewAnnotation(null, MOCK_POINTS_2, MOCK_ID_2, LINE_MODE, ARROW_HEAD)).toStrictEqual({
       hasArrowHead: true,
-      id: 2,
+      id: 15,
       labelPosition: [98, 95],
       lineWidth: 1.5,
       points: [
@@ -65,24 +52,12 @@ describe('getDrewAnnotation: ', () => {
       columnPixelSpacing: 0.6,
       rowPixelSpacing: 0.6,
     } as Image
+    const MOCK_ID_1 = 40
+    const MOCK_ID_2 = 99
 
-    const MOCK_ANNOTATION_1: Annotation[] = []
-    const MOCK_ANNOTATION_2: Annotation[] = [
-      {
-        hasArrowHead: false,
-        id: 1,
-        labelPosition: [-2, -5],
-        lineWidth: 1.5,
-        points: [
-          [0, 0],
-          [50, 50],
-        ],
-        type: 'line',
-      },
-    ]
-    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_1, LINE_MODE, NORMAL_HEAD, MOCK_ANNOTATION_1)).toStrictEqual({
+    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_1, MOCK_ID_1, LINE_MODE, NORMAL_HEAD)).toStrictEqual({
       hasArrowHead: false,
-      id: 1,
+      id: 40,
       labelPosition: [-2, -5],
       lineWidth: 1.5,
       points: [
@@ -91,9 +66,9 @@ describe('getDrewAnnotation: ', () => {
       ],
       type: 'line',
     })
-    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_1, LINE_MODE, ARROW_HEAD, MOCK_ANNOTATION_1)).toStrictEqual({
+    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_1, MOCK_ID_1, LINE_MODE, ARROW_HEAD)).toStrictEqual({
       hasArrowHead: true,
-      id: 1,
+      id: 40,
       labelPosition: [-2, -5],
       lineWidth: 1.5,
       points: [
@@ -102,8 +77,8 @@ describe('getDrewAnnotation: ', () => {
       ],
       type: 'line',
     })
-    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_1, TEXT_MODE, NORMAL_HEAD, MOCK_ANNOTATION_1)).toStrictEqual({
-      id: 1,
+    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_1, MOCK_ID_2, TEXT_MODE, NORMAL_HEAD)).toStrictEqual({
+      id: 99,
       label: '',
       labelPosition: [0, 0],
       lineWidth: 1.5,
@@ -113,8 +88,8 @@ describe('getDrewAnnotation: ', () => {
       ],
       type: 'text',
     })
-    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_2, CIRCLE_MODE, NORMAL_HEAD, MOCK_ANNOTATION_2)).toStrictEqual({
-      id: 2,
+    expect(getDrewAnnotation(MOCK_IMAGE, MOCK_POINTS_2, MOCK_ID_2, CIRCLE_MODE, NORMAL_HEAD)).toStrictEqual({
+      id: 99,
       center: [100, 100],
       labelPosition: [100, 100],
       lineWidth: 1.5,
