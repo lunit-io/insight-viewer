@@ -25,13 +25,20 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: ['./tsconfig.base.json', './packages/**/tsconfig.*.json'],
-    tsconfigRootDir: __dirname,
+    project: ['packages/**/tsconfig.*.json'],
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'import'],
   settings: {
     react: {
       version: '17.0.2',
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        project: ['packages/**/tsconfig.*.json'],
+      },
     },
   },
   rules: {
