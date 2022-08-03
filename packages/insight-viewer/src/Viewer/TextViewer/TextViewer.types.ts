@@ -1,3 +1,3 @@
-import { TextAnnotation, AnnotationViewerProps } from '../../types'
+import { TextAnnotation, AnnotationViewerProps } from 'types'
 
 export type TextViewerProps = AnnotationViewerProps<TextAnnotation>

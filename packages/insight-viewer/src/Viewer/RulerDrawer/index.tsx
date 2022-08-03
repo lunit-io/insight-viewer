@@ -1,13 +1,11 @@
 import React, { ReactElement } from 'react'
 
-import { Point } from '../../types'
-
+import { Point } from 'types'
+import { getRulerTextPosition } from 'utils/common/getRulerTextPosition'
+import { getRulerConnectingLine } from 'utils/common/getRulerConnectingLine'
+import { useOverlayContext } from 'contexts'
 import { RulerDrawerProps } from './RulerDrawer.types'
 import { polyline, textStyle } from './RulerDrawer.styles'
-
-import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
-import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
-import { useOverlayContext } from '../../contexts'
 
 export function RulerDrawer({
   measurement,

@@ -1,4 +1,4 @@
-import { Viewport } from '../../types'
+import { Viewport } from 'types'
 
 export const DefaultViewport: Viewport = {
   scale: 0,

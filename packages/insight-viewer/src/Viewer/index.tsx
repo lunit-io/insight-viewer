@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
+import { WithChildren, Viewport } from 'types'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren, Viewport } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'

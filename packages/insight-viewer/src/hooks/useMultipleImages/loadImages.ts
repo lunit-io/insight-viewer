@@ -2,9 +2,9 @@
  * @fileoverview Loads images sequentially.
  */
 import { from, concatMap, map, catchError, Observable } from 'rxjs'
-import { loadedCountMessageMessage } from '../../utils/messageService'
-import { normalizeError } from '../../utils/common'
-import { RequestInterceptor, ImageLoaderScheme } from '../../types'
+import { loadedCountMessageMessage } from 'utils/messageService'
+import { normalizeError } from 'utils/common'
+import { RequestInterceptor, ImageLoaderScheme } from 'types'
 import { Loaded } from './types'
 import { loadCornerstoneImages } from './loadCornerstoneImages'
 

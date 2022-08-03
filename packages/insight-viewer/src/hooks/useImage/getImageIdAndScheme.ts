@@ -1,14 +1,12 @@
-import { IMAGE_LOADER_SCHEME } from '../../const'
-import { ImageId, ImageLoaderScheme } from '../../types'
+import { IMAGE_LOADER_SCHEME } from 'const'
+import { ImageId, ImageLoaderScheme } from 'types'
 
 export interface ImageIdAndScheme {
   id: string | undefined
   scheme: ImageLoaderScheme | undefined
 }
 
-export function getItem(
-  item: string | string[] | undefined
-): string | undefined {
+export function getItem(item: string | string[] | undefined): string | undefined {
   if (item === undefined) return undefined
   if (Array.isArray(item)) return item[0]
   return item

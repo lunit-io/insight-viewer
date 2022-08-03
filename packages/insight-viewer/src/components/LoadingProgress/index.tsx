@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Subscription, merge } from 'rxjs'
-import {
-  loadingProgressMessage,
-  loadedCountMessageMessage,
-} from '../../utils/messageService'
-import { getProgress } from '../../utils/common/getProgress'
-import { ProgressComponent } from '../../types'
+import { loadingProgressMessage, loadedCountMessageMessage } from 'utils/messageService'
+import { getProgress } from 'utils/common/getProgress'
+import { ProgressComponent } from 'types'
 
 const style = {
   position: 'absolute',
@@ -15,11 +12,7 @@ const style = {
   textAlign: 'center',
 } as const
 
-export default function LoadingProgress({
-  Progress,
-}: {
-  Progress: ProgressComponent
-}): JSX.Element {
+export default function LoadingProgress({ Progress }: { Progress: ProgressComponent }): JSX.Element {
   const subscriptionRef = useRef<Subscription>()
   const [{ progress, hidden }, setState] = useState<{
     progress?: number

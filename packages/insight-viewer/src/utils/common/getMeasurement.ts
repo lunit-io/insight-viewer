@@ -1,7 +1,7 @@
+import { Point, Measurement, MeasurementMode } from 'types'
 import { getCircleRadius } from './getCircleRadius'
 import { getLineLength } from './getLineLength'
 import { Image } from '../../Viewer/types'
-import { Point, Measurement, MeasurementMode } from '../../types'
 
 export function getMeasurement(
   points: Point[],

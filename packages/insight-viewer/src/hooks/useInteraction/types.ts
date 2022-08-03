@@ -1,6 +1,6 @@
+import { CornerstoneViewport } from 'utils/cornerstoneHelper'
+import { Element, Viewport, OnViewportChange } from 'types'
 import { DRAG, PRIMARY_DRAG, SECONDARY_DRAG, PRIMARY_CLICK, SECONDARY_CLICK, MOUSEWHEEL } from './const'
-import { CornerstoneViewport } from '../../utils/cornerstoneHelper'
-import { Element, Viewport, OnViewportChange } from '../../types'
 
 export type DragAction = keyof typeof DRAG
 /** @deprecated in flavor of DragAction */

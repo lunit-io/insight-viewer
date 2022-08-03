@@ -1,4 +1,4 @@
-import { Point } from '../../types'
+import { Point } from 'types'
 
 export function getRulerConnectingLine(points: [Point, Point], textPoint: Point): [Point, Point] {
   const [startPoint, endPoint] = points

@@ -1,5 +1,5 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Measurement } from '../../types'
+import { Measurement } from 'types'
 
 export interface MeasurementViewerProps {
   width?: number

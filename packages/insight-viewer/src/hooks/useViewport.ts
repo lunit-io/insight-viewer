@@ -2,8 +2,8 @@
  * @fileoverview Handles the Viewer's viewport.
  */
 import { useState } from 'react'
-import { Viewport, BasicViewport } from '../types'
-import { BASE_VIEWPORT } from '../const'
+import { Viewport, BasicViewport } from 'types'
+import { BASE_VIEWPORT } from 'const'
 
 /**
  * @param initialViewport The user-defined initial viewport.
@@ -19,9 +19,7 @@ export function useViewport(initialViewport?: Partial<BasicViewport>): {
   initialized: boolean
 } {
   const [viewport, setViewport] = useState<Viewport>({
-    ...(initialViewport
-      ? { ...BASE_VIEWPORT, _initialViewport: initialViewport }
-      : BASE_VIEWPORT),
+    ...(initialViewport ? { ...BASE_VIEWPORT, _initialViewport: initialViewport } : BASE_VIEWPORT),
   })
 
   function resetViewport() {

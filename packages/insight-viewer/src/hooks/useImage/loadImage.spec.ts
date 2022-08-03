@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
-import { CONFIG, IMAGE_LOADER_SCHEME } from '../../const'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { CONFIG, IMAGE_LOADER_SCHEME } from 'const'
+import { CornerstoneImage } from 'utils/cornerstoneHelper'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
 import { loadImage } from './loadImage'
 import { loadCornerstoneImage } from './loadCornerstoneImage'

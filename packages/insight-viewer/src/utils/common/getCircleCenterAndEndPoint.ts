@@ -1,6 +1,5 @@
+import { Point } from 'types'
 import { calculateDistance } from './calculateDistance'
-
-import { Point } from '../../types'
 import { Image } from '../../Viewer/types'
 
 export function getCircleCenterAndEndPoint(center: Point, radius: number, image: Image | null): [Point, Point] {

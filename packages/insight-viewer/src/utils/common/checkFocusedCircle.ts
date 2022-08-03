@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import { Annotation, Point } from '../../types'
+import { Annotation, Point } from 'types'
 
 export function checkFocusedCircle<T extends Annotation>(annotations: T[], cursor: Point): T | null {
   const result: T | undefined = annotations.find(annotation => {

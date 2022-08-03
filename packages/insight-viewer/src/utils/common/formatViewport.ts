@@ -1,5 +1,5 @@
+import { Viewport } from 'types'
 import { CornerstoneViewport } from '../cornerstoneHelper/types'
-import { Viewport } from '../../types'
 import { DefaultViewport } from './const'
 
 // Format Cornerstone's viewport to viewer's viewport prop.

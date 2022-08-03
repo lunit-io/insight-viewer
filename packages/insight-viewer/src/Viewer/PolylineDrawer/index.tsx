@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import polylabel from 'polylabel'
-
+import { useOverlayContext } from 'contexts'
+import { getArrowPosition } from 'utils/common/getArrowPosition'
 import { PolylineDrawerProps } from './PolylineDrawer.types'
 import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
 import { textStyle } from '../AnnotationViewer/AnnotationViewer.styles'
-import { getArrowPosition } from '../../utils/common/getArrowPosition'
-import { useOverlayContext } from '../../contexts'
 
 const PolylineElement = ({
   isPolygon,

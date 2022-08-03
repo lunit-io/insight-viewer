@@ -1,4 +1,4 @@
-import { OverlayContext } from '../../contexts'
+import { OverlayContext } from 'contexts'
 
 export interface HeatmapViewerProps {
   /** Heatmap data format resulting from AI */
@@ -8,11 +8,7 @@ export interface HeatmapViewerProps {
   threshold: number
 }
 
-export interface HeatmapDrawProps
-  extends Pick<
-    OverlayContext,
-    'setToPixelCoordinateSystem' | 'enabledElement'
-  > {
+export interface HeatmapDrawProps extends Pick<OverlayContext, 'setToPixelCoordinateSystem' | 'enabledElement'> {
   baseCanvas: HTMLCanvasElement | null
   heatmapData: ImageData | undefined
 }

@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react'
-import { Element, Viewport, OnViewportChange } from '../../types'
+import { Element, Viewport, OnViewportChange } from 'types'
 import { Image } from '../../Viewer/types'
 
 export interface UseImageDisplay {

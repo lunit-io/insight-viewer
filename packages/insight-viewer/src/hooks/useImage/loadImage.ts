@@ -1,8 +1,8 @@
 /**
  * @fileoverview Loads images with cornerstone.js.
  */
-import { normalizeError } from '../../utils/common'
-import { ImageLoaderScheme } from '../../types'
+import { normalizeError } from 'utils/common'
+import { ImageLoaderScheme } from 'types'
 import { Props } from './types'
 import { loadCornerstoneImage } from './loadCornerstoneImage'
 import { ImageWithoutKey } from '../../Viewer/types'

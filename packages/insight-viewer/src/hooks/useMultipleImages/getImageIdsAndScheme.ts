@@ -1,5 +1,5 @@
-import { IMAGE_LOADER_SCHEME } from '../../const'
-import { ImageId, ImageLoaderScheme } from '../../types'
+import { IMAGE_LOADER_SCHEME } from 'const'
+import { ImageId, ImageLoaderScheme } from 'types'
 
 export interface ImageIdsAndScheme {
   ids: string[] | undefined

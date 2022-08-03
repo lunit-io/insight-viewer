@@ -1,5 +1,5 @@
-import { LOADING_STATE } from '../../const'
-import { LoadingState } from '../../types'
+import { LOADING_STATE } from 'const'
+import { LoadingState } from 'types'
 
 export function getLoadingStateMap(length: number): Map<number, LoadingState> {
   const arr = Array(length).fill(LOADING_STATE.INITIAL)
@@ -24,7 +24,5 @@ export function updateLoadedStates({
 }): Map<number, LoadingState> {
   return value === size // If it is the last image, do not set next image's loading state.
     ? stateMap.set(value - 1, LOADING_STATE.SUCCESS)
-    : stateMap
-        .set(value - 1, LOADING_STATE.SUCCESS)
-        .set(value, LOADING_STATE.LOADING)
+    : stateMap.set(value - 1, LOADING_STATE.SUCCESS).set(value, LOADING_STATE.LOADING)
 }

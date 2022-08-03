@@ -1,4 +1,4 @@
-import { Point, MeasurementMode } from '../../types'
+import { Point, MeasurementMode } from 'types'
 
 export function getMeasurementDrawingPoints(
   prevPoints: [Point, Point],

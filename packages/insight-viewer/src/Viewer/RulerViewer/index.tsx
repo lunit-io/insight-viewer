@@ -1,13 +1,11 @@
 import React, { ReactElement } from 'react'
 
-import { Point } from '../../types'
-
+import { Point } from 'types'
+import { getRulerTextPosition } from 'utils/common/getRulerTextPosition'
+import { getRulerConnectingLine } from 'utils/common/getRulerConnectingLine'
+import { useOverlayContext } from 'contexts'
 import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
-
-import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
-import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
-import { useOverlayContext } from '../../contexts'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()

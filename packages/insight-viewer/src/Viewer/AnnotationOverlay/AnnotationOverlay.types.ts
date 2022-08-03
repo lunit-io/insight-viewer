@@ -1,4 +1,4 @@
-import { Annotation, AnnotationMode, LineHeadMode } from '../../types'
+import { Annotation, AnnotationMode, LineHeadMode } from 'types'
 import { AnnotationViewerProps } from '../AnnotationViewer/AnnotationViewer.types'
 
 export interface AnnotationOverlayProps extends AnnotationViewerProps {

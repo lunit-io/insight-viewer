@@ -1,4 +1,4 @@
-import { Point, EditMode, MeasurementMode } from '../../types'
+import { Point, EditMode, MeasurementMode } from 'types'
 import { getMovedPoints } from './getMovedPoints'
 
 export function getMeasurementEditingPoints(

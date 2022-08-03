@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { EditMode } from '../../types'
-import { EDIT_CIRCLE_RADIUS } from '../../const'
+import { EditMode } from 'types'
+import { EDIT_CIRCLE_RADIUS } from 'const'
 import { circleStyle } from '../../Viewer/MeasurementDrawer/MeasurementDrawer.styles'
 
 interface EditPointerProps {

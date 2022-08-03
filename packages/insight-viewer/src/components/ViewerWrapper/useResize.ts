@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
-import { resize } from '../../utils/cornerstoneHelper'
-import { Element } from '../../types'
+import { resize } from 'utils/cornerstoneHelper'
+import { Element } from 'types'
 
 export default function useResize(ref: React.ForwardedRef<HTMLDivElement>): {
   resizeRef: React.RefObject<HTMLDivElement>

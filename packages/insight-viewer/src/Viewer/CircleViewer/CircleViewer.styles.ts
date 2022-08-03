@@ -1,4 +1,4 @@
-import { ViewerStyle } from '../../types'
+import { ViewerStyle } from 'types'
 
 export const circleStyle: ViewerStyle = {
   default: {

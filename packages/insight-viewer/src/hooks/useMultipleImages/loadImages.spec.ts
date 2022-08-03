@@ -1,7 +1,7 @@
-import { CONFIG, IMAGE_LOADER_SCHEME } from '../../const'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { CONFIG, IMAGE_LOADER_SCHEME } from 'const'
+import { CornerstoneImage } from 'utils/cornerstoneHelper'
+import { ViewerError } from 'types'
 import { CORNERSTONE_IMAGE_MOCK } from '../../mocks/const'
-import { ViewerError } from '../../types'
 import { loadImages } from './loadImages'
 import { Loaded } from './types'
 import { loadCornerstoneImages } from './loadCornerstoneImages'
@@ -31,9 +31,7 @@ function handleMock({ errorIndex = -1 }) {
   return mockLoadCornerstoneImages.mockImplementation(() => {
     count += 1
     if (errorIndex === count) {
-      return Promise.reject(
-        new Error(`${ErrorTexts[errorIndex]} image fetch fails`)
-      )
+      return Promise.reject(new Error(`${ErrorTexts[errorIndex]} image fetch fails`))
     }
     return Promise.resolve(cornerstoneImage)
   })

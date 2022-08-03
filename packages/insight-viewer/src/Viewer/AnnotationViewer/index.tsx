@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useOverlayContext } from '../../contexts'
+import { useOverlayContext } from 'contexts'
 import { svgStyle } from './AnnotationViewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'

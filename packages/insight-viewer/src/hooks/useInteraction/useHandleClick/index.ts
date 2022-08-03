@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { fromEvent, map, filter, tap, Subscription } from 'rxjs'
+import { Viewport } from 'types'
+import { getViewport } from 'utils/cornerstoneHelper'
 import { ViewportInteraction } from '../types'
-import { Viewport } from '../../../types'
 import { MOUSE_BUTTON, PRIMARY_CLICK, SECONDARY_CLICK } from '../const'
 import { preventContextMenu } from '../utils'
-import { getViewport } from '../../../utils/cornerstoneHelper'
 
 type ClickType = typeof PRIMARY_CLICK | typeof SECONDARY_CLICK
 

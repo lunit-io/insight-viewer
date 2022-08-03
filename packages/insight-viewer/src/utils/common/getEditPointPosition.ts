@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import { Point, Annotation, Measurement } from '../../types'
+import { Point, Annotation, Measurement } from 'types'
 import { getCircleEditPoints } from './getCircleEditPoints'
 import { getLineLengthWithoutImage } from './getLineLengthWithoutImage'
 

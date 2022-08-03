@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 
+import { Point, EditMode, Measurement, DrawingMeasurement } from 'types'
+import { useOverlayContext } from 'contexts'
+
+import { getMeasurement } from 'utils/common/getMeasurement'
+import { getTextPosition } from 'utils/common/getTextPosition'
+import { getMeasurementPoints } from 'utils/common/getMeasurementPoints'
+import { getDrawingMeasurement } from 'utils/common/getDrawingMeasurement'
+import { getEditPointPosition, EditPoints } from 'utils/common/getEditPointPosition'
+import { getExistingMeasurementPoints } from 'utils/common/getExistingMeasurementPoints'
+
 import { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
-import { Point, EditMode, Measurement, DrawingMeasurement } from '../../types'
-import { useOverlayContext } from '../../contexts'
-
-import { getMeasurement } from '../../utils/common/getMeasurement'
-import { getTextPosition } from '../../utils/common/getTextPosition'
-import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
-import { getDrawingMeasurement } from '../../utils/common/getDrawingMeasurement'
-import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
-import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
-
 import useDrawingHandler from '../useDrawingHandler'
 
 export default function useMeasurementPointsHandler({

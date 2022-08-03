@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useRef, useState } from 'react'
 
+import { TextAnnotation } from 'types'
 import { svgStyle } from './AnnotationDrawer.styles'
-import { TextAnnotation } from '../../types'
 import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useAnnotationPointsHandler from '../../hooks/useAnnotationPointsHandler'
 import { PolylineDrawer } from '../PolylineDrawer'

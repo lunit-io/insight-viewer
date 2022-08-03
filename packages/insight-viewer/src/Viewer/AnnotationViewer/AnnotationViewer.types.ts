@@ -1,5 +1,5 @@
 import { CSSProperties, SVGProps } from 'react'
-import { Annotation } from '../../types'
+import { Annotation } from 'types'
 
 export interface AnnotationViewerProps {
   width?: number

@@ -1,6 +1,5 @@
+import { Point, Measurement, DrawingMeasurement } from 'types'
 import { getLineLengthWithoutImage } from './getLineLengthWithoutImage'
-
-import { Point, Measurement, DrawingMeasurement } from '../../types'
 
 export function getDrawingMeasurement(
   points: [Point, Point],

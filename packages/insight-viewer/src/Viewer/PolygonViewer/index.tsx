@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 
-import { PolygonViewerProps } from './PolygonViewer.types'
-import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
+import { useOverlayContext } from 'contexts'
+import { getPolyViewerInfo } from 'utils/common/getPolyProps'
 import { textStyle, polygonStyle } from '../AnnotationViewer/AnnotationViewer.styles'
-import { useOverlayContext } from '../../contexts'
+import { PolygonViewerProps } from './PolygonViewer.types'
 
 export function PolygonViewer({
   annotation,

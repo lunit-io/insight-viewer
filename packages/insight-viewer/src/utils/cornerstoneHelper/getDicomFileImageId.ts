@@ -1,4 +1,4 @@
-import { CONFIG } from '../../const'
+import { CONFIG } from 'const'
 import setWadoImageLoader from './setWadoImageLoader'
 
 export function getDicomFileImageId(file: File): Promise<string> {

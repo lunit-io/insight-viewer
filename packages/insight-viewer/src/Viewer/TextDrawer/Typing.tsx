@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
+import { TEXT_PADDING } from 'const'
+import { useOverlayContext } from 'contexts'
 import { TypingProps } from './Typing.types'
 import { textStyle, textBoxStyle } from '../AnnotationViewer/AnnotationViewer.styles'
-import { useOverlayContext } from '../../contexts'
-import { TEXT_PADDING } from '../../const'
 
 export function Typing({ points, onFinish }: TypingProps): React.ReactElement | null {
   const [editArea, setEditArea] = useState<HTMLDivElement | null>()

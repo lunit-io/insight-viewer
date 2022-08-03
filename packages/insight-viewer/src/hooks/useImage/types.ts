@@ -1,4 +1,4 @@
-import { HTTP, RequestInterceptor, ImageLoaderScheme } from '../../types'
+import { HTTP, RequestInterceptor, ImageLoaderScheme } from 'types'
 import { ImageWithoutKey } from '../../Viewer/types'
 
 export type Props = {

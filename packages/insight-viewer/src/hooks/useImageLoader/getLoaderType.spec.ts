@@ -1,5 +1,5 @@
-import { IMAGE_LOADER_SCHEME, LOADER_TYPE } from '../../const'
-import { ImageId } from '../../types'
+import { IMAGE_LOADER_SCHEME, LOADER_TYPE } from 'const'
+import { ImageId } from 'types'
 import { getLoaderType } from './getLoaderType'
 
 const file = 'wadouri:https://example/CT000000.dcm'

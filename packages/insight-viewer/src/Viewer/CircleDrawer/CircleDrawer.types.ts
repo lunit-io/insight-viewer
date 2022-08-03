@@ -1,4 +1,4 @@
-import { EditMode, DrawingCircleMeasurement } from '../../types'
+import { EditMode, DrawingCircleMeasurement } from 'types'
 
 export interface CircleDrawerProps {
   isSelectedMode: boolean

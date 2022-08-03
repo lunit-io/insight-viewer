@@ -1,7 +1,7 @@
-import { loadImage } from '../../utils/cornerstoneHelper'
-import { RequestInterceptor, ImageLoaderScheme } from '../../types'
-import { IMAGE_LOADER_SCHEME } from '../../const'
-import { getHttpClient } from '../../utils/httpClient'
+import { loadImage } from 'utils/cornerstoneHelper'
+import { RequestInterceptor, ImageLoaderScheme } from 'types'
+import { IMAGE_LOADER_SCHEME } from 'const'
+import { getHttpClient } from 'utils/httpClient'
 import { ImageWithoutKey } from '../../Viewer/types'
 
 interface GetImage {

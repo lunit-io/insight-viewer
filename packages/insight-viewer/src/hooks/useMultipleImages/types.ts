@@ -1,5 +1,5 @@
+import { HTTP, LoaderType, LoadingState } from 'types'
 import { Image, ImageWithoutKey } from '../../Viewer/types'
-import { HTTP, LoaderType, LoadingState } from '../../types'
 
 export interface Loaded {
   image: ImageWithoutKey

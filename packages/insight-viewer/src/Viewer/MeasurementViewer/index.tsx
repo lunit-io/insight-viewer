@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 
+import { useOverlayContext } from 'contexts'
 import { svgStyle } from './MeasurementViewer.styles'
 import { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
-import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
 import { CircleViewer } from '../CircleViewer'
 

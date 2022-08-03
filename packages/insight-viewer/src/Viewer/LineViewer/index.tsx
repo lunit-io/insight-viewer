@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 
-import { LineViewerProps } from './LineViewer.types'
-import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
+import { getPolyViewerInfo } from 'utils/common/getPolyProps'
+import { useOverlayContext } from 'contexts'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
-import { useOverlayContext } from '../../contexts'
+import { LineViewerProps } from './LineViewer.types'
 
 export function LineViewer({
   annotation,

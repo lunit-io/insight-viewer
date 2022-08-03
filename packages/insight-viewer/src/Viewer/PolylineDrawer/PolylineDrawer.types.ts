@@ -1,4 +1,4 @@
-import { Point, LineHeadMode, EditMode } from '../../types'
+import { Point, LineHeadMode, EditMode } from 'types'
 
 export interface PolylineDrawerProps {
   points: Point[]

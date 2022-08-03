@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Measurement, MeasurementBase } from '../../types'
-import { RULER_MIN_LENGTH, CIRCLE_MIN_RADIUS } from '../../const'
+import { Measurement, MeasurementBase } from 'types'
+import { RULER_MIN_LENGTH, CIRCLE_MIN_RADIUS } from 'const'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return

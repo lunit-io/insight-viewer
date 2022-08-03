@@ -1,5 +1,5 @@
 import { SVGProps } from 'react'
-import { Measurement, MeasurementMode } from '../../types'
+import { Measurement, MeasurementMode } from 'types'
 
 export interface MeasurementDrawerProps extends SVGProps<SVGSVGElement> {
   selectedMeasurement: Measurement | null

@@ -1,9 +1,9 @@
 import React from 'react'
 
+import { TEXT_PADDING } from 'const'
+import { useOverlayContext } from 'contexts'
 import { TextViewerProps } from './TextViewer.types'
 import { textStyle, textBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../AnnotationViewer/AnnotationViewer.styles'
-import { useOverlayContext } from '../../contexts'
-import { TEXT_PADDING } from '../../const'
 
 export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): React.ReactElement {
   const { pixelToCanvas } = useOverlayContext()

@@ -1,4 +1,4 @@
-import { EditMode, DrawingRulerMeasurement } from '../../types'
+import { EditMode, DrawingRulerMeasurement } from 'types'
 
 export interface RulerDrawerProps {
   isSelectedMode: boolean

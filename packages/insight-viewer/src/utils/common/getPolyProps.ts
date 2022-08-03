@@ -1,5 +1,5 @@
 import { SVGProps } from 'react'
-import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Point } from '../../types'
+import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Point } from 'types'
 import { getArrowPosition } from './getArrowPosition'
 
 interface GetPolyViewerInfoProps {

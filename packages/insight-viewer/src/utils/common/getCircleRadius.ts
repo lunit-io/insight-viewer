@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import { Point } from '../../types'
+import { Point } from 'types'
 import { Image } from '../../Viewer/types'
 import { IMAGER_PIXEL_SPACING } from './const'
 

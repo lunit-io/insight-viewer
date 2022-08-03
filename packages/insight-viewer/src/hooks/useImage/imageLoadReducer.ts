@@ -1,5 +1,5 @@
-import { LOADING_STATE } from '../../const'
-import { LoadingState } from '../../types'
+import { LOADING_STATE } from 'const'
+import { LoadingState } from 'types'
 import { Image } from '../../Viewer/types'
 
 export type ImageLoadState = {

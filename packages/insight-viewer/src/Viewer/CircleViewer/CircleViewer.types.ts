@@ -1,3 +1,3 @@
-import { MeasurementViewerProps, CircleMeasurement } from '../../types'
+import { MeasurementViewerProps, CircleMeasurement } from 'types'
 
 export type CircleViewerProps = MeasurementViewerProps<CircleMeasurement>

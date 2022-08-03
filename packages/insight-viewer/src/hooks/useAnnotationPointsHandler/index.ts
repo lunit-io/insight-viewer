@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
+import { Point, EditMode } from 'types'
+import { useOverlayContext } from 'contexts'
+import { calculateDistance } from 'utils/common/calculateDistance'
+import { getDrewAnnotation } from 'utils/common/getDrewAnnotation'
+import { getEditPointPosition, EditPoints } from 'utils/common/getEditPointPosition'
+import { getAnnotationDrawingPoints } from 'utils/common/getAnnotationDrawingPoints'
+import { getAnnotationEditingPoints } from 'utils/common/getAnnotationEditingPoints'
 import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
-import { Point, EditMode } from '../../types'
-import { useOverlayContext } from '../../contexts'
-import { calculateDistance } from '../../utils/common/calculateDistance'
-import { getDrewAnnotation } from '../../utils/common/getDrewAnnotation'
-import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
-import { getAnnotationDrawingPoints } from '../../utils/common/getAnnotationDrawingPoints'
-import { getAnnotationEditingPoints } from '../../utils/common/getAnnotationEditingPoints'
 import useDrawingHandler from '../useDrawingHandler'
 
 export default function useAnnotationPointsHandler({

@@ -1,3 +1,3 @@
-import { PolygonAnnotation, AnnotationViewerProps } from '../../types'
+import { PolygonAnnotation, AnnotationViewerProps } from 'types'
 
 export type PolygonViewerProps = AnnotationViewerProps<PolygonAnnotation>

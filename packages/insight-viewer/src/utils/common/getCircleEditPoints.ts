@@ -1,5 +1,5 @@
-import { CIRCLE_EDIT_POINT_ANGLE } from '../../const'
-import { Point } from '../../types'
+import { CIRCLE_EDIT_POINT_ANGLE } from 'const'
+import { Point } from 'types'
 
 export function getCircleEditPoints(point: Point, radius: number): [number, number, number, number] {
   const startX = Math.sin((CIRCLE_EDIT_POINT_ANGLE.START_ANGLE * Math.PI) / 180) * radius + point[0]

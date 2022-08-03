@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { WithChildren, Viewport, Point } from '../types'
-import { BASE_VIEWPORT, ERROR_MESSAGE } from '../const'
-import { EnabledElement, PixelCoordinate } from '../utils/cornerstoneHelper/types'
+import { WithChildren, Viewport, Point } from 'types'
+import { BASE_VIEWPORT, ERROR_MESSAGE } from 'const'
+import { EnabledElement, PixelCoordinate } from 'utils/cornerstoneHelper/types'
 import {
   pageToPixel as pageToPixelUtil,
   pixelToCanvas as pixelToCanvasUtil,
   setToPixelCoordinateSystem as setToPixelCoordinateSystemUtil,
   getEnabledElement,
-} from '../utils/cornerstoneHelper'
+} from 'utils/cornerstoneHelper'
 import { Image } from '../Viewer/types'
 
 export interface OverlayContext {

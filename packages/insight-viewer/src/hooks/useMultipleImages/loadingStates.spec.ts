@@ -1,6 +1,6 @@
+import { LoadingState } from 'types'
+import { LOADING_STATE } from 'const'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
-import { LoadingState } from '../../types'
-import { LOADING_STATE } from '../../const'
 
 describe('getLoadingStateMap()', () => {
   it('with image size 1', () => {

@@ -1,7 +1,7 @@
-import { loadImage } from '../../utils/cornerstoneHelper'
-import { normalizeError } from '../../utils/common'
-import { getHttpClient } from '../../utils/httpClient'
-import { IMAGE_LOADER_SCHEME } from '../../const'
+import { loadImage } from 'utils/cornerstoneHelper'
+import { normalizeError } from 'utils/common'
+import { getHttpClient } from 'utils/httpClient'
+import { IMAGE_LOADER_SCHEME } from 'const'
 import { GetImage } from './types'
 
 /**

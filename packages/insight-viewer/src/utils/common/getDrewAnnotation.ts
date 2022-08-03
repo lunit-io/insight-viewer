@@ -1,8 +1,8 @@
 import polylabel from 'polylabel'
+import { LINE_TEXT_POSITION_SPACING } from 'const'
+import { Annotation, AnnotationMode, LineHeadMode, Point } from 'types'
 import { getCircleRadius } from './getCircleRadius'
-import { Annotation, AnnotationMode, LineHeadMode, Point } from '../../types'
 import { Image } from '../../Viewer/types'
-import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
 export function getDrewAnnotation(
   image: Image | null,

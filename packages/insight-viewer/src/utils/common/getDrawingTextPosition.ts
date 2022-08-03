@@ -1,8 +1,7 @@
+import { Point, MeasurementMode } from 'types'
 import { getRulerTextPosition } from './getRulerTextPosition'
 import { getCircleTextPosition } from './getCircleTextPosition'
 import { getLineLengthWithoutImage } from './getLineLengthWithoutImage'
-
-import { Point, MeasurementMode } from '../../types'
 
 export function getDrawingTextPosition(points: [Point, Point], mode: MeasurementMode): Point {
   if (mode === 'ruler') {

@@ -1,9 +1,9 @@
 import React from 'react'
 
+import { TEXT_PADDING } from 'const'
+import { useOverlayContext } from 'contexts'
 import { TextDrawerProps } from './TextDrawer.types'
 import { textStyle, textBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../AnnotationViewer/AnnotationViewer.styles'
-import { useOverlayContext } from '../../contexts'
-import { TEXT_PADDING } from '../../const'
 
 export { Typing as TypingDrawer } from './Typing'
 

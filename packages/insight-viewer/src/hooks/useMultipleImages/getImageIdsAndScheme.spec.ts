@@ -1,5 +1,5 @@
-import { IMAGE_LOADER_SCHEME } from '../../const'
-import { ImageId } from '../../types'
+import { IMAGE_LOADER_SCHEME } from 'const'
+import { ImageId } from 'types'
 import { getItems, getImageIdsAndScheme } from './getImageIdsAndScheme'
 
 const file = 'wadouri:https://example/CT000000.dcm'
@@ -24,9 +24,7 @@ describe('getImageIdsAndScheme()', () => {
       [IMAGE_LOADER_SCHEME.WADO]: [file],
     }
     expect(getImageIdsAndScheme(imageTypes).ids).toEqual([file])
-    expect(getImageIdsAndScheme(imageTypes).scheme).toEqual(
-      IMAGE_LOADER_SCHEME.WADO
-    )
+    expect(getImageIdsAndScheme(imageTypes).scheme).toEqual(IMAGE_LOADER_SCHEME.WADO)
   })
 
   it('return dicom when image types are dicomfile', () => {
@@ -34,9 +32,7 @@ describe('getImageIdsAndScheme()', () => {
       [IMAGE_LOADER_SCHEME.DICOMFILE]: [file],
     }
     expect(getImageIdsAndScheme(imageTypes).ids).toEqual([file])
-    expect(getImageIdsAndScheme(imageTypes).scheme).toEqual(
-      IMAGE_LOADER_SCHEME.DICOMFILE
-    )
+    expect(getImageIdsAndScheme(imageTypes).scheme).toEqual(IMAGE_LOADER_SCHEME.DICOMFILE)
   })
 
   it('return web when image types are web', () => {
@@ -44,8 +40,6 @@ describe('getImageIdsAndScheme()', () => {
       [IMAGE_LOADER_SCHEME.WEB]: [file],
     }
     expect(getImageIdsAndScheme(imageTypes).ids).toEqual([file])
-    expect(getImageIdsAndScheme(imageTypes).scheme).toEqual(
-      IMAGE_LOADER_SCHEME.WEB
-    )
+    expect(getImageIdsAndScheme(imageTypes).scheme).toEqual(IMAGE_LOADER_SCHEME.WEB)
   })
 })

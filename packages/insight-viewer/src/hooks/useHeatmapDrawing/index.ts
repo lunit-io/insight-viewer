@@ -1,16 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { useEffect, useMemo, useRef, RefObject } from 'react'
 
+import { useOverlayContext } from 'contexts'
+import drawHeatmap from 'utils/HeatmapViewer/drawHeatmap'
+import getHeatmapImageData from 'utils/HeatmapViewer/getHeatmapImageData'
 import { HeatmapViewerProps } from '../../Viewer/HeatmapViewer/HeatmapViewer.types'
-import { useOverlayContext } from '../../contexts'
 
-import drawHeatmap from '../../utils/HeatmapViewer/drawHeatmap'
-import getHeatmapImageData from '../../utils/HeatmapViewer/getHeatmapImageData'
-
-function useHeatmapDrawing({
-  posMap,
-  threshold,
-}: HeatmapViewerProps): [RefObject<HTMLCanvasElement>] {
+function useHeatmapDrawing({ posMap, threshold }: HeatmapViewerProps): [RefObject<HTMLCanvasElement>] {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const baseCanvas = canvasRef?.current
   const { enabledElement, setToPixelCoordinateSystem } = useOverlayContext()
@@ -32,13 +28,7 @@ function useHeatmapDrawing({
       enabledElement,
       setToPixelCoordinateSystem,
     })
-  }, [
-    baseCanvas,
-    heatmapCanvas,
-    heatmapData,
-    setToPixelCoordinateSystem,
-    enabledElement,
-  ])
+  }, [baseCanvas, heatmapCanvas, heatmapData, setToPixelCoordinateSystem, enabledElement])
 
   return [canvasRef]
 }

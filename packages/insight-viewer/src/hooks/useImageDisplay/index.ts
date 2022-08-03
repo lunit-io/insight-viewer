@@ -2,15 +2,9 @@
  * @fileoverview Display image in a given HTML element and set viewport.
  */
 import { useEffect, useRef } from 'react'
-import {
-  displayImage,
-  getDefaultViewportForImage,
-} from '../../utils/cornerstoneHelper'
-import {
-  formatViewerViewport,
-  formatCornerstoneViewport,
-} from '../../utils/common/formatViewport'
-import { BasicViewport } from '../../types'
+import { displayImage, getDefaultViewportForImage } from 'utils/cornerstoneHelper'
+import { formatViewerViewport, formatCornerstoneViewport } from 'utils/common/formatViewport'
+import { BasicViewport } from 'types'
 import { UseImageDisplay } from './types'
 
 let imageSeriesKey: string
@@ -21,12 +15,7 @@ let imageSeriesKey: string
  * @param viewportRef The reference to Viewer's viewport prop.
  * @param onViewportChange The viewport setter prop of Viewer.
  */
-const useImageDisplay: UseImageDisplay = ({
-  element,
-  image,
-  viewportRef,
-  onViewportChange,
-}) => {
+const useImageDisplay: UseImageDisplay = ({ element, image, viewportRef, onViewportChange }) => {
   // Reset the viewport with this.
   const resetViewportRef = useRef<Partial<BasicViewport>>()
 
@@ -39,10 +28,7 @@ const useImageDisplay: UseImageDisplay = ({
         return resetViewportRef?.current // Reset the viewport
       }
       // Persist the current viewport
-      const defaultViewport = getDefaultViewportForImage(
-        <HTMLDivElement>element,
-        image
-      )
+      const defaultViewport = getDefaultViewportForImage(<HTMLDivElement>element, image)
       return {
         ...formatCornerstoneViewport(defaultViewport),
         ...viewportRef.current,
@@ -63,10 +49,7 @@ const useImageDisplay: UseImageDisplay = ({
     )
 
     // In case of multiframe image, update imageSeriesKey.
-    if (
-      image._imageSeriesKey !== undefined &&
-      imageSeriesKey !== image._imageSeriesKey
-    ) {
+    if (image._imageSeriesKey !== undefined && imageSeriesKey !== image._imageSeriesKey) {
       imageSeriesKey = image._imageSeriesKey
     }
 

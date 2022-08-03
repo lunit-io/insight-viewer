@@ -1,4 +1,4 @@
-import { ViewerStyle } from '../../types'
+import { ViewerStyle } from 'types'
 
 export const TEXT_SIZE = 14
 export const LINE_HEIGHT = 1.4

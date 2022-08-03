@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getDicomFileImageId } from '../../utils/cornerstoneHelper/getDicomFileImageId'
+import { getDicomFileImageId } from 'utils/cornerstoneHelper/getDicomFileImageId'
 
 interface State {
   imageId: string

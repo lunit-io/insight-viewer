@@ -2,9 +2,9 @@
  * @fileoverview Loads images(Dicom/Web) and return the loaded images and loading states of them.
  */
 import { useRef, useEffect } from 'react'
-import { CONFIG } from '../../const'
-import { HTTP, ImageId } from '../../types'
-import { noop } from '../../utils/common'
+import { CONFIG } from 'const'
+import { HTTP, ImageId } from 'types'
+import { noop } from 'utils/common'
 import { useLoadImages } from './useLoadImages'
 import { ImagesLoadState, OnImagesLoaded } from './types'
 

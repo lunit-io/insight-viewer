@@ -1,5 +1,5 @@
 import { SetStateAction, Dispatch } from 'react'
-import { Point, EditMode, AnnotationMode } from '../../types'
+import { Point, EditMode, AnnotationMode } from 'types'
 import { getMovedPoints } from './getMovedPoints'
 
 export function getAnnotationEditingPoints(

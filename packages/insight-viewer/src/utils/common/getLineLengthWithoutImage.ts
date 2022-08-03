@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-properties */
-import { Point } from '../../types'
+import { Point } from 'types'
 
 export function getLineLengthWithoutImage(startPoint: Point, endPoint: Point): number {
   const [startX, startY] = startPoint

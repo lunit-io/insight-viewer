@@ -1,14 +1,12 @@
 import React, { ReactElement } from 'react'
 
-import { Point } from '../../types'
-
+import { Point } from 'types'
+import { getCircleTextPosition } from 'utils/common/getCircleTextPosition'
+import { getCircleConnectingLine } from 'utils/common/getCircleConnectingLine'
+import { getCircleCenterAndEndPoint } from 'utils/common/getCircleCenterAndEndPoint'
+import { useOverlayContext } from 'contexts'
 import { circleStyle, textStyle, polyline } from './CircleDrawer.styles'
 import { CircleDrawerProps } from './CircleDrawer.types'
-
-import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
-import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
-import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
-import { useOverlayContext } from '../../contexts'
 
 export function CircleDrawer({
   isSelectedMode,

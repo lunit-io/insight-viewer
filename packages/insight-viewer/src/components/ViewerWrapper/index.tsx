@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect } from 'react'
-import { WithChildren, ProgressComponent, OnViewportChange } from '../../types'
-import { getViewport } from '../../utils/cornerstoneHelper'
-import { formatViewerViewport } from '../../utils/common/formatViewport'
+import { WithChildren, ProgressComponent, OnViewportChange } from 'types'
+import { getViewport } from 'utils/cornerstoneHelper'
+import { formatViewerViewport } from 'utils/common/formatViewport'
 import LoadingProgress from '../LoadingProgress'
 import useResize from './useResize'
 
@@ -33,12 +33,7 @@ const Forwarded = forwardRef<
   }, [width, height, resizeRef, imageEnabled, onViewportChange])
 
   return (
-    <div
-      ref={resizeRef}
-      style={style}
-      className="cornerstone-canvas-wrapper"
-      data-cy="cornerstone-canvas-wrapper"
-    >
+    <div ref={resizeRef} style={style} className="cornerstone-canvas-wrapper" data-cy="cornerstone-canvas-wrapper">
       {Progress && <LoadingProgress Progress={Progress} />}
       <canvas className="cornerstone-canvas" />
       {children}

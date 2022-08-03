@@ -1,5 +1,5 @@
 import { SVGProps } from 'react'
-import { Annotation, AnnotationMode, LineHeadMode } from '../../types'
+import { Annotation, AnnotationMode, LineHeadMode } from 'types'
 
 export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
   selectedAnnotation: Annotation | null

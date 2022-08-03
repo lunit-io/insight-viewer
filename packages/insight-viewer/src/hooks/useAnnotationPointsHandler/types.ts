@@ -1,5 +1,5 @@
-import { Point, AnnotationMode, Annotation, LineHeadMode, EditMode } from '../../types'
-import { EditPoints } from '../../utils/common/getEditPointPosition'
+import { Point, AnnotationMode, Annotation, LineHeadMode, EditMode } from 'types'
+import { EditPoints } from 'utils/common/getEditPointPosition'
 
 export interface UseAnnotationPointsHandlerParams {
   isEditing: boolean

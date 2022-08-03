@@ -1,4 +1,4 @@
-import { Point, AnnotationMode } from '../../types'
+import { Point, AnnotationMode } from 'types'
 
 export function getAnnotationDrawingPoints(prevPoints: Point[], point: Point, mode: AnnotationMode): Point[] {
   if (mode === 'polygon' || mode === 'freeLine') {

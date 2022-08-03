@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
-import { Annotation, AnnotationBase } from '../../types'
-import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
-import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
-import { isValidLength } from '../../utils/common/isValidLength'
+import { Annotation, AnnotationBase } from 'types'
+import { getIsPolygonAreaGreaterThanArea } from 'utils/common/getIsPolygonAreaGreaterThanArea'
+import { getIsComplexPolygon } from 'utils/common/getIsComplexPolygon'
+import { isValidLength } from 'utils/common/isValidLength'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return

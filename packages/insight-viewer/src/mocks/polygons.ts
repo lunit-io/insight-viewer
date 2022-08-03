@@ -1,4 +1,4 @@
-import { PolygonAnnotation, Point } from '../types'
+import { PolygonAnnotation, Point } from 'types'
 
 const MOCK_POLYGON_LIST: PolygonAnnotation[] = [
   {

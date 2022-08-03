@@ -1,6 +1,6 @@
 import ky from 'ky'
+import { RequestInterceptor } from 'types'
 import { loadingProgressMessage } from '../messageService'
-import { RequestInterceptor } from '../../types'
 
 type HttpClient = (url: string) => Promise<ArrayBuffer>
 type HttpClientOptions = {

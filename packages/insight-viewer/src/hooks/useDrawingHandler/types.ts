@@ -1,4 +1,4 @@
-import { MeasurementMode, AnnotationMode, Point } from '../../types'
+import { MeasurementMode, AnnotationMode, Point } from 'types'
 
 export interface UseDrawingHandlerParams {
   mode: MeasurementMode | AnnotationMode

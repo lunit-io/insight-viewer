@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 
+import { Point } from 'types'
 import { getIsIntersection } from './getIsIntersction'
-import { Point } from '../../types'
 
 /**
  * Check if polygon is a complex polygon with intersection
@@ -22,14 +22,7 @@ export function getIsComplexPolygon(polygon: Point[]): boolean {
       // i becomes point a and i + 1 becomes point b
       // i + 2 becomes c, i + 3 becomes d
       // i + 1 -> i + 2 is in contact with i -> i + 1 and cannot intersect, so we exclude it
-      if (
-        getIsIntersection(
-          closedPolygon[i],
-          closedPolygon[i + 1],
-          closedPolygon[n],
-          closedPolygon[n + 1]
-        )
-      ) {
+      if (getIsIntersection(closedPolygon[i], closedPolygon[i + 1], closedPolygon[n], closedPolygon[n + 1])) {
         return true
       }
     }

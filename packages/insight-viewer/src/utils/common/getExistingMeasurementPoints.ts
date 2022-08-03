@@ -1,6 +1,5 @@
+import { Measurement, Point } from 'types'
 import { getCircleCenterAndEndPoint } from './getCircleCenterAndEndPoint'
-
-import { Measurement, Point } from '../../types'
 import { Image } from '../../Viewer/types'
 
 export function getExistingMeasurementPoints(measurement: Measurement, image: Image | null): [Point, Point] {
