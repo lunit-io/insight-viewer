@@ -6,7 +6,7 @@
     "module": "ESNext",
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "jsx": "react",
     "lib": ["DOM", "ESNext"],
     "composite": true,

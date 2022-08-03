@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
   "extends": "../../tsconfig.test.json",
   "include": ["**/*.spec.ts"]
 }
