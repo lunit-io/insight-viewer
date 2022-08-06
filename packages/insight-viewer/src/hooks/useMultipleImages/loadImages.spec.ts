@@ -31,9 +31,7 @@ function handleMock({ errorIndex = -1 }) {
   return mockLoadCornerstoneImages.mockImplementation(() => {
     count += 1
     if (errorIndex === count) {
-      return Promise.reject(
-        new Error(`${ErrorTexts[errorIndex]} image fetch fails`)
-      )
+      return Promise.reject(new Error(`${ErrorTexts[errorIndex]} image fetch fails`))
     }
     return Promise.resolve(cornerstoneImage)
   })
@@ -54,6 +52,7 @@ describe('loadImages()', () => {
       loadImages({
         images: IMAGES,
         imageScheme: IMAGE_LOADER_SCHEME.WADO,
+        timeout: CONFIG.timeout,
         requestInterceptor,
       }).subscribe({
         next: async (res: Loaded) => {
@@ -72,6 +71,7 @@ describe('loadImages()', () => {
       loadImages({
         images: IMAGES,
         imageScheme: IMAGE_LOADER_SCHEME.WADO,
+        timeout: CONFIG.timeout,
         requestInterceptor,
       }).subscribe({
         error: async (err: ViewerError) => {
@@ -87,6 +87,7 @@ describe('loadImages()', () => {
       loadImages({
         images: IMAGES,
         imageScheme: IMAGE_LOADER_SCHEME.WADO,
+        timeout: CONFIG.timeout,
         requestInterceptor,
       }).subscribe({
         next: async (res: Loaded) => {
@@ -109,6 +110,7 @@ describe('loadImages()', () => {
       loadImages({
         images: IMAGES,
         imageScheme: IMAGE_LOADER_SCHEME.WADO,
+        timeout: CONFIG.timeout,
         requestInterceptor,
       }).subscribe({
         next: async (res: Loaded) => {
@@ -131,6 +133,7 @@ describe('loadImages()', () => {
       loadImages({
         images: IMAGES,
         imageScheme: IMAGE_LOADER_SCHEME.WADO,
+        timeout: CONFIG.timeout,
         requestInterceptor,
       }).subscribe({
         error: async (err: ViewerError) => {
