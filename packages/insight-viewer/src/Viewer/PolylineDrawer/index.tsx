@@ -47,27 +47,16 @@ export function PolylineDrawer({
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
 
   return (
-    <>
+    <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
       {points && points.length > 0 && (
         <>
-          <PolylineElement
-            isPolygon={!!isPolygonSelected}
-            style={polyline.outline}
-            onMouseDown={() => setAnnotationEditMode('move')}
-            points={polylinePoints}
-          />
+          <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.outline} points={polylinePoints} />
           {lineHead === 'arrow' && (
             <>
-              <PolylineElement
-                isPolygon={!!isPolygonSelected}
-                style={polyline.outline}
-                onMouseDown={() => setAnnotationEditMode('move')}
-                points={getArrowPoints()}
-              />
+              <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.outline} points={getArrowPoints()} />
               <PolylineElement
                 isPolygon={!!isPolygonSelected}
                 style={polyline[isSelectedMode ? 'select' : 'default']}
-                onMouseDown={() => setAnnotationEditMode('move')}
                 points={getArrowPoints()}
               />
             </>
@@ -75,7 +64,6 @@ export function PolylineDrawer({
           <PolylineElement
             isPolygon={!!isPolygonSelected}
             style={polyline[isSelectedMode ? 'select' : 'default']}
-            onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
         </>
@@ -85,6 +73,6 @@ export function PolylineDrawer({
           {selectedAnnotationLabel}
         </text>
       )}
-    </>
+    </g>
   )
 }
