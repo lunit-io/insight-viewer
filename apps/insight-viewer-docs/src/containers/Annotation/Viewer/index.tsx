@@ -40,7 +40,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationViewerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
-  const [isEdit, setIsEdit] = useState(false)
+  const [isRemove, setIsRemove] = useState(false)
   const [isShowLabel, setIsShowLabel] = useState(false)
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
@@ -51,8 +51,8 @@ function AnnotationViewerContainer(): JSX.Element {
       initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
     })
 
-  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsEdit(event.target.checked)
+  const handleRemoveModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsRemove(event.target.checked)
   }
 
   const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -66,19 +66,30 @@ function AnnotationViewerContainer(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        remove mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+        remove mode <Switch data-cy-remove-mode={isRemove} onChange={handleRemoveModeChange} isChecked={isRemove} />
       </Box>
       <Box>
-        show label <Switch onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
+        show label{' '}
+        <Switch data-cy-show-label={isShowLabel} onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeChange} value={annotationMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
-          <Radio value="polygon">Polygon</Radio>
-          <Radio value="line">line</Radio>
-          <Radio value="freeLine">Free Line</Radio>
-          <Radio value="text">Text</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
+          <Radio data-id-polygon value="polygon">
+            Polygon
+          </Radio>
+          <Radio data-id-line value="line">
+            line
+          </Radio>
+          <Radio data-id-freeline value="freeLine">
+            Free Line
+          </Radio>
+          <Radio data-id-text value="text">
+            Text
+          </Radio>
+          <Radio data-id-circle value="circle">
+            Circle - Not implemented yet
+          </Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>
@@ -92,8 +103,8 @@ function AnnotationViewerContainer(): JSX.Element {
               selectedAnnotation={selectedAnnotation}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onFocus={isEdit ? hoverAnnotation : undefined}
-              onRemove={isEdit ? removeAnnotation : undefined}
+              onFocus={isRemove ? hoverAnnotation : undefined}
+              onRemove={isRemove ? removeAnnotation : undefined}
               onSelect={selectAnnotation}
             />
           )}
