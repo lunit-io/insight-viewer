@@ -1,4 +1,4 @@
-import type { Annotation, Measurement } from '@lunit/insight-viewer'
+import type { Annotation, Measurement, Point } from '@lunit/insight-viewer'
 
 export function setup(): void {
   // ResizeObserver loop limit exceeded
@@ -105,4 +105,16 @@ export function moveAnnotation(annotation: Annotation, distance: number): void {
   cy.get('.cornerstone-canvas-wrapper').click()
 
   return undefined
+}
+
+export const editAnnotation = (editTargetPoint: Point, distance: number): void => {
+  const canvas = cy.get('.cornerstone-canvas-wrapper')
+  const [x, y] = editTargetPoint
+
+  canvas
+    .trigger('mousedown', { x, y })
+    .trigger('mousemove', { x: x + distance, y: y + distance })
+    .trigger('mouseup')
+
+  canvas.click()
 }
