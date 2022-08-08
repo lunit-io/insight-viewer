@@ -1,6 +1,6 @@
 import { Point } from '../../types'
 
-const MINIMUM_LENGTH = 100
+const MINIMUM_LENGTH = 10
 
 export function isValidLength(line: [Point, Point], minimumLength = MINIMUM_LENGTH): boolean {
   // Calculate the length of a line and verify whether it is shorter than minimum.
