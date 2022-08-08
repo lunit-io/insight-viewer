@@ -1,6 +1,12 @@
-import { setup, drawAnnotation, moveAnnotation, deleteAndCheckAnnotationOrMeasurement } from '../support/utils'
+import {
+  setup,
+  drawAnnotation,
+  drawAnnotations,
+  moveAnnotation,
+  deleteAndCheckAnnotationOrMeasurement,
+} from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { POLYGON_ANNOTATIONS } from '../../mocks/polygons'
+import { INTERSECTING_POLYGON_ANNOTATION, POLYGON_ANNOTATIONS } from '../../mocks/polygons'
 
 describe(
   'annotation drawer',
@@ -25,12 +31,18 @@ describe(
     describe('Polygon Annotation', () => {
       const mockPolygonAnnotationLength = POLYGON_ANNOTATIONS.length
 
-      it('count polygon annotation', () => {
+      it('count polygon annotation before drawing', () => {
+        cy.get('[data-cy-id]').should('have.length', 0)
+      })
+
+      it('cancel drawing when drawing intersecting polygons', () => {
+        drawAnnotation(INTERSECTING_POLYGON_ANNOTATION)
+
         cy.get('[data-cy-id]').should('have.length', 0)
       })
 
       it('Annotation polygon drawing', () => {
-        drawAnnotation(POLYGON_ANNOTATIONS)
+        drawAnnotations(POLYGON_ANNOTATIONS)
 
         cy.get('[data-cy-id]').should('have.length', mockPolygonAnnotationLength)
       })
