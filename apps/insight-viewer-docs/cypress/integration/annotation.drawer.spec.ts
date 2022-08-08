@@ -6,7 +6,11 @@ import {
   deleteAndCheckAnnotationOrMeasurement,
 } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { INTERSECTING_POLYGON_ANNOTATION, POLYGON_ANNOTATIONS } from '../../mocks/polygons'
+import {
+  POLYGON_ANNOTATIONS,
+  INTERSECTING_POLYGON_ANNOTATION,
+  SMALLER_THAN_MINIMUM_AREA_POLYGON_ANNOTATION,
+} from '../../mocks/polygons'
 
 describe(
   'annotation drawer',
@@ -37,6 +41,12 @@ describe(
 
       it('cancel drawing when drawing intersecting polygons', () => {
         drawAnnotation(INTERSECTING_POLYGON_ANNOTATION)
+
+        cy.get('[data-cy-id]').should('have.length', 0)
+      })
+
+      it('cancel drawing if smaller than the minimum area', () => {
+        drawAnnotation(SMALLER_THAN_MINIMUM_AREA_POLYGON_ANNOTATION)
 
         cy.get('[data-cy-id]').should('have.length', 0)
       })
