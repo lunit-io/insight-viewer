@@ -1,3 +1,5 @@
+import type { Annotation, Measurement } from '@lunit/insight-viewer'
+
 export function setup(): void {
   // ResizeObserver loop limit exceeded
   // https://github.com/cypress-io/cypress/issues/8418
@@ -9,4 +11,23 @@ export function setup(): void {
     }
     return false
   })
+}
+
+type DomClickTestState = 'not.exist' | 'exist'
+
+export function deleteAndCheckAnnotationOrMeasurement(
+  element: Annotation | Measurement,
+  state: DomClickTestState = 'exist'
+): void {
+  const targetDataAttr = `[data-cy-id="${element.id - 1}"]`
+
+  cy.get(targetDataAttr).click({ force: true })
+  cy.get(targetDataAttr).should(state)
+}
+
+export function deleteAndCheckMultiAnnotationOrMeasurement(
+  elements: Annotation[] | Measurement[],
+  state: DomClickTestState = 'exist'
+): void {
+  elements.forEach(element => deleteAndCheckAnnotationOrMeasurement(element, state))
 }
