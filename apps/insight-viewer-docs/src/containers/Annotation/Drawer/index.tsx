@@ -59,7 +59,7 @@ function AnnotationDrawerContainer(): JSX.Element {
         remove all
       </Button>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEditing} />
+        edit mode <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
         <Stack direction="row">
