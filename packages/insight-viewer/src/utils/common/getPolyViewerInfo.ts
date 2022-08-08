@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Point } from '../../types'
 import { getArrowPosition } from './getArrowPosition'
 
-interface GetPolyViewerInfoProps {
+export interface GetPolyViewerInfoProps {
   annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation
   hoveredAnnotation: Annotation | null
   showOutline: boolean
