@@ -1,4 +1,3 @@
-import { RULER_MODE, START_POINT_MODE } from '../../mocks/const'
 import { Measurement, Point } from '../../types'
 import { getMeasurementPoints } from './getMeasurementPoints'
 
@@ -26,10 +25,10 @@ describe('getMeasurementPoints: ', () => {
 
     expect(
       getMeasurementPoints({
-        mode: RULER_MODE,
+        mode: 'ruler',
         isEditing: EDITING_MODE_ON,
         prevPoints: MOCK_PREV_POINTS,
-        editMode: START_POINT_MODE,
+        editMode: 'startPoint',
         point: MOCK_CURRENT_POINT,
         editStartPoint: MOCK_EDIT_POINT,
         selectedMeasurement: MOCK_SELECTED_RULER_MEASUREMENT,
@@ -62,10 +61,10 @@ describe('getMeasurementPoints: ', () => {
 
     expect(
       getMeasurementPoints({
-        mode: RULER_MODE,
+        mode: 'ruler',
         isEditing: EDITING_MODE_OFF,
         prevPoints: MOCK_PREV_POINTS,
-        editMode: START_POINT_MODE,
+        editMode: 'startPoint',
         point: MOCK_CURRENT_POINT,
         editStartPoint: MOCK_EDIT_POINT,
         selectedMeasurement: MOCK_SELECTED_RULER_MEASUREMENT,

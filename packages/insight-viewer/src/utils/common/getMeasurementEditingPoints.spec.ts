@@ -1,4 +1,3 @@
-import { CIRCLE_MODE, END_POINT_MODE, MOVE_MODE, RULER_MODE, START_POINT_MODE } from '../../mocks/const'
 import { Point } from '../../types'
 import { getMeasurementEditingPoints } from './getMeasurementEditingPoints'
 
@@ -26,37 +25,19 @@ describe('getMeasurementEditingPoints: ', () => {
     const MOCK_EDIT_POINT_3: Point = [70, 90]
 
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_1,
-        MOCK_CURRENT_POINT_1,
-        MOCK_EDIT_POINT_1,
-        START_POINT_MODE,
-        RULER_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'startPoint', 'ruler')
     ).toEqual([
       [5, 5],
       [10, 10],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_2,
-        MOCK_CURRENT_POINT_2,
-        MOCK_EDIT_POINT_2,
-        START_POINT_MODE,
-        RULER_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'ruler')
     ).toEqual([
       [15, 15],
       [30, 40],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_3,
-        MOCK_CURRENT_POINT_3,
-        MOCK_EDIT_POINT_3,
-        START_POINT_MODE,
-        RULER_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'ruler')
     ).toEqual([
       [25, 25],
       [80, 100],
@@ -85,37 +66,19 @@ describe('getMeasurementEditingPoints: ', () => {
     const MOCK_EDIT_POINT_3: Point = [70, 90]
 
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_1,
-        MOCK_CURRENT_POINT_1,
-        MOCK_EDIT_POINT_1,
-        END_POINT_MODE,
-        RULER_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'endPoint', 'ruler')
     ).toEqual([
       [0, 0],
       [5, 5],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_2,
-        MOCK_CURRENT_POINT_2,
-        MOCK_EDIT_POINT_2,
-        END_POINT_MODE,
-        RULER_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'ruler')
     ).toEqual([
       [10, 20],
       [15, 15],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_3,
-        MOCK_CURRENT_POINT_3,
-        MOCK_EDIT_POINT_3,
-        END_POINT_MODE,
-        RULER_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'endPoint', 'ruler')
     ).toEqual([
       [40, 60],
       [25, 25],
@@ -144,37 +107,19 @@ describe('getMeasurementEditingPoints: ', () => {
     const MOCK_EDIT_POINT_3: Point = [70, 90]
 
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_1,
-        MOCK_CURRENT_POINT_1,
-        MOCK_EDIT_POINT_1,
-        START_POINT_MODE,
-        CIRCLE_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'startPoint', 'circle')
     ).toEqual([
       [0, 0],
       [5, 5],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_2,
-        MOCK_CURRENT_POINT_2,
-        MOCK_EDIT_POINT_2,
-        START_POINT_MODE,
-        CIRCLE_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'circle')
     ).toEqual([
       [10, 20],
       [15, 15],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_3,
-        MOCK_CURRENT_POINT_3,
-        MOCK_EDIT_POINT_3,
-        START_POINT_MODE,
-        CIRCLE_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'circle')
     ).toEqual([
       [40, 60],
       [25, 25],
@@ -203,37 +148,19 @@ describe('getMeasurementEditingPoints: ', () => {
     const MOCK_EDIT_POINT_3: Point = [70, 90]
 
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_1,
-        MOCK_CURRENT_POINT_1,
-        MOCK_EDIT_POINT_1,
-        END_POINT_MODE,
-        CIRCLE_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'endPoint', 'circle')
     ).toEqual([
       [0, 0],
       [5, 5],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_2,
-        MOCK_CURRENT_POINT_2,
-        MOCK_EDIT_POINT_2,
-        END_POINT_MODE,
-        CIRCLE_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'circle')
     ).toEqual([
       [10, 20],
       [15, 15],
     ])
     expect(
-      getMeasurementEditingPoints(
-        MOCK_PREV_POINT_3,
-        MOCK_CURRENT_POINT_3,
-        MOCK_EDIT_POINT_3,
-        END_POINT_MODE,
-        CIRCLE_MODE
-      )
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'endPoint', 'circle')
     ).toEqual([
       [40, 60],
       [25, 25],
@@ -263,37 +190,37 @@ describe('getMeasurementEditingPoints: ', () => {
     const MOCK_EDIT_POINT_3: Point = [70, 90]
 
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, MOVE_MODE, RULER_MODE)
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'move', 'ruler')
     ).toEqual([
       [-25, -25],
       [-15, -15],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, MOVE_MODE, RULER_MODE)
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'move', 'ruler')
     ).toEqual([
       [-25, -25],
       [-5, -5],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, MOVE_MODE, RULER_MODE)
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'move', 'ruler')
     ).toEqual([
       [-5, -5],
       [35, 35],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, MOVE_MODE, CIRCLE_MODE)
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'move', 'circle')
     ).toEqual([
       [-25, -25],
       [-15, -15],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, MOVE_MODE, CIRCLE_MODE)
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'move', 'circle')
     ).toEqual([
       [-25, -25],
       [-5, -5],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, MOVE_MODE, CIRCLE_MODE)
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'move', 'circle')
     ).toEqual([
       [-5, -5],
       [35, 35],

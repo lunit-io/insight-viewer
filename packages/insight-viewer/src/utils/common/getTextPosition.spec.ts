@@ -1,4 +1,3 @@
-import { TEXT_MOVE_MODE } from '../../mocks/const'
 import { Measurement, Point } from '../../types'
 import { getTextPosition } from './getTextPosition'
 
@@ -57,8 +56,8 @@ describe('getTextPosition: ', () => {
     const MOCK_CURRENT_POINT_2: Point = [439, 112]
     const MOCK_CURRENT_POINT_3: Point = [62, 232]
 
-    expect(getTextPosition(MOCK_MEASUREMENT, TEXT_MOVE_MODE, MOCK_CURRENT_POINT_1)).toEqual([29, 12])
-    expect(getTextPosition(MOCK_MEASUREMENT, TEXT_MOVE_MODE, MOCK_CURRENT_POINT_2)).toEqual([439, 112])
-    expect(getTextPosition(MOCK_MEASUREMENT, TEXT_MOVE_MODE, MOCK_CURRENT_POINT_3)).toEqual([62, 232])
+    expect(getTextPosition(MOCK_MEASUREMENT, 'textMove', MOCK_CURRENT_POINT_1)).toEqual([29, 12])
+    expect(getTextPosition(MOCK_MEASUREMENT, 'textMove', MOCK_CURRENT_POINT_2)).toEqual([439, 112])
+    expect(getTextPosition(MOCK_MEASUREMENT, 'textMove', MOCK_CURRENT_POINT_3)).toEqual([62, 232])
   })
 })

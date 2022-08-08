@@ -1,15 +1,5 @@
 import { getAnnotationEditingPoints } from './getAnnotationEditingPoints'
 import { Point } from '../../types'
-import {
-  CIRCLE_MODE,
-  END_POINT_MODE,
-  FREE_LINE_MODE,
-  LINE_MODE,
-  MOVE_MODE,
-  POLYGON_MODE,
-  START_POINT_MODE,
-  TEXT_MODE,
-} from '../../mocks/const'
 
 describe('getAnnotationEditingPoints:', () => {
   it('the polygon should be move', () => {
@@ -77,8 +67,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        MOVE_MODE,
-        POLYGON_MODE,
+        'move',
+        'polygon',
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -158,8 +148,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        MOVE_MODE,
-        FREE_LINE_MODE,
+        'move',
+        'freeLine',
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -187,8 +177,8 @@ describe('getAnnotationEditingPoints:', () => {
       MOCK_PREV_POINTS,
       MOCK_CURRENT_POINT,
       MOCK_EDIT_POINT,
-      MOVE_MODE,
-      TEXT_MODE,
+      'move',
+      'text',
       MOCK_SET_EDIT_POINT
     )
 
@@ -212,8 +202,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        START_POINT_MODE,
-        TEXT_MODE,
+        'startPoint',
+        'text',
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -237,8 +227,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        END_POINT_MODE,
-        TEXT_MODE,
+        'endPoint',
+        'text',
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -261,8 +251,8 @@ describe('getAnnotationEditingPoints:', () => {
       MOCK_PREV_POINTS,
       MOCK_CURRENT_POINT,
       MOCK_EDIT_POINT,
-      START_POINT_MODE,
-      LINE_MODE,
+      'startPoint',
+      'line',
       MOCK_SET_EDIT_POINT
     )
 
@@ -286,8 +276,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        END_POINT_MODE,
-        LINE_MODE,
+        'endPoint',
+        'line',
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -310,8 +300,8 @@ describe('getAnnotationEditingPoints:', () => {
         MOCK_PREV_POINTS,
         MOCK_CURRENT_POINT,
         MOCK_EDIT_POINT,
-        START_POINT_MODE,
-        CIRCLE_MODE,
+        'startPoint',
+        'circle',
         MOCK_SET_EDIT_POINT
       )
     ).toStrictEqual([
@@ -333,8 +323,8 @@ describe('getAnnotationEditingPoints:', () => {
       MOCK_PREV_POINTS,
       MOCK_CURRENT_POINT,
       MOCK_EDIT_POINT,
-      END_POINT_MODE,
-      CIRCLE_MODE,
+      'endPoint',
+      'circle',
       MOCK_SET_EDIT_POINT
     )
 

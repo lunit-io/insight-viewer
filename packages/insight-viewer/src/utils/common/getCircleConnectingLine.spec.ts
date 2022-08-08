@@ -2,7 +2,7 @@ import { Point } from '../../types'
 import { getCircleConnectingLine } from './getCircleConnectingLine'
 
 describe('getCircleConnectingLine', () => {
-  it('should return the correct position', () => {
+  it('should return the points', () => {
     const MOCK_POINTS_1: [Point, Point] = [
       [0, 0],
       [10, 10],
