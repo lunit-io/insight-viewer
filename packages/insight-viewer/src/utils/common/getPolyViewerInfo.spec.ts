@@ -89,6 +89,5 @@ describe('getPolyViewerInfo: ', () => {
       polygonLabel: 6,
       polygonPoints: '404.47999999999996,145.01714285714283 45.34857142857142,262.04571428571427',
     })
-    // TODO: 기댓값의 polygonAttributes 이 undefined 아닌 케이스 추가하기
   })
 })
