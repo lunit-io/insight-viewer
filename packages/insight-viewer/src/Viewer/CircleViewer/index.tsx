@@ -9,12 +9,13 @@ import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
 import { useOverlayContext } from '../../contexts'
+import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
   const { id, center, radius, unit } = measurement
-
+  const area = calculateCircleArea(radius)
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
   const drawingRadius = Math.abs(pixelStartPoint[0] - pixelEndPoint[0])
@@ -57,7 +58,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-        {`radius: ${radius.toFixed(1)}${unit}`}
+        {`Area = ${area.toFixed(1)}${unit}2`}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>

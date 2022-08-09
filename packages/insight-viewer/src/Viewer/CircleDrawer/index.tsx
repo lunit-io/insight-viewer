@@ -9,6 +9,7 @@ import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
 import { useOverlayContext } from '../../contexts'
+import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
 
 export function CircleDrawer({
   isSelectedMode,
@@ -18,7 +19,7 @@ export function CircleDrawer({
   const { pixelToCanvas, image } = useOverlayContext()
 
   const { center, radius, drawingRadius, unit } = measurement
-
+  const area = calculateCircleArea(radius)
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
 
@@ -58,7 +59,7 @@ export function CircleDrawer({
         x={textPoint[0]}
         y={textPoint[1]}
       >
-        {`radius: ${radius.toFixed(1)}${unit}`}
+        {`Area = ${area.toFixed(1)}${unit}2`}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />
     </>
