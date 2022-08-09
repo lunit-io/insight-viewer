@@ -34,9 +34,8 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     .join(' ')
 
   return (
-    <>
+    <g data-cy-id={id}>
       <polyline
-        data-cy-id={id}
         style={{
           ...polylineStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
@@ -44,7 +43,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={polygonPoints}
       />
       <polyline
-        data-cy-id={id}
         style={{
           ...polylineStyle.default,
         }}
@@ -58,6 +56,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         </text>
       )}
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
-    </>
+    </g>
   )
 }
