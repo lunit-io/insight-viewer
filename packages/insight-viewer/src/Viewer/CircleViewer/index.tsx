@@ -59,6 +59,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       />
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
         {`Area = ${area.toLocaleString(undefined, {
+          minimumFractionDigits: 1,
           maximumFractionDigits: 1,
         })}${unit}2`}
       </text>

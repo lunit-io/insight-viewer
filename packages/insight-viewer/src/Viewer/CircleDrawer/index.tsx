@@ -60,6 +60,7 @@ export function CircleDrawer({
         y={textPoint[1]}
       >
         {`Area = ${area.toLocaleString(undefined, {
+          minimumFractionDigits: 1,
           maximumFractionDigits: 1,
         })}${unit}2`}
       </text>
