@@ -17,7 +17,7 @@ describe(
 
     it('shows overlay', () => {
       cy.get($LOADED).should('be.exist')
-      cy.get('[data-cy-scale]').contains(0.9765625)
+      cy.get('[data-cy-scale]').contains(0.98)
       cy.get('[data-cy-hflip]').contains('false')
       cy.get('[data-cy-vflip]').contains('false')
       cy.get('[data-cy-x]').contains(0.0)
