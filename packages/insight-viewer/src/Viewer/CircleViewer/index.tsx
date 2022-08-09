@@ -14,7 +14,7 @@ import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { id, center, radius, unit } = measurement
+  const { center, radius, unit } = measurement
   const area = calculateCircleArea(radius)
   const points = getCircleCenterAndEndPoint(center, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
@@ -36,7 +36,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
   const [cx, cy] = pixelStartPoint
 
   return (
-    <g data-cy-id={id}>
+    <>
       <circle
         style={{
           ...circleStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
@@ -62,6 +62,6 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         })}${unit}2`}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
-    </g>
+    </>
   )
 }

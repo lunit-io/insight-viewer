@@ -11,7 +11,7 @@ import { useOverlayContext } from '../../contexts'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-  const { id, points, length, unit } = measurement
+  const { points, length, unit } = measurement
 
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
 
@@ -34,7 +34,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     .join(' ')
 
   return (
-    <g data-cy-id={id}>
+    <>
       <polyline
         style={{
           ...polylineStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
@@ -56,6 +56,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         </text>
       )}
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
-    </g>
+    </>
   )
 }

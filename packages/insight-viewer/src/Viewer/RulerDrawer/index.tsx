@@ -32,6 +32,7 @@ export function RulerDrawer({
     <>
       <polyline onMouseDown={() => setMeasurementEditMode('move')} style={polyline.outline} points={linePoints} />
       <polyline
+        data-cy-move
         onMouseDown={() => setMeasurementEditMode('move')}
         style={polyline[isSelectedMode ? 'select' : 'default']}
         points={linePoints}
