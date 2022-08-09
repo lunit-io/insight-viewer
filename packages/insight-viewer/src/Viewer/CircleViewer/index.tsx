@@ -36,9 +36,8 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
   const [cx, cy] = pixelStartPoint
 
   return (
-    <>
+    <g data-cy-id={id}>
       <circle
-        data-cy-id={id}
         style={{
           ...circleStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
@@ -48,7 +47,6 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <circle
-        data-cy-id={id}
         style={{
           ...circleStyle.default,
         }}
@@ -64,6 +62,6 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         })}${unit}2`}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
-    </>
+    </g>
   )
 }
