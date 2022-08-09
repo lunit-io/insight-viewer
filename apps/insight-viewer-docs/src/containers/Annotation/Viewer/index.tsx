@@ -75,21 +75,11 @@ function AnnotationViewerContainer(): JSX.Element {
       <RadioGroup onChange={handleAnnotationModeChange} value={annotationMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
-          <Radio data-id-polygon value="polygon">
-            Polygon
-          </Radio>
-          <Radio data-id-line value="line">
-            line
-          </Radio>
-          <Radio data-id-freeline value="freeLine">
-            Free Line
-          </Radio>
-          <Radio data-id-text value="text">
-            Text
-          </Radio>
-          <Radio data-id-circle value="circle">
-            Circle - Not implemented yet
-          </Radio>
+          <Radio value="polygon">Polygon</Radio>
+          <Radio value="line">line</Radio>
+          <Radio value="freeLine">Free Line</Radio>
+          <Radio value="text">Text</Radio>
+          <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>

@@ -90,7 +90,8 @@ describe(
       const mockLineAnnotationLength = LINE_ANNOTATIONS.length
 
       it('click line radio', () => {
-        cy.get('[data-id-line]').click()
+        // cy.get('input').invoke('attr', 'value').should('eq', 'line').click()
+        cy.get('[value="line"]').click({ force: true })
       })
 
       it('reset remove mode', () => {
@@ -126,7 +127,7 @@ describe(
       const mockFreeLineAnnotationLength = FREELINE_ANNOTATIONS.length
 
       it('click freeline radio', () => {
-        cy.get('[data-id-freeline]').click()
+        cy.get('[value="freeLine"]').click({ force: true })
       })
 
       it('reset remove mode', () => {
@@ -162,7 +163,7 @@ describe(
       const mockTextAnnotationLength = TEXT_ANNOTATIONS.length
 
       it('click text radio', () => {
-        cy.get('[data-id-text]').click()
+        cy.get('[value="text"]').click({ force: true })
       })
 
       it('reset remove mode', () => {
