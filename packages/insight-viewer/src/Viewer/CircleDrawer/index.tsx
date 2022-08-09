@@ -59,7 +59,9 @@ export function CircleDrawer({
         x={textPoint[0]}
         y={textPoint[1]}
       >
-        {`Area = ${area.toFixed(1)}${unit}2`}
+        {`Area = ${area.toLocaleString(undefined, {
+          maximumFractionDigits: 1,
+        })}${unit}2`}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />
     </>
