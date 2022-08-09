@@ -58,7 +58,10 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-        {`Area = ${area.toFixed(1)}${unit}2`}
+        {`Area = ${area.toLocaleString(undefined, {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        })}${unit}2`}
       </text>
       <polyline style={polylineStyle.dashLine} points={connectingLine} />
     </>
