@@ -47,3 +47,14 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
     hasArrowHead: false,
   },
 ]
+
+export const SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION: LineAnnotation = {
+  id: 1,
+  labelPosition: [212.30857142857138, 289.4228571428571],
+  lineWidth: 1.5,
+  type: 'line',
+  points: [
+    [214.30857142857138, 294.4228571428571],
+    [220.15999999999997, 294.4228571428571],
+  ],
+}
