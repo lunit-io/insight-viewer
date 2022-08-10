@@ -118,3 +118,59 @@ export const editAnnotation = (editTargetPoint: Point, distance: number): void =
 
   canvas.click()
 }
+
+export const drawMeasurement = (measurement: Measurement): void => {
+  const canvas = cy.get('.cornerstone-canvas-wrapper')
+
+  if (measurement.type === 'ruler') {
+    const [startPoint, endPoint] = measurement.points
+
+    canvas
+      .trigger('mousedown', { x: startPoint[0], y: startPoint[1] })
+      .trigger('mousemove', { x: endPoint[0], y: endPoint[1] })
+      .trigger('mouseup')
+  }
+}
+
+export const drawMeasurements = (measurements: Measurement[]): void => {
+  measurements.forEach(drawMeasurement)
+}
+
+export const moveMeasurement = (measurement: Measurement, distance: number): void => {
+  const targetDataAttr = `[data-cy-id="${measurement.id}"]`
+  const targetDrawingAttr = '[data-cy-move]'
+  const startPoint = measurement.type === 'circle' ? measurement.center : measurement.points[0]
+
+  cy.get(targetDataAttr).click({ force: true })
+
+  cy.get(targetDrawingAttr).trigger('mousedown', {
+    x: startPoint[0] + 5,
+    pageY: startPoint[1] + 5,
+  })
+
+  for (let i = 0; i < distance; i += 25) {
+    cy.get(targetDrawingAttr).trigger('mousemove', {
+      pageX: startPoint[0] + i,
+      pageY: startPoint[1] + i,
+    })
+  }
+
+  cy.get(targetDrawingAttr).trigger('mouseup', { force: true })
+
+  // edit mode disabled
+  cy.get('.cornerstone-canvas-wrapper').click()
+
+  return undefined
+}
+
+export const editPoint = (editTargetPoint: Point, distance: number): void => {
+  const canvas = cy.get('.cornerstone-canvas-wrapper')
+  const [x, y] = editTargetPoint
+
+  canvas
+    .trigger('mousedown', { x, y })
+    .trigger('mousemove', { x: x + distance, y: y + distance })
+    .trigger('mouseup')
+
+  canvas.click()
+}
