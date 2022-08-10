@@ -14,6 +14,7 @@ describe(
     before(() => {
       setup()
       cy.visit('/multi-frame')
+      cy.wait(5000)
     })
 
     it('shows initial viewer', () => {
