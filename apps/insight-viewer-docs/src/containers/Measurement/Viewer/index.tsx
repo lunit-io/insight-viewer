@@ -14,11 +14,11 @@ import { IMAGES } from '../../../const'
 import { RULER_MEASUREMENTS } from '../../../../mocks/ruler'
 import { CIRCLE_MEASUREMENTS } from '../../../../mocks/circles'
 
-export type InitalMeasurements = {
+export type InitialMeasurements = {
   [mode in MeasurementMode]: Measurement[]
 }
 
-const INITIAL_MEASUREMENTS: InitalMeasurements = {
+const INITIAL_MEASUREMENTS: InitialMeasurements = {
   ruler: RULER_MEASUREMENTS,
   circle: CIRCLE_MEASUREMENTS,
 }
@@ -34,11 +34,12 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function MeasurementViewerContainer(): JSX.Element {
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
-  const [isEdit, setIsEdit] = useState(false)
+  const [isRemove, setIsRemove] = useState(false)
 
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
+
   const { viewport, setViewport } = useViewport()
   const {
     measurements,
@@ -52,7 +53,7 @@ function MeasurementViewerContainer(): JSX.Element {
   })
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsEdit(event.target.checked)
+    setIsRemove(event.target.checked)
   }
 
   const handleMeasurementModeChange = (mode: MeasurementMode) => {
@@ -62,7 +63,7 @@ function MeasurementViewerContainer(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+        remove mode <Switch data-cy-remove-mode={isRemove} onChange={handleEditModeChange} isChecked={isRemove} />
       </Box>
       <RadioGroup onChange={handleMeasurementModeChange} value={measurementMode}>
         <Stack direction="row">
@@ -82,8 +83,8 @@ function MeasurementViewerContainer(): JSX.Element {
               selectedMeasurement={selectedMeasurement}
               mode={measurementMode}
               onSelect={selectMeasurement}
-              onFocus={isEdit ? hoverMeasurement : undefined}
-              onRemove={isEdit ? removeMeasurement : undefined}
+              onFocus={isRemove ? hoverMeasurement : undefined}
+              onRemove={isRemove ? removeMeasurement : undefined}
             />
           )}
         </InsightViewer>

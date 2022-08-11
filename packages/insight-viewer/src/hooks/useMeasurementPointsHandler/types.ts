@@ -16,6 +16,7 @@ export interface UseMeasurementPointsHandlerParams {
 
 export interface UseMeasurementPointsHandlerReturnType {
   editPoints: EditPoints | null
+  currentEditMode: EditMode | null
   measurement: DrawingMeasurement | null
   setMeasurementEditMode: (targetPoint: EditMode) => void
 }

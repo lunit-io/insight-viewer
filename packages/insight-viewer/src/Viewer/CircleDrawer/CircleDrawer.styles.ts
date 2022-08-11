@@ -1,40 +1,63 @@
 import { ViewerStyle } from '../../types'
 
+export const TEXT_SIZE = 14
+export const LINE_HEIGHT = 1.4
+
 export const circleStyle: ViewerStyle = {
   default: {
-    strokeWidth: '3px',
-    stroke: '#ffffff',
-    transition: 'stroke 120ms ease-out, stroke-width 120ms ease-out',
     fill: 'transparent',
+    strokeWidth: '3px',
+    stroke: '#FAFAFB',
+    cursor: 'grab',
   },
   outline: {
-    fill: 'transparent',
-    strokeWidth: '3px',
     stroke: '#000000',
+    strokeWidth: '4px',
+    fill: 'transparent',
+    cursor: 'grab',
   },
-  hover: {
-    stroke: 'rgb(255, 194, 17)',
-    fill: 'rgba(0, 0, 0, 0.4)',
+  select: {
+    stroke: '#00FFF0',
     strokeWidth: '3px',
+    fill: 'transparent',
+    cursor: 'grab',
   },
 }
 
 export const textStyle: ViewerStyle = {
   default: {
     fill: '#ffffff',
-    fontWeight: 600,
-    textAnchor: 'middle',
-  },
-  outline: {
-    fill: 'transparent',
-    fontWeight: 600,
-    textAnchor: 'middle',
+    paintOrder: 'stroke',
     stroke: '#000000',
-    strokeWidth: '2.5px',
-  },
-  hover: {
-    fill: 'rgb(255, 194, 17)',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
     fontWeight: 600,
     textAnchor: 'middle',
+    cursor: 'pointer',
+  },
+  select: {
+    fill: '#00FFF0',
+    paintOrder: 'stroke',
+    stroke: '#000000',
+    strokeWidth: '1px',
+    strokeLinecap: 'butt',
+    strokeLinejoin: 'miter',
+    fontSize: TEXT_SIZE,
+    lineHeight: LINE_HEIGHT,
+    fontWeight: 600,
+    textAnchor: 'middle',
+    cursor: 'grab',
+  },
+}
+
+export const polyline: ViewerStyle = {
+  dashLine: {
+    strokeWidth: '1px',
+    stroke: '#ffffff',
+    fill: 'transparent',
+    strokeDasharray: '5, 5',
   },
 }

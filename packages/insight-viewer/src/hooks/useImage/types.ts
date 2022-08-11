@@ -1,5 +1,5 @@
 import { HTTP, RequestInterceptor, ImageLoaderScheme } from '../../types'
-import { CornerstoneImage } from '../../utils/cornerstoneHelper'
+import { ImageWithoutKey } from '../../Viewer/types'
 
 export type Props = {
   imageId: string
@@ -9,4 +9,5 @@ export type GetImage = (arg: {
   imageId: string
   imageScheme: ImageLoaderScheme
   requestInterceptor: RequestInterceptor
-}) => Promise<CornerstoneImage>
+  timeout: number
+}) => Promise<ImageWithoutKey>

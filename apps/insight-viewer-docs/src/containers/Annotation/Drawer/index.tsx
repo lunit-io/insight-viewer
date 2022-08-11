@@ -8,6 +8,7 @@ import InsightViewer, {
   useViewport,
   AnnotationOverlay,
   AnnotationMode,
+  LineHeadMode,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
 
@@ -22,6 +23,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
+  const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
   const [isEditing, setIsEditing] = useState(false)
 
   const { loadingState, image } = useImage({
@@ -43,6 +45,10 @@ function AnnotationDrawerContainer(): JSX.Element {
     setAnnotationMode(mode)
   }
 
+  const handleLineHeadModeButtonChange = (lineHead: LineHeadMode) => {
+    setLineHeadMode(lineHead)
+  }
+
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEditing(event.target.checked)
   }
@@ -53,16 +59,23 @@ function AnnotationDrawerContainer(): JSX.Element {
         remove all
       </Button>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEditing} />
+        edit mode <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
         <Stack direction="row">
-          <p style={{ marginRight: '10px' }}>Select Head mode</p>
+          <p style={{ marginRight: '10px' }}>Select Annotation mode</p>
           <Radio value="polygon">Polygon</Radio>
           <Radio value="line">line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
+        </Stack>
+      </RadioGroup>
+      <RadioGroup onChange={handleLineHeadModeButtonChange} value={lineHeadMode}>
+        <Stack direction="row">
+          <p style={{ marginRight: '10px' }}>Select Line Head mode</p>
+          <Radio value="normal">normal</Radio>
+          <Radio value="arrow">arrow</Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>
@@ -73,6 +86,7 @@ function AnnotationDrawerContainer(): JSX.Element {
               isEditing={isEditing}
               width={700}
               height={700}
+              lineHead={lineHeadMode}
               mode={annotationMode}
               annotations={annotations}
               hoveredAnnotation={hoveredAnnotation}

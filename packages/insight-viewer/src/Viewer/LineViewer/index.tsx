@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { LineViewerProps } from './LineViewer.types'
-import { getPolyViewerInfo } from '../../utils/common/getPolyProps'
+import { getPolyViewerInfo } from '../../utils/common/getPolyViewerInfo'
 import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
 import { useOverlayContext } from '../../contexts'
 
@@ -36,7 +36,18 @@ export function LineViewer({
         />
       )}
       {annotation.type === 'line' && headPoints && (
-        <polyline style={{ ...polylineStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+        <>
+          {showOutline && (
+            <polyline
+              style={{
+                ...polylineStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
+                ...polygonAttributes?.style,
+              }}
+              points={headPoints}
+            />
+          )}
+          <polyline style={{ ...polylineStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+        </>
       )}
       <polyline
         style={{

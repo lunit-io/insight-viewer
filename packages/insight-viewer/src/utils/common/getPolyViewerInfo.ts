@@ -1,7 +1,8 @@
 import { SVGProps } from 'react'
 import { Annotation, PolygonAnnotation, FreeLineAnnotation, LineAnnotation, Point } from '../../types'
+import { getArrowPosition } from './getArrowPosition'
 
-interface GetPolyViewerInfoProps {
+export interface GetPolyViewerInfoProps {
   annotation: PolygonAnnotation | LineAnnotation | FreeLineAnnotation
   hoveredAnnotation: Annotation | null
   showOutline: boolean
@@ -33,6 +34,8 @@ export function getPolyViewerInfo({
   const polygonAttributes = typeof annotationAttrs === 'function' ? annotationAttrs(annotation, showOutline) : undefined
   const labelPosition = _labelPosition ? pixelToCanvas(_labelPosition) : undefined
 
+  const canvasPoints = points.map(pixelToCanvas)
+
   const polygonPoints: string = points
     .map(point => {
       const [x, y] = pixelToCanvas(point)
@@ -41,10 +44,10 @@ export function getPolyViewerInfo({
     .join(' ')
 
   const headPoints: string | null =
-    annotation.type === 'line' && annotation?.headPoints
-      ? annotation.headPoints
+    annotation.type === 'line' && annotation.hasArrowHead
+      ? getArrowPosition(canvasPoints)
           .map(point => {
-            const [x, y] = pixelToCanvas(point)
+            const [x, y] = point
             return `${x},${y}`
           })
           .join()

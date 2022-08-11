@@ -40,7 +40,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationViewerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
-  const [isEdit, setIsEdit] = useState(false)
+  const [isRemove, setIsRemove] = useState(false)
   const [isShowLabel, setIsShowLabel] = useState(false)
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
@@ -51,8 +51,8 @@ function AnnotationViewerContainer(): JSX.Element {
       initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
     })
 
-  const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsEdit(event.target.checked)
+  const handleRemoveModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsRemove(event.target.checked)
   }
 
   const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -66,10 +66,11 @@ function AnnotationViewerContainer(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
-        edit mode <Switch onChange={handleEditModeChange} isChecked={isEdit} />
+        remove mode <Switch data-cy-remove-mode={isRemove} onChange={handleRemoveModeChange} isChecked={isRemove} />
       </Box>
       <Box>
-        show label <Switch onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
+        show label{' '}
+        <Switch data-cy-show-label={isShowLabel} onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeChange} value={annotationMode}>
         <Stack direction="row">
@@ -92,8 +93,8 @@ function AnnotationViewerContainer(): JSX.Element {
               selectedAnnotation={selectedAnnotation}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onFocus={isEdit ? hoverAnnotation : undefined}
-              onRemove={isEdit ? removeAnnotation : undefined}
+              onFocus={isRemove ? hoverAnnotation : undefined}
+              onRemove={isRemove ? removeAnnotation : undefined}
               onSelect={selectAnnotation}
             />
           )}

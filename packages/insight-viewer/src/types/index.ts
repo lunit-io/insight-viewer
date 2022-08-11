@@ -54,7 +54,7 @@ export type ImageId =
       [IMAGE_LOADER_SCHEME.WEB]: string | string[] | undefined
     }
 
-export type EditMode = 'startPoint' | 'endPoint' | 'move'
+export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
 
 export type ViewerStyleType =
   | 'default'
@@ -64,6 +64,7 @@ export type ViewerStyleType =
   | 'hoveredOutline'
   | 'selectedOutline'
   | 'highlight'
+  | 'dashLine'
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
@@ -96,7 +97,7 @@ export interface LineAnnotation extends AnnotationBase {
   type: 'line'
   points: [Point, Point]
 
-  headPoints?: Point[]
+  hasArrowHead?: boolean
 }
 
 export interface FreeLineAnnotation extends AnnotationBase {
@@ -137,13 +138,14 @@ export interface MeasurementBase {
   type: MeasurementMode
   lineWidth?: number
   dataAttrs?: { [attr: string]: string }
-  textPoint: Point
+  textPoint: Point | null
+  unit: 'px' | 'mm'
 }
 
 export interface RulerMeasurement extends MeasurementBase {
   type: 'ruler'
   points: [Point, Point]
-  length: number | null
+  length: number
 }
 
 export interface CircleMeasurement extends MeasurementBase {

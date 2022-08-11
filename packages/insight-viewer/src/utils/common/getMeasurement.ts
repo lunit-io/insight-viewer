@@ -5,7 +5,7 @@ import { Point, Measurement, MeasurementMode } from '../../types'
 
 export function getMeasurement(
   points: Point[],
-  textPoint: Point,
+  textPoint: Point | null,
   mode: MeasurementMode,
   measurements: Measurement[],
   image: Image | null
@@ -18,28 +18,26 @@ export function getMeasurement(
     lineWidth: 1.5,
   }
 
-  let drewMeasurement: Measurement
-
-  if (mode === 'circle' && image) {
-    drewMeasurement = {
+  if (mode === 'circle') {
+    const { radius, unit } = getCircleRadius(startPoint, endPoint, image)
+    return {
       ...defaultMeasurementInfo,
       type: 'circle',
       center: startPoint,
-      radius: getCircleRadius([startPoint, endPoint], image),
-      textPoint,
-    }
-  } else {
-    // Ruler mode
-    const lineLength = image ? Number(getLineLength(startPoint, endPoint, image)?.toFixed(2)) : null
-
-    drewMeasurement = {
-      ...defaultMeasurementInfo,
-      type: 'ruler',
-      points: [startPoint, endPoint],
-      length: lineLength,
+      radius,
+      unit,
       textPoint,
     }
   }
 
-  return drewMeasurement
+  // Ruler EditMode
+  const { length, unit } = getLineLength(startPoint, endPoint, image)
+  return {
+    ...defaultMeasurementInfo,
+    type: 'ruler',
+    points: [startPoint, endPoint],
+    length,
+    unit,
+    textPoint,
+  }
 }

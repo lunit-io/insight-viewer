@@ -11,8 +11,8 @@ export default function ImageSelectableViewer(): JSX.Element {
     loaderOptions: {
       webWorkerManagerOptions: {
         webWorkerTaskPaths: [
-          'http://localhost:3000/workers/610.bundle.min.worker.js',
-          'http://localhost:3000/workers/888.bundle.min.worker.js',
+          `${window.location.origin}/workers/610.bundle.min.worker.js`,
+          `${window.location.origin}/workers/888.bundle.min.worker.js`,
         ],
         taskConfiguration: {
           decodeTask: {

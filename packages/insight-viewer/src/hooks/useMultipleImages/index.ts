@@ -8,10 +8,8 @@ import { noop } from '../../utils/common'
 import { useLoadImages } from './useLoadImages'
 import { ImagesLoadState, OnImagesLoaded } from './types'
 
-interface UseMultiframeImages {
-  (
-    props: Partial<HTTP> & ImageId & { onImagesLoaded?: OnImagesLoaded }
-  ): ImagesLoadState
+interface UseMultipleImages {
+  (props: Partial<HTTP> & ImageId & { onImagesLoaded?: OnImagesLoaded; timeout?: number }): ImagesLoadState
 }
 
 /**
@@ -22,9 +20,10 @@ interface UseMultiframeImages {
  * @returns <{ image, loadingStates }> image is a CornerstoneImage.
  *  loadingStates are each image's <'initial'|'loading'|'success'|'fail'>
  */
-export const useMultipleImages: UseMultiframeImages = ({
+export const useMultipleImages: UseMultipleImages = ({
   requestInterceptor = CONFIG.requestInterceptor,
   onError = CONFIG.onError,
+  timeout = CONFIG.timeout,
   onImagesLoaded = noop,
   ...rest
 }) => {
@@ -34,6 +33,7 @@ export const useMultipleImages: UseMultiframeImages = ({
     ...rest,
     onError,
     requestInterceptor,
+    timeout,
     onImagesLoaded: onImagesLoadedRef.current,
   })
 

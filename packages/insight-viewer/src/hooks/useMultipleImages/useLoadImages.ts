@@ -5,17 +5,17 @@ import { LOADING_STATE } from '../../const'
 import { useImageLoader } from '../useImageLoader'
 import { loadImages } from './loadImages'
 import { HTTP, LoadingState, ImageId } from '../../types'
-import { Image } from '../../Viewer/types'
 import { Loaded, ImagesLoadState, OnImagesLoaded } from './types'
 import { getLoadingStateMap, updateLoadedStates } from './loadingStates'
 import { getImageIdsAndScheme } from './getImageIdsAndScheme'
+import { Image } from '../../Viewer/types'
 
 interface UseLoadImages {
   ({
     onError,
     requestInterceptor,
     ...rest
-  }: HTTP & ImageId & { onImagesLoaded?: OnImagesLoaded }): ImagesLoadState
+  }: HTTP & ImageId & { onImagesLoaded?: OnImagesLoaded; timeout: number }): ImagesLoadState
 }
 
 interface State {
@@ -39,13 +39,12 @@ export const useLoadImages: UseLoadImages = ({
   onError,
   requestInterceptor,
   onImagesLoaded = noop,
+  timeout,
   ...rest
 }) => {
   const { ids: imageIds, scheme: imageScheme } = getImageIdsAndScheme(rest)
   const [{ loadingStates }, setState] = useState<State>({
-    loadingStates: getLoadingStateMap(
-      Array.isArray(imageIds) ? imageIds.length : 0
-    ),
+    loadingStates: getLoadingStateMap(Array.isArray(imageIds) ? imageIds.length : 0),
     _currentIndex: -1,
   })
 
@@ -70,45 +69,32 @@ export const useLoadImages: UseLoadImages = ({
     // Update _imageSeriesKey When the image series are changed.
     _imageSeriesKey = uid()
 
-    loadImages({ images: imageIds, imageScheme, requestInterceptor }).subscribe(
-      {
-        next: ({ image, loaded }: Loaded) => {
-          imagesRef.current = [
-            ...imagesRef.current,
-            { ...image, _imageSeriesKey },
-          ]
-          setState((prev: State) => ({
-            loadingStates: updateLoadedStates({
-              size: imageIds.length,
-              stateMap: prev.loadingStates,
-              value: loaded,
-            }),
-            _currentIndex: loaded - 1,
-          }))
-        },
-        error: err => {
-          onError(err)
-          setState(prev => ({
-            ...prev,
-            loadingStates: prev.loadingStates.set(
-              prev._currentIndex + 1,
-              LOADING_STATE.FAIL
-            ),
-          }))
-        },
-        complete: () => {
-          onImagesLoaded()
-        },
-      }
-    )
-  }, [
-    imageIds,
-    imageScheme,
-    onError,
-    onImagesLoaded,
-    requestInterceptor,
-    hasLoader,
-  ])
+    loadImages({ images: imageIds, imageScheme, requestInterceptor, timeout }).subscribe({
+      next: ({ image, loaded }: Loaded) => {
+        const newImage = { ...image, _imageSeriesKey }
+
+        imagesRef.current.push(newImage)
+        setState((prev: State) => ({
+          loadingStates: updateLoadedStates({
+            size: imageIds.length,
+            stateMap: prev.loadingStates,
+            value: loaded,
+          }),
+          _currentIndex: loaded - 1,
+        }))
+      },
+      error: err => {
+        onError(err)
+        setState(prev => ({
+          ...prev,
+          loadingStates: prev.loadingStates.set(prev._currentIndex + 1, LOADING_STATE.FAIL),
+        }))
+      },
+      complete: () => {
+        onImagesLoaded()
+      },
+    })
+  }, [imageIds, imageScheme, onError, onImagesLoaded, requestInterceptor, hasLoader, timeout])
 
   return {
     images: imagesRef.current,

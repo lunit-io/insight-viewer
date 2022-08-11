@@ -57,12 +57,13 @@ export default function useMeasurementPointsHandler({
     }
 
     const initialStartPoint: [Point, Point] = [point, point]
-    const initialTextPosition = getTextPosition(initialStartPoint, mode)
+    const initialTextPosition = getTextPosition(measurement)
 
     const currentMeasurement = getMeasurement(initialStartPoint, initialTextPosition, mode, measurements, image)
     setMeasurement(currentMeasurement)
 
     const currentDrawingMeasurement = getDrawingMeasurement(initialStartPoint, currentMeasurement, pixelToCanvas)
+
     setDrawingMeasurement(currentDrawingMeasurement)
   }
 
@@ -88,9 +89,9 @@ export default function useMeasurementPointsHandler({
 
       const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
 
-      const currentTextPosition = getTextPosition(currentPoints, drawingMode)
+      const currentTextPosition = getTextPosition(measurement, editMode, point)
 
-      const canvasPoints = currentPoints.map(pixelToCanvas)
+      const canvasPoints = currentPoints.map(pixelToCanvas) as [Point, Point]
       const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
@@ -140,5 +141,10 @@ export default function useMeasurementPointsHandler({
     addDrewElement: addDrewMeasurement,
   })
 
-  return { measurement: drawingMeasurement, editPoints: editTargetPoints, setMeasurementEditMode }
+  return {
+    measurement: drawingMeasurement,
+    currentEditMode: editMode,
+    editPoints: editTargetPoints,
+    setMeasurementEditMode,
+  }
 }

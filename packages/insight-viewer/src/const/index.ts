@@ -17,6 +17,7 @@ export const CONFIG = {
   Progress: undefined,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   requestInterceptor: (_request: Request): void => {},
+  timeout: 60 * 1000,
 }
 
 export const LOADING_STATE = {
@@ -43,13 +44,18 @@ export const ERROR_MESSAGE = {
   ENABLED_ELEMENT_NOT_READY: 'enabledElement value is null, Please check the enabledElement value.',
 } as const
 
+export const LINE_TEXT_POSITION_SPACING = {
+  x: 2,
+  y: 5,
+}
+
 export const RULER_TEXT_POSITION_SPACING = {
   x: 10,
-  y: 20,
+  y: 15,
 }
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
-  x: 60,
+  x: 75,
   y: 10,
 }
 

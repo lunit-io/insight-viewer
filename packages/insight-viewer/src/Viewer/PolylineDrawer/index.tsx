@@ -23,18 +23,20 @@ export function PolylineDrawer({
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const polylinePoints = points
+  const canvasPoints = points.map(pixelToCanvas)
+
+  const polylinePoints = canvasPoints
     .map(point => {
-      const [x, y] = pixelToCanvas(point)
+      const [x, y] = point
       return `${x},${y}`
     })
     .join()
 
   const getArrowPoints = () => {
-    const arrowPosition = getArrowPosition(points)
+    const arrowPosition = getArrowPosition(canvasPoints)
     const arrowPoints = arrowPosition
       .map(point => {
-        const [x, y] = pixelToCanvas(point)
+        const [x, y] = point
         return `${x},${y}`
       })
       .join()
@@ -45,27 +47,23 @@ export function PolylineDrawer({
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
 
   return (
-    <>
+    <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
       {points && points.length > 0 && (
         <>
-          <PolylineElement
-            isPolygon={!!isPolygonSelected}
-            style={polyline.outline}
-            onMouseDown={() => setAnnotationEditMode('move')}
-            points={polylinePoints}
-          />
+          <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.outline} points={polylinePoints} />
           {lineHead === 'arrow' && (
-            <PolylineElement
-              isPolygon={!!isPolygonSelected}
-              style={polyline[isSelectedMode ? 'select' : 'default']}
-              onMouseDown={() => setAnnotationEditMode('move')}
-              points={getArrowPoints()}
-            />
+            <>
+              <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.outline} points={getArrowPoints()} />
+              <PolylineElement
+                isPolygon={!!isPolygonSelected}
+                style={polyline[isSelectedMode ? 'select' : 'default']}
+                points={getArrowPoints()}
+              />
+            </>
           )}
           <PolylineElement
             isPolygon={!!isPolygonSelected}
             style={polyline[isSelectedMode ? 'select' : 'default']}
-            onMouseDown={() => setAnnotationEditMode('move')}
             points={polylinePoints}
           />
         </>
@@ -75,6 +73,6 @@ export function PolylineDrawer({
           {selectedAnnotationLabel}
         </text>
       )}
-    </>
+    </g>
   )
 }

@@ -17,6 +17,7 @@ interface LoadImages {
     images: string[]
     imageScheme: ImageLoaderScheme
     requestInterceptor: RequestInterceptor
+    timeout: number
   }): Observable<Loaded>
 }
 
@@ -26,7 +27,7 @@ interface LoadImages {
  * @returns Observable<{ image, loaded }>. image is cornerstone image. loaded is the numbe of loaded images.
  * @throws If image fetching fails.
  */
-export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor }) => {
+export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor, timeout }) => {
   let loaded = 0
   // Should send message before loading starts, because subscriber needs total value.
   loadedCountMessageMessage.sendMessage({
@@ -36,13 +37,14 @@ export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor
 
   return from(images).pipe(
     // Sequential Requests.
-    concatMap(image => loadCornerstoneImages(image, imageScheme, requestInterceptor)),
+    concatMap(imageId => loadCornerstoneImages({ imageId, imageScheme, requestInterceptor, timeout })),
     map(image => {
       loaded += 1
       loadedCountMessageMessage.sendMessage({
         loaded,
         total: images.length,
       })
+
       return {
         image,
         loaded,
