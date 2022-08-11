@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.6.1...@lunit/insight-viewer-docs@5.7.0) (2022-08-11)
+
+
+### Bug Fixes
+
+* **viewer-docs:** wrong hostname in loader worker setting ([7ae62a5](https://github.com/lunit-io/frontend-components/commit/7ae62a5844c8f5a3ce2dea0dd458c1086c0f94a0))
+* **viewer:** build error ([fc69196](https://github.com/lunit-io/frontend-components/commit/fc691967067c731241b2708273418b4449d057f4))
+* **viewer:** undefined ruler error ([9a3f1b8](https://github.com/lunit-io/frontend-components/commit/9a3f1b81a4e64836d043ba2340427a935309f51f))
+
+
+### Features
+
+* **viewer-docs:** add line head mode radio to Annotation Drawer docs ([ebbb851](https://github.com/lunit-io/frontend-components/commit/ebbb8512724920697935e654ca83a22c10dff372))
+* **viewer-docs:** apply data attribute to Annotation Drawer mode radio ([bfb8be9](https://github.com/lunit-io/frontend-components/commit/bfb8be908ac8c529a80a337f22ef7dcc64ef8e8d))
+* **viewer-docs:** update circle measurement mock data ([c865ad8](https://github.com/lunit-io/frontend-components/commit/c865ad81a98524a0e83eaeb8d2082b8d194bedf4))
+* **viewer:** add timeout option to useImage ([3cbe226](https://github.com/lunit-io/frontend-components/commit/3cbe2260582f26da57d24a0f75709746c4a7265f))
+
+
+
+
+
 ## [5.6.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.6.0...@lunit/insight-viewer-docs@5.6.1) (2022-06-23)
 
 **Note:** Version bump only for package @lunit/insight-viewer-docs
