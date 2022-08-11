@@ -49,6 +49,7 @@ function MeasurementsDraw({
     return (
       <g
         key={measurement.id}
+        data-cy-id={measurement.id}
         onClick={handleMeasurementClick}
         onMouseOver={handleMeasurementFocus}
         onMouseLeave={handleMeasurementFocusOut}

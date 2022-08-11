@@ -1,6 +1,6 @@
-import { Measurement } from '@lunit/insight-viewer'
+import { RulerMeasurement } from '@lunit/insight-viewer'
 
-export const RULER_MEASUREMENTS: Measurement[] = [
+export const RULER_MEASUREMENTS: RulerMeasurement[] = [
   {
     id: 1,
     type: 'ruler',
@@ -46,3 +46,16 @@ export const RULER_MEASUREMENTS: Measurement[] = [
     unit: 'mm',
   },
 ]
+
+export const SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT: RulerMeasurement = {
+  id: 1,
+  lineWidth: 1.5,
+  type: 'ruler',
+  points: [
+    [246.49142857142854, 248.1485714285714],
+    [246.55428571428567, 248.1485714285714],
+  ],
+  length: 1.0101520273541005,
+  unit: 'mm',
+  textPoint: null,
+}
