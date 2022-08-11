@@ -2,12 +2,11 @@ import {
   setup,
   editPoint,
   moveMeasurement,
-  drawMeasurement,
   drawMeasurements,
   deleteAndCheckAnnotationOrMeasurement,
 } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { RULER_MEASUREMENTS, SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT } from '../../mocks/ruler'
+import { RULER_MEASUREMENTS } from '../../mocks/ruler'
 
 describe(
   'Measurement Drawer',
@@ -37,12 +36,6 @@ describe(
         cy.get('[data-cy-id]').should('have.length', 0)
       })
 
-      it('cancel drawing if smaller than the minimum length', () => {
-        drawMeasurement(SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT)
-
-        cy.get('[data-cy-id]').should('have.length', 0)
-      })
-
       it('drawing ruler measurement', () => {
         drawMeasurements(RULER_MEASUREMENTS)
 
@@ -60,13 +53,17 @@ describe(
       it('move ruler measurement', () => {
         const targetMeasurement = RULER_MEASUREMENTS[2]
         const targetDataAttr = `[data-cy-id="${targetMeasurement.id}"]`
+        const beforeDomRectPostion = { x: 364.84375, y: 478 }
+        const movedDomRectPostion = { x: 368.73516845703125, y: 548 }
 
-        const beforeMovePoints = '348.99999999999994,222.26562499999997 267,240.26562499999997'
-        const movedPoints = '344.89142857142843,292.265625 262.8914285714285,310.265625'
+        cy.get(targetDataAttr).then($element => {
+          const element = $element[0].getBoundingClientRect()
+
+          expect(element.x).equal(beforeDomRectPostion.x)
+          expect(element.y).equal(beforeDomRectPostion.y)
+        })
 
         cy.get('[data-cy-edit="false"]').click()
-
-        cy.get(`${targetDataAttr} > polyline`).invoke('attr', 'points').should('equal', beforeMovePoints)
 
         moveMeasurement(targetMeasurement, MOVING_DISTANCE)
 
@@ -74,18 +71,28 @@ describe(
         const lastMeasurement = RULER_MEASUREMENTS[RULER_MEASUREMENTS.length - 1]
         const lastTargetDataAttr = `[data-cy-id="${lastMeasurement.id + 1}"]`
 
-        cy.get(`${lastTargetDataAttr} > polyline`).invoke('attr', 'points').should('equal', movedPoints)
+        cy.get(lastTargetDataAttr).then($element => {
+          const element = $element[0].getBoundingClientRect()
+
+          expect(element.x).equal(movedDomRectPostion.x)
+          expect(element.y).equal(movedDomRectPostion.y)
+        })
       })
 
       it('edit start point of ruler measurement', () => {
         const targetMeasurement = RULER_MEASUREMENTS[3]
         const [startPoint] = targetMeasurement.points
         const targetDataAttr = `[data-cy-id="${targetMeasurement.id}"]`
+        const beforeDomRectPostion = { x: 324.94140625, y: 605 }
+        const movedDomRectPostion = { x: 323.71875, y: 623 }
 
-        const beforeMovePoints = '300.99999999999994,349.26562499999994 224.99999999999997,367.26562499999994'
-        const movedPoints = '400.9999999999999,449.2656249999999 224.99999999999997,367.26562499999994'
+        cy.get(targetDataAttr).then($element => {
+          const element = $element[0].getBoundingClientRect()
 
-        cy.get(`${targetDataAttr} > polyline`).invoke('attr', 'points').should('equal', beforeMovePoints)
+          expect(element.x).equal(beforeDomRectPostion.x)
+          expect(element.y).equal(beforeDomRectPostion.y)
+        })
+
         cy.get(targetDataAttr).click({ force: true })
 
         editPoint(startPoint, MOVING_DISTANCE)
@@ -94,7 +101,12 @@ describe(
         const lastMeasurement = RULER_MEASUREMENTS[RULER_MEASUREMENTS.length - 1]
         const lastTargetDataAttr = `[data-cy-id="${lastMeasurement.id + 2}"]`
 
-        cy.get(`${lastTargetDataAttr} > polyline`).invoke('attr', 'points').should('equal', movedPoints)
+        cy.get(lastTargetDataAttr).then($element => {
+          const element = $element[0].getBoundingClientRect()
+
+          expect(element.x).equal(movedDomRectPostion.x)
+          expect(element.y).equal(movedDomRectPostion.y)
+        })
       })
     })
   }
