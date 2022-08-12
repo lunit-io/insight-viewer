@@ -9,7 +9,7 @@ export function calculateDistance(radius: number, image: Image | null): number |
     return radius
   }
 
-  if (image.columnPixelSpacing && image.columnPixelSpacing) {
+  if (image.columnPixelSpacing) {
     return calcRadius(radius, image.columnPixelSpacing)
   }
 
