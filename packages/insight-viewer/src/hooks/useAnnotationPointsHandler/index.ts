@@ -20,10 +20,10 @@ export default function useAnnotationPointsHandler({
   addAnnotation,
   onSelectAnnotation,
 }: UseAnnotationPointsHandlerParams): UseAnnotationPointsHandlerReturnType {
-  const [points, setPoints] = useState<Point[]>([])
-  const [editPoint, setEditPoint] = useState<Point | null>(null)
-  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [editMode, setEditMode] = useState<EditMode | null>(null)
+  const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
+  const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
+  const [points, setPoints] = useState<Point[]>([])
 
   const { image, pixelToCanvas } = useOverlayContext()
 
@@ -52,7 +52,7 @@ export default function useAnnotationPointsHandler({
 
   const addStartPoint = (point: Point) => {
     if (isEditing && selectedAnnotation) {
-      setEditPoint(point)
+      setEditStartPoint(point)
       return
     }
 
@@ -65,14 +65,14 @@ export default function useAnnotationPointsHandler({
 
       if (prevPoints.length === 0 || isPrepareEditing) return prevPoints
 
-      if (isEditing && selectedAnnotation && editMode && editPoint) {
+      if (isEditing && selectedAnnotation && editMode && editStartPoint) {
         const editedPoints = getAnnotationEditingPoints(
           prevPoints,
           point,
-          editPoint,
+          editStartPoint,
           editMode,
           selectedAnnotation.type,
-          setEditPoint
+          setEditStartPoint
         )
 
         return editedPoints
@@ -91,7 +91,7 @@ export default function useAnnotationPointsHandler({
     }
 
     setPoints([])
-    setEditPoint(null)
+    setEditStartPoint(null)
     setEditMode(null)
     onSelectAnnotation(null)
   }
