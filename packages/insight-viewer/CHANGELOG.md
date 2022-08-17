@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.6.1...@lunit/insight-viewer@5.7.0) (2022-08-11)
+
+
+### Bug Fixes
+
+* **viewer:** build error ([42722b1](https://github.com/lunit-io/frontend-components/commit/42722b17c1bdce1afaffa8a1964e806e90f2f784))
+* **viewer:** build error ([fc69196](https://github.com/lunit-io/frontend-components/commit/fc691967067c731241b2708273418b4449d057f4))
+* **viewer:** delete optional type to connectingLine ([a63f9ed](https://github.com/lunit-io/frontend-components/commit/a63f9edc9d92cab036fb9569a4326b946c131adb))
+* **viewer:** type error ([54bf772](https://github.com/lunit-io/frontend-components/commit/54bf772dca9edfa6c369833213d8ee6cf0f340bb))
+* **viewer:** type error about Image ([afcf368](https://github.com/lunit-io/frontend-components/commit/afcf368b9eeaf9977ff33b91b731481d34a066b9))
+* **viewer:** type error in useLoadImage ([934c2da](https://github.com/lunit-io/frontend-components/commit/934c2da4d4c535284b3d1e7993f22926a3dc6171))
+* **viewer:** undefined ruler error ([9a3f1b8](https://github.com/lunit-io/frontend-components/commit/9a3f1b81a4e64836d043ba2340427a935309f51f))
+
+
+### Features
+
+* **viewer:** add a comma in a circle area measurement ([666a533](https://github.com/lunit-io/frontend-components/commit/666a53320c2b267c3190e9012dfe074556ae9366))
+* **viewer:** add arrow outline style to LineViewer, PolylineDrawer ([1517acb](https://github.com/lunit-io/frontend-components/commit/1517acb299c5641c12de5a797f5b9a70e80a81e7))
+* **viewer:** add calculate default textPoint logic to Viewer, Drawer ([6b6806c](https://github.com/lunit-io/frontend-components/commit/6b6806cd11dda3794643aa7c27df5eff02819582))
+* **viewer:** add connectingLine to Measurement Viewer, Drawer ([9ed2914](https://github.com/lunit-io/frontend-components/commit/9ed2914da72ec71dc69cced521638ab00a2fc0ed))
+* **viewer:** add connectingLine to Ruler Viewer, Drawer ([466870d](https://github.com/lunit-io/frontend-components/commit/466870daf3a6be2f7d8c403efed9f61f46ed5d10))
+* **viewer:** add connectingLine type and util function ([09cceb1](https://github.com/lunit-io/frontend-components/commit/09cceb1143134ad093f2c12521469eb26dd0f8fc))
+* **viewer:** add currentEditMode to points hook return value ([9d32d03](https://github.com/lunit-io/frontend-components/commit/9d32d03b199f6e6d3d8f429664769de8905e28cb))
+* **viewer:** add dashLine style to Measurement ([c56019f](https://github.com/lunit-io/frontend-components/commit/c56019fba82083b5a72d339c236a258d9925409d))
+* **viewer:** add g tag of circle wrapper to CIrcleViewer ([deccb7b](https://github.com/lunit-io/frontend-components/commit/deccb7bf99e8f2681540c868244078759fc63b8d))
+* **viewer:** add g tag of polyline wrapper to RulerViewer ([264340c](https://github.com/lunit-io/frontend-components/commit/264340c124dcf4c1dc6a774ebe0a36fa57abb67e))
+* **viewer:** add line spacing and apply line annotation label position ([ed0c179](https://github.com/lunit-io/frontend-components/commit/ed0c179e2789a1600928688cb2b9a728175ed304))
+* **viewer:** add textMove mode and text move util function ([8b2c744](https://github.com/lunit-io/frontend-components/commit/8b2c74465c267a568afe75675291dae0cbadbc02))
+* **viewer:** add timeout option to useImage ([3cbe226](https://github.com/lunit-io/frontend-components/commit/3cbe2260582f26da57d24a0f75709746c4a7265f))
+* **viewer:** apply connectingLine logic to Circle Viewer, Drawer ([1c83a98](https://github.com/lunit-io/frontend-components/commit/1c83a98e5d92a456623a9ed10c65910f84fd20ec))
+* **viewer:** apply isSelectedMode isHighlightMode to EditPointer ([ed2eb47](https://github.com/lunit-io/frontend-components/commit/ed2eb4707dfe372d5da5fc5d05b526312ea3e5af))
+* **viewer:** apply isSelectedMode prop to CircleDrawer ([a1b95df](https://github.com/lunit-io/frontend-components/commit/a1b95df837cfd4a883f1d560380ec9567ce53900))
+* **viewer:** apply null type to textPoint field ([e6e35da](https://github.com/lunit-io/frontend-components/commit/e6e35da299ea6537019818b2b9ca830292f92bd2))
+* **viewer:** apply optional type to Line Annotation hasArrowHead field ([3644052](https://github.com/lunit-io/frontend-components/commit/36440521c37c8dbcc9e010a71afccedfe61590c9))
+* **viewer:** apply pixelToCanvas before getting arrow position ([ca7ce1f](https://github.com/lunit-io/frontend-components/commit/ca7ce1f87725a0034768e897ed6ef15d92947b59))
+* **viewer:** apply selectedAnnotation Id to addDrewAnnotation logic ([f2c0740](https://github.com/lunit-io/frontend-components/commit/f2c0740c2b139becfa7816db15018f1085aeae68))
+* **viewer:** change decimal places ([75c3583](https://github.com/lunit-io/frontend-components/commit/75c3583a2d815dc7768d7f76582077792c746c29))
+* **viewer:** change display circle measurement ([77917b6](https://github.com/lunit-io/frontend-components/commit/77917b6873b6212272908317af5218efe58680c6))
+* **viewer:** delete calculate textPoint logic to util function, hook ([084a826](https://github.com/lunit-io/frontend-components/commit/084a8266a11675f7753f4e380a3b21259851ec44))
+* **viewer:** delete connectingLine field to type, util, hook, viewer ([e9a5635](https://github.com/lunit-io/frontend-components/commit/e9a5635eb46db6e41fbe80cfdef02680722d5eb7))
+* **viewer:** delete connectingPoints field to types, Drawer, util ([1bc5682](https://github.com/lunit-io/frontend-components/commit/1bc56820cc5d3ec71f1e719e0f820494bfd4ec6e))
+* **viewer:** delete headPoints field and add hasArrowHead field ([ea9f744](https://github.com/lunit-io/frontend-components/commit/ea9f744c26db2751cca22d1e20bd28cf62f3beba))
+* **viewer:** delete isEditingTextPoint field to type, util function ([18f9b2e](https://github.com/lunit-io/frontend-components/commit/18f9b2e45a4b7be42a413c2efba1168eb44a8ab0))
+* **viewer:** delete measurement paramter to getTextPosition ([f88f1e8](https://github.com/lunit-io/frontend-components/commit/f88f1e89afefb9c03d600b950d7007a1e39f0830))
+* **viewer:** delete pixelToCanvas logic to measurement center ([55b8b29](https://github.com/lunit-io/frontend-components/commit/55b8b2989c91e46a06b70ecd1c8435bd143d8561))
+* **viewer:** fix fraction digits ([80c4417](https://github.com/lunit-io/frontend-components/commit/80c441785e90d86509eb40baa3f55a1dd4e03740))
+* **viewer:** modify arrow degree, length, center position for scale ([6cc533f](https://github.com/lunit-io/frontend-components/commit/6cc533f1320606b20d1a707bfab5c2acc4948ec8))
+* **viewer:** modify calculateDistance ([826d6ca](https://github.com/lunit-io/frontend-components/commit/826d6ca31002ada4ea73908aa1ecdcfe4b9c1b76))
+* **viewer:** modify circle text position x spacing 45 to 75 ([052ab30](https://github.com/lunit-io/frontend-components/commit/052ab30a4ca67df282046a0cff2eed33479d6f45))
+* **viewer:** modify Circle text position x spacing 60 to 45 ([a8a2acf](https://github.com/lunit-io/frontend-components/commit/a8a2acf76ef7043fed60736db51a39b6b2857b19))
+* **viewer:** modify CircleDrawer style and add outline ([4cb36b6](https://github.com/lunit-io/frontend-components/commit/4cb36b66d6fb228660f7ba1f849ad15e2e2938ae))
+* **viewer:** modify CircleViewer style and add outline ([26670b3](https://github.com/lunit-io/frontend-components/commit/26670b3695b45a58e047a9f280deb6ba23b75855))
+* **viewer:** modify MINIMUM_LENGTH of line annotation ([c31ea94](https://github.com/lunit-io/frontend-components/commit/c31ea948ee545726c6e8bdf378305191244c5509))
+* **viewer:** modify ruler text position x spacing 20 to 15 ([4f8284c](https://github.com/lunit-io/frontend-components/commit/4f8284ce09e7cf272c43adfb7f7e799ddc3b51d5))
+* **viewer:** modify RulerDrawer style, add outline style ([0530796](https://github.com/lunit-io/frontend-components/commit/053079601c8f49df66f7b70025aae5f0cd7ef13e))
+* **viewer:** modify RulerViewer style, add outline ([52632df](https://github.com/lunit-io/frontend-components/commit/52632dfb8ae70f528869d6e678e9a0f78e12f326))
+* **viewer:** remove selected annotation with delete key ([15216b9](https://github.com/lunit-io/frontend-components/commit/15216b952ae12004f4900583f106c3fabf1e24cb))
+* **viewer:** set or or delete data-cy-attribute to Measurement ([fc130c0](https://github.com/lunit-io/frontend-components/commit/fc130c09a4bc63260dec63f36608f1da9cdbbfb7))
+
+
+
+
+
 ## [5.6.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.6.0...@lunit/insight-viewer@5.6.1) (2022-06-23)
 
 
