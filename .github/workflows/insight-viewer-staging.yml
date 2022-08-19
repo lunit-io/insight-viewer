@@ -1,4 +1,4 @@
-name: "Deploy insight-viewer on staging"
+name: 'Deploy insight-viewer on staging'
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - develop
     paths:
       - .github/workflows/insight-viewer-staging.yml
-      - packages/insight-viewer/**
+      - libs/insight-viewer/**
       - apps/insight-viewer-docs/**
 
 jobs:
@@ -15,35 +15,16 @@ jobs:
     env:
       WORKDIR: .
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref }}
-
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v3
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v2
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          main-branch-name: 'master'
+      - run: npm ci
 
-      - name: Restore Nx cache
-        uses: actions/cache@v3
-        with:
-          path: .nx_cache
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nx
-
-      - name: Install Packages
-        run: yarn install --prefer-offline --frozen-lockfile
-
-      - name: Build
-        run: yarn build
-        working-directory: ${{ env.WORKDIR }}
+      - run: npx nx workspace-lint
+      - run: npx nx export insight-viewer-docs
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
