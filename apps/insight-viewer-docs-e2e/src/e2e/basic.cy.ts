@@ -1,7 +1,7 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
-import { IMAGES } from '../../src/const'
+import { IMAGES } from '../../../insight-viewer-docs/const'
 
 describe(
   'Basic Viewer',

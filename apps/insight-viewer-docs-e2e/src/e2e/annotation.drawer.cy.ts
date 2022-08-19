@@ -4,9 +4,12 @@ import {
   POLYGON_ANNOTATIONS,
   INTERSECTING_POLYGON_ANNOTATION,
   SMALLER_THAN_MINIMUM_AREA_POLYGON_ANNOTATION,
-} from '../../mocks/polygons'
-import { LINE_ANNOTATIONS, SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION } from '../../mocks/lines'
-import { FREELINE_ANNOTATIONS, SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION } from '../../mocks/freeLines'
+} from '../../../insight-viewer-docs/mocks/polygons'
+import { LINE_ANNOTATIONS, SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION } from '../../../insight-viewer-docs/mocks/lines'
+import {
+  FREELINE_ANNOTATIONS,
+  SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
+} from '../../../insight-viewer-docs/mocks/freeLines'
 
 describe(
   'annotation drawer',
@@ -64,7 +67,6 @@ describe(
 
       it('click reset', () => {
         cy.get('[data-cy-name="remove-button"]').click()
-        cy.get('[data-cy-edit="true"]').click()
       })
 
       it('click line radio', () => {
@@ -100,7 +102,6 @@ describe(
 
       it('click reset', () => {
         cy.get('[data-cy-name="remove-button"]').click()
-        cy.get('[data-cy-edit="true"]').click()
       })
 
       it('click line radio', () => {

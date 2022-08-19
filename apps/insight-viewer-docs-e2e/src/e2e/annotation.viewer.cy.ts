@@ -4,10 +4,10 @@ import {
   deleteAndCheckMultiAnnotationOrMeasurement,
 } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { POLYGON_ANNOTATIONS } from '../../mocks/polygons'
-import { LINE_ANNOTATIONS } from '../../mocks/lines'
-import { FREELINE_ANNOTATIONS } from '../../mocks/freeLines'
-import { TEXT_ANNOTATIONS } from '../../mocks/texts'
+import { POLYGON_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/polygons'
+import { LINE_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/lines'
+import { FREELINE_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/freeLines'
+import { TEXT_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/texts'
 
 describe(
   'annotation viewer',
@@ -30,13 +30,13 @@ describe(
       it('check value when label switch is on', () => {
         cy.get('[data-cy-show-label="false"]').click()
 
-        POLYGON_ANNOTATIONS.forEach(annotation => {
+        POLYGON_ANNOTATIONS.forEach((annotation) => {
           const targetId = annotation.id - 1
           const targetDataAttr = `[data-cy-id="${targetId}"]`
 
           cy.get(targetDataAttr)
             .invoke('text')
-            .then(text => {
+            .then((text) => {
               expect(text).equal(targetId.toString())
             })
         })
@@ -45,13 +45,13 @@ describe(
       it('check value when label switch is off', () => {
         cy.get('[data-cy-show-label="true"]').click()
 
-        POLYGON_ANNOTATIONS.forEach(annotation => {
+        POLYGON_ANNOTATIONS.forEach((annotation) => {
           const targetId = annotation.id - 1
           const targetDataAttr = `[data-cy-id="${targetId}"]`
 
           cy.get(targetDataAttr)
             .invoke('text')
-            .then(text => {
+            .then((text) => {
               expect(text).equal('')
             })
         })

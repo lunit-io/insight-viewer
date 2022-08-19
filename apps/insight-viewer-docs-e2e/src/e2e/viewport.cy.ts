@@ -1,7 +1,7 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { INITIAL_VIEWPORT1 } from '../../src/containers/Viewport/const'
+import { INITIAL_VIEWPORT1 } from '../../../insight-viewer-docs/containers/Viewport/const'
 
 describe(
   'Viewport Viewer',
