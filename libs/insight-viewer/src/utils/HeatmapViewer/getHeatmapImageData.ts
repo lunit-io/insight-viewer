@@ -31,9 +31,7 @@ export default function getHeatmapImageData({
   canvas.height = heatmapHeight
 
   const heatmapCanvas = document.createElement('canvas')
-  const heatmapImageData = canvas
-    .getContext('2d')
-    ?.createImageData(heatmapWidth, heatmapHeight)
+  const heatmapImageData = canvas.getContext('2d')?.createImageData(heatmapWidth, heatmapHeight)
   const pixels = heatmapImageData?.data
 
   if (!heatmapImageData || !pixels) {

@@ -1,13 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  useImage,
-  useViewport,
-  useInteraction,
-  Viewport,
-  HeatmapViewer,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, useInteraction, Viewport, HeatmapViewer } from '@lunit/insight-viewer'
 import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
 import { IMAGES } from '../../../const'
@@ -47,7 +41,7 @@ function HeatmapContainer(): JSX.Element {
           <Box>
             invert{' '}
             <Switch
-              onChange={e => updateViewport('invert', e.target.checked)}
+              onChange={(e) => updateViewport('invert', e.target.checked)}
               className="invert-control"
               isChecked={viewport.invert}
             />
@@ -55,7 +49,7 @@ function HeatmapContainer(): JSX.Element {
           <Box>
             hflip{' '}
             <Switch
-              onChange={e => updateViewport('hflip', e.target.checked)}
+              onChange={(e) => updateViewport('hflip', e.target.checked)}
               className="hflip-control"
               isChecked={viewport?.hflip ?? false}
             />
@@ -63,7 +57,7 @@ function HeatmapContainer(): JSX.Element {
           <Box>
             vflip{' '}
             <Switch
-              onChange={e => updateViewport('vflip', e.target.checked)}
+              onChange={(e) => updateViewport('vflip', e.target.checked)}
               className="vflip-control"
               isChecked={viewport?.vflip ?? false}
             />
@@ -78,15 +72,8 @@ function HeatmapContainer(): JSX.Element {
             height: 500,
           }}
         >
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-            interaction={interaction}
-          >
-            {loadingState === 'success' && (
-              <HeatmapViewer posMap={posMap} threshold={0.15} />
-            )}
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} interaction={interaction}>
+            {loadingState === 'success' && <HeatmapViewer posMap={posMap} threshold={0.15} />}
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </Resizable>

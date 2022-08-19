@@ -2,10 +2,7 @@ import { Point } from '../../types'
 
 const minimumArea = 100
 
-export function getIsPolygonAreaGreaterThanArea(
-  polygon: Point[],
-  greaterThanArea = minimumArea
-): boolean {
+export function getIsPolygonAreaGreaterThanArea(polygon: Point[], greaterThanArea = minimumArea): boolean {
   // https://stackoverflow.com/questions/16285134/calculating-polygon-area
   // Calculate the area of a polygon and verify if it is greater than or equal to the minimum area
 

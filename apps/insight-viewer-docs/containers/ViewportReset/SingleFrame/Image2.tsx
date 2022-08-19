@@ -1,10 +1,6 @@
 import { useCallback, useRef } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
-import InsightViewer, {
-  useImage,
-  useViewport,
-  Viewport,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
 import useImageSelect, { OnSelect } from '../../Basic/useImageSelect'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
@@ -18,8 +14,7 @@ const INITIAL_VIEWPORT = {
 
 export default function Image2(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
-  const { viewport, setViewport, resetViewport, initialized } =
-    useViewport(INITIAL_VIEWPORT)
+  const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT)
   const currentViewportRef = useRef<Viewport>()
   const handleImageLoaded = () => {
     if (!currentViewportRef?.current) return
@@ -47,9 +42,7 @@ export default function Image2(): JSX.Element {
   return (
     <Box>
       <Box mb={6}>
-        <Text className="test">
-          이미지 변경 시 뷰포트 변경 (유저가 변경한 현재 뷰포트 유지)
-        </Text>
+        <Text className="test">이미지 변경 시 뷰포트 변경 (유저가 변경한 현재 뷰포트 유지)</Text>
       </Box>
       <Box mb={6}>
         <ImageSelect onSelect={handleImageSelect} />
@@ -67,7 +60,7 @@ export default function Image2(): JSX.Element {
                   min="0"
                   max="100"
                   step="10"
-                  onChange={e => {
+                  onChange={(e) => {
                     updateViewport('x', Number(e.target.value))
                   }}
                   className="x-control"
@@ -85,7 +78,7 @@ export default function Image2(): JSX.Element {
                   min="0"
                   max="100"
                   step="10"
-                  onChange={e => {
+                  onChange={(e) => {
                     updateViewport('y', Number(e.target.value))
                   }}
                   className="y-control"
@@ -93,11 +86,7 @@ export default function Image2(): JSX.Element {
                 />
               </Box>
             </Box>
-            <Button
-              colorScheme="blue"
-              onClick={resetViewport}
-              className="reset"
-            >
+            <Button colorScheme="blue" onClick={resetViewport} className="reset">
               Reset
             </Button>
           </Stack>
@@ -113,7 +102,7 @@ export default function Image2(): JSX.Element {
                   min="0"
                   max="300"
                   step="10"
-                  onChange={e => {
+                  onChange={(e) => {
                     updateViewport('windowWidth', Number(e.target.value))
                   }}
                   className="window-width-control"
@@ -131,7 +120,7 @@ export default function Image2(): JSX.Element {
                   min="0"
                   max="300"
                   step="10"
-                  onChange={e => {
+                  onChange={(e) => {
                     updateViewport('windowCenter', Number(e.target.value))
                   }}
                   className="window-center-control"
@@ -149,7 +138,7 @@ export default function Image2(): JSX.Element {
                   min="0.5"
                   max="2"
                   step="0.1"
-                  onChange={e => {
+                  onChange={(e) => {
                     updateViewport('scale', Number(e.target.value))
                   }}
                   className="scale-control"
@@ -162,7 +151,7 @@ export default function Image2(): JSX.Element {
             <Box>
               invert{' '}
               <Switch
-                onChange={e => updateViewport('invert', e.target.checked)}
+                onChange={(e) => updateViewport('invert', e.target.checked)}
                 className="invert-control"
                 isChecked={viewport.invert}
               />
@@ -170,7 +159,7 @@ export default function Image2(): JSX.Element {
             <Box>
               hflip{' '}
               <Switch
-                onChange={e => updateViewport('hflip', e.target.checked)}
+                onChange={(e) => updateViewport('hflip', e.target.checked)}
                 className="hflip-control"
                 isChecked={viewport?.hflip ?? false}
               />
@@ -178,7 +167,7 @@ export default function Image2(): JSX.Element {
             <Box>
               vflip{' '}
               <Switch
-                onChange={e => updateViewport('vflip', e.target.checked)}
+                onChange={(e) => updateViewport('vflip', e.target.checked)}
                 className="vflip-control"
                 isChecked={viewport?.vflip ?? false}
               />
@@ -188,12 +177,7 @@ export default function Image2(): JSX.Element {
       </Stack>
       <Box data-cy-loaded={loadingState} data-cy-viewport={initialized}>
         <ViewerWrapper className="viewer1">
-          <InsightViewer
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-            Progress={CustomProgress}
-          >
+          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>

@@ -15,7 +15,7 @@ export function useDicomFile(): {
   })
 
   function setImageIdByFile(f: File) {
-    getDicomFileImageId(f).then(imgId => {
+    getDicomFileImageId(f).then((imgId) => {
       setState({
         imageId: imgId,
         file: f,

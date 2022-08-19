@@ -18,7 +18,7 @@ function AnnotationsDraw({
   onFocus,
   onClick,
 }: AnnotationsDrawProps) {
-  return annotations.map(annotation => {
+  return annotations.map((annotation) => {
     const viewerProps = {
       showOutline,
       hoveredAnnotation,

@@ -19,7 +19,7 @@ function MeasurementsDraw({
   onRemove,
   onSelect,
 }: MeasurementsDrawProps) {
-  return measurements.map(measurement => {
+  return measurements.map((measurement) => {
     const viewerProps = {
       showOutline,
       hoveredMeasurement,

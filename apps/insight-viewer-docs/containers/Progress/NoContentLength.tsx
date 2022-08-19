@@ -1,9 +1,5 @@
 import { Box, Stack } from '@chakra-ui/react'
-import InsightViewer, {
-  useImage,
-  useMultipleImages,
-  useFrame,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useMultipleImages, useFrame } from '@lunit/insight-viewer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 

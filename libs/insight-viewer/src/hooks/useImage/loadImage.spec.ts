@@ -37,7 +37,7 @@ describe('loadImage()', () => {
 
     loadImage({
       ...defaultParam,
-    }).then(res => {
+    }).then((res) => {
       expect(res).toMatchObject(CORNERSTONE_IMAGE_MOCK)
     })
   })

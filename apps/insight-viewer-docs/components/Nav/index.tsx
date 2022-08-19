@@ -24,10 +24,7 @@ function Nav(): JSX.Element {
       <List>
         {LINKS.map(({ name, href }) => (
           <ListItem key={`link=${name}`}>
-            <NextChakraLink
-              href={`/${href}`}
-              color={router.pathname.slice(1) === href ? 'cyan.600' : ''}
-            >
+            <NextChakraLink href={`/${href}`} color={router.pathname.slice(1) === href ? 'cyan.600' : ''}>
               - {name}
             </NextChakraLink>
           </ListItem>

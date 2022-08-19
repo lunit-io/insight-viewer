@@ -1,1 +1,1 @@
-declare module 'dicom-parser';
+declare module 'dicom-parser'

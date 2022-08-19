@@ -37,7 +37,7 @@ export function getPolyViewerInfo({
   const canvasPoints = points.map(pixelToCanvas)
 
   const polygonPoints: string = points
-    .map(point => {
+    .map((point) => {
       const [x, y] = pixelToCanvas(point)
       return `${x},${y}`
     })
@@ -46,7 +46,7 @@ export function getPolyViewerInfo({
   const headPoints: string | null =
     annotation.type === 'line' && annotation.hasArrowHead
       ? getArrowPosition(canvasPoints)
-          .map(point => {
+          .map((point) => {
             const [x, y] = point
             return `${x},${y}`
           })

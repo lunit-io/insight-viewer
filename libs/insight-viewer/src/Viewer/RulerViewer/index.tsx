@@ -19,14 +19,14 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const polygonPoints: string = canvasPoints
-    .map(point => {
+    .map((point) => {
       const [x, y] = point
       return `${x},${y}`
     })
     .join(' ')
 
   const connectingLine = getRulerConnectingLine(canvasPoints, textPoint)
-    .map(point => {
+    .map((point) => {
       const [x, y] = point
 
       return `${x},${y}`

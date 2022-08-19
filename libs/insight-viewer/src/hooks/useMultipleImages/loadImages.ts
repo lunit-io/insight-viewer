@@ -37,8 +37,8 @@ export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor
 
   return from(images).pipe(
     // Sequential Requests.
-    concatMap(imageId => loadCornerstoneImages({ imageId, imageScheme, requestInterceptor, timeout })),
-    map(image => {
+    concatMap((imageId) => loadCornerstoneImages({ imageId, imageScheme, requestInterceptor, timeout })),
+    map((image) => {
       loaded += 1
       loadedCountMessageMessage.sendMessage({
         loaded,
@@ -50,7 +50,7 @@ export const loadImages: LoadImages = ({ images, imageScheme, requestInterceptor
         loaded,
       }
     }),
-    catchError(err => {
+    catchError((err) => {
       throw normalizeError(err)
     })
   )

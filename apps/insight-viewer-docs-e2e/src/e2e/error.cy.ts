@@ -17,7 +17,7 @@ describe(
 
     it('shows custom error', () => {
       cy.get('.custom-error').click()
-      cy.on('window:alert', msg => {
+      cy.on('window:alert', (msg) => {
         expect(msg).to.contains('error 404')
       })
     })

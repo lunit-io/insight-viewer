@@ -1,19 +1,11 @@
 {
-  "extends": [
-    "plugin:@nrwl/nx/react-typescript",
-    "next",
-    "next/core-web-vitals",
-    "../../.eslintrc.json"
-  ],
+  "extends": ["plugin:@nrwl/nx/react-typescript", "next", "next/core-web-vitals", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@next/next/no-html-link-for-pages": [
-          "error",
-          "apps/insight-viewer-docs/pages"
-        ]
+        "@next/next/no-html-link-for-pages": ["error", "apps/insight-viewer-docs/pages"]
       }
     },
     {

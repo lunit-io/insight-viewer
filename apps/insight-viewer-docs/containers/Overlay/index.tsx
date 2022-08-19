@@ -16,12 +16,7 @@ function Overlay(): JSX.Element {
   return (
     <Box data-cy-loaded={loadingState}>
       <ViewerWrapper>
-        <InsightViewer
-          image={image}
-          viewport={viewport}
-          onViewportChange={setViewport}
-          Progress={CustomProgress}
-        >
+        <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
           <OverlayLayer viewport={viewport} />
         </InsightViewer>
       </ViewerWrapper>

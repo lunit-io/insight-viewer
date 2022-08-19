@@ -33,7 +33,7 @@ export function Typing({ points, onFinish }: TypingProps): React.ReactElement | 
       <foreignObject x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]}>
         <div
           contentEditable
-          ref={div => setEditArea(div)}
+          ref={(div) => setEditArea(div)}
           onBlur={handleBlur}
           style={{
             ...textStyle.select,

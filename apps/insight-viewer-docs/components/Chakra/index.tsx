@@ -6,6 +6,4 @@ interface ChakraProps {
   children: ReactNode
 }
 
-export const Chakra: FC<ChakraProps> = ({ children }) => (
-  <ChakraProvider>{children}</ChakraProvider>
-)
+export const Chakra: FC<ChakraProps> = ({ children }) => <ChakraProvider>{children}</ChakraProvider>

@@ -8,11 +8,7 @@ export interface HeatmapViewerProps {
   threshold: number
 }
 
-export interface HeatmapDrawProps
-  extends Pick<
-    OverlayContext,
-    'setToPixelCoordinateSystem' | 'enabledElement'
-  > {
+export interface HeatmapDrawProps extends Pick<OverlayContext, 'setToPixelCoordinateSystem' | 'enabledElement'> {
   baseCanvas: HTMLCanvasElement | null
   heatmapData: ImageData | undefined
 }

@@ -4,17 +4,11 @@
 import { useState } from 'react'
 import { LOADER_TYPE } from '../../const'
 import { OnError, ImageId } from '../../types'
-import setWadoImageLoader, {
-  WadoImageLoaderOptions,
-} from '../../utils/cornerstoneHelper/setWadoImageLoader'
+import setWadoImageLoader, { WadoImageLoaderOptions } from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
 import { getLoaderType } from './getLoaderType'
 
-export function useImageLoader(
-  imageId: ImageId,
-  onError: OnError,
-  options?: WadoImageLoaderOptions
-): boolean {
+export function useImageLoader(imageId: ImageId, onError: OnError, options?: WadoImageLoaderOptions): boolean {
   const [hasLoader, setHasLoader] = useState(false)
   const loaderType = getLoaderType(imageId)
 
@@ -22,9 +16,7 @@ export function useImageLoader(
   ;(async function asyncLoad(): Promise<void> {
     if (!hasLoader) {
       const imageLoader =
-        loaderType === LOADER_TYPE.DICOM
-          ? await setWadoImageLoader(onError, options)
-          : await setWebImageLoader(onError)
+        loaderType === LOADER_TYPE.DICOM ? await setWadoImageLoader(onError, options) : await setWebImageLoader(onError)
       setHasLoader(!!imageLoader)
     }
   })()

@@ -25,7 +25,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
     : getCircleTextPosition(pixelStartPoint, drawingRadius)
 
   const connectingLine = getCircleConnectingLine([pixelStartPoint, pixelEndPoint], textPoint)
-    .map(point => {
+    .map((point) => {
       const [x, y] = point
 
       return `${x},${y}`

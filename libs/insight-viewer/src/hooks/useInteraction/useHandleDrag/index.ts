@@ -48,7 +48,7 @@ function handleViewportByDrag({
 
     // If there is a viewport setter, set a new viewport which is triggered by interaction.
     if (onViewportChange) {
-      onViewportChange(prev => ({
+      onViewportChange((prev) => ({
         ...prev,
         ...control[dragEventType]?.(viewport, dragged),
       }))
@@ -107,7 +107,7 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
             element?.addEventListener('contextmenu', preventContextMenu)
           }
         }),
-        switchMap(start => {
+        switchMap((start) => {
           let lastX = start.pageX
           let lastY = start.pageY
           const { top, left, width, height } = element?.getBoundingClientRect()
@@ -134,7 +134,7 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
           )
         })
       )
-      .subscribe(dragged => {
+      .subscribe((dragged) => {
         const viewport = getViewport(<HTMLDivElement>element)
         if (!viewport || !dragType) return
 

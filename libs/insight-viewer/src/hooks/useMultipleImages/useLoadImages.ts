@@ -83,9 +83,9 @@ export const useLoadImages: UseLoadImages = ({
           _currentIndex: loaded - 1,
         }))
       },
-      error: err => {
+      error: (err) => {
         onError(err)
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           loadingStates: prev.loadingStates.set(prev._currentIndex + 1, LOADING_STATE.FAIL),
         }))

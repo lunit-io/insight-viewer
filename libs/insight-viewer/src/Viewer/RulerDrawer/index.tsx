@@ -21,7 +21,7 @@ export function RulerDrawer({
   const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
   const textPoint = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(points[1]))
   const connectingLine = getRulerConnectingLine(canvasPoints, textPoint)
-    .map(point => {
+    .map((point) => {
       const [x, y] = point
 
       return `${x},${y}`

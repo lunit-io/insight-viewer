@@ -27,9 +27,7 @@ export default async function setWadoImageLoader(
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser
 
     if (options) {
-      cornerstoneWADOImageLoader.webWorkerManager.initialize(
-        options.webWorkerManagerOptions
-      )
+      cornerstoneWADOImageLoader.webWorkerManager.initialize(options.webWorkerManagerOptions)
     }
     return cornerstoneWADOImageLoader
   } catch (e) {

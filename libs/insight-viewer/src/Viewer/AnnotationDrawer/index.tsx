@@ -42,7 +42,7 @@ export function AnnotationDrawer({
     svgElement: svgRef,
     addAnnotation:
       mode === 'text'
-        ? a => {
+        ? (a) => {
             if (a.label) {
               onAdd(a)
             } else {

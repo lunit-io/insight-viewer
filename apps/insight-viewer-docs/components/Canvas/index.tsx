@@ -41,13 +41,5 @@ export default function Canvas(): JSX.Element {
     if (ctx) ctx.strokeStyle = '#00FF00'
   }, [])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      style={style}
-      onMouseDown={startDrawing}
-      onMouseUp={stopDrawing}
-      onMouseMove={draw}
-    />
-  )
+  return <canvas ref={canvasRef} style={style} onMouseDown={startDrawing} onMouseUp={stopDrawing} onMouseMove={draw} />
 }

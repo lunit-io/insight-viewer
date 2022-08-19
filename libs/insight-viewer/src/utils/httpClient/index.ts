@@ -9,18 +9,18 @@ type HttpClientOptions = {
 }
 type GetHttpClient = (options: HttpClientOptions) => HttpClient
 
-export const getHttpClient: GetHttpClient = options => {
-  const httpClient: HttpClient = async url => {
+export const getHttpClient: GetHttpClient = (options) => {
+  const httpClient: HttpClient = async (url) => {
     const http = ky.create({
       timeout: options.timeout,
       hooks: {
         beforeRequest: [
-          request => {
+          (request) => {
             options.requestInterceptor(request)
           },
         ],
       },
-      onDownloadProgress: async progress => {
+      onDownloadProgress: async (progress) => {
         const noContentLength = progress.percent === 0 && progress.totalBytes === 0 && progress.transferredBytes > 0
 
         loadingProgressMessage.sendMessage(noContentLength ? 100 : Math.round(progress.percent * 100))

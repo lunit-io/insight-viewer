@@ -12,7 +12,7 @@ export interface UseFrame {
   }
 }
 
-const useFrame: UseFrame = initial => {
+const useFrame: UseFrame = (initial) => {
   const [frame, setFrame] = useState(initial)
 
   return {

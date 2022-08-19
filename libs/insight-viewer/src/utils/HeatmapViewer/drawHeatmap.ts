@@ -3,11 +3,7 @@
 import { OverlayContext } from '../../contexts'
 import clearHeatmap from './clearHeatmap'
 
-interface DrawHeatmapProps
-  extends Pick<
-    OverlayContext,
-    'setToPixelCoordinateSystem' | 'enabledElement'
-  > {
+interface DrawHeatmapProps extends Pick<OverlayContext, 'setToPixelCoordinateSystem' | 'enabledElement'> {
   baseCanvas: HTMLCanvasElement | null
   heatmapData: ImageData | null
   heatmapCanvas: HTMLCanvasElement | null

@@ -60,7 +60,7 @@ export default function useAnnotationPointsHandler({
   }
 
   const addDrawingPoint = (point: Point) => {
-    setPoints(prevPoints => {
+    setPoints((prevPoints) => {
       const isPrepareEditing = isEditing && selectedAnnotation && !editMode
 
       if (prevPoints.length === 0 || isPrepareEditing) return prevPoints

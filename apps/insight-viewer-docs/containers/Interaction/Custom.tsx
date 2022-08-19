@@ -39,7 +39,7 @@ export default function App(): JSX.Element {
   const customPan: Drag = ({ viewport, delta }) => {
     consola.info('pan', viewport.translation?.x, viewport.translation?.y, delta.x, delta.y)
 
-    setViewport(prev => ({
+    setViewport((prev) => ({
       ...prev,
       x: prev.x + delta.x / prev.scale,
       y: prev.y + delta.y / prev.scale,
@@ -48,7 +48,7 @@ export default function App(): JSX.Element {
 
   const customAdjust: Drag = ({ viewport, delta }) => {
     consola.info('adjust', viewport.voi.windowWidth, viewport.voi.windowCenter, delta.x, delta.y)
-    setViewport(prev => ({
+    setViewport((prev) => ({
       ...prev,
       windowWidth: prev.windowWidth + delta.x / prev.scale,
       windowCenter: prev.windowCenter + delta.y / prev.scale,
@@ -57,7 +57,7 @@ export default function App(): JSX.Element {
 
   const customZoom: Drag = ({ viewport, delta }) => {
     consola.info('zoom', viewport.scale, delta.x, delta.y)
-    setViewport(prev => ({
+    setViewport((prev) => ({
       ...prev,
       scale: prev.scale + delta.x / 100,
     }))

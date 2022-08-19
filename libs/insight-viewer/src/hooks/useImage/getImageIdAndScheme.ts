@@ -6,9 +6,7 @@ export interface ImageIdAndScheme {
   scheme: ImageLoaderScheme | undefined
 }
 
-export function getItem(
-  item: string | string[] | undefined
-): string | undefined {
+export function getItem(item: string | string[] | undefined): string | undefined {
   if (item === undefined) return undefined
   if (Array.isArray(item)) return item[0]
   return item

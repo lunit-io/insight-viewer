@@ -24,9 +24,7 @@ describe('getImageIdAndScheme()', () => {
       [IMAGE_LOADER_SCHEME.WADO]: file,
     }
     expect(getImageIdAndScheme(imageType).id).toEqual(file)
-    expect(getImageIdAndScheme(imageType).scheme).toEqual(
-      IMAGE_LOADER_SCHEME.WADO
-    )
+    expect(getImageIdAndScheme(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.WADO)
   })
 
   it('return dicom when image type is dicomfile', () => {
@@ -34,9 +32,7 @@ describe('getImageIdAndScheme()', () => {
       [IMAGE_LOADER_SCHEME.DICOMFILE]: file,
     }
     expect(getImageIdAndScheme(imageType).id).toEqual(file)
-    expect(getImageIdAndScheme(imageType).scheme).toEqual(
-      IMAGE_LOADER_SCHEME.DICOMFILE
-    )
+    expect(getImageIdAndScheme(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.DICOMFILE)
   })
 
   it('return web when image type is web', () => {
@@ -44,8 +40,6 @@ describe('getImageIdAndScheme()', () => {
       [IMAGE_LOADER_SCHEME.WEB]: file,
     }
     expect(getImageIdAndScheme(imageType).id).toEqual(file)
-    expect(getImageIdAndScheme(imageType).scheme).toEqual(
-      IMAGE_LOADER_SCHEME.WEB
-    )
+    expect(getImageIdAndScheme(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.WEB)
   })
 })

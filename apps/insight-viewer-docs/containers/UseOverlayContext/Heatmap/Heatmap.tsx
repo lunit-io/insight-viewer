@@ -11,11 +11,7 @@ import { useRef, useEffect, CSSProperties, useMemo } from 'react'
 import { useOverlayContext, OverlayContext } from '@lunit/insight-viewer'
 import posMap from './posMap'
 
-interface HeatmapDrawProps
-  extends Pick<
-    OverlayContext,
-    'setToPixelCoordinateSystem' | 'enabledElement'
-  > {
+interface HeatmapDrawProps extends Pick<OverlayContext, 'setToPixelCoordinateSystem' | 'enabledElement'> {
   baseCanvas: HTMLCanvasElement | null
   heatmapCanvas: HTMLCanvasElement | undefined
   heatmapData: ImageData | undefined
@@ -53,24 +49,17 @@ export function getRGBArray(value: number): number[] {
   return [(r * 255) << 0, (g * 255) << 0, (b * 255) << 0]
 }
 
-function getHeatmapImageData({
-  canvas,
-}: {
-  canvas: HTMLCanvasElement | null
-}): {
+function getHeatmapImageData({ canvas }: { canvas: HTMLCanvasElement | null }): {
   heatmapData: ImageData | undefined
   heatmapCanvas: HTMLCanvasElement | undefined
 } {
-  if (!canvas || !posMap)
-    return { heatmapData: undefined, heatmapCanvas: undefined }
+  if (!canvas || !posMap) return { heatmapData: undefined, heatmapCanvas: undefined }
   const heatmapWidth = posMap[0].length ?? 0
   const heatmapHeight = posMap.length ?? 0
   canvas.width = heatmapWidth
   canvas.height = heatmapHeight
   const heatmapCanvas = document.createElement('canvas')
-  const heatmapImageData = canvas
-    .getContext('2d')
-    ?.createImageData(heatmapWidth, heatmapHeight)
+  const heatmapImageData = canvas.getContext('2d')?.createImageData(heatmapWidth, heatmapHeight)
   const pixels = heatmapImageData?.data
 
   if (!pixels) return { heatmapData: undefined, heatmapCanvas: undefined }
@@ -96,10 +85,7 @@ function getHeatmapImageData({
   return { heatmapData: heatmapImageData, heatmapCanvas }
 }
 
-function clear(
-  canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D | null
-) {
+function clear(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D | null) {
   if (!context) return
   context.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
 }
@@ -143,8 +129,7 @@ function draw({
 export default function Heatmap(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const baseCanvas = canvasRef?.current
-  const { setToPixelCoordinateSystem, enabledElement, viewport } =
-    useOverlayContext()
+  const { setToPixelCoordinateSystem, enabledElement, viewport } = useOverlayContext()
   const { hflip, vflip } = viewport
   const { heatmapData, heatmapCanvas } = useMemo(
     () =>
@@ -162,15 +147,7 @@ export default function Heatmap(): JSX.Element {
       setToPixelCoordinateSystem,
       enabledElement,
     })
-  }, [
-    baseCanvas,
-    heatmapCanvas,
-    heatmapData,
-    setToPixelCoordinateSystem,
-    enabledElement,
-    hflip,
-    vflip,
-  ])
+  }, [baseCanvas, heatmapCanvas, heatmapData, setToPixelCoordinateSystem, enabledElement, hflip, vflip])
 
   return <canvas ref={canvasRef} style={style} />
 }

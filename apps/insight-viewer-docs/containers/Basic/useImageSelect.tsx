@@ -31,28 +31,13 @@ export default function useImageSelect(): {
 
     return (
       <Stack spacing={4} direction="row">
-        <Button
-          colorScheme="blue"
-          onClick={handleClick('image1')}
-          isActive={selected === 'image1'}
-          className="button1"
-        >
+        <Button colorScheme="blue" onClick={handleClick('image1')} isActive={selected === 'image1'} className="button1">
           image 1
         </Button>
-        <Button
-          colorScheme="blue"
-          onClick={handleClick('image2')}
-          isActive={selected === 'image2'}
-          className="button2"
-        >
+        <Button colorScheme="blue" onClick={handleClick('image2')} isActive={selected === 'image2'} className="button2">
           image 2
         </Button>
-        <Button
-          colorScheme="blue"
-          onClick={handleClick('image3')}
-          isActive={selected === 'image3'}
-          className="button3"
-        >
+        <Button colorScheme="blue" onClick={handleClick('image3')} isActive={selected === 'image3'} className="button3">
           image 3
         </Button>
         <Text pt={2}>

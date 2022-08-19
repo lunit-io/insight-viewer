@@ -1,8 +1,5 @@
 import { Box, Text, Stack } from '@chakra-ui/react'
-import InsightViewer, {
-  useMultipleImages,
-  useFrame,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
@@ -27,10 +24,7 @@ export default function Base(): JSX.Element {
   }
 
   return (
-    <Box
-      data-cy-loaded={loadingStates[frame]}
-      data-cy-all-loaded={loadingStates[IMAGES.length - 1]}
-    >
+    <Box data-cy-loaded={loadingStates[frame]} data-cy-all-loaded={loadingStates[IMAGES.length - 1]}>
       <Stack spacing="24px" mt={3} mb={3} direction="row">
         <Box>
           <input
@@ -53,9 +47,7 @@ export default function Base(): JSX.Element {
       <Box mb={3}>
         <Text>
           <b>{loadingStates[frame]}</b>
-          {images[frame]?.imageId && (
-            <span data-cy-image> ({images[frame]?.imageId})</span>
-          )}
+          {images[frame]?.imageId && <span data-cy-image> ({images[frame]?.imageId})</span>}
         </Text>
       </Box>
       <ViewerWrapper>

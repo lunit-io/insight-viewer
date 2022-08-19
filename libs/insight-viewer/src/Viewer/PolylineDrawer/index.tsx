@@ -26,7 +26,7 @@ export function PolylineDrawer({
   const canvasPoints = points.map(pixelToCanvas)
 
   const polylinePoints = canvasPoints
-    .map(point => {
+    .map((point) => {
       const [x, y] = point
       return `${x},${y}`
     })
@@ -35,7 +35,7 @@ export function PolylineDrawer({
   const getArrowPoints = () => {
     const arrowPosition = getArrowPosition(canvasPoints)
     const arrowPoints = arrowPosition
-      .map(point => {
+      .map((point) => {
         const [x, y] = point
         return `${x},${y}`
       })

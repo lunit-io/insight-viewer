@@ -1,11 +1,4 @@
-import NextDocument, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-  DocumentInitialProps,
-} from 'next/document'
+import NextDocument, { Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document'
 
 export default class Document extends NextDocument {
   static getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {

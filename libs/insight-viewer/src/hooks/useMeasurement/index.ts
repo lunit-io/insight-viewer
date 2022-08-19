@@ -5,7 +5,7 @@ import { RULER_MIN_LENGTH, CIRCLE_MIN_RADIUS } from '../../const'
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
 
-  Object.keys(dataAttrs).forEach(attr => {
+  Object.keys(dataAttrs).forEach((attr) => {
     if (!/^data-/.test(attr)) {
       throw new Error(`Measurement.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
     }
@@ -62,19 +62,19 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
       validateDataAttrs(measurementInfo?.dataAttrs)
     }
 
-    setMeasurements(prevMeasurements => [...prevMeasurements, measurement])
+    setMeasurements((prevMeasurements) => [...prevMeasurements, measurement])
 
     return measurement
   }
 
   const hoverMeasurement = (measurement: Measurement | null) => {
-    setHoveredMeasurement(prevHoveredMeasurement =>
+    setHoveredMeasurement((prevHoveredMeasurement) =>
       measurement !== prevHoveredMeasurement ? measurement : prevHoveredMeasurement
     )
   }
 
   const removeMeasurement = (measurement: Measurement) => {
-    setMeasurements(prevMeasurements => {
+    setMeasurements((prevMeasurements) => {
       const index = prevMeasurements.findIndex(({ id }) => id === measurement.id)
 
       if (index > -1) {
@@ -93,7 +93,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   const selectMeasurement = (measurement: Measurement | null) => {
     if (measurement) removeMeasurement(measurement)
 
-    setSelectedMeasurement(prevSelectedMeasurement =>
+    setSelectedMeasurement((prevSelectedMeasurement) =>
       measurement !== prevSelectedMeasurement ? measurement : prevSelectedMeasurement
     )
   }
@@ -109,14 +109,14 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
       id: measurement.id,
     }
 
-    setMeasurements(prevMeasurements => {
+    setMeasurements((prevMeasurements) => {
       const nextMeasurements = [...prevMeasurements]
       const index: number = nextMeasurements.findIndex(({ id }) => nextMeasurement.id === id)
 
       if (index > -1) {
         nextMeasurements[index] = nextMeasurement
 
-        setSelectedMeasurement(prevSelectedMeasurement =>
+        setSelectedMeasurement((prevSelectedMeasurement) =>
           measurement === prevSelectedMeasurement ? nextMeasurement : prevSelectedMeasurement
         )
       }

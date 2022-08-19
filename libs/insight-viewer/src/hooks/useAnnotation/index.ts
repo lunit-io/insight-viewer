@@ -8,7 +8,7 @@ import { isValidLength } from '../../utils/common/isValidLength'
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
 
-  Object.keys(dataAttrs).forEach(attr => {
+  Object.keys(dataAttrs).forEach((attr) => {
     if (!/^data-/.test(attr)) {
       throw new Error(`Annotation.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
     }
@@ -69,19 +69,19 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
 
-    setAnnotations(prevAnnotations => [...prevAnnotations, annotation])
+    setAnnotations((prevAnnotations) => [...prevAnnotations, annotation])
 
     return annotation
   }
 
   const hoverAnnotation = (annotation: Annotation | null) => {
-    setHoveredAnnotation(prevHoveredAnnotation =>
+    setHoveredAnnotation((prevHoveredAnnotation) =>
       annotation !== prevHoveredAnnotation ? annotation : prevHoveredAnnotation
     )
   }
 
   const removeAnnotation = (annotation: Annotation) => {
-    setAnnotations(prevAnnotations => {
+    setAnnotations((prevAnnotations) => {
       const index = prevAnnotations.findIndex(({ id }) => id === annotation.id)
 
       if (index > -1) {
@@ -100,7 +100,7 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
   const selectAnnotation = (annotation: Annotation | null) => {
     if (annotation) removeAnnotation(annotation)
 
-    setSelectedAnnotation(prevSelectedAnnotation =>
+    setSelectedAnnotation((prevSelectedAnnotation) =>
       annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
     )
   }
@@ -116,14 +116,14 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
       id: annotation.id,
     }
 
-    setAnnotations(prevAnnotations => {
+    setAnnotations((prevAnnotations) => {
       const nextAnnotations = [...prevAnnotations]
       const index: number = nextAnnotations.findIndex(({ id }) => nextAnnotation.id === id)
 
       if (index > -1) {
         nextAnnotations[index] = nextAnnotation
 
-        setHoveredAnnotation(prevHoveredAnnotation =>
+        setHoveredAnnotation((prevHoveredAnnotation) =>
           annotation === prevHoveredAnnotation ? nextAnnotation : prevHoveredAnnotation
         )
       }

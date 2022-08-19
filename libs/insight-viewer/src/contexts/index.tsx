@@ -80,7 +80,7 @@ export function OverlayContextProvider({
   // new viewport props update cornerstone's viewport asynchronously.
   useEffect(() => {
     if (!enabledElement) return
-    setUpdateCount(prev => prev + 1)
+    setUpdateCount((prev) => prev + 1)
   }, [viewport, enabledElement])
 
   useEffect(() => {

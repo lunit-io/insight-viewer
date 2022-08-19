@@ -33,12 +33,7 @@ const Forwarded = forwardRef<
   }, [width, height, resizeRef, imageEnabled, onViewportChange])
 
   return (
-    <div
-      ref={resizeRef}
-      style={style}
-      className="cornerstone-canvas-wrapper"
-      data-cy="cornerstone-canvas-wrapper"
-    >
+    <div ref={resizeRef} style={style} className="cornerstone-canvas-wrapper" data-cy="cornerstone-canvas-wrapper">
       {Progress && <LoadingProgress Progress={Progress} />}
       <canvas className="cornerstone-canvas" />
       {children}

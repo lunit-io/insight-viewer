@@ -1,21 +1,11 @@
 import { FC } from 'react'
 import { IconProps, chakra } from '@chakra-ui/react'
 
-export const Logo: FC<IconProps> = props => (
-  <chakra.svg
-    width="73"
-    height="19"
-    viewBox="0 0 73 19"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+export const Logo: FC<IconProps> = (props) => (
+  <chakra.svg width="73" height="19" viewBox="0 0 73 19" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <defs>
       <path id="ayd67alsya" d="M0 0.768L17.784 0.768 17.784 18.553 0 18.553z" />
-      <path
-        id="q4igkentrc"
-        d="M0.496 0.013L6.911 0.013 6.911 17.779 0.496 17.779z"
-      />
+      <path id="q4igkentrc" d="M0.496 0.013L6.911 0.013 6.911 17.779 0.496 17.779z" />
     </defs>
     <g fill="none" fillRule="evenodd">
       <g>
@@ -64,14 +54,7 @@ export const Logo: FC<IconProps> = props => (
       fill="#fff"
     />
     <defs>
-      <linearGradient
-        id="paint0_linear"
-        x1="291"
-        y1="0"
-        x2="291"
-        y2="582"
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="paint0_linear" x1="291" y1="0" x2="291" y2="582" gradientUnits="userSpaceOnUse">
         <stop stopColor="#7BCBD4" />
         <stop offset="1" stopColor="#29C6B7" />
       </linearGradient>

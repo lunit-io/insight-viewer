@@ -12,7 +12,7 @@ export default function useHandleWheel({ element, interaction, onViewportChange 
     subscriptionRef.current = wheel$
       .pipe(
         filter(({ deltaY }) => deltaY !== 0),
-        tap(e => {
+        tap((e) => {
           e.preventDefault()
         })
       )

@@ -32,20 +32,10 @@ export default function useCaseSelect(): {
     const imagePaths = images[selected][frame].split('/')
     return (
       <Stack spacing={4} direction="row">
-        <Button
-          colorScheme="blue"
-          onClick={handleClick('case1')}
-          isActive={selected === 'case1'}
-          className="button1"
-        >
+        <Button colorScheme="blue" onClick={handleClick('case1')} isActive={selected === 'case1'} className="button1">
           case 1
         </Button>
-        <Button
-          colorScheme="blue"
-          onClick={handleClick('case2')}
-          isActive={selected === 'case2'}
-          className="button2"
-        >
+        <Button colorScheme="blue" onClick={handleClick('case2')} isActive={selected === 'case2'} className="button2">
           case 2
         </Button>
         <Text pt={2}>

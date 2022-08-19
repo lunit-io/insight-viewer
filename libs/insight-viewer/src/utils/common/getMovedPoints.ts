@@ -13,7 +13,7 @@ export function getMovedPoints({ prevPoints, editStartPoint, currentPoint }: Get
   const deltaX = currentX - startEditX
   const deltaY = currentY - startEditY
 
-  const movedPoints = prevPoints.map(point => [point[0] + deltaX, point[1] + deltaY]) as [Point, Point]
+  const movedPoints = prevPoints.map((point) => [point[0] + deltaX, point[1] + deltaY]) as [Point, Point]
 
   return movedPoints
 }

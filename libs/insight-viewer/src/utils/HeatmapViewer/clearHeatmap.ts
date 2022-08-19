@@ -3,9 +3,6 @@ interface HeatmapClearProps {
   context: CanvasRenderingContext2D
 }
 
-export default function clearHeatmap({
-  canvas,
-  context,
-}: HeatmapClearProps): void {
+export default function clearHeatmap({ canvas, context }: HeatmapClearProps): void {
   context.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
 }

@@ -67,7 +67,7 @@ export const useImage: UseImage = ({
       onError,
       timeout,
     })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: LOADING_STATE.SUCCESS,
           payload: res,

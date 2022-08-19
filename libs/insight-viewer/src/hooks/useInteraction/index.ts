@@ -1,12 +1,6 @@
 import { useState } from 'react'
 import { Interaction } from './types'
-import {
-  PRIMARY_DRAG,
-  SECONDARY_DRAG,
-  PRIMARY_CLICK,
-  SECONDARY_CLICK,
-  MOUSEWHEEL,
-} from './const'
+import { PRIMARY_DRAG, SECONDARY_DRAG, PRIMARY_CLICK, SECONDARY_CLICK, MOUSEWHEEL } from './const'
 
 const DEFAULT_INTERACTION = {
   [PRIMARY_DRAG]: undefined,

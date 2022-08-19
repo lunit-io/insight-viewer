@@ -4,7 +4,7 @@ export function setup(): void {
   // ResizeObserver loop limit exceeded
   // https://github.com/cypress-io/cypress/issues/8418
   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
-  Cypress.on('uncaught:exception', err => {
+  Cypress.on('uncaught:exception', (err) => {
     /* returning false here prevents Cypress from failing the test */
     if (resizeObserverLoopErrRe.test(err.message)) {
       return false
@@ -29,7 +29,7 @@ export function deleteAndCheckMultiAnnotationOrMeasurement(
   elements: Annotation[] | Measurement[],
   domElementState: DomElementExistState = 'exist'
 ): void {
-  elements.forEach(element => deleteAndCheckAnnotationOrMeasurement(element, domElementState))
+  elements.forEach((element) => deleteAndCheckAnnotationOrMeasurement(element, domElementState))
 }
 
 export function drawAnnotation(element: Annotation): void {

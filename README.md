@@ -24,6 +24,7 @@ This project was generated using [Nx](https://nx.dev).
 ## Development
 
 Clone this repository locally `$ git clone git@github.com:lunit-io/frontend-components.git`
+
 ```sh
 // install dependencies
 $ npm i

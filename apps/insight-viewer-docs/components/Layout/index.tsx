@@ -11,27 +11,15 @@ const SIDE_WIDTH = '240px'
 
 export default function Layout({ children }: WithChildren): JSX.Element {
   const router = useRouter()
-  const title = LINKS.filter(
-    (link) => link.href === router.pathname.slice(1)
-  )?.[0]?.name
+  const title = LINKS.filter((link) => link.href === router.pathname.slice(1))?.[0]?.name
 
   return (
     <Box maxW="1440px" m="0 auto">
-      <Flex
-        w="100%"
-        h="100%"
-        px="10"
-        justify="space-between"
-        flexDirection="column"
-      >
+      <Flex w="100%" h="100%" px="10" justify="space-between" flexDirection="column">
         <Box pt={6}>
           <header>
             <Flex direction="row">
-              <Flex
-                width={SIDE_WIDTH}
-                pt={2}
-                display={config.IS_CYPRESS ? 'none' : 'flex'}
-              >
+              <Flex width={SIDE_WIDTH} pt={2} display={config.IS_CYPRESS ? 'none' : 'flex'}>
                 <NextChakraLink href="/" pt="2px">
                   <Logo h="1.5rem" pointerEvents="none" />
                 </NextChakraLink>
@@ -51,10 +39,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
 
         <Box pt={6}>
           <Flex>
-            <Box
-              width={SIDE_WIDTH}
-              display={config.IS_CYPRESS ? 'none' : 'block'}
-            >
+            <Box width={SIDE_WIDTH} display={config.IS_CYPRESS ? 'none' : 'block'}>
               <Nav />
             </Box>
             <Box w="100%">{children}</Box>

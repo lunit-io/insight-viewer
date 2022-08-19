@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Subscription, merge } from 'rxjs'
-import {
-  loadingProgressMessage,
-  loadedCountMessageMessage,
-} from '../../utils/messageService'
+import { loadingProgressMessage, loadedCountMessageMessage } from '../../utils/messageService'
 import { getProgress } from '../../utils/common/getProgress'
 import { ProgressComponent } from '../../types'
 
@@ -15,11 +12,7 @@ const style = {
   textAlign: 'center',
 } as const
 
-export default function LoadingProgress({
-  Progress,
-}: {
-  Progress: ProgressComponent
-}): JSX.Element {
+export default function LoadingProgress({ Progress }: { Progress: ProgressComponent }): JSX.Element {
   const subscriptionRef = useRef<Subscription>()
   const [{ progress, hidden }, setState] = useState<{
     progress?: number
@@ -38,7 +31,7 @@ export default function LoadingProgress({
     let totalCount = 1
     let _progress = 0
 
-    subscriptionRef.current = merge(progress$, loadedCount$).subscribe(prop => {
+    subscriptionRef.current = merge(progress$, loadedCount$).subscribe((prop) => {
       if (typeof prop === 'number') {
         _progress = prop
       } else {
@@ -47,7 +40,7 @@ export default function LoadingProgress({
       }
 
       if (!isCancelled)
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           progress: getProgress({
             loadedCount,
@@ -65,11 +58,11 @@ export default function LoadingProgress({
 
   useEffect(() => {
     if (progress === 100) {
-      setState(prev => ({ ...prev, hidden: true }))
+      setState((prev) => ({ ...prev, hidden: true }))
     }
 
     if (progress === 0) {
-      setState(prev => ({ ...prev, hidden: false }))
+      setState((prev) => ({ ...prev, hidden: false }))
     }
   }, [progress])
 

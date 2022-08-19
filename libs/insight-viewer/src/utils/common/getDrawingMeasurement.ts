@@ -13,7 +13,7 @@ export function getDrawingMeasurement(
 
   if (measurement.type === 'ruler') {
     const linePoints = measurement.points
-      .map(point => {
+      .map((point) => {
         // drawing 시 point 좌표계는 pixelToCanvas 를 적용해야하므로 아래 로직을 추가
         const [x, y] = pixelToCanvas(point)
 

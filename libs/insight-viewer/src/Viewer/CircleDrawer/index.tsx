@@ -28,7 +28,7 @@ export function CircleDrawer({
     : getCircleTextPosition(canvasPoints[0], drawingRadius)
 
   const connectingLine = getCircleConnectingLine(canvasPoints, textPoint)
-    .map(point => {
+    .map((point) => {
       const [x, y] = point
 
       return `${x},${y}`

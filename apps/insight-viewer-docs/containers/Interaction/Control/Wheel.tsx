@@ -1,10 +1,6 @@
 import { Box, RadioGroup, Radio, Stack, HStack } from '@chakra-ui/react'
 
-export default function Wheel({
-  onChange,
-}: {
-  onChange: (value: 'frame' | 'scale' | 'none') => void
-}): JSX.Element {
+export default function Wheel({ onChange }: { onChange: (value: 'frame' | 'scale' | 'none') => void }): JSX.Element {
   return (
     <Box mb={6}>
       <HStack spacing="80px">

@@ -15,10 +15,7 @@ function isError(e: unknown): e is Error {
 }
 
 function isHTTPError(e: unknown): e is HTTPError {
-  return (
-    (e as HTTPError)?.error !== undefined &&
-    (e as HTTPError)?.error?.message !== undefined
-  )
+  return (e as HTTPError)?.error !== undefined && (e as HTTPError)?.error?.message !== undefined
 }
 
 export function normalizeError(e: Error | HTTPError | unknown): ViewerError {

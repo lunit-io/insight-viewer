@@ -7,12 +7,7 @@ import { Point } from '../../types'
  * @param c line 2 start
  * @param d line 2 end
  */
-export function getIsIntersection(
-  a: Point,
-  b: Point,
-  c: Point,
-  d: Point
-): boolean {
+export function getIsIntersection(a: Point, b: Point, c: Point, d: Point): boolean {
   if (
     Math.max(a[0], b[0]) <= Math.min(c[0], d[0]) ||
     Math.min(a[0], b[0]) >= Math.max(c[0], d[0]) ||

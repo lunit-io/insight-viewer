@@ -19,9 +19,7 @@ export function useViewport(initialViewport?: Partial<BasicViewport>): {
   initialized: boolean
 } {
   const [viewport, setViewport] = useState<Viewport>({
-    ...(initialViewport
-      ? { ...BASE_VIEWPORT, _initialViewport: initialViewport }
-      : BASE_VIEWPORT),
+    ...(initialViewport ? { ...BASE_VIEWPORT, _initialViewport: initialViewport } : BASE_VIEWPORT),
   })
 
   function resetViewport() {

@@ -11,7 +11,6 @@ interface Prop {
 const subject = new Subject<Prop>()
 
 export const loadedCountMessageMessage = {
-  sendMessage: ({ loaded, total }: Prop): void =>
-    subject.next({ loaded, total }),
+  sendMessage: ({ loaded, total }: Prop): void => subject.next({ loaded, total }),
   getMessage: (): Observable<Prop> => subject.asObservable(),
 }

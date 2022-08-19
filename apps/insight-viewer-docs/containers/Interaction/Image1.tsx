@@ -45,12 +45,12 @@ export default function App(): JSX.Element {
   }
 
   const handleFrame: Wheel = (_, deltaY) => {
-    if (deltaY !== 0) setFrame(prev => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
+    if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
   }
 
   const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0)
-      setViewport(prev => ({
+      setViewport((prev) => ({
         ...prev,
         scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
       }))
