@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.base",
-  "compilerOptions": {
-    "jsx": "react",
-    "types": ["jest", "node"]
-  }
-}

@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "insight-viewer": "libs/insight-viewer",
+    "insight-viewer-docs": "apps/insight-viewer-docs",
+    "insight-viewer-docs-e2e": "apps/insight-viewer-docs-e2e"
+  }
+}
