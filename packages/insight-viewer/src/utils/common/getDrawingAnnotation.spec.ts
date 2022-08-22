@@ -1,4 +1,4 @@
-import type { Point, LineAnnotation, TextAnnotation, PolygonAnnotation, FreeLineAnnotation } from '../../types'
+import type { Point, TextAnnotation, LineAnnotation, PolygonAnnotation, FreeLineAnnotation } from '../../types'
 
 import { INITIAL_TEXT } from '../../mocks/text'
 import { INITIAL_LINE } from '../../mocks/lines'
@@ -13,16 +13,31 @@ describe('getDrawingAnnotation', () => {
       [0, 1],
       [2, 3],
     ]
+    const MOCK_CURRENT_TEXT_LABEL_POSITION: [number, number] = [0, 1]
+    const MOCK_CURRENT_LINE_LABEL_POSITION: [number, number] = [-2, -4]
 
-    const MOCK_DRAWING_LINE_ANNOTATION: LineAnnotation = { ...INITIAL_LINE, points: MOCK_CURRENT_POINTS }
-    const MOCK_DRAWING_TEXT_ANNOTATION: TextAnnotation = { ...INITIAL_TEXT, points: MOCK_CURRENT_POINTS }
+    const LINE_ANNOTATION_RESULT = getDrawingAnnotation({
+      currentPoints: MOCK_CURRENT_POINTS,
+      prevAnnotation: INITIAL_LINE,
+    })
+    const TEXT_ANNOTATION_RESULT = getDrawingAnnotation({
+      currentPoints: MOCK_CURRENT_POINTS,
+      prevAnnotation: INITIAL_TEXT,
+    })
 
-    expect(getDrawingAnnotation({ currentPoints: MOCK_CURRENT_POINTS, prevAnnotation: INITIAL_LINE })).toStrictEqual(
-      MOCK_DRAWING_LINE_ANNOTATION
-    )
-    expect(getDrawingAnnotation({ currentPoints: MOCK_CURRENT_POINTS, prevAnnotation: INITIAL_TEXT })).toStrictEqual(
-      MOCK_DRAWING_TEXT_ANNOTATION
-    )
+    const MOCK_DRAWING_LINE_ANNOTATION: LineAnnotation = {
+      ...INITIAL_LINE,
+      points: MOCK_CURRENT_POINTS,
+      labelPosition: MOCK_CURRENT_LINE_LABEL_POSITION,
+    }
+    const MOCK_DRAWING_TEXT_ANNOTATION: TextAnnotation = {
+      ...INITIAL_TEXT,
+      points: MOCK_CURRENT_POINTS,
+      labelPosition: MOCK_CURRENT_TEXT_LABEL_POSITION,
+    }
+
+    expect(LINE_ANNOTATION_RESULT).toStrictEqual(MOCK_DRAWING_LINE_ANNOTATION)
+    expect(TEXT_ANNOTATION_RESULT).toStrictEqual(MOCK_DRAWING_TEXT_ANNOTATION)
   })
   it('test polygon, freeline annotation', () => {
     const MOCK_CURRENT_POINTS: Point[] = [
@@ -32,14 +47,27 @@ describe('getDrawingAnnotation', () => {
       [6, 7],
     ]
 
-    const MOCK_DRAWING_POLYGON_ANNOTATION: PolygonAnnotation = { ...INITIAL_POLYGON, points: MOCK_CURRENT_POINTS }
-    const MOCK_DRAWING_POLYGON_FREE_LINE: FreeLineAnnotation = { ...INITIAL_FREE_LINE, points: MOCK_CURRENT_POINTS }
+    const POLYGON_ANNOTATION_RESULT = getDrawingAnnotation({
+      currentPoints: MOCK_CURRENT_POINTS,
+      prevAnnotation: INITIAL_POLYGON,
+    })
+    const FREE_LINE_ANNOTATION_RESULT = getDrawingAnnotation({
+      currentPoints: MOCK_CURRENT_POINTS,
+      prevAnnotation: INITIAL_FREE_LINE,
+    })
 
-    expect(getDrawingAnnotation({ currentPoints: MOCK_CURRENT_POINTS, prevAnnotation: INITIAL_POLYGON })).toStrictEqual(
-      MOCK_DRAWING_POLYGON_ANNOTATION
-    )
-    expect(
-      getDrawingAnnotation({ currentPoints: MOCK_CURRENT_POINTS, prevAnnotation: INITIAL_FREE_LINE })
-    ).toStrictEqual(MOCK_DRAWING_POLYGON_FREE_LINE)
+    const MOCK_DRAWING_POLYGON_ANNOTATION: PolygonAnnotation = {
+      ...INITIAL_POLYGON,
+      points: MOCK_CURRENT_POINTS,
+      labelPosition: POLYGON_ANNOTATION_RESULT.labelPosition,
+    }
+    const MOCK_DRAWING_POLYGON_FREE_LINE: FreeLineAnnotation = {
+      ...INITIAL_FREE_LINE,
+      points: MOCK_CURRENT_POINTS,
+      labelPosition: FREE_LINE_ANNOTATION_RESULT.labelPosition,
+    }
+
+    expect(POLYGON_ANNOTATION_RESULT).toMatchObject(MOCK_DRAWING_POLYGON_ANNOTATION)
+    expect(FREE_LINE_ANNOTATION_RESULT).toMatchObject(MOCK_DRAWING_POLYGON_FREE_LINE)
   })
 })
