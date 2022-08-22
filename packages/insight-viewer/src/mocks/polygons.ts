@@ -242,6 +242,19 @@ const INITIAL_POLYGON: PolygonAnnotation = {
     [1, 0],
     [1, 0],
   ],
+  lineWidth: 1.5,
+  labelPosition: [1, 0],
+}
+
+const ID3_INITIAL_POLYGON: PolygonAnnotation = {
+  id: 3,
+  type: 'polygon',
+  points: [
+    [1, 0],
+    [1, 0],
+  ],
+  lineWidth: 1.5,
+  labelPosition: [1, 0],
 }
 
 const COMPLEX_POLYGON: Point[] = [
@@ -336,6 +349,7 @@ export {
   INITIAL_POLYGON,
   COMPLEX_POLYGON,
   NOT_FOCUS_POSITION,
+  ID3_INITIAL_POLYGON,
   ID1_POLYGON_FOCUS_POSITION,
   ID2_POLYGON_FOCUS_POSITION,
 }
