@@ -177,7 +177,6 @@ describe('getAnnotationPoints', () => {
     ]
     const MOCK_CURRENT_POINT: Point = [282.33142857142855, 199.1428571428571]
     const MOCK_EDIT_POINT: Point = [281.59999999999997, 199.1428571428571]
-    const MOCK_SET_EDIT_POINT = jest.fn()
 
     expect(
       getAnnotationPoints({
@@ -188,7 +187,6 @@ describe('getAnnotationPoints', () => {
         editMode: 'move',
         editStartPoint: MOCK_EDIT_POINT,
         selectedAnnotation: MOCK_SELECTED_POLYGON_ANNOTATION,
-        setEditStartPoint: MOCK_SET_EDIT_POINT,
       })
     ).toStrictEqual(MOCK_CURRENT_POTINS)
   })
@@ -200,7 +198,6 @@ describe('getAnnotationPoints', () => {
       [40, 40],
     ]
     const MOCK_CURRENT_POINT: Point = [100, 100]
-    const MOCK_SET_EDIT_POINT = jest.fn()
 
     expect(
       getAnnotationPoints({
@@ -211,7 +208,6 @@ describe('getAnnotationPoints', () => {
         editMode: 'move',
         editStartPoint: null,
         selectedAnnotation: null,
-        setEditStartPoint: MOCK_SET_EDIT_POINT,
       })
     )
   })

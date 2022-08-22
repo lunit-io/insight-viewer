@@ -73,8 +73,9 @@ export default function useAnnotationPointsHandler({
       prevPoints,
       editStartPoint,
       selectedAnnotation,
-      setEditStartPoint,
     })
+
+    setEditStartPoint(point)
 
     const canvasPoints = currentPoints.map(pixelToCanvas)
     const editPoints = getEditPointPosition(canvasPoints, selectedAnnotation)
