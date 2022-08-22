@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 
 import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
-import { Point, EditMode } from '../../types'
+import { Point, EditMode, Annotation } from '../../types'
 import { useOverlayContext } from '../../contexts'
-import { calculateDistance } from '../../utils/common/calculateDistance'
-import { getDrewAnnotation } from '../../utils/common/getDrewAnnotation'
+import { getAnnotationPoints } from '../../utils/common/getAnnotationPoints'
+import { getDrawingAnnotation } from '../../utils/common/getDrawingAnnotation'
+import { getInitialAnnotation } from '../../utils/common/getInitialAnnotation'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
-import { getAnnotationDrawingPoints } from '../../utils/common/getAnnotationDrawingPoints'
-import { getAnnotationEditingPoints } from '../../utils/common/getAnnotationEditingPoints'
+import { getExistingAnnotationPoints } from '../../utils/common/getExistingAnnotationPoints'
+
 import useDrawingHandler from '../useDrawingHandler'
 
 export default function useAnnotationPointsHandler({
@@ -23,32 +24,20 @@ export default function useAnnotationPointsHandler({
   const [editMode, setEditMode] = useState<EditMode | null>(null)
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
-  const [points, setPoints] = useState<Point[]>([])
+  const [annotation, setAnnotation] = useState<Annotation | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
 
-  const isAnnotationEditing = isEditing && selectedAnnotation && editMode
-
   useEffect(() => {
-    const pixelPoints = points.map(pixelToCanvas)
-    const editPoints = getEditPointPosition(pixelPoints, selectedAnnotation)
+    if (!isEditing || selectedAnnotation == null) return
 
-    setEditTargetPoints(editPoints)
-  }, [image, points, mode, selectedAnnotation, pixelToCanvas])
+    const selectedAnnotationPoints = getExistingAnnotationPoints(selectedAnnotation, image)
+    const currnetPoints = selectedAnnotationPoints.map(pixelToCanvas)
+    const currentEditPoint = getEditPointPosition(currnetPoints, selectedAnnotation)
 
-  useEffect(() => {
-    if (!isEditing || !selectedAnnotation) return
-
-    if (selectedAnnotation.type === 'circle') {
-      const { center, radius } = selectedAnnotation
-      const calculatedDistance = calculateDistance(radius, image)
-      const endPoint: Point = [center[0] + (calculatedDistance ?? 0), center[1]]
-
-      setPoints([center, endPoint])
-    } else {
-      setPoints(selectedAnnotation.points)
-    }
-  }, [image, isEditing, selectedAnnotation])
+    setAnnotation(selectedAnnotation)
+    setEditTargetPoints(currentEditPoint)
+  }, [image, isEditing, selectedAnnotation, pixelToCanvas])
 
   const addStartPoint = (point: Point) => {
     if (isEditing && selectedAnnotation) {
@@ -56,65 +45,69 @@ export default function useAnnotationPointsHandler({
       return
     }
 
-    setPoints([point])
+    const initialAnnotation = getInitialAnnotation({
+      mode,
+      image,
+      lineHead,
+      annotations,
+      currentPoints: [point, point],
+    })
+
+    setAnnotation(initialAnnotation)
   }
 
   const addDrawingPoint = (point: Point) => {
-    setPoints(prevPoints => {
-      const isPrepareEditing = isEditing && selectedAnnotation && !editMode
+    if (isEditing && selectedAnnotation != null && !editMode) return
 
-      if (prevPoints.length === 0 || isPrepareEditing) return prevPoints
+    if (annotation == null) {
+      setAnnotation(null)
+      return
+    }
 
-      if (isEditing && selectedAnnotation && editMode && editStartPoint) {
-        const editedPoints = getAnnotationEditingPoints(
-          prevPoints,
-          point,
-          editStartPoint,
-          editMode,
-          selectedAnnotation.type,
-          setEditStartPoint
-        )
-
-        return editedPoints
-      }
-
-      const drawingPoints = getAnnotationDrawingPoints(prevPoints, point, mode)
-
-      return drawingPoints
+    const prevPoints = getExistingAnnotationPoints(annotation, image)
+    const currentPoints = getAnnotationPoints({
+      mode,
+      point,
+      editMode,
+      isEditing,
+      prevPoints,
+      editStartPoint,
+      selectedAnnotation,
+      setEditStartPoint,
     })
+
+    const canvasPoints = currentPoints.map(pixelToCanvas)
+    const editPoints = getEditPointPosition(canvasPoints, selectedAnnotation)
+
+    setEditTargetPoints(editPoints)
+
+    const currentAnnotation = getDrawingAnnotation({
+      currentPoints,
+      prevAnnotation: annotation,
+    })
+
+    setAnnotation(currentAnnotation)
   }
 
   const cancelDrawing = () => {
-    if (isAnnotationEditing) {
+    if (isEditing && selectedAnnotation != null && editMode) {
       setEditMode(null)
       return
     }
 
-    setPoints([])
-    setEditStartPoint(null)
     setEditMode(null)
+    setAnnotation(null)
+    setEditStartPoint(null)
     onSelectAnnotation(null)
+    setEditTargetPoints(null)
   }
 
   const addDrewAnnotation = () => {
-    if (isAnnotationEditing) return
+    const isEditingMode = editMode && selectedAnnotation
 
-    if (points.length > 1) {
-      const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
-      const currentId = (() => {
-        if (selectedAnnotation) {
-          return selectedAnnotation.id
-        }
+    if (!annotation || isEditingMode) return
 
-        return annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1
-      })()
-
-      const drewAnnotation = getDrewAnnotation(image, points, currentId, drawingMode, lineHead)
-      if (selectedAnnotation?.type === 'text') {
-        drewAnnotation.label = selectedAnnotation.label
-      }
-      addAnnotation(drewAnnotation)
-    }
+    addAnnotation(annotation)
   }
 
   const setAnnotationEditMode = (targetPoint: EditMode) => {
@@ -132,5 +125,5 @@ export default function useAnnotationPointsHandler({
     addDrewElement: addDrewAnnotation,
   })
 
-  return { points, editPoints: editTargetPoints, currentEditMode: editMode, setAnnotationEditMode }
+  return { annotation, editPoints: editTargetPoints, currentEditMode: editMode, setAnnotationEditMode }
 }

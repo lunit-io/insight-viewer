@@ -14,14 +14,16 @@ const PolylineElement = ({
   isPolygon ? <polygon {...rest} /> : <polyline {...rest} />
 
 export function PolylineDrawer({
+  annotation,
   lineHead,
-  points,
   isSelectedMode,
   selectedAnnotationLabel,
   isPolygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
+
+  const { points } = annotation
 
   const canvasPoints = points.map(pixelToCanvas)
 

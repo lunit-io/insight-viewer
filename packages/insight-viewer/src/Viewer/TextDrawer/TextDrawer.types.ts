@@ -1,7 +1,7 @@
-import { EditMode, Point } from '../../types'
+import { EditMode, TextAnnotation } from '../../types'
 
 export interface TextDrawerProps {
-  points: Point[]
+  annotation: TextAnnotation
   isSelectedMode: boolean
   setAnnotationEditMode: (mode: EditMode) => void
   label?: string
