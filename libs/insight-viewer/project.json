@@ -8,6 +8,7 @@
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "format": ["cjs", "esm"],
         "outputPath": "dist/libs/insight-viewer",
         "tsConfig": "libs/insight-viewer/tsconfig.lib.json",
         "project": "libs/insight-viewer/package.json",
