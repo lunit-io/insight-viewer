@@ -1,4 +1,3 @@
-import { SetStateAction, Dispatch } from 'react'
 import { Point, EditMode, AnnotationMode } from '../../types'
 import { getMovedPoints } from './getMovedPoints'
 
@@ -7,8 +6,7 @@ export function getAnnotationEditingPoints(
   currentPoint: Point,
   editPoint: Point,
   editMode: EditMode,
-  mode: AnnotationMode,
-  setEditPoint: Dispatch<SetStateAction<Point | null>>
+  mode: AnnotationMode
 ): Point[] {
   if ((mode === 'line' || mode === 'text') && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
@@ -24,7 +22,6 @@ export function getAnnotationEditingPoints(
 
   if (editMode === 'move') {
     const movedPoint = getMovedPoints({ prevPoints, editStartPoint: editPoint, currentPoint })
-    setEditPoint(currentPoint)
 
     return movedPoint
   }

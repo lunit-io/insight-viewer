@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useRef, useState } from 'react'
+
+import { checkIsInitialAnnotation } from '../../utils/common/checkIsInitialAnnotation'
 
 import { svgStyle } from './AnnotationDrawer.styles'
 import { TextAnnotation } from '../../types'
@@ -32,7 +33,7 @@ export function AnnotationDrawer({
     }
   }
 
-  const { points, editPoints, currentEditMode, setAnnotationEditMode } = useAnnotationPointsHandler({
+  const { annotation, editPoints, currentEditMode, setAnnotationEditMode } = useAnnotationPointsHandler({
     isEditing,
     mode,
     lineHead,
@@ -52,16 +53,15 @@ export function AnnotationDrawer({
         : onAdd,
   })
 
-  const drawingMode = isEditing && selectedAnnotation ? selectedAnnotation.type : mode
   const isSelectedAnnotation = isEditing && selectedAnnotation != null
 
   return (
     <>
-      {points.length > 1 && (
+      {annotation && !checkIsInitialAnnotation(annotation) && (
         <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {(drawingMode === 'polygon' || drawingMode === 'freeLine' || drawingMode === 'line') && (
+          {(annotation.type === 'polygon' || annotation.type === 'freeLine' || annotation.type === 'line') && (
             <PolylineDrawer
-              points={points}
+              annotation={annotation}
               isSelectedMode={isSelectedAnnotation}
               isPolygonSelected={selectedAnnotation?.type === 'polygon'}
               lineHead={lineHead}
@@ -69,12 +69,11 @@ export function AnnotationDrawer({
               setAnnotationEditMode={setAnnotationEditMode}
             />
           )}
-          {drawingMode === 'text' && (
+          {annotation.type === 'text' && (
             <TextDrawer
-              points={points}
+              annotation={annotation}
               isSelectedMode={isSelectedAnnotation}
               setAnnotationEditMode={setAnnotationEditMode}
-              label={selectedAnnotation?.type === 'text' ? selectedAnnotation.label : undefined}
             />
           )}
           {editPoints && (

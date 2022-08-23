@@ -7,8 +7,11 @@ import { TEXT_PADDING } from '../../const'
 
 export { Typing as TypingDrawer } from './Typing'
 
-export function TextDrawer({ points, label, setAnnotationEditMode }: TextDrawerProps): React.ReactElement | null {
+export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProps): React.ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
+
+  const { points, label } = annotation
+
   const canvasPoints = points.map(pixelToCanvas)
   const [start, end] = canvasPoints
   if (typeof end === 'undefined' || end[0] < start[0] || end[1] < start[1]) {
