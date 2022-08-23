@@ -74,7 +74,6 @@ export function AnnotationDrawer({
               annotation={annotation}
               isSelectedMode={isSelectedAnnotation}
               setAnnotationEditMode={setAnnotationEditMode}
-              label={selectedAnnotation?.type === 'text' ? selectedAnnotation.label : undefined}
             />
           )}
           {editPoints && (
