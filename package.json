@@ -6,9 +6,13 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "nx serve",
-    "build": "nx build",
-    "test": "nx test"
+    "start": "nx serve insight-viewer-docs",
+    "build": "npm run build:package && npm run build:docs",
+    "build:package": "nx build insight-viewer",
+    "build:docs": "nx export insight-viewer-docs",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "nx test insight-viewer",
+    "test:e2e": "nx e2e insight-viewer-docs-e2e"
   },
   "private": true,
   "dependencies": {

@@ -30,7 +30,5 @@ Clone this repository locally `$ git clone git@github.com:lunit-io/frontend-comp
 $ npm i
 $ npm install -g nx
 // serve docs on http://localhost:4200
-$ nx serve insight-viewer-docs
-// build the viewer package before publish
-$ nx build insight-viewer
+$ npm start
 ```
