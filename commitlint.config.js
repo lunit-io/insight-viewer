@@ -1,25 +1,6 @@
-const {
-  utils: { getPackages },
-} = require('@commitlint/config-lerna-scopes')
-
 module.exports = {
-  extends: [
-    '@commitlint/config-conventional',
-    '@commitlint/config-lerna-scopes',
-  ],
+  extends: ['@commitlint/config-conventional'],
   rules: {
-    'scope-enum': async ctx => [
-      2,
-      'always',
-      [
-        ...(await getPackages(ctx)),
-        // Insert custom scopes below:
-        'root',
-        'release',
-        'viewer',
-        'viewer-docs',
-      ],
-    ],
-    'scope-empty': [2, 'never'],
+    'scope-enum': [2, 'always', ['release', 'root', 'viewer', 'viewer-docs']],
   },
 }

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-echo "┏━━━ LOCAL UNPUBLISH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-lerna exec -- npm unpublish --registry=\"http://localhost:4873/\" \"\@lunit/insight-viewer\@\$VERSION\"
