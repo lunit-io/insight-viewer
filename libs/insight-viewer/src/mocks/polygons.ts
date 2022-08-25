@@ -235,6 +235,28 @@ const ID2_POLYGON: PolygonAnnotation = {
   labelPosition: [1409.542857142857, 935.4385714285715],
 }
 
+const INITIAL_POLYGON: PolygonAnnotation = {
+  id: 1,
+  type: 'polygon',
+  points: [
+    [1, 0],
+    [1, 0],
+  ],
+  lineWidth: 1.5,
+  labelPosition: [1, 0],
+}
+
+const ID3_INITIAL_POLYGON: PolygonAnnotation = {
+  id: 3,
+  type: 'polygon',
+  points: [
+    [1, 0],
+    [1, 0],
+  ],
+  lineWidth: 1.5,
+  labelPosition: [1, 0],
+}
+
 const COMPLEX_POLYGON: Point[] = [
   [1687.24, 915.3985714285715],
   [1687.24, 911.5814285714285],
@@ -324,8 +346,10 @@ export {
   MOCK_POLYGON_LIST,
   ID1_POLYGON,
   ID2_POLYGON,
+  INITIAL_POLYGON,
   COMPLEX_POLYGON,
   NOT_FOCUS_POSITION,
+  ID3_INITIAL_POLYGON,
   ID1_POLYGON_FOCUS_POSITION,
   ID2_POLYGON_FOCUS_POSITION,
 }
