@@ -1,7 +1,6 @@
-/* eslint-disable no-restricted-properties */
 import { Point } from '../../types'
 import { Image } from '../../Viewer/types'
-import { IMAGER_PIXEL_SPACING } from './const'
+import { IMAGE_PIXEL_SPACING } from './const'
 
 const calcRadius = (x: number, y: number, col: number, row: number) => {
   const radius = Math.sqrt(Math.pow(Math.abs(x) * col, 2) + Math.pow(Math.abs(y) * row, 2))
@@ -30,14 +29,14 @@ export function getCircleRadius(
     return { radius: calcRadius(x, y, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
-  const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING) as string | undefined
+  const imagePixelSpacing = currentImage.data.string(IMAGE_PIXEL_SPACING) as string | undefined
 
-  if (!imagerPixelSpacing) {
+  if (!imagePixelSpacing) {
     return { radius: calcRadius(x, y, 1, 1), unit: 'px' }
   }
 
-  if (imagerPixelSpacing.length !== 0) {
-    const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
+  if (imagePixelSpacing.length !== 0) {
+    const [columnPixelSpacing, rowPixelSpacing] = imagePixelSpacing.split('\\').map(Number)
 
     return { radius: calcRadius(x, y, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-properties */
 import { Image } from '../../Viewer/types'
-import { IMAGER_PIXEL_SPACING } from './const'
+import { IMAGE_PIXEL_SPACING } from './const'
 
 const calcRadius = (radius: number, spacing: number) => Math.sqrt(Math.pow(radius, 2) / Math.pow(spacing, 2))
 
@@ -13,7 +13,7 @@ export function calculateDistance(radius: number, image: Image | null): number |
     return calcRadius(radius, image.columnPixelSpacing)
   }
 
-  const imagerPixelSpacing = image.data.string(IMAGER_PIXEL_SPACING) as string | undefined
+  const imagerPixelSpacing = image.data.string(IMAGE_PIXEL_SPACING) as string | undefined
 
   if (!imagerPixelSpacing) {
     return radius

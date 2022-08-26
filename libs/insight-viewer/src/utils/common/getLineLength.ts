@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-properties */
 import { Point } from '../../types'
 import { Image } from '../../Viewer/types'
-import { IMAGER_PIXEL_SPACING } from './const'
+import { IMAGE_PIXEL_SPACING } from './const'
 
 const calcLength = ([startX, startY]: Point, [endX, endY]: Point, col: number, row: number): number => {
   const xPow = Math.pow(Math.abs(endX - startX) * col, 2)
@@ -25,7 +25,7 @@ export function getLineLength(
     return { length: calcLength(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
-  const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING) as string | undefined
+  const imagerPixelSpacing = currentImage.data.string(IMAGE_PIXEL_SPACING) as string | undefined
 
   if (!imagerPixelSpacing) {
     return { length: calcLength(startPoint, endPoint, 1, 1), unit: 'px' }
