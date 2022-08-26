@@ -8,8 +8,9 @@ describe('getTextPosition: ', () => {
   it('should return null when only measurement is exist', () => {
     const MOCK_MEASUREMENT_1: Measurement = {
       id: 1,
-      center: [0, 0],
+      centerPoint: [0, 0],
       lineWidth: 1.5,
+      calculatedPixelValueByUnit: 20,
       radius: 20,
       textPoint: null,
       type: 'circle',
@@ -17,9 +18,9 @@ describe('getTextPosition: ', () => {
     }
     const MOCK_MEASUREMENT_2: Measurement = {
       id: 2,
-      length: 8.48528137423857,
+      calculatedPixelValueByUnit: 8.48528137423857,
       lineWidth: 1.5,
-      points: [
+      startAndEndPoint: [
         [0, 0],
         [10, 10],
       ],
@@ -28,10 +29,11 @@ describe('getTextPosition: ', () => {
       unit: 'mm',
     }
     const MOCK_MEASUREMENT_3: Measurement = {
-      center: [0, 0],
+      centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
       radius: 20,
+      calculatedPixelValueByUnit: 20,
       textPoint: [40, 10],
       type: 'circle',
       unit: 'px',
@@ -43,10 +45,11 @@ describe('getTextPosition: ', () => {
   })
   it('should return the correct point when edit mode is textMove and currentPosition is exist', () => {
     const MOCK_MEASUREMENT: Measurement = {
-      center: [0, 0],
+      centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
       radius: 20,
+      calculatedPixelValueByUnit: 20,
       textPoint: null,
       type: 'circle',
       unit: 'px',
