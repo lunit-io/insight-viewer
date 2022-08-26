@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useRef } from 'react'
 
 import { RulerDrawer } from '../RulerDrawer'
@@ -20,7 +19,7 @@ export function MeasurementDrawer({
   mode = 'ruler',
   onAdd,
   onSelectMeasurement,
-}: MeasurementDrawerProps): JSX.Element {
+}: MeasurementDrawerProps): JSX.Element | null {
   const svgRef = useRef<SVGSVGElement>(null)
 
   const { editPoints, measurement, currentEditMode, setMeasurementEditMode } = useMeasurementPointsHandler({
@@ -35,46 +34,44 @@ export function MeasurementDrawer({
   })
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
 
+  if (!measurement || (measurement && measurement.calculatedPixelValueByUnit === 0)) return null
+
   return (
-    <>
-      {measurement && (measurement.type === 'ruler' ? measurement.length !== 0 : measurement.radius !== 0) ? (
-        <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
-          {measurement.type === 'ruler' && (
-            <RulerDrawer
-              isSelectedMode={isSelectedMeasurement}
-              measurement={measurement}
-              setMeasurementEditMode={setMeasurementEditMode}
-            />
-          )}
-          {measurement.type === 'circle' && (
-            <CircleDrawer
-              isSelectedMode={isSelectedMeasurement}
-              measurement={measurement}
-              setMeasurementEditMode={setMeasurementEditMode}
-            />
-          )}
-          {editPoints && (
-            <>
-              <EditPointer
-                setEditMode={setMeasurementEditMode}
-                editMode="startPoint"
-                isSelectedMode={currentEditMode === 'startPoint'}
-                isHighlightMode={isSelectedMeasurement}
-                cx={editPoints[0]}
-                cy={editPoints[1]}
-              />
-              <EditPointer
-                setEditMode={setMeasurementEditMode}
-                editMode="endPoint"
-                isSelectedMode={currentEditMode === 'endPoint'}
-                isHighlightMode={isSelectedMeasurement}
-                cx={editPoints[2]}
-                cy={editPoints[3]}
-              />
-            </>
-          )}
-        </svg>
-      ) : null}
-    </>
+    <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+      {measurement.type === 'ruler' && (
+        <RulerDrawer
+          isSelectedMode={isSelectedMeasurement}
+          measurement={measurement}
+          setMeasurementEditMode={setMeasurementEditMode}
+        />
+      )}
+      {measurement.type === 'circle' && (
+        <CircleDrawer
+          isSelectedMode={isSelectedMeasurement}
+          measurement={measurement}
+          setMeasurementEditMode={setMeasurementEditMode}
+        />
+      )}
+      {editPoints && (
+        <>
+          <EditPointer
+            setEditMode={setMeasurementEditMode}
+            editMode="startPoint"
+            isSelectedMode={currentEditMode === 'startPoint'}
+            isHighlightMode={isSelectedMeasurement}
+            cx={editPoints[0]}
+            cy={editPoints[1]}
+          />
+          <EditPointer
+            setEditMode={setMeasurementEditMode}
+            editMode="endPoint"
+            isSelectedMode={currentEditMode === 'endPoint'}
+            isHighlightMode={isSelectedMeasurement}
+            cx={editPoints[2]}
+            cy={editPoints[3]}
+          />
+        </>
+      )}
+    </svg>
   )
 }

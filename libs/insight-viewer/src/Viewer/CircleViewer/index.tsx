@@ -1,23 +1,28 @@
 /* eslint-disable no-restricted-properties */
 import React, { ReactElement } from 'react'
 
-import { CircleViewerProps } from './CircleViewer.types'
 import { circleStyle } from './CircleViewer.styles'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
-import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
-import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
-import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
 import { useOverlayContext } from '../../contexts'
+
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
+import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
+import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
+import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+
+import type { CircleViewerProps } from './CircleViewer.types'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { center, radius, unit } = measurement
-  const area = calculateCircleArea(radius)
-  const points = getCircleCenterAndEndPoint(center, radius, image)
+  const { centerPoint, radius, calculatedPixelValueByUnit, unit } = measurement
+
+  const area = calculateCircleArea(calculatedPixelValueByUnit)
+
+  const points = getCircleCenterAndEndPoint(centerPoint, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
+
   const drawingRadius = Math.abs(pixelStartPoint[0] - pixelEndPoint[0])
 
   const textPoint = measurement.textPoint
