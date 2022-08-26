@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Measurement, MeasurementBase } from '../../types'
 import { RULER_MIN_LENGTH, CIRCLE_MIN_RADIUS } from '../../const'
+
+import type { Measurement, MeasurementBase } from '../../types'
+import type { UseMeasurementParams, MeasurementDrawingState } from './types'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
@@ -10,23 +12,6 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
       throw new Error(`Measurement.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
     }
   })
-}
-
-interface UseMeasurementParams {
-  nextId?: number
-  initialMeasurement?: Measurement[]
-}
-
-interface MeasurementDrawingState {
-  measurements: Measurement[]
-  hoveredMeasurement: Measurement | null
-  selectedMeasurement: Measurement | null
-  addMeasurement: (measurement: Measurement, measurementInfo?: Pick<Measurement, 'dataAttrs'>) => Measurement | null
-  hoverMeasurement: (measurement: Measurement | null) => void
-  selectMeasurement: (measurement: Measurement | null) => void
-  updateMeasurement: (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => void
-  removeMeasurement: (measurement: Measurement) => void
-  removeAllMeasurement: () => void
 }
 
 export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementParams): MeasurementDrawingState {
@@ -54,10 +39,11 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   ): Measurement | null => {
     if (
       measurement.type === 'ruler' &&
-      (measurement.length === 0 || (measurement.length && measurement.length < RULER_MIN_LENGTH))
+      (measurement.calculatedPixelValueByUnit === 0 ||
+        (measurement.calculatedPixelValueByUnit && measurement.calculatedPixelValueByUnit < RULER_MIN_LENGTH))
     )
       return null
-    if (measurement.type === 'circle' && measurement.radius < CIRCLE_MIN_RADIUS) return null
+    if (measurement.type === 'circle' && measurement.calculatedPixelValueByUnit < CIRCLE_MIN_RADIUS) return null
     if (measurementInfo?.dataAttrs) {
       validateDataAttrs(measurementInfo?.dataAttrs)
     }
