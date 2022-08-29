@@ -23,10 +23,14 @@ export function getMeasurement(
     return {
       ...defaultMeasurementInfo,
       type: 'circle',
-      center: startPoint,
+      centerPoint: startPoint,
+      /** TODO refactor
+      // This radius should be changed as a pixel value
+       */
       radius,
       unit,
       textPoint,
+      measuredValue: radius,
     }
   }
 
@@ -35,9 +39,9 @@ export function getMeasurement(
   return {
     ...defaultMeasurementInfo,
     type: 'ruler',
-    points: [startPoint, endPoint],
-    length,
-    unit,
     textPoint,
+    startAndEndPoint: [startPoint, endPoint],
+    measuredValue: length,
+    unit,
   }
 }

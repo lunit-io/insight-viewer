@@ -1,13 +1,17 @@
 import React, { ReactElement } from 'react'
 
-import { Point } from '../../types'
-
-import { RulerDrawerProps } from './RulerDrawer.types'
 import { polyline, textStyle } from './RulerDrawer.styles'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
-import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
+import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
 import { useOverlayContext } from '../../contexts'
+
+import type { Point } from '../../types'
+import type { RulerDrawerProps } from './RulerDrawer.types'
+
+function stringifyPoints(points: Point[]): string {
+  return points.map((point) => `${point[0]},${point[1]}`).join(' ')
+}
 
 export function RulerDrawer({
   measurement,
@@ -15,35 +19,30 @@ export function RulerDrawer({
   setMeasurementEditMode,
 }: RulerDrawerProps): ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
+  const { startAndEndPoint, measuredValue, unit } = measurement
 
-  const { points, linePoints, length, unit } = measurement
+  const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
+  const textPointOnCanvas = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(startAndEndPoint[1]))
 
-  const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
-  const textPoint = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(points[1]))
-  const connectingLine = getRulerConnectingLine(canvasPoints, textPoint)
-    .map((point) => {
-      const [x, y] = point
-
-      return `${x},${y}`
-    })
-    .join(' ')
+  const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
+  const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))
 
   return (
     <>
-      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={polyline.outline} points={linePoints} />
+      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={polyline.outline} points={rulerLine} />
       <polyline
         data-cy-move
         onMouseDown={() => setMeasurementEditMode('move')}
         style={polyline[isSelectedMode ? 'select' : 'default']}
-        points={linePoints}
+        points={rulerLine}
       />
       <text
         onMouseDown={() => setMeasurementEditMode('textMove')}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
-        x={textPoint[0]}
-        y={textPoint[1]}
+        x={textPointOnCanvas[0]}
+        y={textPointOnCanvas[1]}
       >
-        {length.toFixed(1)}
+        {measuredValue.toFixed(1)}
         {unit}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />

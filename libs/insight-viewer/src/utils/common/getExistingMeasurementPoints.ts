@@ -5,14 +5,14 @@ import { Image } from '../../Viewer/types'
 
 export function getExistingMeasurementPoints(measurement: Measurement, image: Image | null): [Point, Point] {
   if (measurement.type === 'ruler') {
-    const rulerPoints = measurement.points
+    const rulerPoints = measurement.startAndEndPoint
 
     return rulerPoints
   }
 
   // measurement.type === 'circle'
-  const { center, radius } = measurement
-  const circlePoints = getCircleCenterAndEndPoint(center, radius, image)
+  const { centerPoint, radius } = measurement
+  const circlePoints = getCircleCenterAndEndPoint(centerPoint, radius, image)
 
   return circlePoints
 }

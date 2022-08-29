@@ -5,19 +5,21 @@ import { getExistingMeasurementPoints } from './getExistingMeasurementPoints'
 describe('getExistingMeasurementPoints: ', () => {
   it('should return the points without Image', () => {
     const MOCK_MEASUREMENT_1: Measurement = {
-      center: [0, 0],
+      centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
       radius: 20,
+      measuredValue: 20,
       textPoint: null,
       type: 'circle',
       unit: 'px',
     }
     const MOCK_MEASUREMENT_2: Measurement = {
-      center: [10, 20],
+      centerPoint: [10, 20],
       id: 2,
       lineWidth: 1.5,
       radius: 30,
+      measuredValue: 30,
       textPoint: null,
       type: 'circle',
       unit: 'px',
@@ -36,19 +38,21 @@ describe('getExistingMeasurementPoints: ', () => {
   it('should return the points with Image', () => {
     const MOCK_IMAGE = { columnPixelSpacing: 0.6, rowPixelSpacing: 0.6 } as Image
     const MOCK_MEASUREMENT_1: Measurement = {
-      center: [0, 0],
+      centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
       radius: 20,
+      measuredValue: 20,
       textPoint: null,
       type: 'circle',
       unit: 'px',
     }
     const MOCK_MEASUREMENT_2: Measurement = {
-      center: [10, 20],
+      centerPoint: [10, 20],
       id: 2,
       lineWidth: 1.5,
       radius: 30,
+      measuredValue: 30,
       textPoint: null,
       type: 'circle',
       unit: 'px',

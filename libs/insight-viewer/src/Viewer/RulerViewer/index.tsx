@@ -1,37 +1,28 @@
 import React, { ReactElement } from 'react'
 
-import { Point } from '../../types'
-
-import { RulerViewerProps } from './RulerViewer.types'
 import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer.styles'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
-import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
+import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
 import { useOverlayContext } from '../../contexts'
+
+import type { Point } from '../../types'
+import type { RulerViewerProps } from './RulerViewer.types'
+
+function stringifyPoints(points: Point[]): string {
+  return points.map((point) => `${point[0]},${point[1]}`).join(' ')
+}
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-  const { points, length, unit } = measurement
-
-  const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
-
-  const textPoint = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(points[1]))
+  const { startAndEndPoint, measuredValue, unit } = measurement
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
-  const polygonPoints: string = canvasPoints
-    .map((point) => {
-      const [x, y] = point
-      return `${x},${y}`
-    })
-    .join(' ')
+  const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
+  const textPointOnCanvas = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(startAndEndPoint[1]))
 
-  const connectingLine = getRulerConnectingLine(canvasPoints, textPoint)
-    .map((point) => {
-      const [x, y] = point
-
-      return `${x},${y}`
-    })
-    .join(' ')
+  const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
+  const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))
 
   return (
     <>
@@ -40,18 +31,22 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           ...polylineStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={polygonPoints}
+        points={rulerLine}
       />
       <polyline
         style={{
           ...polylineStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}
-        points={polygonPoints}
+        points={rulerLine}
       />
-      {length && (
-        <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
-          {length.toFixed(1)}
+      {measuredValue && (
+        <text
+          style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+          x={textPointOnCanvas[0]}
+          y={textPointOnCanvas[1]}
+        >
+          {measuredValue.toFixed(1)}
           {unit}
         </text>
       )}

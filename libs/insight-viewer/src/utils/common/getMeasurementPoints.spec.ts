@@ -6,9 +6,9 @@ describe('getMeasurementPoints: ', () => {
     const EDITING_MODE_ON = true
     const MOCK_SELECTED_RULER_MEASUREMENT: Measurement = {
       id: 1,
-      length: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       lineWidth: 1.5,
-      points: [
+      startAndEndPoint: [
         [0, 0],
         [10, 10],
       ],
@@ -42,9 +42,9 @@ describe('getMeasurementPoints: ', () => {
     const EDITING_MODE_OFF = false
     const MOCK_SELECTED_RULER_MEASUREMENT: Measurement = {
       id: 1,
-      length: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       lineWidth: 1.5,
-      points: [
+      startAndEndPoint: [
         [0, 0],
         [10, 10],
       ],

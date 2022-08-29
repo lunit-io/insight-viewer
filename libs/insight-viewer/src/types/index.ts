@@ -25,7 +25,7 @@ export type Viewport = BasicViewport & {
   _resetViewport?: Partial<BasicViewport>
 }
 
-export type Point = [number, number]
+export type Point = [x: number, y: number]
 export type Contours = Point[][]
 
 export interface HTTP {
@@ -81,7 +81,7 @@ export interface AnnotationBase {
   /** If label is present, it will output instead of id */
   label?: string
 
-  /** polygon pabel position = [x, y] */
+  /** polygon label position = [x, y] */
   labelPosition?: Point
 
   /**
@@ -140,31 +140,24 @@ export interface MeasurementBase {
   dataAttrs?: { [attr: string]: string }
   textPoint: Point | null
   unit: 'px' | 'mm'
+  /**
+   * This value is measured with a pixel space of the image and transformed into the physical unit(mm)
+   * ruler: length, circle: radius
+   */
+  measuredValue: number
 }
-
 export interface RulerMeasurement extends MeasurementBase {
   type: 'ruler'
-  points: [Point, Point]
-  length: number
+  startAndEndPoint: [startPoint: Point, endPoint: Point]
 }
 
 export interface CircleMeasurement extends MeasurementBase {
   type: 'circle'
-  center: Point
+  centerPoint: Point
   radius: number
 }
 
-export interface DrawingRulerMeasurement extends RulerMeasurement {
-  linePoints: string
-}
-
-export interface DrawingCircleMeasurement extends CircleMeasurement {
-  drawingRadius: number
-}
-
 export type Measurement = RulerMeasurement | CircleMeasurement
-
-export type DrawingMeasurement = DrawingRulerMeasurement | DrawingCircleMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T

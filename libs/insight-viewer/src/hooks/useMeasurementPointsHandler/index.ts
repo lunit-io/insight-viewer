@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 
-import { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
-import { Point, EditMode, Measurement, DrawingMeasurement } from '../../types'
 import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
 import { getTextPosition } from '../../utils/common/getTextPosition'
 import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
-import { getDrawingMeasurement } from '../../utils/common/getDrawingMeasurement'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
 
 import useDrawingHandler from '../useDrawingHandler'
+
+import type { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
+import type { Point, EditMode, Measurement } from '../../types'
 
 export default function useMeasurementPointsHandler({
   mode,
@@ -26,7 +26,6 @@ export default function useMeasurementPointsHandler({
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [measurement, setMeasurement] = useState<Measurement | null>(null)
-  const [drawingMeasurement, setDrawingMeasurement] = useState<DrawingMeasurement | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
 
@@ -39,15 +38,8 @@ export default function useMeasurementPointsHandler({
 
     const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
 
-    const editTargetDrawingMeasurement = getDrawingMeasurement(
-      selectedMeasurementPoints,
-      selectedMeasurement,
-      pixelToCanvas
-    )
-
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
-    setDrawingMeasurement(editTargetDrawingMeasurement)
   }, [image, isEditing, selectedMeasurement, pixelToCanvas])
 
   const setInitialMeasurement = (point: Point) => {
@@ -56,21 +48,17 @@ export default function useMeasurementPointsHandler({
       return
     }
 
-    const initialStartPoint: [Point, Point] = [point, point]
+    const initialStartAndEndPoint: [startPoint: Point, endPoint: Point] = [point, point]
     const initialTextPosition = getTextPosition(measurement)
 
-    const currentMeasurement = getMeasurement(initialStartPoint, initialTextPosition, mode, measurements, image)
+    const currentMeasurement = getMeasurement(initialStartAndEndPoint, initialTextPosition, mode, measurements, image)
     setMeasurement(currentMeasurement)
-
-    const currentDrawingMeasurement = getDrawingMeasurement(initialStartPoint, currentMeasurement, pixelToCanvas)
-
-    setDrawingMeasurement(currentDrawingMeasurement)
   }
 
   const addDrawingMeasurement = (point: Point) => {
     if (isEditing && selectedMeasurement != null && !editMode) return
 
-    setDrawingMeasurement(() => {
+    setMeasurement(() => {
       if (!measurement) return null
 
       const prevPoints = getExistingMeasurementPoints(measurement, image)
@@ -98,9 +86,7 @@ export default function useMeasurementPointsHandler({
       const currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
       setMeasurement(currentMeasurement)
 
-      const currentDrawingMeasurement = getDrawingMeasurement(currentPoints, currentMeasurement, pixelToCanvas)
-
-      return currentDrawingMeasurement
+      return currentMeasurement
     })
   }
 
@@ -115,7 +101,6 @@ export default function useMeasurementPointsHandler({
     setEditStartPoint(null)
     setEditTargetPoints(null)
     onSelectMeasurement(null)
-    setDrawingMeasurement(null)
   }
 
   const addDrewMeasurement = () => {
@@ -142,7 +127,7 @@ export default function useMeasurementPointsHandler({
   })
 
   return {
-    measurement: drawingMeasurement,
+    measurement,
     currentEditMode: editMode,
     editPoints: editTargetPoints,
     setMeasurementEditMode,

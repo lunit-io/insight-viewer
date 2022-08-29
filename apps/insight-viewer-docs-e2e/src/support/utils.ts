@@ -123,7 +123,7 @@ export const drawMeasurement = (measurement: Measurement): void => {
   const canvas = cy.get('.cornerstone-canvas-wrapper')
 
   if (measurement.type === 'ruler') {
-    const [startPoint, endPoint] = measurement.points
+    const [startPoint, endPoint] = measurement.startAndEndPoint
 
     canvas
       .trigger('mousedown', { x: startPoint[0], y: startPoint[1] })
@@ -139,7 +139,7 @@ export const drawMeasurements = (measurements: Measurement[]): void => {
 export const moveMeasurement = (measurement: Measurement, distance: number): void => {
   const targetDataAttr = `[data-cy-id="${measurement.id}"]`
   const targetDrawingAttr = '[data-cy-move]'
-  const startPoint = measurement.type === 'circle' ? measurement.center : measurement.points[0]
+  const startPoint = measurement.type === 'circle' ? measurement.centerPoint : measurement.startAndEndPoint[0]
 
   cy.get(targetDataAttr).click({ force: true })
 
