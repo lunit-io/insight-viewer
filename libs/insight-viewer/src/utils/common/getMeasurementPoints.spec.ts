@@ -6,7 +6,7 @@ describe('getMeasurementPoints: ', () => {
     const EDITING_MODE_ON = true
     const MOCK_SELECTED_RULER_MEASUREMENT: Measurement = {
       id: 1,
-      calculatedPixelValueByUnit: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       lineWidth: 1.5,
       startAndEndPoint: [
         [0, 0],
@@ -42,7 +42,7 @@ describe('getMeasurementPoints: ', () => {
     const EDITING_MODE_OFF = false
     const MOCK_SELECTED_RULER_MEASUREMENT: Measurement = {
       id: 1,
-      calculatedPixelValueByUnit: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       lineWidth: 1.5,
       startAndEndPoint: [
         [0, 0],

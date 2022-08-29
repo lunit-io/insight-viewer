@@ -15,7 +15,7 @@ function stringifyPoints(points: Point[]): string {
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-  const { startAndEndPoint, calculatedPixelValueByUnit, unit } = measurement
+  const { startAndEndPoint, measuredValue, unit } = measurement
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
@@ -40,13 +40,13 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         data-select={isHoveredMeasurement || undefined}
         points={rulerLine}
       />
-      {calculatedPixelValueByUnit && (
+      {measuredValue && (
         <text
           style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
           x={textPointOnCanvas[0]}
           y={textPointOnCanvas[1]}
         >
-          {calculatedPixelValueByUnit.toFixed(1)}
+          {measuredValue.toFixed(1)}
           {unit}
         </text>
       )}

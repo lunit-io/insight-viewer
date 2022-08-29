@@ -12,7 +12,7 @@ describe('getMeasurement: ', () => {
     const MOCK_MEASUREMENTS_2: Measurement[] = [
       {
         id: 1,
-        calculatedPixelValueByUnit: 14.142135623730951,
+        measuredValue: 14.142135623730951,
         lineWidth: 1.5,
         startAndEndPoint: [
           [0, 0],
@@ -26,7 +26,7 @@ describe('getMeasurement: ', () => {
 
     expect(getMeasurement(MOCK_POINTS, null, 'ruler', MOCK_MEASUREMENTS_1, null)).toStrictEqual({
       id: 1,
-      calculatedPixelValueByUnit: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       lineWidth: 1.5,
       startAndEndPoint: [
         [20, 20],
@@ -39,7 +39,7 @@ describe('getMeasurement: ', () => {
 
     expect(getMeasurement(MOCK_POINTS, null, 'ruler', MOCK_MEASUREMENTS_2, null)).toStrictEqual({
       id: 2,
-      calculatedPixelValueByUnit: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       lineWidth: 1.5,
       startAndEndPoint: [
         [40, 40],
@@ -65,7 +65,7 @@ describe('getMeasurement: ', () => {
 
     expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'ruler', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
-      calculatedPixelValueByUnit: 8.48528137423857,
+      measuredValue: 8.48528137423857,
       lineWidth: 1.5,
       startAndEndPoint: [
         [0, 0],
@@ -88,7 +88,7 @@ describe('getMeasurement: ', () => {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
-      calculatedPixelValueByUnit: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
       type: 'circle',
@@ -100,7 +100,7 @@ describe('getMeasurement: ', () => {
         centerPoint: [0, 0],
         id: 1,
         lineWidth: 1.5,
-        calculatedPixelValueByUnit: 14.142135623730951,
+        measuredValue: 14.142135623730951,
         radius: 14.142135623730951,
         textPoint: null,
         type: 'circle',
@@ -111,7 +111,7 @@ describe('getMeasurement: ', () => {
       centerPoint: [0, 0],
       id: 2,
       lineWidth: 1.5,
-      calculatedPixelValueByUnit: 14.142135623730951,
+      measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
       type: 'circle',
@@ -138,7 +138,7 @@ describe('getMeasurement: ', () => {
 
     expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'ruler', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
-      calculatedPixelValueByUnit: 8.48528137423857,
+      measuredValue: 8.48528137423857,
       lineWidth: 1.5,
       startAndEndPoint: [
         [0, 0],

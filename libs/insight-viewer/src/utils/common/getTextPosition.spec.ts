@@ -10,7 +10,7 @@ describe('getTextPosition: ', () => {
       id: 1,
       centerPoint: [0, 0],
       lineWidth: 1.5,
-      calculatedPixelValueByUnit: 20,
+      measuredValue: 20,
       radius: 20,
       textPoint: null,
       type: 'circle',
@@ -18,7 +18,7 @@ describe('getTextPosition: ', () => {
     }
     const MOCK_MEASUREMENT_2: Measurement = {
       id: 2,
-      calculatedPixelValueByUnit: 8.48528137423857,
+      measuredValue: 8.48528137423857,
       lineWidth: 1.5,
       startAndEndPoint: [
         [0, 0],
@@ -33,7 +33,7 @@ describe('getTextPosition: ', () => {
       id: 1,
       lineWidth: 1.5,
       radius: 20,
-      calculatedPixelValueByUnit: 20,
+      measuredValue: 20,
       textPoint: [40, 10],
       type: 'circle',
       unit: 'px',
@@ -49,7 +49,7 @@ describe('getTextPosition: ', () => {
       id: 1,
       lineWidth: 1.5,
       radius: 20,
-      calculatedPixelValueByUnit: 20,
+      measuredValue: 20,
       textPoint: null,
       type: 'circle',
       unit: 'px',

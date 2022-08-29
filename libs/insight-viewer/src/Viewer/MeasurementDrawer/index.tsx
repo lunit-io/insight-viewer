@@ -34,7 +34,7 @@ export function MeasurementDrawer({
   })
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
 
-  if (!measurement || (measurement && measurement.calculatedPixelValueByUnit === 0)) return null
+  if (!measurement || (measurement && measurement.measuredValue === 0)) return null
 
   return (
     <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>

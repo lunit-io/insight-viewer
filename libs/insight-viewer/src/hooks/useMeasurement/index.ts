@@ -39,11 +39,10 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   ): Measurement | null => {
     if (
       measurement.type === 'ruler' &&
-      (measurement.calculatedPixelValueByUnit === 0 ||
-        (measurement.calculatedPixelValueByUnit && measurement.calculatedPixelValueByUnit < RULER_MIN_LENGTH))
+      (measurement.measuredValue === 0 || (measurement.measuredValue && measurement.measuredValue < RULER_MIN_LENGTH))
     )
       return null
-    if (measurement.type === 'circle' && measurement.calculatedPixelValueByUnit < CIRCLE_MIN_RADIUS) return null
+    if (measurement.type === 'circle' && measurement.measuredValue < CIRCLE_MIN_RADIUS) return null
     if (measurementInfo?.dataAttrs) {
       validateDataAttrs(measurementInfo?.dataAttrs)
     }

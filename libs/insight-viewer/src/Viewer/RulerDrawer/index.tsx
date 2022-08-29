@@ -19,7 +19,7 @@ export function RulerDrawer({
   setMeasurementEditMode,
 }: RulerDrawerProps): ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
-  const { startAndEndPoint, calculatedPixelValueByUnit, unit } = measurement
+  const { startAndEndPoint, measuredValue, unit } = measurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
   const textPointOnCanvas = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(startAndEndPoint[1]))
@@ -42,7 +42,7 @@ export function RulerDrawer({
         x={textPointOnCanvas[0]}
         y={textPointOnCanvas[1]}
       >
-        {calculatedPixelValueByUnit.toFixed(1)}
+        {measuredValue.toFixed(1)}
         {unit}
       </text>
       <polyline style={polyline.dashLine} points={connectingLine} />

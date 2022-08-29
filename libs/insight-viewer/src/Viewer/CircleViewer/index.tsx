@@ -16,9 +16,9 @@ import type { CircleViewerProps } from './CircleViewer.types'
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { pixelToCanvas, image } = useOverlayContext()
 
-  const { centerPoint, radius, calculatedPixelValueByUnit, unit } = measurement
+  const { centerPoint, radius, measuredValue, unit } = measurement
 
-  const area = calculateCircleArea(calculatedPixelValueByUnit)
+  const area = calculateCircleArea(measuredValue)
 
   const points = getCircleCenterAndEndPoint(centerPoint, radius, image)
   const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)

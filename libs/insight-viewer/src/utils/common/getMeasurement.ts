@@ -30,7 +30,7 @@ export function getMeasurement(
       radius,
       unit,
       textPoint,
-      calculatedPixelValueByUnit: radius,
+      measuredValue: radius,
     }
   }
 
@@ -41,7 +41,7 @@ export function getMeasurement(
     type: 'ruler',
     textPoint,
     startAndEndPoint: [startPoint, endPoint],
-    calculatedPixelValueByUnit: length,
+    measuredValue: length,
     unit,
   }
 }

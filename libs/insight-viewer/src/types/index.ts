@@ -141,10 +141,10 @@ export interface MeasurementBase {
   textPoint: Point | null
   unit: 'px' | 'mm'
   /**
-   * This value is calculated with a pixel space of the image and transformed into the physical unit(mm)
+   * This value is measured with a pixel space of the image and transformed into the physical unit(mm)
    * ruler: length, circle: radius
    */
-  calculatedPixelValueByUnit: number
+  measuredValue: number
 }
 export interface RulerMeasurement extends MeasurementBase {
   type: 'ruler'
