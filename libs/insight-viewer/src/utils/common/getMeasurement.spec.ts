@@ -29,8 +29,8 @@ describe('getMeasurement: ', () => {
       measuredValue: 14.142135623730951,
       lineWidth: 1.5,
       startAndEndPoint: [
-        [20, 20],
-        [30, 30],
+        [0, 0],
+        [10, 10],
       ],
       textPoint: null,
       type: 'ruler',
@@ -42,8 +42,8 @@ describe('getMeasurement: ', () => {
       measuredValue: 14.142135623730951,
       lineWidth: 1.5,
       startAndEndPoint: [
-        [40, 40],
-        [50, 50],
+        [0, 0],
+        [10, 10],
       ],
       textPoint: null,
       type: 'ruler',
@@ -68,8 +68,8 @@ describe('getMeasurement: ', () => {
       measuredValue: 8.48528137423857,
       lineWidth: 1.5,
       startAndEndPoint: [
-        [0, 0],
         [10, 10],
+        [20, 20],
       ],
       textPoint: [50, 50],
       type: 'ruler',
@@ -88,8 +88,8 @@ describe('getMeasurement: ', () => {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
-      measuredValue: 14.142135623730951,
-      radius: 14.142135623730951,
+      measuredValue: 28.284271247461902,
+      radius: 28.284271247461902,
       textPoint: null,
       type: 'circle',
       unit: 'px',
@@ -97,8 +97,8 @@ describe('getMeasurement: ', () => {
 
     const MOCK_ADDED_MEASUREMENTS: Measurement[] = [
       {
-        centerPoint: [0, 0],
-        id: 1,
+        centerPoint: [30, 30],
+        id: 2,
         lineWidth: 1.5,
         measuredValue: 14.142135623730951,
         radius: 14.142135623730951,
@@ -109,10 +109,10 @@ describe('getMeasurement: ', () => {
     ]
     const EXPECTED_2 = {
       centerPoint: [0, 0],
-      id: 2,
+      id: 3,
       lineWidth: 1.5,
-      measuredValue: 14.142135623730951,
-      radius: 14.142135623730951,
+      measuredValue: 28.284271247461902,
+      radius: 28.284271247461902,
       textPoint: null,
       type: 'circle',
       unit: 'px',
@@ -123,11 +123,8 @@ describe('getMeasurement: ', () => {
 
   it('should return the measurement in circle mode with text, image', () => {
     const MOCK_POINTS: Point[] = [
-      [0, 0],
-      [10, 10],
-      [20, 20],
-      [30, 30],
-      [40, 40],
+      [70, 10],
+      [65, 90],
     ]
     const MOCK_TEXT_POINT: Point = [50, 50]
     const MOCK_MEASUREMENTS: Measurement[] = []
@@ -136,16 +133,14 @@ describe('getMeasurement: ', () => {
       rowPixelSpacing: 0.6,
     } as Image
 
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'ruler', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
+    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'circle', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
-      measuredValue: 8.48528137423857,
+      measuredValue: 48.093658625644196,
+      radius: 48.093658625644196,
       lineWidth: 1.5,
-      startAndEndPoint: [
-        [0, 0],
-        [10, 10],
-      ],
+      centerPoint: [70, 10],
       textPoint: [50, 50],
-      type: 'ruler',
+      type: 'circle',
       unit: 'mm',
     })
   })
