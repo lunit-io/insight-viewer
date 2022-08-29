@@ -1,6 +1,6 @@
 import { Flex, Heading, Box, HStack, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { Logo } from '../Logo'
+import Logo from '@lunit/design-system-logo/Lunit'
 import Nav from '../Nav'
 import { NextChakraLink } from '../NextChakraLink'
 import { WithChildren } from '../../types'
@@ -21,7 +21,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
             <Flex direction="row">
               <Flex width={SIDE_WIDTH} pt={2} display={config.IS_CYPRESS ? 'none' : 'flex'}>
                 <NextChakraLink href="/" pt="2px">
-                  <Logo h="1.5rem" pointerEvents="none" />
+                  <Logo />
                 </NextChakraLink>
                 <Spacer />
               </Flex>
