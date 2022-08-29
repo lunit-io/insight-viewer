@@ -21,7 +21,7 @@ export default function Layout({ children }: WithChildren): JSX.Element {
             <Flex direction="row">
               <Flex width={SIDE_WIDTH} pt={2} display={config.IS_CYPRESS ? 'none' : 'flex'}>
                 <NextChakraLink href="/" pt="2px">
-                  <Logo pointerEvents="none" />
+                  <Logo />
                 </NextChakraLink>
                 <Spacer />
               </Flex>
