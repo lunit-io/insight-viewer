@@ -14,4 +14,4 @@ export const DefaultViewport: Viewport = {
 
 export const ERROR_UNKNOWN = 'error unknown'
 
-export const IMAGE_PIXEL_SPACING = 'x00181164'
+export const IMAGER_PIXEL_SPACING = 'x00181164'
