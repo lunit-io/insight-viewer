@@ -89,11 +89,20 @@ function useDrawingHandler({
       window.removeEventListener('keydown', handleKeyDown)
     }
 
-    activeMouseDrawEvents()
+    const checkMouseEvent = () => {
+      enabledElement.element.addEventListener('mouseover', activeMouseDrawEvents)
+    }
 
+    const disableCheckMouseEvent = () => {
+      enabledElement.element.removeEventListener('mouseover', activeMouseDrawEvents)
+    }
+
+    activeMouseDrawEvents()
+    checkMouseEvent()
     // eslint-disable-next-line consistent-return
     return () => {
       deactivateMouseDrawEvents()
+      disableCheckMouseEvent()
     }
   }, [svgElement, enabledElement, pageToPixel, addDrawingPoint, addDrewElement, cancelDrawing, setInitialPoint])
 }
