@@ -32,15 +32,13 @@ export default function useMeasurementPointsHandler({
   useEffect(() => {
     if (!isEditing || selectedMeasurement == null) return
 
-    const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement, image)
-
+    const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement)
     const currentPoints = selectedMeasurementPoints.map(pixelToCanvas)
-
     const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
 
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
-  }, [image, isEditing, selectedMeasurement, pixelToCanvas])
+  }, [isEditing, selectedMeasurement, pixelToCanvas])
 
   const setInitialMeasurement = (point: Point) => {
     if (isEditing && selectedMeasurement != null) {
@@ -48,10 +46,10 @@ export default function useMeasurementPointsHandler({
       return
     }
 
-    const initialStartAndEndPoint: [startPoint: Point, endPoint: Point] = [point, point]
-    const initialTextPosition = getTextPosition(measurement)
+    const initialPoints: [mouseDownPoint: Point, mouseUpPoint: Point] = [point, point]
+    const initialTextPosition = null
 
-    const currentMeasurement = getMeasurement(initialStartAndEndPoint, initialTextPosition, mode, measurements, image)
+    const currentMeasurement = getMeasurement(initialPoints, initialTextPosition, mode, measurements, image)
     setMeasurement(currentMeasurement)
   }
 
@@ -61,7 +59,7 @@ export default function useMeasurementPointsHandler({
     setMeasurement(() => {
       if (!measurement) return null
 
-      const prevPoints = getExistingMeasurementPoints(measurement, image)
+      const prevPoints = getExistingMeasurementPoints(measurement)
 
       const currentPoints = getMeasurementPoints({
         mode,
