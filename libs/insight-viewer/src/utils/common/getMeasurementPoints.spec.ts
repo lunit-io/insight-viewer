@@ -1,5 +1,6 @@
-import { Measurement, Point } from '../../types'
 import { getMeasurementPoints } from './getMeasurementPoints'
+
+import type { Measurement, Point } from '../../types'
 
 describe('getMeasurementPoints: ', () => {
   it('should return correct point with getMeasurementEditingPoints', () => {
