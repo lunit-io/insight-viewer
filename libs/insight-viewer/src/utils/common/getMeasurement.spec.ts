@@ -1,10 +1,11 @@
-import { Point, Measurement } from '../../types'
-import { Image } from '../../Viewer/types'
 import { getMeasurement } from './getMeasurement'
+
+import type { Point, Measurement } from '../../types'
+import type { Image } from '../../Viewer/types'
 
 describe('getMeasurement: ', () => {
   it('should return the measurement in ruler mode without text, image', () => {
-    const MOCK_POINTS: Point[] = [
+    const MOCK_POINTS: [mouseDownPoint: Point, mouseUpPoint: Point] = [
       [0, 0],
       [10, 10],
     ]
@@ -52,7 +53,7 @@ describe('getMeasurement: ', () => {
   })
 
   it('should return the measurement in ruler mode with text, image', () => {
-    const MOCK_POINTS: Point[] = [
+    const MOCK_POINTS: [mouseDownPoint: Point, mouseUpPoint: Point] = [
       [10, 10],
       [20, 20],
     ]
@@ -78,7 +79,7 @@ describe('getMeasurement: ', () => {
   })
 
   it('should return the measurement in circle mode without text, image', () => {
-    const MOCK_POINTS: Point[] = [
+    const MOCK_POINTS: [mouseDownPoint: Point, mouseUpPoint: Point] = [
       [0, 0],
       [20, 20],
     ]
@@ -122,9 +123,9 @@ describe('getMeasurement: ', () => {
   })
 
   it('should return the measurement in circle mode with text, image', () => {
-    const MOCK_POINTS: Point[] = [
-      [70, 10],
-      [65, 90],
+    const MOCK_POINTS: [mouseDownPoint: Point, mouseUpPoint: Point] = [
+      [10, 10],
+      [15, 60],
     ]
     const MOCK_TEXT_POINT: Point = [50, 50]
     const MOCK_MEASUREMENTS: Measurement[] = []
@@ -135,10 +136,10 @@ describe('getMeasurement: ', () => {
 
     expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'circle', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
-      measuredValue: 48.093658625644196,
-      radius: 48.093658625644196,
+      measuredValue: 30.14962686336267,
+      radius: 50.24937810560445,
       lineWidth: 1.5,
-      centerPoint: [70, 10],
+      centerPoint: [10, 10],
       textPoint: [50, 50],
       type: 'circle',
       unit: 'mm',

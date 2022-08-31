@@ -1,59 +1,56 @@
 import React, { ReactElement } from 'react'
 
-import { circleStyle, textStyle, polyline } from './CircleDrawer.styles'
-import { CircleDrawerProps } from './CircleDrawer.types'
-
 import { useOverlayContext } from '../../contexts'
 
-import { getLineLengthWithoutImage } from '../../utils/common/getLineLengthWithoutImage'
-import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
+import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
+import { getCircleRadius } from '../../utils/common/getCircleRadius'
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
 
-import type { Point } from '../../types'
+import { circleStyle, textStyle, polyline } from './CircleDrawer.styles'
+
+import type { CircleDrawerProps } from './CircleDrawer.types'
 
 export function CircleDrawer({
   isSelectedMode,
   measurement,
   setMeasurementEditMode,
 }: CircleDrawerProps): ReactElement | null {
-  const { pixelToCanvas, image } = useOverlayContext()
+  const { pixelToCanvas } = useOverlayContext()
 
-  const { centerPoint, measuredValue, radius, unit } = measurement
-  const area = calculateCircleArea(measuredValue)
-  const points = getCircleCenterAndEndPoint(centerPoint, radius, image)
-  const canvasPoints = points.map(pixelToCanvas) as [Point, Point]
-  const drawingRadius = getLineLengthWithoutImage(canvasPoints[0], canvasPoints[1])
+  const { centerPoint, radius, measuredValue, unit } = measurement
+
+  const endPoint = getCircleEndPoint(centerPoint, radius)
+
+  const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
+
+  const drawingRadius = getCircleRadius(centerPointOnCanvas, endPointOnCanvas)
 
   const textPoint = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
-    : getCircleTextPosition(canvasPoints[0], drawingRadius)
+    : getCircleTextPosition(centerPointOnCanvas, drawingRadius)
 
-  const connectingLine = getCircleConnectingLine(canvasPoints, textPoint)
-    .map((point) => {
-      const [x, y] = point
-
-      return `${x},${y}`
-    })
+  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPoint)
+    .map((point) => `${point[0]}, ${point[1]}`)
     .join(' ')
 
-  const [cx, cy] = canvasPoints[0]
+  const area = calculateCircleArea(measuredValue)
 
   return (
     <>
       <circle
         onMouseDown={() => setMeasurementEditMode('move')}
         style={circleStyle.outline}
-        cx={cx}
-        cy={cy}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
         onMouseDown={() => setMeasurementEditMode('move')}
         style={circleStyle[isSelectedMode ? 'select' : 'default']}
-        cx={cx}
-        cy={cy}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <text

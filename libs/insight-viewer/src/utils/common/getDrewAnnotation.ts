@@ -1,5 +1,5 @@
 import polylabel from 'polylabel'
-import { getCircleRadius } from './getCircleRadius'
+import { getCircleRadiusByMeasuringUnit } from './getCircleRadius'
 import { Annotation, AnnotationMode, LineHeadMode, Point } from '../../types'
 import { Image } from '../../Viewer/types'
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
@@ -23,7 +23,7 @@ export function getDrewAnnotation(
 
   if (mode === 'circle') {
     const [startPoint, endPoint] = points
-    const { radius } = getCircleRadius(startPoint, endPoint, image)
+    const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
     drewAnnotation = {
       ...defaultAnnotationInfo,
       type: 'circle',
