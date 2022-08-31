@@ -76,6 +76,7 @@ function useDrawingHandler({
       enabledElement.element.addEventListener('mouseup', handleMouseUp)
       enabledElement.element.addEventListener('mouseleave', handleMouseLeave)
       enabledElement.element.addEventListener('mousedown', handleMouseDown)
+      enabledElement.element.addEventListener('mouseover', activeMouseDrawEvents)
       window.addEventListener('keydown', handleKeyDown)
     }
 
@@ -86,11 +87,8 @@ function useDrawingHandler({
       enabledElement.element.removeEventListener('mouseup', handleMouseUp)
       enabledElement.element.removeEventListener('mouseleave', handleMouseLeave)
       enabledElement.element.removeEventListener('mousedown', handleMouseDown)
-      window.removeEventListener('keydown', handleKeyDown)
-    }
 
-    const checkMouseEvent = () => {
-      enabledElement.element.addEventListener('mouseover', activeMouseDrawEvents)
+      window.removeEventListener('keydown', handleKeyDown)
     }
 
     const disableCheckMouseEvent = () => {
@@ -98,8 +96,7 @@ function useDrawingHandler({
     }
 
     activeMouseDrawEvents()
-    checkMouseEvent()
-    // eslint-disable-next-line consistent-return
+
     return () => {
       deactivateMouseDrawEvents()
       disableCheckMouseEvent()
