@@ -24,11 +24,11 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
 
   const drawingRadius = getCircleRadius(centerPointOnCanvas, endPointOnCanvas)
 
-  const textPoint = measurement.textPoint
+  const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
     : getCircleTextPosition(centerPointOnCanvas, drawingRadius)
 
-  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPoint)
+  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPointOnCanvas)
     .map((point) => `${point[0]}, ${point[1]}`)
     .join(' ')
 
@@ -56,7 +56,11 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
-      <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
+      <text
+        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+        x={textPointOnCanvas[0]}
+        y={textPointOnCanvas[1]}
+      >
         {`Area = ${area.toLocaleString(undefined, {
           minimumFractionDigits: 1,
           maximumFractionDigits: 1,

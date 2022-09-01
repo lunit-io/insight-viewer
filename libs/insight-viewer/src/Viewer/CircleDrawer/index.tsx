@@ -27,11 +27,11 @@ export function CircleDrawer({
 
   const drawingRadius = getCircleRadius(centerPointOnCanvas, endPointOnCanvas)
 
-  const textPoint = measurement.textPoint
+  const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
     : getCircleTextPosition(centerPointOnCanvas, drawingRadius)
 
-  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPoint)
+  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPointOnCanvas)
     .map((point) => `${point[0]}, ${point[1]}`)
     .join(' ')
 
@@ -56,8 +56,8 @@ export function CircleDrawer({
       <text
         onMouseDown={() => setMeasurementEditMode('textMove')}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
-        x={textPoint[0]}
-        y={textPoint[1]}
+        x={textPointOnCanvas[0]}
+        y={textPointOnCanvas[1]}
       >
         {`Area = ${area.toLocaleString(undefined, {
           minimumFractionDigits: 1,
