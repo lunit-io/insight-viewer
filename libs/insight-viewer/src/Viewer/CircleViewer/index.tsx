@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-properties */
 import React, { ReactElement } from 'react'
 
 import { circleStyle } from './CircleViewer.styles'
@@ -7,38 +6,35 @@ import { textStyle, polylineStyle } from '../MeasurementViewer/MeasurementViewer
 import { useOverlayContext } from '../../contexts'
 
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
-import { getCircleCenterAndEndPoint } from '../../utils/common/getCircleCenterAndEndPoint'
+import { getCircleRadius } from '../../utils/common/getCircleRadius'
+import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 
 import type { CircleViewerProps } from './CircleViewer.types'
 
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
-  const { pixelToCanvas, image } = useOverlayContext()
+  const { pixelToCanvas } = useOverlayContext()
 
   const { centerPoint, radius, measuredValue, unit } = measurement
 
-  const area = calculateCircleArea(measuredValue)
+  const endPoint = getCircleEndPoint(centerPoint, radius)
 
-  const points = getCircleCenterAndEndPoint(centerPoint, radius, image)
-  const [pixelStartPoint, pixelEndPoint] = points.map(pixelToCanvas)
+  const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
 
-  const drawingRadius = Math.abs(pixelStartPoint[0] - pixelEndPoint[0])
+  const drawingRadius = getCircleRadius(centerPointOnCanvas, endPointOnCanvas)
 
-  const textPoint = measurement.textPoint
+  const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
-    : getCircleTextPosition(pixelStartPoint, drawingRadius)
+    : getCircleTextPosition(centerPointOnCanvas, drawingRadius)
 
-  const connectingLine = getCircleConnectingLine([pixelStartPoint, pixelEndPoint], textPoint)
-    .map((point) => {
-      const [x, y] = point
-
-      return `${x},${y}`
-    })
+  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPointOnCanvas)
+    .map((point) => `${point[0]}, ${point[1]}`)
     .join(' ')
 
+  const area = calculateCircleArea(measuredValue)
+
   const isHoveredMeasurement = measurement === hoveredMeasurement
-  const [cx, cy] = pixelStartPoint
 
   return (
     <>
@@ -47,8 +43,8 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
           ...circleStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
         data-focus={isHoveredMeasurement || undefined}
-        cx={cx}
-        cy={cy}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
@@ -56,11 +52,15 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
           ...circleStyle.default,
         }}
         data-focus={isHoveredMeasurement || undefined}
-        cx={cx}
-        cy={cy}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
-      <text style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }} x={textPoint[0]} y={textPoint[1]}>
+      <text
+        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+        x={textPointOnCanvas[0]}
+        y={textPointOnCanvas[1]}
+      >
         {`Area = ${area.toLocaleString(undefined, {
           minimumFractionDigits: 1,
           maximumFractionDigits: 1,

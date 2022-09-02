@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { getMeasurementDrawingPoints } from './getMeasurementDrawingPoints'
 import { getMeasurementEditingPoints } from './getMeasurementEditingPoints'
 
-import { Point, Measurement, EditMode, MeasurementMode } from '../../types'
+import type { Point, Measurement, EditMode, MeasurementMode } from '../../types'
 
 interface MeasurementPointInfo {
   point: Point

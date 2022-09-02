@@ -1,6 +1,6 @@
-import { Measurement } from '../../types'
-import { Image } from '../../Viewer/types'
 import { getExistingMeasurementPoints } from './getExistingMeasurementPoints'
+
+import type { Measurement } from '../../types'
 
 describe('getExistingMeasurementPoints: ', () => {
   it('should return the points without Image', () => {
@@ -25,18 +25,17 @@ describe('getExistingMeasurementPoints: ', () => {
       unit: 'px',
     }
 
-    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_1, null)).toEqual([
+    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_1)).toEqual([
       [0, 0],
       [20, 0],
     ])
-    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_2, null)).toEqual([
+    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_2)).toEqual([
       [10, 20],
       [40, 20],
     ])
   })
 
   it('should return the points with Image', () => {
-    const MOCK_IMAGE = { columnPixelSpacing: 0.6, rowPixelSpacing: 0.6 } as Image
     const MOCK_MEASUREMENT_1: Measurement = {
       centerPoint: [0, 0],
       id: 1,
@@ -45,7 +44,7 @@ describe('getExistingMeasurementPoints: ', () => {
       measuredValue: 20,
       textPoint: null,
       type: 'circle',
-      unit: 'px',
+      unit: 'mm',
     }
     const MOCK_MEASUREMENT_2: Measurement = {
       centerPoint: [10, 20],
@@ -55,16 +54,16 @@ describe('getExistingMeasurementPoints: ', () => {
       measuredValue: 30,
       textPoint: null,
       type: 'circle',
-      unit: 'px',
+      unit: 'mm',
     }
 
-    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_1, MOCK_IMAGE)).toEqual([
+    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_1)).toEqual([
       [0, 0],
-      [33.333333333333336, 0],
+      [20, 0],
     ])
-    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_2, MOCK_IMAGE)).toEqual([
+    expect(getExistingMeasurementPoints(MOCK_MEASUREMENT_2)).toEqual([
       [10, 20],
-      [60, 20],
+      [40, 20],
     ])
   })
 })

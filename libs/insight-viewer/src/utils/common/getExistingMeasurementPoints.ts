@@ -1,18 +1,20 @@
-import { getCircleCenterAndEndPoint } from './getCircleCenterAndEndPoint'
+import { getCircleEndPoint } from './getCircleEndPoint'
 
-import { Measurement, Point } from '../../types'
-import { Image } from '../../Viewer/types'
+import type { Measurement, Point } from '../../types'
 
-export function getExistingMeasurementPoints(measurement: Measurement, image: Image | null): [Point, Point] {
-  if (measurement.type === 'ruler') {
-    const rulerPoints = measurement.startAndEndPoint
-
-    return rulerPoints
+export function getExistingMeasurementPoints(measurement: Measurement): [Point, Point] {
+  switch (measurement.type) {
+    case 'ruler': {
+      const rulerPoints = measurement.startAndEndPoint
+      return rulerPoints
+    }
+    case 'circle': {
+      const { centerPoint, radius } = measurement
+      const endPoint = getCircleEndPoint(centerPoint, radius)
+      const circlePoints: [Point, Point] = [centerPoint, endPoint]
+      return circlePoints
+    }
+    default:
+      throw new Error("There's only a ruler and circle in the measurement types")
   }
-
-  // measurement.type === 'circle'
-  const { centerPoint, radius } = measurement
-  const circlePoints = getCircleCenterAndEndPoint(centerPoint, radius, image)
-
-  return circlePoints
 }

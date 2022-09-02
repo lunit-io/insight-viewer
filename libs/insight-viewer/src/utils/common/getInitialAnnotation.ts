@@ -5,7 +5,7 @@ import { LINE_TEXT_POSITION_SPACING } from '../../const'
 import type { Image } from '../../Viewer/types'
 import type { Point, LineHeadMode, AnnotationMode, Annotation } from '../../types'
 
-import { getCircleRadius } from './getCircleRadius'
+import { getCircleRadiusByMeasuringUnit } from './getCircleRadius'
 
 interface GetInitialAnnotationParams {
   currentPoints: [Point, Point]
@@ -39,7 +39,7 @@ export function getInitialAnnotation({
 
   if (mode === 'circle') {
     const [startPoint, endPoint] = currentPoints
-    const { radius } = getCircleRadius(startPoint, endPoint, image)
+    const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
 
     initialAnnotation = {
       ...defaultAnnotationInfo,

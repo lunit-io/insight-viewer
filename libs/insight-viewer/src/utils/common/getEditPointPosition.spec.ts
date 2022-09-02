@@ -52,9 +52,10 @@ describe('getEditPointPosition: ', () => {
     ]
 
     const MOCK_EDIT_TARGET: Measurement = {
-      center: [0, 0],
+      centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
+      measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
       type: 'circle',

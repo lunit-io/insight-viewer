@@ -1,12 +1,12 @@
-import { Point } from '../../types'
+import type { Point } from '../../types'
 
-import { getLineLengthWithoutImage } from './getLineLengthWithoutImage'
+import { getCircleRadius } from '../../utils/common/getCircleRadius'
 
 export function getCircleConnectingLine(points: [Point, Point], textPoint: Point): [Point, Point] {
   const startPoint = points[0]
   const endPoint = points[1]
 
-  const radius = getLineLengthWithoutImage(startPoint, endPoint)
+  const radius = getCircleRadius(startPoint, endPoint)
 
   if (startPoint[0] < textPoint[0]) {
     if (startPoint[1] < textPoint[1]) {
