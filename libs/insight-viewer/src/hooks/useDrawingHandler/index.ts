@@ -76,6 +76,7 @@ function useDrawingHandler({
       enabledElement.element.addEventListener('mouseup', handleMouseUp)
       enabledElement.element.addEventListener('mouseleave', handleMouseLeave)
       enabledElement.element.addEventListener('mousedown', handleMouseDown)
+      enabledElement.element.addEventListener('mouseover', activeMouseDrawEvents)
       window.addEventListener('keydown', handleKeyDown)
     }
 
@@ -86,14 +87,19 @@ function useDrawingHandler({
       enabledElement.element.removeEventListener('mouseup', handleMouseUp)
       enabledElement.element.removeEventListener('mouseleave', handleMouseLeave)
       enabledElement.element.removeEventListener('mousedown', handleMouseDown)
+
       window.removeEventListener('keydown', handleKeyDown)
+    }
+
+    const disableCheckMouseEvent = () => {
+      enabledElement.element.removeEventListener('mouseover', activeMouseDrawEvents)
     }
 
     activeMouseDrawEvents()
 
-    // eslint-disable-next-line consistent-return
     return () => {
       deactivateMouseDrawEvents()
+      disableCheckMouseEvent()
     }
   }, [svgElement, enabledElement, pageToPixel, addDrawingPoint, addDrewElement, cancelDrawing, setInitialPoint])
 }

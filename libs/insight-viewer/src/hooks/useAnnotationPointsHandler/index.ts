@@ -32,8 +32,8 @@ export default function useAnnotationPointsHandler({
     if (!isEditing || selectedAnnotation == null) return
 
     const selectedAnnotationPoints = getExistingAnnotationPoints(selectedAnnotation, image)
-    const currnetPoints = selectedAnnotationPoints.map(pixelToCanvas)
-    const currentEditPoint = getEditPointPosition(currnetPoints, selectedAnnotation)
+    const currentPoints = selectedAnnotationPoints.map(pixelToCanvas)
+    const currentEditPoint = getEditPointPosition(currentPoints, selectedAnnotation)
 
     setAnnotation(selectedAnnotation)
     setEditTargetPoints(currentEditPoint)
