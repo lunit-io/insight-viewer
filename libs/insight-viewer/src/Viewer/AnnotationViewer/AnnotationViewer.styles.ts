@@ -75,6 +75,12 @@ export const polygonStyle: ViewerStyle = {
     stroke: '#99999B',
     cursor: 'pointer',
   },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '20px',
+    stroke: 'transparent',
+    cursor: 'pointer',
+  },
 }
 
 export const polylineStyle: ViewerStyle = {
@@ -94,6 +100,12 @@ export const polylineStyle: ViewerStyle = {
     fill: 'transparent',
     strokeWidth: '3px',
     stroke: '#99999B',
+    cursor: 'pointer',
+  },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '20px',
+    stroke: 'transparent',
     cursor: 'pointer',
   },
 }
