@@ -22,6 +22,12 @@ export const circleStyle: ViewerStyle = {
     fill: 'transparent',
     cursor: 'grab',
   },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '20px',
+    stroke: 'transparent',
+    cursor: 'grab',
+  },
 }
 
 export const textStyle: ViewerStyle = {

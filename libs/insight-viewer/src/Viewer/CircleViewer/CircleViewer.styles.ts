@@ -19,4 +19,10 @@ export const circleStyle: ViewerStyle = {
     stroke: '#99999B',
     cursor: 'pointer',
   },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '20px',
+    stroke: 'transparent',
+    cursor: 'pointer',
+  },
 }

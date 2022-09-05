@@ -53,6 +53,13 @@ export function CircleDrawer({
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
+      <circle
+        onMouseDown={() => setMeasurementEditMode('move')}
+        style={circleStyle.extendsArea}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
+        r={drawingRadius}
+      />
       <text
         onMouseDown={() => setMeasurementEditMode('textMove')}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
