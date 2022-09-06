@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { checkIsInitialAnnotation } from '../../utils/common/checkIsInitialAnnotation'
 
-import { svgStyle } from './AnnotationDrawer.styles'
+import { svgStyle } from '../Viewer.styled'
 import { TextAnnotation } from '../../types'
 import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useAnnotationPointsHandler from '../../hooks/useAnnotationPointsHandler'

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { LineViewerProps } from './LineViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyViewerInfo'
-import { textStyle, polylineStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { textStyle, viewerStyle } from '../Viewer.styled'
 import { useOverlayContext } from '../../contexts'
 
 export function LineViewer({
@@ -28,7 +28,7 @@ export function LineViewer({
       {showOutline && (
         <polyline
           style={{
-            ...polylineStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
+            ...viewerStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
           }}
           data-select={isHoveredAnnotation || undefined}
@@ -40,18 +40,18 @@ export function LineViewer({
           {showOutline && (
             <polyline
               style={{
-                ...polylineStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
+                ...viewerStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
                 ...polygonAttributes?.style,
               }}
               points={headPoints}
             />
           )}
-          <polyline style={{ ...polylineStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+          <polyline style={{ ...viewerStyle.default, ...polygonAttributes?.style }} points={headPoints} />
         </>
       )}
       <polyline
         style={{
-          ...polylineStyle.default,
+          ...viewerStyle.default,
           ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
@@ -59,7 +59,7 @@ export function LineViewer({
       />
       <polyline
         style={{
-          ...polylineStyle.extendsArea,
+          ...viewerStyle.extendsArea,
           ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}

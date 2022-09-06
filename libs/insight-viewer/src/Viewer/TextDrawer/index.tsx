@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TextDrawerProps } from './TextDrawer.types'
-import { textStyle, textBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../AnnotationViewer/AnnotationViewer.styles'
+import { textStyle, viewerBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styled'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
@@ -43,7 +43,7 @@ export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProp
         </text>
       )}
       <rect
-        style={textBoxStyle.select}
+        style={viewerBoxStyle.select}
         x={start[0]}
         y={start[1]}
         width={dimensions[0]}
