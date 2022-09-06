@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
         with:
-          main-branch-name: 'master'
+          main-branch-name: 'develop'
       - run: npm ci
 
       - run: npx nx workspace-lint
@@ -38,5 +38,6 @@ jobs:
           HOST: insight-viewer.s.lunit.io
         run: |
           aws s3 sync \
-            ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
+            ./dist/apps/insight-viewer-docs/exported \
+            s3://lunit-cdn-for-preview-virginia/${HOST} \
             --delete
