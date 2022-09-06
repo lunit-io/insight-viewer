@@ -31,7 +31,7 @@ export const polyline: ViewerStyle = {
   },
   extendsArea: {
     fill: 'transparent',
-    strokeWidth: '20px',
+    strokeWidth: '12px',
     stroke: 'transparent',
     cursor: 'grab',
   },
