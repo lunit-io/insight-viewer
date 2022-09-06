@@ -3723,5 +3723,3 @@ export const MOCK_CONTOURS = [
     [310, 540],
   ],
 ]
-
-export const ID1_POLYGON_HOVER_POSITION = [505, 530] as const
