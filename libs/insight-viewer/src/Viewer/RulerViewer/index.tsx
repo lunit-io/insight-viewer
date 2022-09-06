@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { textStyle, viewerStyle } from '../Viewer.styles'
+import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
@@ -28,21 +28,21 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     <>
       <polyline
         style={{
-          ...viewerStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
+          ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
         data-select={isHoveredMeasurement || undefined}
         points={rulerLine}
       />
       <polyline
         style={{
-          ...viewerStyle.extendsArea,
+          ...svgWrapperStyle.extendsArea,
         }}
         data-select={isHoveredMeasurement || undefined}
         points={rulerLine}
       />
       <polyline
         style={{
-          ...viewerStyle.default,
+          ...svgWrapperStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}
         points={rulerLine}
@@ -57,7 +57,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           {unit}
         </text>
       )}
-      <polyline style={viewerStyle.dashLine} points={connectingLine} />
+      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
     </>
   )
 }

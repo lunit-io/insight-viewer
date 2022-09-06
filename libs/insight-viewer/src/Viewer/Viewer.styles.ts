@@ -43,7 +43,7 @@ export const TEXT_SIZE = 14
 export const FONT_WIDTH = 600
 export const LINE_HEIGHT = 1.4
 
-export const svgStyle: ViewerStyle = {
+export const svgRootStyle: ViewerStyle = {
   default: {
     position: 'absolute',
     top: 0,
@@ -53,7 +53,7 @@ export const svgStyle: ViewerStyle = {
   },
 }
 
-export const viewerStyle: ViewerStyle = {
+export const svgWrapperStyle: ViewerStyle = {
   default: {
     strokeWidth: DEFAULT_WIDTH,
     stroke: DEFAULT_COLOR,
@@ -92,7 +92,7 @@ export const viewerStyle: ViewerStyle = {
   },
 }
 
-export const viewerBoxStyle: ViewerStyle = {
+export const svgBoxStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     stroke: 'transparent',

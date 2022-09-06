@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TextViewerProps } from './TextViewer.types'
-import { textStyle, viewerBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styles'
+import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
@@ -30,7 +30,7 @@ export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): 
         ))}
       </text>
       <rect
-        style={{ ...viewerBoxStyle[isHoveredAnnotation ? 'hover' : 'default'] }}
+        style={{ ...svgBoxStyle[isHoveredAnnotation ? 'hover' : 'default'] }}
         x={start[0]}
         y={start[1]}
         width={dimensions[0]}

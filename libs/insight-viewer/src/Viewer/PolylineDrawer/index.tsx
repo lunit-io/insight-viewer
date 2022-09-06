@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import polylabel from 'polylabel'
 
 import { PolylineDrawerProps } from './PolylineDrawer.types'
-import { viewerStyle } from '../Viewer.styles'
+import { svgWrapperStyle } from '../Viewer.styles'
 import { textStyle } from '../Viewer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
@@ -52,23 +52,31 @@ export function PolylineDrawer({
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
       {points && points.length > 0 && (
         <>
-          <PolylineElement isPolygon={!!isPolygonSelected} style={viewerStyle.outline} points={polylinePoints} />
+          <PolylineElement isPolygon={!!isPolygonSelected} style={svgWrapperStyle.outline} points={polylinePoints} />
           {lineHead === 'arrow' && (
             <>
-              <PolylineElement isPolygon={!!isPolygonSelected} style={viewerStyle.outline} points={getArrowPoints()} />
               <PolylineElement
                 isPolygon={!!isPolygonSelected}
-                style={viewerStyle[isSelectedMode ? 'select' : 'default']}
+                style={svgWrapperStyle.outline}
+                points={getArrowPoints()}
+              />
+              <PolylineElement
+                isPolygon={!!isPolygonSelected}
+                style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
               />
             </>
           )}
           <PolylineElement
             isPolygon={!!isPolygonSelected}
-            style={viewerStyle[isSelectedMode ? 'select' : 'default']}
+            style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
-          <PolylineElement isPolygon={!!isPolygonSelected} style={viewerStyle.extendsArea} points={polylinePoints} />
+          <PolylineElement
+            isPolygon={!!isPolygonSelected}
+            style={svgWrapperStyle.extendsArea}
+            points={polylinePoints}
+          />
         </>
       )}
       {selectedAnnotationLabel && labelPosition && (

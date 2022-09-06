@@ -8,7 +8,7 @@ import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
 
-import { viewerStyle, textStyle } from '../Viewer.styles'
+import { svgWrapperStyle, textStyle } from '../Viewer.styles'
 
 import type { CircleDrawerProps } from './CircleDrawer.types'
 
@@ -41,21 +41,21 @@ export function CircleDrawer({
     <>
       <circle
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={viewerStyle.outline}
+        style={svgWrapperStyle.outline}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={viewerStyle[isSelectedMode ? 'select' : 'default']}
+        style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={{ ...viewerStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
@@ -71,7 +71,7 @@ export function CircleDrawer({
           maximumFractionDigits: 1,
         })}${unit}2`}
       </text>
-      <polyline style={viewerStyle.dashLine} points={connectingLine} />
+      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
     </>
   )
 }

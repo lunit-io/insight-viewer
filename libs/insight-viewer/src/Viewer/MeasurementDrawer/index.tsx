@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { RulerDrawer } from '../RulerDrawer'
 import { CircleDrawer } from '../CircleDrawer'
 import { EditPointer } from '../../components/EditPointer'
-import { svgStyle } from '../Viewer.styles'
+import { svgRootStyle } from '../Viewer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 
@@ -37,7 +37,7 @@ export function MeasurementDrawer({
   if (!measurement || (measurement && measurement.measuredValue === 0)) return null
 
   return (
-    <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+    <svg ref={svgRef} width={width} height={height} style={{ ...svgRootStyle.default, ...style }} className={className}>
       {measurement.type === 'ruler' && (
         <RulerDrawer
           isSelectedMode={isSelectedMeasurement}

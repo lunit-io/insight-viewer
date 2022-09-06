@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyViewerInfo'
-import { textStyle, viewerStyle } from '../Viewer.styles'
+import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 
 export function PolygonViewer({
@@ -27,7 +27,7 @@ export function PolygonViewer({
       {showOutline && (
         <polygon
           style={{
-            ...viewerStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
+            ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
           }}
           data-select={isHoveredAnnotation || undefined}
@@ -36,7 +36,7 @@ export function PolygonViewer({
       )}
       <polygon
         style={{
-          ...viewerStyle.default,
+          ...svgWrapperStyle.default,
           ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
@@ -44,7 +44,7 @@ export function PolygonViewer({
       />
       <polygon
         style={{
-          ...viewerStyle.extendsArea,
+          ...svgWrapperStyle.extendsArea,
           ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}

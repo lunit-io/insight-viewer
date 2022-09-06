@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import { svgStyle } from '../Viewer.styles'
+import { svgRootStyle } from '../Viewer.styles'
 import { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
 import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
@@ -80,7 +80,7 @@ export function MeasurementViewer({
   const { enabledElement } = useOverlayContext()
 
   return (
-    <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+    <svg ref={svgRef} width={width} height={height} style={{ ...svgRootStyle.default, ...style }} className={className}>
       {measurements.length === 0 || !enabledElement
         ? null
         : MeasurementsDraw({

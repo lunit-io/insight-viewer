@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { viewerStyle, textStyle } from '../Viewer.styles'
+import { svgWrapperStyle, textStyle } from '../Viewer.styles'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
@@ -29,17 +29,17 @@ export function RulerDrawer({
 
   return (
     <>
-      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={viewerStyle.outline} points={rulerLine} />
+      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={svgWrapperStyle.outline} points={rulerLine} />
       <polyline
         data-cy-move
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={{ ...viewerStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
         points={rulerLine}
       />
       <polyline
         data-cy-move
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={viewerStyle[isSelectedMode ? 'select' : 'default']}
+        style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
       <text
@@ -51,7 +51,7 @@ export function RulerDrawer({
         {measuredValue.toFixed(1)}
         {unit}
       </text>
-      <polyline style={viewerStyle.dashLine} points={connectingLine} />
+      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
     </>
   )
 }

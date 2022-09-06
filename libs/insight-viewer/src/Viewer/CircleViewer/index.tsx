@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { textStyle, viewerStyle } from '../Viewer.styles'
+import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 
 import { useOverlayContext } from '../../contexts'
 
@@ -39,7 +39,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
     <>
       <circle
         style={{
-          ...viewerStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
+          ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
         data-focus={isHoveredMeasurement || undefined}
         cx={centerPointOnCanvas[0]}
@@ -48,7 +48,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       />
       <circle
         style={{
-          ...viewerStyle.extendsArea,
+          ...svgWrapperStyle.extendsArea,
         }}
         data-focus={isHoveredMeasurement || undefined}
         cx={centerPointOnCanvas[0]}
@@ -57,7 +57,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       />
       <circle
         style={{
-          ...viewerStyle.default,
+          ...svgWrapperStyle.default,
         }}
         data-focus={isHoveredMeasurement || undefined}
         cx={centerPointOnCanvas[0]}
@@ -74,7 +74,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
           maximumFractionDigits: 1,
         })}${unit}2`}
       </text>
-      <polyline style={viewerStyle.dashLine} points={connectingLine} />
+      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
     </>
   )
 }
