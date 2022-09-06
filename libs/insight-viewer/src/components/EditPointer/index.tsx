@@ -35,6 +35,13 @@ export function EditPointer({
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
+        style={circleStyle.extendsArea}
+      />
+      <circle
+        onMouseDown={() => setEditMode(editMode)}
+        cx={cx}
+        cy={cy}
+        r={EDIT_CIRCLE_RADIUS}
         style={circleStyle[isSelectedMode ? 'select' : isHighlightMode ? 'highlight' : 'default']}
       />
     </>
