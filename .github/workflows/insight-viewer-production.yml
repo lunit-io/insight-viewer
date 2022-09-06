@@ -38,5 +38,6 @@ jobs:
           HOST: insight-viewer.lunit.io
         run: |
           aws s3 sync \
-            ./dist s3://lunit-cdn-for-production-virginia/${HOST} \
+            ./dist/apps/insight-viewer-docs/exported \
+            s3://lunit-cdn-for-production-virginia/${HOST} \
             --delete
