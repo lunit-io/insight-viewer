@@ -42,6 +42,14 @@ export function PolygonViewer({
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
       />
+      <polygon
+        style={{
+          ...polygonStyle.extendsArea,
+          ...polygonAttributes?.style,
+        }}
+        data-select={isHoveredAnnotation || undefined}
+        points={polygonPoints}
+      />
       {showAnnotationLabel && labelPosition && (
         <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
           {polygonLabel}

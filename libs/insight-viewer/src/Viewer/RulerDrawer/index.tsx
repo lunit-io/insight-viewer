@@ -36,6 +36,12 @@ export function RulerDrawer({
         style={polyline[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
+      <polyline
+        data-cy-move
+        onMouseDown={() => setMeasurementEditMode('move')}
+        style={polyline.extendsArea}
+        points={rulerLine}
+      />
       <text
         onMouseDown={() => setMeasurementEditMode('textMove')}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}

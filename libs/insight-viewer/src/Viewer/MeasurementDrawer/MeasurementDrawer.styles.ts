@@ -45,4 +45,10 @@ export const circleStyle: ViewerStyle = {
     fill: '#FFD600',
     cursor: 'move',
   },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '12px',
+    stroke: 'transparent',
+    cursor: 'move',
+  },
 }

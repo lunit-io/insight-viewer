@@ -57,6 +57,14 @@ export function LineViewer({
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
       />
+      <polyline
+        style={{
+          ...polylineStyle.extendsArea,
+          ...polygonAttributes?.style,
+        }}
+        data-select={isHoveredAnnotation || undefined}
+        points={polygonPoints}
+      />
       {showAnnotationLabel && labelPosition && (
         <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
           {polygonLabel}

@@ -29,4 +29,10 @@ export const polyline: ViewerStyle = {
     fill: 'transparent',
     cursor: 'grab',
   },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '12px',
+    stroke: 'transparent',
+    cursor: 'grab',
+  },
 }

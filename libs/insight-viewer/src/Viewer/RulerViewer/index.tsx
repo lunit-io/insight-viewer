@@ -35,6 +35,13 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       />
       <polyline
         style={{
+          ...polylineStyle.extendsArea,
+        }}
+        data-select={isHoveredMeasurement || undefined}
+        points={rulerLine}
+      />
+      <polyline
+        style={{
           ...polylineStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}

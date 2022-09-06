@@ -49,6 +49,15 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       />
       <circle
         style={{
+          ...circleStyle.extendsArea,
+        }}
+        data-focus={isHoveredMeasurement || undefined}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
+        r={drawingRadius}
+      />
+      <circle
+        style={{
           ...circleStyle.default,
         }}
         data-focus={isHoveredMeasurement || undefined}

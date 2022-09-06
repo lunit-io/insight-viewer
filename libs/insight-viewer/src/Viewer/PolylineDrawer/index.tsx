@@ -68,6 +68,7 @@ export function PolylineDrawer({
             style={polyline[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
+          <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.extendsArea} points={polylinePoints} />
         </>
       )}
       {selectedAnnotationLabel && labelPosition && (

@@ -39,6 +39,12 @@ export const polylineStyle: ViewerStyle = {
     fill: 'transparent',
     strokeDasharray: '5, 5',
   },
+  extendsArea: {
+    fill: 'transparent',
+    strokeWidth: '12px',
+    stroke: 'transparent',
+    cursor: 'pointer',
+  },
 }
 
 export const textStyle: ViewerStyle = {
