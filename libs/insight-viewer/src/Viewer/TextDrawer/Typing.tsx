@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { TypingProps } from './Typing.types'
-import { textStyle, textBoxStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { textStyle, svgBoxStyle } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
@@ -29,7 +29,7 @@ export function Typing({ points, onFinish }: TypingProps): React.ReactElement | 
   const dimensions = [end[0] - start[0], end[1] - start[1]]
   return (
     <>
-      <rect style={textBoxStyle.select} x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]} />
+      <rect style={svgBoxStyle.select} x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]} />
       <foreignObject x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]}>
         <div
           contentEditable

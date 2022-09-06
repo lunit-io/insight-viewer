@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react'
 import polylabel from 'polylabel'
 
 import { PolylineDrawerProps } from './PolylineDrawer.types'
-import { polyline } from '../AnnotationDrawer/AnnotationDrawer.styles'
-import { textStyle } from '../AnnotationViewer/AnnotationViewer.styles'
+import { svgWrapperStyle } from '../Viewer.styles'
+import { textStyle } from '../Viewer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
 
@@ -52,23 +52,31 @@ export function PolylineDrawer({
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
       {points && points.length > 0 && (
         <>
-          <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.outline} points={polylinePoints} />
+          <PolylineElement isPolygon={!!isPolygonSelected} style={svgWrapperStyle.outline} points={polylinePoints} />
           {lineHead === 'arrow' && (
             <>
-              <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.outline} points={getArrowPoints()} />
               <PolylineElement
                 isPolygon={!!isPolygonSelected}
-                style={polyline[isSelectedMode ? 'select' : 'default']}
+                style={svgWrapperStyle.outline}
+                points={getArrowPoints()}
+              />
+              <PolylineElement
+                isPolygon={!!isPolygonSelected}
+                style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
               />
             </>
           )}
           <PolylineElement
             isPolygon={!!isPolygonSelected}
-            style={polyline[isSelectedMode ? 'select' : 'default']}
+            style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
-          <PolylineElement isPolygon={!!isPolygonSelected} style={polyline.extendsArea} points={polylinePoints} />
+          <PolylineElement
+            isPolygon={!!isPolygonSelected}
+            style={svgWrapperStyle.extendsArea}
+            points={polylinePoints}
+          />
         </>
       )}
       {selectedAnnotationLabel && labelPosition && (

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
-import { svgStyle } from './AnnotationViewer.styles'
+import { svgRootStyle } from '../Viewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'
@@ -78,7 +78,7 @@ export function AnnotationViewer({
   const { enabledElement } = useOverlayContext()
 
   return (
-    <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+    <svg ref={svgRef} width={width} height={height} style={{ ...svgRootStyle.default, ...style }} className={className}>
       {annotations.length === 0 || !enabledElement
         ? null
         : AnnotationsDraw({

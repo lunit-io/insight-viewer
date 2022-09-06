@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { checkIsInitialAnnotation } from '../../utils/common/checkIsInitialAnnotation'
 
-import { svgStyle } from './AnnotationDrawer.styles'
+import { svgRootStyle } from '../Viewer.styles'
 import { TextAnnotation } from '../../types'
 import { AnnotationDrawerProps } from './AnnotationDrawer.types'
 import useAnnotationPointsHandler from '../../hooks/useAnnotationPointsHandler'
@@ -58,7 +58,13 @@ export function AnnotationDrawer({
   return (
     <>
       {annotation && !checkIsInitialAnnotation(annotation) && (
-        <svg ref={svgRef} width={width} height={height} style={{ ...svgStyle.default, ...style }} className={className}>
+        <svg
+          ref={svgRef}
+          width={width}
+          height={height}
+          style={{ ...svgRootStyle.default, ...style }}
+          className={className}
+        >
           {(annotation.type === 'polygon' || annotation.type === 'freeLine' || annotation.type === 'line') && (
             <PolylineDrawer
               annotation={annotation}
@@ -99,7 +105,7 @@ export function AnnotationDrawer({
         </svg>
       )}
       {tempAnnotation && (
-        <svg width={width} height={height} style={{ ...svgStyle.default, ...style }}>
+        <svg width={width} height={height} style={{ ...svgRootStyle.default, ...style }}>
           <TypingDrawer points={tempAnnotation.points} onFinish={handleTypingFinish} />
         </svg>
       )}

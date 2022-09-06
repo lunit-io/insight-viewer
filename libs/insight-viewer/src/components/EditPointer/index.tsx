@@ -2,7 +2,7 @@
 import React from 'react'
 import { EditMode } from '../../types'
 import { EDIT_CIRCLE_RADIUS } from '../../const'
-import { circleStyle } from '../../Viewer/MeasurementDrawer/MeasurementDrawer.styles'
+import { editPointerStyle } from '../../Viewer/Viewer.styles'
 
 interface EditPointerProps {
   cx: number
@@ -28,21 +28,21 @@ export function EditPointer({
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
-        style={circleStyle[isSelectedMode ? 'selectedOutline' : 'outline']}
+        style={editPointerStyle[isSelectedMode ? 'selectedOutline' : 'outline']}
       />
       <circle
         onMouseDown={() => setEditMode(editMode)}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
-        style={circleStyle.extendsArea}
+        style={editPointerStyle.extendsArea}
       />
       <circle
         onMouseDown={() => setEditMode(editMode)}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
-        style={circleStyle[isSelectedMode ? 'select' : isHighlightMode ? 'highlight' : 'default']}
+        style={editPointerStyle[isSelectedMode ? 'select' : isHighlightMode ? 'highlight' : 'default']}
       />
     </>
   )
