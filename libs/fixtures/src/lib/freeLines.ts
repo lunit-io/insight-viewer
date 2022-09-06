@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { FreeLineAnnotation } from '@lunit/insight-viewer'
 
 export const categoryColors = {

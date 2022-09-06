@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { TextAnnotation } from '@lunit/insight-viewer'
 
 export const TEXT_ANNOTATIONS: TextAnnotation[] = [

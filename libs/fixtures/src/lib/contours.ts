@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { PolygonAnnotation } from '@lunit/insight-viewer'
 
 export const CONTOURS: PolygonAnnotation[] = [
