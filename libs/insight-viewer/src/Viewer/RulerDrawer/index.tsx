@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { polyline, textStyle } from './RulerDrawer.styles'
+import { viewerStyle, textStyle } from '../Viewer.styled'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
@@ -29,17 +29,17 @@ export function RulerDrawer({
 
   return (
     <>
-      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={polyline.outline} points={rulerLine} />
+      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={viewerStyle.outline} points={rulerLine} />
       <polyline
         data-cy-move
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={polyline[isSelectedMode ? 'select' : 'default']}
+        style={{ ...viewerStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
         points={rulerLine}
       />
       <polyline
         data-cy-move
         onMouseDown={() => setMeasurementEditMode('move')}
-        style={polyline.extendsArea}
+        style={viewerStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
       <text
@@ -51,7 +51,7 @@ export function RulerDrawer({
         {measuredValue.toFixed(1)}
         {unit}
       </text>
-      <polyline style={polyline.dashLine} points={connectingLine} />
+      <polyline style={viewerStyle.dashLine} points={connectingLine} />
     </>
   )
 }
