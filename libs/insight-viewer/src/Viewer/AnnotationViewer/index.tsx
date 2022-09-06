@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useOverlayContext } from '../../contexts'
-import { svgStyle } from '../Viewer.styled'
+import { svgStyle } from '../Viewer.styles'
 import { AnnotationsDrawProps, AnnotationViewerProps } from './AnnotationViewer.types'
 import { LineViewer } from '../LineViewer'
 import { PolygonViewer } from '../PolygonViewer'

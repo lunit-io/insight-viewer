@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import { PolygonViewerProps } from './PolygonViewer.types'
 import { getPolyViewerInfo } from '../../utils/common/getPolyViewerInfo'
-import { textStyle, viewerStyle } from '../Viewer.styled'
+import { textStyle, viewerStyle } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 
 export function PolygonViewer({

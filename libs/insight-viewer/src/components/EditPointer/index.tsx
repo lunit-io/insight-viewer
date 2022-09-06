@@ -2,7 +2,7 @@
 import React from 'react'
 import { EditMode } from '../../types'
 import { EDIT_CIRCLE_RADIUS } from '../../const'
-import { editPointerStyle } from '../../Viewer/Viewer.styled'
+import { editPointerStyle } from '../../Viewer/Viewer.styles'
 
 interface EditPointerProps {
   cx: number

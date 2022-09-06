@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { TypingProps } from './Typing.types'
-import { textStyle, viewerBoxStyle } from '../Viewer.styled'
+import { textStyle, viewerBoxStyle } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 

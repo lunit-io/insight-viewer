@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { viewerStyle, textStyle } from '../Viewer.styled'
+import { viewerStyle, textStyle } from '../Viewer.styles'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'

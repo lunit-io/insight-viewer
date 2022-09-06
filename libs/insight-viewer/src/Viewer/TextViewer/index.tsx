@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TextViewerProps } from './TextViewer.types'
-import { textStyle, viewerBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styled'
+import { textStyle, viewerBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 

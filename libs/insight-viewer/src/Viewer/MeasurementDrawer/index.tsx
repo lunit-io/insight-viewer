@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { RulerDrawer } from '../RulerDrawer'
 import { CircleDrawer } from '../CircleDrawer'
 import { EditPointer } from '../../components/EditPointer'
-import { svgStyle } from '../Viewer.styled'
+import { svgStyle } from '../Viewer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 

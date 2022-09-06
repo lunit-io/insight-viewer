@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react'
 import polylabel from 'polylabel'
 
 import { PolylineDrawerProps } from './PolylineDrawer.types'
-import { viewerStyle } from '../Viewer.styled'
-import { textStyle } from '../Viewer.styled'
+import { viewerStyle } from '../Viewer.styles'
+import { textStyle } from '../Viewer.styles'
 import { getArrowPosition } from '../../utils/common/getArrowPosition'
 import { useOverlayContext } from '../../contexts'
 

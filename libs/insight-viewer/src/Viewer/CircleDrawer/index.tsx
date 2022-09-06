@@ -8,7 +8,7 @@ import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
 
-import { viewerStyle, textStyle } from '../Viewer.styled'
+import { viewerStyle, textStyle } from '../Viewer.styles'
 
 import type { CircleDrawerProps } from './CircleDrawer.types'
 

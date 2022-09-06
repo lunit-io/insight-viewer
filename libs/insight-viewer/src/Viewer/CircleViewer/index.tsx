@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { textStyle, viewerStyle } from '../Viewer.styled'
+import { textStyle, viewerStyle } from '../Viewer.styles'
 
 import { useOverlayContext } from '../../contexts'
 
