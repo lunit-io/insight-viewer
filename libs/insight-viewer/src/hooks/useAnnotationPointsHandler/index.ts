@@ -39,7 +39,7 @@ export default function useAnnotationPointsHandler({
     setEditTargetPoints(currentEditPoint)
   }, [image, isEditing, selectedAnnotation, pixelToCanvas])
 
-  const addStartPoint = (point: Point) => {
+  const setInitialAnnotation = (point: Point) => {
     if (isEditing && selectedAnnotation) {
       setEditStartPoint(point)
       return
@@ -56,7 +56,7 @@ export default function useAnnotationPointsHandler({
     setAnnotation(initialAnnotation)
   }
 
-  const addDrawingPoint = (point: Point) => {
+  const addDrawingAnnotation = (point: Point) => {
     if (isEditing && selectedAnnotation != null && !editMode) return
 
     if (annotation == null) {
@@ -120,8 +120,8 @@ export default function useAnnotationPointsHandler({
   useDrawingHandler({
     mode,
     svgElement,
-    setInitialPoint: addStartPoint,
-    addDrawingPoint,
+    setInitialPoint: setInitialAnnotation,
+    addDrawingPoint: addDrawingAnnotation,
     cancelDrawing,
     addDrewElement: addDrewAnnotation,
   })
