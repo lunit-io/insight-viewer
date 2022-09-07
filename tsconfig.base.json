@@ -17,6 +17,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@insight-viewer-library/fixtures": ["libs/fixtures/src/index.ts"],
       "@lunit/insight-viewer": ["libs/insight-viewer/src/index.ts"]
     }
   },

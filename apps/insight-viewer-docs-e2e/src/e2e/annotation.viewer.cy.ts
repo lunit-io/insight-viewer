@@ -4,10 +4,12 @@ import {
   deleteAndCheckMultiAnnotationOrMeasurement,
 } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { POLYGON_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/polygons'
-import { LINE_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/lines'
-import { FREELINE_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/freeLines'
-import { TEXT_ANNOTATIONS } from '../../../insight-viewer-docs/mocks/texts'
+import {
+  POLYGON_ANNOTATIONS,
+  LINE_ANNOTATIONS,
+  FREELINE_ANNOTATIONS,
+  TEXT_ANNOTATIONS,
+} from '@insight-viewer-library/fixtures'
 
 describe(
   'annotation viewer',

@@ -92,6 +92,7 @@
     "workerDirectory": "apps/insight-viewer-docs/public"
   },
   "lint-staged": {
-    "*": "prettier --ignore-unknown --write"
+    "*": "prettier --ignore-unknown --write",
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
   }
 }

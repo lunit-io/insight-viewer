@@ -3,8 +3,8 @@
 /* eslint-disable no-restricted-properties */
 import { useRef, useEffect, CSSProperties } from 'react'
 import { useOverlayContext } from '@lunit/insight-viewer'
+import { CONTOURS } from '@insight-viewer-library/fixtures'
 import annotations from './annotations'
-import { CONTOURS } from '../../../mocks/contours'
 
 const style: CSSProperties = {
   position: 'absolute',

@@ -1,6 +1,6 @@
 import { setup, drawMeasurements, deleteAndCheckAnnotationOrMeasurement } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { RULER_MEASUREMENTS } from '../../../insight-viewer-docs/mocks/ruler'
+import { RULER_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 describe(
   'Measurement Drawer',

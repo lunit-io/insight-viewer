@@ -1,5 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import React, { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -10,11 +9,13 @@ import InsightViewer, {
   AnnotationMode,
   Annotation,
 } from '@lunit/insight-viewer'
+import {
+  POLYGON_ANNOTATIONS,
+  LINE_ANNOTATIONS,
+  FREELINE_ANNOTATIONS,
+  TEXT_ANNOTATIONS,
+} from '@insight-viewer-library/fixtures'
 import { IMAGES } from '../../../const'
-import { FREELINE_ANNOTATIONS } from '../../../mocks/freeLines'
-import { POLYGON_ANNOTATIONS } from '../../../mocks/polygons'
-import { LINE_ANNOTATIONS } from '../../../mocks/lines'
-import { TEXT_ANNOTATIONS } from '../../../mocks/texts'
 
 export type InitialAnnotations = {
   [mode in AnnotationMode]: Annotation[]

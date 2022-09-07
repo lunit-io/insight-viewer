@@ -1,5 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import React, { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -11,8 +10,7 @@ import InsightViewer, {
   Measurement,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '../../../const'
-import { RULER_MEASUREMENTS } from '../../../mocks/ruler'
-import { CIRCLE_MEASUREMENTS } from '../../../mocks/circles'
+import { RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 export type InitialMeasurements = {
   [mode in MeasurementMode]: Measurement[]

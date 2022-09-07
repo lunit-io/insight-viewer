@@ -4,12 +4,11 @@ import {
   POLYGON_ANNOTATIONS,
   INTERSECTING_POLYGON_ANNOTATION,
   SMALLER_THAN_MINIMUM_AREA_POLYGON_ANNOTATION,
-} from '../../../insight-viewer-docs/mocks/polygons'
-import { LINE_ANNOTATIONS, SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION } from '../../../insight-viewer-docs/mocks/lines'
-import {
+  LINE_ANNOTATIONS,
+  SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION,
   FREELINE_ANNOTATIONS,
   SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
-} from '../../../insight-viewer-docs/mocks/freeLines'
+} from '@insight-viewer-library/fixtures'
 
 describe(
   'annotation drawer',

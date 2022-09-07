@@ -1,7 +1,6 @@
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { RULER_MEASUREMENTS } from '../../../insight-viewer-docs/mocks/ruler'
-import { CIRCLE_MEASUREMENTS } from '../../../insight-viewer-docs/mocks/circles'
+import { RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 describe(
   'Measurement Viewer',

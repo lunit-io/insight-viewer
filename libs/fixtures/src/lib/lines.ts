@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { LineAnnotation } from '@lunit/insight-viewer'
 
 export const LINE_ANNOTATIONS: LineAnnotation[] = [
