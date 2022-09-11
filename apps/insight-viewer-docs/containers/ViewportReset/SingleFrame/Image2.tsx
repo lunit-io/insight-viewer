@@ -1,7 +1,7 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
 import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
-import useImageSelect, { OnSelect } from '../../Basic/useImageSelect'
+import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'
@@ -17,9 +17,13 @@ export default function Image2(): JSX.Element {
   const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT)
   const currentViewportRef = useRef<Viewport>()
   const handleImageLoaded = () => {
-    if (!currentViewportRef?.current) return
+    if (!currentViewportRef?.current) {
+      currentViewportRef.current = viewport
+      return
+    }
     setViewport(currentViewportRef.current)
   }
+
   const { loadingState, image } = useImage({
     wadouri: selected,
     onImageLoaded: handleImageLoaded,
@@ -35,9 +39,11 @@ export default function Image2(): JSX.Element {
     [setViewport]
   )
 
-  const handleImageSelect: OnSelect = () => {
-    currentViewportRef.current = viewport
-  }
+  useEffect(() => {
+    if (currentViewportRef.current) {
+      currentViewportRef.current = viewport
+    }
+  }, [selected])
 
   return (
     <Box>
@@ -45,7 +51,7 @@ export default function Image2(): JSX.Element {
         <Text className="test">이미지 변경 시 뷰포트 변경 (유저가 변경한 현재 뷰포트 유지)</Text>
       </Box>
       <Box mb={6}>
-        <ImageSelect onSelect={handleImageSelect} />
+        <ImageSelect />
       </Box>
       <Stack align="flex-start" spacing="20px">
         <Box mb={6}>

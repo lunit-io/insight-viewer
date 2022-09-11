@@ -63,7 +63,7 @@ export default function Images(): JSX.Element {
             id="frame"
             name="frame"
             min="0"
-            max={IMAGES.length - 1}
+            max={images.length - 1}
             step="1"
             onChange={changeFrame}
             className="frame-control"
@@ -202,7 +202,7 @@ export default function Images(): JSX.Element {
           </Stack>
         </Box>
       </Stack>
-      <Box data-cy-loaded={loadingStates[frame]} data-cy-all-loaded={loadingStates[IMAGES.length - 1]}>
+      <Box data-cy-loaded={loadingStates[frame]} data-cy-all-loaded={loadingStates[images.length - 1]}>
         <ViewerWrapper className="viewer1">
           <InsightViewer
             image={images[frame]}
