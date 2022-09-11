@@ -1,5 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -10,7 +9,7 @@ import InsightViewer, {
   AnnotationMode,
   LineHeadMode,
 } from '@lunit/insight-viewer'
-import { IMAGES } from '../../../const'
+import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
 const style = {
   display: 'flex',
@@ -26,8 +25,9 @@ function AnnotationDrawerContainer(): JSX.Element {
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
   const [isEditing, setIsEditing] = useState(false)
 
+  const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[11],
+    wadouri: selected,
   })
   const { viewport, setViewport } = useViewport()
   const {
@@ -55,9 +55,9 @@ function AnnotationDrawerContainer(): JSX.Element {
 
   return (
     <Box data-cy-loaded={loadingState}>
-      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
-        remove all
-      </Button>
+      <Box>
+        <ImageSelect />
+      </Box>
       <Box>
         edit mode <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
@@ -78,6 +78,15 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="arrow">arrow</Radio>
         </Stack>
       </RadioGroup>
+      <Button
+        data-cy-name="remove-button"
+        size="sm"
+        marginBottom="10px"
+        colorScheme="blue"
+        onClick={removeAllAnnotation}
+      >
+        remove all
+      </Button>
       <Resizable style={style} defaultSize={DEFAULT_SIZE}>
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (

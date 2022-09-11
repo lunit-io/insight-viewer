@@ -9,7 +9,7 @@ import InsightViewer, {
   useMeasurement,
   MeasurementMode,
 } from '@lunit/insight-viewer'
-import { IMAGES } from '../../../const'
+import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
 const style = {
   display: 'flex',
@@ -24,8 +24,9 @@ function MeasurementDrawerContainer(): JSX.Element {
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
   const [isEditing, setIsEditing] = useState(false)
 
+  const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
-    wadouri: IMAGES[11],
+    wadouri: selected,
   })
 
   const { viewport, setViewport } = useViewport()
@@ -50,9 +51,9 @@ function MeasurementDrawerContainer(): JSX.Element {
 
   return (
     <>
-      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllMeasurement}>
-        remove all
-      </Button>
+      <Box>
+        <ImageSelect />
+      </Box>
       <Box>
         edit mode <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
@@ -62,6 +63,10 @@ function MeasurementDrawerContainer(): JSX.Element {
           <Radio value="circle">Circle</Radio>
         </Stack>
       </RadioGroup>
+      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllMeasurement}>
+        remove all
+      </Button>
+
       <Box data-cy-loaded={loadingState}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
