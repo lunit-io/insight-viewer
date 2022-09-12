@@ -1,1 +1,1 @@
-export { default as useImageSelect, type OnSelect } from './useImageSelect'
+export { default as useImageSelect } from './useImageSelect'
