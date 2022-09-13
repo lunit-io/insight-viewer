@@ -1,10 +1,13 @@
 import { Box, Text } from '@chakra-ui/react'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
-import useImageSelect from './useImageSelect'
+import useImageSelect from '../../components/ImageSelect/useImageSelect'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
+import CodeBlock from '../../components/CodeBlock'
+import { DICOM_CODE } from './Code'
+import { CODE_SANDBOX } from '../../const'
 
-export default function ImageSelectableViewer(): JSX.Element {
+export default function DicomImageViewer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
     wadouri: selected,
@@ -39,6 +42,10 @@ export default function ImageSelectableViewer(): JSX.Element {
       <ViewerWrapper>
         <InsightViewer image={image} Progress={CustomProgress} />
       </ViewerWrapper>
+
+      <Box>
+        <CodeBlock code={DICOM_CODE} codeSandbox={CODE_SANDBOX.basic} />
+      </Box>
     </>
   )
 }

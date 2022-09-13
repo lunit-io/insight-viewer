@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
 import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
-import useImageSelect from '../../Basic/useImageSelect'
+import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'

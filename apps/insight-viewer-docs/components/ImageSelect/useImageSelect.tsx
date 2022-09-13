@@ -1,32 +1,24 @@
 import { useState } from 'react'
 import { Stack, Button, Text } from '@chakra-ui/react'
 import { IMAGES } from '../../const'
-import { noop } from '../../utils'
 
 const images = {
   image1: IMAGES[0],
-  image2: IMAGES[5],
-  image3: IMAGES[10],
+  image2: IMAGES[12],
+  image3: IMAGES[13],
 }
 
 type Image = keyof typeof images
-export interface OnSelect {
-  (v: Image): void
-}
-interface Prop {
-  onSelect?: (v: Image) => void
-}
 
 export default function useImageSelect(): {
-  ImageSelect: (prop: Prop) => JSX.Element
+  ImageSelect: () => JSX.Element
   selected: string
 } {
   const [selected, setSelected] = useState<Image>('image1')
 
-  function ImageSelect({ onSelect = noop }: Prop): JSX.Element {
+  function ImageSelect(): JSX.Element {
     const handleClick = (v: Image) => () => {
       setSelected(v)
-      onSelect(v)
     }
 
     return (
