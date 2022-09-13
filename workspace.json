@@ -13,9 +13,9 @@
           "executor": "@jscutlery/semver:version",
           "options": {
             "syncVersions": true,
-            "preset": "conventional"
-          },
-          "tagPrefix": "@lunit/insight-viewer@"
+            "preset": "conventional",
+            "tagPrefix": "@lunit/insight-viewer@"
+          }
         }
       }
     }
