@@ -1,7 +1,22 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+## [5.8.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.7.0...@lunit/insight-viewer@5.8.0) (2022-09-13)
+
+### Features
+
+- add Viewer common style ([3e8ba9b](https://github.com/lunit-io/frontend-components/commit/3e8ba9bb466bf777c7174893cea8c6635f8a0a7a))
+- apply extended area to EditPointer ([2352634](https://github.com/lunit-io/frontend-components/commit/23526345b73a03236fa6589e586766adad82d06a))
+- apply extendedAnnotation to Viewer, Drawer ([e8a5133](https://github.com/lunit-io/frontend-components/commit/e8a5133e994eab6910b621fa3d63157da0c9d5b6))
+- apply extendedMeasurement to Viewer, Drawer ([35f54a3](https://github.com/lunit-io/frontend-components/commit/35f54a370dac1c9f455354fde2459e9189891842))
+- modify extended area stroke width 20px to 12px ([36f711c](https://github.com/lunit-io/frontend-components/commit/36f711cfee9eb29b3a74f3ac61163cc8c0e87911))
+
+### Bug Fixes
+
+- **viewer:** drawer error ([ad5360f](https://github.com/lunit-io/frontend-components/commit/ad5360f4dbe9dc813bf6bbbcfabd2beebac9129a))
+- **viewer:** fix getMeasurement test ([2c6f316](https://github.com/lunit-io/frontend-components/commit/2c6f31687dcc7363266a8616266d5cfc1f71172b))
+- **viewer:** use jsx: react for backward compatibility ([32774f9](https://github.com/lunit-io/frontend-components/commit/32774f994a4b737bb69a3c6cecf3f408dfb928f6))
 
 # [5.7.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.6.1...@lunit/insight-viewer@5.7.0) (2022-08-11)
 

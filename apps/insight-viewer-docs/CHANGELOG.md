@@ -1,7 +1,12 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+## [5.8.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.7.0...@lunit/insight-viewer@5.8.0) (2022-09-13)
+
+### Features
+
+- **viewer-docs:** change logo ([968b600](https://github.com/lunit-io/frontend-components/commit/968b6006c017b8bb8bf677068316f96b1ee6968f))
 
 # [5.7.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer-docs@5.6.1...@lunit/insight-viewer-docs@5.7.0) (2022-08-11)
 
