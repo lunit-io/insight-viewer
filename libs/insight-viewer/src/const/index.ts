@@ -15,7 +15,7 @@ export const CONFIG = {
     console.error(e)
   },
   Progress: undefined,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   requestInterceptor: (_request: Request): void => {},
   timeout: 60 * 1000,
 }
@@ -49,10 +49,7 @@ export const LINE_TEXT_POSITION_SPACING = {
   y: 5,
 }
 
-export const RULER_TEXT_POSITION_SPACING = {
-  x: 10,
-  y: 15,
-}
+export const RULER_TEXT_POSITION_SPACING = 40
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
   x: 75,

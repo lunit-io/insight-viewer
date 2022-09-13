@@ -22,7 +22,7 @@ export function RulerDrawer({
   const { startAndEndPoint, measuredValue, unit } = measurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
-  const textPointOnCanvas = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(startAndEndPoint[1]))
+  const textPointOnCanvas = getRulerTextPosition(startAndEndPointOnCanvas)
 
   const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
   const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))

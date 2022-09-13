@@ -19,7 +19,9 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
-  const textPointOnCanvas = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(startAndEndPoint[1]))
+  const textPointOnCanvas = measurement.textPoint
+    ? pixelToCanvas(measurement.textPoint)
+    : getRulerTextPosition(startAndEndPointOnCanvas)
 
   const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
   const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))
