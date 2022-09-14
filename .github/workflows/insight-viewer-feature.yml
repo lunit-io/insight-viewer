@@ -1,67 +1,49 @@
-name: "Deploy insight-viewer on PR preview"
+name: 'Deploy insight-viewer on PR preview'
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
       - .github/workflows/insight-viewer-feature.yml
-      - packages/insight-viewer/**
+      - libs/insight-viewer/**
       - apps/insight-viewer-docs/**
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref }}
-
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v3
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v2
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          main-branch-name: 'develop'
+      - run: npm ci
 
-      - name: Restore Nx cache
-        uses: actions/cache@v3
-        with:
-          path: .nx_cache
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nx
-
-      - name: Install Packages
-        run: yarn install --prefer-offline --frozen-lockfile
-
-      - name: Yarn build
-        id: yarn-build
-        run: yarn build
+      - run: npx nx workspace-lint
+      - run: npx nx export insight-viewer-docs
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id:     ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.CDN_FOR_PREVIEW_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.CDN_FOR_PREVIEW_SECRET_KEY }}
-          aws-region:            us-east-1
+          aws-region: us-east-1
 
       - name: Deploy Docs
         env:
           HOST: insight-viewer--pr-${{ github.event.number }}.f.lunit.io
         run: |
           aws s3 sync \
-            ./dist s3://lunit-cdn-for-preview-virginia/${HOST} \
+            ./dist/apps/insight-viewer-docs/exported \
+            s3://lunit-cdn-for-preview-virginia/${HOST} \
             --delete
 
       - name: Preview link
         uses: NejcZdovc/comment-pr@v1.1.1
         with:
-          file: "comment.md"
-          identifier: "GITHUB_COMMIT_FILE"
+          file: 'comment.md'
+          identifier: 'GITHUB_COMMIT_FILE'
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PR_ID: ${{github.event.number}}

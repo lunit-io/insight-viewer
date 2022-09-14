@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-echo "┏━━━ BUILD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-yarn run clean && yarn run compile

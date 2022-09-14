@@ -1,19 +1,41 @@
 {
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "insight-viewer-library",
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
-    "package.json": "*"
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test"],
-        "cacheDirectory": ".nx_cache"
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
-  "pluginsConfig": {
-    "@nrwl/js": {
-      "analyzeSourceFiles": false
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
-  }
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "insight-viewer-docs"
 }

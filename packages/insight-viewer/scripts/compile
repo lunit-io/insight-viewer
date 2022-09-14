@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-echo "┏━━━ 📦 COMPILE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-microbundle src/index.cjs.ts --jsx React.createElement --jsxFragment React.Fragment --tsconfig tsconfig.build.json -f cjs
-microbundle --jsx React.createElement --jsxFragment React.Fragment --tsconfig tsconfig.build.json -f esm,modern
