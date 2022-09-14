@@ -5,7 +5,7 @@ import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
-import { getCircleRadius } from '../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
 import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
@@ -18,10 +18,9 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
   const { centerPoint, radius, measuredValue, unit } = measurement
 
   const endPoint = getCircleEndPoint(centerPoint, radius)
-
   const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
 
-  const drawingRadius = getCircleRadius(centerPointOnCanvas, endPointOnCanvas)
+  const drawingRadius = getCircleRadiusByCenter(centerPointOnCanvas, endPointOnCanvas)
 
   const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
