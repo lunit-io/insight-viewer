@@ -13,8 +13,17 @@ function getMidPoint(startPoint: Point, endPoint: Point): Point {
   return [midX, midY]
 }
 
-export function getCircleRadius(mouseDownPoint: Point, mouseUpPoint: Point): number {
-  const [midX, midY] = getMidPoint(mouseDownPoint, mouseUpPoint)
+export function getCircleRadius(startPoint: Point, endPoint: Point): number {
+  const [midX, midY] = getMidPoint(startPoint, endPoint)
+
+  const radius = Math.sqrt(Math.pow(midX, 2) + Math.pow(midY, 2)) / 2
+
+  return radius
+}
+
+export function getCircleRadiusByCenter(centerPoint: Point, endPoint: Point): number {
+  const [midX, midY] = getMidPoint(centerPoint, endPoint)
+
   const radius = Math.sqrt(Math.pow(midX, 2) + Math.pow(midY, 2))
 
   return radius
@@ -22,14 +31,14 @@ export function getCircleRadius(mouseDownPoint: Point, mouseUpPoint: Point): num
 
 /** radius is measured value of circle */
 export function getCircleRadiusByMeasuringUnit(
-  mouseDownPoint: Point,
-  mouseUpPoint: Point,
+  startPoint: Point,
+  endPoint: Point,
   currentImage: Image | null
 ): { radius: number; unit: 'px' | 'mm' } {
-  const [midX, midY] = getMidPoint(mouseDownPoint, mouseUpPoint)
+  const [midX, midY] = getMidPoint(startPoint, endPoint)
 
   const calcRadius = (x: number, y: number, col: number, row: number) => {
-    const radius = Math.sqrt(Math.pow(x * col, 2) + Math.pow(y * row, 2))
+    const radius = Math.sqrt(Math.pow(x * col, 2) + Math.pow(y * row, 2)) / 2
 
     return radius
   }
