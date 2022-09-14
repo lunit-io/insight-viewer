@@ -27,9 +27,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
 
   const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
   const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))
-  const yPosition = ref.current ? ref.current.getBBox().height / 2 : 0
-  const refInfo = ref.current ? ref.current.getBBox() : null
-  console.log(yPosition)
 
   return (
     <>
