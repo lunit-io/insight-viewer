@@ -6,8 +6,9 @@ import { CODE } from './Code'
 import { CODE_SANDBOX } from '../../const'
 
 const IMAGE_ID = 'wadouri:/msw/with-jwt'
+const HTTP_HEADER_AUTHORIZATION = 'Bearer blahblah'
 const requestInterceptor = (request: Request) => {
-  request.headers.set('Authorization', 'Bearer blahblah')
+  request.headers.set('Authorization', HTTP_HEADER_AUTHORIZATION)
 }
 
 export default function WithJwt(): JSX.Element {

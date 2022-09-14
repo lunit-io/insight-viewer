@@ -8,6 +8,7 @@ import { useOverlayContext } from '../../contexts'
 
 import type { Point } from '../../types'
 import type { RulerDrawerProps } from './RulerDrawer.types'
+import { HALF_OF_RULER_TEXT_BOX } from '../../const'
 
 function stringifyPoints(points: Point[]): string {
   return points.map((point) => `${point[0]},${point[1]}`).join(' ')
@@ -22,36 +23,39 @@ export function RulerDrawer({
   const { startAndEndPoint, measuredValue, unit } = measurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
-  const textPointOnCanvas = pixelToCanvas(measurement.textPoint ?? getRulerTextPosition(startAndEndPoint[1]))
+  const textPointOnCanvas = getRulerTextPosition(startAndEndPointOnCanvas)
 
   const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
   const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))
 
+  const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
+  const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')
+
   return (
     <>
-      <polyline onMouseDown={() => setMeasurementEditMode('move')} style={svgWrapperStyle.outline} points={rulerLine} />
+      <polyline onMouseDown={handleMoveOnMouseDown} style={svgWrapperStyle.outline} points={rulerLine} />
       <polyline
         data-cy-move
-        onMouseDown={() => setMeasurementEditMode('move')}
+        onMouseDown={handleMoveOnMouseDown}
         style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
         points={rulerLine}
       />
       <polyline
         data-cy-move
-        onMouseDown={() => setMeasurementEditMode('move')}
+        onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
+      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
       <text
-        onMouseDown={() => setMeasurementEditMode('textMove')}
+        onMouseDown={handleTextMoveOnMouseDown}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
         x={textPointOnCanvas[0]}
-        y={textPointOnCanvas[1]}
+        y={textPointOnCanvas[1] + HALF_OF_RULER_TEXT_BOX}
       >
         {measuredValue.toFixed(1)}
         {unit}
       </text>
-      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
     </>
   )
 }
