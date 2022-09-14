@@ -51,6 +51,8 @@ export const LINE_TEXT_POSITION_SPACING = {
 
 export const RULER_TEXT_POSITION_SPACING = 40
 
+export const HALF_OF_RULER_TEXT_BOX = 4
+
 export const CIRCLE_TEXT_POSITION_SPACING = {
   x: 75,
   y: 10,
