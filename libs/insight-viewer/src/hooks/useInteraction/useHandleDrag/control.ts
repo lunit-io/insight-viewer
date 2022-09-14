@@ -11,11 +11,14 @@ const adjust: DragEventHandler = (viewport, event) => ({
 })
 
 const zoom: DragEventHandler = (viewport, event) => {
-  const newScale = Math.max(0.01, viewport.scale + event.deltaX / 100)
-  const newX = viewport.translation.x + event.startX * (1 / newScale - 1 / viewport.scale)
-  const newY = viewport.translation.y + event.startY * (1 / newScale - 1 / viewport.scale)
+  const scaleModifier = event.deltaX !== 0 ? Math.log2(Math.abs(event.deltaX)) * Math.sign(event.deltaX) : 0
+  const nextScale = Math.max(0.01, viewport.scale + scaleModifier * 0.01)
+  const ratio = 1 / nextScale - 1 / viewport.scale
+  const newX = viewport.translation.x + event.startX * ratio
+  const newY = viewport.translation.y + event.startY * ratio
+
   return {
-    scale: newScale,
+    scale: nextScale,
     x: newX,
     y: newY,
   }
