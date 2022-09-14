@@ -12,8 +12,8 @@ describe('getEditPointPosition: ', () => {
       [50, 50],
     ]
 
-    expect(getEditPointPosition(MOCK_POINT_1, null)).toEqual([0, 0, 10, 10])
-    expect(getEditPointPosition(MOCK_POINT_2, null)).toEqual([30, 30, 50, 50])
+    expect(getEditPointPosition(MOCK_POINT_1, null)).toEqual(null)
+    expect(getEditPointPosition(MOCK_POINT_2, null)).toEqual(null)
   })
 
   it('should return the points with line type editTarget', () => {

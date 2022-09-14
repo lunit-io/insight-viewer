@@ -1,5 +1,8 @@
-import { Point, EditMode, MeasurementMode } from '../../types'
 import { getMovedPoints } from './getMovedPoints'
+import { getCircleRadiusByCenter } from './getCircleRadius'
+import { getCircleEndPoint } from './getCircleEndPoint'
+
+import type { Point, EditMode, MeasurementMode } from '../../types'
 
 export function getMeasurementEditingPoints(
   prevPoints: [Point, Point],
@@ -17,7 +20,12 @@ export function getMeasurementEditingPoints(
   }
 
   if (mode === 'circle' && (editMode === 'startPoint' || editMode === 'endPoint')) {
-    return [prevPoints[0], currentPoint]
+    const prevCenter = prevPoints[0]
+
+    const currentRadius = getCircleRadiusByCenter(prevCenter, currentPoint)
+    const movedEndPoint = getCircleEndPoint(prevCenter, currentRadius)
+
+    return [prevCenter, movedEndPoint]
   }
 
   if ((mode === 'circle' || mode === 'ruler') && editMode === 'move') {
