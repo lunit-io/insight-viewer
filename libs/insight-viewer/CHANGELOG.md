@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.8.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.1...@lunit/insight-viewer@5.8.2) (2022-09-15)
+
+### Features
+
+- **viewer:** delete pointerEvents to svg root style and apply to Viewer ([2124d07](https://github.com/lunit-io/frontend-components/commit/2124d0743a17025a06d464f824893b4c85499a58))
+
 ## [5.8.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.0...@lunit/insight-viewer@5.8.1) (2022-09-15)
 
 ### Features
