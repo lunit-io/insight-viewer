@@ -28,7 +28,7 @@ process.chdir(outputPath)
 try {
   const json = JSON.parse(readFileSync(`package.json`).toString())
 
-  execSync(`npm publish --access public --tag ${json.version}`)
+  execSync('npm publish --access public')
 } catch (e) {
   console.error(chalk.bold.red(`Error reading package.json file from library build output.`))
 }
