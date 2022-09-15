@@ -2,7 +2,7 @@ import { Point, Annotation, Measurement } from '../../types'
 import { getEditPointPosition } from './getEditPointPosition'
 
 describe('getEditPointPosition: ', () => {
-  it('should return the points without editTarget', () => {
+  it('should return null without editTarget', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
