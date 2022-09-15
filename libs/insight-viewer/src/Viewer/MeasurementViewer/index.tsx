@@ -80,7 +80,13 @@ export function MeasurementViewer({
   const { enabledElement } = useOverlayContext()
 
   return (
-    <svg ref={svgRef} width={width} height={height} style={{ ...svgRootStyle.default, ...style }} className={className}>
+    <svg
+      ref={svgRef}
+      width={width}
+      height={height}
+      style={{ ...svgRootStyle.default, pointerEvents: 'none', ...style }}
+      className={className}
+    >
       {measurements.length === 0 || !enabledElement
         ? null
         : MeasurementsDraw({
