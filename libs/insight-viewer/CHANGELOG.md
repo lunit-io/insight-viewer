@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.8.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.0...@lunit/insight-viewer@5.8.1) (2022-09-15)
+
+### Features
+
+- **viewer:** add pointer event none style to svg root ([7ea0b3e](https://github.com/lunit-io/frontend-components/commit/7ea0b3e365157597c6f364d31f64ccb1c4744eb7))
+
 ## [5.8.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.7.0...@lunit/insight-viewer@5.8.0) (2022-09-13)
 
 ### Features
