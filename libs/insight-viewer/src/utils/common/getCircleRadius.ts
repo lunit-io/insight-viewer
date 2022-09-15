@@ -3,30 +3,27 @@ import { IMAGER_PIXEL_SPACING } from './const'
 import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'
 
-function getMidPoint(startPoint: Point, endPoint: Point): Point {
+function calculateRadius(startPoint: Point, endPoint: Point, col?: number, row?: number): number {
   const [x1, y1] = startPoint
   const [x2, y2] = endPoint
 
-  const midX = Math.abs(x2 - x1)
-  const midY = Math.abs(y2 - y1)
+  const [distanceX, distanceY] = col && row ? [(x2 - x1) * col, (y2 - y1) * row] : [x2 - x1, y2 - y1]
 
-  return [midX, midY]
+  const radius = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))
+
+  return radius
 }
 
 export function getCircleRadius(startPoint: Point, endPoint: Point): number {
-  const [midX, midY] = getMidPoint(startPoint, endPoint)
+  const circleRadius = calculateRadius(startPoint, endPoint) / 2
 
-  const radius = Math.sqrt(Math.pow(midX, 2) + Math.pow(midY, 2)) / 2
-
-  return radius
+  return circleRadius
 }
 
 export function getCircleRadiusByCenter(centerPoint: Point, endPoint: Point): number {
-  const [midX, midY] = getMidPoint(centerPoint, endPoint)
+  const circleRadiusByCenter = calculateRadius(centerPoint, endPoint)
 
-  const radius = Math.sqrt(Math.pow(midX, 2) + Math.pow(midY, 2))
-
-  return radius
+  return circleRadiusByCenter
 }
 
 /** radius is measured value of circle */
@@ -35,35 +32,27 @@ export function getCircleRadiusByMeasuringUnit(
   endPoint: Point,
   currentImage: Image | null
 ): { radius: number; unit: 'px' | 'mm' } {
-  const [midX, midY] = getMidPoint(startPoint, endPoint)
-
-  const calcRadius = (x: number, y: number, col: number, row: number) => {
-    const radius = Math.sqrt(Math.pow(x * col, 2) + Math.pow(y * row, 2)) / 2
-
-    return radius
-  }
-
   if (!currentImage) {
-    return { radius: calcRadius(midX, midY, 1, 1), unit: 'px' }
+    return { radius: calculateRadius(startPoint, endPoint, 1, 1), unit: 'px' }
   }
 
   if (currentImage.columnPixelSpacing && currentImage.rowPixelSpacing) {
     const { columnPixelSpacing, rowPixelSpacing } = currentImage
 
-    return { radius: calcRadius(midX, midY, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
+    return { radius: calculateRadius(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
   const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING) as string | undefined
 
   if (!imagerPixelSpacing) {
-    return { radius: calcRadius(midX, midY, 1, 1), unit: 'px' }
+    return { radius: calculateRadius(startPoint, endPoint, 1, 1), unit: 'px' }
   }
 
   if (imagerPixelSpacing.length !== 0) {
     const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
 
-    return { radius: calcRadius(midX, midY, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
+    return { radius: calculateRadius(startPoint, endPoint, columnPixelSpacing, rowPixelSpacing), unit: 'mm' }
   }
 
-  return { radius: calcRadius(midX, midY, 1, 1), unit: 'px' }
+  return { radius: calculateRadius(startPoint, endPoint, 1, 1), unit: 'px' }
 }
