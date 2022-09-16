@@ -84,14 +84,16 @@ export default function useMeasurementPointsHandler({
       setEditTargetPoints(editPoints)
 
       let currentMeasurement = null
-      if (drawingMode === 'circle' && mouseDownPoint !== null) {
-        currentMeasurement = getMeasurement(
-          [mouseDownPoint, point],
-          currentTextPosition,
-          drawingMode,
-          measurements,
-          image
-        )
+      if (drawingMode === 'circle') {
+        if (mouseDownPoint !== null) {
+          currentMeasurement = getMeasurement(
+            [mouseDownPoint, point],
+            currentTextPosition,
+            drawingMode,
+            measurements,
+            image
+          )
+        }
         if (isEditing && editMode) {
           const [currentCenterPoint, currentEndPoint] = currentPoints
           const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
