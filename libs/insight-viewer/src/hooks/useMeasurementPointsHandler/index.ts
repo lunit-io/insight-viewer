@@ -109,8 +109,6 @@ export default function useMeasurementPointsHandler({
         currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
       }
 
-      setMeasurement(currentMeasurement)
-
       return currentMeasurement
     })
   }
