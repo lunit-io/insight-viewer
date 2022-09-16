@@ -2,7 +2,7 @@ import { Point, Annotation, Measurement } from '../../types'
 import { getEditPointPosition } from './getEditPointPosition'
 
 describe('getEditPointPosition: ', () => {
-  it('should return null without editTarget', () => {
+  it('should return ruler points when editTarget is null', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
@@ -12,8 +12,21 @@ describe('getEditPointPosition: ', () => {
       [50, 50],
     ]
 
-    expect(getEditPointPosition(MOCK_POINT_1, null)).toEqual(null)
-    expect(getEditPointPosition(MOCK_POINT_2, null)).toEqual(null)
+    expect(getEditPointPosition(MOCK_POINT_1, null)).toEqual([0, 0, 10, 10])
+    expect(getEditPointPosition(MOCK_POINT_2, null)).toEqual([30, 30, 50, 50])
+  })
+  it('should return null when editTarget is null but drawingMode is circle ', () => {
+    const MOCK_POINT_1: Point[] = [
+      [0, 0],
+      [10, 10],
+    ]
+    const MOCK_POINT_2: Point[] = [
+      [30, 30],
+      [50, 50],
+    ]
+
+    expect(getEditPointPosition(MOCK_POINT_1, null, 'circle')).toEqual(null)
+    expect(getEditPointPosition(MOCK_POINT_2, null, 'circle')).toEqual(null)
   })
 
   it('should return the points with line type editTarget', () => {
