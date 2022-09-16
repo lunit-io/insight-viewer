@@ -4,11 +4,10 @@ import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'
 
 /**
- * The ImageSpacing uses cornerstone image's columnPixelSpacing, rowPixelSpacing
+ * The ImageSpacing uses cornerstone image's columnPixelSpacing and rowPixelSpacing
  * If there is no image or cornerstone's pixel spacing does not exist,
  * radius is calculated without spacing value
  */
-
 interface ImageSpacing {
   columnPixelSpacing: number
   rowPixelSpacing: number
