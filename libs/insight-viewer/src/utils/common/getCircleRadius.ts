@@ -3,12 +3,15 @@ import { IMAGER_PIXEL_SPACING } from './const'
 import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'
 
-interface ScaleRatio {
-  scaleX: number
-  scaleY: number
-}
-
-function calculateRadius(startPoint: Point, endPoint: Point, scaleRatio?: ScaleRatio): number {
+/**
+ * Radius should be divided by 2 if the first argument is a startPoint, not a centerPoint
+ */
+function calculateRadius(
+  isStartedFromCenter: boolean,
+  startPoint: Point,
+  endPoint: Point,
+  scaleRatio?: [scaleX: number, scaleY: number]
+): number {
   const [x1, y1] = startPoint
   const [x2, y2] = endPoint
 
@@ -16,23 +19,24 @@ function calculateRadius(startPoint: Point, endPoint: Point, scaleRatio?: ScaleR
   let distanceY = y2 - y1
 
   if (scaleRatio) {
-    distanceX = (x2 - x1) * scaleRatio.scaleX
-    distanceY = (y2 - y1) * scaleRatio.scaleY
+    distanceX = (x2 - x1) * scaleRatio[0]
+    distanceY = (y2 - y1) * scaleRatio[1]
   }
 
   const radius = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))
+  const radiusByStartPointing = isStartedFromCenter ? radius : radius / 2
 
-  return radius
+  return radiusByStartPointing
 }
 
 export function getCircleRadius(startPoint: Point, endPoint: Point): number {
-  const circleRadius = calculateRadius(startPoint, endPoint) / 2
+  const circleRadius = calculateRadius(false, startPoint, endPoint)
 
   return circleRadius
 }
 
 export function getCircleRadiusByCenter(centerPoint: Point, endPoint: Point): number {
-  const circleRadiusByCenter = calculateRadius(centerPoint, endPoint)
+  const circleRadiusByCenter = calculateRadius(true, centerPoint, endPoint)
 
   return circleRadiusByCenter
 }
@@ -50,14 +54,14 @@ export function getCircleRadiusByMeasuringUnit(
   currentImage: Image | null
 ): { radius: number; unit: 'px' | 'mm' } {
   if (!currentImage) {
-    return { radius: calculateRadius(startPoint, endPoint), unit: 'px' }
+    return { radius: calculateRadius(false, startPoint, endPoint), unit: 'px' }
   }
 
   if (currentImage.columnPixelSpacing && currentImage.rowPixelSpacing) {
     const { columnPixelSpacing, rowPixelSpacing } = currentImage
 
     return {
-      radius: calculateRadius(startPoint, endPoint, { scaleX: columnPixelSpacing, scaleY: rowPixelSpacing }),
+      radius: calculateRadius(false, startPoint, endPoint, [columnPixelSpacing, rowPixelSpacing]),
       unit: 'mm',
     }
   }
@@ -65,17 +69,17 @@ export function getCircleRadiusByMeasuringUnit(
   const imagerPixelSpacing = currentImage.data.string(IMAGER_PIXEL_SPACING) as string | undefined
 
   if (!imagerPixelSpacing) {
-    return { radius: calculateRadius(startPoint, endPoint), unit: 'px' }
+    return { radius: calculateRadius(false, startPoint, endPoint), unit: 'px' }
   }
 
   if (imagerPixelSpacing.length !== 0) {
     const [columnPixelSpacing, rowPixelSpacing] = imagerPixelSpacing.split('\\').map(Number)
 
     return {
-      radius: calculateRadius(startPoint, endPoint, { scaleX: columnPixelSpacing, scaleY: rowPixelSpacing }),
+      radius: calculateRadius(false, startPoint, endPoint, [columnPixelSpacing, rowPixelSpacing]),
       unit: 'mm',
     }
   }
 
-  return { radius: calculateRadius(startPoint, endPoint), unit: 'px' }
+  return { radius: calculateRadius(false, startPoint, endPoint), unit: 'px' }
 }
