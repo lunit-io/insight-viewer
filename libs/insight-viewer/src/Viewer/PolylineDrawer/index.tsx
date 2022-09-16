@@ -18,6 +18,7 @@ export function PolylineDrawer({
   lineHead,
   isSelectedMode,
   selectedAnnotationLabel,
+  showAnnotationLabel,
   isPolygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
@@ -79,7 +80,7 @@ export function PolylineDrawer({
           />
         </>
       )}
-      {selectedAnnotationLabel && labelPosition && (
+      {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
         <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
           {selectedAnnotationLabel}
         </text>

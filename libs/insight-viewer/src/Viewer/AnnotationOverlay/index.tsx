@@ -50,6 +50,7 @@ export function AnnotationOverlay({
           height={height}
           annotations={annotations}
           selectedAnnotation={selectedAnnotation}
+          showAnnotationLabel={showAnnotationLabel}
           className={className}
           style={style}
           device={device}
