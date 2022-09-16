@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.8.3](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.2...@lunit/insight-viewer@5.8.3) (2022-09-16)
+
+### Features
+
+- **docs:** add label mode switch button to Annotation Drawer docs ([fd4414c](https://github.com/lunit-io/frontend-components/commit/fd4414ce0e1d05c2a4a9ac9e8a1d65d7ebd18a20))
+
 ## [5.8.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.1...@lunit/insight-viewer@5.8.2) (2022-09-15)
 
 ## [5.8.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.0...@lunit/insight-viewer@5.8.1) (2022-09-15)

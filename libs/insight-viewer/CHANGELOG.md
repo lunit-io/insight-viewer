@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.8.3](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.2...@lunit/insight-viewer@5.8.3) (2022-09-16)
+
+### Features
+
+- **viewer:** add showAnnotationLabel prop to Annotation Drawer ([d90bb32](https://github.com/lunit-io/frontend-components/commit/d90bb3285a2f85ff5564dcf4df3bc353ecd5829d))
+
 ## [5.8.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.1...@lunit/insight-viewer@5.8.2) (2022-09-15)
 
 ### Features

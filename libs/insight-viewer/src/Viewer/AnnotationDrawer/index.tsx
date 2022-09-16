@@ -15,6 +15,7 @@ export function AnnotationDrawer({
   width,
   height,
   isEditing = false,
+  showAnnotationLabel = false,
   annotations,
   selectedAnnotation,
   onSelectAnnotation,
@@ -69,6 +70,7 @@ export function AnnotationDrawer({
             <PolylineDrawer
               annotation={annotation}
               isSelectedMode={isSelectedAnnotation}
+              showAnnotationLabel={showAnnotationLabel}
               isPolygonSelected={selectedAnnotation?.type === 'polygon'}
               lineHead={lineHead}
               selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}

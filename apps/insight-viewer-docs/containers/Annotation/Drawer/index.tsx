@@ -25,6 +25,7 @@ function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
   const [isEditing, setIsEditing] = useState(false)
+  const [isShowLabel, setIsShowLabel] = useState(false)
 
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
@@ -53,6 +54,10 @@ function AnnotationDrawerContainer(): JSX.Element {
     setIsEditing(event.target.checked)
   }
 
+  const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsShowLabel(event.target.checked)
+  }
+
   return (
     <Box data-cy-loaded={loadingState}>
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
@@ -60,6 +65,10 @@ function AnnotationDrawerContainer(): JSX.Element {
       </Button>
       <Box>
         edit mode <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
+      </Box>
+      <Box>
+        show label{' '}
+        <Switch data-cy-show-label={isShowLabel} onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
         <Stack direction="row">
@@ -91,7 +100,7 @@ function AnnotationDrawerContainer(): JSX.Element {
               annotations={annotations}
               hoveredAnnotation={hoveredAnnotation}
               selectedAnnotation={selectedAnnotation}
-              showAnnotationLabel
+              showAnnotationLabel={isShowLabel}
               onAdd={addAnnotation}
               onFocus={hoverAnnotation}
               onRemove={removeAnnotation}
