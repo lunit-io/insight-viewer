@@ -23,7 +23,7 @@ describe('getImageIdAndScheme()', () => {
     const imageType: ImageId = {
       [IMAGE_LOADER_SCHEME.WADO]: file,
     }
-    expect(getImageIdAndScheme(imageType).id).toEqual(file)
+    expect(getImageIdAndScheme(imageType).imageId).toEqual(file)
     expect(getImageIdAndScheme(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.WADO)
   })
 
@@ -31,7 +31,7 @@ describe('getImageIdAndScheme()', () => {
     const imageType: ImageId = {
       [IMAGE_LOADER_SCHEME.DICOMFILE]: file,
     }
-    expect(getImageIdAndScheme(imageType).id).toEqual(file)
+    expect(getImageIdAndScheme(imageType).imageId).toEqual(file)
     expect(getImageIdAndScheme(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.DICOMFILE)
   })
 
@@ -39,7 +39,7 @@ describe('getImageIdAndScheme()', () => {
     const imageType: ImageId = {
       [IMAGE_LOADER_SCHEME.WEB]: file,
     }
-    expect(getImageIdAndScheme(imageType).id).toEqual(file)
+    expect(getImageIdAndScheme(imageType).imageId).toEqual(file)
     expect(getImageIdAndScheme(imageType).scheme).toEqual(IMAGE_LOADER_SCHEME.WEB)
   })
 })
