@@ -33,6 +33,8 @@ export interface HTTP {
   requestInterceptor: RequestInterceptor
 }
 
+export type Loader = (url: string) => Promise<ArrayBuffer>
+
 export type OnViewportChange = Dispatch<SetStateAction<Viewport>>
 export type LoadingState = typeof LOADING_STATE[keyof typeof LOADING_STATE]
 export type LoaderType = typeof LOADER_TYPE[keyof typeof LOADER_TYPE]

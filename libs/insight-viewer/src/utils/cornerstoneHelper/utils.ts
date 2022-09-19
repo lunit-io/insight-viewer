@@ -2,6 +2,7 @@ import cornerstone, { CanvasCoordinate, EnabledElement, PixelCoordinate } from '
 import { DataSet } from 'dicom-parser'
 import { CornerstoneImage, CornerstoneViewport } from './types'
 import { formatCornerstoneViewport } from '../common/formatViewport'
+import { Loader } from '../../types'
 
 export function enable(element: HTMLDivElement): void {
   cornerstone.enable(element)
@@ -42,7 +43,7 @@ export function displayImage(
 
 type LoadImage = Promise<CornerstoneImage & { data: DataSet }>
 
-export function loadImage(imageId: string, options?: Record<string, unknown>): LoadImage {
+export function loadImage(imageId: string, options: { loader: Loader | undefined }): LoadImage {
   /*
     cornerstone.loadImage() 의 원래 리턴 값은 Promise<CornerstoneImage> 이지만,
     options로 인하여 data field 가 추가된 것으로 보임
