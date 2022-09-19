@@ -1,5 +1,6 @@
 import { getMeasurement } from './getMeasurement'
 import { getCircleRadiusByCenter } from './getCircleRadius'
+import { getCircleStartPoint } from './getCircleStartPoint'
 
 import type { EditMode, Point, Measurement, MeasurementMode } from '../../types'
 import type { Image } from '../../Viewer/types'
@@ -25,7 +26,7 @@ export function getCurrentMeasurement(
   if (drawingMode === 'circle' && isEditing && editMode) {
     const [currentCenterPoint, currentEndPoint] = prevPoints
     const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
-    const currentStartPoint: Point = [currentCenterPoint[0] - radius, currentCenterPoint[1]]
+    const currentStartPoint = getCircleStartPoint(currentCenterPoint, radius)
 
     currentPoints = [currentStartPoint, currentEndPoint]
   }
