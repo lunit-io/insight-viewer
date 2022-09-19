@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
+import { getCurrentMeasurement } from '../../utils/common/getCurrentMeasurement'
 import { getTextPosition } from '../../utils/common/getTextPosition'
 import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
-import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
 
 import useDrawingHandler from '../useDrawingHandler'
 
@@ -83,34 +83,17 @@ export default function useMeasurementPointsHandler({
       const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
       setEditTargetPoints(editPoints)
 
-      let currentMeasurement = null
-      if (drawingMode === 'circle') {
-        if (mouseDownPoint !== null) {
-          currentMeasurement = getMeasurement(
-            [mouseDownPoint, point],
-            currentTextPosition,
-            drawingMode,
-            measurements,
-            image
-          )
-        }
-        if (isEditing && editMode) {
-          const [currentCenterPoint, currentEndPoint] = currentPoints
-          const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
-          const currentStartPoint: Point = [currentCenterPoint[0] - radius, currentCenterPoint[1]]
-
-          currentMeasurement = getMeasurement(
-            [currentStartPoint, currentEndPoint],
-            currentTextPosition,
-            drawingMode,
-            measurements,
-            image
-          )
-        }
-      } else {
-        currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
-      }
-
+      const currentMeasurement = getCurrentMeasurement(
+        isEditing,
+        editMode,
+        drawingMode,
+        currentTextPosition,
+        mouseDownPoint,
+        point,
+        currentPoints,
+        measurements,
+        image
+      )
       return currentMeasurement
     })
   }
