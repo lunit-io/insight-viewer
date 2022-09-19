@@ -1,4 +1,4 @@
-import { getCircleRadiusByMeasuringUnit, getCircleRadius } from './getCircleRadius'
+import { getCircleRadiusByMeasuringUnit, getCircleRadius, getCircleRadiusByCenter } from './getCircleRadius'
 
 import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'
@@ -13,9 +13,25 @@ describe('getCircleRadius:', () => {
     const MOCK_MOUSE_UP_POINT_2: Point = [10, 10]
     const MOCK_MOUSE_UP_POINT_3: Point = [20, 20]
 
-    expect(getCircleRadius(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1)).toEqual(7.0710678118654755)
-    expect(getCircleRadius(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2)).toEqual(12.727922061357855)
-    expect(getCircleRadius(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3)).toEqual(25.45584412271571)
+    expect(getCircleRadius(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1)).toEqual(3.5355339059327378)
+    expect(getCircleRadius(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2)).toEqual(6.363961030678928)
+    expect(getCircleRadius(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3)).toEqual(12.727922061357855)
+  })
+})
+
+describe('getCircleRadiusByCenter:', () => {
+  it('should calculate circle radius', () => {
+    const MOCK_MOUSE_DOWN_POINT_1: Point = [0, 0]
+    const MOCK_MOUSE_DOWN_POINT_2: Point = [1, 1]
+    const MOCK_MOUSE_DOWN_POINT_3: Point = [2, 2]
+
+    const MOCK_MOUSE_UP_POINT_1: Point = [5, 5]
+    const MOCK_MOUSE_UP_POINT_2: Point = [10, 10]
+    const MOCK_MOUSE_UP_POINT_3: Point = [20, 20]
+
+    expect(getCircleRadiusByCenter(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1)).toEqual(7.0710678118654755)
+    expect(getCircleRadiusByCenter(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2)).toEqual(12.727922061357855)
+    expect(getCircleRadiusByCenter(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3)).toEqual(25.45584412271571)
   })
 })
 
@@ -30,15 +46,15 @@ describe('getCircleRadiusByMeasuringUnit:', () => {
     const MOCK_MOUSE_UP_POINT_3: Point = [20, 20]
 
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1, null)).toEqual({
-      radius: 7.0710678118654755,
+      radius: 3.5355339059327378,
       unit: 'px',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2, null)).toEqual({
-      radius: 12.727922061357855,
+      radius: 6.363961030678928,
       unit: 'px',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3, null)).toEqual({
-      radius: 25.45584412271571,
+      radius: 12.727922061357855,
       unit: 'px',
     })
   })
@@ -54,15 +70,15 @@ describe('getCircleRadiusByMeasuringUnit:', () => {
     const MOCK_MOUSE_UP_POINT_3: Point = [20, 20]
 
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1, MOCK_IMAGE_1)).toEqual({
-      radius: 4.949747468305833,
+      radius: 2.4748737341529163,
       unit: 'mm',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2, MOCK_IMAGE_2)).toEqual({
-      radius: 10.182337649086284,
+      radius: 5.091168824543142,
       unit: 'mm',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3, MOCK_IMAGE_3)).toEqual({
-      radius: 22.91025971044414,
+      radius: 11.45512985522207,
       unit: 'mm',
     })
   })
@@ -78,15 +94,15 @@ describe('getCircleRadiusByMeasuringUnit:', () => {
     const MOCK_MOUSE_UP_POINT_3: Point = [20, 20]
 
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1, MOCK_IMAGE_1)).toEqual({
-      radius: 4.949747468305833,
+      radius: 2.4748737341529163,
       unit: 'mm',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2, MOCK_IMAGE_2)).toEqual({
-      radius: 10.182337649086284,
+      radius: 5.091168824543142,
       unit: 'mm',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3, MOCK_IMAGE_3)).toEqual({
-      radius: 22.91025971044414,
+      radius: 11.45512985522207,
       unit: 'mm',
     })
   })
@@ -104,15 +120,15 @@ describe('getCircleRadiusByMeasuringUnit:', () => {
     const MOCK_MOUSE_UP_POINT_3: Point = [20, 20]
 
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_1, MOCK_MOUSE_UP_POINT_1, MOCK_IMAGE)).toEqual({
-      radius: 7.0710678118654755,
+      radius: 3.5355339059327378,
       unit: 'px',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_2, MOCK_MOUSE_UP_POINT_2, MOCK_IMAGE)).toEqual({
-      radius: 12.727922061357855,
+      radius: 6.363961030678928,
       unit: 'px',
     })
     expect(getCircleRadiusByMeasuringUnit(MOCK_MOUSE_DOWN_POINT_3, MOCK_MOUSE_UP_POINT_3, MOCK_IMAGE)).toEqual({
-      radius: 25.45584412271571,
+      radius: 12.727922061357855,
       unit: 'px',
     })
   })

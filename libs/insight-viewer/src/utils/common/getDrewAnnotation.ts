@@ -23,6 +23,11 @@ export function getDrewAnnotation(
 
   if (mode === 'circle') {
     const [startPoint, endPoint] = points
+    /**
+     * TODO
+     * start point should be a center since the radius calculation logic has changed
+     * by the circle Measurement function change
+     */
     const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
     drewAnnotation = {
       ...defaultAnnotationInfo,
