@@ -1,22 +1,16 @@
-import { getMeasurement } from './getMeasurement'
 import { getCircleRadiusByCenter } from './getCircleRadius'
 import { getCircleStartPoint } from './getCircleStartPoint'
 
-import type { EditMode, Point, Measurement, MeasurementMode } from '../../types'
-import type { Image } from '../../Viewer/types'
+import type { EditMode, Point, MeasurementMode } from '../../types'
 
-export function getCurrentMeasurement(
+export function getMeasurementPointsByMode(
   isEditing: boolean,
   editMode: EditMode | null,
   drawingMode: MeasurementMode,
-  currentTextPosition: Point | null,
   mouseDownPoint: Point | null,
   mouseMovePoint: Point,
-  prevPoints: [centerPoint: Point, endPoint: Point],
-  measurements: Measurement[],
-  image: Image | null
-) {
-  let currentMeasurement = null
+  prevPoints: [centerPoint: Point, endPoint: Point]
+): [Point, Point] {
   let currentPoints = prevPoints
 
   if (drawingMode === 'circle' && mouseDownPoint !== null) {
@@ -31,7 +25,5 @@ export function getCurrentMeasurement(
     currentPoints = [currentStartPoint, currentEndPoint]
   }
 
-  currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
-
-  return currentMeasurement
+  return currentPoints
 }

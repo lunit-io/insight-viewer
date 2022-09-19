@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
-import { getCurrentMeasurement } from '../../utils/common/getCurrentMeasurement'
+import { getMeasurementPointsByMode } from '../../utils/common/getMeasurementPointsByMode'
 import { getTextPosition } from '../../utils/common/getTextPosition'
 import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
@@ -83,17 +83,23 @@ export default function useMeasurementPointsHandler({
       const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
       setEditTargetPoints(editPoints)
 
-      const currentMeasurement = getCurrentMeasurement(
+      const measurementPointsByMode = getMeasurementPointsByMode(
         isEditing,
         editMode,
         drawingMode,
-        currentTextPosition,
         mouseDownPoint,
         point,
-        currentPoints,
+        currentPoints
+      )
+
+      const currentMeasurement = getMeasurement(
+        measurementPointsByMode,
+        currentTextPosition,
+        drawingMode,
         measurements,
         image
       )
+
       return currentMeasurement
     })
   }
