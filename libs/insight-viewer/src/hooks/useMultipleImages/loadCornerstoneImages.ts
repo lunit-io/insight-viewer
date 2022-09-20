@@ -32,7 +32,7 @@ export const loadCornerstoneImages: LoadCornerstoneImages = ({
   requestInterceptor,
   timeout,
 }) => {
-  const doesNeedLoader = imageScheme === IMAGE_LOADER_SCHEME.DICOMFILE
+  const doesNeedLoader = imageScheme !== IMAGE_LOADER_SCHEME.DICOMFILE
 
   if (!doesNeedLoader) {
     return loadImage(imageId, { loader: undefined })
