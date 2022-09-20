@@ -4,7 +4,7 @@ import useImageSelect from '../../components/ImageSelect/useImageSelect'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CodeBlock from '../../components/CodeBlock'
-import { DICOM_CODE } from './Code'
+import { DICOM_CODE_V1, DICOM_CODE_V2 } from './Code'
 import { CODE_SANDBOX } from '../../const'
 
 export default function DicomImageViewer(): JSX.Element {
@@ -44,7 +44,13 @@ export default function DicomImageViewer(): JSX.Element {
       </ViewerWrapper>
 
       <Box>
-        <CodeBlock code={DICOM_CODE} codeSandbox={CODE_SANDBOX.basic} />
+        <Text>Version 1</Text>
+        <CodeBlock code={DICOM_CODE_V1} codeSandbox={CODE_SANDBOX.basic} />
+      </Box>
+
+      <Box>
+        <Text>Version 2</Text>
+        <CodeBlock code={DICOM_CODE_V2} />
       </Box>
     </>
   )
