@@ -94,6 +94,9 @@ export const useImage: UseImage = ({
           payload: res,
         })
 
+        // image가 렌더링이 된 후 실행이 되기 위하여 setTimeout을 사용하였습니다
+        // setTimeout을 사용하지 않고 onImageLoaded를 실행하면 image가 렌더링 되기 전에 실행이 되어
+        // image가 렌더링 되지 않은 상태에서 onImageLoaded가 실행되는 문제가 있습니다
         setTimeout(() => {
           onImageLoadedRef.current?.()
         }, 0)

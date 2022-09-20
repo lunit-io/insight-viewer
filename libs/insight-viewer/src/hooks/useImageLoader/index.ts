@@ -1,25 +1,32 @@
 /**
  * @fileoverview Enable Cornerstone image(Dicom/Web) loader.
  */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LOADER_TYPE } from '../../const'
 import { OnError, ImageId } from '../../types'
 import setWadoImageLoader, { WadoImageLoaderOptions } from '../../utils/cornerstoneHelper/setWadoImageLoader'
 import setWebImageLoader from '../../utils/cornerstoneHelper/setWebImageLoader'
 import { getLoaderType } from './getLoaderType'
 
-export function useImageLoader(imageId: ImageId, onError: OnError, options?: WadoImageLoaderOptions): boolean {
-  const [hasLoader, setHasLoader] = useState(false)
-  const loaderType = getLoaderType(imageId)
+type LoadImageLoader = (mageId: ImageId, onError: OnError, options?: WadoImageLoaderOptions) => Promise<boolean>
+type UseImageLoader = (mageId: ImageId, onError: OnError, options?: WadoImageLoaderOptions) => boolean
 
-  // eslint-disable-next-line no-extra-semi
-  ;(async function asyncLoad(): Promise<void> {
-    if (!hasLoader) {
-      const imageLoader =
-        loaderType === LOADER_TYPE.DICOM ? await setWadoImageLoader(onError, options) : await setWebImageLoader(onError)
-      setHasLoader(!!imageLoader)
-    }
-  })()
+const loadImageLoader: LoadImageLoader = async (imageId, onError, options) => {
+  const loaderType = getLoaderType(imageId)
+  const imageLoader =
+    loaderType === LOADER_TYPE.DICOM ? await setWadoImageLoader(onError, options) : await setWebImageLoader(onError)
+
+  return Boolean(imageLoader)
+}
+
+export const useImageLoader: UseImageLoader = (imageId, onError, options) => {
+  const [hasLoader, setHasLoader] = useState(false)
+
+  useEffect(() => {
+    if (hasLoader) return
+    loadImageLoader(imageId, onError, options).then(setHasLoader)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageId, onError, options])
 
   return hasLoader
 }
