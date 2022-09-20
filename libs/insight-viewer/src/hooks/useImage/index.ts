@@ -69,7 +69,7 @@ export const useImage: UseImage = ({
   const { imageId, scheme } = getImageIdAndScheme(imageIds)
 
   const imageLoader = useMemo(() => {
-    const isLoaderNeeded = scheme === IMAGE_LOADER_SCHEME.WEB
+    const isLoaderNeeded = scheme === IMAGE_LOADER_SCHEME.DICOMFILE
     return isLoaderNeeded ? undefined : loader || getHttpClient({ requestInterceptor, timeout })
   }, [loader, requestInterceptor, scheme, timeout])
 
