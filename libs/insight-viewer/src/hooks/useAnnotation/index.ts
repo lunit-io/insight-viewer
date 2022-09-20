@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
 import { Annotation, AnnotationBase } from '../../types'
-import { getIsPolygonAreaGreaterThanArea } from '../../utils/common/getIsPolygonAreaGreaterThanArea'
 import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
-import { isValidLength } from '../../utils/common/isValidLength'
+import { isSamePoints } from '../../utils/common/isSamePoints'
+import { isLessThanTheMinimumPointsLength } from '../../utils/common/isLessThanTheMinimumPointsLength'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
@@ -60,11 +60,11 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
   ): Annotation | null => {
     if (
       annotation.type === 'polygon' &&
-      (!getIsPolygonAreaGreaterThanArea(annotation.points) || getIsComplexPolygon(annotation.points))
+      (isLessThanTheMinimumPointsLength(annotation.points) || getIsComplexPolygon(annotation.points))
     )
       return null
-    if (annotation.type === 'freeLine' && !getIsPolygonAreaGreaterThanArea(annotation.points)) return null
-    if (annotation.type === 'line' && !isValidLength(annotation.points)) return null
+    if (annotation.type === 'freeLine' && isLessThanTheMinimumPointsLength(annotation.points)) return null
+    if (annotation.type === 'line' && isSamePoints(annotation.points)) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
