@@ -29,8 +29,7 @@ export const useImageLoader: UseImageLoader = (imageId, onError, options) => {
     */
     if (hasLoader) return
     loadImageLoader(imageId, onError, options).then(setHasLoader)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageId, onError, options])
+  }, [hasLoader, imageId, onError, options])
 
   return hasLoader
 }
