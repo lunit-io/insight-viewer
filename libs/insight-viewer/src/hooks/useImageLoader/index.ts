@@ -23,6 +23,10 @@ export const useImageLoader: UseImageLoader = (imageId, onError, options) => {
   const [hasLoader, setHasLoader] = useState(false)
 
   useEffect(() => {
+    /*
+      옵션이 바뀌더라도 loader 가 셋팅이 된 후에는 setWadoImageLoader 내부에서 옵션을 다시 바꿔주기 위해 worker를 다시 initialize 해주면 오류가 나기 때문에
+      loader 가 셋팅이 되어있는 경우에는 옵션을 바꿔주지 않는다.
+    */
     if (hasLoader) return
     loadImageLoader(imageId, onError, options).then(setHasLoader)
     // eslint-disable-next-line react-hooks/exhaustive-deps
