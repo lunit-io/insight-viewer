@@ -73,7 +73,6 @@ export const useImage: UseImage = ({
     return isLoaderNeeded ? undefined : loader || getHttpClient({ requestInterceptor, timeout })
   }, [loader, requestInterceptor, scheme, timeout])
 
-  //  onImageLoaded 의 경우 별도의 ref에 담지 않고 실행하여도 문제없을 것 같습니다
   useEffect(() => {
     if (onImageLoadedRef?.current) return
     onImageLoadedRef.current = onImageLoaded
