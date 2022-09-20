@@ -10,7 +10,6 @@ import InsightViewer, {
   LineHeadMode,
 } from '@lunit/insight-viewer'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
-import ky from 'ky'
 
 const style = {
   display: 'flex',
@@ -21,12 +20,6 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-const httpClient = async (url: string) => {
-  const http = ky.create({})
-  const res = await http.get(url)
-  return res.arrayBuffer()
-}
-
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
@@ -36,7 +29,6 @@ function AnnotationDrawerContainer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
     wadouri: selected,
-    loader: httpClient,
   })
   const { viewport, setViewport } = useViewport()
   const {
