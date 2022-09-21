@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.9.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.0...@lunit/insight-viewer@5.9.1) (2022-09-21)
+
+### Features
+
+- **viewer:** modify useImage Props type ([0a253e7](https://github.com/lunit-io/frontend-components/commit/0a253e74388d1ebeeb70eb27d3577eba261a4496))
+
 ## [5.9.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.3...@lunit/insight-viewer@5.9.0) (2022-09-21)
 
 ### Features
