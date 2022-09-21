@@ -2,9 +2,10 @@ import type { Point } from '../../types'
 
 /**
  * Function to check if two points are the same in line and ruler mode
+ * or check two point compare
  */
 export const isSamePoints = (points: [Point, Point]) => {
-  const [startPoint, endPoint] = points
+  const [prevPoint, currentPoint] = points
 
-  return startPoint[0] === endPoint[0] && startPoint[1] === endPoint[1]
+  return prevPoint[0] === currentPoint[0] && prevPoint[1] === currentPoint[1]
 }
