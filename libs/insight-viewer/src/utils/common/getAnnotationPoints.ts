@@ -1,5 +1,6 @@
 import type { Point, EditMode, Annotation, AnnotationMode } from '../../types'
 
+import { isSamePoints } from './isSamePoints'
 import { getAnnotationEditingPoints } from './getAnnotationEditingPoints'
 import { getAnnotationDrawingPoints } from './getAnnotationDrawingPoints'
 
@@ -22,6 +23,13 @@ export function getAnnotationPoints({
   editStartPoint,
   selectedAnnotation,
 }: GetAnnotationPointsParams): Point[] {
+  /**
+   * If the last point of the previous point array and
+   * the current point are the same,
+   * the current point is not included in the points array.
+   */
+  if (isSamePoints([prevPoints[prevPoints.length - 1], point])) return prevPoints
+
   if (isEditing && selectedAnnotation && editStartPoint && editMode) {
     return getAnnotationEditingPoints(prevPoints, point, editStartPoint, editMode, selectedAnnotation.type)
   }
