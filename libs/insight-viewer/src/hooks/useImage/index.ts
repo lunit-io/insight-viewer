@@ -19,14 +19,12 @@ interface OnImageLoaded {
 
 interface UseImagePropsV1 {
   timeout?: number
-  onError?: OnError
   requestInterceptor?: RequestInterceptor
   loader?: never
 }
 
 interface UseImagePropsV2 {
   timeout?: never
-  onError?: never
   requestInterceptor?: never
   loader?: (url: string) => Promise<ArrayBuffer>
 }
@@ -35,6 +33,7 @@ type Props = UseImagePropsV1 | UseImagePropsV2
 interface UseImage {
   (
     props: ImageId & {
+      onError?: OnError
       onImageLoaded?: OnImageLoaded
       loaderOptions?: WadoImageLoaderOptions
     } & Props
