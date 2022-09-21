@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.9.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.3...@lunit/insight-viewer@5.9.0) (2022-09-21)
+
+### Features
+
+- **docs:** add image selector on annotation and measurement ([b2cb1f0](https://github.com/lunit-io/frontend-components/commit/b2cb1f0295ca1811e403c49b7d4a56b5bde80a81))
+- **docs:** add usage for new useImage in Basic page ([ac2fb6e](https://github.com/lunit-io/frontend-components/commit/ac2fb6ed970175586a7a390f44d9dc2fa3e0783d))
+
+### Bug Fixes
+
+- **docs:** remove not exist type export ([ee4667a](https://github.com/lunit-io/frontend-components/commit/ee4667a9418437c3db90ae1978be1955f070cf73))
+
 ## [5.8.3](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.8.2...@lunit/insight-viewer@5.8.3) (2022-09-16)
 
 ### Features
