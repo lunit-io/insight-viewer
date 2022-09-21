@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { RULER_MIN_LENGTH, CIRCLE_MIN_RADIUS } from '../../const'
 
 import type { Measurement, MeasurementBase } from '../../types'
 import type { UseMeasurementParams, MeasurementDrawingState } from './types'
+import { isSamePoints } from '../../utils/common/isSamePoints'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
@@ -37,12 +37,8 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
     measurement: Measurement,
     measurementInfo: Pick<Measurement, 'dataAttrs'> | undefined
   ): Measurement | null => {
-    if (
-      measurement.type === 'ruler' &&
-      (measurement.measuredValue === 0 || (measurement.measuredValue && measurement.measuredValue < RULER_MIN_LENGTH))
-    )
-      return null
-    if (measurement.type === 'circle' && measurement.measuredValue < CIRCLE_MIN_RADIUS) return null
+    if (measurement.type === 'ruler' && isSamePoints(measurement.startAndEndPoint)) return null
+    if (measurement.type === 'circle' && measurement.radius === 0) return null
     if (measurementInfo?.dataAttrs) {
       validateDataAttrs(measurementInfo?.dataAttrs)
     }

@@ -4,8 +4,8 @@ import { IMAGES } from '../../../const'
 import { noop } from '../../../utils'
 
 const images = {
-  case1: IMAGES,
-  case2: [...IMAGES].reverse(),
+  case1: IMAGES.slice(0, 11),
+  case2: [...IMAGES].slice(0, 11).reverse(),
 }
 
 type Case = keyof typeof images

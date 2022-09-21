@@ -84,7 +84,7 @@ describe('getMeasurementEditingPoints: ', () => {
       [25, 25],
     ])
   })
-  it('should return correct points when edit mode is startPoint and measurement mode is circle', () => {
+  it('should return centerPoint when editMode is startPoint and measurement is circle', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -110,22 +110,22 @@ describe('getMeasurementEditingPoints: ', () => {
       getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'startPoint', 'circle')
     ).toEqual([
       [0, 0],
-      [5, 5],
+      [7.0710678118654755, 0],
     ])
     expect(
       getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'circle')
     ).toEqual([
       [10, 20],
-      [15, 15],
+      [17.071067811865476, 20],
     ])
     expect(
       getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'circle')
     ).toEqual([
       [40, 60],
-      [25, 25],
+      [78.07886552931954, 60],
     ])
   })
-  it('should return correct points when edit mode is endPoint and measurement mode is circle', () => {
+  it('should return centerPoint when editMode is endPoint and measurement is circle', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -151,19 +151,19 @@ describe('getMeasurementEditingPoints: ', () => {
       getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'endPoint', 'circle')
     ).toEqual([
       [0, 0],
-      [5, 5],
+      [7.0710678118654755, 0],
     ])
     expect(
       getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'circle')
     ).toEqual([
       [10, 20],
-      [15, 15],
+      [17.071067811865476, 20],
     ])
     expect(
       getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'endPoint', 'circle')
     ).toEqual([
       [40, 60],
-      [25, 25],
+      [78.07886552931954, 60],
     ])
   })
 

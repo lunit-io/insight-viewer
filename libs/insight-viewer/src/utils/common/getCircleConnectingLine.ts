@@ -1,12 +1,12 @@
-import type { Point } from '../../types'
+import { getCircleRadiusByCenter } from "./getCircleRadius"
 
-import { getCircleRadius } from '../../utils/common/getCircleRadius'
+import type { Point } from '../../types'
 
 export function getCircleConnectingLine(points: [Point, Point], textPoint: Point): [Point, Point] {
   const startPoint = points[0]
   const endPoint = points[1]
 
-  const radius = getCircleRadius(startPoint, endPoint)
+  const radius = getCircleRadiusByCenter(startPoint, endPoint)
 
   if (startPoint[0] < textPoint[0]) {
     if (startPoint[1] < textPoint[1]) {

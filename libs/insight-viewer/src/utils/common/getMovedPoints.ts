@@ -1,12 +1,12 @@
-import { Point } from '../../types'
+import type { Point } from '../../types'
 
-interface GetMoveRulerPointsProp {
+interface GetMovedPointsProp {
   prevPoints: Point[]
   editStartPoint: Point
   currentPoint: Point
 }
 
-export function getMovedPoints({ prevPoints, editStartPoint, currentPoint }: GetMoveRulerPointsProp): [Point, Point] {
+export function getMovedPoints({ prevPoints, editStartPoint, currentPoint }: GetMovedPointsProp): [Point, Point] {
   const [currentX, currentY] = currentPoint
   const [startEditX, startEditY] = editStartPoint
 

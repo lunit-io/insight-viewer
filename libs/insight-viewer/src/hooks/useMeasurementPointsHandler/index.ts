@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
+import { getMeasurementPointsByMode } from '../../utils/common/getMeasurementPointsByMode'
 import { getTextPosition } from '../../utils/common/getTextPosition'
 import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
@@ -25,6 +26,7 @@ export default function useMeasurementPointsHandler({
   const [editMode, setEditMode] = useState<EditMode | null>(null)
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
+  const [mouseDownPoint, setMouseDownPoint] = useState<Point | null>(null)
   const [measurement, setMeasurement] = useState<Measurement | null>(null)
 
   const { image, pixelToCanvas } = useOverlayContext()
@@ -40,27 +42,28 @@ export default function useMeasurementPointsHandler({
     setEditTargetPoints(currentEditPoint)
   }, [isEditing, selectedMeasurement, pixelToCanvas])
 
-  const setInitialMeasurement = (point: Point) => {
+  const setInitialMeasurement = (point: [mouseDownX: number, mouseDownY: number]) => {
     if (isEditing && selectedMeasurement != null) {
       setEditStartPoint(point)
       return
     }
 
-    const initialPoints: [mouseDownPoint: Point, mouseUpPoint: Point] = [point, point]
+    const initialMousePoints: [Point, Point] = [point, point]
     const initialTextPosition = null
 
-    const currentMeasurement = getMeasurement(initialPoints, initialTextPosition, mode, measurements, image)
-    setMeasurement(currentMeasurement)
+    const initialMeasurement = getMeasurement(initialMousePoints, initialTextPosition, mode, measurements, image)
+    setMeasurement(initialMeasurement)
+
+    setMouseDownPoint(point)
   }
 
-  const addDrawingMeasurement = (point: Point) => {
+  const addDrawingMeasurement = (point: [mouseMoveX: number, mouseMoveY: number]) => {
     if (isEditing && selectedMeasurement != null && !editMode) return
 
     setMeasurement(() => {
       if (!measurement) return null
 
       const prevPoints = getExistingMeasurementPoints(measurement)
-
       const currentPoints = getMeasurementPoints({
         mode,
         point,
@@ -72,17 +75,30 @@ export default function useMeasurementPointsHandler({
       })
 
       setEditStartPoint(point)
-
       const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
 
       const currentTextPosition = getTextPosition(measurement, editMode, point)
 
-      const canvasPoints = currentPoints.map(pixelToCanvas) as [Point, Point]
-      const editPoints = getEditPointPosition(canvasPoints, selectedMeasurement)
+      const editPointsOnCanvas = currentPoints.map(pixelToCanvas) as [Point, Point]
+      const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
       setEditTargetPoints(editPoints)
 
-      const currentMeasurement = getMeasurement(currentPoints, currentTextPosition, drawingMode, measurements, image)
-      setMeasurement(currentMeasurement)
+      const measurementPointsByMode = getMeasurementPointsByMode(
+        isEditing,
+        editMode,
+        drawingMode,
+        mouseDownPoint,
+        point,
+        currentPoints
+      )
+
+      const currentMeasurement = getMeasurement(
+        measurementPointsByMode,
+        currentTextPosition,
+        drawingMode,
+        measurements,
+        image
+      )
 
       return currentMeasurement
     })

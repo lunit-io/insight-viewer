@@ -15,7 +15,7 @@ export const CONFIG = {
     console.error(e)
   },
   Progress: undefined,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   requestInterceptor: (_request: Request): void => {},
   timeout: 60 * 1000,
 }
@@ -49,22 +49,16 @@ export const LINE_TEXT_POSITION_SPACING = {
   y: 5,
 }
 
-export const RULER_TEXT_POSITION_SPACING = {
-  x: 10,
-  y: 15,
-}
+export const RULER_TEXT_POSITION_SPACING = 40
+
+export const HALF_OF_RULER_TEXT_BOX = 4
 
 export const CIRCLE_TEXT_POSITION_SPACING = {
   x: 75,
   y: 10,
 }
 
-// The ruler min length is 0.1mm
-export const RULER_MIN_LENGTH = 0.1
-
 export const EDIT_CIRCLE_RADIUS = 3
-
-export const CIRCLE_MIN_RADIUS = 10
 
 export const CIRCLE_EDIT_POINT_ANGLE = { START_ANGLE: -45, END_ANGLE: 135 }
 

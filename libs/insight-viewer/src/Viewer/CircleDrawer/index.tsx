@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { useOverlayContext } from '../../contexts'
 
 import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
-import { getCircleRadius } from '../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
 import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
 import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
 import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
@@ -20,12 +20,11 @@ export function CircleDrawer({
   const { pixelToCanvas } = useOverlayContext()
 
   const { centerPoint, radius, measuredValue, unit } = measurement
-
   const endPoint = getCircleEndPoint(centerPoint, radius)
 
   const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
 
-  const drawingRadius = getCircleRadius(centerPointOnCanvas, endPointOnCanvas)
+  const drawingRadius = getCircleRadiusByCenter(centerPointOnCanvas, endPointOnCanvas)
 
   const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
