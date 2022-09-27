@@ -4,6 +4,7 @@ import { useOverlayContext } from '../../contexts'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
 import { modifyConnectingLine } from '../../utils/common/modifyConnectingLine'
+import { getConnectingLinePointsFromLine } from '../../utils/common/getConnectingLinePointsFromLine'
 import { stringifyPoints } from '../../utils/common/stringifyPoints'
 
 import { HALF_OF_RULER_TEXT_BOX } from '../../const'
@@ -11,7 +12,6 @@ import { svgWrapperStyle, textStyle } from '../Viewer.styles'
 
 import type { Point } from '../../types'
 import type { RulerDrawerProps } from './RulerDrawer.types'
-import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
 
 export function RulerDrawer({
   measurement,
@@ -26,7 +26,7 @@ export function RulerDrawer({
   const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
     : getRulerTextPosition(startAndEndPointOnCanvas)
-  const connectingLineToTextBoxCenter = getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas)
+  const connectingLineToTextBoxCenter = getConnectingLinePointsFromLine(startAndEndPointOnCanvas, textPointOnCanvas)
 
   const connectingLineToTextBoxEdge = modifyConnectingLine({
     textBox,
