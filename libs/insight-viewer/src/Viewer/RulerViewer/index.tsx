@@ -17,7 +17,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   const { pixelToCanvas } = useOverlayContext()
   const [textBox, ref] = useTextBox()
   const { startAndEndPoint, measuredValue, unit } = measurement
-  const isHoveredMeasurement = measurement === hoveredMeasurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]
   const textPointOnCanvas = measurement.textPoint
@@ -25,7 +24,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     : getRulerTextPosition(startAndEndPointOnCanvas)
 
   const connectingLineToTextBoxCenter = getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas)
-  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   const connectingLineToTextBoxEdge = modifyConnectingLine({
     textBox,
@@ -33,6 +31,9 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   })
   const connectingLine = stringifyPoints(connectingLineToTextBoxEdge)
   const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
+
+  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
+  const isHoveredMeasurement = measurement === hoveredMeasurement
 
   return (
     <>

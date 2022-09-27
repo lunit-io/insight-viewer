@@ -26,9 +26,7 @@ export function RulerDrawer({
   const textPointOnCanvas = measurement.textPoint
     ? pixelToCanvas(measurement.textPoint)
     : getRulerTextPosition(startAndEndPointOnCanvas)
-
   const connectingLineToTextBoxCenter = getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas)
-  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   const connectingLineToTextBoxEdge = modifyConnectingLine({
     textBox,
@@ -39,6 +37,8 @@ export function RulerDrawer({
 
   const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
   const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')
+
+  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   return (
     <>

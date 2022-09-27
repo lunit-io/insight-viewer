@@ -18,12 +18,10 @@ import type { CircleViewerProps } from './CircleViewer.types'
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const [textBox, ref] = useTextBox()
   const { pixelToCanvas } = useOverlayContext()
-
   const { centerPoint, radius, measuredValue, unit } = measurement
 
   const endPoint = getCircleEndPoint(centerPoint, radius)
   const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
-
   const drawingRadius = getCircleRadiusByCenter(centerPointOnCanvas, endPointOnCanvas)
 
   const textPointOnCanvas = measurement.textPoint
@@ -32,15 +30,15 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
 
   const area = calculateCircleArea(measuredValue)
 
-  const isHoveredMeasurement = measurement === hoveredMeasurement
-  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
-
   const connectingLineToTextBoxCenter = getCircleConnectingLine(
     [centerPointOnCanvas, endPointOnCanvas],
     textPointOnCanvas
   )
   const connectingLineToTextBoxEdge = modifyConnectingLine({ textBox, connectingLineToTextBoxCenter })
   const connectingLine = stringifyPoints(connectingLineToTextBoxEdge)
+
+  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   return (
     <>

@@ -22,12 +22,10 @@ export function CircleDrawer({
 }: CircleDrawerProps): ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
   const [textBox, ref] = useTextBox()
-
   const { centerPoint, radius, measuredValue, unit } = measurement
+
   const endPoint = getCircleEndPoint(centerPoint, radius)
-
   const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
-
   const drawingRadius = getCircleRadiusByCenter(centerPointOnCanvas, endPointOnCanvas)
 
   const textPointOnCanvas = measurement.textPoint
@@ -36,14 +34,14 @@ export function CircleDrawer({
 
   const area = calculateCircleArea(measuredValue)
 
-  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
-
   const connectingLineToTextBoxCenter = getCircleConnectingLine(
     [centerPointOnCanvas, endPointOnCanvas],
     textPointOnCanvas
   )
   const connectingLineToTextBoxEdge = modifyConnectingLine({ textBox, connectingLineToTextBoxCenter })
   const connectingLine = stringifyPoints(connectingLineToTextBoxEdge)
+
+  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   return (
     <>
