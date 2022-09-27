@@ -1,7 +1,7 @@
 import { Point } from '../../types'
 
-const calcDistance = (pointA: Point, pointB: Point) => {
-  return Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2))
+const getDistance = (pointA: Point, pointB: Point) => {
+  return Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2)
 }
 
 const getIntersectedPoint = (width: number, height: number, line: [Point, Point]): Point => {
@@ -30,7 +30,7 @@ const getIntersectedPoint = (width: number, height: number, line: [Point, Point]
 }
 
 const findTheMostClosePoint = (targetPoint: Point, comparedPoints: Point[]) => {
-  const distances = comparedPoints.map((point) => calcDistance(targetPoint, point))
+  const distances = comparedPoints.map((point) => getDistance(targetPoint, point))
   const minDistance = Math.min(...distances)
   const index = distances.indexOf(minDistance)
 
