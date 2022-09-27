@@ -11,6 +11,7 @@ import { svgWrapperStyle, textStyle } from '../Viewer.styles'
 
 import type { Point } from '../../types'
 import type { RulerDrawerProps } from './RulerDrawer.types'
+import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
 
 export function RulerDrawer({
   measurement,
@@ -26,14 +27,15 @@ export function RulerDrawer({
     ? pixelToCanvas(measurement.textPoint)
     : getRulerTextPosition(startAndEndPointOnCanvas)
 
-  const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
+  const connectingLineToTextBoxCenter = getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas)
   const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   const connectingLineToTextBoxEdge = modifyConnectingLine({
     textBox,
-    connectingLineToTextBoxCenter: [startAndEndPointOnCanvas[1], textPointOnCanvas],
+    connectingLineToTextBoxCenter,
   })
   const connectingLine = stringifyPoints(connectingLineToTextBoxEdge)
+  const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
 
   const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
   const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')

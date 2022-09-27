@@ -11,6 +11,7 @@ import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 
 import type { Point } from '../../types'
 import type { RulerViewerProps } from './RulerViewer.types'
+import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -23,14 +24,15 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     ? pixelToCanvas(measurement.textPoint)
     : getRulerTextPosition(startAndEndPointOnCanvas)
 
-  const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
+  const connectingLineToTextBoxCenter = getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas)
   const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
 
   const connectingLineToTextBoxEdge = modifyConnectingLine({
     textBox,
-    connectingLineToTextBoxCenter: [startAndEndPointOnCanvas[1], textPointOnCanvas],
+    connectingLineToTextBoxCenter,
   })
   const connectingLine = stringifyPoints(connectingLineToTextBoxEdge)
+  const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
 
   return (
     <>
