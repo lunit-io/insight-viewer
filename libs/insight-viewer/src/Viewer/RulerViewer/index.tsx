@@ -1,22 +1,20 @@
-import React, { ReactElement, useRef } from 'react'
-
-import { textStyle, svgWrapperStyle } from '../Viewer.styles'
+import React, { ReactElement } from 'react'
+import useTextBox from '../../hooks/useTextBox'
+import { useOverlayContext } from '../../contexts'
 
 import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
-import { getConnectingLinePoints } from '../../utils/common/getConnectingLinePoints'
-import { useOverlayContext } from '../../contexts'
+import { modifyConnectingLine } from '../../utils/common/modifyConnectingLine'
+import { stringifyPoints } from '../../utils/common/stringifyPoints'
+
+import { HALF_OF_RULER_TEXT_BOX } from '../../const'
+import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 
 import type { Point } from '../../types'
 import type { RulerViewerProps } from './RulerViewer.types'
-import { HALF_OF_RULER_TEXT_BOX } from '../../const'
-
-function stringifyPoints(points: Point[]): string {
-  return points.map((point) => `${point[0]},${point[1]}`).join(' ')
-}
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-  const ref = useRef<SVGTextElement>(null)
+  const [textBox, ref] = useTextBox()
   const { startAndEndPoint, measuredValue, unit } = measurement
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
@@ -26,7 +24,13 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
     : getRulerTextPosition(startAndEndPointOnCanvas)
 
   const rulerLine = stringifyPoints(startAndEndPointOnCanvas)
-  const connectingLine = stringifyPoints(getConnectingLinePoints(startAndEndPointOnCanvas, textPointOnCanvas))
+  const textCenterModifier = textBox ? textBox.height / 2 - HALF_OF_RULER_TEXT_BOX : 0
+
+  const connectingLineToTextBoxEdge = modifyConnectingLine({
+    textBox,
+    connectingLineToTextBoxCenter: [startAndEndPointOnCanvas[1], textPointOnCanvas],
+  })
+  const connectingLine = stringifyPoints(connectingLineToTextBoxEdge)
 
   return (
     <>
@@ -52,17 +56,17 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
-      {measuredValue && (
+      {measuredValue ? (
         <text
           ref={ref}
           style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
           x={textPointOnCanvas[0]}
-          y={textPointOnCanvas[1] + HALF_OF_RULER_TEXT_BOX}
+          y={textPointOnCanvas[1] + textCenterModifier}
         >
           {measuredValue.toFixed(1)}
           {unit}
         </text>
-      )}
+      ) : null}
     </>
   )
 }
