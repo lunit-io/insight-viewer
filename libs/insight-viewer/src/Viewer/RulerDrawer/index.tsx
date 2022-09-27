@@ -55,7 +55,10 @@ export function RulerDrawer({
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
-      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
+      <polyline
+        style={{ ...svgWrapperStyle.dashLine, visibility: textBox !== null ? 'visible' : 'hidden' }}
+        points={connectingLine}
+      />
       <text
         ref={ref}
         onMouseDown={handleTextMoveOnMouseDown}

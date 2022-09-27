@@ -61,7 +61,10 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       {measuredValue ? (
         <text
           ref={ref}
-          style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+          style={{
+            ...textStyle[isHoveredMeasurement ? 'hover' : 'default'],
+            visibility: textBox !== null ? 'visible' : 'hidden',
+          }}
           x={textPointOnCanvas[0]}
           y={textPointOnCanvas[1] + textCenterModifier}
         >
