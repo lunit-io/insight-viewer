@@ -7,7 +7,7 @@ import type { CircleViewerProps } from './CircleViewer.types'
 export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerProps): ReactElement {
   const { centerPointOnCanvas, formattedValue, ref, drawingRadius, textBoxPoint, connectingLine, visibility } =
     useCircleMeasurement(measurement)
-  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const isHoveredMeasurement = measurement === hoveredMeasurement || undefined
 
   return (
     <>
@@ -15,7 +15,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         style={{
           ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
-        data-focus={isHoveredMeasurement || undefined}
+        data-focus={isHoveredMeasurement}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
@@ -24,7 +24,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         style={{
           ...svgWrapperStyle.extendsArea,
         }}
-        data-focus={isHoveredMeasurement || undefined}
+        data-focus={isHoveredMeasurement}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
@@ -33,7 +33,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         style={{
           ...svgWrapperStyle.default,
         }}
-        data-focus={isHoveredMeasurement || undefined}
+        data-focus={isHoveredMeasurement}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}

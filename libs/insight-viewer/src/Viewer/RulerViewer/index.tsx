@@ -6,7 +6,7 @@ import type { RulerViewerProps } from './RulerViewer.types'
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { rulerLine, ref, connectingLine, formattedValue, textBoxPoint, visibility } = useRulerMeasurement(measurement)
-  const isHoveredMeasurement = measurement === hoveredMeasurement
+  const isHoveredMeasurement = measurement === hoveredMeasurement || undefined
 
   return (
     <>
@@ -14,21 +14,21 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         style={{
           ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
-        data-select={isHoveredMeasurement || undefined}
+        data-select={isHoveredMeasurement}
         points={rulerLine}
       />
       <polyline
         style={{
           ...svgWrapperStyle.extendsArea,
         }}
-        data-select={isHoveredMeasurement || undefined}
+        data-select={isHoveredMeasurement}
         points={rulerLine}
       />
       <polyline
         style={{
           ...svgWrapperStyle.default,
         }}
-        data-select={isHoveredMeasurement || undefined}
+        data-select={isHoveredMeasurement}
         points={rulerLine}
       />
       <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
