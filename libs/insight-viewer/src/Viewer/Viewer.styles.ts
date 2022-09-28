@@ -35,9 +35,9 @@ const EDIT_POINTER_SELECTED_COLOR = '#FFD600'
 const EDIT_POINTER_HIGHLIGHT_COLOR = '#00FFF0'
 
 // edit stroke width
-const EDIT_DEFAULT_WIDTH = '2px'
-const EDIT_OUTLINE_WIDTH = '3px'
-const EDIT_SELECTED_OUTLINE_WIDTH = '4px'
+const EDIT_DEFAULT_WIDTH = '3px'
+const EDIT_OUTLINE_WIDTH = '4px'
+const EDIT_SELECTED_OUTLINE_WIDTH = '5px'
 
 export const TEXT_SIZE = 14
 export const FONT_WIDTH = 600
