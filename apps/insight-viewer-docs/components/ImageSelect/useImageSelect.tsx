@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Stack, Button, Text } from '@chakra-ui/react'
-import { IMAGES } from '../../const'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 
 const images = {
   image1: IMAGES[0],

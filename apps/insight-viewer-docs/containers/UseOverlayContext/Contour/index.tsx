@@ -1,7 +1,7 @@
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport, useInteraction, Viewport } from '@lunit/insight-viewer'
-import { IMAGES } from '../../../const'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import Contour from './Contour'
 
 const style = {

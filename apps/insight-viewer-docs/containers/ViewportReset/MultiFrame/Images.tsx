@@ -4,7 +4,6 @@ import InsightViewer, { useMultipleImages, useViewport, useFrame, Viewport } fro
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'
-import { IMAGES } from '../../../const'
 import useCaseSelect from './useCaseSelect'
 
 const INITIAL_VIEWPORT = {

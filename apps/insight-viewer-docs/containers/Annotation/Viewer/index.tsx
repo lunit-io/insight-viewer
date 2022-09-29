@@ -10,12 +10,12 @@ import InsightViewer, {
   Annotation,
 } from '@lunit/insight-viewer'
 import {
+  IMAGES,
   POLYGON_ANNOTATIONS,
   LINE_ANNOTATIONS,
   FREELINE_ANNOTATIONS,
   TEXT_ANNOTATIONS,
 } from '@insight-viewer-library/fixtures'
-import { IMAGES } from '../../../const'
 
 export type InitialAnnotations = {
   [mode in AnnotationMode]: Annotation[]
