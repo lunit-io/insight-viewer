@@ -16,23 +16,23 @@ describe(
       setup()
     })
 
-    it('shows initial image', () => {
+    it('shows initial(CT) image', () => {
       cy.get('[data-cy-loaded=success]').should('be.exist') // image is loaded successfully
       cy.get('[data-cy-image').contains(IMAGES[0]) // check loaded image url
       cy.percySnapshot()
     })
 
-    it('shows second image', () => {
+    it('shows second(CR) image', () => {
       cy.get('.button2').click()
       cy.get('[data-cy-loaded=success]').should('be.exist')
-      cy.get('[data-cy-image]').contains(IMAGES[5])
+      cy.get('[data-cy-image]').contains(IMAGES[12])
       cy.percySnapshot()
     })
 
-    it('shows third image', () => {
+    it('shows third(MG) image', () => {
       cy.get('.button3').click()
       cy.get('[data-cy-loaded=success]').should('be.exist')
-      cy.get('[data-cy-image]').contains(IMAGES[10])
+      cy.get('[data-cy-image]').contains(IMAGES[13])
       cy.percySnapshot()
     })
   }
