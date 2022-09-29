@@ -3,9 +3,8 @@ import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
 import {
   POLYGON_ANNOTATIONS,
   INTERSECTING_POLYGON_ANNOTATION,
-  SMALLER_THAN_MINIMUM_AREA_POLYGON_ANNOTATION,
+  SHORTER_THAN_MINIMUM_LENGTH_POLYGON_ANNOTATION,
   LINE_ANNOTATIONS,
-  SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION,
   FREELINE_ANNOTATIONS,
   SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
 } from '@insight-viewer-library/fixtures'
@@ -41,8 +40,8 @@ describe(
         cy.get('[data-cy-id]').should('have.length', 0)
       })
 
-      it('cancel drawing if smaller than the minimum area', () => {
-        drawAnnotation(SMALLER_THAN_MINIMUM_AREA_POLYGON_ANNOTATION)
+      it('cancel drawing if shorter than the minimum length', () => {
+        drawAnnotation(SHORTER_THAN_MINIMUM_LENGTH_POLYGON_ANNOTATION)
 
         cy.get('[data-cy-id]').should('have.length', 0)
       })
@@ -73,12 +72,6 @@ describe(
       })
 
       it('count line annotation before drawing', () => {
-        cy.get('[data-cy-id]').should('have.length', 0)
-      })
-
-      it('cancel drawing if smaller than the minimum length', () => {
-        drawAnnotation(SMALLER_THAN_MINIMUM_LENGTH_LINE_ANNOTATION)
-
         cy.get('[data-cy-id]').should('have.length', 0)
       })
 
