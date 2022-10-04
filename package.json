@@ -13,6 +13,7 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "nx test insight-viewer",
     "test:e2e": "nx e2e insight-viewer-docs-e2e",
+    "test:e2e-watch": "nx e2e insight-viewer-docs-e2e --watch",
     "release:minor": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=minor",
     "release:major": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=major",
     "release:patch": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=patch"
