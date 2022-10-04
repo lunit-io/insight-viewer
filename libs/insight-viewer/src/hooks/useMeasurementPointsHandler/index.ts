@@ -22,6 +22,7 @@ export default function useMeasurementPointsHandler({
   selectedMeasurement,
   addMeasurement,
   onSelectMeasurement,
+  hoveredMeasurement,
 }: UseMeasurementPointsHandlerParams): UseMeasurementPointsHandlerReturnType {
   const [editMode, setEditMode] = useState<EditMode | null>(null)
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
@@ -119,9 +120,8 @@ export default function useMeasurementPointsHandler({
 
   const addDrewMeasurement = () => {
     const isEditingMode = editMode && selectedMeasurement
-
+    if (hoveredMeasurement) return
     if (!measurement || isEditingMode) return
-
     addMeasurement(measurement)
   }
 
@@ -138,6 +138,7 @@ export default function useMeasurementPointsHandler({
     addDrawingPoint: addDrawingMeasurement,
     cancelDrawing,
     addDrewElement: addDrewMeasurement,
+    hoveredMeasurement,
   })
 
   return {
