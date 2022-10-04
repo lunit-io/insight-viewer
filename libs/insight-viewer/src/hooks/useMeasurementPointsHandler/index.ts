@@ -137,7 +137,7 @@ export default function useMeasurementPointsHandler({
     addDrawingPoint: addDrawingMeasurement,
     cancelDrawing,
     addDrewElement: addDrewMeasurement,
-    hoveredMeasurement,
+    hoveredDrawing: hoveredMeasurement,
   })
 
   return {

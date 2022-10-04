@@ -15,7 +15,7 @@ function useDrawingHandler({
   addDrawingPoint,
   cancelDrawing,
   addDrewElement,
-  hoveredMeasurement,
+  hoveredDrawing,
 }: UseDrawingHandlerParams): void {
   const { pageToPixel, enabledElement } = useOverlayContext()
 
@@ -73,7 +73,7 @@ function useDrawingHandler({
 
     const activeMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
-      if (hoveredMeasurement !== null) return
+      if (hoveredDrawing !== null) return
 
       enabledElement.element.addEventListener('mouseup', handleMouseUp)
       enabledElement.element.addEventListener('mouseleave', handleMouseLeave)
@@ -113,7 +113,7 @@ function useDrawingHandler({
     addDrewElement,
     cancelDrawing,
     setInitialPoint,
-    hoveredMeasurement,
+    hoveredDrawing,
   ])
 }
 
