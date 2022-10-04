@@ -69,6 +69,7 @@ export function MeasurementViewer({
   measurements,
   className,
   hoveredMeasurement,
+  selectedMeasurement,
   isEditing = false,
   showOutline = false,
   measurementAttrs,
@@ -78,6 +79,10 @@ export function MeasurementViewer({
 }: MeasurementViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
+
+  const measurementsOfViewer = selectedMeasurement
+    ? measurements.filter((measurement) => measurement !== selectedMeasurement)
+    : measurements
 
   return (
     <svg
@@ -91,7 +96,7 @@ export function MeasurementViewer({
         ? null
         : MeasurementsDraw({
             isEditing,
-            measurements,
+            measurements: measurementsOfViewer,
             hoveredMeasurement,
             showOutline,
             measurementAttrs,

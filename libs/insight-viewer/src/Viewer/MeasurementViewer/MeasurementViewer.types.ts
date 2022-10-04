@@ -9,6 +9,7 @@ export interface MeasurementViewerProps {
   measurements: Measurement[]
 
   hoveredMeasurement: Measurement | null
+  selectedMeasurement: Measurement | null
 
   /** <svg className={}> */
   className?: string
@@ -36,7 +37,8 @@ export interface MeasurementViewerProps {
   showOutline?: boolean
 }
 
-export interface MeasurementsDrawProps extends Omit<MeasurementViewerProps, 'width' | 'height' | 'mode'> {
+export interface MeasurementsDrawProps
+  extends Omit<MeasurementViewerProps, 'width' | 'height' | 'mode' | 'selectedMeasurement'> {
   isEditing: boolean
   showOutline: boolean
 }
