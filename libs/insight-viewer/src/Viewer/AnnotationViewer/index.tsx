@@ -68,6 +68,7 @@ export function AnnotationViewer({
   annotations,
   className,
   hoveredAnnotation,
+  selectedAnnotation,
   showOutline = true,
   showAnnotationLabel = false,
   annotationAttrs,
@@ -77,6 +78,10 @@ export function AnnotationViewer({
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
 
+  const annotationsOfViewer = selectedAnnotation
+    ? annotations.filter((annotaion) => annotaion !== selectedAnnotation)
+    : annotations
+
   return (
     <svg
       ref={svgRef}
@@ -85,10 +90,10 @@ export function AnnotationViewer({
       style={{ ...svgRootStyle.default, pointerEvents: 'none', ...style }}
       className={className}
     >
-      {annotations.length === 0 || !enabledElement
+      {annotationsOfViewer.length === 0 || !enabledElement
         ? null
         : AnnotationsDraw({
-            annotations,
+            annotations: annotationsOfViewer,
             hoveredAnnotation,
             showOutline,
             showAnnotationLabel,
