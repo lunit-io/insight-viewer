@@ -97,7 +97,8 @@ export default function useMeasurementPointsHandler({
         currentTextPosition,
         drawingMode,
         measurements,
-        image
+        image,
+        measurement
       )
 
       return currentMeasurement

@@ -11,10 +11,15 @@ export function getMeasurement(
   textPoint: Point | null,
   mode: MeasurementMode,
   measurements: Measurement[],
-  image: Image | null
+  image: Image | null,
+  measurement?: Measurement
 ): Measurement {
   const [startPoint, endPoint] = points
-  const currentId = measurements.length === 0 ? 1 : Math.max(...measurements.map(({ id }) => id), 0) + 1
+  const currentId = measurement
+    ? measurement.id
+    : measurements.length === 0
+    ? 1
+    : Math.max(...measurements.map(({ id }) => id), 0) + 1
 
   const defaultMeasurementInfo: Pick<Measurement, 'id' | 'lineWidth'> = {
     id: currentId,
