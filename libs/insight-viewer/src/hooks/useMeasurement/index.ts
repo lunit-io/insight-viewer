@@ -43,7 +43,13 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
       validateDataAttrs(measurementInfo?.dataAttrs)
     }
 
-    setMeasurements((prevMeasurements) => [...prevMeasurements, measurement])
+    setMeasurements((prevMeasurements) => {
+      if (!selectedMeasurement) return [...prevMeasurements, measurement]
+
+      return prevMeasurements.map((prevMeasurement) => {
+        return prevMeasurement.id === measurement.id ? measurement : prevMeasurement
+      })
+    })
 
     return measurement
   }
@@ -72,8 +78,6 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   }
 
   const selectMeasurement = (measurement: Measurement | null) => {
-    if (measurement) removeMeasurement(measurement)
-
     setSelectedMeasurement((prevSelectedMeasurement) =>
       measurement !== prevSelectedMeasurement ? measurement : prevSelectedMeasurement
     )
