@@ -7,6 +7,7 @@ import InsightViewer, {
   Interaction,
   Wheel,
 } from '@lunit/insight-viewer'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
 import WheelControl from './Control/Wheel'
@@ -15,7 +16,7 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-import { IMAGES, CODE_SANDBOX } from '../../const'
+import { CODE_SANDBOX } from '../../const'
 
 const MIN_FRAME = 0
 const MAX_FRAME = IMAGES.length - 1

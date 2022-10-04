@@ -1,5 +1,5 @@
 import { rest } from 'msw'
-import { IMAGES } from '../const'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 
 const PREFIX = 'wadouri:'
 

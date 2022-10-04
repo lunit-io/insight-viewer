@@ -2,9 +2,9 @@
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, useViewport, useInteraction, Viewport, HeatmapViewer } from '@lunit/insight-viewer'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
-import { IMAGES } from '../../../const'
 import posMap from './posMap'
 import { CODE } from '../Code'
 
