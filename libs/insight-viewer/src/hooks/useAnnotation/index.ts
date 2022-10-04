@@ -69,7 +69,13 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
 
-    setAnnotations((prevAnnotations) => [...prevAnnotations, annotation])
+    setAnnotations((prevAnnotations) => {
+      if (!selectedAnnotation) return [...prevAnnotations, annotation]
+
+      return prevAnnotations.map((prevAnnotation) =>
+        prevAnnotation.id === annotation.id ? annotation : prevAnnotation
+      )
+    })
 
     return annotation
   }
@@ -98,8 +104,6 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
   }
 
   const selectAnnotation = (annotation: Annotation | null) => {
-    if (annotation) removeAnnotation(annotation)
-
     setSelectedAnnotation((prevSelectedAnnotation) =>
       annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
     )
