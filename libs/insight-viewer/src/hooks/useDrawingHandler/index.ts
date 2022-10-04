@@ -32,7 +32,8 @@ function useDrawingHandler({
 
     const handleMouseUp = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      deactivateMouseDrawEvents()
+      // 여기 deactivateMouseDrawEvents 가 쓰인 이유?
+      // deactivateMouseDrawEvents()
 
       addDrewElement()
       cancelDrawing()
@@ -64,7 +65,6 @@ function useDrawingHandler({
 
     const handleMouseDown = (event: MouseEvent) => {
       activeMouseDrawEvents()
-      if (hoveredMeasurement) return
 
       const point = pageToPixel([event.pageX, event.pageY])
 
@@ -73,12 +73,14 @@ function useDrawingHandler({
 
     const activeMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
+      if (hoveredMeasurement !== null) return
 
-      enabledElement.element.addEventListener('mousemove', handleMouseMove)
       enabledElement.element.addEventListener('mouseup', handleMouseUp)
       enabledElement.element.addEventListener('mouseleave', handleMouseLeave)
-      enabledElement.element.addEventListener('mousedown', handleMouseDown)
       enabledElement.element.addEventListener('mouseover', activeMouseDrawEvents)
+      enabledElement.element.addEventListener('mousedown', handleMouseDown)
+      enabledElement.element.addEventListener('mousemove', handleMouseMove)
+
       window.addEventListener('keydown', handleKeyDown)
     }
 

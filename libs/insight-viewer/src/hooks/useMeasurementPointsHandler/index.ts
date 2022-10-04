@@ -120,7 +120,6 @@ export default function useMeasurementPointsHandler({
 
   const addDrewMeasurement = () => {
     const isEditingMode = editMode && selectedMeasurement
-    if (hoveredMeasurement) return
     if (!measurement || isEditingMode) return
     addMeasurement(measurement)
   }
