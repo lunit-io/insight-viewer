@@ -35,40 +35,41 @@ export function getInitialAnnotation({
     lineWidth: 1.5,
   }
 
-  let initialAnnotation: Annotation
+  switch (mode) {
+    case 'circle': {
+      const [startPoint, endPoint] = currentPoints
+      const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
 
-  if (mode === 'circle') {
-    const [startPoint, endPoint] = currentPoints
-    const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
-
-    initialAnnotation = {
-      ...defaultAnnotationInfo,
-      type: 'circle',
-      center: currentPoints[0],
-      radius,
+      return {
+        ...defaultAnnotationInfo,
+        type: 'circle',
+        center: currentPoints[0],
+        radius,
+      }
     }
-  } else if (mode === 'line') {
-    initialAnnotation = {
-      ...defaultAnnotationInfo,
-      labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
-      type: mode,
-      points: currentPoints,
-      hasArrowHead: lineHead === 'arrow',
+    case 'line': {
+      return {
+        ...defaultAnnotationInfo,
+        labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
+        type: mode,
+        points: currentPoints,
+        hasArrowHead: lineHead === 'arrow',
+      }
     }
-  } else if (mode === 'text') {
-    initialAnnotation = {
-      ...defaultAnnotationInfo,
-      type: mode,
-      points: currentPoints,
-      label: '',
+    case 'text': {
+      return {
+        ...defaultAnnotationInfo,
+        type: mode,
+        points: currentPoints,
+        label: '',
+      }
     }
-  } else {
-    initialAnnotation = {
-      ...defaultAnnotationInfo,
-      type: mode,
-      points: currentPoints,
+    default: {
+      return {
+        ...defaultAnnotationInfo,
+        type: mode,
+        points: currentPoints,
+      }
     }
   }
-
-  return initialAnnotation
 }

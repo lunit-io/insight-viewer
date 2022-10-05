@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { TextDrawerProps } from './TextDrawer.types'
 import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
+import type { TextDrawerProps } from './TextDrawer.types'
 export { Typing as TypingDrawer } from './Typing'
 
 export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProps): React.ReactElement | null {

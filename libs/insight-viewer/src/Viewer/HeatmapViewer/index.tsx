@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 
 import useHeatmapDrawing from '../../hooks/useHeatmapDrawing'
-
 import { style } from './HeatmapViewer.styles'
-import { HeatmapViewerProps } from './HeatmapViewer.types'
+
+import type { HeatmapViewerProps } from './HeatmapViewer.types'
 
 export function HeatmapViewer(props: HeatmapViewerProps): ReactElement<HTMLCanvasElement> {
   const [canvasRef] = useHeatmapDrawing(props)

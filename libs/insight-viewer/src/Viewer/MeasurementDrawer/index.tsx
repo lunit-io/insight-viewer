@@ -4,8 +4,9 @@ import { RulerDrawer } from '../RulerDrawer'
 import { CircleDrawer } from '../CircleDrawer'
 import { EditPointer } from '../../components/EditPointer'
 import { svgRootStyle } from '../Viewer.styles'
-import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
+
+import type { MeasurementDrawerProps } from './MeasurementDrawer.types'
 
 export function MeasurementDrawer({
   style,
