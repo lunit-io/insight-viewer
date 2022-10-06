@@ -10,18 +10,15 @@ export function LineViewer({
   showOutline,
   showAnnotationLabel,
   hoveredAnnotation,
-  annotationAttrs,
 }: LineViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const { isHoveredAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints, headPoints } =
-    getPolyViewerInfo({
-      annotation,
-      showOutline,
-      hoveredAnnotation,
-      annotationAttrs,
-      pixelToCanvas,
-    })
+  const { isHoveredAnnotation, labelPosition, polygonLabel, polygonPoints, headPoints } = getPolyViewerInfo({
+    annotation,
+    showOutline,
+    hoveredAnnotation,
+    pixelToCanvas,
+  })
 
   return (
     <>
@@ -29,7 +26,6 @@ export function LineViewer({
         <polyline
           style={{
             ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
-            ...polygonAttributes?.style,
           }}
           data-select={isHoveredAnnotation || undefined}
           points={polygonPoints}
@@ -41,18 +37,16 @@ export function LineViewer({
             <polyline
               style={{
                 ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
-                ...polygonAttributes?.style,
               }}
               points={headPoints}
             />
           )}
-          <polyline style={{ ...svgWrapperStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+          <polyline style={{ ...svgWrapperStyle.default }} points={headPoints} />
         </>
       )}
       <polyline
         style={{
           ...svgWrapperStyle.default,
-          ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
@@ -60,7 +54,6 @@ export function LineViewer({
       <polyline
         style={{
           ...svgWrapperStyle.extendsArea,
-          ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}

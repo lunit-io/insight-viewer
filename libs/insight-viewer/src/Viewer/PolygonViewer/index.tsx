@@ -10,15 +10,13 @@ export function PolygonViewer({
   showOutline,
   showAnnotationLabel,
   hoveredAnnotation,
-  annotationAttrs,
 }: PolygonViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const { isHoveredAnnotation, polygonAttributes, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
+  const { isHoveredAnnotation, labelPosition, polygonLabel, polygonPoints } = getPolyViewerInfo({
     annotation,
     showOutline,
     hoveredAnnotation,
-    annotationAttrs,
     pixelToCanvas,
   })
 
@@ -28,7 +26,6 @@ export function PolygonViewer({
         <polygon
           style={{
             ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
-            ...polygonAttributes?.style,
           }}
           data-select={isHoveredAnnotation || undefined}
           points={polygonPoints}
@@ -37,7 +34,6 @@ export function PolygonViewer({
       <polygon
         style={{
           ...svgWrapperStyle.default,
-          ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}
@@ -45,7 +41,6 @@ export function PolygonViewer({
       <polygon
         style={{
           ...svgWrapperStyle.extendsArea,
-          ...polygonAttributes?.style,
         }}
         data-select={isHoveredAnnotation || undefined}
         points={polygonPoints}

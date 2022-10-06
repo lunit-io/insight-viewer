@@ -19,7 +19,6 @@ export function AnnotationOverlay({
   device,
   isDrawing = false,
   isEditing,
-  annotationAttrs,
   onFocus,
   onAdd,
   onSelect,
@@ -40,7 +39,6 @@ export function AnnotationOverlay({
         style={style}
         showOutline={showOutline}
         showAnnotationLabel={showAnnotationLabel}
-        annotationAttrs={annotationAttrs}
         onFocus={onFocus}
         onClick={isEditing ? onSelect : onRemove}
       />

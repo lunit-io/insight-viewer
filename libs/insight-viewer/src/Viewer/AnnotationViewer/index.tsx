@@ -14,7 +14,6 @@ function AnnotationsDraw({
   showOutline,
   showAnnotationLabel,
   hoveredAnnotation,
-  annotationAttrs,
   onFocus,
   onClick,
 }: AnnotationsDrawProps) {
@@ -23,7 +22,6 @@ function AnnotationsDraw({
       showOutline,
       hoveredAnnotation,
       showAnnotationLabel,
-      annotationAttrs,
     }
 
     const handleAnnotationClick = () => {
@@ -70,7 +68,6 @@ export function AnnotationViewer({
   hoveredAnnotation,
   showOutline = true,
   showAnnotationLabel = false,
-  annotationAttrs,
   onFocus,
   onClick,
 }: AnnotationViewerProps): JSX.Element {
@@ -92,7 +89,6 @@ export function AnnotationViewer({
             hoveredAnnotation,
             showOutline,
             showAnnotationLabel,
-            annotationAttrs,
             onFocus,
             onClick,
           })}

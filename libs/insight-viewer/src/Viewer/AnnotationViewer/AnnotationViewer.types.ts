@@ -1,4 +1,4 @@
-import { CSSProperties, SVGProps } from 'react'
+import { CSSProperties } from 'react'
 import { Annotation } from '../../types'
 
 export interface AnnotationViewerProps {
@@ -17,13 +17,6 @@ export interface AnnotationViewerProps {
   style?: CSSProperties
 
   isEditing?: boolean
-
-  /**
-   * You can set the attributes of individual annotation objects
-   * If you set properties such as strokeWidth, the Style set in Styled Components is ignored
-   * It is best not to use it as much as possible except in special cases
-   */
-  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
   onFocus?: (annotation: Annotation | null) => void
   onClick?: (annotation: Annotation) => void

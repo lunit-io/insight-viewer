@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, CSSProperties, SVGProps } from 'react'
+import { Dispatch, SetStateAction, CSSProperties } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -132,7 +132,6 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   showOutline: boolean
   showAnnotationLabel: boolean
   hoveredAnnotation: Annotation | null
-  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
 export type MeasurementMode = 'ruler' | 'circle'
