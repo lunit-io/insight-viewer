@@ -22,7 +22,7 @@ export interface OverlayContext {
 const contextDefaultValue: OverlayContext = {
   image: null,
   enabledElement: null,
-  setToPixelCoordinateSystem: () => {},
+  setToPixelCoordinateSystem: () => undefined,
   pixelToCanvas: () => ({} as Point),
   pageToPixel: () => ({} as Point),
   viewport: BASE_VIEWPORT,

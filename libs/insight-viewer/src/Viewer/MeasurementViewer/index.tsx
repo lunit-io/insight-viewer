@@ -1,10 +1,11 @@
 import React, { useRef } from 'react'
 
 import { svgRootStyle } from '../Viewer.styles'
-import { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
 import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
 import { CircleViewer } from '../CircleViewer'
+
+import type { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
 
 const measurementStyle: React.CSSProperties = {
   pointerEvents: 'auto',

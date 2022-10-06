@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { MeasurementOverlayProps } from './MeasurementOverlay.types'
 import { MeasurementViewer } from '../MeasurementViewer'
 import { MeasurementDrawer } from '../MeasurementDrawer'
+
+import type { MeasurementOverlayProps } from './MeasurementOverlay.types'
 
 export function MeasurementOverlay({
   width,

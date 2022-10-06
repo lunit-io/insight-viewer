@@ -19,7 +19,7 @@ export function PolylineDrawer({
   isSelectedMode,
   selectedAnnotationLabel,
   showAnnotationLabel,
-  isPolygonSelected,
+  isPolygonSelected: polygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -48,36 +48,33 @@ export function PolylineDrawer({
   }
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
+  const isPolygonSelected = Boolean(polygonSelected)
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
       {points && points.length > 0 && (
         <>
-          <PolylineElement isPolygon={!!isPolygonSelected} style={svgWrapperStyle.outline} points={polylinePoints} />
+          <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.outline} points={polylinePoints} />
           {lineHead === 'arrow' && (
             <>
               <PolylineElement
-                isPolygon={!!isPolygonSelected}
+                isPolygon={isPolygonSelected}
                 style={svgWrapperStyle.outline}
                 points={getArrowPoints()}
               />
               <PolylineElement
-                isPolygon={!!isPolygonSelected}
+                isPolygon={isPolygonSelected}
                 style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
               />
             </>
           )}
           <PolylineElement
-            isPolygon={!!isPolygonSelected}
+            isPolygon={isPolygonSelected}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
-          <PolylineElement
-            isPolygon={!!isPolygonSelected}
-            style={svgWrapperStyle.extendsArea}
-            points={polylinePoints}
-          />
+          <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.extendsArea} points={polylinePoints} />
         </>
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (

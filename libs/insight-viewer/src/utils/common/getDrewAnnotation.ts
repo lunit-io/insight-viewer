@@ -19,44 +19,45 @@ export function getDrewAnnotation(
     lineWidth: 1.5,
   }
 
-  let drewAnnotation: Annotation
-
-  if (mode === 'circle') {
-    const [startPoint, endPoint] = points
-    /**
-     * TODO
-     * start point should be a center since the radius calculation logic has changed
-     * by the circle Measurement function change
-     */
-    const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
-    drewAnnotation = {
-      ...defaultAnnotationInfo,
-      type: 'circle',
-      center: points[0],
-      radius,
+  switch (mode) {
+    case 'circle': {
+      const [startPoint, endPoint] = points
+      /**
+       * TODO
+       * start point should be a center since the radius calculation logic has changed
+       * by the circle Measurement function change
+       */
+      const { radius } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
+      return {
+        ...defaultAnnotationInfo,
+        type: 'circle',
+        center: points[0],
+        radius,
+      }
     }
-  } else if (mode === 'line') {
-    drewAnnotation = {
-      ...defaultAnnotationInfo,
-      labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
-      type: mode,
-      points: [points[0], points[1]],
-      hasArrowHead: lineHead === 'arrow',
+    case 'line': {
+      return {
+        ...defaultAnnotationInfo,
+        labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
+        type: mode,
+        points: [points[0], points[1]],
+        hasArrowHead: lineHead === 'arrow',
+      }
     }
-  } else if (mode === 'text') {
-    drewAnnotation = {
-      ...defaultAnnotationInfo,
-      type: mode,
-      points: [points[0], points[1]],
-      label: '',
+    case 'text': {
+      return {
+        ...defaultAnnotationInfo,
+        type: mode,
+        points: [points[0], points[1]],
+        label: '',
+      }
     }
-  } else {
-    drewAnnotation = {
-      ...defaultAnnotationInfo,
-      type: mode,
-      points,
+    default: {
+      return {
+        ...defaultAnnotationInfo,
+        type: mode,
+        points,
+      }
     }
   }
-
-  return drewAnnotation
 }
