@@ -79,7 +79,7 @@ export function AnnotationViewer({
   const { enabledElement } = useOverlayContext()
 
   const annotationsOfViewer = selectedAnnotation
-    ? annotations.filter((annotaion) => annotaion !== selectedAnnotation)
+    ? annotations.filter((annotation) => annotation !== selectedAnnotation)
     : annotations
 
   return (
