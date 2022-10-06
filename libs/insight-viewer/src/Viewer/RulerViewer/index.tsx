@@ -43,7 +43,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       >
         {formattedValue}
       </text>
-      )
     </>
   )
 }
