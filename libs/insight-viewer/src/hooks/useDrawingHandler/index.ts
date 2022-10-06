@@ -32,8 +32,6 @@ function useDrawingHandler({
 
     const handleMouseUp = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      // 여기 deactivateMouseDrawEvents 가 쓰인 이유?
-      // deactivateMouseDrawEvents()
 
       addDrewElement()
       cancelDrawing()
