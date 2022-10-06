@@ -78,9 +78,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   }
 
   const selectMeasurement = (measurement: Measurement | null) => {
-    setSelectedMeasurement((prevSelectedMeasurement) =>
-      measurement !== prevSelectedMeasurement ? measurement : prevSelectedMeasurement
-    )
+    setSelectedMeasurement(measurement)
   }
 
   const updateMeasurement = (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => {

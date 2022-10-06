@@ -104,9 +104,7 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
   }
 
   const selectAnnotation = (annotation: Annotation | null) => {
-    setSelectedAnnotation((prevSelectedAnnotation) =>
-      annotation !== prevSelectedAnnotation ? annotation : prevSelectedAnnotation
-    )
+    setSelectedAnnotation(annotation)
   }
 
   const updateAnnotation = (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => {
