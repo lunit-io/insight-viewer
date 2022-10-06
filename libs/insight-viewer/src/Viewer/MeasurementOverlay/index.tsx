@@ -17,7 +17,6 @@ export function MeasurementOverlay({
   device,
   isDrawing = false,
   isEditing,
-  measurementAttrs,
   onAdd,
   onFocus,
   onSelect,
@@ -38,7 +37,6 @@ export function MeasurementOverlay({
         style={style}
         showOutline={showOutline}
         isEditing={isEditing}
-        measurementAttrs={measurementAttrs}
         onFocus={onFocus}
         onRemove={onRemove}
         onSelect={onSelect}

@@ -14,7 +14,6 @@ function MeasurementsDraw({
   measurements,
   showOutline,
   hoveredMeasurement,
-  measurementAttrs,
   onFocus,
   onRemove,
   onSelect,
@@ -23,7 +22,6 @@ function MeasurementsDraw({
     const viewerProps = {
       showOutline,
       hoveredMeasurement,
-      measurementAttrs,
     }
 
     const handleMeasurementClick = () => {
@@ -71,7 +69,6 @@ export function MeasurementViewer({
   hoveredMeasurement,
   isEditing = false,
   showOutline = false,
-  measurementAttrs,
   onFocus,
   onRemove,
   onSelect,
@@ -94,7 +91,6 @@ export function MeasurementViewer({
             measurements,
             hoveredMeasurement,
             showOutline,
-            measurementAttrs,
             onFocus,
             onRemove,
             onSelect,

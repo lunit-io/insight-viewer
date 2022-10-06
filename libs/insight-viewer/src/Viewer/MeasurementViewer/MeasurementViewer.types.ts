@@ -1,4 +1,4 @@
-import { CSSProperties, SVGProps } from 'react'
+import { CSSProperties } from 'react'
 import { Measurement } from '../../types'
 
 export interface MeasurementViewerProps {
@@ -17,13 +17,6 @@ export interface MeasurementViewerProps {
   style?: CSSProperties
 
   isEditing?: boolean
-
-  /**
-   * You can set the attributes of individual measurement objects
-   * If you set properties such as strokeWidth, the Style set in Styled Components is ignored
-   * It is best not to use it as much as possible except in special cases
-   */
-  measurementAttrs?: (measurement: Measurement, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
   onSelect: (measurement: Measurement | null) => void
   onFocus?: (measurement: Measurement | null) => void
