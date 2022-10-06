@@ -124,7 +124,7 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
         nextAnnotations[index] = nextAnnotation
 
         setHoveredAnnotation((prevHoveredAnnotation) =>
-          annotation === prevHoveredAnnotation ? nextAnnotation : prevHoveredAnnotation
+          annotation.id === prevHoveredAnnotation?.id ? nextAnnotation : prevHoveredAnnotation
         )
       }
 

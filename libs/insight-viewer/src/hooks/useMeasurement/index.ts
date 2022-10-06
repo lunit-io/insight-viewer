@@ -98,7 +98,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
         nextMeasurements[index] = nextMeasurement
 
         setSelectedMeasurement((prevSelectedMeasurement) =>
-          measurement === prevSelectedMeasurement ? nextMeasurement : prevSelectedMeasurement
+          measurement.id === prevSelectedMeasurement?.id ? nextMeasurement : prevSelectedMeasurement
         )
       }
 
