@@ -55,9 +55,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   }
 
   const hoverMeasurement = (measurement: Measurement | null) => {
-    setHoveredMeasurement((prevHoveredMeasurement) =>
-      measurement !== prevHoveredMeasurement ? measurement : prevHoveredMeasurement
-    )
+    setHoveredMeasurement(measurement)
   }
 
   const removeMeasurement = (measurement: Measurement) => {

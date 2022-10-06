@@ -81,9 +81,7 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
   }
 
   const hoverAnnotation = (annotation: Annotation | null) => {
-    setHoveredAnnotation((prevHoveredAnnotation) =>
-      annotation !== prevHoveredAnnotation ? annotation : prevHoveredAnnotation
-    )
+    setHoveredAnnotation(annotation)
   }
 
   const removeAnnotation = (annotation: Annotation) => {
