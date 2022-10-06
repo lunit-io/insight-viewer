@@ -81,7 +81,7 @@ export function MeasurementViewer({
   const { enabledElement } = useOverlayContext()
 
   const measurementsOfViewer = selectedMeasurement
-    ? measurements.filter((measurement) => measurement !== selectedMeasurement)
+    ? measurements.filter((measurement) => measurement.id !== selectedMeasurement.id)
     : measurements
 
   return (
