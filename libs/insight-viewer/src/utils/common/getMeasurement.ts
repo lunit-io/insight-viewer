@@ -15,11 +15,8 @@ export function getMeasurement(
   measurement?: Measurement
 ): Measurement {
   const [startPoint, endPoint] = points
-  const currentId = measurement
-    ? measurement.id
-    : measurements.length === 0
-    ? 1
-    : Math.max(...measurements.map(({ id }) => id), 0) + 1
+  const currentId =
+    measurement?.id || measurements.reduce((max, cur) => (max.id > cur.id ? max : cur), { id: 0 }).id + 1
 
   const defaultMeasurementInfo: Pick<Measurement, 'id' | 'lineWidth'> = {
     id: currentId,
