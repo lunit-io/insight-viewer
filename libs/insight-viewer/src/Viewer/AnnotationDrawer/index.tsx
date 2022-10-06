@@ -18,6 +18,7 @@ export function AnnotationDrawer({
   showAnnotationLabel = false,
   annotations,
   selectedAnnotation,
+  hoveredAnnotation,
   onSelectAnnotation,
   className,
   lineHead = 'normal',
@@ -26,7 +27,6 @@ export function AnnotationDrawer({
 }: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const [tempAnnotation, setTempAnnotation] = useState<TextAnnotation>()
-
   const handleTypingFinish = (text: string) => {
     setTempAnnotation(undefined)
     if (tempAnnotation && text !== '') {
@@ -41,6 +41,7 @@ export function AnnotationDrawer({
     annotations,
     selectedAnnotation,
     onSelectAnnotation,
+    hoveredAnnotation,
     svgElement: svgRef,
     addAnnotation:
       mode === 'text'

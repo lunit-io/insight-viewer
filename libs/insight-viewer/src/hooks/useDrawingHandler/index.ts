@@ -15,6 +15,7 @@ function useDrawingHandler({
   addDrawingPoint,
   cancelDrawing,
   addDrewElement,
+  hoveredDrawing,
 }: UseDrawingHandlerParams): void {
   const { pageToPixel, enabledElement } = useOverlayContext()
 
@@ -31,7 +32,6 @@ function useDrawingHandler({
 
     const handleMouseUp = (event: MouseEvent) => {
       setPreProcessEvent(event)
-      deactivateMouseDrawEvents()
 
       addDrewElement()
       cancelDrawing()
@@ -71,12 +71,14 @@ function useDrawingHandler({
 
     const activeMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
+      if (hoveredDrawing !== null) return
 
-      enabledElement.element.addEventListener('mousemove', handleMouseMove)
       enabledElement.element.addEventListener('mouseup', handleMouseUp)
       enabledElement.element.addEventListener('mouseleave', handleMouseLeave)
-      enabledElement.element.addEventListener('mousedown', handleMouseDown)
       enabledElement.element.addEventListener('mouseover', activeMouseDrawEvents)
+      enabledElement.element.addEventListener('mousedown', handleMouseDown)
+      enabledElement.element.addEventListener('mousemove', handleMouseMove)
+
       window.addEventListener('keydown', handleKeyDown)
     }
 
@@ -101,7 +103,16 @@ function useDrawingHandler({
       deactivateMouseDrawEvents()
       disableCheckMouseEvent()
     }
-  }, [svgElement, enabledElement, pageToPixel, addDrawingPoint, addDrewElement, cancelDrawing, setInitialPoint])
+  }, [
+    svgElement,
+    enabledElement,
+    pageToPixel,
+    addDrawingPoint,
+    addDrewElement,
+    cancelDrawing,
+    setInitialPoint,
+    hoveredDrawing,
+  ])
 }
 
 export default useDrawingHandler

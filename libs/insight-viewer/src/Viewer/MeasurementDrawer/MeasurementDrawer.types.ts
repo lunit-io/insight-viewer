@@ -11,7 +11,7 @@ export interface MeasurementDrawerProps extends SVGProps<SVGSVGElement> {
   onAdd: (annotation: Measurement) => void
 
   onSelectMeasurement: (measurement: Measurement | null) => void
-
+  hoveredMeasurement: Measurement | null
   /**
    * Access Device Settings
    * Only the function for mouse is implemented, and it is not applied

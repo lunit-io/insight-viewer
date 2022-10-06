@@ -15,6 +15,7 @@ export function MeasurementDrawer({
   isEditing = false,
   measurements,
   selectedMeasurement,
+  hoveredMeasurement,
   className,
   mode = 'ruler',
   onAdd,
@@ -30,6 +31,7 @@ export function MeasurementDrawer({
     svgElement: svgRef,
     selectedMeasurement,
     onSelectMeasurement,
+    hoveredMeasurement,
     addMeasurement: onAdd,
   })
   const isSelectedMeasurement = isEditing && selectedMeasurement != null

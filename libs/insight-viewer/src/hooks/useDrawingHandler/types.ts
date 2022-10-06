@@ -1,4 +1,4 @@
-import { MeasurementMode, AnnotationMode, Point } from '../../types'
+import { MeasurementMode, AnnotationMode, Point, Measurement, Annotation } from '../../types'
 
 export interface UseDrawingHandlerParams {
   mode: MeasurementMode | AnnotationMode
@@ -7,4 +7,5 @@ export interface UseDrawingHandlerParams {
   addDrawingPoint: (point: Point) => void
   cancelDrawing: () => void
   addDrewElement: () => void
+  hoveredDrawing: Measurement | Annotation | null
 }

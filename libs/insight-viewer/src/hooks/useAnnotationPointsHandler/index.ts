@@ -20,6 +20,7 @@ export default function useAnnotationPointsHandler({
   selectedAnnotation,
   addAnnotation,
   onSelectAnnotation,
+  hoveredAnnotation,
 }: UseAnnotationPointsHandlerParams): UseAnnotationPointsHandlerReturnType {
   const [editMode, setEditMode] = useState<EditMode | null>(null)
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
@@ -124,6 +125,7 @@ export default function useAnnotationPointsHandler({
     addDrawingPoint: addDrawingAnnotation,
     cancelDrawing,
     addDrewElement: addDrewAnnotation,
+    hoveredDrawing: hoveredAnnotation,
   })
 
   return { annotation, editPoints: editTargetPoints, currentEditMode: editMode, setAnnotationEditMode }
