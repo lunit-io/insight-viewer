@@ -87,12 +87,6 @@ export interface AnnotationBase {
   /** polygon label position = [x, y] */
   labelPosition?: Point
 
-  /**
-   * The data-attribute is added to the svg element
-   * You can implement functions such as css styling based on the attributes
-   */
-  dataAttrs?: { [attr: string]: string }
-
   lineWidth?: number
 }
 
@@ -139,7 +133,6 @@ export interface MeasurementBase {
   id: number
   type: MeasurementMode
   lineWidth?: number
-  dataAttrs?: { [attr: string]: string }
   textPoint: Point | null
   unit: 'px' | 'mm'
   /**

@@ -4,16 +4,6 @@ import type { Measurement, MeasurementBase } from '../../types'
 import type { UseMeasurementParams, MeasurementDrawingState } from './types'
 import { isSamePoints } from '../../utils/common/isSamePoints'
 
-function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
-  if (!dataAttrs) return
-
-  Object.keys(dataAttrs).forEach((attr) => {
-    if (!/^data-/.test(attr)) {
-      throw new Error(`Measurement.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
-    }
-  })
-}
-
 export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementParams): MeasurementDrawingState {
   const [measurements, setMeasurements] = useState<Measurement[]>([])
   const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
@@ -38,15 +28,9 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
     setHoveredMeasurement(null)
   }
 
-  const addMeasurement = (
-    measurement: Measurement,
-    measurementInfo: Pick<Measurement, 'dataAttrs'> | undefined
-  ): Measurement | null => {
+  const addMeasurement = (measurement: Measurement): Measurement | null => {
     if (measurement.type === 'ruler' && isSamePoints(measurement.startAndEndPoint)) return null
     if (measurement.type === 'circle' && measurement.radius === 0) return null
-    if (measurementInfo?.dataAttrs) {
-      validateDataAttrs(measurementInfo?.dataAttrs)
-    }
 
     setMeasurements((prevMeasurements) => [...prevMeasurements, measurement])
 
@@ -85,10 +69,6 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   }
 
   const updateMeasurement = (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => {
-    if (patch.dataAttrs) {
-      validateDataAttrs(patch.dataAttrs)
-    }
-
     const nextMeasurement: Measurement = {
       ...measurement,
       ...patch,

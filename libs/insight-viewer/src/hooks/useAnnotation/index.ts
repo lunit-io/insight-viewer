@@ -5,16 +5,6 @@ import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
 import { isSamePoints } from '../../utils/common/isSamePoints'
 import { isLessThanTheMinimumPointsLength } from '../../utils/common/isLessThanTheMinimumPointsLength'
 
-function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
-  if (!dataAttrs) return
-
-  Object.keys(dataAttrs).forEach((attr) => {
-    if (!/^data-/.test(attr)) {
-      throw new Error(`Annotation.dataAttrs 속성은 data-* 형태의 이름으로 입력되어야 합니다 (${attr})`)
-    }
-  })
-}
-
 interface UseAnnotationParams {
   nextId?: number
   initialAnnotation?: Annotation[]
@@ -24,7 +14,7 @@ interface AnnotationDrawingState {
   annotations: Annotation[]
   hoveredAnnotation: Annotation | null
   selectedAnnotation: Annotation | null
-  addAnnotation: (annotation: Annotation, annotationInfo?: Pick<Annotation, 'dataAttrs'>) => Annotation | null
+  addAnnotation: (annotation: Annotation) => Annotation | null
   hoverAnnotation: (annotation: Annotation | null) => void
   selectAnnotation: (annotation: Annotation | null) => void
   updateAnnotation: (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => void
@@ -54,10 +44,7 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
     )
   }, [initialAnnotation, nextId])
 
-  const addAnnotation = (
-    annotation: Annotation,
-    annotationInfo: Pick<Annotation, 'dataAttrs'> | undefined
-  ): Annotation | null => {
+  const addAnnotation = (annotation: Annotation): Annotation | null => {
     if (
       annotation.type === 'polygon' &&
       (isLessThanTheMinimumPointsLength(annotation.points) || getIsComplexPolygon(annotation.points))
@@ -65,9 +52,6 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
       return null
     if (annotation.type === 'freeLine' && isLessThanTheMinimumPointsLength(annotation.points)) return null
     if (annotation.type === 'line' && isSamePoints(annotation.points)) return null
-    if (annotationInfo?.dataAttrs) {
-      validateDataAttrs(annotationInfo?.dataAttrs)
-    }
 
     setAnnotations((prevAnnotations) => [...prevAnnotations, annotation])
 
@@ -106,10 +90,6 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
   }
 
   const updateAnnotation = (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => {
-    if (patch.dataAttrs) {
-      validateDataAttrs(patch.dataAttrs)
-    }
-
     const nextAnnotation: Annotation = {
       ...annotation,
       ...patch,
