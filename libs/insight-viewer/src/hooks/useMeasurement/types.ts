@@ -9,7 +9,7 @@ export interface MeasurementDrawingState {
   measurements: Measurement[]
   hoveredMeasurement: Measurement | null
   selectedMeasurement: Measurement | null
-  addMeasurement: (measurement: Measurement, measurementInfo?: Pick<Measurement, 'dataAttrs'>) => Measurement | null
+  addMeasurement: (measurement: Measurement) => Measurement | null
   hoverMeasurement: (measurement: Measurement | null) => void
   selectMeasurement: (measurement: Measurement | null) => void
   updateMeasurement: (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => void
