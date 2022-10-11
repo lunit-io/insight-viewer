@@ -35,6 +35,7 @@ export function MeasurementOverlay({
         height={height}
         measurements={measurements}
         hoveredMeasurement={hoveredMeasurement}
+        selectedMeasurement={selectedMeasurement}
         className={className}
         style={style}
         showOutline={showOutline}

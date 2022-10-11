@@ -9,6 +9,7 @@ export interface AnnotationViewerProps {
   annotations: Annotation[]
 
   hoveredAnnotation: Annotation | null
+  selectedAnnotation: Annotation | null
 
   /** <svg className={}> */
   className?: string
@@ -41,7 +42,7 @@ export interface AnnotationViewerProps {
   showAnnotationLabel?: boolean
 }
 
-export interface AnnotationsDrawProps extends Omit<AnnotationViewerProps, 'width' | 'height'> {
+export interface AnnotationsDrawProps extends Omit<AnnotationViewerProps, 'width' | 'height' | 'selectedAnnotation'> {
   showOutline: boolean
   showAnnotationLabel: boolean
 }
