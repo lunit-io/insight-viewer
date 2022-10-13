@@ -12,7 +12,6 @@ export function MeasurementDrawer({
   style,
   width,
   height,
-  device,
   isEditing = false,
   measurements,
   selectedMeasurement,
@@ -26,7 +25,6 @@ export function MeasurementDrawer({
 
   const { editPoints, measurement, currentEditMode, setMeasurementEditMode } = useMeasurementPointsHandler({
     mode,
-    device,
     isEditing,
     measurements,
     svgElement: svgRef,

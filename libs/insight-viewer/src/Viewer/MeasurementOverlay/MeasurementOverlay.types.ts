@@ -6,5 +6,4 @@ export interface MeasurementOverlayProps extends MeasurementViewerProps {
   isDrawing?: boolean
   onAdd?: (measurement: Measurement) => void
   selectedMeasurement: Measurement | null
-  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 }

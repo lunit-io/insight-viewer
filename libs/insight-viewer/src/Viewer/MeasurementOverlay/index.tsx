@@ -15,7 +15,6 @@ export function MeasurementOverlay({
   style,
   showOutline,
   mode,
-  device,
   isDrawing = false,
   isEditing,
   measurementAttrs,
@@ -54,7 +53,6 @@ export function MeasurementOverlay({
           measurements={measurements}
           className={className}
           style={style}
-          device={device}
           isEditing={isEditing}
           mode={mode}
           onAdd={onAdd}

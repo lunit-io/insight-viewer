@@ -16,7 +16,6 @@ export function AnnotationOverlay({
   showAnnotationLabel,
   mode,
   lineHead,
-  device,
   isDrawing = false,
   isEditing,
   annotationAttrs,
@@ -55,7 +54,6 @@ export function AnnotationOverlay({
           hoveredAnnotation={hoveredAnnotation}
           className={className}
           style={style}
-          device={device}
           isEditing={isEditing}
           mode={mode}
           lineHead={lineHead}

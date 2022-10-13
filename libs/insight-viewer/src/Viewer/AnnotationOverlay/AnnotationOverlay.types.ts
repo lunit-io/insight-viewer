@@ -14,5 +14,4 @@ export interface AnnotationOverlayProps extends AnnotationViewerProps {
   onAdd?: (annotation: Annotation) => void
   onRemove?: (annotation: Annotation) => void
   onSelect: (annotation: Annotation | null) => void
-  device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
 }
