@@ -57,7 +57,7 @@ export function RulerDrawer({
       />
       <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
       <text
-        className="measurement-ruler label pointer grabbing"
+        className="measurement-ruler label pointer grab"
         ref={ref}
         onMouseDown={handleTextMoveOnMouseDown}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
