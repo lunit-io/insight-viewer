@@ -12,6 +12,13 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  experimental: {
+    modularizeImports: {
+      '@chakra-ui': {
+        transform: '@chakra-ui/{{ matches.[1] }}/{{member}}',
+      },
+    },
+  },
 }
 
 module.exports = withNx(nextConfig)
