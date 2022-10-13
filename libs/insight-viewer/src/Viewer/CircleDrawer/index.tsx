@@ -18,6 +18,7 @@ export function CircleDrawer({
   return (
     <>
       <circle
+        className="measurement-circle pointer"
         onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle.outline}
         cx={centerPointOnCanvas[0]}
@@ -25,6 +26,7 @@ export function CircleDrawer({
         r={drawingRadius}
       />
       <circle
+        className="measurement-circle pointer"
         onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         cx={centerPointOnCanvas[0]}
@@ -32,14 +34,16 @@ export function CircleDrawer({
         r={drawingRadius}
       />
       <circle
+        className="measurement-circle pointer drag"
         onMouseDown={handleMoveOnMouseDown}
-        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
       <text
+        className="measurement-circle label pointer"
         ref={ref}
         onMouseDown={handleTextMoveOnMouseDown}
         style={{
