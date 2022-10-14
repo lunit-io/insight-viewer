@@ -17,8 +17,7 @@ function MeasurementsDraw({
   hoveredMeasurement,
   measurementAttrs,
   onFocus,
-  onRemove,
-  onSelect,
+  onClick,
 }: MeasurementsDrawProps) {
   return measurements.map((measurement) => {
     const viewerProps = {
@@ -28,13 +27,13 @@ function MeasurementsDraw({
     }
 
     const handleMeasurementClick = () => {
-      if (isEditing && onSelect) {
-        onSelect(measurement)
-        return
+      if (!onClick) return
+
+      if (onFocus) {
+        onFocus(null)
       }
 
-      if (!onRemove) return
-      onRemove(measurement)
+      onClick(measurement)
     }
 
     const handleMeasurementFocus = () => {
@@ -75,8 +74,7 @@ export function MeasurementViewer({
   showOutline = false,
   measurementAttrs,
   onFocus,
-  onRemove,
-  onSelect,
+  onClick,
 }: MeasurementViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
@@ -102,8 +100,7 @@ export function MeasurementViewer({
             showOutline,
             measurementAttrs,
             onFocus,
-            onRemove,
-            onSelect,
+            onClick,
           })}
     </svg>
   )
