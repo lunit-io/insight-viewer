@@ -10,6 +10,7 @@ interface EditPointerProps {
   editMode: EditMode
   isSelectedMode?: boolean
   isHighlightMode?: boolean
+  isEditing?: boolean
   setEditMode: (editMode: EditMode) => void
 }
 
@@ -20,13 +21,16 @@ export function EditPointer({
   isSelectedMode,
   isHighlightMode,
   setEditMode,
+  isEditing,
 }: EditPointerProps): JSX.Element {
   const handleOnMouseDown = () => setEditMode(editMode)
+
+  const category = isEditing ? `editing-pointer` : `drawing-pointer`
 
   return (
     <>
       <circle
-        className="edit-pointer"
+        className={category}
         onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}
@@ -34,7 +38,7 @@ export function EditPointer({
         style={editPointerStyle[isSelectedMode ? 'selectedOutline' : 'outline']}
       />
       <circle
-        className="edit-pointer move"
+        className={`${category} move`}
         onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}
@@ -42,7 +46,7 @@ export function EditPointer({
         style={editPointerStyle.extendsArea}
       />
       <circle
-        className="edit-pointer move"
+        className={`${category} move`}
         onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}

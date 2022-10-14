@@ -92,6 +92,7 @@ export function AnnotationDrawer({
                 editMode="startPoint"
                 isSelectedMode={currentEditMode === 'startPoint'}
                 isHighlightMode={isSelectedAnnotation}
+                isEditing={isEditing}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
@@ -100,6 +101,7 @@ export function AnnotationDrawer({
                 editMode="endPoint"
                 isHighlightMode={isSelectedAnnotation}
                 isSelectedMode={currentEditMode === 'endPoint'}
+                isEditing={isEditing}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
               />
