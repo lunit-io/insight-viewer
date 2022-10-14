@@ -97,8 +97,6 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
 
       return prevAnnotations
     })
-
-    setHoveredAnnotation(null)
   }
 
   const selectAnnotation = (annotation: Annotation | null) => {
