@@ -59,6 +59,7 @@ export function MeasurementDrawer({
             editMode="startPoint"
             isSelectedMode={currentEditMode === 'startPoint'}
             isHighlightMode={isSelectedMeasurement}
+            isEditing={isEditing}
             cx={editPoints[0]}
             cy={editPoints[1]}
           />
@@ -67,6 +68,7 @@ export function MeasurementDrawer({
             editMode="endPoint"
             isSelectedMode={currentEditMode === 'endPoint'}
             isHighlightMode={isSelectedMeasurement}
+            isEditing={isEditing}
             cx={editPoints[2]}
             cy={editPoints[3]}
           />
