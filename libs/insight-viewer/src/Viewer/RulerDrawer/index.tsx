@@ -35,21 +35,30 @@ export function RulerDrawer({
 
   return (
     <>
-      <polyline onMouseDown={handleMoveOnMouseDown} style={svgWrapperStyle.outline} points={rulerLine} />
       <polyline
-        data-cy-move
+        className="measurement-ruler pointer"
         onMouseDown={handleMoveOnMouseDown}
-        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        style={svgWrapperStyle.outline}
         points={rulerLine}
       />
       <polyline
         data-cy-move
+        className="measurement-ruler pointer"
+        onMouseDown={handleMoveOnMouseDown}
+        style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
+        points={rulerLine}
+      />
+      <polyline
+        data-cy-move
+        className="measurement-ruler pointer"
         onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
       <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
       <text
+        className="measurement-ruler label pointer grabbing"
+        ref={ref}
         onMouseDown={handleTextMoveOnMouseDown}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
         x={textPointOnCanvas[0]}

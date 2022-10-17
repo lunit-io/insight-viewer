@@ -57,31 +57,40 @@ export function PolylineDrawer({
           {lineHead === 'arrow' && (
             <>
               <PolylineElement
-                isPolygon={!!isPolygonSelected}
+                className="measurement-polyline pointer"
+                isPolygon={isPolygonSelected}
                 style={svgWrapperStyle.outline}
                 points={getArrowPoints()}
               />
               <PolylineElement
-                isPolygon={!!isPolygonSelected}
+                className="measurement-polyline pointer"
+                isPolygon={isPolygonSelected}
                 style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
               />
             </>
           )}
           <PolylineElement
-            isPolygon={!!isPolygonSelected}
+            className="measurement-polyline pointer"
+            isPolygon={isPolygonSelected}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
           <PolylineElement
-            isPolygon={!!isPolygonSelected}
+            className="measurement-polyline pointer"
+            isPolygon={isPolygonSelected}
             style={svgWrapperStyle.extendsArea}
             points={polylinePoints}
           />
         </>
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
-        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
+        <text
+          className="measurement-polyline label pointer"
+          style={{ ...textStyle.default }}
+          x={labelPosition[0]}
+          y={labelPosition[1]}
+        >
           {selectedAnnotationLabel}
         </text>
       )}

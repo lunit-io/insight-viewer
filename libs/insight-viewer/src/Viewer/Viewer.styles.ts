@@ -10,6 +10,7 @@ export type ViewerStyleType =
   | 'highlight'
   | 'dashLine'
   | 'extendsArea'
+  | 'selectedExtendsArea'
 
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
@@ -83,6 +84,12 @@ export const svgWrapperStyle: ViewerStyle = {
     strokeWidth: EXTENDED_AREA_WIDTH,
     stroke: 'transparent',
     cursor: 'pointer',
+  },
+  selectedExtendsArea: {
+    fill: 'transparent',
+    strokeWidth: EXTENDED_AREA_WIDTH,
+    stroke: 'transparent',
+    cursor: 'grab',
   },
   select: {
     stroke: SELECTED_COLOR,

@@ -21,24 +21,29 @@ export function EditPointer({
   isHighlightMode,
   setEditMode,
 }: EditPointerProps): JSX.Element {
+  const handleOnMouseDown = () => setEditMode(editMode)
+
   return (
     <>
       <circle
-        onMouseDown={() => setEditMode(editMode)}
+        className="edit-pointer"
+        onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
         style={editPointerStyle[isSelectedMode ? 'selectedOutline' : 'outline']}
       />
       <circle
-        onMouseDown={() => setEditMode(editMode)}
+        className="edit-pointer move"
+        onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
         style={editPointerStyle.extendsArea}
       />
       <circle
-        onMouseDown={() => setEditMode(editMode)}
+        className="edit-pointer move"
+        onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}

@@ -39,31 +39,39 @@ export function CircleDrawer({
   return (
     <>
       <circle
-        onMouseDown={() => setMeasurementEditMode('move')}
+        className="measurement-circle pointer"
+        onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle.outline}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
-        onMouseDown={() => setMeasurementEditMode('move')}
+        className="measurement-circle pointer"
+        onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
-        onMouseDown={() => setMeasurementEditMode('move')}
-        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        className="measurement-circle pointer drag"
+        onMouseDown={handleMoveOnMouseDown}
+        style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <text
-        onMouseDown={() => setMeasurementEditMode('textMove')}
-        style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
-        x={textPointOnCanvas[0]}
-        y={textPointOnCanvas[1]}
+        className="measurement-circle label pointer"
+        ref={ref}
+        onMouseDown={handleTextMoveOnMouseDown}
+        style={{
+          ...textStyle[isSelectedMode ? 'select' : 'default'],
+          visibility,
+        }}
+        x={textBoxPoint[0]}
+        y={textBoxPoint[1]}
       >
         {`Area = ${area.toLocaleString(undefined, {
           minimumFractionDigits: 1,
