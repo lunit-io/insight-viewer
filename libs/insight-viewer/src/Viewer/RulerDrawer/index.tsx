@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useRef } from 'react'
 
 import { svgWrapperStyle, textStyle } from '../Viewer.styles'
 
@@ -20,6 +20,7 @@ export function RulerDrawer({
   setMeasurementEditMode,
 }: RulerDrawerProps): ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
+  const ref = useRef<SVGTextElement>(null)
   const { startAndEndPoint, measuredValue, unit } = measurement
 
   const startAndEndPointOnCanvas = startAndEndPoint.map(pixelToCanvas) as [Point, Point]

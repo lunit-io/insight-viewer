@@ -54,24 +54,19 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         data-select={isHoveredMeasurement || undefined}
         points={rulerLine}
       />
-      <polyline
-        className="measurement-ruler dashLine"
-        style={{ ...svgWrapperStyle.dashLine, visibility }}
-        points={connectingLine}
-      />
-      <text
-        className="measurement-ruler label pointer"
-        ref={ref}
-        style={{
-          ...textStyle[isHoveredMeasurement ? 'hover' : 'default'],
-          visibility,
-        }}
-        x={textBoxPoint[0]}
-        y={textBoxPoint[1]}
-      >
-        {formattedValue}
-      </text>
-      )
+      <polyline className="measurement-ruler dashLine" style={svgWrapperStyle.dashLine} points={connectingLine} />
+      {
+        <text
+          className="measurement-ruler label pointer"
+          ref={ref}
+          style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+          x={textPointOnCanvas[0]}
+          y={textPointOnCanvas[1] + HALF_OF_RULER_TEXT_BOX}
+        >
+          {measuredValue.toFixed(1)}
+          {unit}
+        </text>
+      }
     </>
   )
 }

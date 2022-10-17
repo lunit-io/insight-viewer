@@ -36,6 +36,9 @@ export function CircleDrawer({
 
   const area = calculateCircleArea(measuredValue)
 
+  const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
+  const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')
+
   return (
     <>
       <circle
@@ -58,20 +61,13 @@ export function CircleDrawer({
         className="measurement-circle pointer drag"
         onMouseDown={handleMoveOnMouseDown}
         style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
-        cx={centerPointOnCanvas[0]}
-        cy={centerPointOnCanvas[1]}
-        r={drawingRadius}
       />
       <text
         className="measurement-circle label pointer"
-        ref={ref}
         onMouseDown={handleTextMoveOnMouseDown}
-        style={{
-          ...textStyle[isSelectedMode ? 'select' : 'default'],
-          visibility,
-        }}
-        x={textBoxPoint[0]}
-        y={textBoxPoint[1]}
+        style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
+        x={textPointOnCanvas[0]}
+        y={textPointOnCanvas[1]}
       >
         {`Area = ${area.toLocaleString(undefined, {
           minimumFractionDigits: 1,
