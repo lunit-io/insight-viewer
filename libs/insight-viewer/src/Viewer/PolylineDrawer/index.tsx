@@ -19,7 +19,7 @@ export function PolylineDrawer({
   isSelectedMode,
   selectedAnnotationLabel,
   showAnnotationLabel,
-  isPolygonSelected: polygonSelected,
+  isPolygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -48,7 +48,6 @@ export function PolylineDrawer({
   }
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
-  const isPolygonSelected = Boolean(polygonSelected)
   const isDrawing = isPolygonSelected ? undefined : 'isDrawing'
 
   return (
