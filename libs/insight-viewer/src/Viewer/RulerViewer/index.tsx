@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement } from 'react'
 
 import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 
@@ -16,7 +16,6 @@ function stringifyPoints(points: Point[]): string {
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-  const ref = useRef<SVGTextElement>(null)
   const { startAndEndPoint, measuredValue, unit } = measurement
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
@@ -58,7 +57,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       {
         <text
           className="measurement-ruler label pointer"
-          ref={ref}
           style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
           x={textPointOnCanvas[0]}
           y={textPointOnCanvas[1] + HALF_OF_RULER_TEXT_BOX}
