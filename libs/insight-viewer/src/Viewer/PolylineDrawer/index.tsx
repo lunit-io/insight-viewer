@@ -49,6 +49,7 @@ export function PolylineDrawer({
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
   const isPolygonSelected = Boolean(polygonSelected)
+  const isDrawing = isPolygonSelected ? undefined : 'isDrawing'
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
@@ -58,13 +59,13 @@ export function PolylineDrawer({
           {lineHead === 'arrow' && (
             <>
               <PolylineElement
-                className="measurement-polyline pointer"
+                className={`annotation-polyline pointer ${isDrawing}`}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle.outline}
                 points={getArrowPoints()}
               />
               <PolylineElement
-                className="measurement-polyline pointer"
+                className={`annotation-polyline pointer ${isDrawing}`}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
@@ -72,13 +73,13 @@ export function PolylineDrawer({
             </>
           )}
           <PolylineElement
-            className="measurement-polyline pointer"
+            className={`annotation-polyline pointer ${isDrawing}`}
             isPolygon={isPolygonSelected}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
           <PolylineElement
-            className="measurement-polyline pointer"
+            className={`annotation-polyline pointer ${isDrawing}`}
             isPolygon={isPolygonSelected}
             style={svgWrapperStyle.extendsArea}
             points={polylinePoints}
@@ -87,7 +88,7 @@ export function PolylineDrawer({
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
         <text
-          className="measurement-polyline label pointer"
+          className={`annotation-polyline label pointer ${isDrawing}`}
           style={{ ...textStyle.default }}
           x={labelPosition[0]}
           y={labelPosition[1]}

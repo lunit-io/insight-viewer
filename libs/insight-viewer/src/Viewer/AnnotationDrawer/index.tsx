@@ -55,6 +55,7 @@ export function AnnotationDrawer({
   })
 
   const isSelectedAnnotation = isEditing && selectedAnnotation != null
+  const isDrawing = !selectedAnnotation
 
   return (
     <>
@@ -91,7 +92,7 @@ export function AnnotationDrawer({
                 editMode="startPoint"
                 isSelectedMode={currentEditMode === 'startPoint'}
                 isHighlightMode={isSelectedAnnotation}
-                isEditing={isEditing}
+                isDrawing={isDrawing}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
               />
@@ -100,7 +101,7 @@ export function AnnotationDrawer({
                 editMode="endPoint"
                 isHighlightMode={isSelectedAnnotation}
                 isSelectedMode={currentEditMode === 'endPoint'}
-                isEditing={isEditing}
+                isDrawing={isDrawing}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
               />

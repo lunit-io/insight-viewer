@@ -10,7 +10,7 @@ interface EditPointerProps {
   editMode: EditMode
   isSelectedMode?: boolean
   isHighlightMode?: boolean
-  isEditing?: boolean
+  isDrawing?: boolean
   setEditMode: (editMode: EditMode) => void
 }
 
@@ -21,11 +21,11 @@ export function EditPointer({
   isSelectedMode,
   isHighlightMode,
   setEditMode,
-  isEditing,
+  isDrawing,
 }: EditPointerProps): JSX.Element {
   const handleOnMouseDown = () => setEditMode(editMode)
 
-  const category = isEditing ? `editing-pointer` : `drawing-pointer`
+  const category = isDrawing ? `drawing-pointer` : `editing-pointer`
 
   return (
     <>
