@@ -48,7 +48,7 @@ function MeasurementDrawerContainer(): JSX.Element {
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEditing(event.target.checked)
   }
-  console.log('measurementMode', measurementMode)
+
   return (
     <>
       <Box>
