@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement } from 'react'
 
 import { textStyle, svgWrapperStyle } from '../Viewer.styles'
 
@@ -16,7 +16,6 @@ function stringifyPoints(points: Point[]): string {
 
 export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
-  const ref = useRef<SVGTextElement>(null)
   const { startAndEndPoint, measuredValue, unit } = measurement
   const isHoveredMeasurement = measurement === hoveredMeasurement
 
@@ -31,6 +30,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   return (
     <>
       <polyline
+        className="measurement-ruler pointer"
         style={{
           ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
@@ -38,6 +38,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline
+        className="measurement-ruler pointer"
         style={{
           ...svgWrapperStyle.extendsArea,
         }}
@@ -45,16 +46,17 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline
+        className="measurement-ruler pointer"
         style={{
           ...svgWrapperStyle.default,
         }}
         data-select={isHoveredMeasurement || undefined}
         points={rulerLine}
       />
-      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
-      {measuredValue && (
+      <polyline className="measurement-ruler dashLine" style={svgWrapperStyle.dashLine} points={connectingLine} />
+      {
         <text
-          ref={ref}
+          className="measurement-ruler label pointer"
           style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
           x={textPointOnCanvas[0]}
           y={textPointOnCanvas[1] + HALF_OF_RULER_TEXT_BOX}
@@ -62,7 +64,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
           {measuredValue.toFixed(1)}
           {unit}
         </text>
-      )}
+      }
     </>
   )
 }

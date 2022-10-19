@@ -23,6 +23,7 @@ export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProp
     <>
       {label && (
         <text
+          className="annotation-text label grab"
           style={{
             ...textStyle.select,
             textAnchor: 'start',
@@ -43,6 +44,7 @@ export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProp
         </text>
       )}
       <rect
+        className="annotation-text box grab"
         style={svgBoxStyle.select}
         x={start[0]}
         y={start[1]}

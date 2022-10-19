@@ -26,6 +26,7 @@ export function PolygonViewer({
     <>
       {showOutline && (
         <polygon
+          className="annotation-polygon pointer"
           style={{
             ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
@@ -35,6 +36,7 @@ export function PolygonViewer({
         />
       )}
       <polygon
+        className="annotation-polygon pointer"
         style={{
           ...svgWrapperStyle.default,
           ...polygonAttributes?.style,
@@ -43,6 +45,7 @@ export function PolygonViewer({
         points={polygonPoints}
       />
       <polygon
+        className="annotation-polygon pointer"
         style={{
           ...svgWrapperStyle.extendsArea,
           ...polygonAttributes?.style,
@@ -51,7 +54,12 @@ export function PolygonViewer({
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
-        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
+        <text
+          className="annotation-polygon label pointer"
+          style={{ ...textStyle.default }}
+          x={labelPosition[0]}
+          y={labelPosition[1]}
+        >
           {polygonLabel}
         </text>
       )}

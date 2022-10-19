@@ -15,6 +15,7 @@ export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): 
   return (
     <>
       <text
+        className="annotation-text pointer"
         style={{
           ...textStyle[isHoveredAnnotation ? 'hover' : 'default'],
           textAnchor: 'start',
@@ -24,12 +25,18 @@ export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): 
         y={start[1] + TEXT_PADDING}
       >
         {annotation.label.split('\n').map((line, index) => (
-          <tspan x={start[0] + TEXT_PADDING} y={start[1] + index * TEXT_SIZE * LINE_HEIGHT + TEXT_PADDING} key={index}>
+          <tspan
+            className="annotation-text label"
+            x={start[0] + TEXT_PADDING}
+            y={start[1] + index * TEXT_SIZE * LINE_HEIGHT + TEXT_PADDING}
+            key={index}
+          >
             {line}
           </tspan>
         ))}
       </text>
       <rect
+        className="annotation-text box pointer"
         style={{ ...svgBoxStyle[isHoveredAnnotation ? 'hover' : 'default'] }}
         x={start[0]}
         y={start[1]}

@@ -33,6 +33,7 @@ export function MeasurementDrawer({
     addMeasurement: onAdd,
   })
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
+  const isDrawing = !selectedMeasurement
 
   if (!measurement || (measurement && measurement.measuredValue === 0)) return null
 
@@ -59,6 +60,7 @@ export function MeasurementDrawer({
             editMode="startPoint"
             isSelectedMode={currentEditMode === 'startPoint'}
             isHighlightMode={isSelectedMeasurement}
+            isDrawing={isDrawing}
             cx={editPoints[0]}
             cy={editPoints[1]}
           />
@@ -67,6 +69,7 @@ export function MeasurementDrawer({
             editMode="endPoint"
             isSelectedMode={currentEditMode === 'endPoint'}
             isHighlightMode={isSelectedMeasurement}
+            isDrawing={isDrawing}
             cx={editPoints[2]}
             cy={editPoints[3]}
           />
