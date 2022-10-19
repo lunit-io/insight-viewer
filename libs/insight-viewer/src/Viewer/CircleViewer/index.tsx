@@ -37,6 +37,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
   return (
     <>
       <circle
+        className="measurement-circle pointer"
         style={{
           ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
@@ -46,6 +47,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <circle
+        className="measurement-circle pointer"
         style={{
           ...svgWrapperStyle.extendsArea,
         }}
@@ -55,6 +57,7 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         r={drawingRadius}
       />
       <circle
+        className="measurement-circle pointer"
         style={{
           ...svgWrapperStyle.default,
         }}
@@ -63,7 +66,14 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
+      <polyline
+        className="measurement-circle dashLine"
+        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
+        x={textPointOnCanvas[0]}
+        y={textPointOnCanvas[1]}
+      />
       <text
+        className="measurement-circle label pointer"
         style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
         x={textPointOnCanvas[0]}
         y={textPointOnCanvas[1]}

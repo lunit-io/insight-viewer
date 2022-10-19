@@ -7,5 +7,5 @@ export interface PolylineDrawerProps {
   showAnnotationLabel: boolean
   selectedAnnotationLabel: string | number | null
   setAnnotationEditMode: (mode: EditMode) => void
-  isPolygonSelected?: boolean
+  isPolygonSelected: boolean
 }

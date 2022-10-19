@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.10.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.2...@lunit/insight-viewer@5.10.0) (2022-10-19)
+
+### Features
+
+- **viewer:** add className ([d0f28f3](https://github.com/lunit-io/frontend-components/commit/d0f28f36074ee9cf557c22ca72cca5d08ee499b4))
+- **viewer:** modify className ([c7e2262](https://github.com/lunit-io/frontend-components/commit/c7e226235678d9454b597b55ad0e31b3a38250e6))
+- **viewer:** modify EditPointer classname ([a3517ea](https://github.com/lunit-io/frontend-components/commit/a3517ea783fe86fa82d89012e77932f4909db962))
+
+### Bug Fixes
+
+- **viewer:** conflict error ([eb0d0d9](https://github.com/lunit-io/frontend-components/commit/eb0d0d9ff880fc06953b8b0bbb00db6589584d91))
+
 ## [5.9.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.1...@lunit/insight-viewer@5.9.2) (2022-09-27)
 
 ### Features

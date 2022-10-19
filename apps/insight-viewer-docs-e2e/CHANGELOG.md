@@ -2,6 +2,8 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.10.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.2...@lunit/insight-viewer@5.10.0) (2022-10-19)
+
 ## [5.9.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.1...@lunit/insight-viewer@5.9.2) (2022-09-27)
 
 ## [5.9.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.0...@lunit/insight-viewer@5.9.1) (2022-09-21)
