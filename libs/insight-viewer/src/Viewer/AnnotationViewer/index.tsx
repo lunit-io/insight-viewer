@@ -27,9 +27,13 @@ function AnnotationsDraw({
     }
 
     const handleAnnotationClick = () => {
-      if (onClick) {
-        onClick(annotation)
+      if (!onClick) return
+
+      if (onFocus) {
+        onFocus(null)
       }
+
+      onClick(annotation)
     }
 
     const handleAnnotationFocus = () => {

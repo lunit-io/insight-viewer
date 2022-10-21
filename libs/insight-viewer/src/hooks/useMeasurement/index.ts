@@ -76,8 +76,6 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
 
       return prevMeasurements
     })
-
-    initializeInstantMeasurement()
   }
 
   const selectMeasurement = (measurement: Measurement | null) => {

@@ -26,9 +26,8 @@ export interface MeasurementViewerProps {
    */
   measurementAttrs?: (measurement: Measurement, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
-  onSelect: (measurement: Measurement | null) => void
+  onClick?: (measurement: Measurement) => void
   onFocus?: (measurement: Measurement | null) => void
-  onRemove?: (measurement: Measurement) => void
 
   /**
    * Draw an outline on the line
