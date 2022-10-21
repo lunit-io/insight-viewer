@@ -8,6 +8,7 @@ export interface UseMeasurementPointsHandlerParams {
   mode: MeasurementMode
   measurements: Measurement[]
   selectedMeasurement: Measurement | null
+  hoveredMeasurement: Measurement | null
   svgElement: RefObject<SVGSVGElement> | null
   device?: 'all' | 'mouse-only' | 'touch-only' | 'stylus-only' | 'mouse-and-stylus'
   addMeasurement: (measurement: Measurement) => void

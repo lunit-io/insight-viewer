@@ -3,6 +3,7 @@ import { Measurement, MeasurementMode } from '../../types'
 
 export interface MeasurementDrawerProps extends SVGProps<SVGSVGElement> {
   selectedMeasurement: Measurement | null
+  hoveredMeasurement: Measurement | null
   measurements: Measurement[]
 
   isEditing?: boolean
