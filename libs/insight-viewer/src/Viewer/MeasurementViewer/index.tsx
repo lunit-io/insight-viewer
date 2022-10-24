@@ -85,7 +85,7 @@ export function MeasurementViewer({
       width={width}
       height={height}
       style={{ ...svgRootStyle.default, pointerEvents: 'none', ...style }}
-      className={className}
+      // className={cursorStatus}
     >
       {measurements.length === 0 || !enabledElement
         ? null

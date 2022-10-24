@@ -1,4 +1,5 @@
 import React from 'react'
+import useTilg from 'tilg'
 
 import { AnnotationOverlayProps } from './AnnotationOverlay.types'
 import { AnnotationViewer } from '../AnnotationViewer'
@@ -25,6 +26,7 @@ export function AnnotationOverlay({
   onSelect,
   onRemove,
 }: AnnotationOverlayProps): JSX.Element {
+  // useTilg
   if (isDrawing && !onAdd) {
     throw new Error('Please also add onAdd if you enable drawing mode')
   }
@@ -50,6 +52,7 @@ export function AnnotationOverlay({
           height={height}
           annotations={annotations}
           selectedAnnotation={selectedAnnotation}
+          hoveredAnnotation={hoveredAnnotation}
           showAnnotationLabel={showAnnotationLabel}
           className={className}
           style={style}

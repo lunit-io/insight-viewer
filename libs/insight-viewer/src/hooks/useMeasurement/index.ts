@@ -18,7 +18,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   const [measurements, setMeasurements] = useState<Measurement[]>([])
   const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
   const [selectedMeasurement, setSelectedMeasurement] = useState<Measurement | null>(null)
-
+  console.log('hoveredMeasurement', hoveredMeasurement)
   useEffect(() => {
     setMeasurements(() =>
       initialMeasurement
@@ -49,6 +49,8 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
   }
 
   const hoverMeasurement = (measurement: Measurement | null) => {
+    // TODO: selectedMeasurement이 있을 때 hoveredMeasurement가 동작하지 않는 문제가 있습니다.
+    // TODO: hoveredMeasurement가 제거되면 null으로 초기화되지 않는 문제가 있습니다.
     setHoveredMeasurement((prevHoveredMeasurement) =>
       measurement !== prevHoveredMeasurement ? measurement : prevHoveredMeasurement
     )
@@ -69,6 +71,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
     })
 
     setSelectedMeasurement(null)
+    setHoveredMeasurement(null)
   }
 
   const selectMeasurement = (measurement: Measurement | null) => {

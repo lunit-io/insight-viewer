@@ -3,6 +3,7 @@ import { Annotation, AnnotationMode, LineHeadMode } from '../../types'
 
 export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
   selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   annotations: Annotation[]
 
   isEditing?: boolean

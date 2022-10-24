@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { MeasurementOverlayProps } from './MeasurementOverlay.types'
 import { MeasurementViewer } from '../MeasurementViewer'
 import { MeasurementDrawer } from '../MeasurementDrawer'
+import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
+import CursorArea from '../CursorArea'
 
 export function MeasurementOverlay({
   width,
@@ -13,16 +15,30 @@ export function MeasurementOverlay({
   className,
   style,
   showOutline,
-  mode,
+  mode = 'ruler',
   device,
   isDrawing = false,
-  isEditing,
+  isEditing = false,
   measurementAttrs,
   onAdd,
   onFocus,
   onSelect,
   onRemove,
 }: MeasurementOverlayProps): JSX.Element {
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  const { editPoints, measurement, currentEditMode, setMeasurementEditMode, cursorStatus } =
+    useMeasurementPointsHandler({
+      mode,
+      isEditing,
+      measurements,
+      hoveredMeasurement,
+      svgElement: svgRef,
+      selectedMeasurement,
+      onSelectMeasurement: onSelect,
+      addMeasurement: onAdd,
+    })
+
   if (isDrawing && !onAdd) {
     throw new Error('Please also add onAdd if you enable drawing mode')
   }
@@ -48,15 +64,14 @@ export function MeasurementOverlay({
           width={width}
           height={height}
           selectedMeasurement={selectedMeasurement}
-          hoveredMeasurement={hoveredMeasurement}
-          measurements={measurements}
           className={className}
           style={style}
-          device={device}
           isEditing={isEditing}
-          mode={mode}
-          onAdd={onAdd}
           onSelectMeasurement={onSelect}
+          editPoints={editPoints}
+          measurement={measurement}
+          currentEditMode={currentEditMode}
+          setMeasurementEditMode={setMeasurementEditMode}
         />
       )}
     </>

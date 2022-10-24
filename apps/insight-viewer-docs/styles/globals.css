@@ -35,3 +35,23 @@ html {
 .move {
   cursor: url('../assets/move.png') 10 10, auto !important;
 } */
+
+.pointer {
+  cursor: url('../assets/pen.png') 10 10, auto !important;
+}
+
+.idle {
+  cursor: url('../assets/ruler.png') 10 10, auto !important;
+}
+
+.hovered {
+  cursor: url('../assets/crosshair.png') 10 10, auto !important;
+}
+
+.move {
+  cursor: url('../assets/default.png') 10 10, auto !important;
+}
+
+.edit {
+  cursor: url('../assets/move.png') 10 10, auto !important;
+}

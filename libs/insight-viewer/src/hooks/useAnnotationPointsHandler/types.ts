@@ -7,6 +7,7 @@ export interface UseAnnotationPointsHandlerParams {
   lineHead: LineHeadMode
   annotations: Annotation[]
   selectedAnnotation: Annotation | null
+  hoveredAnnotation: Annotation | null
   svgElement: React.RefObject<SVGSVGElement> | null
   addAnnotation: (annotation: Annotation) => void
   onSelectAnnotation: (annotation: Annotation | null) => void

@@ -30,7 +30,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   return (
     <>
       <polyline
-        className="measurement-ruler pointer"
+        className="measurement-ruler"
         style={{
           ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
@@ -38,7 +38,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline
-        className="measurement-ruler pointer"
+        className="measurement-ruler"
         style={{
           ...svgWrapperStyle.extendsArea,
         }}
@@ -46,7 +46,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline
-        className="measurement-ruler pointer"
+        className="measurement-ruler"
         style={{
           ...svgWrapperStyle.default,
         }}
@@ -56,7 +56,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       <polyline className="measurement-ruler dashLine" style={svgWrapperStyle.dashLine} points={connectingLine} />
       {
         <text
-          className="measurement-ruler label pointer"
+          className="measurement-ruler label"
           style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
           x={textPointOnCanvas[0]}
           y={textPointOnCanvas[1] + HALF_OF_RULER_TEXT_BOX}

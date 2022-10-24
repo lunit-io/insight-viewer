@@ -5,35 +5,21 @@ import { CircleDrawer } from '../CircleDrawer'
 import { EditPointer } from '../../components/EditPointer'
 import { svgRootStyle } from '../Viewer.styles'
 import { MeasurementDrawerProps } from './MeasurementDrawer.types'
-import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 
 export function MeasurementDrawer({
   style,
   width,
   height,
-  device,
   isEditing = false,
-  measurements,
   selectedMeasurement,
-  hoveredMeasurement,
   className,
-  mode = 'ruler',
-  onAdd,
-  onSelectMeasurement,
+  measurement,
+  setMeasurementEditMode,
+  currentEditMode,
+  editPoints,
 }: MeasurementDrawerProps): JSX.Element | null {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const { editPoints, measurement, currentEditMode, setMeasurementEditMode } = useMeasurementPointsHandler({
-    mode,
-    device,
-    isEditing,
-    measurements,
-    hoveredMeasurement,
-    svgElement: svgRef,
-    selectedMeasurement,
-    onSelectMeasurement,
-    addMeasurement: onAdd,
-  })
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
   const isDrawing = !selectedMeasurement
 

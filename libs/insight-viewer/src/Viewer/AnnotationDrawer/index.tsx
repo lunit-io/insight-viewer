@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-
+import useTilg from 'tilg'
 import { checkIsInitialAnnotation } from '../../utils/common/checkIsInitialAnnotation'
 
 import { svgRootStyle } from '../Viewer.styles'
@@ -19,11 +19,13 @@ export function AnnotationDrawer({
   annotations,
   selectedAnnotation,
   onSelectAnnotation,
+  hoveredAnnotation,
   className,
   lineHead = 'normal',
   mode = 'polygon',
   onAdd,
 }: AnnotationDrawerProps): JSX.Element {
+  // useTilg()
   const svgRef = useRef<SVGSVGElement>(null)
   const [tempAnnotation, setTempAnnotation] = useState<TextAnnotation>()
 
@@ -41,6 +43,7 @@ export function AnnotationDrawer({
     annotations,
     selectedAnnotation,
     onSelectAnnotation,
+    hoveredAnnotation,
     svgElement: svgRef,
     addAnnotation:
       mode === 'text'

@@ -4,7 +4,7 @@ import { Measurement } from '../../types'
 export interface MeasurementViewerProps {
   width?: number
   height?: number
-
+  cursorStatus?: string
   /** Measurement focused by user interaction such as mouse over */
   measurements: Measurement[]
 

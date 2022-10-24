@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useTilg from 'tilg'
 
 import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
 import { Point, EditMode, Annotation } from '../../types'
@@ -10,6 +11,7 @@ import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPoin
 import { getExistingAnnotationPoints } from '../../utils/common/getExistingAnnotationPoints'
 
 import useDrawingHandler from '../useDrawingHandler'
+import { getCursorStatus } from '../useMeasurementPointsHandler/getCursorStatus'
 
 export default function useAnnotationPointsHandler({
   mode,
@@ -18,6 +20,7 @@ export default function useAnnotationPointsHandler({
   svgElement,
   annotations,
   selectedAnnotation,
+  hoveredAnnotation,
   addAnnotation,
   onSelectAnnotation,
 }: UseAnnotationPointsHandlerParams): UseAnnotationPointsHandlerReturnType {
@@ -25,7 +28,33 @@ export default function useAnnotationPointsHandler({
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [annotation, setAnnotation] = useState<Annotation | null>(null)
+  console.log('editMode', editMode)
+  console.log('editStartPoint', editStartPoint)
+  console.log('editTargetPoints', editTargetPoints)
+  console.log('annotation', annotation)
+  console.log('hoveredAnnotation', hoveredAnnotation)
+  // useTilg()
+  let cursor = 'idle'
 
+  if (editStartPoint != null) {
+    if (editMode === 'startPoint')
+      if (selectedAnnotation != null) {
+        cursor = 'move'
+      } else {
+        cursor = 'drawing'
+      }
+  }
+  if (hoveredAnnotation != null) cursor = 'hovered'
+  console.log('cursor', cursor)
+
+  // const status = getCursorStatus({
+  //   editMode,
+  //   editStartPoint,
+  //   mouseDownPoint,
+  //   isEditing,
+  // })
+
+  // console.log('status', status)
   const { image, pixelToCanvas } = useOverlayContext()
 
   useEffect(() => {
