@@ -1,4 +1,5 @@
-import { Box, Text, Button, Stack } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
 import InsightViewer, {
   useInteraction,
   useViewport,
@@ -24,6 +25,7 @@ const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
 export default function App(): JSX.Element {
+  const [isActiveInitialViewport, setIsActiveInitialViewport] = useState<boolean>(false)
   const { loadingStates, images } = useMultipleImages({
     wadouri: IMAGES,
   })
@@ -32,9 +34,7 @@ export default function App(): JSX.Element {
     max: images.length - 1,
   })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport, resetViewport } = useViewport({
-    scale: 1,
-  })
+  const { viewport, setViewport, resetViewport } = useViewport(isActiveInitialViewport ? { scale: 0.5 } : undefined)
 
   function handleChange(type: string) {
     return (value: string) => {
@@ -75,6 +75,14 @@ export default function App(): JSX.Element {
         <Box>
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
+          <Box>
+            active initial viewport{' '}
+            <Switch
+              onChange={(e) => setIsActiveInitialViewport(e.target.checked)}
+              className="toggle-initial-viewport"
+              isChecked={isActiveInitialViewport}
+            />
+          </Box>
           <Box mb={6}>
             <Text className="test">
               frame: <span className="frame">{frame}</span>
