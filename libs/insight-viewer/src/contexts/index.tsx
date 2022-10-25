@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { WithChildren, Viewport, Point } from '../types'
-import { BASE_VIEWPORT, ERROR_MESSAGE } from '../const'
+import { BASE_VIEWPORT, ERROR_MESSAGE, DEFAULT_VIEWPORT_OPTIONS } from '../const'
 import { EnabledElement, PixelCoordinate } from '../utils/cornerstoneHelper/types'
 import {
   pageToPixel as pageToPixelUtil,
@@ -25,7 +25,7 @@ const contextDefaultValue: OverlayContext = {
   setToPixelCoordinateSystem: () => undefined,
   pixelToCanvas: () => ({} as Point),
   pageToPixel: () => ({} as Point),
-  viewport: BASE_VIEWPORT,
+  viewport: { ...BASE_VIEWPORT, _viewportOptions: DEFAULT_VIEWPORT_OPTIONS },
 }
 const Context = createContext<OverlayContext>(contextDefaultValue)
 
@@ -33,7 +33,7 @@ export function OverlayContextProvider({
   image,
   element,
   imageEnabled,
-  viewport = BASE_VIEWPORT,
+  viewport = { ...BASE_VIEWPORT, _viewportOptions: DEFAULT_VIEWPORT_OPTIONS },
   children,
 }: WithChildren<{
   image: Image

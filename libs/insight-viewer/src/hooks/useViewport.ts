@@ -3,11 +3,7 @@
  */
 import { useState, useEffect } from 'react'
 import { Viewport, BasicViewport, ViewportOptions } from '../types'
-import { BASE_VIEWPORT } from '../const'
-
-export const defaultViewportOptions: ViewportOptions = {
-  fitScale: true,
-}
+import { BASE_VIEWPORT, DEFAULT_VIEWPORT_OPTIONS } from '../const'
 
 interface UseViewportParams {
   initialViewport?: Partial<BasicViewport>
@@ -22,7 +18,7 @@ interface UseViewportParams {
  * @returns {initialized} Whether the viewport is initialized or not.
  */
 export function useViewport(
-  { initialViewport, options = defaultViewportOptions }: UseViewportParams = { options: defaultViewportOptions }
+  { initialViewport, options = DEFAULT_VIEWPORT_OPTIONS }: UseViewportParams = { options: DEFAULT_VIEWPORT_OPTIONS }
 ): {
   viewport: Viewport
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>

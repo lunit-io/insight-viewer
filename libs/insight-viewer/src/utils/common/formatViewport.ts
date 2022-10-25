@@ -1,6 +1,7 @@
 import { CornerstoneViewport } from '../cornerstoneHelper/types'
 import { Viewport } from '../../types'
 import { DefaultViewport } from './const'
+import { DEFAULT_VIEWPORT_OPTIONS } from '../../const'
 
 // Format Cornerstone's viewport to viewer's viewport prop.
 export function formatViewerViewport(cornerstoneViewport: CornerstoneViewport | undefined): Viewport {
@@ -18,6 +19,7 @@ export function formatViewerViewport(cornerstoneViewport: CornerstoneViewport | 
     y: translation.y,
     windowWidth: voi.windowWidth,
     windowCenter: voi.windowCenter,
+    _viewportOptions: DEFAULT_VIEWPORT_OPTIONS,
   }
 }
 
