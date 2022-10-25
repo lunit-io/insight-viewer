@@ -110,7 +110,7 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
         switchMap((start) => {
           let lastX = start.pageX
           let lastY = start.pageY
-          const { top, left, width, height } = element?.getBoundingClientRect()
+          const { top, left, width, height } = element.getBoundingClientRect()
           /** relative x position from center of the viewer */
           const startX = start.pageX - (left + width / 2)
           /** relative y position from center of the viewer */
