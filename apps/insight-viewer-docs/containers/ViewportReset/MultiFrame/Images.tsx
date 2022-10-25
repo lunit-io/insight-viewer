@@ -14,7 +14,7 @@ const INITIAL_VIEWPORT = {
 
 export default function Images(): JSX.Element {
   const { CaseSelect, selected } = useCaseSelect()
-  const { viewport, setViewport, resetViewport } = useViewport(INITIAL_VIEWPORT)
+  const { viewport, setViewport, resetViewport } = useViewport({ initialViewport: INITIAL_VIEWPORT })
 
   const { loadingStates, images } = useMultipleImages({
     wadouri: selected,

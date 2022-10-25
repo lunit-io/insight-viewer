@@ -7,6 +7,8 @@ import InsightViewer, {
   useFrame,
   Interaction,
   Wheel,
+  BasicViewport,
+  ViewportOptions,
 } from '@lunit/insight-viewer'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
@@ -24,8 +26,17 @@ const MAX_FRAME = IMAGES.length - 1
 const MIN_SCALE = 0.178
 const MAX_SCALE = 3
 
+interface ViewportSetting {
+  initialViewport?: Partial<BasicViewport>
+  options: ViewportOptions
+}
+
 export default function App(): JSX.Element {
-  const [isActiveInitialViewport, setIsActiveInitialViewport] = useState<boolean>(false)
+  const [viewportSetting, setViewportSetting] = useState<ViewportSetting>({
+    initialViewport: undefined,
+    options: { fitScale: false },
+  })
+
   const { loadingStates, images } = useMultipleImages({
     wadouri: IMAGES,
   })
@@ -34,9 +45,35 @@ export default function App(): JSX.Element {
     max: images.length - 1,
   })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport, resetViewport } = useViewport(isActiveInitialViewport ? { scale: 0.5 } : undefined)
+  const { viewport, setViewport, resetViewport } = useViewport(viewportSetting)
 
-  function handleChange(type: string) {
+  const handleFrame: Wheel = (_, deltaY) => {
+    if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
+  }
+
+  const handleScale: Wheel = (_, deltaY) => {
+    if (deltaY !== 0) {
+      setViewport((prev) => ({
+        ...prev,
+        scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
+      }))
+    }
+  }
+
+  const handler = {
+    frame: handleFrame,
+    scale: handleScale,
+  }
+
+  const handleActiveFitScaleSwitchChange = (isChecked: boolean) => {
+    setViewportSetting((prevSetting) => ({ ...prevSetting, options: { fitScale: isChecked } }))
+  }
+
+  const handleActiveInitialViewportSwitchChange = (isChecked: boolean) => {
+    setViewportSetting((prevSetting) => ({ ...prevSetting, initialViewport: isChecked ? { scale: 0.5 } : undefined }))
+  }
+
+  const handleChange = (type: string) => {
     return (value: string) => {
       setInteraction((prev: Interaction) => ({
         ...prev,
@@ -45,30 +82,12 @@ export default function App(): JSX.Element {
     }
   }
 
-  const handleFrame: Wheel = (_, deltaY) => {
-    if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
-  }
-
-  const handleScale: Wheel = (_, deltaY) => {
-    if (deltaY !== 0)
-      setViewport((prev) => ({
-        ...prev,
-        scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
-      }))
-  }
-
-  const handler = {
-    frame: handleFrame,
-    scale: handleScale,
-  }
-
-  function handleWheel(value: string) {
+  const handleWheel = (value: string) => {
     setInteraction((prev: Interaction) => ({
       ...prev,
       mouseWheel: value === 'none' ? undefined : handler[value as keyof typeof handler],
     }))
   }
-
   return (
     <Box data-cy-loaded={loadingStates[frame]}>
       <Stack direction="row" spacing="80px" align="flex-start">
@@ -78,9 +97,17 @@ export default function App(): JSX.Element {
           <Box>
             active initial viewport (scale 0.5){' '}
             <Switch
-              onChange={(e) => setIsActiveInitialViewport(e.target.checked)}
+              onChange={(e) => handleActiveInitialViewportSwitchChange(e.target.checked)}
               className="toggle-initial-viewport"
-              isChecked={isActiveInitialViewport}
+              isChecked={!!viewportSetting.initialViewport}
+            />
+          </Box>
+          <Box>
+            active fit scale{' '}
+            <Switch
+              onChange={(e) => handleActiveFitScaleSwitchChange(e.target.checked)}
+              className="toggle-fit-scale"
+              isChecked={viewportSetting.options.fitScale}
             />
           </Box>
           <Box mb={6}>
