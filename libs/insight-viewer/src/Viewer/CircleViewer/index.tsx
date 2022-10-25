@@ -43,15 +43,17 @@ export function CircleViewer({ measurement, hoveredMeasurement }: CircleViewerPr
       />
       <polyline
         className="measurement-circle dashLine"
-        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
-        x={textPointOnCanvas[0]}
-        y={textPointOnCanvas[1]}
+        style={svgWrapperStyle.dashLine}
+        x={textBoxPoint[0]}
+        y={textBoxPoint[1]}
+        points={connectingLine}
       />
       <text
+        ref={ref}
         className="measurement-circle label pointer"
-        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'] }}
-        x={textPointOnCanvas[0]}
-        y={textPointOnCanvas[1]}
+        style={{ ...textStyle[isHoveredMeasurement ? 'hover' : 'default'], visibility }}
+        x={textBoxPoint[0]}
+        y={textBoxPoint[1]}
       >
         {formattedValue}
       </text>
