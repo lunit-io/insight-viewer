@@ -25,7 +25,7 @@ export function useViewport(initialViewport?: Partial<BasicViewport>): {
   function resetViewport() {
     setViewport({
       ...viewport,
-      _resetViewport: initialViewport,
+      _resetViewport: initialViewport ?? {},
     })
   }
 
