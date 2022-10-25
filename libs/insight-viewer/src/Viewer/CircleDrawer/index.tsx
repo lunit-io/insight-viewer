@@ -34,6 +34,9 @@ export function CircleDrawer({
       <circle
         className="measurement-circle pointer drag"
         onMouseDown={handleMoveOnMouseDown}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
+        r={drawingRadius}
         style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
       />
       <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
