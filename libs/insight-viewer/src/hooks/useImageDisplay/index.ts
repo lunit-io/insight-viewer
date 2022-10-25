@@ -6,6 +6,7 @@ import { displayImage, getDefaultViewportForImage } from '../../utils/cornerston
 import { formatViewerViewport, formatCornerstoneViewport } from '../../utils/common/formatViewport'
 import { BasicViewport } from '../../types'
 import { UseImageDisplay } from './types'
+import { defaultViewportOptions } from '../useViewport'
 
 let imageSeriesKey: string
 
@@ -60,7 +61,10 @@ const useImageDisplay: UseImageDisplay = ({ element, image, viewportRef, onViewp
 
     // Updates the viewport prop of Viewer.
     if (onViewportChange) {
-      onViewportChange(formatViewerViewport(viewport))
+      onViewportChange({
+        ...formatViewerViewport(viewport),
+        _viewportOptions: viewportRef.current._viewportOptions ?? defaultViewportOptions,
+      })
     }
   }, [image, element, viewportRef, onViewportChange])
 }
