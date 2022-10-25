@@ -24,11 +24,16 @@ export function EditPointer({
   return (
     <>
       <circle
-        onMouseDown={() => setEditMode(editMode)}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
         style={editPointerStyle[isSelectedMode ? 'selectedOutline' : 'outline']}
+      />
+      <circle
+        cx={cx}
+        cy={cy}
+        r={EDIT_CIRCLE_RADIUS}
+        style={editPointerStyle[isSelectedMode ? 'select' : isHighlightMode ? 'highlight' : 'default']}
       />
       <circle
         onMouseDown={() => setEditMode(editMode)}
@@ -36,13 +41,6 @@ export function EditPointer({
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
         style={editPointerStyle.extendsArea}
-      />
-      <circle
-        onMouseDown={() => setEditMode(editMode)}
-        cx={cx}
-        cy={cy}
-        r={EDIT_CIRCLE_RADIUS}
-        style={editPointerStyle[isSelectedMode ? 'select' : isHighlightMode ? 'highlight' : 'default']}
       />
     </>
   )

@@ -18,14 +18,12 @@ export function CircleDrawer({
   return (
     <>
       <circle
-        onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle.outline}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
-        onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
