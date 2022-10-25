@@ -22,20 +22,44 @@ interface Prop {
 export default function useViewportUpdate({ element, image, viewport: newViewportProp, onViewportChange }: Prop): void {
   useEffect(() => {
     if (!element || !image || !newViewportProp) return
+
     const defaultViewport = getDefaultViewportForImage(element, image)
     const willReset = newViewportProp?._resetViewport && defaultViewport
     const viewport = willReset ? defaultViewport : getViewport(<HTMLDivElement>element)
+    const newViewportOptions = newViewportProp._viewportOptions
 
-    if (!viewport) return
+    /**
+     * If the viewport scale is 0,
+     * it will not be drawn on the screen.
+     */
+    if (!viewport || newViewportProp.scale === 0) return
 
-    setViewport(<HTMLDivElement>element, formatCornerstoneViewport(viewport, newViewportProp))
+    let elementUpdatedViewport: Viewport = newViewportProp
+    let updatedNewViewport: Viewport = newViewportProp
 
-    // When resetting, update Viewer's viewport prop
-    if (willReset && onViewportChange) {
-      onViewportChange({
-        ...formatViewerViewport(defaultViewport),
-        ...(newViewportProp?._resetViewport ?? {}),
-      })
+    /**
+     * If the fitScale option is true,
+     * the scale will not decrease below the default viewport.
+     * This behavior is the default behavior.
+     */
+    if (newViewportOptions.fitScale && newViewportProp.scale < defaultViewport.scale) {
+      elementUpdatedViewport = { ...newViewportProp, scale: defaultViewport.scale }
+      updatedNewViewport = { ...formatViewerViewport(viewport), ...elementUpdatedViewport }
+    }
+
+    setViewport(<HTMLDivElement>element, formatCornerstoneViewport(viewport, elementUpdatedViewport))
+
+    if (onViewportChange) {
+      // When resetting, update Viewer's viewport prop
+      if (willReset) {
+        onViewportChange({
+          ...formatViewerViewport(defaultViewport),
+          ...(newViewportProp?._resetViewport ?? {}),
+          _viewportOptions: newViewportOptions,
+        })
+      } else {
+        onViewportChange(updatedNewViewport)
+      }
     }
   }, [element, image, newViewportProp, onViewportChange])
 }
