@@ -19,7 +19,7 @@ export function PolylineDrawer({
   isSelectedMode,
   selectedAnnotationLabel,
   showAnnotationLabel,
-  isPolygonSelected: polygonSelected,
+  isPolygonSelected,
   setAnnotationEditMode,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -48,7 +48,7 @@ export function PolylineDrawer({
   }
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
-  const isPolygonSelected = Boolean(polygonSelected)
+  const isDrawing = isPolygonSelected ? undefined : 'isDrawing'
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
@@ -58,11 +58,13 @@ export function PolylineDrawer({
           {lineHead === 'arrow' && (
             <>
               <PolylineElement
+                className={`annotation-polyline pointer ${isDrawing}`}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle.outline}
                 points={getArrowPoints()}
               />
               <PolylineElement
+                className={`annotation-polyline pointer ${isDrawing}`}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
@@ -70,15 +72,26 @@ export function PolylineDrawer({
             </>
           )}
           <PolylineElement
+            className={`annotation-polyline pointer ${isDrawing}`}
             isPolygon={isPolygonSelected}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
-          <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.extendsArea} points={polylinePoints} />
+          <PolylineElement
+            className={`annotation-polyline pointer ${isDrawing}`}
+            isPolygon={isPolygonSelected}
+            style={svgWrapperStyle.extendsArea}
+            points={polylinePoints}
+          />
         </>
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
-        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
+        <text
+          className={`annotation-polyline label pointer ${isDrawing}`}
+          style={{ ...textStyle.default }}
+          x={labelPosition[0]}
+          y={labelPosition[1]}
+        >
           {selectedAnnotationLabel}
         </text>
       )}

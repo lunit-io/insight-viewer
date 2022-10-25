@@ -18,32 +18,30 @@ export function CircleDrawer({
   return (
     <>
       <circle
+        className="measurement-circle pointer"
         style={svgWrapperStyle.outline}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
+        className="measurement-circle pointer"
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
+        className="measurement-circle pointer drag"
         onMouseDown={handleMoveOnMouseDown}
-        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
-        cx={centerPointOnCanvas[0]}
-        cy={centerPointOnCanvas[1]}
-        r={drawingRadius}
+        style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
       />
       <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
       <text
         ref={ref}
+        className="measurement-circle label pointer"
         onMouseDown={handleTextMoveOnMouseDown}
-        style={{
-          ...textStyle[isSelectedMode ? 'select' : 'default'],
-          visibility,
-        }}
+        style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
         x={textBoxPoint[0]}
         y={textBoxPoint[1]}
       >
