@@ -16,17 +16,12 @@ export function RulerDrawer({
 
   return (
     <>
-      <polyline onMouseDown={handleMoveOnMouseDown} style={svgWrapperStyle.outline} points={rulerLine} />
+      <polyline style={svgWrapperStyle.outline} points={rulerLine} />
+      <polyline data-cy-move style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']} points={rulerLine} />
       <polyline
         data-cy-move
         onMouseDown={handleMoveOnMouseDown}
         style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
-        points={rulerLine}
-      />
-      <polyline
-        data-cy-move
-        onMouseDown={handleMoveOnMouseDown}
-        style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
       <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
