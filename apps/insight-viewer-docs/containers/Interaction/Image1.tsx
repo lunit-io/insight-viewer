@@ -76,7 +76,7 @@ export default function App(): JSX.Element {
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
           <Box>
-            active initial viewport{' '}
+            active initial viewport (scale 0.5){' '}
             <Switch
               onChange={(e) => setIsActiveInitialViewport(e.target.checked)}
               className="toggle-initial-viewport"
