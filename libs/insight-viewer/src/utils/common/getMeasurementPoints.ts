@@ -4,10 +4,11 @@ import { getMeasurementEditingPoints } from './getMeasurementEditingPoints'
 import type { Point, Measurement, EditMode, MeasurementMode } from '../../types'
 
 interface MeasurementPointInfo {
-  point: Point
-  isEditing: boolean
   mode: MeasurementMode
+  mouseDownPoint: Point
+  mouseMovePoint: Point
   editMode: EditMode | null
+  isEditing: boolean
   prevPoints: [Point, Point]
   editStartPoint: Point | null
   selectedMeasurement: Measurement | null
@@ -15,7 +16,8 @@ interface MeasurementPointInfo {
 
 export function getMeasurementPoints({
   mode,
-  point,
+  mouseDownPoint,
+  mouseMovePoint,
   editMode,
   isEditing,
   prevPoints,
@@ -23,8 +25,8 @@ export function getMeasurementPoints({
   selectedMeasurement,
 }: MeasurementPointInfo) {
   if (isEditing && selectedMeasurement && editStartPoint && editMode) {
-    return getMeasurementEditingPoints(prevPoints, point, editStartPoint, editMode, selectedMeasurement.type)
+    return getMeasurementEditingPoints(prevPoints, mouseMovePoint, editStartPoint, editMode, selectedMeasurement.type)
   }
 
-  return getMeasurementDrawingPoints(prevPoints, point, mode)
+  return getMeasurementDrawingPoints(prevPoints, mouseDownPoint, mouseMovePoint, mode)
 }

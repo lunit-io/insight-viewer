@@ -58,16 +58,17 @@ export default function useMeasurementPointsHandler({
     setMouseDownPoint(point)
   }
 
-  const addDrawingMeasurement = (point: [mouseMoveX: number, mouseMoveY: number]) => {
+  const addDrawingMeasurement = (mouseMovePoint: [mouseMoveX: number, mouseMoveY: number]) => {
     if (isEditing && selectedMeasurement != null && !editMode) return
 
     setMeasurement(() => {
-      if (!measurement) return null
+      if (!measurement || !mouseDownPoint) return null
 
       const prevPoints = getExistingMeasurementPoints(measurement)
       const currentPoints = getMeasurementPoints({
         mode,
-        point,
+        mouseDownPoint,
+        mouseMovePoint,
         editMode,
         isEditing,
         prevPoints,
@@ -75,13 +76,13 @@ export default function useMeasurementPointsHandler({
         selectedMeasurement,
       })
 
-      setEditStartPoint(point)
+      setEditStartPoint(mouseMovePoint)
       const drawingMode = isEditing && selectedMeasurement != null ? selectedMeasurement.type : mode
 
-      const currentTextPosition = getTextPosition(measurement, editMode, point)
+      const currentTextPosition = getTextPosition(measurement, editMode, mouseMovePoint)
 
       const editPointsOnCanvas = currentPoints.map(pixelToCanvas) as [Point, Point]
-      const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
+      const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
       const measurementPointsByMode = getMeasurementPointsByMode(
@@ -89,7 +90,7 @@ export default function useMeasurementPointsHandler({
         editMode,
         drawingMode,
         mouseDownPoint,
-        point,
+        mouseMovePoint,
         currentPoints
       )
 
