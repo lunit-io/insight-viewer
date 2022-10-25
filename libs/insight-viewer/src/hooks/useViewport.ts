@@ -1,9 +1,18 @@
 /**
  * @fileoverview Handles the Viewer's viewport.
  */
-import { useState } from 'react'
-import { Viewport, BasicViewport } from '../types'
+import { useState, useEffect } from 'react'
+import { Viewport, BasicViewport, ViewportOptions } from '../types'
 import { BASE_VIEWPORT } from '../const'
+
+export const defaultViewportOptions: ViewportOptions = {
+  fitScale: true,
+}
+
+interface UseViewportParams {
+  initialViewport?: Partial<BasicViewport>
+  options?: ViewportOptions
+}
 
 /**
  * @param initialViewport The user-defined initial viewport.
@@ -12,7 +21,9 @@ import { BASE_VIEWPORT } from '../const'
  * @returns {resetViewport} It resets a Viewer's viewport.
  * @returns {initialized} Whether the viewport is initialized or not.
  */
-export function useViewport(initialViewport?: Partial<BasicViewport>): {
+export function useViewport(
+  { initialViewport, options = defaultViewportOptions }: UseViewportParams = { options: defaultViewportOptions }
+): {
   viewport: Viewport
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
   resetViewport: () => void
@@ -20,14 +31,20 @@ export function useViewport(initialViewport?: Partial<BasicViewport>): {
 } {
   const [viewport, setViewport] = useState<Viewport>({
     ...(initialViewport ? { ...BASE_VIEWPORT, _initialViewport: initialViewport } : BASE_VIEWPORT),
+    _viewportOptions: options,
   })
 
   function resetViewport() {
     setViewport({
       ...viewport,
+      _viewportOptions: options,
       _resetViewport: initialViewport ?? {},
     })
   }
+
+  useEffect(() => {
+    setViewport((prevViewport) => ({ ...prevViewport, _viewportOptions: { fitScale: options.fitScale } }))
+  }, [options.fitScale])
 
   return {
     viewport,
