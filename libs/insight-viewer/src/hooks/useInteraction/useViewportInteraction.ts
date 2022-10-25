@@ -12,7 +12,6 @@ export default function useViewportInteraction({
   useHandleWheel({
     element,
     interaction,
-    onViewportChange,
   })
   useHandleDrag({
     element,
