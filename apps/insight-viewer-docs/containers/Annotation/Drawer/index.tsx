@@ -96,7 +96,7 @@ function AnnotationDrawerContainer(): JSX.Element {
       >
         remove all
       </Button>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE}>
+      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay

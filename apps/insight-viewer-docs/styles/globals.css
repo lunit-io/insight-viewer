@@ -19,19 +19,40 @@ a {
   box-sizing: border-box;
 }
 
-/* Custom Cursor 적용 방법
-html {
-  cursor: url('../assets/default.png') 10 10, auto;
+/* Custom Cursor 적용 방법 */
+
+.measurement {
+  cursor: url('../assets/ruler.png') 10 10, auto;
+}
+
+.editing {
+  cursor: url('../assets/move.png') 20 20, auto !important;
+}
+
+.editable {
+  cursor: url('../assets/crosshair.png') 20 20, auto !important;
 }
 
 .pointer {
+  cursor: url('../assets/default.png') 10 10, auto;
+}
+
+.moving {
   cursor: url('../assets/default.png') 10 10, auto !important;
 }
 
-.pointer .grab:active {
-  cursor: url('../assets/grab.png') 10 10, auto !important;
+.annotation.line {
+  cursor: url('../assets/crosshair.png') 20 20, auto !important;
 }
 
-.move {
-  cursor: url('../assets/move.png') 10 10, auto !important;
-} */
+.annotation.polygon {
+  cursor: url('../assets/pen.png') 10 10, auto !important;
+}
+
+.annotation.freeLine {
+  cursor: url('../assets/pen.png') 10 10, auto !important;
+}
+
+.annotation.text {
+  cursor: url('../assets/crosshair.png') 20 20, auto !important;
+}
