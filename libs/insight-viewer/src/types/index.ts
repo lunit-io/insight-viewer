@@ -168,3 +168,5 @@ export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
   hoveredMeasurement: Measurement | null
 }
+
+export type CursorStatus = 'drawing' | 'editing' | 'moving' | null

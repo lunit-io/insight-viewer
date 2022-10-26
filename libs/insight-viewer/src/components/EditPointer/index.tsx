@@ -1,13 +1,14 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { EditMode } from '../../types'
 import { EDIT_CIRCLE_RADIUS } from '../../const'
 import { editPointerStyle } from '../../Viewer/Viewer.styles'
+import type { CursorStatus, EditMode } from '../../types'
 
 interface EditPointerProps {
   cx: number
   cy: number
   editMode: EditMode
+  cursorStatus: CursorStatus
   isSelectedMode?: boolean
   isHighlightMode?: boolean
   isDrawing?: boolean
@@ -22,15 +23,17 @@ export function EditPointer({
   isHighlightMode,
   setEditMode,
   isDrawing,
+  cursorStatus,
 }: EditPointerProps): JSX.Element {
   const handleOnMouseDown = () => setEditMode(editMode)
 
-  const pointerType = isDrawing ? `drawing-pointer` : `editing-pointer`
+  const cursorClassName = cursorStatus ?? `editable`
 
   return (
     <>
       <circle
         onMouseDown={handleOnMouseDown}
+        className={`editing-pointer ${cursorClassName}`}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
@@ -38,13 +41,14 @@ export function EditPointer({
       />
       <circle
         onMouseDown={handleOnMouseDown}
+        className={`editing-pointer ${cursorClassName}`}
         cx={cx}
         cy={cy}
         r={EDIT_CIRCLE_RADIUS}
         style={editPointerStyle[isSelectedMode ? 'select' : isHighlightMode ? 'highlight' : 'default']}
       />
       <circle
-        className={`${pointerType} move`}
+        className={`editing-pointer ${cursorClassName}`}
         onMouseDown={handleOnMouseDown}
         cx={cx}
         cy={cy}

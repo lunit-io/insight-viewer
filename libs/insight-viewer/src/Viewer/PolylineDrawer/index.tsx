@@ -19,8 +19,9 @@ export function PolylineDrawer({
   isSelectedMode,
   selectedAnnotationLabel,
   showAnnotationLabel,
-  isPolygonSelected: polygonSelected,
+  isPolygonSelected,
   setAnnotationEditMode,
+  cursorStatus,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
@@ -48,8 +49,7 @@ export function PolylineDrawer({
   }
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
-  const isPolygonSelected = Boolean(polygonSelected)
-  const isDrawing = isPolygonSelected ? undefined : 'isDrawing'
+  const cursorClassName = cursorStatus ?? 'pointer'
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
@@ -59,11 +59,13 @@ export function PolylineDrawer({
           {lineHead === 'arrow' && (
             <>
               <PolylineElement
+                className={`annotation-polyline ${cursorClassName} `}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle.outline}
                 points={getArrowPoints()}
               />
               <PolylineElement
+                className={`annotation-polyline ${cursorClassName}`}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
@@ -71,18 +73,22 @@ export function PolylineDrawer({
             </>
           )}
           <PolylineElement
+            className={`annotation-polyline ${cursorClassName}`}
             isPolygon={isPolygonSelected}
-            className={`annotation-polyline pointer ${isDrawing}`}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
-          <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.extendsArea} points={polylinePoints} />
-          className={`annotation-polyline pointer ${isDrawing}`}
+          <PolylineElement
+            className={`annotation-polyline ${cursorClassName}`}
+            isPolygon={isPolygonSelected}
+            style={svgWrapperStyle.extendsArea}
+            points={polylinePoints}
+          />
         </>
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
         <text
-          className={`annotation-polyline label pointer ${isDrawing}`}
+          className={`annotation-polyline label ${cursorClassName}`}
           style={{ ...textStyle.default }}
           x={labelPosition[0]}
           y={labelPosition[1]}
