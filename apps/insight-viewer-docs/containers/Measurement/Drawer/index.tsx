@@ -67,7 +67,7 @@ function MeasurementDrawerContainer(): JSX.Element {
         remove all
       </Button>
 
-      <Box data-cy-loaded={loadingState} className={`measurement-${measurementMode}`}>
+      <Box data-cy-loaded={loadingState} className={`measurement ${measurementMode}`}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (

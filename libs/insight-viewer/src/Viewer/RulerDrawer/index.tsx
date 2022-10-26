@@ -8,44 +8,45 @@ export function RulerDrawer({
   measurement,
   isSelectedMode,
   setMeasurementEditMode,
+  cursorStatus,
 }: RulerDrawerProps): ReactElement | null {
   const { rulerLine, ref, connectingLine, formattedValue, textBoxPoint, visibility } = useRulerMeasurement(measurement)
 
   const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
   const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')
 
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
+
   return (
     <>
-      <polyline style={svgWrapperStyle.outline} points={rulerLine} />
-      <polyline data-cy-move style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']} points={rulerLine} />
       <polyline
-        className="measurement-ruler pointer"
+        className={`measurement-ruler ${cursorClassName}`}
         onMouseDown={handleMoveOnMouseDown}
         style={svgWrapperStyle.outline}
         points={rulerLine}
       />
       <polyline
         data-cy-move
-        className="measurement-ruler pointer"
+        className={`measurement-ruler ${cursorClassName}`}
         onMouseDown={handleMoveOnMouseDown}
         style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
         points={rulerLine}
       />
       <polyline
         data-cy-move
-        className="measurement-ruler pointer"
+        className={`measurement-ruler ${cursorClassName}`}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         points={rulerLine}
       />
       <polyline
-        className="measurement-ruler pointer"
+        className={`measurement-ruler ${cursorClassName}`}
         style={{ ...svgWrapperStyle.dashLine, visibility }}
         points={connectingLine}
       />
 
       <text
         ref={ref}
-        className="measurement-ruler label pointer grab"
+        className={`measurement-ruler label ${cursorClassName}`}
         onMouseDown={handleTextMoveOnMouseDown}
         style={{ ...textStyle[isSelectedMode ? 'select' : 'default'], visibility }}
         x={textBoxPoint[0]}

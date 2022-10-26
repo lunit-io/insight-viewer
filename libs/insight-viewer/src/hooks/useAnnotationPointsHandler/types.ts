@@ -1,5 +1,5 @@
-import { AnnotationMode, Annotation, LineHeadMode, EditMode } from '../../types'
-import { EditPoints } from '../../utils/common/getEditPointPosition'
+import type { AnnotationMode, Annotation, LineHeadMode, EditMode, CursorStatus } from '../../types'
+import type { EditPoints } from '../../utils/common/getEditPointPosition'
 
 export interface UseAnnotationPointsHandlerParams {
   isEditing: boolean
@@ -17,5 +17,6 @@ export interface UseAnnotationPointsHandlerReturnType {
   annotation: Annotation | null
   editPoints: EditPoints | null
   currentEditMode: EditMode | null
+  cursorStatus: CursorStatus
   setAnnotationEditMode: (targetPoint: EditMode) => void
 }

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-
 import { useOverlayContext } from '../../contexts'
 
 import { getMeasurement } from '../../utils/common/getMeasurement'
@@ -8,6 +7,8 @@ import { getTextPosition } from '../../utils/common/getTextPosition'
 import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
+import { getCursorStatus } from '../../utils/common/getCursorStatus'
+import { setClassName } from '../../utils/common/setClassName'
 
 import useDrawingHandler from '../useDrawingHandler'
 
@@ -20,9 +21,9 @@ export default function useMeasurementPointsHandler({
   svgElement,
   measurements,
   selectedMeasurement,
+  hoveredMeasurement,
   addMeasurement,
   onSelectMeasurement,
-  hoveredMeasurement,
 }: UseMeasurementPointsHandlerParams): UseMeasurementPointsHandlerReturnType {
   const [editMode, setEditMode] = useState<EditMode | null>(null)
   const [editStartPoint, setEditStartPoint] = useState<Point | null>(null)
@@ -30,7 +31,17 @@ export default function useMeasurementPointsHandler({
   const [mouseDownPoint, setMouseDownPoint] = useState<Point | null>(null)
   const [measurement, setMeasurement] = useState<Measurement | null>(null)
 
-  const { image, pixelToCanvas } = useOverlayContext()
+  const { image, pixelToCanvas, enabledElement } = useOverlayContext()
+
+  const cursorStatus = getCursorStatus({
+    drawing: measurement,
+    selectedDrawing: selectedMeasurement,
+    editTargetPoints,
+    editMode,
+    editStartPoint,
+  })
+
+  setClassName(enabledElement, cursorStatus)
 
   useEffect(() => {
     if (!isEditing || selectedMeasurement == null) return
@@ -117,12 +128,13 @@ export default function useMeasurementPointsHandler({
     setEditStartPoint(null)
     setEditTargetPoints(null)
     onSelectMeasurement(null)
+    setMouseDownPoint(null)
   }
 
   const addDrewMeasurement = () => {
     const isEditingMode = editMode && selectedMeasurement
     if (!measurement || isEditingMode) return
-    addMeasurement(measurement)
+    if (addMeasurement) addMeasurement(measurement)
   }
 
   const setMeasurementEditMode = (targetPoint: EditMode) => {
@@ -146,5 +158,6 @@ export default function useMeasurementPointsHandler({
     currentEditMode: editMode,
     editPoints: editTargetPoints,
     setMeasurementEditMode,
+    cursorStatus,
   }
 }
