@@ -2,7 +2,13 @@ import { useEffect, useRef } from 'react'
 import { fromEvent, tap, switchMap, map, takeUntil, filter, Subscription } from 'rxjs'
 import { Element, OnViewportChange } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
-import { getViewport, setViewport, CornerstoneViewport } from '../../../utils/cornerstoneHelper'
+import {
+  getViewport,
+  setViewport,
+  CornerstoneViewport,
+  CornerstoneImage,
+  getDefaultViewportForImage,
+} from '../../../utils/cornerstoneHelper'
 import { DragCoords, Interaction, DragAction, ViewportInteraction } from '../types'
 import { MOUSE_BUTTON, PRIMARY_DRAG, SECONDARY_DRAG } from '../const'
 import { preventContextMenu } from '../utils'
@@ -23,6 +29,7 @@ type DragType = typeof PRIMARY_DRAG | typeof SECONDARY_DRAG
  * @param onViewportChange The Viewer's viewport setter prop.
  */
 function handleViewportByDrag({
+  image,
   element,
   interaction,
   dragType,
@@ -30,6 +37,7 @@ function handleViewportByDrag({
   viewport,
   onViewportChange,
 }: {
+  image: CornerstoneImage
   interaction: Interaction
   dragType: DragType
   element: Element
@@ -46,12 +54,29 @@ function handleViewportByDrag({
   function updateViewportByDrag(dragEventType?: DragAction): void {
     if (!dragEventType) return
 
+    const defaultViewport = getDefaultViewportForImage(<HTMLDivElement>element, image)
+
     // If there is a viewport setter, set a new viewport which is triggered by interaction.
     if (onViewportChange) {
-      onViewportChange((prev) => ({
-        ...prev,
-        ...control[dragEventType]?.(viewport, dragged),
-      }))
+      onViewportChange((prev) => {
+        const currentViewport = {
+          ...prev,
+          ...control[dragEventType]?.(viewport, dragged),
+        }
+
+        if (
+          dragEventType === 'zoom' &&
+          prev._viewportOptions.fitScale &&
+          currentViewport.scale <= defaultViewport.scale
+        ) {
+          return prev
+        }
+
+        return {
+          ...prev,
+          ...control[dragEventType]?.(viewport, dragged),
+        }
+      })
     } else {
       // If no viewport setter, just update cornerstone viewport.
       setViewport(
@@ -79,11 +104,11 @@ function handleViewportByDrag({
   }
 }
 
-export default function useHandleDrag({ element, interaction, onViewportChange }: ViewportInteraction): void {
+export default function useHandleDrag({ image, element, interaction, onViewportChange }: ViewportInteraction): void {
   const subscriptionRef = useRef<Subscription>()
 
   useEffect(() => {
-    if (!interaction || !element) return undefined
+    if (!interaction || !element || !image) return undefined
     // Restore context menu display.
     element?.removeEventListener('contextmenu', preventContextMenu)
     // No drag interaction.
@@ -139,6 +164,7 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
         if (!viewport || !dragType) return
 
         handleViewportByDrag({
+          image,
           interaction,
           dragType,
           element,
@@ -151,5 +177,5 @@ export default function useHandleDrag({ element, interaction, onViewportChange }
     return () => {
       subscriptionRef?.current?.unsubscribe()
     }
-  }, [element, interaction, onViewportChange])
+  }, [image, element, interaction, onViewportChange])
 }
