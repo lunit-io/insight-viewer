@@ -49,7 +49,7 @@ export function PolylineDrawer({
   }
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
-  const cursorClassName = cursorStatus ?? 'pointer'
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>

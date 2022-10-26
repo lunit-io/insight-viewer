@@ -23,7 +23,7 @@ export function TextDrawer({
   }
   const dimensions = [end[0] - start[0], end[1] - start[1]]
 
-  const cursorClassName = cursorStatus ?? 'pointer'
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
 
   return (
     <>

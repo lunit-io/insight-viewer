@@ -15,7 +15,7 @@ export function RulerDrawer({
   const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
   const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')
 
-  const cursorClassName = cursorStatus ?? 'pointer'
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
 
   return (
     <>

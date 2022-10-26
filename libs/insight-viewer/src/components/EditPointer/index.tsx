@@ -27,7 +27,7 @@ export function EditPointer({
 }: EditPointerProps): JSX.Element {
   const handleOnMouseDown = () => setEditMode(editMode)
 
-  const cursorClassName = cursorStatus ?? `editable`
+  const cursorClassName = cursorStatus === null ? 'editable' : ''
 
   return (
     <>
