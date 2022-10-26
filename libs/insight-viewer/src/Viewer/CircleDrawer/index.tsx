@@ -35,6 +35,7 @@ export function CircleDrawer({
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
+        className="measurement-circle pointer drag"
       />
       <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
       <text
@@ -46,6 +47,7 @@ export function CircleDrawer({
         }}
         x={textBoxPoint[0]}
         y={textBoxPoint[1]}
+        className="measurement-circle label pointer"
       >
         {formattedValue}
       </text>

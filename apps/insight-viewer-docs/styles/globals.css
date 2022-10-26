@@ -18,3 +18,20 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* Custom Cursor 적용 방법
+html {
+  cursor: url('../assets/default.png') 10 10, auto;
+}
+
+.pointer {
+  cursor: url('../assets/default.png') 10 10, auto !important;
+}
+
+.pointer .grab:active {
+  cursor: url('../assets/grab.png') 10 10, auto !important;
+}
+
+.move {
+  cursor: url('../assets/move.png') 10 10, auto !important;
+} */

@@ -28,6 +28,7 @@ export function LineViewer({
     <>
       {showOutline && (
         <polyline
+          className="annotation-line pointer"
           style={{
             ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
             ...polygonAttributes?.style,
@@ -40,6 +41,7 @@ export function LineViewer({
         <>
           {showOutline && (
             <polyline
+              className="annotation-line arrow pointer"
               style={{
                 ...svgWrapperStyle[isHoveredAnnotation ? 'hoveredOutline' : 'outline'],
                 ...polygonAttributes?.style,
@@ -47,10 +49,15 @@ export function LineViewer({
               points={headPoints}
             />
           )}
-          <polyline style={{ ...svgWrapperStyle.default, ...polygonAttributes?.style }} points={headPoints} />
+          <polyline
+            className="annotation-line arrow pointer"
+            style={{ ...svgWrapperStyle.default, ...polygonAttributes?.style }}
+            points={headPoints}
+          />
         </>
       )}
       <polyline
+        className="annotation-line pointer"
         style={{
           ...svgWrapperStyle.default,
           ...polygonAttributes?.style,
@@ -59,6 +66,7 @@ export function LineViewer({
         points={polygonPoints}
       />
       <polyline
+        className="annotation-line pointer"
         style={{
           ...svgWrapperStyle.extendsArea,
           ...polygonAttributes?.style,
@@ -67,7 +75,12 @@ export function LineViewer({
         points={polygonPoints}
       />
       {showAnnotationLabel && labelPosition && (
-        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
+        <text
+          className="annotation-line label pointer"
+          style={{ ...textStyle.default }}
+          x={labelPosition[0]}
+          y={labelPosition[1]}
+        >
           {polygonLabel}
         </text>
       )}
