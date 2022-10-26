@@ -24,42 +24,18 @@ export function getMeasurementEditingPoints(
     return [prevPoints[0], currentPoint]
   }
 
-  if (mode === 'circle' && editMode === 'startPoint') {
-    const editStartPoint: Point = [editTargetPoints[0], editTargetPoints[1]]
-    const prevEditEnd: Point = [editTargetPoints[2], editTargetPoints[3]]
-    const movedPoint = getMovedPoints({ prevPoints, editStartPoint, currentPoint })
-    const currentRadius = getCircleRadius(currentPoint, prevEditEnd)
+  // radius 값에 문제가 있음.
 
-    // const movedCenter = getCircleCenterPoint(currentPoint, prevEditEnd)
-    // const currentRadius = getCircleRadiusByCenter(movedCenter, prevEditEnd)
-    const movedEnd = getCircleEndPoint(movedPoint[0], currentRadius)
-
-    // console.log(prevEditEnd, movedCenter, currentRadius)
-    return [movedPoint[0], movedEnd]
-  }
-
-  // if (mode === 'circle' && (editMode === 'startPoint' || editMode === 'endPoint')) {
-  //   console.log(editTargetPoints)
-  //   const staticPoint: Point =
-  //     editMode === 'startPoint'
-  //       ? [editTargetPoints[2], editTargetPoints[3]]
-  //       : [editTargetPoints[0], editTargetPoints[1]]
-
-  //   const currentRadius = getCircleRadius(staticPoint, currentPoint)
-  //   const movedCenter = getCircleCenterPoint(staticPoint, currentPoint)
-  //   const movedEnd = getCircleEndPoint(movedCenter, currentRadius)
-
-  //   return [movedCenter, movedEnd]
-  // }
-
-  // if (mode === 'circle' && editMode === 'endPoint') {
   if (mode === 'circle' && (editMode === 'startPoint' || editMode === 'endPoint')) {
-    const prevCenter = prevPoints[0]
-
-    const currentRadius = getCircleRadiusByCenter(prevCenter, currentPoint)
-    const movedEndPoint = getCircleEndPoint(prevCenter, currentRadius)
-
-    return [prevCenter, movedEndPoint]
+    const prevEditStart: Point = [editTargetPoints[0], editTargetPoints[1]]
+    const prevEditEnd: Point = [editTargetPoints[2], editTargetPoints[3]]
+    //  test
+    if (editMode === 'startPoint') {
+      const movedCenter = getCircleCenterPoint(currentPoint, prevEditEnd)
+      const currentRadius = getCircleRadiusByCenter(movedCenter, prevEditEnd)
+      const movedEnd = getCircleEndPoint(movedCenter, currentRadius)
+      return [movedCenter, movedEnd]
+    }
   }
 
   if ((mode === 'circle' || mode === 'ruler') && editMode === 'move') {

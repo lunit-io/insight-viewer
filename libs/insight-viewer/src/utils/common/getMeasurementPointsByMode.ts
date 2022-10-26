@@ -22,23 +22,11 @@ export function getMeasurementPointsByMode(
   }
 
   if (drawingMode === 'circle' && isEditing && editMode && editTargetPoints) {
-    // const [currentCenterPoint, currentEndPoint] = prevPoints
 
-    // const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
-    // const currentStartPoint = getCircleStartPoint(currentCenterPoint, radius)
-    const prevEditStart: Point = [editTargetPoints[0], editTargetPoints[1]]
-    const prevEditEnd: Point = [editTargetPoints[2], editTargetPoints[3]]
-    // currentPoints = [currentStartPoint, currentEndPoint]
-    if (editMode === 'startPoint') {
-      const center = getCircleCenterPoint(mouseMovePoint, prevEditEnd)
-      const radius = getCircleRadiusByCenter(center, prevEditEnd)
-      const end = getCircleEndPoint(center, radius)
-      const start = getCircleStartPoint(center, radius)
+    const radius = getCircleRadiusByCenter(prevPoints[0], prevPoints[1])
+    const startPoint = getCircleStartPoint(prevPoints[0], radius)
 
-      currentPoints = [start, end]
-    }
-
-    // currentPoints = [datumPoint, mouseMovePoint]
+    currentPoints = [startPoint, prevPoints[1]]
   }
 
   return currentPoints

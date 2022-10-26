@@ -7,7 +7,6 @@ import { svgRootStyle } from '../Viewer.styles'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 
 import type { MeasurementDrawerProps } from './MeasurementDrawer.types'
-import { Circle } from '@chakra-ui/react'
 
 export function MeasurementDrawer({
   style,
