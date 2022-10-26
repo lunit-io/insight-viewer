@@ -49,7 +49,9 @@ export function AnnotationDrawer({
             if (a.label) {
               onAdd(a)
             } else {
-              setTempAnnotation(a as TextAnnotation)
+              if (!tempAnnotation) {
+                setTempAnnotation(a as TextAnnotation)
+              }
             }
           }
         : onAdd,
