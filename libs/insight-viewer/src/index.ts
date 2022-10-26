@@ -16,6 +16,8 @@ export { useFrame } from './hooks/useFrame'
 export type { Interaction, SetInteraction } from './hooks/useInteraction/types'
 export type {
   Viewport,
+  BasicViewport,
+  ViewportOptions,
   ViewerError,
   Contours,
   Annotation,

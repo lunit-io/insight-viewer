@@ -37,6 +37,7 @@ export function InsightViewer({
   })
   // Update cornerstone viewport on user interaction.
   useViewportInteraction({
+    image,
     element: elRef.current,
     interaction,
     viewport,

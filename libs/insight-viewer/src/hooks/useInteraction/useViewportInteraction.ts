@@ -5,6 +5,7 @@ import useHandleWheel from './useHandleWheel'
 
 export default function useViewportInteraction({
   element,
+  image,
   interaction,
   viewport,
   onViewportChange,
@@ -12,9 +13,9 @@ export default function useViewportInteraction({
   useHandleWheel({
     element,
     interaction,
-    onViewportChange,
   })
   useHandleDrag({
+    image,
     element,
     interaction,
     onViewportChange,

@@ -34,7 +34,7 @@ export default function App(): JSX.Element {
     setViewport,
     resetViewport,
   } = useViewport({
-    scale: 1,
+    initialViewport: { scale: 1 },
   })
 
   const customPan: Drag = ({ viewport, delta }) => {
