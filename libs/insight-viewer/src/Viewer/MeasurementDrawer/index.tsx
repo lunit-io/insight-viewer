@@ -7,6 +7,7 @@ import { svgRootStyle } from '../Viewer.styles'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
 
 import type { MeasurementDrawerProps } from './MeasurementDrawer.types'
+import { Circle } from '@chakra-ui/react'
 
 export function MeasurementDrawer({
   style,
@@ -37,6 +38,7 @@ export function MeasurementDrawer({
 
   if (!measurement || (measurement && measurement.measuredValue === 0)) return null
 
+  const center = editPoints && [(editPoints[0] + editPoints[2]) / 2, (editPoints[1] + editPoints[3]) / 2]
   return (
     <svg ref={svgRef} width={width} height={height} style={{ ...svgRootStyle.default, ...style }} className={className}>
       {measurement.type === 'ruler' && (
@@ -53,7 +55,7 @@ export function MeasurementDrawer({
           setMeasurementEditMode={setMeasurementEditMode}
         />
       )}
-      {editPoints && (
+      {editPoints && center && (
         <>
           <EditPointer
             setEditMode={setMeasurementEditMode}
@@ -70,6 +72,16 @@ export function MeasurementDrawer({
             isHighlightMode={isSelectedMeasurement}
             cx={editPoints[2]}
             cy={editPoints[3]}
+          />
+          <circle
+            // setEditMode={setMeasurementEditMode}
+            // editMode="endPoint"
+            // isSelectedMode={currentEditMode === 'endPoint'}
+            // isHighlightMode={isSelectedMeasurement}
+            cx={center[0]}
+            cy={center[1]}
+            r={10}
+            fill={'red'}
           />
         </>
       )}

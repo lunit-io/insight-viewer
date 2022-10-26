@@ -30,6 +30,13 @@ export function CircleDrawer({
         r={drawingRadius}
       />
       <circle
+        // style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
+        r={5}
+        fill={"blue"}
+      />
+      <circle
         onMouseDown={handleMoveOnMouseDown}
         style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
         cx={centerPointOnCanvas[0]}
