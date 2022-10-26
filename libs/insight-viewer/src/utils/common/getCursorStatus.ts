@@ -15,7 +15,6 @@ export const getCursorStatus = <T extends Measurement | Annotation>({
   editStartPoint: Point | null
   editTargetPoints: EditPoints | null
 }) => {
-  console.log('getCursorStatus', drawing, selectedDrawing, editMode, editStartPoint, editTargetPoints)
   if (editMode !== null && (editStartPoint !== null || editTargetPoints !== null)) {
     if (editMode === 'startPoint' || editMode === 'endPoint') {
       return 'editing'
