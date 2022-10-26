@@ -33,7 +33,7 @@ interface ViewportSetting {
 
 export default function App(): JSX.Element {
   const [viewportSetting, setViewportSetting] = useState<ViewportSetting>({
-    initialViewport: undefined,
+    initialViewport: { scale: 1 },
     options: { fitScale: false },
   })
 
@@ -70,7 +70,7 @@ export default function App(): JSX.Element {
   }
 
   const handleActiveInitialViewportSwitchChange = (isChecked: boolean) => {
-    setViewportSetting((prevSetting) => ({ ...prevSetting, initialViewport: isChecked ? { scale: 0.5 } : undefined }))
+    setViewportSetting((prevSetting) => ({ ...prevSetting, initialViewport: isChecked ? { scale: 1 } : undefined }))
   }
 
   const handleChange = (type: string) => {
@@ -95,7 +95,7 @@ export default function App(): JSX.Element {
           <Control onChange={handleChange} />
           <WheelControl onChange={handleWheel} />
           <Box>
-            active initial viewport (scale 0.5){' '}
+            active initial viewport (scale 1){' '}
             <Switch
               onChange={(e) => handleActiveInitialViewportSwitchChange(e.target.checked)}
               className="toggle-initial-viewport"
