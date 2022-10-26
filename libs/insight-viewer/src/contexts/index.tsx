@@ -19,13 +19,15 @@ export interface OverlayContext {
   viewport: Viewport
 }
 
+const BASE_VIEWPORT_WITH_DEFAULT_OPTIONS = { ...BASE_VIEWPORT, _viewportOptions: DEFAULT_VIEWPORT_OPTIONS }
+
 const contextDefaultValue: OverlayContext = {
   image: null,
   enabledElement: null,
   setToPixelCoordinateSystem: () => undefined,
   pixelToCanvas: () => ({} as Point),
   pageToPixel: () => ({} as Point),
-  viewport: { ...BASE_VIEWPORT, _viewportOptions: DEFAULT_VIEWPORT_OPTIONS },
+  viewport: BASE_VIEWPORT_WITH_DEFAULT_OPTIONS,
 }
 const Context = createContext<OverlayContext>(contextDefaultValue)
 
@@ -33,7 +35,7 @@ export function OverlayContextProvider({
   image,
   element,
   imageEnabled,
-  viewport = { ...BASE_VIEWPORT, _viewportOptions: DEFAULT_VIEWPORT_OPTIONS },
+  viewport = BASE_VIEWPORT_WITH_DEFAULT_OPTIONS,
   children,
 }: WithChildren<{
   image: Image
