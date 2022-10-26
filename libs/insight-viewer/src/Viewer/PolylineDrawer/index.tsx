@@ -49,6 +49,7 @@ export function PolylineDrawer({
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
   const isPolygonSelected = Boolean(polygonSelected)
+  const isDrawing = isPolygonSelected ? undefined : 'isDrawing'
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
@@ -71,14 +72,21 @@ export function PolylineDrawer({
           )}
           <PolylineElement
             isPolygon={isPolygonSelected}
+            className={`annotation-polyline pointer ${isDrawing}`}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
           <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.extendsArea} points={polylinePoints} />
+          className={`annotation-polyline pointer ${isDrawing}`}
         </>
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
-        <text style={{ ...textStyle.default }} x={labelPosition[0]} y={labelPosition[1]}>
+        <text
+          className={`annotation-polyline label pointer ${isDrawing}`}
+          style={{ ...textStyle.default }}
+          x={labelPosition[0]}
+          y={labelPosition[1]}
+        >
           {selectedAnnotationLabel}
         </text>
       )}

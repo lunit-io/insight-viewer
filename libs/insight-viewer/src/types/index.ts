@@ -68,6 +68,8 @@ export type ViewerStyleType =
   | 'highlight'
   | 'dashLine'
   | 'extendsArea'
+  | 'selectedExtendsArea'
+
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
