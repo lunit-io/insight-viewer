@@ -31,8 +31,18 @@ export function RulerDrawer({
         style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
         points={rulerLine}
       />
-      <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
-      className="measurement-ruler pointer"
+      <polyline
+        data-cy-move
+        className="measurement-ruler pointer"
+        style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
+        points={rulerLine}
+      />
+      <polyline
+        className="measurement-ruler pointer"
+        style={{ ...svgWrapperStyle.dashLine, visibility }}
+        points={connectingLine}
+      />
+
       <text
         ref={ref}
         className="measurement-ruler label pointer grab"
