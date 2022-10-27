@@ -53,12 +53,6 @@ function useDrawingHandler({
         addDrewElement()
         cancelDrawing()
       }
-      if (event.code === 'Delete') {
-        setPreProcessEvent(event)
-        deactivateMouseDrawEvents()
-
-        cancelDrawing()
-      }
     }
 
     const handleMouseDown = (event: MouseEvent) => {
