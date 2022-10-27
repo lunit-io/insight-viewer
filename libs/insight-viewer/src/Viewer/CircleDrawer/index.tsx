@@ -38,7 +38,7 @@ export function CircleDrawer({
       <circle
         className={`measurement-circle ${cursorClassName}`}
         onMouseDown={handleMoveOnMouseDown}
-        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        style={{ ...svgWrapperStyle.extendsArea }}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
