@@ -34,7 +34,7 @@ export function AnnotationDrawer({
     }
   }
 
-  const { annotation, editPoints, currentEditMode, setAnnotationEditMode } = useAnnotationPointsHandler({
+  const { annotation, editPoints, currentEditMode, setAnnotationEditMode, cursorStatus } = useAnnotationPointsHandler({
     isEditing,
     mode,
     lineHead,
@@ -49,13 +49,26 @@ export function AnnotationDrawer({
             if (a.label) {
               onAdd(a)
             } else {
-              setTempAnnotation(a as TextAnnotation)
+              // TODO: 추후 TextAnnotation 재설계 후 아래 주석과 코드 정리할 것.
+              // a 의 좌표가 유효하지 않을경우 setTempAnnotation 이 아예 실행되지 않도록 로직 추가
+              // Typing.tsx 에도 비슷한 코드가 존재하나 혹시 모를 사이드 이펙트를 고려하여 남겨둠
+              const textAnnotation = a as TextAnnotation
+              const [start, end] = textAnnotation.points
+
+              if (typeof end === 'undefined' || end[0] < start[0] || end[1] < start[1]) {
+                return
+              }
+
+              if (!tempAnnotation) {
+                setTempAnnotation(textAnnotation)
+              }
             }
           }
         : onAdd,
   })
 
   const isSelectedAnnotation = isEditing && selectedAnnotation != null
+  const isDrawing = !selectedAnnotation
 
   return (
     <>
@@ -76,6 +89,7 @@ export function AnnotationDrawer({
               lineHead={lineHead}
               selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}
               setAnnotationEditMode={setAnnotationEditMode}
+              cursorStatus={cursorStatus}
             />
           )}
           {annotation.type === 'text' && (
@@ -83,6 +97,7 @@ export function AnnotationDrawer({
               annotation={annotation}
               isSelectedMode={isSelectedAnnotation}
               setAnnotationEditMode={setAnnotationEditMode}
+              cursorStatus={cursorStatus}
             />
           )}
           {editPoints && (
@@ -92,16 +107,20 @@ export function AnnotationDrawer({
                 editMode="startPoint"
                 isSelectedMode={currentEditMode === 'startPoint'}
                 isHighlightMode={isSelectedAnnotation}
+                isDrawing={isDrawing}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
+                cursorStatus={cursorStatus}
               />
               <EditPointer
                 setEditMode={setAnnotationEditMode}
                 editMode="endPoint"
                 isHighlightMode={isSelectedAnnotation}
                 isSelectedMode={currentEditMode === 'endPoint'}
+                isDrawing={isDrawing}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
+                cursorStatus={cursorStatus}
               />
             </>
           )}

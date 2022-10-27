@@ -67,7 +67,7 @@ function MeasurementDrawerContainer(): JSX.Element {
         remove all
       </Button>
 
-      <Box data-cy-loaded={loadingState}>
+      <Box data-cy-loaded={loadingState} className={`measurement ${measurementMode}`}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
@@ -83,7 +83,8 @@ function MeasurementDrawerContainer(): JSX.Element {
                 onRemove={removeMeasurement}
                 isEditing={isEditing}
                 isDrawing
-                mode={measurementMode} // If no mode is defined, the default value is ruler.
+                mode={measurementMode}
+                // If no mode is defined, the default value is ruler.
               />
             )}
           </InsightViewer>

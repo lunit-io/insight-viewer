@@ -1,15 +1,18 @@
+import { getCursorStatus } from './../../utils/common/getCursorStatus'
 import { useState, useEffect } from 'react'
 
-import { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
-import { Point, EditMode, Annotation } from '../../types'
 import { useOverlayContext } from '../../contexts'
 import { getAnnotationPoints } from '../../utils/common/getAnnotationPoints'
 import { getDrawingAnnotation } from '../../utils/common/getDrawingAnnotation'
 import { getInitialAnnotation } from '../../utils/common/getInitialAnnotation'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
 import { getExistingAnnotationPoints } from '../../utils/common/getExistingAnnotationPoints'
+import { setClassName } from '../../utils/common/setClassName'
 
 import useDrawingHandler from '../useDrawingHandler'
+
+import type { UseAnnotationPointsHandlerParams, UseAnnotationPointsHandlerReturnType } from './types'
+import type { Point, EditMode, Annotation } from '../../types'
 
 export default function useAnnotationPointsHandler({
   mode,
@@ -27,7 +30,17 @@ export default function useAnnotationPointsHandler({
   const [editTargetPoints, setEditTargetPoints] = useState<EditPoints | null>(null)
   const [annotation, setAnnotation] = useState<Annotation | null>(null)
 
-  const { image, pixelToCanvas } = useOverlayContext()
+  const { image, pixelToCanvas, enabledElement } = useOverlayContext()
+
+  const cursorStatus = getCursorStatus({
+    drawing: annotation,
+    selectedDrawing: selectedAnnotation,
+    editTargetPoints,
+    editMode,
+    editStartPoint,
+  })
+
+  setClassName(enabledElement, cursorStatus)
 
   useEffect(() => {
     if (!isEditing || selectedAnnotation == null) return
@@ -128,5 +141,5 @@ export default function useAnnotationPointsHandler({
     hoveredDrawing: hoveredAnnotation,
   })
 
-  return { annotation, editPoints: editTargetPoints, currentEditMode: editMode, setAnnotationEditMode }
+  return { annotation, editPoints: editTargetPoints, currentEditMode: editMode, setAnnotationEditMode, cursorStatus }
 }

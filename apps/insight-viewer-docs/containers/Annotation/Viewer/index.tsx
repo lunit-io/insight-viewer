@@ -83,7 +83,7 @@ function AnnotationViewerContainer(): JSX.Element {
           <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE}>
+      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay

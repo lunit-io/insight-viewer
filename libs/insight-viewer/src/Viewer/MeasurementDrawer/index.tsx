@@ -23,17 +23,20 @@ export function MeasurementDrawer({
 }: MeasurementDrawerProps): JSX.Element | null {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const { editPoints, measurement, currentEditMode, setMeasurementEditMode } = useMeasurementPointsHandler({
-    mode,
-    isEditing,
-    measurements,
-    svgElement: svgRef,
-    selectedMeasurement,
-    onSelectMeasurement,
-    hoveredMeasurement,
-    addMeasurement: onAdd,
-  })
+  const { editPoints, measurement, currentEditMode, setMeasurementEditMode, cursorStatus } =
+    useMeasurementPointsHandler({
+      mode,
+      isEditing,
+      measurements,
+      svgElement: svgRef,
+      selectedMeasurement,
+      onSelectMeasurement,
+      hoveredMeasurement,
+      addMeasurement: onAdd,
+    })
+
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
+  const isDrawing = !selectedMeasurement
 
   if (!measurement || (measurement && measurement.measuredValue === 0)) return null
 
@@ -45,6 +48,7 @@ export function MeasurementDrawer({
           isSelectedMode={isSelectedMeasurement}
           measurement={measurement}
           setMeasurementEditMode={setMeasurementEditMode}
+          cursorStatus={cursorStatus}
         />
       )}
       {measurement.type === 'circle' && (
@@ -52,6 +56,7 @@ export function MeasurementDrawer({
           isSelectedMode={isSelectedMeasurement}
           measurement={measurement}
           setMeasurementEditMode={setMeasurementEditMode}
+          cursorStatus={cursorStatus}
         />
       )}
       {editPoints && center && (
@@ -61,16 +66,20 @@ export function MeasurementDrawer({
             editMode="startPoint"
             isSelectedMode={currentEditMode === 'startPoint'}
             isHighlightMode={isSelectedMeasurement}
+            isDrawing={isDrawing}
             cx={editPoints[0]}
             cy={editPoints[1]}
+            cursorStatus={cursorStatus}
           />
           <EditPointer
             setEditMode={setMeasurementEditMode}
             editMode="endPoint"
             isSelectedMode={currentEditMode === 'endPoint'}
             isHighlightMode={isSelectedMeasurement}
+            isDrawing={isDrawing}
             cx={editPoints[2]}
             cy={editPoints[3]}
+            cursorStatus={cursorStatus}
           />
           <circle
             // setEditMode={setMeasurementEditMode}

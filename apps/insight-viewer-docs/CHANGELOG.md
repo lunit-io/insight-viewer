@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.10.0...@lunit/insight-viewer@6.0.0) (2022-10-27)
+
+### Features
+
+- **docs:** add scale 0.5 comment to setting initial viewport switch ([ccc1a44](https://github.com/lunit-io/frontend-components/commit/ccc1a44e2e8a50f20545fa8014b4c8d05e0a23f2))
+- **docs:** add usage for handling cursor style ([4ff9519](https://github.com/lunit-io/frontend-components/commit/4ff95192fec5d7be6149e5872f23127e440dd9f2))
+- **docs:** apply fit scale option false for default scale 0.5 in docs ([024366b](https://github.com/lunit-io/frontend-components/commit/024366bc05d58dd3548355fc796ac1de64274b6d))
+- **docs:** apply initial scale 1 to interaction docs ([ff3d7b6](https://github.com/lunit-io/frontend-components/commit/ff3d7b6762ee51fbae7caa56ac11b44e2f2f00a9))
+- **docs:** apply modified useViewport parameter type to docs ([fe0ad2b](https://github.com/lunit-io/frontend-components/commit/fe0ad2b24924f508056bbb96b94afe56b5eac3f9))
+- **docs:** apply toggle button of initial viewport ([eeb9dc5](https://github.com/lunit-io/frontend-components/commit/eeb9dc5f29fd42c2a3e392f16523345705e76c7c))
+
+## [5.10.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.2...@lunit/insight-viewer@5.10.0) (2022-10-19)
+
+### Bug Fixes
+
+- **viewer:** conflict error ([eb0d0d9](https://github.com/lunit-io/frontend-components/commit/eb0d0d9ff880fc06953b8b0bbb00db6589584d91))
+
 ## [5.9.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.1...@lunit/insight-viewer@5.9.2) (2022-09-27)
 
 ## [5.9.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.0...@lunit/insight-viewer@5.9.1) (2022-09-21)

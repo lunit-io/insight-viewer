@@ -10,6 +10,7 @@ export type ViewerStyleType =
   | 'highlight'
   | 'dashLine'
   | 'extendsArea'
+  | 'selectedExtendsArea'
 
 export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
@@ -58,19 +59,16 @@ export const svgWrapperStyle: ViewerStyle = {
     strokeWidth: DEFAULT_WIDTH,
     stroke: DEFAULT_COLOR,
     fill: 'transparent',
-    cursor: 'pointer',
   },
   outline: {
     fill: 'transparent',
     strokeWidth: OUTLINE_WIDTH,
     stroke: OUTLINE_COLOR,
-    cursor: 'pointer',
   },
   hoveredOutline: {
     fill: 'transparent',
     strokeWidth: OUTLINE_WIDTH,
     stroke: HOVERED_OUTLINE_COLOR,
-    cursor: 'pointer',
   },
   dashLine: {
     strokeWidth: DASH_LINE_WIDTH,
@@ -82,13 +80,16 @@ export const svgWrapperStyle: ViewerStyle = {
     fill: 'transparent',
     strokeWidth: EXTENDED_AREA_WIDTH,
     stroke: 'transparent',
-    cursor: 'pointer',
+  },
+  selectedExtendsArea: {
+    fill: 'transparent',
+    strokeWidth: EXTENDED_AREA_WIDTH,
+    stroke: 'transparent',
   },
   select: {
     stroke: SELECTED_COLOR,
     strokeWidth: DEFAULT_WIDTH,
     fill: 'transparent',
-    cursor: 'grab',
   },
 }
 
@@ -96,19 +97,16 @@ export const svgBoxStyle: ViewerStyle = {
   default: {
     fill: 'transparent',
     stroke: 'transparent',
-    cursor: 'pointer',
   },
   hover: {
     fill: 'transparent',
     stroke: HOVERED_TEXT_BOX_COLOR,
     strokeWidth: TEXT_BOX_WIDTH,
-    cursor: 'pointer',
   },
   select: {
     fill: 'transparent',
     stroke: HOVERED_TEXT_BOX_COLOR,
     strokeWidth: TEXT_BOX_WIDTH,
-    cursor: 'grab',
   },
 }
 
@@ -117,41 +115,34 @@ export const editPointerStyle: ViewerStyle = {
     strokeWidth: EDIT_DEFAULT_WIDTH,
     stroke: DEFAULT_COLOR,
     fill: DEFAULT_COLOR,
-    cursor: 'move',
   },
   highlight: {
     strokeWidth: EDIT_DEFAULT_WIDTH,
     stroke: EDIT_POINTER_HIGHLIGHT_COLOR,
     fill: EDIT_POINTER_HIGHLIGHT_COLOR,
-    cursor: 'move',
   },
   select: {
     strokeWidth: EDIT_DEFAULT_WIDTH,
     stroke: EDIT_POINTER_SELECTED_COLOR,
     fill: EDIT_POINTER_SELECTED_COLOR,
-    cursor: 'move',
   },
   outline: {
     strokeWidth: EDIT_OUTLINE_WIDTH,
     stroke: OUTLINE_COLOR,
-    fill: 'transparent',
   },
   selectedOutline: {
     strokeWidth: EDIT_SELECTED_OUTLINE_WIDTH,
     stroke: DEFAULT_COLOR,
-    fill: 'transparent',
   },
   hover: {
     strokeWidth: EDIT_DEFAULT_WIDTH,
     stroke: EDIT_POINTER_SELECTED_COLOR,
     fill: EDIT_POINTER_SELECTED_COLOR,
-    cursor: 'move',
   },
   extendsArea: {
     fill: 'transparent',
     strokeWidth: EXTENDED_AREA_WIDTH,
     stroke: 'transparent',
-    cursor: 'move',
   },
 }
 
@@ -167,7 +158,6 @@ export const textStyle: ViewerStyle = {
     lineHeight: LINE_HEIGHT,
     fontWeight: FONT_WIDTH,
     textAnchor: 'middle',
-    cursor: 'pointer',
   },
   hover: {
     fill: '#FFFFFF',
@@ -180,7 +170,6 @@ export const textStyle: ViewerStyle = {
     lineHeight: LINE_HEIGHT,
     fontWeight: FONT_WIDTH,
     textAnchor: 'middle',
-    cursor: 'pointer',
   },
   select: {
     fill: '#00FFF0',
@@ -193,6 +182,5 @@ export const textStyle: ViewerStyle = {
     lineHeight: LINE_HEIGHT,
     fontWeight: FONT_WIDTH,
     textAnchor: 'middle',
-    cursor: 'grab',
   },
 }

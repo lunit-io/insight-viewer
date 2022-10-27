@@ -29,10 +29,18 @@ export function Typing({ points, onFinish }: TypingProps): React.ReactElement | 
   const dimensions = [end[0] - start[0], end[1] - start[1]]
   return (
     <>
-      <rect style={svgBoxStyle.select} x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]} />
+      <rect
+        className="annotation-text typing grab"
+        style={svgBoxStyle.select}
+        x={start[0]}
+        y={start[1]}
+        width={dimensions[0]}
+        height={dimensions[1]}
+      />
       <foreignObject x={start[0]} y={start[1]} width={dimensions[0]} height={dimensions[1]}>
         <div
           contentEditable
+          className="annotation-text typing grab"
           ref={(div) => setEditArea(div)}
           onBlur={handleBlur}
           style={{

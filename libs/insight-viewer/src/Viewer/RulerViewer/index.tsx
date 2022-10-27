@@ -11,6 +11,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
   return (
     <>
       <polyline
+        className="measurement-ruler pointer"
         style={{
           ...svgWrapperStyle[isHoveredMeasurement ? 'hoveredOutline' : 'outline'],
         }}
@@ -18,6 +19,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline
+        className="measurement-ruler pointer"
         style={{
           ...svgWrapperStyle.extendsArea,
         }}
@@ -25,6 +27,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
         points={rulerLine}
       />
       <polyline
+        className="measurement-ruler pointer"
         style={{
           ...svgWrapperStyle.default,
         }}
@@ -43,7 +46,7 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       >
         {formattedValue}
       </text>
-      )
+      ) className="measurement-ruler label pointer"
     </>
   )
 }
