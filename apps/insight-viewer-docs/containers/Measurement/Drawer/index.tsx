@@ -50,14 +50,18 @@ function MeasurementDrawerContainer(): JSX.Element {
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', (e) => {
+    const delCallback = (e) => {
       if (e.code === 'Delete') {
         if (selectedMeasurement) {
-          removeMeasurement(selectedMeasurement)
           selectMeasurement(null)
+          removeMeasurement(selectedMeasurement)
         }
       }
-    })
+    }
+    window.addEventListener('keydown', delCallback)
+    return () => {
+      window.removeEventListener('keydown', delCallback)
+    }
   }, [selectedMeasurement])
 
   return (

@@ -59,14 +59,18 @@ function AnnotationDrawerContainer(): JSX.Element {
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', (e) => {
+    const delCallback = (e) => {
       if (e.code === 'Delete') {
         if (selectedAnnotation) {
-          removeAnnotation(selectedAnnotation)
           selectAnnotation(null)
+          removeAnnotation(selectedAnnotation)
         }
       }
-    })
+    }
+    window.addEventListener('keydown', delCallback)
+    return () => {
+      window.removeEventListener('keydown', delCallback)
+    }
   }, [selectedAnnotation])
 
   return (

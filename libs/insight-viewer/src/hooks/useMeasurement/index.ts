@@ -65,6 +65,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
 
   const removeMeasurement = (measurement: Measurement) => {
     setMeasurements((prevMeasurements) => {
+      console.log(prevMeasurements)
       const index = prevMeasurements.findIndex(({ id }) => id === measurement.id)
 
       if (index > -1) {
