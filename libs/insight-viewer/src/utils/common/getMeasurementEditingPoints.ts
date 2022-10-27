@@ -24,17 +24,18 @@ export function getMeasurementEditingPoints(
     return [prevPoints[0], currentPoint]
   }
 
-  // radius 값에 문제가 있음.
-
   if (mode === 'circle' && (editMode === 'startPoint' || editMode === 'endPoint')) {
     const prevEditStart: Point = [editTargetPoints[0], editTargetPoints[1]]
     const prevEditEnd: Point = [editTargetPoints[2], editTargetPoints[3]]
-    //  test
+    // test
     if (editMode === 'startPoint') {
-      const movedCenter = getCircleCenterPoint(currentPoint, prevEditEnd)
-      const currentRadius = getCircleRadiusByCenter(movedCenter, prevEditEnd)
-      const movedEnd = getCircleEndPoint(movedCenter, currentRadius)
-      return [movedCenter, movedEnd]
+      // const movedCenter = getCircleCenterPoint(currentPoint, prevEditEnd)
+      // const currentRadius = getCircleRadiusByCenter(movedCenter, prevEditEnd)
+      // const movedEnd = getCircleEndPoint(movedCenter, currentRadius)
+      // console.log('movedCenter', movedCenter, 'currentPoint', currentPoint, 'prev', prevEditStart, prevEditEnd)
+      // return [movedCenter, movedEnd]
+      // }
+      return  [currentPoint, prevEditEnd]
     }
   }
 
