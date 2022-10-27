@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.1.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.0.0...@lunit/insight-viewer@6.1.0) (2022-10-27)
+
+### Features
+
+- **viewer:** add getting edit points logic of circle editing, drawing ([bcbe67c](https://github.com/lunit-io/frontend-components/commit/bcbe67c77c271c4bcf8dba0df4f916b7a95d79e7))
+- **viewer:** added circle edit and getting flexible edit points ([0f18be6](https://github.com/lunit-io/frontend-components/commit/0f18be6a1e33c4071d95a597257c5128080bc3b1))
+- **viewer:** apply edit mode move, textMove conditional to get points ([8768238](https://github.com/lunit-io/frontend-components/commit/8768238654656958598dbba68f2f89050f7b5ff6))
+- **viewer:** delete circle edit mode logic to get editing points ([7edb283](https://github.com/lunit-io/frontend-components/commit/7edb28324aa5dbca232cd91c2fa09ac27088f82d))
+- **viewer:** remove delete key handling code ([34dba22](https://github.com/lunit-io/frontend-components/commit/34dba2290b7f43be50a60ff6f4699a0a1ab71393))
+
+### Bug Fixes
+
+- **viewer:** delete circle drawer cursor style ([935b186](https://github.com/lunit-io/frontend-components/commit/935b18653c830403bd318d169ca611cf3ad40faf))
+- **viewer:** delete unnecessary test code ([dc3bed2](https://github.com/lunit-io/frontend-components/commit/dc3bed24d08d2418d64dc55093f0f97bafef7c38))
+- **viewer:** edit test code of getMeasurementPointsByMode ([3a6c091](https://github.com/lunit-io/frontend-components/commit/3a6c091d2f18f688f040bd55d86e7d6524107178))
+- **viewer:** fix incorrect test code ([5c921d3](https://github.com/lunit-io/frontend-components/commit/5c921d35a3c9452ec6c68787e001dd9ec659de73))
+
 ## [6.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.10.0...@lunit/insight-viewer@6.0.0) (2022-10-27)
 
 ### Features

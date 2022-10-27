@@ -2,7 +2,7 @@ import { Point } from '../../types'
 import { getMeasurementEditingPoints } from './getMeasurementEditingPoints'
 
 describe('getMeasurementEditingPoints: ', () => {
-  it('should return correct points when edit mode is startPoint and measurement mode is ruler', () => {
+  it('should return correct points when edit mode is startPoint and measurement mode is ruler or circle', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -31,19 +31,19 @@ describe('getMeasurementEditingPoints: ', () => {
       [10, 10],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'ruler')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'circle')
     ).toEqual([
       [15, 15],
       [30, 40],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'ruler')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'circle')
     ).toEqual([
       [25, 25],
       [80, 100],
     ])
   })
-  it('should return correct points when edit mode is endPoint and measurement mode is ruler', () => {
+  it('should return correct points when edit mode is endPoint and measurement mode is ruler or circle', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -72,7 +72,7 @@ describe('getMeasurementEditingPoints: ', () => {
       [5, 5],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'ruler')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'circle')
     ).toEqual([
       [10, 20],
       [15, 15],
@@ -82,88 +82,6 @@ describe('getMeasurementEditingPoints: ', () => {
     ).toEqual([
       [40, 60],
       [25, 25],
-    ])
-  })
-  it('should return centerPoint when editMode is startPoint and measurement is circle', () => {
-    const MOCK_PREV_POINT_1: [Point, Point] = [
-      [0, 0],
-      [10, 10],
-    ]
-    const MOCK_PREV_POINT_2: [Point, Point] = [
-      [10, 20],
-      [30, 40],
-    ]
-    const MOCK_PREV_POINT_3: [Point, Point] = [
-      [40, 60],
-      [80, 100],
-    ]
-
-    const MOCK_CURRENT_POINT_1: Point = [5, 5]
-    const MOCK_CURRENT_POINT_2: Point = [15, 15]
-    const MOCK_CURRENT_POINT_3: Point = [25, 25]
-
-    const MOCK_EDIT_POINT_1: Point = [30, 30]
-    const MOCK_EDIT_POINT_2: Point = [50, 60]
-    const MOCK_EDIT_POINT_3: Point = [70, 90]
-
-    expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'startPoint', 'circle')
-    ).toEqual([
-      [0, 0],
-      [7.0710678118654755, 0],
-    ])
-    expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'circle')
-    ).toEqual([
-      [10, 20],
-      [17.071067811865476, 20],
-    ])
-    expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'circle')
-    ).toEqual([
-      [40, 60],
-      [78.07886552931954, 60],
-    ])
-  })
-  it('should return centerPoint when editMode is endPoint and measurement is circle', () => {
-    const MOCK_PREV_POINT_1: [Point, Point] = [
-      [0, 0],
-      [10, 10],
-    ]
-    const MOCK_PREV_POINT_2: [Point, Point] = [
-      [10, 20],
-      [30, 40],
-    ]
-    const MOCK_PREV_POINT_3: [Point, Point] = [
-      [40, 60],
-      [80, 100],
-    ]
-
-    const MOCK_CURRENT_POINT_1: Point = [5, 5]
-    const MOCK_CURRENT_POINT_2: Point = [15, 15]
-    const MOCK_CURRENT_POINT_3: Point = [25, 25]
-
-    const MOCK_EDIT_POINT_1: Point = [30, 30]
-    const MOCK_EDIT_POINT_2: Point = [50, 60]
-    const MOCK_EDIT_POINT_3: Point = [70, 90]
-
-    expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'endPoint', 'circle')
-    ).toEqual([
-      [0, 0],
-      [7.0710678118654755, 0],
-    ])
-    expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'circle')
-    ).toEqual([
-      [10, 20],
-      [17.071067811865476, 20],
-    ])
-    expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'endPoint', 'circle')
-    ).toEqual([
-      [40, 60],
-      [78.07886552931954, 60],
     ])
   })
 
