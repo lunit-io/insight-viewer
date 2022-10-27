@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.1.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.0...@lunit/insight-viewer@6.1.1) (2022-10-27)
+
+### Features
+
+- **viewer:** apply reset states to usepoinsHandler hook ([e08ebed](https://github.com/lunit-io/frontend-components/commit/e08ebed81977b9cacaeec2ca50c1bae3584c993c))
+- **viewer:** preserve initial annotation ids ([4719580](https://github.com/lunit-io/frontend-components/commit/471958069d50405063277f4307fa7450376541f6))
+
+### Bug Fixes
+
+- **viewer:** start id of initial annotation from nextId properly ([01c2c14](https://github.com/lunit-io/frontend-components/commit/01c2c148e9e65d3036e43e4e9760013953bfece9))
+
 ## [6.1.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.0.0...@lunit/insight-viewer@6.1.0) (2022-10-27)
 
 ### Features
