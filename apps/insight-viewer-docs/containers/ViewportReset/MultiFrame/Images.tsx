@@ -4,7 +4,6 @@ import InsightViewer, { useMultipleImages, useViewport, useFrame, Viewport } fro
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'
-import { IMAGES } from '../../../const'
 import useCaseSelect from './useCaseSelect'
 
 const INITIAL_VIEWPORT = {
@@ -15,7 +14,7 @@ const INITIAL_VIEWPORT = {
 
 export default function Images(): JSX.Element {
   const { CaseSelect, selected } = useCaseSelect()
-  const { viewport, setViewport, resetViewport } = useViewport(INITIAL_VIEWPORT)
+  const { viewport, setViewport, resetViewport } = useViewport({ initialViewport: INITIAL_VIEWPORT })
 
   const { loadingStates, images } = useMultipleImages({
     wadouri: selected,

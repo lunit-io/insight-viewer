@@ -4,17 +4,18 @@ import { RulerDrawer } from '../RulerDrawer'
 import { CircleDrawer } from '../CircleDrawer'
 import { EditPointer } from '../../components/EditPointer'
 import { svgRootStyle } from '../Viewer.styles'
-import { MeasurementDrawerProps } from './MeasurementDrawer.types'
 import useMeasurementPointsHandler from '../../hooks/useMeasurementPointsHandler'
+
+import type { MeasurementDrawerProps } from './MeasurementDrawer.types'
 
 export function MeasurementDrawer({
   style,
   width,
   height,
-  device,
   isEditing = false,
   measurements,
   selectedMeasurement,
+  hoveredMeasurement,
   className,
   mode = 'ruler',
   onAdd,
@@ -22,16 +23,18 @@ export function MeasurementDrawer({
 }: MeasurementDrawerProps): JSX.Element | null {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  const { editPoints, measurement, currentEditMode, setMeasurementEditMode } = useMeasurementPointsHandler({
-    mode,
-    device,
-    isEditing,
-    measurements,
-    svgElement: svgRef,
-    selectedMeasurement,
-    onSelectMeasurement,
-    addMeasurement: onAdd,
-  })
+  const { editPoints, measurement, currentEditMode, setMeasurementEditMode, cursorStatus } =
+    useMeasurementPointsHandler({
+      mode,
+      isEditing,
+      measurements,
+      svgElement: svgRef,
+      selectedMeasurement,
+      onSelectMeasurement,
+      hoveredMeasurement,
+      addMeasurement: onAdd,
+    })
+
   const isSelectedMeasurement = isEditing && selectedMeasurement != null
   const isDrawing = !selectedMeasurement
 
@@ -44,6 +47,7 @@ export function MeasurementDrawer({
           isSelectedMode={isSelectedMeasurement}
           measurement={measurement}
           setMeasurementEditMode={setMeasurementEditMode}
+          cursorStatus={cursorStatus}
         />
       )}
       {measurement.type === 'circle' && (
@@ -51,6 +55,7 @@ export function MeasurementDrawer({
           isSelectedMode={isSelectedMeasurement}
           measurement={measurement}
           setMeasurementEditMode={setMeasurementEditMode}
+          cursorStatus={cursorStatus}
         />
       )}
       {editPoints && (
@@ -63,6 +68,7 @@ export function MeasurementDrawer({
             isDrawing={isDrawing}
             cx={editPoints[0]}
             cy={editPoints[1]}
+            cursorStatus={cursorStatus}
           />
           <EditPointer
             setEditMode={setMeasurementEditMode}
@@ -72,6 +78,7 @@ export function MeasurementDrawer({
             isDrawing={isDrawing}
             cx={editPoints[2]}
             cy={editPoints[3]}
+            cursorStatus={cursorStatus}
           />
         </>
       )}

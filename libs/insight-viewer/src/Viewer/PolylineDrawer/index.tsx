@@ -21,6 +21,7 @@ export function PolylineDrawer({
   showAnnotationLabel,
   isPolygonSelected,
   setAnnotationEditMode,
+  cursorStatus,
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
@@ -48,7 +49,7 @@ export function PolylineDrawer({
   }
 
   const labelPosition = selectedAnnotationLabel ? polylabel([points.map(pixelToCanvas)]) : null
-  const isDrawing = isPolygonSelected ? undefined : 'isDrawing'
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
 
   return (
     <g data-cy-annotation onMouseDown={() => setAnnotationEditMode('move')}>
@@ -58,13 +59,13 @@ export function PolylineDrawer({
           {lineHead === 'arrow' && (
             <>
               <PolylineElement
-                className={`annotation-polyline pointer ${isDrawing}`}
+                className={`annotation-polyline ${cursorClassName} `}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle.outline}
                 points={getArrowPoints()}
               />
               <PolylineElement
-                className={`annotation-polyline pointer ${isDrawing}`}
+                className={`annotation-polyline ${cursorClassName}`}
                 isPolygon={isPolygonSelected}
                 style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
                 points={getArrowPoints()}
@@ -72,13 +73,13 @@ export function PolylineDrawer({
             </>
           )}
           <PolylineElement
-            className={`annotation-polyline pointer ${isDrawing}`}
+            className={`annotation-polyline ${cursorClassName}`}
             isPolygon={isPolygonSelected}
             style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
             points={polylinePoints}
           />
           <PolylineElement
-            className={`annotation-polyline pointer ${isDrawing}`}
+            className={`annotation-polyline ${cursorClassName}`}
             isPolygon={isPolygonSelected}
             style={svgWrapperStyle.extendsArea}
             points={polylinePoints}
@@ -87,7 +88,7 @@ export function PolylineDrawer({
       )}
       {showAnnotationLabel && selectedAnnotationLabel && labelPosition && (
         <text
-          className={`annotation-polyline label pointer ${isDrawing}`}
+          className={`annotation-polyline label ${cursorClassName}`}
           style={{ ...textStyle.default }}
           x={labelPosition[0]}
           y={labelPosition[1]}

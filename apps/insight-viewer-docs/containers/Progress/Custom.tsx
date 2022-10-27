@@ -1,10 +1,11 @@
 import { Box } from '@chakra-ui/react'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import { IMAGES, CODE_SANDBOX } from '../../const'
+import { CODE_SANDBOX } from '../../const'
 
 export default function Custom(): JSX.Element {
   const { image } = useImage({

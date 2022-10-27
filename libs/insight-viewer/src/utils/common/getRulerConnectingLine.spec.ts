@@ -1,5 +1,5 @@
 import { Point } from '../../types'
-import { getConnectingLinePoints } from './getConnectingLinePoints'
+import { getRulerConnectingLine } from './getRulerConnectingLine'
 
 describe('getConnectingLinePoints: ', () => {
   it('should return the points', () => {
@@ -20,16 +20,16 @@ describe('getConnectingLinePoints: ', () => {
     const MOCK_TEXT_POINT_2: Point = [232, 102]
     const MOCK_TEXT_POINT_3: Point = [142, 524]
 
-    expect(getConnectingLinePoints(MOCK_POINTS_1, MOCK_TEXT_POINT_1)).toEqual([
+    expect(getRulerConnectingLine(MOCK_POINTS_1, MOCK_TEXT_POINT_1)).toEqual([
       [10, 10],
       [32, 12],
     ])
-    expect(getConnectingLinePoints(MOCK_POINTS_2, MOCK_TEXT_POINT_2)).toEqual([
+    expect(getRulerConnectingLine(MOCK_POINTS_2, MOCK_TEXT_POINT_2)).toEqual([
       [50, 50],
       [232, 102],
     ])
-    expect(getConnectingLinePoints(MOCK_POINTS_3, MOCK_TEXT_POINT_3)).toEqual([
-      [321, 120],
+    expect(getRulerConnectingLine(MOCK_POINTS_3, MOCK_TEXT_POINT_3)).toEqual([
+      [90, 333],
       [142, 524],
     ])
   })

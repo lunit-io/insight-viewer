@@ -9,8 +9,7 @@ import InsightViewer, {
   MeasurementMode,
   Measurement,
 } from '@lunit/insight-viewer'
-import { IMAGES } from '../../../const'
-import { RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
+import { IMAGES, RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 export type InitialMeasurements = {
   [mode in MeasurementMode]: Measurement[]
@@ -70,7 +69,7 @@ function MeasurementViewerContainer(): JSX.Element {
           <Radio value="circle">Circle</Radio>
         </Stack>
       </RadioGroup>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE}>
+      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`measurement ${measurementMode}`}>
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <MeasurementOverlay

@@ -1,9 +1,10 @@
 import { Box } from '@chakra-ui/react'
 import InsightViewer, { ViewerError, useImage } from '@lunit/insight-viewer'
+import { WRONG_IMAGE } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import { WRONG_IMAGE, CODE_SANDBOX } from '../../const'
+import { CODE_SANDBOX } from '../../const'
 
 const IMAGE_ID = WRONG_IMAGE
 

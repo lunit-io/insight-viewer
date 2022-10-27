@@ -1,13 +1,17 @@
 import React from 'react'
 
-import { TextDrawerProps } from './TextDrawer.types'
 import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
 
+import type { TextDrawerProps } from './TextDrawer.types'
 export { Typing as TypingDrawer } from './Typing'
 
-export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProps): React.ReactElement | null {
+export function TextDrawer({
+  annotation,
+  setAnnotationEditMode,
+  cursorStatus,
+}: TextDrawerProps): React.ReactElement | null {
   const { pixelToCanvas } = useOverlayContext()
 
   const { points, label } = annotation
@@ -19,11 +23,13 @@ export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProp
   }
   const dimensions = [end[0] - start[0], end[1] - start[1]]
 
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
+
   return (
     <>
       {label && (
         <text
-          className="annotation-text label grab"
+          className={`annotation-text label ${cursorClassName}`}
           style={{
             ...textStyle.select,
             textAnchor: 'start',
@@ -44,7 +50,7 @@ export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProp
         </text>
       )}
       <rect
-        className="annotation-text box grab"
+        className={`annotation-text box ${cursorClassName}`}
         style={svgBoxStyle.select}
         x={start[0]}
         y={start[1]}

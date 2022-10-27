@@ -10,6 +10,7 @@ import InsightViewer, {
   Drag,
   Click,
 } from '@lunit/insight-viewer'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
 import ClickControl from './Control/Click'
@@ -17,7 +18,7 @@ import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CUSTOM_CODE } from './Code'
-import { IMAGES, CODE_SANDBOX } from '../../const'
+import { CODE_SANDBOX } from '../../const'
 
 export default function App(): JSX.Element {
   const [{ x, y }, setCoord] = useState<{
@@ -33,7 +34,7 @@ export default function App(): JSX.Element {
     setViewport,
     resetViewport,
   } = useViewport({
-    scale: 1,
+    initialViewport: { scale: 1 },
   })
 
   const customPan: Drag = ({ viewport, delta }) => {

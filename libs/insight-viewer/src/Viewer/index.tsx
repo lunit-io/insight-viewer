@@ -1,12 +1,13 @@
 import React, { useRef, useEffect } from 'react'
 import ViewerWrapper from '../components/ViewerWrapper'
-import { WithChildren, Viewport } from '../types'
 import useCornerstone from '../hooks/useCornerstone'
 import useImageDisplay from '../hooks/useImageDisplay'
 import useViewportUpdate from '../hooks/useViewportUpdate'
 import useViewportInteraction from '../hooks/useInteraction/useViewportInteraction'
 import { OverlayContextProvider } from '../contexts'
-import { ViewerProp } from './types'
+
+import type { ViewerProp } from './types'
+import type { WithChildren, Viewport } from '../types'
 
 export function InsightViewer({
   image,
@@ -36,6 +37,7 @@ export function InsightViewer({
   })
   // Update cornerstone viewport on user interaction.
   useViewportInteraction({
+    image,
     element: elRef.current,
     interaction,
     viewport,

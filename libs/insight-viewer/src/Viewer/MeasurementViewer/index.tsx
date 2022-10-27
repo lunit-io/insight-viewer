@@ -1,10 +1,11 @@
 import React, { useRef } from 'react'
 
 import { svgRootStyle } from '../Viewer.styles'
-import { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
 import { useOverlayContext } from '../../contexts'
 import { RulerViewer } from '../RulerViewer'
 import { CircleViewer } from '../CircleViewer'
+
+import type { MeasurementsDrawProps, MeasurementViewerProps } from './MeasurementViewer.types'
 
 const measurementStyle: React.CSSProperties = {
   pointerEvents: 'auto',
@@ -16,8 +17,7 @@ function MeasurementsDraw({
   hoveredMeasurement,
   measurementAttrs,
   onFocus,
-  onRemove,
-  onSelect,
+  onClick,
 }: MeasurementsDrawProps) {
   return measurements.map((measurement) => {
     const viewerProps = {
@@ -27,13 +27,13 @@ function MeasurementsDraw({
     }
 
     const handleMeasurementClick = () => {
-      if (isEditing && onSelect) {
-        onSelect(measurement)
-        return
+      if (!onClick) return
+
+      if (onFocus) {
+        onFocus(null)
       }
 
-      if (!onRemove) return
-      onRemove(measurement)
+      onClick(measurement)
     }
 
     const handleMeasurementFocus = () => {
@@ -69,15 +69,19 @@ export function MeasurementViewer({
   measurements,
   className,
   hoveredMeasurement,
+  selectedMeasurement,
   isEditing = false,
   showOutline = false,
   measurementAttrs,
   onFocus,
-  onRemove,
-  onSelect,
+  onClick,
 }: MeasurementViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const { enabledElement } = useOverlayContext()
+
+  const measurementsOfViewer = selectedMeasurement
+    ? measurements.filter((measurement) => measurement.id !== selectedMeasurement.id)
+    : measurements
 
   return (
     <svg
@@ -91,13 +95,12 @@ export function MeasurementViewer({
         ? null
         : MeasurementsDraw({
             isEditing,
-            measurements,
+            measurements: measurementsOfViewer,
             hoveredMeasurement,
             showOutline,
             measurementAttrs,
             onFocus,
-            onRemove,
-            onSelect,
+            onClick,
           })}
     </svg>
   )

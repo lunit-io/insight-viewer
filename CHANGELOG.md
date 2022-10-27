@@ -2,6 +2,56 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.10.0...@lunit/insight-viewer@6.0.0) (2022-10-27)
+
+### Features
+
+- **docs:** add scale 0.5 comment to setting initial viewport switch ([ccc1a44](https://github.com/lunit-io/frontend-components/commit/ccc1a44e2e8a50f20545fa8014b4c8d05e0a23f2))
+- **docs:** add usage for handling cursor style ([4ff9519](https://github.com/lunit-io/frontend-components/commit/4ff95192fec5d7be6149e5872f23127e440dd9f2))
+- **docs:** apply fit scale option false for default scale 0.5 in docs ([024366b](https://github.com/lunit-io/frontend-components/commit/024366bc05d58dd3548355fc796ac1de64274b6d))
+- **docs:** apply initial scale 1 to interaction docs ([ff3d7b6](https://github.com/lunit-io/frontend-components/commit/ff3d7b6762ee51fbae7caa56ac11b44e2f2f00a9))
+- **docs:** apply modified useViewport parameter type to docs ([fe0ad2b](https://github.com/lunit-io/frontend-components/commit/fe0ad2b24924f508056bbb96b94afe56b5eac3f9))
+- **docs:** apply toggle button of initial viewport ([eeb9dc5](https://github.com/lunit-io/frontend-components/commit/eeb9dc5f29fd42c2a3e392f16523345705e76c7c))
+- **viewer:** add className to handle cursor style ([4f13040](https://github.com/lunit-io/frontend-components/commit/4f1304094771c425ba1aabd44606fd43eb493ff9))
+- **viewer:** add default viewport option constant ([c9c753c](https://github.com/lunit-io/frontend-components/commit/c9c753c89628226db6a61593fa3178e27e06057b))
+- **viewer:** add measurement prop, modify getting current id logic ([5e48956](https://github.com/lunit-io/frontend-components/commit/5e4895618f58761e8e0d9fdea0cf8e534409173f))
+- **viewer:** add modifyConnectingLine ([8eebd64](https://github.com/lunit-io/frontend-components/commit/8eebd644b420ea3280ebe93af1c37be04788abb6))
+- **viewer:** add options param to useViewport hook ([c95ece4](https://github.com/lunit-io/frontend-components/commit/c95ece45a577be30aa22802253b453511c55cf85))
+- **viewer:** add selectedAnnotation prop to Viewer ([889f49f](https://github.com/lunit-io/frontend-components/commit/889f49f97b1ef60025aef2004b3ee6dfbd929c0c))
+- **viewer:** add selectedMeasurement prop to Viewer ([e70687f](https://github.com/lunit-io/frontend-components/commit/e70687f03042f5404e265925f92a761c18be3e4a))
+- **viewer:** add useTextBox hook ([5908fe1](https://github.com/lunit-io/frontend-components/commit/5908fe13e96f5d4a02da80f1059f7c1638ea19f5))
+- **viewer:** apply \_resetViewport default value when viewport reset ([d17627d](https://github.com/lunit-io/frontend-components/commit/d17627dc151641012b381233ef0931bb6a20d744))
+- **viewer:** apply combined onClick prop and onFocus null logic ([a07ef2b](https://github.com/lunit-io/frontend-components/commit/a07ef2b7d90b258d0131f8d28d1c3a38941110f6))
+- **viewer:** apply default viewport option value when initial setting ([25ea04c](https://github.com/lunit-io/frontend-components/commit/25ea04c43f448c6b7868a44e765e49accce73a14))
+- **viewer:** apply formatViewport viewportOptions field ([868828a](https://github.com/lunit-io/frontend-components/commit/868828ac688938b5ff03a4751fb7a64321f8b24f))
+- **viewer:** apply onFocus when onClick event running ([c4183b5](https://github.com/lunit-io/frontend-components/commit/c4183b5325666f01e66b0ceb7aabf8a47725c2ac))
+- **viewer:** apply x,y unchanged logic by viewport scale limit ([03ea63c](https://github.com/lunit-io/frontend-components/commit/03ea63cecbc3fb6cf1f56ad3eb88774b7d8eba08))
+- **viewer:** combine onSelect, onRemove prop in Viewer ([e7dda50](https://github.com/lunit-io/frontend-components/commit/e7dda506ee19a79b8b9b9dcbf8c439e0430dbcc3))
+- **viewer:** delete initialize measurement when measurement removed ([b5d4a61](https://github.com/lunit-io/frontend-components/commit/b5d4a61de006324e59830abc7264b79faacd560f))
+- **viewer:** export BasicViewport, ViewportOptions type ([0e83be3](https://github.com/lunit-io/frontend-components/commit/0e83be3a1c30321b121c279c222d3c5420971005))
+- **viewer:** if it's not an extended area, delete onMouseDown event ([7e32297](https://github.com/lunit-io/frontend-components/commit/7e322971a7fea4c13d22b352cd430ad89879794a))
+- **viewer:** initialize cursor style ([48b63fd](https://github.com/lunit-io/frontend-components/commit/48b63fd957a0af9acdefa2b2f5f03e679a51ef6f))
+- **viewer:** modify connecting line in Circle viewer and drawer ([ac181c2](https://github.com/lunit-io/frontend-components/commit/ac181c2915cef624528d162d18fc59f1267e481f))
+- **viewer:** modify connecting line in Ruler viewer and drawer ([5dabbdb](https://github.com/lunit-io/frontend-components/commit/5dabbdbd534842ff5f5932b9b37df0539daa19ae))
+- **viewer:** modify edit pointer width ([8727d66](https://github.com/lunit-io/frontend-components/commit/8727d66ee7ea6ae7fc93f3529e8897b477999d31))
+- **viewer:** optimize calcDistance function and change name ([d22b510](https://github.com/lunit-io/frontend-components/commit/d22b5109d696e6a975dc17003ad5b476a5341499))
+- **viewer:** remove duplicated class name ([6d27d4d](https://github.com/lunit-io/frontend-components/commit/6d27d4dd907f0c66b64e8e7d7233529f5efe01be))
+- **viewer:** remove reset hovered annotation when remove annotation ([b51e027](https://github.com/lunit-io/frontend-components/commit/b51e0271a236777880558b90fa7421c829b61190))
+- **viewer:** remove selected annotation deletion, override annotation ([3a75e5c](https://github.com/lunit-io/frontend-components/commit/3a75e5c839b14d4909c5024899b9aedd36084190))
+- **viewer:** remove selected annotation deletion, override measurement ([bd1a959](https://github.com/lunit-io/frontend-components/commit/bd1a9595ad7192b5f8d586fbdb3323f64a143703))
+- **viewer:** set viewport fit scale when fit scale option is true ([3236e74](https://github.com/lunit-io/frontend-components/commit/3236e74a2c87dd478460292231541cc7672b42c4))
+
+### Bug Fixes
+
+- **viewer:** can find close point on Ruler Mode ([be78ed1](https://github.com/lunit-io/frontend-components/commit/be78ed1f138106be479bee244a26aa4bc8c872f8))
+- **viewer:** give hidden property when TextBox Ref is null ([9557527](https://github.com/lunit-io/frontend-components/commit/9557527e3a633e8b5c29ee2b066295cefe92ac3b))
+- **viewer:** measurement ruler error ([768bda6](https://github.com/lunit-io/frontend-components/commit/768bda652b11bb471506937c171ad0f9c0f92d63))
+- **viewer:** modify finding connectingLine logic ([3757171](https://github.com/lunit-io/frontend-components/commit/3757171bc4a9a5150e5ffc6d0f42484fa26d38cb))
+- **viewer:** modify typo annotaion to annotation ([9f35cd1](https://github.com/lunit-io/frontend-components/commit/9f35cd1030c2d35e1c4f50bfb7efbe693eeaf8da))
+- **viewer:** mouseEvent error after dragging in Measurement Mode ([e44ff2a](https://github.com/lunit-io/frontend-components/commit/e44ff2a1b0f69bd8d260accbdde57e100ff5cde4))
+- **viewer:** prevent dragging when hovered in Annotation Mode ([47ebfe2](https://github.com/lunit-io/frontend-components/commit/47ebfe258159c1e30bd5007ba0ae9f03021856be))
+- **viewer:** prevent dragging when hovered in Measurement Mode ([739c1d3](https://github.com/lunit-io/frontend-components/commit/739c1d310befd8cfc31d5bd4cef6b2941b48e3d9))
+
 ## [5.10.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@5.9.2...@lunit/insight-viewer@5.10.0) (2022-10-19)
 
 ### Features

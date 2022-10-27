@@ -1,7 +1,7 @@
 import '@percy/cypress'
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../support/const'
-import { IMAGES } from '../../../insight-viewer-docs/const'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 
 describe(
   'Multiframe',
@@ -14,6 +14,8 @@ describe(
     before(() => {
       setup()
       cy.visit('/multi-frame')
+      // FIXME: wait for all images to be loaded
+      /* eslint-disable-next-line cypress/no-unnecessary-waiting */
       cy.wait(5000)
     })
 

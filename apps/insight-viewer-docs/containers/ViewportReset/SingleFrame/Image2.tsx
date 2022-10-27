@@ -14,7 +14,7 @@ const INITIAL_VIEWPORT = {
 
 export default function Image2(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
-  const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT)
+  const { viewport, setViewport, resetViewport, initialized } = useViewport({ initialViewport: INITIAL_VIEWPORT })
   const currentViewportRef = useRef<Viewport>()
   const handleImageLoaded = () => {
     if (!currentViewportRef?.current) {

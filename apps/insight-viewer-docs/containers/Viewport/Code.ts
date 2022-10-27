@@ -15,9 +15,11 @@ export default function App() {
     imageId: IMAGE_ID,
   })
   const { viewport, setViewport, resetViewport } = useViewport({
-    scale: 0.5,
-    windowWidth: 90,
-    windowCenter: 32,
+    initalViewport: {
+      scale: 0.5,
+      windowWidth: 90,
+      windowCenter: 32,
+    }
   })
 
   function updateViewport() {

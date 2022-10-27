@@ -1,11 +1,12 @@
 import { Box, Text, Stack } from '@chakra-ui/react'
 import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import React from 'react'
 import CodeBlock from '../../components/CodeBlock'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-import { IMAGES, CODE_SANDBOX } from '../../const'
+import { CODE_SANDBOX } from '../../const'
 
 export default function Base(): JSX.Element {
   const { loadingStates, images } = useMultipleImages({

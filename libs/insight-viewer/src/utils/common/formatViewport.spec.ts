@@ -14,6 +14,9 @@ describe('formatViewerViewport:', () => {
       y: CORNERSTONE_VIEWPORT_MOCK.translation.y,
       windowWidth: CORNERSTONE_VIEWPORT_MOCK.voi.windowWidth,
       windowCenter: CORNERSTONE_VIEWPORT_MOCK.voi.windowCenter,
+      _viewportOptions: {
+        fitScale: true,
+      },
     })
   })
 

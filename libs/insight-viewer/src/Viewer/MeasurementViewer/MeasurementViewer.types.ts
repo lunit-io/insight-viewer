@@ -9,6 +9,7 @@ export interface MeasurementViewerProps {
   measurements: Measurement[]
 
   hoveredMeasurement: Measurement | null
+  selectedMeasurement: Measurement | null
 
   /** <svg className={}> */
   className?: string
@@ -25,9 +26,8 @@ export interface MeasurementViewerProps {
    */
   measurementAttrs?: (measurement: Measurement, showOutline: boolean) => SVGProps<SVGPolygonElement>
 
-  onSelect: (measurement: Measurement | null) => void
+  onClick?: (measurement: Measurement) => void
   onFocus?: (measurement: Measurement | null) => void
-  onRemove?: (measurement: Measurement) => void
 
   /**
    * Draw an outline on the line
@@ -36,7 +36,8 @@ export interface MeasurementViewerProps {
   showOutline?: boolean
 }
 
-export interface MeasurementsDrawProps extends Omit<MeasurementViewerProps, 'width' | 'height' | 'mode'> {
+export interface MeasurementsDrawProps
+  extends Omit<MeasurementViewerProps, 'width' | 'height' | 'mode' | 'selectedMeasurement'> {
   isEditing: boolean
   showOutline: boolean
 }

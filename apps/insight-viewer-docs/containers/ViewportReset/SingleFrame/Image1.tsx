@@ -17,7 +17,7 @@ export default function Image1(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: selected,
   })
-  const { viewport, setViewport, resetViewport, initialized } = useViewport(INITIAL_VIEWPORT)
+  const { viewport, setViewport, resetViewport, initialized } = useViewport({ initialViewport: INITIAL_VIEWPORT })
 
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {

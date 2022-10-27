@@ -1,12 +1,5 @@
 import React, { ReactElement } from 'react'
-
-import { useOverlayContext } from '../../contexts'
-
-import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
-import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
-import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
-import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
-import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
+import useCircleMeasurement from '../../hooks/useCircleMeasurement'
 
 import { svgWrapperStyle, textStyle } from '../Viewer.styles'
 
@@ -16,65 +9,54 @@ export function CircleDrawer({
   isSelectedMode,
   measurement,
   setMeasurementEditMode,
+  cursorStatus,
 }: CircleDrawerProps): ReactElement | null {
-  const { pixelToCanvas } = useOverlayContext()
-
-  const { centerPoint, radius, measuredValue, unit } = measurement
-  const endPoint = getCircleEndPoint(centerPoint, radius)
-
-  const [centerPointOnCanvas, endPointOnCanvas] = [centerPoint, endPoint].map(pixelToCanvas)
-
-  const drawingRadius = getCircleRadiusByCenter(centerPointOnCanvas, endPointOnCanvas)
-
-  const textPointOnCanvas = measurement.textPoint
-    ? pixelToCanvas(measurement.textPoint)
-    : getCircleTextPosition(centerPointOnCanvas, drawingRadius)
-
-  const connectingLine = getCircleConnectingLine([centerPointOnCanvas, endPointOnCanvas], textPointOnCanvas)
-    .map((point) => `${point[0]}, ${point[1]}`)
-    .join(' ')
-
-  const area = calculateCircleArea(measuredValue)
+  const { centerPointOnCanvas, formattedValue, ref, drawingRadius, textBoxPoint, connectingLine, visibility } =
+    useCircleMeasurement(measurement)
 
   const handleMoveOnMouseDown = () => setMeasurementEditMode('move')
   const handleTextMoveOnMouseDown = () => setMeasurementEditMode('textMove')
 
+  const cursorClassName = cursorStatus === null ? 'pointer' : ''
+
   return (
     <>
       <circle
-        className="measurement-circle pointer"
-        onMouseDown={handleMoveOnMouseDown}
+        className={`measurement-circle ${cursorClassName}`}
         style={svgWrapperStyle.outline}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
-        className="measurement-circle pointer"
-        onMouseDown={handleMoveOnMouseDown}
+        className={`measurement-circle ${cursorClassName}`}
         style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
         cx={centerPointOnCanvas[0]}
         cy={centerPointOnCanvas[1]}
         r={drawingRadius}
       />
       <circle
-        className="measurement-circle pointer drag"
+        className={`measurement-circle ${cursorClassName}`}
         onMouseDown={handleMoveOnMouseDown}
-        style={{ ...svgWrapperStyle[isSelectedMode ? 'selectedExtendsArea' : 'extendsArea'] }}
+        style={{ ...svgWrapperStyle.extendsArea, cursor: isSelectedMode ? 'grab' : 'pointer' }}
+        cx={centerPointOnCanvas[0]}
+        cy={centerPointOnCanvas[1]}
+        r={drawingRadius}
       />
+      <polyline style={{ ...svgWrapperStyle.dashLine, visibility }} points={connectingLine} />
       <text
-        className="measurement-circle label pointer"
+        ref={ref}
+        className={`measurement-circle label ${cursorClassName}`}
         onMouseDown={handleTextMoveOnMouseDown}
-        style={{ ...textStyle[isSelectedMode ? 'select' : 'default'] }}
-        x={textPointOnCanvas[0]}
-        y={textPointOnCanvas[1]}
+        style={{
+          ...textStyle[isSelectedMode ? 'select' : 'default'],
+          visibility,
+        }}
+        x={textBoxPoint[0]}
+        y={textBoxPoint[1]}
       >
-        {`Area = ${area.toLocaleString(undefined, {
-          minimumFractionDigits: 1,
-          maximumFractionDigits: 1,
-        })}${unit}2`}
+        {formattedValue}
       </text>
-      <polyline style={svgWrapperStyle.dashLine} points={connectingLine} />
     </>
   )
 }

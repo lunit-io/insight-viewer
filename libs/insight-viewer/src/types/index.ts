@@ -9,6 +9,8 @@ export type ViewerError = Error & { status?: number }
 export type OnError = (e: ViewerError) => void
 export type ProgressComponent = ({ progress }: { progress: number }) => JSX.Element
 export type RequestInterceptor = (request: Request) => void
+
+export type ViewportOptions = { fitScale: boolean }
 export interface BasicViewport {
   scale: number
   invert: boolean
@@ -23,6 +25,7 @@ export interface BasicViewport {
 export type Viewport = BasicViewport & {
   _initialViewport?: Partial<BasicViewport>
   _resetViewport?: Partial<BasicViewport>
+  _viewportOptions: ViewportOptions
 }
 
 export type Point = [x: number, y: number]
@@ -168,3 +171,5 @@ export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
   hoveredMeasurement: Measurement | null
 }
+
+export type CursorStatus = 'drawing' | 'editing' | 'moving' | null

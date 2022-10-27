@@ -1,9 +1,9 @@
 import { Box, Text } from '@chakra-ui/react'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { WRONG_IMAGE } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
-import { WRONG_IMAGE } from '../../const'
 
 export default function Base(): JSX.Element {
   const { image } = useImage({

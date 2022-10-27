@@ -10,12 +10,12 @@ import InsightViewer, {
   Annotation,
 } from '@lunit/insight-viewer'
 import {
+  IMAGES,
   POLYGON_ANNOTATIONS,
   LINE_ANNOTATIONS,
   FREELINE_ANNOTATIONS,
   TEXT_ANNOTATIONS,
 } from '@insight-viewer-library/fixtures'
-import { IMAGES } from '../../../const'
 
 export type InitialAnnotations = {
   [mode in AnnotationMode]: Annotation[]
@@ -83,7 +83,7 @@ function AnnotationViewerContainer(): JSX.Element {
           <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE}>
+      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay

@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { TextViewerProps } from './TextViewer.types'
 import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../Viewer.styles'
 import { useOverlayContext } from '../../contexts'
 import { TEXT_PADDING } from '../../const'
+
+import type { TextViewerProps } from './TextViewer.types'
 
 export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): React.ReactElement {
   const { pixelToCanvas } = useOverlayContext()
@@ -26,7 +27,7 @@ export function TextViewer({ annotation, hoveredAnnotation }: TextViewerProps): 
       >
         {annotation.label.split('\n').map((line, index) => (
           <tspan
-            className="annotation-text label"
+            className="annotation-text label pointer"
             x={start[0] + TEXT_PADDING}
             y={start[1] + index * TEXT_SIZE * LINE_HEIGHT + TEXT_PADDING}
             key={index}

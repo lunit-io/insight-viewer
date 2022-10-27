@@ -1,6 +1,6 @@
 import { useState, memo, MemoExoticComponent } from 'react'
 import { Stack, Button, Text } from '@chakra-ui/react'
-import { IMAGES } from '../../../const'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import { noop } from '../../../utils'
 
 const images = {

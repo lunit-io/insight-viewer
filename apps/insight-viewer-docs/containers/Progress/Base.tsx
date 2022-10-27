@@ -3,7 +3,7 @@ import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import CodeBlock from '../../components/CodeBlock'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
-import { IMAGES } from '../../const'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 
 export default function Base(): JSX.Element {
   const { image } = useImage({

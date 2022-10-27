@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { MeasurementOverlayProps } from './MeasurementOverlay.types'
 import { MeasurementViewer } from '../MeasurementViewer'
 import { MeasurementDrawer } from '../MeasurementDrawer'
+
+import type { MeasurementOverlayProps } from './MeasurementOverlay.types'
 
 export function MeasurementOverlay({
   width,
@@ -14,7 +15,6 @@ export function MeasurementOverlay({
   style,
   showOutline,
   mode,
-  device,
   isDrawing = false,
   isEditing,
   measurementAttrs,
@@ -34,24 +34,24 @@ export function MeasurementOverlay({
         height={height}
         measurements={measurements}
         hoveredMeasurement={hoveredMeasurement}
+        selectedMeasurement={selectedMeasurement}
         className={className}
         style={style}
         showOutline={showOutline}
         isEditing={isEditing}
         measurementAttrs={measurementAttrs}
         onFocus={onFocus}
-        onRemove={onRemove}
-        onSelect={onSelect}
+        onClick={isEditing ? onSelect : onRemove}
       />
       {isDrawing && onAdd && (
         <MeasurementDrawer
           width={width}
           height={height}
           selectedMeasurement={selectedMeasurement}
+          hoveredMeasurement={hoveredMeasurement}
           measurements={measurements}
           className={className}
           style={style}
-          device={device}
           isEditing={isEditing}
           mode={mode}
           onAdd={onAdd}

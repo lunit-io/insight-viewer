@@ -1,11 +1,12 @@
 import { Box } from '@chakra-ui/react'
 import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { CODE } from './Code'
-import { IMAGES, CODE_SANDBOX } from '../../const'
+import { CODE_SANDBOX } from '../../const'
 
 function Overlay(): JSX.Element {
   const { loadingState, image } = useImage({

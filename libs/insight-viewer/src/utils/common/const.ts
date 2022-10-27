@@ -1,4 +1,5 @@
 import { Viewport } from '../../types'
+import { DEFAULT_VIEWPORT_OPTIONS } from '../../const'
 
 export const DefaultViewport: Viewport = {
   scale: 0,
@@ -10,6 +11,7 @@ export const DefaultViewport: Viewport = {
   y: 0,
   windowWidth: 0,
   windowCenter: 0,
+  _viewportOptions: DEFAULT_VIEWPORT_OPTIONS,
 }
 
 export const ERROR_UNKNOWN = 'error unknown'

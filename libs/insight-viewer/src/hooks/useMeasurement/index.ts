@@ -33,6 +33,11 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
     )
   }, [initialMeasurement, nextId])
 
+  const initializeInstantMeasurement = () => {
+    setSelectedMeasurement(null)
+    setHoveredMeasurement(null)
+  }
+
   const addMeasurement = (
     measurement: Measurement,
     measurementInfo: Pick<Measurement, 'dataAttrs'> | undefined
@@ -43,15 +48,19 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
       validateDataAttrs(measurementInfo?.dataAttrs)
     }
 
-    setMeasurements((prevMeasurements) => [...prevMeasurements, measurement])
+    setMeasurements((prevMeasurements) => {
+      if (!selectedMeasurement) return [...prevMeasurements, measurement]
+
+      return prevMeasurements.map((prevMeasurement) => {
+        return prevMeasurement.id === measurement.id ? measurement : prevMeasurement
+      })
+    })
 
     return measurement
   }
 
   const hoverMeasurement = (measurement: Measurement | null) => {
-    setHoveredMeasurement((prevHoveredMeasurement) =>
-      measurement !== prevHoveredMeasurement ? measurement : prevHoveredMeasurement
-    )
+    setHoveredMeasurement(measurement)
   }
 
   const removeMeasurement = (measurement: Measurement) => {
@@ -67,16 +76,10 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
 
       return prevMeasurements
     })
-
-    setSelectedMeasurement(null)
   }
 
   const selectMeasurement = (measurement: Measurement | null) => {
-    if (measurement) removeMeasurement(measurement)
-
-    setSelectedMeasurement((prevSelectedMeasurement) =>
-      measurement !== prevSelectedMeasurement ? measurement : prevSelectedMeasurement
-    )
+    setSelectedMeasurement(measurement)
   }
 
   const updateMeasurement = (measurement: Measurement, patch: Partial<Omit<MeasurementBase, 'id' | 'type'>>) => {
@@ -98,7 +101,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
         nextMeasurements[index] = nextMeasurement
 
         setSelectedMeasurement((prevSelectedMeasurement) =>
-          measurement === prevSelectedMeasurement ? nextMeasurement : prevSelectedMeasurement
+          measurement.id === prevSelectedMeasurement?.id ? nextMeasurement : prevSelectedMeasurement
         )
       }
 
@@ -110,7 +113,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
 
   const removeAllMeasurement = () => {
     setMeasurements([])
-    setSelectedMeasurement(null)
+    initializeInstantMeasurement()
   }
 
   return {
