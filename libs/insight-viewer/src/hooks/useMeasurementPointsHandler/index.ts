@@ -40,9 +40,12 @@ export default function useMeasurementPointsHandler({
     const currentPoints = selectedMeasurementPoints.map(pixelToCanvas)
     const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
 
+    const editPoint = getEditPointPosition(selectedMeasurementPoints, selectedMeasurement)
     setMeasurement(selectedMeasurement)
-    setEditTargetPoints(currentEditPoint)
-    setEditPointsOnSelected(currentEditPoint)
+    setEditTargetPoints(editPoint)
+    // setEditPointsOnSelected(currentEditPoint)
+    // setEditPointsOnSelected(currentEditPoint)
+    console.log(selectedMeasurement, currentEditPoint)
   }, [isEditing, selectedMeasurement, pixelToCanvas])
 
   const setInitialMeasurement = (point: [mouseDownX: number, mouseDownY: number]) => {
