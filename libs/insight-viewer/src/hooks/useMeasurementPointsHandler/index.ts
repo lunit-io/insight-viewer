@@ -31,6 +31,8 @@ export default function useMeasurementPointsHandler({
   const [mouseDownPoint, setMouseDownPoint] = useState<Point | null>(null)
   const [measurement, setMeasurement] = useState<Measurement | null>(null)
 
+  const [selectedMeasurementEditFixPoints, setSelectedMeasurementEditFixPoints] = useState<Point>()
+
   const { image, pixelToCanvas, enabledElement } = useOverlayContext()
 
   const cursorStatus = getCursorStatus({
@@ -51,6 +53,7 @@ export default function useMeasurementPointsHandler({
     const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
 
     setMeasurement(selectedMeasurement)
+
     setEditTargetPoints(currentEditPoint)
   }, [isEditing, selectedMeasurement, pixelToCanvas])
 
@@ -99,7 +102,7 @@ export default function useMeasurementPointsHandler({
         isEditing,
         editMode,
         drawingMode,
-        mouseDownPoint,
+        selectedMeasurementEditFixPoints ?? mouseDownPoint,
         point,
         currentPoints
       )
@@ -129,6 +132,7 @@ export default function useMeasurementPointsHandler({
     setEditTargetPoints(null)
     onSelectMeasurement(null)
     setMouseDownPoint(null)
+    setSelectedMeasurementEditFixPoints(undefined)
   }
 
   const addDrewMeasurement = () => {
@@ -139,6 +143,22 @@ export default function useMeasurementPointsHandler({
 
   const setMeasurementEditMode = (targetPoint: EditMode) => {
     if (!isEditing || !selectedMeasurement) return
+
+    if (targetPoint && selectedMeasurement && selectedMeasurement.type === 'circle') {
+      const targetMeasurement = measurement ?? selectedMeasurement
+      const selectedMeasurementPoints = getExistingMeasurementPoints(targetMeasurement)
+      const editPointsOnCanvas = selectedMeasurementPoints as [Point, Point]
+      const currentEdit = getEditPointPosition(editPointsOnCanvas, targetMeasurement, 'circle')
+
+      if (currentEdit) {
+        const [startX, startY, endX, endY] = currentEdit
+        if (targetPoint === 'startPoint') {
+          setSelectedMeasurementEditFixPoints([endX, endY])
+        } else if (targetPoint === 'endPoint') {
+          setSelectedMeasurementEditFixPoints([startX, startY])
+        }
+      }
+    }
 
     setEditMode(targetPoint)
   }

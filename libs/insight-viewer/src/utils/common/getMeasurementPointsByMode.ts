@@ -12,18 +12,17 @@ export function getMeasurementPointsByMode(
   prevPoints: [centerPoint: Point, endPoint: Point]
 ): [Point, Point] {
   let currentPoints = prevPoints
-
   if (drawingMode === 'circle' && mouseDownPoint !== null) {
     currentPoints = [mouseDownPoint, mouseMovePoint]
   }
 
-  if (drawingMode === 'circle' && isEditing && editMode) {
-    const [currentCenterPoint, currentEndPoint] = prevPoints
-    const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
-    const currentStartPoint = getCircleStartPoint(currentCenterPoint, radius)
+  // if (drawingMode === 'circle' && isEditing && editMode) {
+  //   const [currentCenterPoint, currentEndPoint] = prevPoints
+  //   const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
+  //   const currentStartPoint = getCircleStartPoint(currentCenterPoint, radius)
 
-    currentPoints = [currentStartPoint, currentEndPoint]
-  }
+  //   currentPoints = [currentStartPoint, currentEndPoint]
+  // }
 
   return currentPoints
 }
