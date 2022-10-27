@@ -14,6 +14,7 @@ import useDrawingHandler from '../useDrawingHandler'
 import type { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
 import type { Point, EditMode, Measurement } from '../../types'
 import { getCircleEditPoints } from '../../utils/common/getCircleEditPoints'
+import { editPoint } from '../../../../../apps/insight-viewer-docs-e2e/src/support/utils'
 
 export default function useMeasurementPointsHandler({
   mode,
@@ -34,10 +35,10 @@ export default function useMeasurementPointsHandler({
 
   const { image, pixelToCanvas } = useOverlayContext()
 
+  // let editPointsOnSelected: EditPoints | null = null
+
   useEffect(() => {
     if (!isEditing || selectedMeasurement == null) return
-
-    // const targetMeasurement = measurement ?? selectedMeasurement
 
     const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement)
     const currentPoints = selectedMeasurementPoints.map(pixelToCanvas)
@@ -47,7 +48,7 @@ export default function useMeasurementPointsHandler({
     setMeasurement(selectedMeasurement)
 
     setEditTargetPoints(currentEditPoint)
-    // setEditPointsOnSelected(editPoint)
+    setEditPointsOnSelected(editPoint)
     console.log(selectedMeasurement)
     console.log(
       `editPoint: ${editPoint}
@@ -101,7 +102,7 @@ export default function useMeasurementPointsHandler({
       const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
-      if (selectedMeasurement && selectedMeasurement.type === 'circle') {
+      if (selectedMeasurement && selectedMeasurement.type === 'circle' && (editMode === "startPoint" || editMode === "endPoint")) {
         setEditTargetPoints([
           editPointsOnCanvas[0][0],
           editPointsOnCanvas[0][1],
@@ -111,14 +112,16 @@ export default function useMeasurementPointsHandler({
         console.log(editTargetPoints)
       }
 
-      const currentMeasurement = getMeasurement(
-        currentPoints,
-        currentTextPosition,
+      const mm = getMeasurementPointsByMode(
+        isEditing,
+        editMode,
         drawingMode,
-        measurements,
-        image,
-        measurement
+        mouseDownPoint,
+        mouseMovePoint,
+        editTargetPoints,
+        currentPoints
       )
+      const currentMeasurement = getMeasurement(mm, currentTextPosition, drawingMode, measurements, image, measurement)
 
       return currentMeasurement
     })
@@ -135,6 +138,8 @@ export default function useMeasurementPointsHandler({
     setEditStartPoint(null)
     setEditTargetPoints(null)
     onSelectMeasurement(null)
+    // setEditPointsOnSelected(null)
+    // editPointsOnSelected = null
   }
 
   const addDrewMeasurement = () => {
@@ -143,15 +148,22 @@ export default function useMeasurementPointsHandler({
     addMeasurement(measurement)
   }
 
+  // 1.한 번 클릭하면 editTarget이 고정됨
+  // 2. 크기가 줄어들었다가 커졌다가 함
   const setMeasurementEditMode = (targetPoint: EditMode) => {
     if (!isEditing || !selectedMeasurement) return
-    if (targetPoint && selectedMeasurement && selectedMeasurement.type === 'circle') {
+    if (
+      targetPoint &&
+      selectedMeasurement &&
+      selectedMeasurement.type === 'circle'
+      // (targetPoint === 'startPoint' || targetPoint === 'endPoint')
+    ) {
       const targetMeasurement = measurement ?? selectedMeasurement
       const selectedMeasurementPoints = getExistingMeasurementPoints(targetMeasurement)
       const editPointsOnCanvas = selectedMeasurementPoints as [Point, Point]
       const currentEdit = getEditPointPosition(editPointsOnCanvas, targetMeasurement, 'circle')
-
       setEditPointsOnSelected(currentEdit)
+      // editPointsOnSelected = currentEdit
     }
     setEditMode(targetPoint)
   }
