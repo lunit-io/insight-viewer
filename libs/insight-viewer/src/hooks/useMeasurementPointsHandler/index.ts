@@ -57,7 +57,7 @@ export default function useMeasurementPointsHandler({
     const editPoint = getEditPointPosition(selectedMeasurementPoints, selectedMeasurement)
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
-    setEditPointsOnSelected(editPoint)
+    // setEditPointsOnSelected(editPoint)
     console.log(selectedMeasurement)
     console.log(
       `editPoint: ${editPoint}
@@ -166,19 +166,19 @@ export default function useMeasurementPointsHandler({
   // 2. 크기가 줄어들었다가 커졌다가 함
   const setMeasurementEditMode = (targetPoint: EditMode) => {
     if (!isEditing || !selectedMeasurement) return
-    // if (
-    //   targetPoint &&
-    //   selectedMeasurement &&
-    //   selectedMeasurement.type === 'circle'
-    //   // (targetPoint === 'startPoint' || targetPoint === 'endPoint')
-    // ) {
-    //   const targetMeasurement = measurement ?? selectedMeasurement
-    //   const selectedMeasurementPoints = getExistingMeasurementPoints(targetMeasurement)
-    //   const editPointsOnCanvas = selectedMeasurementPoints as [Point, Point]
-    //   const currentEdit = getEditPointPosition(editPointsOnCanvas, targetMeasurement, 'circle')
-    //   setEditPointsOnSelected(currentEdit)
-    //   // editPointsOnSelected = currentEdit
-    // }
+    if (
+      targetPoint &&
+      selectedMeasurement &&
+      selectedMeasurement.type === 'circle'
+      // (targetPoint === 'startPoint' || targetPoint === 'endPoint')
+    ) {
+      const targetMeasurement = measurement ?? selectedMeasurement
+      const selectedMeasurementPoints = getExistingMeasurementPoints(targetMeasurement)
+      const editPointsOnCanvas = selectedMeasurementPoints as [Point, Point]
+      const currentEdit = getEditPointPosition(editPointsOnCanvas, targetMeasurement, 'circle')
+      setEditPointsOnSelected(currentEdit)
+      // editPointsOnSelected = currentEdit
+    }
     setEditMode(targetPoint)
   }
 
