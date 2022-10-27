@@ -60,13 +60,22 @@ export default function useMeasurementPointsHandler({
   setClassName(enabledElement, cursorStatus)
 
   useEffect(() => {
-    if (!isEditing || selectedMeasurement == null) return
+    if (!isEditing || selectedMeasurement == null) {
+      setEditMode(null)
+      setMeasurement(null)
+      setEditStartPoint(null)
+      setEditTargetPoints(null)
+      onSelectMeasurement(null)
+      setMouseDownPoint(null)
+      setSelectedMeasurementEditingFixedPoint(null)
+      return
+    }
 
     const currentEditPoint = getMeasurementEditingPoints({ measurement: selectedMeasurement, pixelToCanvas })
 
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
-  }, [isEditing, selectedMeasurement, pixelToCanvas])
+  }, [isEditing, selectedMeasurement, pixelToCanvas, onSelectMeasurement])
 
   const setInitialMeasurement = (point: [mouseDownX: number, mouseDownY: number]) => {
     if (isEditing && selectedMeasurement != null) {
