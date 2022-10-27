@@ -14,7 +14,7 @@ function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   })
 }
 
-export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementParams): MeasurementDrawingState {
+export function useMeasurement({ nextId = 1, initialMeasurement }: UseMeasurementParams): MeasurementDrawingState {
   const [measurements, setMeasurements] = useState<Measurement[]>([])
   const [hoveredMeasurement, setHoveredMeasurement] = useState<Measurement | null>(null)
   const [selectedMeasurement, setSelectedMeasurement] = useState<Measurement | null>(null)
@@ -26,7 +26,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
             (addedMeasurement, i) =>
               ({
                 ...addedMeasurement,
-                id: nextId ?? i,
+                id: addedMeasurement.id ?? nextId + i,
               } as Measurement)
           )
         : []

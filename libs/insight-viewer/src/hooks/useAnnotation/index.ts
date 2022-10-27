@@ -32,7 +32,7 @@ interface AnnotationDrawingState {
   removeAllAnnotation: () => void
 }
 
-export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams = {}): AnnotationDrawingState {
+export function useAnnotation({ nextId = 1, initialAnnotation }: UseAnnotationParams = {}): AnnotationDrawingState {
   const [annotations, setAnnotations] = useState<Annotation[]>([])
   const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
@@ -46,8 +46,8 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
 
             return {
               ...addedAnnotation,
-              id: nextId ?? i,
-              labelPosition: polylabel([annotationLabelPoints], 1),
+              id: addedAnnotation.id ?? nextId + i,
+              labelPosition: addedAnnotation.labelPosition ?? polylabel([annotationLabelPoints], 1),
             } as Annotation
           })
         : []
