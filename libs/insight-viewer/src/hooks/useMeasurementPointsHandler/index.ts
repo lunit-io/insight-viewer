@@ -15,6 +15,20 @@ import useDrawingHandler from '../useDrawingHandler'
 import type { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
 import type { Point, EditMode, Measurement } from '../../types'
 
+const getMeasurementEditingPoints = ({
+  measurement,
+  pixelToCanvas,
+}: {
+  measurement: Measurement
+  pixelToCanvas?: (point: Point) => Point
+}) => {
+  const selectedMeasurementPoints = getExistingMeasurementPoints(measurement)
+  const currentPoints = pixelToCanvas ? selectedMeasurementPoints.map(pixelToCanvas) : selectedMeasurementPoints
+  const currentEditingPoint = getEditPointPosition(currentPoints, measurement)
+
+  return currentEditingPoint
+}
+
 export default function useMeasurementPointsHandler({
   mode,
   isEditing,
@@ -31,6 +45,8 @@ export default function useMeasurementPointsHandler({
   const [mouseDownPoint, setMouseDownPoint] = useState<Point | null>(null)
   const [measurement, setMeasurement] = useState<Measurement | null>(null)
 
+  const [selectedMeasurementEditingFixedPoint, setSelectedMeasurementEditingFixedPoint] = useState<Point | null>(null)
+
   const { image, pixelToCanvas, enabledElement } = useOverlayContext()
 
   const cursorStatus = getCursorStatus({
@@ -46,9 +62,7 @@ export default function useMeasurementPointsHandler({
   useEffect(() => {
     if (!isEditing || selectedMeasurement == null) return
 
-    const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement)
-    const currentPoints = selectedMeasurementPoints.map(pixelToCanvas)
-    const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
+    const currentEditPoint = getMeasurementEditingPoints({ measurement: selectedMeasurement, pixelToCanvas })
 
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
@@ -91,15 +105,11 @@ export default function useMeasurementPointsHandler({
 
       const currentTextPosition = getTextPosition(measurement, editMode, point)
 
-      const editPointsOnCanvas = currentPoints.map(pixelToCanvas) as [Point, Point]
-      const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
-      setEditTargetPoints(editPoints)
-
       const measurementPointsByMode = getMeasurementPointsByMode(
         isEditing,
         editMode,
         drawingMode,
-        mouseDownPoint,
+        selectedMeasurementEditingFixedPoint ?? mouseDownPoint,
         point,
         currentPoints
       )
@@ -113,12 +123,57 @@ export default function useMeasurementPointsHandler({
         measurement
       )
 
+      const editPointsOnCanvas = currentPoints.map(pixelToCanvas) as [Point, Point]
+      const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
+      setEditTargetPoints(editPoints)
+
+      if (drawingMode === 'circle' && mouseDownPoint) {
+        const currentPointsWithFixedPoint: [Point, Point] = [point, mouseDownPoint]
+        const currentPointsWithFixedPointOnCanvas = currentPointsWithFixedPoint.map(pixelToCanvas) as [Point, Point]
+
+        const editPoints = getEditPointPosition(
+          editPointsOnCanvas,
+          selectedMeasurement,
+          drawingMode,
+          editMode,
+          currentPointsWithFixedPointOnCanvas
+        )
+
+        setEditTargetPoints(editPoints)
+      } else if (
+        currentMeasurement.type === 'circle' &&
+        selectedMeasurementEditingFixedPoint &&
+        (editMode === 'startPoint' || editMode === 'endPoint')
+      ) {
+        const currentPointsWithFixedPoint: [Point, Point] = [point, selectedMeasurementEditingFixedPoint]
+        const currentPointsWithFixedPointOnCanvas = currentPointsWithFixedPoint.map(pixelToCanvas) as [Point, Point]
+
+        const editPoints = getEditPointPosition(
+          editPointsOnCanvas,
+          selectedMeasurement,
+          drawingMode,
+          editMode,
+          currentPointsWithFixedPointOnCanvas
+        )
+
+        setEditTargetPoints(editPoints)
+      } else {
+        const editPointsOnCanvas = currentPoints.map(pixelToCanvas) as [Point, Point]
+        const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
+
+        setEditTargetPoints(editPoints)
+      }
+
       return currentMeasurement
     })
   }
 
   const cancelDrawing = () => {
     if (isEditing && selectedMeasurement != null && editMode) {
+      const targetMeasurement = measurement ?? selectedMeasurement
+      const currentEditingPoints = getMeasurementEditingPoints({ measurement: targetMeasurement, pixelToCanvas })
+
+      setEditTargetPoints(currentEditingPoints)
       setEditMode(null)
       return
     }
@@ -129,6 +184,7 @@ export default function useMeasurementPointsHandler({
     setEditTargetPoints(null)
     onSelectMeasurement(null)
     setMouseDownPoint(null)
+    setSelectedMeasurementEditingFixedPoint(null)
   }
 
   const addDrewMeasurement = () => {
@@ -141,6 +197,23 @@ export default function useMeasurementPointsHandler({
     if (!isEditing || !selectedMeasurement) return
 
     setEditMode(targetPoint)
+
+    if (
+      targetPoint &&
+      selectedMeasurement &&
+      selectedMeasurement.type === 'circle' &&
+      (targetPoint === 'startPoint' || targetPoint === 'endPoint')
+    ) {
+      const targetMeasurement = measurement ?? selectedMeasurement
+      const currentEditingPoints = getMeasurementEditingPoints({ measurement: targetMeasurement })
+
+      if (!currentEditingPoints) return
+
+      const [startX, startY, endX, endY] = currentEditingPoints
+      const fixedPoint: [number, number] = targetPoint === 'startPoint' ? [endX, endY] : [startX, startY]
+
+      setSelectedMeasurementEditingFixedPoint(fixedPoint)
+    }
   }
 
   useDrawingHandler({

@@ -53,7 +53,7 @@ describe('getMeasurementPointsByMode: ', () => {
     ).toStrictEqual(MOCK_EXPECT_RESULT_2)
   })
 
-  it('should return the current start and end points when when isEditing is true and editMode is not null of circle', () => {
+  it('should return the current start and end points when when isEditing is true and editMode is textMove or move of circle', () => {
     const MOCK_MOUSE_DOWN_POINT_1: Point = [0, 0]
     const MOCK_MOUSE_DOWN_POINT_2 = null
 
@@ -80,7 +80,7 @@ describe('getMeasurementPointsByMode: ', () => {
     expect(
       getMeasurementPointsByMode(
         true,
-        'startPoint',
+        'textMove',
         DRAWING_MODE_CIRCLE,
         MOCK_MOUSE_DOWN_POINT_2,
         MOCK_MOUSE_MOVE_POINT_2,

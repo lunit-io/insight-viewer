@@ -13,11 +13,15 @@ export function getMeasurementPointsByMode(
 ): [Point, Point] {
   let currentPoints = prevPoints
 
+  /**
+   * Except for editing move is move or text move,
+   * edit works the same as drawing.
+   */
   if (drawingMode === 'circle' && mouseDownPoint !== null) {
     currentPoints = [mouseDownPoint, mouseMovePoint]
   }
 
-  if (drawingMode === 'circle' && isEditing && editMode) {
+  if (drawingMode === 'circle' && isEditing && (editMode === 'move' || editMode === 'textMove')) {
     const [currentCenterPoint, currentEndPoint] = prevPoints
     const radius = getCircleRadiusByCenter(currentCenterPoint, currentEndPoint)
     const currentStartPoint = getCircleStartPoint(currentCenterPoint, radius)
