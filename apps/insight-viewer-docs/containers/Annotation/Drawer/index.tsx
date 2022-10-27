@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -57,6 +57,17 @@ function AnnotationDrawerContainer(): JSX.Element {
   const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsShowLabel(event.target.checked)
   }
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Delete') {
+        if (selectedAnnotation) {
+          removeAnnotation(selectedAnnotation)
+          selectAnnotation(null)
+        }
+      }
+    })
+  }, [selectedAnnotation])
 
   return (
     <Box data-cy-loaded={loadingState}>

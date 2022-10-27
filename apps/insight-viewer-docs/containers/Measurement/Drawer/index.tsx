@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -48,6 +48,17 @@ function MeasurementDrawerContainer(): JSX.Element {
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEditing(event.target.checked)
   }
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Delete') {
+        if (selectedMeasurement) {
+          removeMeasurement(selectedMeasurement)
+          selectMeasurement(null)
+        }
+      }
+    })
+  }, [selectedMeasurement])
 
   return (
     <>

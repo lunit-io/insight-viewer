@@ -43,7 +43,14 @@ export default function useAnnotationPointsHandler({
   setClassName(enabledElement, cursorStatus)
 
   useEffect(() => {
-    if (!isEditing || selectedAnnotation == null) return
+    if (!isEditing || selectedAnnotation == null) {
+      setEditMode(null)
+      setAnnotation(null)
+      setEditStartPoint(null)
+      onSelectAnnotation(null)
+      setEditTargetPoints(null)
+      return
+    }
 
     const selectedAnnotationPoints = getExistingAnnotationPoints(selectedAnnotation, image)
     const currentPoints = selectedAnnotationPoints.map(pixelToCanvas)
