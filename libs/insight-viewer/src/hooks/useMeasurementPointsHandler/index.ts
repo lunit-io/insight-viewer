@@ -13,6 +13,7 @@ import useDrawingHandler from '../useDrawingHandler'
 
 import type { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
 import type { Point, EditMode, Measurement } from '../../types'
+import { getCircleEditPoints } from '../../utils/common/getCircleEditPoints'
 
 export default function useMeasurementPointsHandler({
   mode,
@@ -36,6 +37,8 @@ export default function useMeasurementPointsHandler({
   useEffect(() => {
     if (!isEditing || selectedMeasurement == null) return
 
+    // const targetMeasurement = measurement ?? selectedMeasurement
+
     const selectedMeasurementPoints = getExistingMeasurementPoints(selectedMeasurement)
     const currentPoints = selectedMeasurementPoints.map(pixelToCanvas)
     const currentEditPoint = getEditPointPosition(currentPoints, selectedMeasurement)
@@ -44,7 +47,7 @@ export default function useMeasurementPointsHandler({
     setMeasurement(selectedMeasurement)
 
     setEditTargetPoints(currentEditPoint)
-    setEditPointsOnSelected(editPoint)
+    // setEditPointsOnSelected(editPoint)
     console.log(selectedMeasurement)
     console.log(
       `editPoint: ${editPoint}
@@ -54,7 +57,7 @@ export default function useMeasurementPointsHandler({
 
   const setInitialMeasurement = (point: [mouseDownX: number, mouseDownY: number]) => {
     if (isEditing && selectedMeasurement !== null) {
-      setEditStartPoint(point) 
+      setEditStartPoint(point)
       return
     }
 
@@ -93,21 +96,23 @@ export default function useMeasurementPointsHandler({
       const currentTextPosition = getTextPosition(measurement, editMode, mouseMovePoint)
 
       const editPointsOnCanvas = currentPoints.map(pixelToCanvas) as [Point, Point]
+      // mouseMove, prevEditEnd
+
       const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement)
       setEditTargetPoints(editPoints)
 
-      const measurementPointsByMode = getMeasurementPointsByMode(
-        isEditing,
-        editMode,
-        drawingMode,
-        mouseDownPoint,
-        mouseMovePoint,
-        editPointsOnSelected,
-        currentPoints
-      )
+      if (selectedMeasurement && selectedMeasurement.type === 'circle') {
+        setEditTargetPoints([
+          editPointsOnCanvas[0][0],
+          editPointsOnCanvas[0][1],
+          editPointsOnCanvas[1][0],
+          editPointsOnCanvas[1][1],
+        ])
+        console.log(editTargetPoints)
+      }
 
       const currentMeasurement = getMeasurement(
-        measurementPointsByMode,
+        currentPoints,
         currentTextPosition,
         drawingMode,
         measurements,
@@ -140,7 +145,14 @@ export default function useMeasurementPointsHandler({
 
   const setMeasurementEditMode = (targetPoint: EditMode) => {
     if (!isEditing || !selectedMeasurement) return
+    if (targetPoint && selectedMeasurement && selectedMeasurement.type === 'circle') {
+      const targetMeasurement = measurement ?? selectedMeasurement
+      const selectedMeasurementPoints = getExistingMeasurementPoints(targetMeasurement)
+      const editPointsOnCanvas = selectedMeasurementPoints as [Point, Point]
+      const currentEdit = getEditPointPosition(editPointsOnCanvas, targetMeasurement, 'circle')
 
+      setEditPointsOnSelected(currentEdit)
+    }
     setEditMode(targetPoint)
   }
 

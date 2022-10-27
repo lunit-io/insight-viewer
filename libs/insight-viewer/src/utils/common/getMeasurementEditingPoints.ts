@@ -27,16 +27,10 @@ export function getMeasurementEditingPoints(
   if (mode === 'circle' && (editMode === 'startPoint' || editMode === 'endPoint')) {
     const prevEditStart: Point = [editTargetPoints[0], editTargetPoints[1]]
     const prevEditEnd: Point = [editTargetPoints[2], editTargetPoints[3]]
-    // test
-    if (editMode === 'startPoint') {
-      // const movedCenter = getCircleCenterPoint(currentPoint, prevEditEnd)
-      // const currentRadius = getCircleRadiusByCenter(movedCenter, prevEditEnd)
-      // const movedEnd = getCircleEndPoint(movedCenter, currentRadius)
-      // console.log('movedCenter', movedCenter, 'currentPoint', currentPoint, 'prev', prevEditStart, prevEditEnd)
-      // return [movedCenter, movedEnd]
-      // }
-      return  [currentPoint, prevEditEnd]
-    }
+
+    const editPoint: [Point, Point] =
+      editMode === 'startPoint' ? [currentPoint, prevEditEnd] : [currentPoint, prevEditStart]
+    return editPoint
   }
 
   if ((mode === 'circle' || mode === 'ruler') && editMode === 'move') {
