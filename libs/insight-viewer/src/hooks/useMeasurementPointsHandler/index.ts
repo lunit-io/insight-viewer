@@ -14,6 +14,9 @@ import useDrawingHandler from '../useDrawingHandler'
 
 import type { UseMeasurementPointsHandlerParams, UseMeasurementPointsHandlerReturnType } from './types'
 import type { Point, EditMode, Measurement } from '../../types'
+import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
+import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
+import { getCircleEditPoints } from '../../utils/common/getCircleEditPoints'
 
 export default function useMeasurementPointsHandler({
   mode,
@@ -115,6 +118,14 @@ export default function useMeasurementPointsHandler({
         image,
         measurement
       )
+
+      if (currentMeasurement.type === 'circle' && editMode) {
+        const currentMeasurementPoints = getExistingMeasurementPoints(currentMeasurement)
+        const currentPoints = currentMeasurementPoints.map(pixelToCanvas)
+        const currentEditPoint = getEditPointPosition(currentPoints, currentMeasurement)
+
+        setEditTargetPoints(currentEditPoint)
+      }
 
       return currentMeasurement
     })
