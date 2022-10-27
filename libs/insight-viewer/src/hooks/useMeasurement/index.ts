@@ -26,7 +26,7 @@ export function useMeasurement({ nextId, initialMeasurement }: UseMeasurementPar
             (addedMeasurement, i) =>
               ({
                 ...addedMeasurement,
-                id: nextId ?? i,
+                id: addedMeasurement.id ?? nextId ?? i,
               } as Measurement)
           )
         : []

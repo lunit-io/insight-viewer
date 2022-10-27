@@ -46,8 +46,8 @@ export function useAnnotation({ nextId, initialAnnotation }: UseAnnotationParams
 
             return {
               ...addedAnnotation,
-              id: nextId ?? i,
-              labelPosition: polylabel([annotationLabelPoints], 1),
+              id: addedAnnotation.id ?? nextId ?? i,
+              labelPosition: addedAnnotation.labelPosition ?? polylabel([annotationLabelPoints], 1),
             } as Annotation
           })
         : []
