@@ -30,6 +30,7 @@ interface AnnotationDrawingState {
   updateAnnotation: (annotation: Annotation, patch: Partial<Omit<AnnotationBase, 'id' | 'type'>>) => void
   removeAnnotation: (annotation: Annotation) => void
   removeAllAnnotation: () => void
+  resetAnnotation: () => void
 }
 
 export function useAnnotation({ nextId = 1, initialAnnotation }: UseAnnotationParams = {}): AnnotationDrawingState {
@@ -138,6 +139,12 @@ export function useAnnotation({ nextId = 1, initialAnnotation }: UseAnnotationPa
     setSelectedAnnotation(null)
   }
 
+  const resetAnnotation = () => {
+    setAnnotations(initialAnnotation || [])
+    setHoveredAnnotation(null)
+    setSelectedAnnotation(null)
+  }
+
   return {
     annotations,
     hoveredAnnotation,
@@ -148,5 +155,6 @@ export function useAnnotation({ nextId = 1, initialAnnotation }: UseAnnotationPa
     hoverAnnotation,
     selectAnnotation,
     removeAllAnnotation,
+    resetAnnotation,
   }
 }
