@@ -1,6 +1,7 @@
 import { setup, drawAnnotation, drawAnnotations, deleteAndCheckAnnotationOrMeasurement } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
 import {
+  INITIAL_POLYGON_ANNOTATIONS,
   POLYGON_ANNOTATIONS,
   SHORTER_THAN_MINIMUM_LENGTH_POLYGON_ANNOTATION,
   LINE_ANNOTATIONS,
@@ -28,9 +29,10 @@ describe(
 
     describe('Polygon Annotation', () => {
       const mockPolygonAnnotationLength = POLYGON_ANNOTATIONS.length
+      const initialPolygonAnnotationLength = INITIAL_POLYGON_ANNOTATIONS.length
 
       it('count polygon annotation before drawing', () => {
-        cy.get('[data-cy-id]').should('have.length', 0)
+        cy.get('[data-cy-id]').should('have.length', initialPolygonAnnotationLength)
       })
 
       /**
@@ -45,20 +47,23 @@ describe(
       it('cancel drawing if shorter than the minimum length', () => {
         drawAnnotation(SHORTER_THAN_MINIMUM_LENGTH_POLYGON_ANNOTATION)
 
-        cy.get('[data-cy-id]').should('have.length', 0)
+        cy.get('[data-cy-id]').should('have.length', initialPolygonAnnotationLength)
       })
 
       it('Annotation polygon drawing', () => {
         drawAnnotations(POLYGON_ANNOTATIONS)
 
-        cy.get('[data-cy-id]').should('have.length', mockPolygonAnnotationLength)
+        const totalLength = mockPolygonAnnotationLength + initialPolygonAnnotationLength
+        cy.get('[data-cy-id]').should('have.length', totalLength)
       })
 
       it('delete polygon annotation and count annotation', () => {
         const targetAnnotation = POLYGON_ANNOTATIONS[1]
 
         deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
-        cy.get('[data-cy-id]').should('have.length', mockPolygonAnnotationLength - 1)
+
+        const totalLength = mockPolygonAnnotationLength + initialPolygonAnnotationLength
+        cy.get('[data-cy-id]').should('have.length', totalLength - 1)
       })
     })
 

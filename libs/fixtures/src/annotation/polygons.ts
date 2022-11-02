@@ -1,6 +1,6 @@
 import { PolygonAnnotation } from '@lunit/insight-viewer'
 
-export const POLYGON_ANNOTATIONS: PolygonAnnotation[] = [
+export const INITIAL_POLYGON_ANNOTATIONS: PolygonAnnotation[] = [
   {
     id: 1,
     labelPosition: [184.28571428571422, 153.05142857142857],
@@ -76,6 +76,9 @@ export const POLYGON_ANNOTATIONS: PolygonAnnotation[] = [
       [197.48571428571427, 131.85142857142856],
     ],
   },
+]
+
+export const POLYGON_ANNOTATIONS: PolygonAnnotation[] = [
   {
     id: 2,
     labelPosition: [283.06285714285707, 208.28571428571428],

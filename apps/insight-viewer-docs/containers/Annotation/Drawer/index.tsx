@@ -10,12 +10,7 @@ import InsightViewer, {
   LineHeadMode,
   Annotation,
 } from '@lunit/insight-viewer'
-import {
-  POLYGON_ANNOTATIONS,
-  LINE_ANNOTATIONS,
-  FREELINE_ANNOTATIONS,
-  TEXT_ANNOTATIONS,
-} from '@insight-viewer-library/fixtures'
+import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
 export type InitialAnnotations = {
@@ -32,12 +27,11 @@ const style = {
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
 const INITIAL_ANNOTATIONS: InitialAnnotations = {
-  line: LINE_ANNOTATIONS,
-  freeLine: FREELINE_ANNOTATIONS,
-  polygon: POLYGON_ANNOTATIONS,
-  text: TEXT_ANNOTATIONS,
-  // TODO: Changed the mock data when adding Circle mode
-  circle: POLYGON_ANNOTATIONS,
+  line: [],
+  freeLine: [],
+  polygon: INITIAL_POLYGON_ANNOTATIONS,
+  text: [],
+  circle: [],
 }
 
 function AnnotationDrawerContainer(): JSX.Element {
@@ -110,7 +104,7 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="arrow">Arrow</Radio>
         </Stack>
       </RadioGroup>
-      <Button data-cy-name="remove-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={resetAnnotation}>
+      <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={resetAnnotation}>
         reset
       </Button>
       <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={removeAllAnnotation}>
