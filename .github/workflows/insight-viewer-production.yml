@@ -41,3 +41,12 @@ jobs:
             ./dist/apps/insight-viewer-docs/exported \
             s3://lunit-cdn-for-production-virginia/${HOST} \
             --delete
+          aws s3 cp \
+            s3://lunit-cdn-for-production-virginia/${HOST} \
+            s3://lunit-cdn-for-production-virginia/${HOST} \
+            --recursive \
+            --exclude "*" \
+            --include "index.html" \
+            --metadata-directive REPLACE \
+            --cache-control no-store, no-cache, must-revalidate \
+            --content-type "text/html; charset=utf-8"
