@@ -33,7 +33,7 @@ export function deleteAndCheckMultiAnnotationOrMeasurement(
 }
 
 export function drawAnnotation(element: Annotation): void {
-  const canvas = cy.get('.cornerstone-canvas-wrapper')
+  cy.get('.cornerstone-canvas-wrapper').as('canvas')
 
   if (element.type === 'circle') {
     return undefined
@@ -42,14 +42,14 @@ export function drawAnnotation(element: Annotation): void {
   if (element.type === 'freeLine' || element.type === 'polygon') {
     element.points.forEach(([x, y], i) => {
       if (i === 0) {
-        canvas.trigger('mousedown', {
+        cy.get('@canvas').trigger('mousedown', {
           x,
           y,
         })
       } else if (i === element.points.length - 1) {
-        canvas.trigger('mouseup')
+        cy.get('@canvas').trigger('mouseup')
       } else {
-        canvas.trigger('mousemove', {
+        cy.get('@canvas').trigger('mousemove', {
           x,
           y,
         })
@@ -62,7 +62,7 @@ export function drawAnnotation(element: Annotation): void {
 
   const [startPoint, endPoint] = element.points
 
-  canvas
+  cy.get('@canvas')
     .trigger('mousedown', { x: startPoint[0], y: startPoint[1] })
     .trigger('mousemove', { x: endPoint[0], y: endPoint[1] })
     .trigger('mouseup')
@@ -108,24 +108,24 @@ export function moveAnnotation(annotation: Annotation, distance: number): void {
 }
 
 export const editAnnotation = (editTargetPoint: Point, distance: number): void => {
-  const canvas = cy.get('.cornerstone-canvas-wrapper')
+  cy.get('.cornerstone-canvas-wrapper').as('canvas')
   const [x, y] = editTargetPoint
 
-  canvas
+  cy.get('@canvas')
     .trigger('mousedown', { x, y })
     .trigger('mousemove', { x: x + distance, y: y + distance })
     .trigger('mouseup')
 
-  canvas.click()
+  cy.get('@canvas').click()
 }
 
 export const drawMeasurement = (measurement: Measurement): void => {
-  const canvas = cy.get('.cornerstone-canvas-wrapper')
+  cy.get('.cornerstone-canvas-wrapper').as('canvas')
 
   if (measurement.type === 'ruler') {
     const [startPoint, endPoint] = measurement.startAndEndPoint
 
-    canvas
+    cy.get('@canvas')
       .trigger('mousedown', { x: startPoint[0], y: startPoint[1] })
       .trigger('mousemove', { x: endPoint[0], y: endPoint[1] })
       .trigger('mouseup')
@@ -164,13 +164,13 @@ export const moveMeasurement = (measurement: Measurement, distance: number): voi
 }
 
 export const editPoint = (editTargetPoint: Point, distance: number): void => {
-  const canvas = cy.get('.cornerstone-canvas-wrapper')
+  cy.get('.cornerstone-canvas-wrapper').as('canvas')
   const [x, y] = editTargetPoint
 
-  canvas
+  cy.get('@canvas')
     .trigger('mousedown', { x, y })
     .trigger('mousemove', { x: x + distance, y: y + distance })
     .trigger('mouseup')
 
-  canvas.click()
+  cy.get('@canvas').click()
 }

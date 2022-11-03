@@ -8,8 +8,14 @@ import InsightViewer, {
   AnnotationOverlay,
   AnnotationMode,
   LineHeadMode,
+  Annotation,
 } from '@lunit/insight-viewer'
+import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
+
+export type InitialAnnotations = {
+  [mode in AnnotationMode]: Annotation[]
+}
 
 const style = {
   display: 'flex',
@@ -19,6 +25,14 @@ const style = {
 
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
+
+const INITIAL_ANNOTATIONS: InitialAnnotations = {
+  line: [],
+  freeLine: [],
+  polygon: INITIAL_POLYGON_ANNOTATIONS,
+  text: [],
+  circle: [],
+}
 
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
@@ -40,7 +54,10 @@ function AnnotationDrawerContainer(): JSX.Element {
     hoverAnnotation,
     selectAnnotation,
     removeAllAnnotation,
-  } = useAnnotation()
+    resetAnnotation,
+  } = useAnnotation({
+    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
+  })
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
@@ -74,7 +91,7 @@ function AnnotationDrawerContainer(): JSX.Element {
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Annotation mode</p>
           <Radio value="polygon">Polygon</Radio>
-          <Radio value="line">line</Radio>
+          <Radio value="line">Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
@@ -83,17 +100,14 @@ function AnnotationDrawerContainer(): JSX.Element {
       <RadioGroup onChange={handleLineHeadModeButtonChange} value={lineHeadMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Line Head mode</p>
-          <Radio value="normal">normal</Radio>
-          <Radio value="arrow">arrow</Radio>
+          <Radio value="normal">Normal</Radio>
+          <Radio value="arrow">Arrow</Radio>
         </Stack>
       </RadioGroup>
-      <Button
-        data-cy-name="remove-button"
-        size="sm"
-        marginBottom="10px"
-        colorScheme="blue"
-        onClick={removeAllAnnotation}
-      >
+      <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={resetAnnotation}>
+        reset
+      </Button>
+      <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={removeAllAnnotation}>
         remove all
       </Button>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>

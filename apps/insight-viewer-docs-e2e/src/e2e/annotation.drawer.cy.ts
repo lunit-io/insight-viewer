@@ -1,6 +1,7 @@
 import { setup, drawAnnotation, drawAnnotations, deleteAndCheckAnnotationOrMeasurement } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
 import {
+  INITIAL_POLYGON_ANNOTATIONS,
   POLYGON_ANNOTATIONS,
   SHORTER_THAN_MINIMUM_LENGTH_POLYGON_ANNOTATION,
   LINE_ANNOTATIONS,
@@ -28,9 +29,10 @@ describe(
 
     describe('Polygon Annotation', () => {
       const mockPolygonAnnotationLength = POLYGON_ANNOTATIONS.length
+      const initialPolygonAnnotationLength = INITIAL_POLYGON_ANNOTATIONS.length
 
       it('count polygon annotation before drawing', () => {
-        cy.get('[data-cy-id]').should('have.length', 0)
+        cy.get('[data-cy-id]').should('have.length', initialPolygonAnnotationLength)
       })
 
       /**
@@ -45,20 +47,23 @@ describe(
       it('cancel drawing if shorter than the minimum length', () => {
         drawAnnotation(SHORTER_THAN_MINIMUM_LENGTH_POLYGON_ANNOTATION)
 
-        cy.get('[data-cy-id]').should('have.length', 0)
+        cy.get('[data-cy-id]').should('have.length', initialPolygonAnnotationLength)
       })
 
       it('Annotation polygon drawing', () => {
         drawAnnotations(POLYGON_ANNOTATIONS)
 
-        cy.get('[data-cy-id]').should('have.length', mockPolygonAnnotationLength)
+        const totalLength = mockPolygonAnnotationLength + initialPolygonAnnotationLength
+        cy.get('[data-cy-id]').should('have.length', totalLength)
       })
 
       it('delete polygon annotation and count annotation', () => {
         const targetAnnotation = POLYGON_ANNOTATIONS[1]
 
         deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
-        cy.get('[data-cy-id]').should('have.length', mockPolygonAnnotationLength - 1)
+
+        const totalLength = mockPolygonAnnotationLength + initialPolygonAnnotationLength
+        cy.get('[data-cy-id]').should('have.length', totalLength - 1)
       })
     })
 
@@ -123,6 +128,42 @@ describe(
 
         deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
         cy.get('[data-cy-id]').should('have.length', mockFreelineAnnotationLength - 1)
+      })
+    })
+
+    describe('Reset Annotation', () => {
+      beforeEach(() => {
+        cy.visit('/annotation')
+
+        cy.get($LOADED).should('be.exist')
+        cy.get('[data-cy-tab="drawer"]').click()
+      })
+
+      it('should display only the initial annotation when there is an initial annotation', () => {
+        // given
+        cy.get('[data-cy-id]').should('have.length', INITIAL_POLYGON_ANNOTATIONS.length)
+
+        // when
+        drawAnnotations(POLYGON_ANNOTATIONS)
+        cy.get('[data-cy-id]').should('have.length', INITIAL_POLYGON_ANNOTATIONS.length + POLYGON_ANNOTATIONS.length)
+        cy.get('[data-cy-name="reset-button"]').click()
+
+        // then
+        cy.get('[data-cy-id]').should('have.length', INITIAL_POLYGON_ANNOTATIONS.length)
+      })
+
+      it('should display no annotation when there is no initial annotation', () => {
+        // given
+        cy.get('[value="line"]').click({ force: true })
+        cy.get('[data-cy-id]').should('have.length', 0)
+
+        // when
+        drawAnnotations(LINE_ANNOTATIONS)
+        cy.get('[data-cy-id]').should('have.length', LINE_ANNOTATIONS.length)
+        cy.get('[data-cy-name="reset-button"]').click()
+
+        // then
+        cy.get('[data-cy-id]').should('have.length', 0)
       })
     })
   }
