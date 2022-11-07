@@ -1,4 +1,5 @@
 - 날짜: yyyy-mm-dd
+- version: x.x.x
 
 ## 요약
 
