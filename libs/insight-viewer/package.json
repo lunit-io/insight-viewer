@@ -1,6 +1,6 @@
 {
   "name": "@lunit/insight-viewer",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
   "peerDependencies": {
     "react": "^17.0.2",
