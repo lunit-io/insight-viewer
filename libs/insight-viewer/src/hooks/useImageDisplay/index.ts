@@ -2,7 +2,7 @@
  * @fileoverview Display image in a given HTML element and set viewport.
  */
 import { useEffect, useRef } from 'react'
-import { displayImage, getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
+import { resize, displayImage, getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
 import { formatViewerViewport, formatCornerstoneViewport } from '../../utils/common/formatViewport'
 import { BasicViewport } from '../../types'
 import { UseImageDisplay } from './types'
@@ -48,6 +48,8 @@ const useImageDisplay: UseImageDisplay = ({ element, image, viewportRef, onViewp
         ? viewportRef.current._initialViewport // The first render.
         : displayViewport
     )
+
+    resize(element)
 
     // In case of multiframe image, update imageSeriesKey.
     if (image._imageSeriesKey !== undefined && imageSeriesKey !== image._imageSeriesKey) {
