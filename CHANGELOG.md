@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.1.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.1...@lunit/insight-viewer@6.1.2) (2022-11-07)
+
+### Features
+
+- **viewer:** add cornerstone resize method when dicom image set ([e188713](https://github.com/lunit-io/frontend-components/commit/e188713c54d095caf7a3f0a7b9f0d6ea701154a7))
+
 ## [6.1.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.0...@lunit/insight-viewer@6.1.1) (2022-10-27)
 
 ### Features
