@@ -22,22 +22,10 @@ useViewport hook 의 역할, 동작 방식을 변경하고자 합니다.
 
 기존 useViewport hook 은 InsightViewer component 의 viewport state 를 관리하는 목적의 hook 입니다.<br />
 
-Dicom Image viewport 를 화면에 fit 하게 맞추는 요구사항을 개발했습니다.<br />
-위 요구사항을 위해 아래 기능을 추가했습니다.
-
-> 1. useViewport hook 에 fitScale option 을 추가
-> 2. InsightViewer 내 useViewportUpdate hook 에서 fit scale 로 제한하는 조건문 추가
-
-이에 대한 코드는 아래와 같습니다.
-
-useViewport params 에 option 을 추가했습니다.
-이를 viewport state `_viewportOptions` field 로 관리하는 것을 확인할 수 있습니다.
+코드는 아래와 같습니다.(일부 핵심이 되는 코드만 작성했습니다.)<br />
+`initialViewport prop` 의 유무에 따라 `BASE_VIEWPORT` 적용 여부를 결정합니다.
 
 ```tsx
-const DEFAULT_VIEWPORT_OPTIONS = {
-  fitScale: true,
-}
-
 function useViewport(
   { initialViewport, options = DEFAULT_VIEWPORT_OPTIONS }: UseViewportParams = { options: DEFAULT_VIEWPORT_OPTIONS }
 ) {
@@ -45,6 +33,14 @@ function useViewport(
     ...(initialViewport ? { ...BASE_VIEWPORT, _initialViewport: initialViewport } : BASE_VIEWPORT),
     _viewportOptions: options,
   })
+
+  function resetViewport() {
+    setViewport({
+      ...viewport,
+      _viewportOptions: options,
+      _resetViewport: initialViewport ?? {},
+    })
+  }
 
   // ...useViewport 코드
 
@@ -57,38 +53,27 @@ function useViewport(
 }
 ```
 
-InsightViewer 컴포넌트 내에서 viewport update 를 담당하는 `useViewportUpdate` hook 입니다.<br />
-`newViewportOptions.fitScale` 은 `useViewport 의 _viewportOptions` 와 **동일**합니다.
+`useViewport 에서 반환하는 viewport` 를 `InsightViewer component 로 전달`하고,<br />
+`InsightViewer` 는 전달 받은 Viewport 를 내부 viewport 관련 hook 인 `useViewportUpdate` 으로 전달합니다.
 
-fit scale 은 default viewport 의 scale 을 의미하므로 fitScale 이 true 인 경우,<br />
-현재 scale 이 default scale 미만일 때 scale 값을 default viewport 로 설정하는 방식으로 기능 구현했습니다.
+`useViewportUpdate` hook 은 아래와 같은 일을 합니다.<br />
 
-```tsx
-export default function useViewportUpdate({ element, image, viewport: newViewportProp, onViewportChange }: Prop): void {
-  // ... useViewportUpdate 코드
-
-  if (newViewportOptions.fitScale && newViewportProp.scale < defaultViewport.scale) {
-    elementUpdatedViewport = { ...newViewportProp, scale: defaultViewport.scale }
-    updatedNewViewport = { ...formatViewerViewport(viewport), ...elementUpdatedViewport }
-  }
-
-  // ... useViewportUpdate 코드
-}
-```
+> 1. 외부(앱) Viewport 를 업데이트
+> 2. 외부(앱) Viewport 에 대한 값 필터링 (특정 scale 미만으로는 값을 내릴 수 없다.)
 
 useViewport hook 은 외부(앱)에서 핸들링이 가능합니다._(setState 를 return 하므로)_<br />
 이 점을 염두해두시고 아래 work flow 확인 부탁드립니다.
 
 > 1. 앱에서 마우스 스크롤(예시)을 통해 viewport 를 업데이트하는 로직을 실행
-> 2. 1번에 의해 앱에서는 viewport 가 업데이트된 상태 (이 때 업데이트된 scale 은 default viewport scale 보다 작음)
+> 2. 1번에 의해 앱에서는 viewport 가 업데이트된 상태
 > 3. 업데이트된 viewport 를 InsightViewer 컴포넌트로 전달
 > 4. InsightViewer 의 useViewportUpdate hook 에서 업데이트된 viewport 를 받음
-> 5. 내부 fit scale option 검증 코드에서 default viewer scale 보다 작은지 확인
-> 6. 작을 경우 viewport scale 를 default viewport scale 로 업데이트
+> 5. 내부 검증 코드 _(제한된 scale 미만으로는 scale 값을 내릴 수 없다.)_ 를 기반으로 업데이트된 viewport 를 검증
+> 6. 내부 검증 코드에 의해 제한된 값으로 viewport 업데이트
 
-위 workflow 에서 2번, 6번을 보시면 앱과 컴포넌트 viewport 값이 두개가 공존합니다.<br />
-2번 앱에서는 default viewport scale 보다 작은 값을,<br />
-6번 컴포넌트에서는 default viewport scale 값을 저장하고 있습니다.
+위 workflow 에서 2번, 6번을 보시면 앱과 컴포넌트 서로 다른 viewport 값이 두개가 공존합니다.<br />
+`2번 앱`에서는 1번 마우스 업데이트를 통해 **업데이트된 값**을, _(이 값은 Component 에 존재하는 min limit 보다 작은 값입니다)_
+`6번 컴포넌트`에서는 내부 검증 코드에 의해 **제한된 값**을 가지고 있습니다.
 
 **이 값의 차이로 인해 앱에서 viewport scale 값 표기 시 default viewport scale 과 그 이하의 값이 계속 교차되어 보이는 문제가 있습니다.**
 
@@ -116,13 +101,13 @@ useViewport hook 은 외부(앱)에서 핸들링이 가능합니다._(setState �
 
 ### 1. useViewport 내에서 default viewport 를 관리
 
-6.1.1 기준 fitScale 및 useViewport 구현 방식은 useViewport 에 default viewport 를 관리할 수 없다는 가정 하에 구성된 아키텍처입니다.<br />
+6.1.1 useViewport 구현 방식은 useViewport 에 default viewport 를 관리할 수 없다는 가정 하에 구성된 아키텍처입니다.<br />
 
 개선안은 **default viewport 를 useViewport 에서 관리**하고자 합니다.<br />
 앱에서 `default viewport` 를 통해 부가적인 validation 로직을 만들어 InsightViewer 에 전달하는 방식입니다.
 
-fitScale 의 경우 useViewport 에서 동일하게 fitScale option 을 통해 핸들링이 가능합니다.<br />
-다만 scale 을 다시 지정하는 로직을 InsightViewer 의 useViewportUpdate hook 이 아닌,<br />
+위에서 예시를 들었던 scale 값 제한의 경우 useViewport 에서 동일하게 option field 를 통해 핸들링이 가능합니다.<br />
+다만 **특정 조건문 + 제한된 값 업데이트하는 로직**을 InsightViewer 의 useViewportUpdate hook 이 아닌,<br />
 useViewport hook 자체적으로 관리하는 방향으로 가고자합니다.<br />
 위 방식은 useViewport 에서 default viewport 값을 가지고 있기 때문에 가능한 구현 방향입니다.
 
