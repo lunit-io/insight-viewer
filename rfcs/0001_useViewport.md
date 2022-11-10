@@ -11,6 +11,16 @@ useViewport hook 의 역할, 동작 방식을 변경하고자 합니다.
 
 - [useViewport hook 개선 방향 회의록](https://lunit.atlassian.net/wiki/spaces/CSF/pages/2776564476/2022-10-31+Viewport)
 
+### 용어 정리
+
+- **Element**: `cornerstone canvas Wrapper Div DOM Element` 를 의미합니다.
+
+- **default viewport**: Dicom image, 위 Element 를 통해 가장 기본적인 viewport 를 의미합니다.
+
+- **initial viewport**: default viewport 와 별개로 초기 사용자(앱)에서 설정하는 viewport 를 의미합니다.
+  사용자가 scale 값을 `1.3` 이라는 상수값으로 지정하고 싶을 경우 initial viewport 의 scale 값을 `1.3` 으로 설정하는 등
+  초기 viewport 를 의미힙니다.
+
 ### 문제점
 
 > 1. useViewport 에서 default viewport 를 알 수 없다.
@@ -178,7 +188,7 @@ const App = () => {
     wadouri: 'dicom image url',
   })
 
-  const { viewport, setViewport } = useViewport({ image, element={ viewportRef.current }})
+  const { viewport, setViewport } = useViewport({ image, element: { viewportRef.current }})
 
   // viewport 사용할 element 를 얻을 수 있게 ref prop 을 추가했습니다.
   return <InsightViewer image={image} viewport={viewport} onChangeViewport={setViewport} ref={viewportRef} />
