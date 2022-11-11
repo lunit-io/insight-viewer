@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
@@ -37,6 +37,7 @@ const INITIAL_ANNOTATIONS: InitialAnnotations = {
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
+  const [isDrawing, setIsDrawing] = useState(true)
   const [isEditing, setIsEditing] = useState(false)
   const [isShowLabel, setIsShowLabel] = useState(false)
 
@@ -75,16 +76,40 @@ function AnnotationDrawerContainer(): JSX.Element {
     setIsShowLabel(event.target.checked)
   }
 
+  const handleDrawModeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsDrawing(event.target.checked)
+  }
+
+  useEffect(() => {
+    function handleKeyDown({ code }: KeyboardEvent) {
+      if (code === 'KeyD') {
+        setIsDrawing((prev) => !prev)
+      }
+      if (code === 'KeyE') {
+        setIsEditing((prev) => !prev)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [setIsDrawing, setIsEditing])
+
   return (
     <Box data-cy-loaded={loadingState}>
       <Box>
         <ImageSelect />
       </Box>
       <Box>
-        edit mode <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
+        Draw enabled (D) <Switch data-cy-edit={isDrawing} onChange={handleDrawModeChange} isChecked={isDrawing} />
       </Box>
       <Box>
-        show label{' '}
+        Edit enabled (E) <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
+      </Box>
+      <Box>
+        Show label{' '}
         <Switch data-cy-show-label={isShowLabel} onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
       <RadioGroup onChange={handleAnnotationModeClick} value={annotationMode}>
@@ -114,7 +139,7 @@ function AnnotationDrawerContainer(): JSX.Element {
         <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay
-              isDrawing
+              isDrawing={isDrawing}
               isEditing={isEditing}
               width={700}
               height={700}
