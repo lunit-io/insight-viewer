@@ -5,6 +5,7 @@ export interface MeasurementDrawerProps extends SVGProps<SVGSVGElement> {
   selectedMeasurement: Measurement | null
   measurements: Measurement[]
 
+  isDrawing?: boolean
   isEditing?: boolean
 
   /** When drawing is complete and a new annotation occurs */

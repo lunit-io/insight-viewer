@@ -14,6 +14,7 @@ export function AnnotationDrawer({
   style,
   width,
   height,
+  isDrawing = true,
   isEditing = false,
   showAnnotationLabel = false,
   annotations,
@@ -35,6 +36,7 @@ export function AnnotationDrawer({
   }
 
   const { annotation, editPoints, currentEditMode, setAnnotationEditMode, cursorStatus } = useAnnotationPointsHandler({
+    isDrawing,
     isEditing,
     mode,
     lineHead,
