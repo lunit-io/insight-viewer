@@ -31,6 +31,7 @@ const getMeasurementEditingPoints = ({
 
 export default function useMeasurementPointsHandler({
   mode,
+  isDrawing,
   isEditing,
   svgElement,
   measurements,
@@ -60,7 +61,7 @@ export default function useMeasurementPointsHandler({
   setClassName(enabledElement, cursorStatus)
 
   useEffect(() => {
-    if (!isEditing || selectedMeasurement == null) {
+    if (!isDrawing || !isEditing || selectedMeasurement == null) {
       setEditMode(null)
       setMeasurement(null)
       setEditStartPoint(null)
@@ -75,9 +76,12 @@ export default function useMeasurementPointsHandler({
 
     setMeasurement(selectedMeasurement)
     setEditTargetPoints(currentEditPoint)
-  }, [isEditing, selectedMeasurement, pixelToCanvas, onSelectMeasurement])
+  }, [isDrawing, isEditing, selectedMeasurement, pixelToCanvas, onSelectMeasurement])
 
   const setInitialMeasurement = (point: [mouseDownX: number, mouseDownY: number]) => {
+    if (!isDrawing) {
+      return
+    }
     if (isEditing && selectedMeasurement != null) {
       setEditStartPoint(point)
       return
@@ -93,7 +97,13 @@ export default function useMeasurementPointsHandler({
   }
 
   const addDrawingMeasurement = (point: [mouseMoveX: number, mouseMoveY: number]) => {
-    if (isEditing && selectedMeasurement != null && !editMode) return
+    if (!isDrawing) {
+      return
+    }
+
+    if (isEditing && selectedMeasurement != null && !editMode) {
+      return
+    }
 
     setMeasurement(() => {
       if (!measurement) return null

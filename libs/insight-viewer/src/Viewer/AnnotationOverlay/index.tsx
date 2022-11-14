@@ -41,10 +41,10 @@ export function AnnotationOverlay({
         showOutline={showOutline}
         showAnnotationLabel={showAnnotationLabel}
         annotationAttrs={annotationAttrs}
-        onFocus={onFocus}
-        onClick={isEditing ? onSelect : onRemove}
+        onFocus={isDrawing ? onFocus : undefined}
+        onClick={isDrawing ? (isEditing ? onSelect : onRemove) : undefined}
       />
-      {isDrawing && onAdd && (
+      {onAdd && (
         <AnnotationDrawer
           width={width}
           height={height}
@@ -54,6 +54,7 @@ export function AnnotationOverlay({
           hoveredAnnotation={hoveredAnnotation}
           className={className}
           style={style}
+          isDrawing={isDrawing}
           isEditing={isEditing}
           mode={mode}
           lineHead={lineHead}

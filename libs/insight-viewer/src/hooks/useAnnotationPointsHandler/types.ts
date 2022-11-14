@@ -2,6 +2,7 @@ import type { AnnotationMode, Annotation, LineHeadMode, EditMode, CursorStatus }
 import type { EditPoints } from '../../utils/common/getEditPointPosition'
 
 export interface UseAnnotationPointsHandlerParams {
+  isDrawing: boolean
   isEditing: boolean
   mode: AnnotationMode
   lineHead: LineHeadMode

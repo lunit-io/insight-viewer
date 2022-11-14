@@ -5,6 +5,7 @@ export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
   selectedAnnotation: Annotation | null
   annotations: Annotation[]
 
+  isDrawing?: boolean
   isEditing?: boolean
 
   /**

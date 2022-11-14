@@ -14,6 +14,7 @@ export function AnnotationDrawer({
   style,
   width,
   height,
+  isDrawing = true,
   isEditing = false,
   showAnnotationLabel = false,
   annotations,
@@ -35,6 +36,7 @@ export function AnnotationDrawer({
   }
 
   const { annotation, editPoints, currentEditMode, setAnnotationEditMode, cursorStatus } = useAnnotationPointsHandler({
+    isDrawing,
     isEditing,
     mode,
     lineHead,
@@ -68,7 +70,6 @@ export function AnnotationDrawer({
   })
 
   const isSelectedAnnotation = isEditing && selectedAnnotation != null
-  const isDrawing = !selectedAnnotation
 
   return (
     <>
@@ -107,7 +108,6 @@ export function AnnotationDrawer({
                 editMode="startPoint"
                 isSelectedMode={currentEditMode === 'startPoint'}
                 isHighlightMode={isSelectedAnnotation}
-                isDrawing={isDrawing}
                 cx={editPoints[0]}
                 cy={editPoints[1]}
                 cursorStatus={cursorStatus}
@@ -117,7 +117,6 @@ export function AnnotationDrawer({
                 editMode="endPoint"
                 isHighlightMode={isSelectedAnnotation}
                 isSelectedMode={currentEditMode === 'endPoint'}
-                isDrawing={isDrawing}
                 cx={editPoints[2]}
                 cy={editPoints[3]}
                 cursorStatus={cursorStatus}
