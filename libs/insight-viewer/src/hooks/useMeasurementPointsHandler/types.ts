@@ -3,6 +3,7 @@ import type { EditPoints } from '../../utils/common/getEditPointPosition'
 import type { MeasurementMode, Measurement, EditMode, CursorStatus } from '../../types'
 
 export interface UseMeasurementPointsHandlerParams {
+  isDrawing: boolean
   isEditing: boolean
   mode: MeasurementMode
   measurements: Measurement[]

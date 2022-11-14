@@ -16,6 +16,7 @@ import type { Point, EditMode, Annotation } from '../../types'
 
 export default function useAnnotationPointsHandler({
   mode,
+  isDrawing,
   isEditing,
   lineHead,
   svgElement,
@@ -43,7 +44,7 @@ export default function useAnnotationPointsHandler({
   setClassName(enabledElement, cursorStatus)
 
   useEffect(() => {
-    if (!isEditing || selectedAnnotation == null) {
+    if (!isDrawing || !isEditing || selectedAnnotation == null) {
       setEditMode(null)
       setAnnotation(null)
       setEditStartPoint(null)
@@ -58,9 +59,12 @@ export default function useAnnotationPointsHandler({
 
     setAnnotation(selectedAnnotation)
     setEditTargetPoints(currentEditPoint)
-  }, [image, isEditing, selectedAnnotation, onSelectAnnotation, pixelToCanvas])
+  }, [image, isDrawing, isEditing, selectedAnnotation, onSelectAnnotation, pixelToCanvas])
 
   const setInitialAnnotation = (point: Point) => {
+    if (!isDrawing) {
+      return
+    }
     if (isEditing && selectedAnnotation) {
       setEditStartPoint(point)
       return
@@ -78,7 +82,13 @@ export default function useAnnotationPointsHandler({
   }
 
   const addDrawingAnnotation = (point: Point) => {
-    if (isEditing && selectedAnnotation != null && !editMode) return
+    if (!isDrawing) {
+      return
+    }
+
+    if (isEditing && selectedAnnotation != null && !editMode) {
+      return
+    }
 
     if (annotation == null) {
       setAnnotation(null)

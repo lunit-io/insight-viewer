@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.2.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.2...@lunit/insight-viewer@6.2.0) (2022-11-14)
+
+### Features
+
+- **docs, e2e:** add INITIAL_POLYGON_ANNOTATIONS mock ([c10c5ad](https://github.com/lunit-io/frontend-components/commit/c10c5adcc796882df6cd1a383250e393f5a7a4bc))
+
 ## [6.1.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.1...@lunit/insight-viewer@6.1.2) (2022-11-07)
 
 ## [6.1.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.0...@lunit/insight-viewer@6.1.1) (2022-10-27)
