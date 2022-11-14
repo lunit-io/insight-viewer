@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.2.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.2...@lunit/insight-viewer@6.2.0) (2022-11-14)
+
+### Features
+
+- **docs, e2e:** add INITIAL_POLYGON_ANNOTATIONS mock ([c10c5ad](https://github.com/lunit-io/frontend-components/commit/c10c5adcc796882df6cd1a383250e393f5a7a4bc))
+- **docs:** add resetAnnotation ([400844d](https://github.com/lunit-io/frontend-components/commit/400844dc24b37f97a1791c7e13b548c29a6b6721))
+- **docs:** add shortkeys in drawing page ([e3f6145](https://github.com/lunit-io/frontend-components/commit/e3f614577121b7f713dc5fe2dd977ae80b31bbe9))
+- **viewer:** add resetAnnotation ([c6c66e1](https://github.com/lunit-io/frontend-components/commit/c6c66e1c6da58842d0c62f2a93e734f65aba5d9d))
+- **viewer:** block click and hover when isDrawing = false ([db53759](https://github.com/lunit-io/frontend-components/commit/db5375927ed59bdd16f26ddee63940a4b29c4de1))
+- **viewer:** unselect annotation when isDrawing is going false ([b2192fe](https://github.com/lunit-io/frontend-components/commit/b2192fec742d6d347d147290600243ccc3a54c54))
+
+### Bug Fixes
+
+- **docs:** add INSIGHT Viewer text to version field ([a329523](https://github.com/lunit-io/frontend-components/commit/a3295237cd2301ee40124e40d728cfe07193de51))
+- **docs:** add prefix specific number to RFC doc ([7f37edd](https://github.com/lunit-io/frontend-components/commit/7f37eddd4f619dd8293948ea232bab3555b2f9e2))
+
 ## [6.1.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.1...@lunit/insight-viewer@6.1.2) (2022-11-07)
 
 ### Features

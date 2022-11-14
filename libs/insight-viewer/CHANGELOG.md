@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.2.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.2...@lunit/insight-viewer@6.2.0) (2022-11-14)
+
+### Features
+
+- **viewer:** add resetAnnotation ([c6c66e1](https://github.com/lunit-io/frontend-components/commit/c6c66e1c6da58842d0c62f2a93e734f65aba5d9d))
+- **viewer:** block click and hover when isDrawing = false ([db53759](https://github.com/lunit-io/frontend-components/commit/db5375927ed59bdd16f26ddee63940a4b29c4de1))
+- **viewer:** unselect annotation when isDrawing is going false ([b2192fe](https://github.com/lunit-io/frontend-components/commit/b2192fec742d6d347d147290600243ccc3a54c54))
+
 ## [6.1.2](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.1...@lunit/insight-viewer@6.1.2) (2022-11-07)
 
 ### Features
