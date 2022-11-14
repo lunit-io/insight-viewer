@@ -102,12 +102,7 @@ useViewport hook 은 외부(앱)에서 핸들링이 가능합니다._(setState �
 ## 구체적인 디자인 (아키텍처)
 
 위 목적을 기반으로 기존 아키텍처를 어떻게 변경할지에 대한 구체적인 설명을 작성합니다.<br />
-
-> 1. 문제를 해결하기 위한 솔루션
-> 2. 간단한 예제 코드
-> 3. 아키텍처 다이어그램 (optional)
-
-문제 해결 방식은 위에 언급한 개선 방향성과 같이 진행했습니다.
+문제 해결 방식은 위에 언급한 `개선 방향성`과 같이 진행했습니다.
 
 ### 1. useViewport 내에서 default viewport 를 관리
 
@@ -129,45 +124,62 @@ useViewport hook 자체적으로 관리하는 방향으로 가고자합니다.<b
 
 useViewport hook 부터 코드 공유하겠습니다.
 
-```tsx
-interface UseViewportParams {
-  image: Image // cornerstone Image
-  element: Element | null // cornerstone wrapper DOM Element
-  initialViewport: Viewport
-  options: { fitScale: boolean }
-}
-
-const DEFAULT_VIEWPORT_OPTIONS = {
-  fitScale: true,
-}
-
-function useViewport(
-  { image, element, initialViewport, options = DEFAULT_VIEWPORT_OPTIONS }: UseViewportParams = {
+```ts
+export function useViewport(
+  { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
     options: DEFAULT_VIEWPORT_OPTIONS,
   }
-) {
+): {
+  viewport: Viewport
+  setViewport: React.Dispatch<React.SetStateAction<Viewport>>
+  resetViewport: () => void
+  getDefaultViewport: () => void
+  initialized: boolean
+} {
   const [viewport, setViewport] = useState<Viewport>({
-    ...(initialViewport ? { ...BASE_VIEWPORT, _initialViewport: initialViewport } : BASE_VIEWPORT),
+    ...BASE_VIEWPORT,
     _viewportOptions: options,
   })
 
-  const defaultViewport = getDefaultViewportForImage(element, image) // using cornerstone getDefaultViewport method
+  const getDefaultViewport = useCallback(() => {
+    if (image && element) {
+      return getDefaultViewportForImage(element, image)
+    }
 
-  const setViewportState = (v: Viewport) => {
-    // useViewport 내에서 fit scale 에 대한 validation 처리
-    if (options.fitScale && v.scale < defaultViewport.scale) {
-      setViewport({ ...v, scale: defaultViewport.scale })
+    return null
+  }, [image, element])
+
+  function resetViewport() {
+    const defaultViewport = getDefaultViewport()
+
+    if (defaultViewport && getInitialViewport) {
+      const initialViewport = getInitialViewport(defaultViewport)
+
+      setViewport((prevViewport) => ({ ...prevViewport, ...initialViewport }))
     }
   }
 
-  // ...useViewport 코드
+  useEffect(() => {
+    setViewport((prevViewport) => ({ ...prevViewport, _viewportOptions: { fitScale: options.fitScale } }))
+  }, [options.fitScale])
+
+  // 초기값을 할당하는 방식
+  useEffect(() => {
+    const defaultViewport = getDefaultViewport()
+
+    if (defaultViewport && getInitialViewport) {
+      const initialViewport = getInitialViewport(defaultViewport)
+
+      setViewport((prevViewport) => ({ ...prevViewport, ...initialViewport }))
+    }
+  }, [getDefaultViewport, getInitialViewport])
 
   return {
     viewport,
-    setViewport: setViewportState,
+    setViewport,
     resetViewport,
-    defaultViewport,
-    initialized: viewport.scale !== BASE_VIEWPORT.scale,
+    getDefaultViewport,
+    initialized: viewport.scale !== BASE_VIEWPORT.scale, // BASE_VIEWPORT.scale is 0.
   }
 }
 ```
@@ -198,8 +210,6 @@ const App = () => {
 6.1.1 버전에서 수정한 useViewportUpdate hook 에 추가한 fit scale 관련 코드는 삭제할 예정입니다.
 
 ### 변경 아키텍처 다이어그램
-
-변경된 아키텍처 다이어그램을 공유드립니다.
 
 <img alt="current viewport" src="./assets/0001_useViewport/cur-viewport.jpg" />
 
