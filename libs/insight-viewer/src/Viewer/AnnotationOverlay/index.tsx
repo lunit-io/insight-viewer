@@ -41,8 +41,8 @@ export function AnnotationOverlay({
         showOutline={showOutline}
         showAnnotationLabel={showAnnotationLabel}
         annotationAttrs={annotationAttrs}
-        onFocus={onFocus}
-        onClick={isEditing ? onSelect : onRemove}
+        onFocus={isDrawing ? onFocus : undefined}
+        onClick={isDrawing ? (isEditing ? onSelect : onRemove) : undefined}
       />
       {onAdd && (
         <AnnotationDrawer

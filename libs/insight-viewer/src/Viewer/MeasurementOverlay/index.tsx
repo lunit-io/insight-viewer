@@ -40,8 +40,8 @@ export function MeasurementOverlay({
         showOutline={showOutline}
         isEditing={isEditing}
         measurementAttrs={measurementAttrs}
-        onFocus={onFocus}
-        onClick={isEditing ? onSelect : onRemove}
+        onFocus={isDrawing ? onFocus : undefined}
+        onClick={isDrawing ? (isEditing ? onSelect : onRemove) : undefined}
       />
       {onAdd && (
         <MeasurementDrawer
