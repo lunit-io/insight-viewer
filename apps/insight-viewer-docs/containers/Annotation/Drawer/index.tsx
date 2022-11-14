@@ -8,14 +8,9 @@ import InsightViewer, {
   AnnotationOverlay,
   AnnotationMode,
   LineHeadMode,
-  Annotation,
 } from '@lunit/insight-viewer'
 import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
-
-export type InitialAnnotations = {
-  [mode in AnnotationMode]: Annotation[]
-}
 
 const style = {
   display: 'flex',
@@ -25,14 +20,6 @@ const style = {
 
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
-
-const INITIAL_ANNOTATIONS: InitialAnnotations = {
-  line: [],
-  freeLine: [],
-  polygon: INITIAL_POLYGON_ANNOTATIONS,
-  text: [],
-  circle: [],
-}
 
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
@@ -57,7 +44,7 @@ function AnnotationDrawerContainer(): JSX.Element {
     removeAllAnnotation,
     resetAnnotation,
   } = useAnnotation({
-    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
+    initialAnnotation: INITIAL_POLYGON_ANNOTATIONS,
   })
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
