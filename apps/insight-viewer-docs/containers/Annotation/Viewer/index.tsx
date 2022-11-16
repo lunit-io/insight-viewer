@@ -15,6 +15,7 @@ import {
   LINE_ANNOTATIONS,
   FREELINE_ANNOTATIONS,
   TEXT_ANNOTATIONS,
+  ARROW_LINE_ANNOTATIONS,
 } from '@insight-viewer-library/fixtures'
 
 export type InitialAnnotations = {
@@ -26,6 +27,7 @@ const INITIAL_ANNOTATIONS: InitialAnnotations = {
   freeLine: FREELINE_ANNOTATIONS,
   polygon: POLYGON_ANNOTATIONS,
   text: TEXT_ANNOTATIONS,
+  arrow: ARROW_LINE_ANNOTATIONS,
   // TODO: Changed the mock data when adding Circle mode
   circle: POLYGON_ANNOTATIONS,
 }
