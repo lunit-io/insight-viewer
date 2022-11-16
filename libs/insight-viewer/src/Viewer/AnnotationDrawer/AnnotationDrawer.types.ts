@@ -19,5 +19,6 @@ export interface AnnotationDrawerProps extends SVGProps<SVGSVGElement> {
   onSelectAnnotation: (annotation: Annotation | null) => void
 
   mode?: AnnotationMode
+  /** @deprecated use arrow line instead */
   lineHead?: LineHeadMode
 }

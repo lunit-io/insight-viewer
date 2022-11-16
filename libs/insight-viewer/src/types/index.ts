@@ -104,7 +104,7 @@ export interface AnnotationBase {
 export interface LineAnnotation extends AnnotationBase {
   type: 'line'
   points: [Point, Point]
-
+  /** @deprecated use arrow line instead */
   hasArrowHead?: boolean
 }
 
