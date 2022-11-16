@@ -8,11 +8,11 @@ export function getAnnotationEditingPoints(
   editMode: EditMode,
   mode: AnnotationMode
 ): Point[] {
-  if ((mode === 'line' || mode === 'text') && editMode === 'startPoint') {
+  if ((mode === 'line' || mode === 'arrowLine' || mode === 'text') && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
   }
 
-  if ((mode === 'line' || mode === 'text') && editMode === 'endPoint') {
+  if ((mode === 'line' || mode === 'arrowLine' || mode === 'text') && editMode === 'endPoint') {
     return [prevPoints[0], currentPoint]
   }
 

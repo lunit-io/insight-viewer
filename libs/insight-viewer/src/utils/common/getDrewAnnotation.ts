@@ -9,6 +9,7 @@ export function getDrewAnnotation(
   points: Point[],
   currentId: number,
   mode: AnnotationMode,
+  /** @deprecated use arrow line instead */
   lineHead: LineHeadMode
 ): Annotation {
   const [xPosition, yPosition] = polylabel([points], 1)
@@ -42,6 +43,14 @@ export function getDrewAnnotation(
         type: mode,
         points: [points[0], points[1]],
         hasArrowHead: lineHead === 'arrow',
+      }
+    }
+    case 'arrowLine': {
+      return {
+        ...defaultAnnotationInfo,
+        labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
+        type: mode,
+        points: [points[0], points[1]],
       }
     }
     case 'text': {

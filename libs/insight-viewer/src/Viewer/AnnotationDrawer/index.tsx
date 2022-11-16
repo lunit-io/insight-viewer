@@ -81,7 +81,10 @@ export function AnnotationDrawer({
           style={{ ...svgRootStyle.default, ...style }}
           className={className}
         >
-          {(annotation.type === 'polygon' || annotation.type === 'freeLine' || annotation.type === 'line') && (
+          {(annotation.type === 'polygon' ||
+            annotation.type === 'freeLine' ||
+            annotation.type === 'line' ||
+            annotation.type === 'arrowLine') && (
             <PolylineDrawer
               annotation={annotation}
               isSelectedMode={isSelectedAnnotation}

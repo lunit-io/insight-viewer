@@ -77,8 +77,9 @@ export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
 
+/** @deprecated use arrow line instead */
 export type LineHeadMode = 'normal' | 'arrow'
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text' | 'arrowLine'
 
 export interface AnnotationBase {
   /** Serves as id by contour */
@@ -108,6 +109,11 @@ export interface LineAnnotation extends AnnotationBase {
   hasArrowHead?: boolean
 }
 
+export interface ArrowLineAnnotation extends AnnotationBase {
+  type: 'arrowLine'
+  points: [Point, Point]
+}
+
 export interface FreeLineAnnotation extends AnnotationBase {
   type: 'freeLine'
   points: Point[]
@@ -130,7 +136,13 @@ export interface TextAnnotation extends AnnotationBase {
   label: string
 }
 
-export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation | TextAnnotation
+export type Annotation =
+  | PolygonAnnotation
+  | FreeLineAnnotation
+  | LineAnnotation
+  | CircleAnnotation
+  | TextAnnotation
+  | ArrowLineAnnotation
 
 export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotation: T

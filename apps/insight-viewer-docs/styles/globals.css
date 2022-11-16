@@ -45,6 +45,10 @@ a {
   cursor: url('../assets/crosshair.png') 20 20, auto !important;
 }
 
+.annotation.arrowLine {
+  cursor: url('../assets/crosshair.png') 20 20, auto !important;
+}
+
 .annotation.polygon {
   cursor: url('../assets/pen.png') 10 10, auto !important;
 }

@@ -24,6 +24,8 @@ export function LineViewer({
       pixelToCanvas,
     })
 
+  const isArrowLine = (annotation.type === 'line' || annotation.type === 'arrowLine') && headPoints
+
   return (
     <>
       {showOutline && (
@@ -37,7 +39,7 @@ export function LineViewer({
           points={polygonPoints}
         />
       )}
-      {annotation.type === 'line' && headPoints && (
+      {isArrowLine && (
         <>
           {showOutline && (
             <polyline

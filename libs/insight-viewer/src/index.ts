@@ -22,6 +22,7 @@ export type {
   Contours,
   Annotation,
   Point,
+  /** @deprecated use arrow line instead */
   LineHeadMode,
   AnnotationBase,
   PolygonAnnotation,
@@ -36,6 +37,7 @@ export type {
   MeasurementMode,
   RulerMeasurement,
   CircleMeasurement,
+  ArrowLineAnnotation,
 } from './types'
 export type { DragAction, DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
 export { useDicomFile } from './hooks/useDicomFile'

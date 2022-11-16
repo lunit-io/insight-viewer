@@ -65,7 +65,7 @@ export function useAnnotation({ nextId = 1, initialAnnotation }: UseAnnotationPa
     )
       return null
     if (annotation.type === 'freeLine' && isLessThanTheMinimumPointsLength(annotation.points)) return null
-    if (annotation.type === 'line' && isSamePoints(annotation.points)) return null
+    if ((annotation.type === 'line' || annotation.type === 'arrowLine') && isSamePoints(annotation.points)) return null
     if (annotationInfo?.dataAttrs) {
       validateDataAttrs(annotationInfo?.dataAttrs)
     }
