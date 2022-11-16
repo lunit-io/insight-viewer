@@ -27,7 +27,7 @@ const INITIAL_ANNOTATIONS: InitialAnnotations = {
   freeLine: FREELINE_ANNOTATIONS,
   polygon: POLYGON_ANNOTATIONS,
   text: TEXT_ANNOTATIONS,
-  arrow: ARROW_LINE_ANNOTATIONS,
+  arrowLine: ARROW_LINE_ANNOTATIONS,
   // TODO: Changed the mock data when adding Circle mode
   circle: POLYGON_ANNOTATIONS,
 }
@@ -79,7 +79,8 @@ function AnnotationViewerContainer(): JSX.Element {
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="polygon">Polygon</Radio>
-          <Radio value="line">line</Radio>
+          <Radio value="line">Line</Radio>
+          <Radio value="arrowLine">Arrow Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>

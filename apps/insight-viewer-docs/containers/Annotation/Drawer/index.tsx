@@ -104,6 +104,7 @@ function AnnotationDrawerContainer(): JSX.Element {
           <p style={{ marginRight: '10px' }}>Select Annotation mode</p>
           <Radio value="polygon">Polygon</Radio>
           <Radio value="line">Line</Radio>
+          <Radio value="arrowLine">Arrow Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
