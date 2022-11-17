@@ -18,7 +18,7 @@ export function getDrawingAnnotation({ currentPoints, prevAnnotation }: GetDrawi
 
   const currentAnnotation: Annotation = { ...prevAnnotation, id: currentId, labelPosition: [xPosition, yPosition] }
 
-  if (prevAnnotation.type === 'line') {
+  if (prevAnnotation.type === 'line' || prevAnnotation.type === 'arrowLine') {
     currentAnnotation.labelPosition = [
       xPosition - LINE_TEXT_POSITION_SPACING.x,
       yPosition - LINE_TEXT_POSITION_SPACING.y,

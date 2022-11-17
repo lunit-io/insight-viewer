@@ -5,6 +5,7 @@ export interface UseAnnotationPointsHandlerParams {
   isDrawing: boolean
   isEditing: boolean
   mode: AnnotationMode
+  /** @deprecated use arrow line instead */
   lineHead: LineHeadMode
   annotations: Annotation[]
   selectedAnnotation: Annotation | null

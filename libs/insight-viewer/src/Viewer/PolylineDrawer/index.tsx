@@ -25,7 +25,7 @@ export function PolylineDrawer({
 }: PolylineDrawerProps): ReactElement {
   const { pixelToCanvas } = useOverlayContext()
 
-  const { points } = annotation
+  const { points, type } = annotation
 
   const canvasPoints = points.map(pixelToCanvas)
 
@@ -56,7 +56,7 @@ export function PolylineDrawer({
       {points && points.length > 0 && (
         <>
           <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.outline} points={polylinePoints} />
-          {lineHead === 'arrow' && (
+          {(lineHead === 'arrow' || type === 'arrowLine') && (
             <>
               <PolylineElement
                 className={`annotation-polyline ${cursorClassName} `}

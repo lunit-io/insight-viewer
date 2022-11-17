@@ -36,6 +36,7 @@ export type {
   MeasurementMode,
   RulerMeasurement,
   CircleMeasurement,
+  ArrowLineAnnotation,
 } from './types'
 export type { DragAction, DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
 export { useDicomFile } from './hooks/useDicomFile'
