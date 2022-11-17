@@ -8,8 +8,8 @@ export interface AnnotationOverlayProps extends AnnotationViewerProps {
   /**
    *  normal has no head
    *  For arrow, an arrow head is added.
+   * @deprecated use arrow line instead
    */
-  /** @deprecated use arrow line instead */
   lineHead?: LineHeadMode
   onFocus?: (annotation: Annotation | null) => void
   onAdd?: (annotation: Annotation) => void
