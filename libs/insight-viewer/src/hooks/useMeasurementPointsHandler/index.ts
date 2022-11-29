@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useOverlayContext } from '../../contexts'
 
-import { getMeasurement } from '../../utils/common/getMeasurement'
-import { getMeasurementPointsByMode } from '../../utils/common/getMeasurementPointsByMode'
-import { getTextPosition } from '../../utils/common/getTextPosition'
-import { getMeasurementPoints } from '../../utils/common/getMeasurementPoints'
+import { getMeasurement } from './shared/getMeasurement'
+import { getMeasurementPointsByMode } from './shared/getMeasurementPointsByMode'
+import { getTextPosition } from './shared/getTextPosition'
+import { getMeasurementPoints } from './shared/getMeasurementPoints'
 import { getEditPointPosition, EditPoints } from '../../utils/common/getEditPointPosition'
-import { getExistingMeasurementPoints } from '../../utils/common/getExistingMeasurementPoints'
+import { getExistingMeasurementPoints } from './shared/getExistingMeasurementPoints'
 import { getCursorStatus } from '../../utils/common/getCursorStatus'
 import { setClassName } from '../../utils/common/setClassName'
 

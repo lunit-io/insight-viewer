@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import polylabel from 'polylabel'
 import { Annotation, AnnotationBase } from '../../types'
-import { getIsComplexPolygon } from '../../utils/common/getIsComplexPolygon'
+import { getIsComplexPolygon } from './shared/getIsComplexPolygon'
 import { isSamePoints } from '../../utils/common/isSamePoints'
-import { isLessThanTheMinimumPointsLength } from '../../utils/common/isLessThanTheMinimumPointsLength'
+import { isLessThanTheMinimumPointsLength } from './shared/isLessThanTheMinimumPointsLength'
 
 function validateDataAttrs(dataAttrs?: { [attr: string]: string }) {
   if (!dataAttrs) return
