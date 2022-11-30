@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Subscription, merge } from 'rxjs'
 import { loadingProgressMessage, loadedCountMessageMessage } from '../../utils/messageService'
-import { getProgress } from './shared/getProgress'
+import { getProgress } from './utils/getProgress'
 import { ProgressComponent } from '../../types'
 
 const style = {

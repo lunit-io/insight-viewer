@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-import { checkIsInitialAnnotation } from './shared/checkIsInitialAnnotation'
+import { checkIsInitialAnnotation } from './utils/checkIsInitialAnnotation'
 
 import { svgRootStyle } from '../Viewer.styles'
 import { TextAnnotation } from '../../types'
