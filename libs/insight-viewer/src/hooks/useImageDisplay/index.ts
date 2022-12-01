@@ -61,11 +61,15 @@ const useImageDisplay: UseImageDisplay = ({ element, image, viewportRef, onViewp
       resetViewportRef.current = viewportRef.current._initialViewport
     }
 
-    // Updates the viewport prop of Viewer.
-    if (onViewportChange) {
+    /**
+     * Updates the viewport prop of Viewer.
+     * TODO: Need to delete this logic when removing legacy useViewport
+     */
+    if (onViewportChange && viewportRef.current['isLegacyViewport']) {
       onViewportChange({
         ...formatViewerViewport(viewport),
         _viewportOptions: viewportRef.current._viewportOptions ?? DEFAULT_VIEWPORT_OPTIONS,
+        isLegacyViewport: true,
       })
     }
   }, [image, element, viewportRef, onViewportChange])

@@ -49,7 +49,7 @@ export default function useViewportUpdate({ element, image, viewport: newViewpor
 
     setViewport(<HTMLDivElement>element, formatCornerstoneViewport(viewport, elementUpdatedViewport))
 
-    if (onViewportChange) {
+    if (onViewportChange && newViewportProp.isLegacyViewport) {
       // When resetting, update Viewer's viewport prop
       if (willReset) {
         onViewportChange({
