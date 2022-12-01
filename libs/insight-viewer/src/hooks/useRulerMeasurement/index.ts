@@ -3,8 +3,8 @@ import { useOverlayContext } from '../../contexts'
 
 import { modifyConnectingLine } from '../../utils/common/modifyConnectingLine'
 import { stringifyPoints } from '../../utils/common/stringifyPoints'
-import { getRulerTextPosition } from '../../utils/common/getRulerTextPosition'
-import { getRulerConnectingLine } from '../../utils/common/getRulerConnectingLine'
+import { getRulerTextPosition } from './utils/getRulerTextPosition'
+import { getRulerConnectingLine } from './utils/getRulerConnectingLine'
 
 import { HALF_OF_RULER_TEXT_BOX } from '../../const'
 import type { Point, RulerMeasurement } from '../../types'

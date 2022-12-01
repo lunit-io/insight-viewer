@@ -1,5 +1,5 @@
 import { getCircleEditPoints } from './getCircleEditPoints'
-import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from './getCircleRadius'
 
 import type { Point, Annotation, Measurement, EditMode } from '../../types'
 

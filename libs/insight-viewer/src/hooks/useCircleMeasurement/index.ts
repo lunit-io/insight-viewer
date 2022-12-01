@@ -1,11 +1,11 @@
 import useTextBox from '../useTextBox'
 import { useOverlayContext } from '../../contexts'
 
-import { calculateCircleArea } from '../../utils/common/calculateCircleArea'
-import { getCircleConnectingLine } from '../../utils/common/getCircleConnectingLine'
-import { getCircleEndPoint } from '../../utils/common/getCircleEndPoint'
+import { calculateCircleArea } from './utils/calculateCircleArea'
+import { getCircleConnectingLine } from './utils/getCircleConnectingLine'
+import { getCircleEndPoint } from '../useMeasurementPointsHandler/utils/getCircleEndPoint'
 import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
-import { getCircleTextPosition } from '../../utils/common/getCircleTextPosition'
+import { getCircleTextPosition } from './utils/getCircleTextPosition'
 import { modifyConnectingLine } from '../../utils/common/modifyConnectingLine'
 import { stringifyPoints } from '../../utils/common/stringifyPoints'
 
