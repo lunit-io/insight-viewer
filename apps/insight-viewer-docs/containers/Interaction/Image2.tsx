@@ -51,7 +51,7 @@ export default function App(): JSX.Element {
     element: viewerRef.current,
     getInitialViewport: (defaultViewport: Viewport) => ({ ...defaultViewport, scale: defaultViewport.scale * 1.3 }),
   })
-  console.log({ viewport })
+
   const handleFrame: Wheel = (_, deltaY) => {
     if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
   }
