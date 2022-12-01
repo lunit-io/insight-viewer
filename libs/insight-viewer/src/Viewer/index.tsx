@@ -16,6 +16,7 @@ export function InsightViewer({
   interaction,
   onViewportChange,
   children,
+  viewerRef,
 }: WithChildren<ViewerProp>): JSX.Element {
   const elRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<Partial<Viewport>>(viewport ?? {}) // viewport props
@@ -47,6 +48,14 @@ export function InsightViewer({
   useEffect(() => {
     if (viewport) viewportRef.current = viewport
   }, [viewport])
+
+  /**
+   * This useEffect is intended to update the viewerRef in an external app
+   * This is a useEffect that runs only once when it is first loaded.
+   */
+  useEffect(() => {
+    if (elRef && viewerRef) viewerRef.current = elRef.current
+  }, [elRef, viewerRef])
 
   return (
     <ViewerWrapper ref={elRef} Progress={Progress} onViewportChange={onViewportChange} imageEnabled={!!image}>
