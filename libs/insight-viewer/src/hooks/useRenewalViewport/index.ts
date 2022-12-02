@@ -56,7 +56,7 @@ export function useRenewalViewport(
     [getDefaultViewport]
   )
 
-  const resetViewport = () => {
+  const resetViewport = useCallback(() => {
     const defaultViewport = getDefaultViewport()
 
     if (!defaultViewport) {
@@ -83,22 +83,26 @@ export function useRenewalViewport(
     } else {
       setViewport({ ...defaultViewport, _viewportOptions: options })
     }
-  }
+  }, [getDefaultViewport, getInitialViewport, options])
 
   /**
    * We assigned the function type and the value type
    * for the immediate viewport assignment as union type
    * to utilize the previous viewport.
    */
-  const handleViewportChange = (setViewportAction: SetViewportAction) => {
-    setViewport((prevViewport) => {
-      const newViewport = typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
+  const handleViewportChange = useCallback(
+    (setViewportAction: SetViewportAction) => {
+      setViewport((prevViewport) => {
+        const newViewport =
+          typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
 
-      const updatedViewport = getViewportWithFitScaleOption(newViewport, options.fitScale)
+        const updatedViewport = getViewportWithFitScaleOption(newViewport, options.fitScale)
 
-      return updatedViewport
-    })
-  }
+        return updatedViewport
+      })
+    },
+    [getViewportWithFitScaleOption, options.fitScale]
+  )
 
   useEffect(() => {
     setViewport((prevViewport) => {
