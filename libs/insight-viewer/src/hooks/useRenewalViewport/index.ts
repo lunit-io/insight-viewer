@@ -90,7 +90,7 @@ export function useRenewalViewport(
    * for the immediate viewport assignment as union type
    * to utilize the previous viewport.
    */
-  const handleViewportChange = useCallback(
+  const setViewportWithValidation = useCallback(
     (setViewportAction: SetViewportAction) => {
       setViewport((prevViewport) => {
         const newViewport =
@@ -134,7 +134,7 @@ export function useRenewalViewport(
 
   return {
     viewport,
-    setViewport: handleViewportChange,
+    setViewport: setViewportWithValidation,
     resetViewport,
     getDefaultViewport,
     initialized: viewport.scale !== BASE_VIEWPORT.scale, // BASE_VIEWPORT.scale is 0.
