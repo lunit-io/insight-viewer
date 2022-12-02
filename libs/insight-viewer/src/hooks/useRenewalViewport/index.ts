@@ -39,7 +39,24 @@ export function useRenewalViewport(
     return null
   }, [image, element])
 
-  function resetViewport() {
+  const getViewportWithFitScaleOption = useCallback(
+    (viewport: Viewport, fitScale: boolean): Viewport => {
+      const defaultViewport = getDefaultViewport()
+
+      const ViewportOfUpdatingFitScaleOption = { ...viewport, _viewportOptions: { fitScale } }
+
+      if (!defaultViewport) return ViewportOfUpdatingFitScaleOption
+
+      if (fitScale && ViewportOfUpdatingFitScaleOption.scale < defaultViewport.scale) {
+        return { ...ViewportOfUpdatingFitScaleOption, scale: defaultViewport.scale }
+      }
+
+      return ViewportOfUpdatingFitScaleOption
+    },
+    [getDefaultViewport]
+  )
+
+  const resetViewport = () => {
     const defaultViewport = getDefaultViewport()
 
     if (!defaultViewport) {
@@ -73,29 +90,23 @@ export function useRenewalViewport(
    * for the immediate viewport assignment as union type
    * to utilize the previous viewport.
    */
-  const handleViewportChange = useCallback(
-    (setViewportAction: SetViewportAction) => {
-      const defaultViewport = getDefaultViewport()
+  const handleViewportChange = (setViewportAction: SetViewportAction) => {
+    setViewport((prevViewport) => {
+      const newViewport = typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
 
-      setViewport((prevViewport) => {
-        if (!defaultViewport) return prevViewport
+      const updatedViewport = getViewportWithFitScaleOption(newViewport, options.fitScale)
 
-        const newViewport =
-          typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
-
-        if (prevViewport._viewportOptions.fitScale && newViewport.scale < defaultViewport.scale) {
-          return { ...newViewport, scale: defaultViewport.scale }
-        }
-
-        return newViewport
-      })
-    },
-    [getDefaultViewport]
-  )
+      return updatedViewport
+    })
+  }
 
   useEffect(() => {
-    setViewport((prevViewport) => ({ ...prevViewport, _viewportOptions: { fitScale: options.fitScale } }))
-  }, [options.fitScale])
+    setViewport((prevViewport) => {
+      const updatedViewport = getViewportWithFitScaleOption(prevViewport, options.fitScale)
+
+      return updatedViewport
+    })
+  }, [options.fitScale, getViewportWithFitScaleOption])
 
   /**
    * The purpose of setting the initial Viewport value
