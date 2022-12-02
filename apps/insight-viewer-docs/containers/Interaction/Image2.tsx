@@ -1,10 +1,8 @@
 import { useState, useRef } from 'react'
 import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
 import InsightViewer, {
-  useInteraction,
   useMultipleImages,
   useFrame,
-  Interaction,
   Wheel,
   ViewportOptions,
   useRenewalViewport,
@@ -12,8 +10,6 @@ import InsightViewer, {
 } from '@lunit/insight-viewer'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
-import Control from './Control'
-import WheelControl from './Control/Wheel'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
@@ -21,10 +17,22 @@ import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
 import { CODE_SANDBOX } from '../../const'
 
-const MIN_FRAME = 0
-const MAX_FRAME = IMAGES.length - 1
 const MIN_SCALE = 0.178
 const MAX_SCALE = 3
+
+export const PRIMARY_DRAG = 'primaryDrag'
+export const SECONDARY_DRAG = 'secondaryDrag'
+export const PRIMARY_CLICK = 'primaryClick'
+export const SECONDARY_CLICK = 'secondaryClick'
+export const MOUSEWHEEL = 'mouseWheel'
+
+const DEFAULT_INTERACTION = {
+  [PRIMARY_DRAG]: undefined,
+  [SECONDARY_DRAG]: undefined,
+  [PRIMARY_CLICK]: undefined,
+  [SECONDARY_CLICK]: undefined,
+  [MOUSEWHEEL]: undefined,
+}
 
 interface ViewportSetting {
   options: ViewportOptions
@@ -40,21 +48,17 @@ export default function App(): JSX.Element {
   const { loadingStates, images } = useMultipleImages({
     wadouri: IMAGES,
   })
-  const { frame, setFrame } = useFrame({
+  const { frame } = useFrame({
     initial: 0,
     max: images.length - 1,
   })
-  const { interaction, setInteraction } = useInteraction()
+
   const { viewport, setViewport, resetViewport } = useRenewalViewport({
     ...viewportSetting,
     image: images[frame],
     element: viewerRef.current,
     getInitialViewport: (defaultViewport: Viewport) => ({ ...defaultViewport, scale: defaultViewport.scale * 1.3 }),
   })
-
-  const handleFrame: Wheel = (_, deltaY) => {
-    if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
-  }
 
   const handleScale: Wheel = (_, deltaY) => {
     if (deltaY !== 0) {
@@ -65,36 +69,16 @@ export default function App(): JSX.Element {
     }
   }
 
-  const handler = {
-    frame: handleFrame,
-    scale: handleScale,
-  }
+  const interaction = { ...DEFAULT_INTERACTION, mouseWheel: handleScale }
 
   const handleActiveFitScaleSwitchChange = (isChecked: boolean) => {
     setViewportSetting((prevSetting) => ({ ...prevSetting, options: { fitScale: isChecked } }))
   }
 
-  const handleChange = (type: string) => {
-    return (value: string) => {
-      setInteraction((prev: Interaction) => ({
-        ...prev,
-        [type]: value === 'none' ? undefined : value,
-      }))
-    }
-  }
-
-  const handleWheel = (value: string) => {
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      mouseWheel: value === 'none' ? undefined : handler[value as keyof typeof handler],
-    }))
-  }
   return (
     <Box data-cy-loaded={loadingStates[frame]}>
       <Stack direction="row" spacing="80px" align="flex-start">
         <Box>
-          <Control onChange={handleChange} />
-          <WheelControl onChange={handleWheel} />
           <Box>
             active fit scale{' '}
             <Switch
