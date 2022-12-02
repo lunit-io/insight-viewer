@@ -1,19 +1,14 @@
 /**
  * @fileoverview Handles the Viewer's viewport.
  */
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 import { BASE_VIEWPORT, DEFAULT_VIEWPORT_OPTIONS } from '../../const'
 import { formatViewerViewport } from '../../utils/common/formatViewport'
 import { getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
 
 import type { Viewport } from '../../types'
-import type {
-  SetViewportAction,
-  UseRenewalViewportParams,
-  UseRenewalViewportReturnType,
-  InitialViewportSettingOption,
-} from './type'
+import type { SetViewportAction, UseRenewalViewportParams, UseRenewalViewportReturnType } from './type'
 
 /**
  * @param initialViewport The user-defined initial viewport.
@@ -32,7 +27,7 @@ export function useRenewalViewport(
     _viewportOptions: options,
   })
 
-  const [InitialViewportSettingOption] = useState<InitialViewportSettingOption>({ getInitialViewport })
+  const getInitialViewportRef = useRef(getInitialViewport)
 
   const getDefaultViewport = useCallback(() => {
     if (image && element) {
@@ -63,7 +58,11 @@ export function useRenewalViewport(
     if (getInitialViewport) {
       const initialViewport = getInitialViewport(defaultViewport)
 
-      setViewport((prevViewport) => ({ ...prevViewport, ...initialViewport }))
+      setViewport((prevViewport) => ({
+        ...prevViewport,
+        ...initialViewport,
+        _viewportOptions: prevViewport._viewportOptions,
+      }))
     } else {
       setViewport({ ...defaultViewport, _viewportOptions: options })
     }
@@ -107,12 +106,16 @@ export function useRenewalViewport(
 
     if (!defaultViewport) return
 
-    const getInitialViewport = InitialViewportSettingOption.getInitialViewport
+    const getInitialViewport = getInitialViewportRef.current
 
     const initialViewport = getInitialViewport ? getInitialViewport(defaultViewport) : defaultViewport
 
-    setViewport((prevViewport) => ({ ...prevViewport, ...initialViewport }))
-  }, [InitialViewportSettingOption.getInitialViewport, getDefaultViewport])
+    setViewport((prevViewport) => ({
+      ...prevViewport,
+      ...initialViewport,
+      _viewportOptions: prevViewport._viewportOptions,
+    }))
+  }, [getInitialViewportRef, getDefaultViewport])
 
   return {
     viewport,

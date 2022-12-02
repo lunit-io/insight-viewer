@@ -16,8 +16,4 @@ export interface UseRenewalViewportReturnType {
   setViewport: (setViewportAction: SetViewportAction) => void
 }
 
-export interface InitialViewportSettingOption {
-  getInitialViewport?: (defaultViewport: Viewport) => Viewport
-}
-
 export type SetViewportAction = Viewport | ((prevViewport: Viewport) => Viewport)
