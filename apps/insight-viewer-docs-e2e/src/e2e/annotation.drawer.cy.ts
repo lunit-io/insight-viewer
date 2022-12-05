@@ -154,6 +154,7 @@ describe(
 
       it('should display no annotation when there is no initial annotation', () => {
         // given
+        cy.get('[data-cy-initial-annotations]').click({ force: true })
         cy.get('[value="line"]').click({ force: true })
         cy.get('[data-cy-id]').should('have.length', 0)
 
