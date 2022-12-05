@@ -24,9 +24,10 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 function AnnotationDrawerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
-  const [isDrawing, setIsDrawing] = useState(true)
-  const [isEditing, setIsEditing] = useState(false)
-  const [isShowLabel, setIsShowLabel] = useState(false)
+  const [isDrawing, setIsDrawing] = useState<boolean>(true)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [isShowLabel, setIsShowLabel] = useState<boolean>(false)
+  const [hasInitialAnnotations, setHasInitialAnnotations] = useState<boolean>(true)
 
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
@@ -44,8 +45,12 @@ function AnnotationDrawerContainer(): JSX.Element {
     removeAllAnnotation,
     resetAnnotation,
   } = useAnnotation({
-    initialAnnotation: INITIAL_POLYGON_ANNOTATIONS,
+    initialAnnotation: hasInitialAnnotations ? INITIAL_POLYGON_ANNOTATIONS : undefined,
   })
+
+  const handleInitialAnnotationChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setHasInitialAnnotations(event.target.checked)
+  }
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
@@ -96,6 +101,14 @@ function AnnotationDrawerContainer(): JSX.Element {
         Edit enabled (E) <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
       <Box>
+        Initial Viewport enabled{' '}
+        <Switch
+          data-cy-initial-annotations={hasInitialAnnotations}
+          onChange={handleInitialAnnotationChange}
+          isChecked={hasInitialAnnotations}
+        />
+      </Box>
+      <Box>
         Show label{' '}
         <Switch data-cy-show-label={isShowLabel} onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
       </Box>
@@ -112,7 +125,7 @@ function AnnotationDrawerContainer(): JSX.Element {
       </RadioGroup>
       <RadioGroup onChange={handleLineHeadModeButtonChange} value={lineHeadMode}>
         <Stack direction="row">
-          <p style={{ marginRight: '10px' }}>Select Line Head mode</p>
+          <p style={{ marginRight: '10px' }}>Select Line Head mode - deprecated</p>
           <Radio value="normal">Normal</Radio>
           <Radio value="arrow">Arrow</Radio>
         </Stack>
