@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.2.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.0...@lunit/insight-viewer@6.2.1) (2022-12-06)
+
+### Features
+
+- **viewer:** add mouse left key validation logic to mouse down event ([cc0827d](https://github.com/lunit-io/frontend-components/commit/cc0827da55c1c76aba5b7df23c699a8c251a6413))
+
+### Bug Fixes
+
+- **viewer:** add event button conditional logic to move, up event ([043fad9](https://github.com/lunit-io/frontend-components/commit/043fad9c84df8bab323769c7b548ccac23a8fb72))
+- **viewer:** delete event witch conditional ([79feb71](https://github.com/lunit-io/frontend-components/commit/79feb71f3897100f55c9b97b08e3ea67c2f76830))
+
 ## [6.2.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.2...@lunit/insight-viewer@6.2.0) (2022-11-14)
 
 ### Features
