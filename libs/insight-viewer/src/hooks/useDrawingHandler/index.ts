@@ -23,6 +23,9 @@ function useDrawingHandler({
     if (!svgElement || !enabledElement) return
 
     const handleMouseMove = (event: MouseEvent) => {
+      // Apply Drawing only when left mouse button is pressed
+      if (event.button !== 0) return
+
       setPreProcessEvent(event)
 
       const point = pageToPixel([event.pageX, event.pageY])
@@ -31,6 +34,8 @@ function useDrawingHandler({
     }
 
     const handleMouseUp = (event: MouseEvent) => {
+      if (event.button !== 0) return
+
       setPreProcessEvent(event)
 
       addDrewElement()
@@ -56,6 +61,8 @@ function useDrawingHandler({
     }
 
     const handleMouseDown = (event: MouseEvent) => {
+      if (event.button !== 0) return
+
       activeMouseDrawEvents()
 
       const point = pageToPixel([event.pageX, event.pageY])
