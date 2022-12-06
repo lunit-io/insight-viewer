@@ -57,7 +57,7 @@ function useDrawingHandler({
 
     const handleMouseDown = (event: MouseEvent) => {
       // Apply Drawing only when left mouse button
-      if (event.button !== 0 || event.which !== 1) return
+      if (event.button !== 0) return
 
       activeMouseDrawEvents()
 
