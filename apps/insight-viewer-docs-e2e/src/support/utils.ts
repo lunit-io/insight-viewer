@@ -19,7 +19,7 @@ export function deleteAndCheckAnnotationOrMeasurement(
   element: Annotation | Measurement,
   domElementState: DomElementExistState = 'exist'
 ): void {
-  const targetDataAttr = `[data-cy-id="${element.id - 1}"]`
+  const targetDataAttr = `[data-cy-id="${element.id}"]`
 
   cy.get(targetDataAttr).click({ force: true })
   cy.get(targetDataAttr).should(domElementState)

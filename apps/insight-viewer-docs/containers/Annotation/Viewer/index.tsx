@@ -43,7 +43,6 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationViewerContainer(): JSX.Element {
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
-  const [isRemove, setIsRemove] = useState(false)
   const [isShowLabel, setIsShowLabel] = useState(false)
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
@@ -53,10 +52,6 @@ function AnnotationViewerContainer(): JSX.Element {
     useAnnotation({
       initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
     })
-
-  const handleRemoveModeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsRemove(event.target.checked)
-  }
 
   const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsShowLabel(event.target.checked)
@@ -68,9 +63,6 @@ function AnnotationViewerContainer(): JSX.Element {
 
   return (
     <Box data-cy-loaded={loadingState}>
-      <Box>
-        remove mode <Switch data-cy-remove-mode={isRemove} onChange={handleRemoveModeChange} isChecked={isRemove} />
-      </Box>
       <Box>
         show label{' '}
         <Switch data-cy-show-label={isShowLabel} onChange={handleShowLabelModeChange} isChecked={isShowLabel} />
@@ -97,8 +89,6 @@ function AnnotationViewerContainer(): JSX.Element {
               selectedAnnotation={selectedAnnotation}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onFocus={isRemove ? hoverAnnotation : undefined}
-              onRemove={isRemove ? removeAnnotation : undefined}
               onSelect={selectAnnotation}
             />
           )}
