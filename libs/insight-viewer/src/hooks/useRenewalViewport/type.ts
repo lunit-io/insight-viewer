@@ -2,8 +2,8 @@ import type { Image } from '../../Viewer/types'
 import type { Viewport, ViewportOptions } from '../../types'
 
 export interface UseRenewalViewportParams {
-  image?: Image
-  element?: HTMLDivElement
+  image: Image | undefined
+  element: HTMLDivElement | undefined
   options?: ViewportOptions
   getInitialViewport?: (defaultViewport: Viewport) => Viewport
 }

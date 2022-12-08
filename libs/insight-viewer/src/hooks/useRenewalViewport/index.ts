@@ -19,6 +19,8 @@ import type { SetViewportAction, UseRenewalViewportParams, UseRenewalViewportRet
  */
 export function useRenewalViewport(
   { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseRenewalViewportParams = {
+    image: undefined,
+    element: undefined,
     options: DEFAULT_VIEWPORT_OPTIONS,
   }
 ): UseRenewalViewportReturnType {
