@@ -8,22 +8,15 @@ import { formatViewerViewport } from '../../utils/common/formatViewport'
 import { getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
 
 import type { Viewport } from '../../types'
-import type { SetViewportAction, UseRenewalViewportParams, UseRenewalViewportReturnType } from './type'
+import type { SetViewportAction, UseViewportReturnType, UseViewportParams } from './type'
 
-/**
- * @param initialViewport The user-defined initial viewport.
- * @returns {viewport} The viewport which is used as a Viewer's viewport prop.
- * @returns {setViewport} The viewport setter which is used as a Viewer's onViewportChange prop.
- * @returns {resetViewport} It resets a Viewer's viewport.
- * @returns {initialized} Whether the viewport is initialized or not.
- */
-export function useRenewalViewport(
-  { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseRenewalViewportParams = {
+export function useViewport(
+  { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
     image: undefined,
     element: undefined,
     options: DEFAULT_VIEWPORT_OPTIONS,
   }
-): UseRenewalViewportReturnType {
+): UseViewportReturnType {
   const [viewport, setViewport] = useState<Viewport>({
     ...BASE_VIEWPORT,
     _viewportOptions: options,
