@@ -1,14 +1,9 @@
 import { useState, useRef } from 'react'
 import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
-import InsightViewer, {
-  useMultipleImages,
-  useFrame,
-  Wheel,
-  ViewportOptions,
-  useRenewalViewport,
-  Viewport,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useMultipleImages, useFrame, Wheel, ViewportOptions, Viewport } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
+
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
@@ -53,7 +48,7 @@ export default function App(): JSX.Element {
     max: images.length - 1,
   })
 
-  const { viewport, setViewport, resetViewport } = useRenewalViewport({
+  const { viewport, setViewport, resetViewport } = useViewport({
     ...viewportSetting,
     image: images[frame],
     element: viewerRef.current,
