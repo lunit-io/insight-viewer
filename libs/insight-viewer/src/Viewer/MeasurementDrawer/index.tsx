@@ -66,8 +66,8 @@ export function MeasurementDrawer({
             editMode="startPoint"
             isSelectedMode={currentEditMode === 'startPoint'}
             isHighlightMode={isSelectedMeasurement}
-            cx={editPoints[0]}
-            cy={editPoints[1]}
+            cx={editPoints[0][0]}
+            cy={editPoints[0][1]}
             cursorStatus={cursorStatus}
           />
           <EditPointer
@@ -75,8 +75,8 @@ export function MeasurementDrawer({
             editMode="endPoint"
             isSelectedMode={currentEditMode === 'endPoint'}
             isHighlightMode={isSelectedMeasurement}
-            cx={editPoints[2]}
-            cy={editPoints[3]}
+            cx={editPoints[1][0]}
+            cy={editPoints[1][1]}
             cursorStatus={cursorStatus}
           />
         </>
