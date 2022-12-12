@@ -10,7 +10,6 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-import { CODE_SANDBOX } from '../../const'
 
 const MIN_SCALE = 0.178
 const MAX_SCALE = 3
@@ -112,7 +111,7 @@ export default function App(): JSX.Element {
       </Stack>
 
       <Box>
-        <CodeBlock code={BASE_CODE} codeSandbox={CODE_SANDBOX.builtInInteraction} />
+        <CodeBlock code={BASE_CODE} />
       </Box>
     </Box>
   )

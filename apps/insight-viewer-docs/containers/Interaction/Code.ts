@@ -1,194 +1,121 @@
 export const BASE_CODE = `\
-import InsightViewer, {
-  useMultipleImages,
-  useViewport,
-  useInteraction,
-  useFrame,
-  Interaction,
-  Wheel,
-} from '@lunit/insight-viewer'
+import { useState, useRef } from 'react'
+import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
+import InsightViewer, { useMultipleImages, useFrame, Wheel, ViewportOptions, Viewport } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
+import { IMAGES } from '@insight-viewer-library/fixtures'
 
-const style = {
-  width: '500px',
-  height: '500px'
+import CodeBlock from '../../components/CodeBlock'
+import OverlayLayer from '../../components/OverlayLayer'
+import CustomProgress from '../../components/CustomProgress'
+import { ViewerWrapper } from '../../components/Wrapper'
+import { BASE_CODE } from './Code'
+import Canvas from './Canvas'
+import { CODE_SANDBOX } from '../../const'
+
+const MIN_SCALE = 0.178
+const MAX_SCALE = 3
+
+export const PRIMARY_DRAG = 'primaryDrag'
+export const SECONDARY_DRAG = 'secondaryDrag'
+export const PRIMARY_CLICK = 'primaryClick'
+export const SECONDARY_CLICK = 'secondaryClick'
+export const MOUSEWHEEL = 'mouseWheel'
+
+const DEFAULT_INTERACTION = {
+  [PRIMARY_DRAG]: undefined,
+  [SECONDARY_DRAG]: undefined,
+  [PRIMARY_CLICK]: undefined,
+  [SECONDARY_CLICK]: undefined,
+  [MOUSEWHEEL]: undefined,
 }
 
-export default function App() {
+interface ViewportSetting {
+  options: ViewportOptions
+}
+
+export default function App(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
+  const [viewportSetting, setViewportSetting] = useState<ViewportSetting>({
+    options: { fitScale: false },
+  })
+
   const { loadingStates, images } = useMultipleImages({
     wadouri: IMAGES,
   })
-  const { frame, setFrame } = useFrame({
+  const { frame } = useFrame({
     initial: 0,
     max: images.length - 1,
   })
-  const { viewport, setViewport } = useViewport({
-    scale: 0.5,
+
+  const { viewport, setViewport, resetViewport } = useViewport({
+    ...viewportSetting,
+    image: images[frame],
+    element: viewerRef.current,
+    getInitialViewport: (defaultViewport: Viewport) => ({ ...defaultViewport, scale: defaultViewport.scale * 1.3 }),
   })
-  const { interaction, setInteraction } = useInteraction()
 
-  function handlePrimaryDrag(e: React.ChangeEvent<HTMLInputElement>) {
-    const v = e.target.value
-
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      primaryDrag: v === 'none' ? undefined : v,
-    }))
-  }
-
-  function handleSecondaryDrag(e: React.ChangeEvent<HTMLInputElement>) {
-    const v = e.target.value
-
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      secondaryDrag: v === 'none' ? undefined : v,
-    }))
-  }
-
-  const handleFrame: Wheel = (_, deltaY) => {
-    if (deltaY !== 0)
-      setFrame(prev =>
-        Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME)
-      )
-  }
-
-  const handleZoom: Wheel = (_, deltaY) => {
-    if (deltaY !== 0)
-      setViewport(prev => ({
+  const handleScale: Wheel = (_, deltaY) => {
+    if (deltaY !== 0) {
+      setViewport((prev) => ({
         ...prev,
-        scale: Math.min(
-          Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE),
-          MAX_SCALE
-        ),
-      }))
-  }
-
-  const handler = {
-    frame: handleFrame,
-    scale: handleZoom,
-  }
-
-  function handleWheelChange(e) {
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      [type]: e.target.value === 'none' ? undefined : handler[e.target.value],
-    }))
-  }
-
-  return (
-    <>
-      <input type="radio" value="none" onChange={handlePrimaryDrag} />
-      <input type="radio" value="pan" onChange={handlePrimaryDrag} />
-      <input type="radio" value="adjust" onChange={handlePrimaryDrag} />
-      <input type="radio" value="none" onChange={handleSecondaryDrag} />
-      <input type="radio" value="pan" onChange={handleSecondaryDrag} />
-      <input type="radio" value="adjust" onChange={handleSecondaryDrag} />
-      <input type="radio" value="none" onChange={handleWheelChange} />
-      <input type="radio" value="frame" onChange={handleWheelChange} />
-      <input type="radio" value="scale" onChange={handleWheelChange} />
-      <div style={style}>
-        <InsightViewer
-          image={images[frame]}
-          interaction={interaction}
-          viewport={viewport}
-          onViewportChange={setViewport}
-        >
-          <OverlayLayer viewport={viewport} />
-        </InsightViewer>
-      </div>
-    </>
-  )
-}
-`
-
-export const CUSTOM_CODE = `\
-import InsightViewer, { useImage, useInteraction, Interaction, Drag } from '@lunit/insight-viewer'
-
-const style = {
-  width: '500px',
-  height: '500px'
-}
-
-export default function App() {
-  const { image } = useImage({
-    wadouri: IMAGE_ID,
-  })
-  const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport } = useViewport()
-
-  const customPan: Drag = ({ viewport, delta }) => {
-    console.log(
-      'pan',
-      viewport.translation.x,
-      viewport.translation.y,
-      delta.x,
-      delta.y
-    )
-    setViewport(prev => ({
-      ...prev,
-      x: prev.x + delta.x / prev.scale,
-      y: prev.y + delta.y / prev.scale,
-    }))
-  }
-
-  const customAdjust: Drag = ({ viewport, delta }) => {
-    console.log(
-      'adjust',
-      viewport.voi.windowWidth,
-      viewport.voi.windowCenter,
-      delta.x,
-      delta.y
-    )
-    setViewport(prev => ({
-      ...prev,
-      windowWidth: prev.windowWidth + delta.x / prev.scale,
-      windowCenter: prev.windowCenter + delta.y / prev.scale,
-    }))
-  }
-
-  function handleCustomPan(e: React.ChangeEvent<HTMLInputElement>) {
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      primaryDrag: e.target.value === 'none' ? undefined : customPan,
-    }))
-  }
-
-  function handleCustomAdjust(e: React.ChangeEvent<HTMLInputElement>) {
-    setInteraction((prev: Interaction) => ({
-      ...prev,
-      secondaryDrag: e.target.value === 'none' ? undefined : customAdjust,
-    }))
-  }
-
-  function handleClick(e) {
-    if (e.target.checked) {
-      setInteraction((prev: Interaction) => ({
-        ...prev,
-        primaryClick: // or secondaryClick
-          value === 'none'
-            ? undefined
-            : (offsetX, offsetY) => {
-              console.log(offsetX, offsetY)
-            },
+        scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
       }))
     }
   }
 
+  const interaction = { ...DEFAULT_INTERACTION, mouseWheel: handleScale }
+
+  const handleActiveFitScaleSwitchChange = (isChecked: boolean) => {
+    setViewportSetting((prevSetting) => ({ ...prevSetting, options: { fitScale: isChecked } }))
+  }
+
   return (
-    <>
-      <input type="radio" value="pan" onChange={handleCustomPan} />
-      <input type="radio" value="adjust" onChange={handleCustomAdjust} />
-      <input type="checkbox" value="adjust" onChange={handleClick} />
-      <div style={style}>
-        <InsightViewer
-          image={image}
-          interaction={interaction}
-          viewport={viewport}
-          onViewportChange={setViewport}
-        >
-          <OverlayLayer viewport={viewport} />
-        </InsightViewer>
-      </div>
-    </>
+    <Box data-cy-loaded={loadingStates[frame]}>
+      <Stack direction="row" spacing="80px" align="flex-start">
+        <Box>
+          <Box>
+            active fit scale{' '}
+            <Switch
+              onChange={(e) => handleActiveFitScaleSwitchChange(e.target.checked)}
+              className="toggle-fit-scale"
+              isChecked={viewportSetting.options.fitScale}
+            />
+          </Box>
+          <Box mb={6}>
+            <Text className="test">
+              frame: <span className="frame">{frame}</span>
+            </Text>
+          </Box>
+        </Box>
+        <Box>
+          <Button colorScheme="blue" onClick={resetViewport} className="reset" mb="0px">
+            Reset 리셋!
+          </Button>
+        </Box>
+      </Stack>
+
+      <Stack direction="row">
+        <ViewerWrapper>
+          <InsightViewer
+            viewerRef={viewerRef}
+            image={images[frame]}
+            interaction={interaction}
+            onViewportChange={setViewport}
+            viewport={viewport}
+            Progress={CustomProgress}
+          >
+            <Canvas viewport={viewport} />
+            <OverlayLayer viewport={viewport} />
+          </InsightViewer>
+        </ViewerWrapper>
+      </Stack>
+
+      <Box>
+        <CodeBlock code={BASE_CODE} />
+      </Box>
+    </Box>
   )
 }
 `
