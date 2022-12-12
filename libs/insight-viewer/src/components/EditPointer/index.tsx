@@ -2,11 +2,10 @@
 import React from 'react'
 import { EDIT_CIRCLE_RADIUS } from '../../const'
 import { editPointerStyle } from '../../Viewer/Viewer.styles'
-import type { CursorStatus, EditMode } from '../../types'
+import type { CursorStatus, EditMode, Point } from '../../types'
 
 interface EditPointerProps {
-  cx: number
-  cy: number
+  editPoint: Point
   editMode: EditMode
   cursorStatus: CursorStatus
   isSelectedMode?: boolean
@@ -15,8 +14,7 @@ interface EditPointerProps {
 }
 
 export function EditPointer({
-  cx,
-  cy,
+  editPoint: [cx, cy],
   editMode,
   isSelectedMode,
   isHighlightMode,
