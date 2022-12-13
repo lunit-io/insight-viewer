@@ -228,7 +228,9 @@ export default function useMeasurementPointsHandler({
 
       if (!currentEditingPoints) return
 
-      const [startX, startY, endX, endY] = currentEditingPoints
+      const [editingStartPoint, editingEndPoint] = currentEditingPoints
+      const [startX, startY] = editingStartPoint
+      const [endX, endY] = editingEndPoint
       const fixedPoint: [number, number] = targetPoint === 'startPoint' ? [endX, endY] : [startX, startY]
 
       setSelectedMeasurementEditingFixedPoint(fixedPoint)

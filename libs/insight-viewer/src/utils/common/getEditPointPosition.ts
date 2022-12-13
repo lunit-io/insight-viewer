@@ -3,7 +3,7 @@ import { getCircleRadiusByCenter } from './getCircleRadius'
 
 import type { Point, Annotation, Measurement, EditMode } from '../../types'
 
-export type EditPoints = [startX: number, startY: number, endX: number, endY: number]
+export type EditPoints = [Point, Point]
 
 export function getEditPointPosition(
   points: Point[],
@@ -28,8 +28,16 @@ export function getEditPointPosition(
 
   if (fixedPoints && editTarget?.type === 'circle' && (editingMode === 'startPoint' || editingMode === 'endPoint')) {
     const [start, end] = fixedPoints
-    const currentEditingPoints: [number, number, number, number] =
-      editingMode === 'startPoint' ? [start[0], start[1], end[0], end[1]] : [end[0], end[1], start[0], start[1]]
+    const currentEditingPoints: [Point, Point] =
+      editingMode === 'startPoint'
+        ? [
+            [start[0], start[1]],
+            [end[0], end[1]],
+          ]
+        : [
+            [end[0], end[1]],
+            [start[0], start[1]],
+          ]
 
     return currentEditingPoints
   }
@@ -37,10 +45,16 @@ export function getEditPointPosition(
   if (drawingMode === 'circle' && fixedPoints) {
     const [start, end] = fixedPoints
 
-    return [start[0], start[1], end[0], end[1]]
+    return [
+      [start[0], start[1]],
+      [end[0], end[1]],
+    ]
   }
   // line annotation or ruler measurement
   const [startPoint, endPoint] = points
 
-  return [startPoint[0], startPoint[1], endPoint[0], endPoint[1]]
+  return [
+    [startPoint[0], startPoint[1]],
+    [endPoint[0], endPoint[1]],
+  ]
 }

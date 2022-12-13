@@ -45,13 +45,15 @@ export function drawAnnotation(element: Annotation): void {
         cy.get('@canvas').trigger('mousedown', {
           x,
           y,
+          button: 0,
         })
       } else if (i === element.points.length - 1) {
-        cy.get('@canvas').trigger('mouseup')
+        cy.get('@canvas').trigger('mouseup', { button: 0 })
       } else {
         cy.get('@canvas').trigger('mousemove', {
           x,
           y,
+          button: 0,
         })
       }
     })
@@ -63,9 +65,9 @@ export function drawAnnotation(element: Annotation): void {
   const [startPoint, endPoint] = element.points
 
   cy.get('@canvas')
-    .trigger('mousedown', { x: startPoint[0], y: startPoint[1] })
-    .trigger('mousemove', { x: endPoint[0], y: endPoint[1] })
-    .trigger('mouseup')
+    .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
+    .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
+    .trigger('mouseup', { button: 0 })
 
   return undefined
 }
@@ -96,10 +98,11 @@ export function moveAnnotation(annotation: Annotation, distance: number): void {
       force: true,
       pageX: startPoint[0] + i,
       pageY: startPoint[1] + i,
+      button: 0,
     })
   }
 
-  cy.get(targetDrawingAttr).trigger('mouseup', { force: true })
+  cy.get(targetDrawingAttr).trigger('mouseup', { force: true, button: 0 })
 
   // edit mode disabled
   cy.get('.cornerstone-canvas-wrapper').click()
@@ -112,9 +115,9 @@ export const editAnnotation = (editTargetPoint: Point, distance: number): void =
   const [x, y] = editTargetPoint
 
   cy.get('@canvas')
-    .trigger('mousedown', { x, y })
-    .trigger('mousemove', { x: x + distance, y: y + distance })
-    .trigger('mouseup')
+    .trigger('mousedown', { x, y, button: 0 })
+    .trigger('mousemove', { x: x + distance, y: y + distance, button: 0 })
+    .trigger('mouseup', { button: 0 })
 
   cy.get('@canvas').click()
 }
@@ -126,9 +129,9 @@ export const drawMeasurement = (measurement: Measurement): void => {
     const [startPoint, endPoint] = measurement.startAndEndPoint
 
     cy.get('@canvas')
-      .trigger('mousedown', { x: startPoint[0], y: startPoint[1] })
-      .trigger('mousemove', { x: endPoint[0], y: endPoint[1] })
-      .trigger('mouseup')
+      .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
+      .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
+      .trigger('mouseup', { button: 0 })
   }
 }
 
@@ -146,16 +149,18 @@ export const moveMeasurement = (measurement: Measurement, distance: number): voi
   cy.get(targetDrawingAttr).trigger('mousedown', {
     x: startPoint[0] + 5,
     pageY: startPoint[1] + 5,
+    button: 0,
   })
 
   for (let i = 0; i < distance; i += 25) {
     cy.get(targetDrawingAttr).trigger('mousemove', {
       pageX: startPoint[0] + i,
       pageY: startPoint[1] + i,
+      button: 0,
     })
   }
 
-  cy.get(targetDrawingAttr).trigger('mouseup', { force: true })
+  cy.get(targetDrawingAttr).trigger('mouseup', { force: true, button: 0 })
 
   // edit mode disabled
   cy.get('.cornerstone-canvas-wrapper').click()
@@ -168,9 +173,9 @@ export const editPoint = (editTargetPoint: Point, distance: number): void => {
   const [x, y] = editTargetPoint
 
   cy.get('@canvas')
-    .trigger('mousedown', { x, y })
-    .trigger('mousemove', { x: x + distance, y: y + distance })
-    .trigger('mouseup')
+    .trigger('mousedown', { x, y, button: 0 })
+    .trigger('mousemove', { x: x + distance, y: y + distance, button: 0 })
+    .trigger('mouseup', { button: 0 })
 
   cy.get('@canvas').click()
 }
