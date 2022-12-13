@@ -34,10 +34,12 @@ export function useViewport(
   })
 
   function resetViewport() {
-    setViewport({
-      ...viewport,
-      _viewportOptions: options,
-      _resetViewport: initialViewport ?? {},
+    setViewport((prevViewport) => {
+      return {
+        ...prevViewport,
+        _viewportOptions: options,
+        _resetViewport: initialViewport ?? {},
+      }
     })
   }
 
