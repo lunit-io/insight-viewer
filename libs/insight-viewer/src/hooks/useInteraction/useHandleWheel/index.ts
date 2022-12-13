@@ -7,15 +7,11 @@ import { setViewport, getViewport } from '../../../utils/cornerstoneHelper'
 import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
 
 import type { Element, OnViewportChange } from '../../../types'
-import type { Interaction, ViewportInteraction, WheelCoords, WheelAction } from '../types'
 import type { CornerstoneViewport } from '../../../utils/cornerstoneHelper'
-
-type MouseWheelType = typeof MOUSEWHEEL
-
+import type { Interaction, ViewportInteraction, WheelCoords, WheelAction } from '../types'
 interface HandleViewportByWheelParams {
   element: Element
   interaction: Interaction
-  wheelType: MouseWheelType
   wheelCoords: WheelCoords
   viewport: CornerstoneViewport
   onViewportChange?: OnViewportChange
@@ -24,12 +20,11 @@ interface HandleViewportByWheelParams {
 function handleViewportByWheel({
   element,
   interaction,
-  wheelType,
   wheelCoords,
   viewport,
   onViewportChange,
 }: HandleViewportByWheelParams): void {
-  const wheelHandler = interaction[wheelType]
+  const wheelHandler = interaction[MOUSEWHEEL]
 
   function updateViewportByWheel(wheelEventType: WheelAction): void {
     if (!wheelEventType) return
@@ -86,7 +81,6 @@ export default function useHandleWheel({ image, element, interaction, onViewport
         handleViewportByWheel({
           element,
           interaction,
-          wheelType: MOUSEWHEEL,
           wheelCoords: { deltaX, deltaY },
           viewport,
           onViewportChange,
