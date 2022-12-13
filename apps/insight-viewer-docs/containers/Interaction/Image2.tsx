@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react'
 import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
-import InsightViewer, { useMultipleImages, useFrame, Wheel, ViewportOptions, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
+
+import type { Interaction, ViewportOptions, Viewport } from '@lunit/insight-viewer'
 
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -10,9 +12,6 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-
-const MIN_SCALE = 0.178
-const MAX_SCALE = 3
 
 export const PRIMARY_DRAG = 'primaryDrag'
 export const SECONDARY_DRAG = 'secondaryDrag'
@@ -54,16 +53,7 @@ export default function App(): JSX.Element {
     getInitialViewport: (defaultViewport: Viewport) => ({ ...defaultViewport, scale: defaultViewport.scale * 1.3 }),
   })
 
-  const handleScale: Wheel = (_, deltaY) => {
-    if (deltaY !== 0) {
-      setViewport((prev) => ({
-        ...prev,
-        scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
-      }))
-    }
-  }
-
-  const interaction = { ...DEFAULT_INTERACTION, mouseWheel: handleScale }
+  const interaction = { ...DEFAULT_INTERACTION, mouseWheel: 'scale' } as Interaction
 
   const handleActiveFitScaleSwitchChange = (isChecked: boolean) => {
     setViewportSetting((prevSetting) => ({ ...prevSetting, options: { fitScale: isChecked } }))
@@ -89,7 +79,7 @@ export default function App(): JSX.Element {
         </Box>
         <Box>
           <Button colorScheme="blue" onClick={resetViewport} className="reset" mb="0px">
-            Reset 리셋!
+            Reset 리셋
           </Button>
         </Box>
       </Stack>
