@@ -57,6 +57,7 @@ export default function useViewportUpdate({ element, image, viewport: newViewpor
       // When resetting, update Viewer's viewport prop
       if (willReset) {
         onViewportChange({
+          isLegacyViewport: true,
           ...formatViewerViewport(defaultViewport),
           ...(newViewportProp?._resetViewport ?? {}),
           _viewportOptions: newViewportOptions,
