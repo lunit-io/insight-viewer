@@ -16,7 +16,7 @@ export default function App(): JSX.Element {
       <TabList>
         <Tab>Base Interaction</Tab>
         <Tab className="custom-tab">Custom Interaction</Tab>
-        <Tab className="custom-tab">Renewal Interaction</Tab>
+        <Tab className="renewal-tab">Renewal Interaction</Tab>
       </TabList>
 
       <TabPanels>
