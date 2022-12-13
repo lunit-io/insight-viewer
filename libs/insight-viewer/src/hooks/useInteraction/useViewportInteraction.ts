@@ -11,8 +11,10 @@ export default function useViewportInteraction({
   onViewportChange,
 }: ViewportInteraction): void {
   useHandleWheel({
+    image,
     element,
     interaction,
+    onViewportChange,
   })
   useHandleDrag({
     image,
