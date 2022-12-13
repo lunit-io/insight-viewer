@@ -1,4 +1,3 @@
-export const BASE_CODE = `\
 import { useState, useRef } from 'react'
 import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
 import InsightViewer, { useMultipleImages, useFrame, Wheel, ViewportOptions, Viewport } from '@lunit/insight-viewer'
@@ -11,7 +10,6 @@ import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
 import { BASE_CODE } from './Code'
 import Canvas from './Canvas'
-import { CODE_SANDBOX } from '../../const'
 
 const MIN_SCALE = 0.178
 const MAX_SCALE = 3
@@ -118,4 +116,3 @@ export default function App(): JSX.Element {
     </Box>
   )
 }
-`

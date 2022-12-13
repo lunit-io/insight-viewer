@@ -11,6 +11,7 @@ interface UseViewportParams {
 }
 
 /**
+ * @deprecated use useRenewalViewport instead
  * @param initialViewport The user-defined initial viewport.
  * @returns {viewport} The viewport which is used as a Viewer's viewport prop.
  * @returns {setViewport} The viewport setter which is used as a Viewer's onViewportChange prop.
@@ -28,6 +29,8 @@ export function useViewport(
   const [viewport, setViewport] = useState<Viewport>({
     ...(initialViewport ? { ...BASE_VIEWPORT, _initialViewport: initialViewport } : BASE_VIEWPORT),
     _viewportOptions: options,
+    // Set up a flag variable to mark legacy code
+    isLegacyViewport: true,
   })
 
   function resetViewport() {

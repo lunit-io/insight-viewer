@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@insight-viewer-library/fixtures": ["libs/fixtures/src/index.ts"],
-      "@lunit/insight-viewer": ["libs/insight-viewer/src/index.ts"]
+      "@lunit/insight-viewer": ["libs/insight-viewer/src/index.ts"],
+      "@lunit/insight-viewer/viewport": ["libs/insight-viewer/src/Viewport/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

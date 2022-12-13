@@ -42,14 +42,18 @@ export default function useViewportUpdate({ element, image, viewport: newViewpor
      * the scale will not decrease below the default viewport.
      * This behavior is the default behavior.
      */
-    if (newViewportOptions.fitScale && newViewportProp.scale < defaultViewport.scale) {
+    if (
+      newViewportProp.isLegacyViewport &&
+      newViewportOptions.fitScale &&
+      newViewportProp.scale < defaultViewport.scale
+    ) {
       elementUpdatedViewport = { ...newViewportProp, scale: defaultViewport.scale }
       updatedNewViewport = { ...formatViewerViewport(viewport), ...elementUpdatedViewport }
     }
 
     setViewport(<HTMLDivElement>element, formatCornerstoneViewport(viewport, elementUpdatedViewport))
 
-    if (onViewportChange) {
+    if (onViewportChange && newViewportProp.isLegacyViewport) {
       // When resetting, update Viewer's viewport prop
       if (willReset) {
         onViewportChange({

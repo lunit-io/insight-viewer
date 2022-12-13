@@ -26,6 +26,11 @@ export type Viewport = BasicViewport & {
   _initialViewport?: Partial<BasicViewport>
   _resetViewport?: Partial<BasicViewport>
   _viewportOptions: ViewportOptions
+  /**
+   * Flag variable to check whether to use legacy useViewport
+   * Will be deleted after 6.3.0 version
+   */
+  isLegacyViewport?: true
 }
 
 export type Point = [x: number, y: number]
