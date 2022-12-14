@@ -7,6 +7,7 @@ import {
   LINE_ANNOTATIONS,
   FREELINE_ANNOTATIONS,
   SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
+  ARROW_LINE_ANNOTATIONS,
 } from '@insight-viewer-library/fixtures'
 
 describe(
@@ -132,20 +133,25 @@ describe(
     })
 
     describe('Reset Annotation', () => {
-      beforeEach(() => {
+      before(() => {
         cy.visit('/annotation')
 
         cy.get($LOADED).should('be.exist')
         cy.get('[data-cy-tab="drawer"]').click()
       })
 
+      beforeEach(() => {
+        cy.get('[data-cy-name="reset-button"]').click()
+      })
+
       it('should display only the initial annotation when there is an initial annotation', () => {
         // given
+        cy.get('[value="line"]').click({ force: true })
         cy.get('[data-cy-id]').should('have.length', INITIAL_POLYGON_ANNOTATIONS.length)
 
         // when
-        drawAnnotations(POLYGON_ANNOTATIONS)
-        cy.get('[data-cy-id]').should('have.length', INITIAL_POLYGON_ANNOTATIONS.length + POLYGON_ANNOTATIONS.length)
+        drawAnnotations(LINE_ANNOTATIONS)
+        cy.get('[data-cy-id]').should('have.length', INITIAL_POLYGON_ANNOTATIONS.length + LINE_ANNOTATIONS.length)
         cy.get('[data-cy-name="reset-button"]').click()
 
         // then
@@ -165,6 +171,50 @@ describe(
 
         // then
         cy.get('[data-cy-id]').should('have.length', 0)
+      })
+    })
+
+    describe('Arrow Line Annotation', () => {
+      before(() => {
+        cy.visit('/annotation')
+
+        cy.get($LOADED).should('be.exist')
+        cy.get('[data-cy-tab="drawer"]').click()
+      })
+
+      beforeEach(() => {
+        cy.get('[data-cy-name="reset-button"]').click()
+      })
+
+      const mockArrowLineAnnotationLength = ARROW_LINE_ANNOTATIONS.length
+      const initialAnnotationsLength = INITIAL_POLYGON_ANNOTATIONS.length
+
+      it('should be able to draw an arrow line', () => {
+        // given
+        cy.get('[value="arrowLine"]').click({ force: true })
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+
+        // when
+        drawAnnotations(ARROW_LINE_ANNOTATIONS)
+
+        // then
+        cy.get('[data-cy-id]').should('have.length', mockArrowLineAnnotationLength + initialAnnotationsLength)
+      })
+
+      it('should be able to delete the selected arrow line', () => {
+        // given
+        const targetAnnotation = ARROW_LINE_ANNOTATIONS[1]
+        cy.get('[value="arrowLine"]').click({ force: true })
+
+        drawAnnotations([targetAnnotation])
+
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength + 1)
+
+        // when
+        deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
+
+        // then
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
       })
     })
   }
