@@ -80,34 +80,26 @@ export function useViewport(
     } else {
       setViewport({ ...defaultViewport, _viewportOptions: options })
     }
-  }, [getDefaultViewport, getInitialViewport, options])
+  }, [getInitialViewport, options])
 
   /**
    * We assigned the function type and the value type
    * for the immediate viewport assignment as union type
    * to utilize the previous viewport.
    */
-  const setViewportWithValidation = useCallback(
-    (setViewportAction: SetViewportAction) => {
-      setViewport((prevViewport) => {
-        const newViewport =
-          typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
-
-        const updatedViewport = getViewportWithFitScaleOption(newViewport, prevViewport._viewportOptions.fitScale)
-
-        return updatedViewport
-      })
-    },
-    [getViewportWithFitScaleOption]
-  )
-
-  useEffect(() => {
+  const setViewportWithValidation = useCallback((setViewportAction: SetViewportAction) => {
     setViewport((prevViewport) => {
-      const updatedViewport = getViewportWithFitScaleOption(prevViewport, options.fitScale)
+      const newViewport = typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
+
+      const updatedViewport = getViewportWithFitScaleOption(newViewport, imageRef.current, elementRef.current)
 
       return updatedViewport
     })
-  }, [options.fitScale, getViewportWithFitScaleOption])
+  }, [])
+
+  useEffect(() => {
+    setViewportWithValidation((prevViewport) => ({ ...prevViewport, _viewportOptions: options }))
+  }, [options, setViewportWithValidation])
 
   useEffect(() => {
     imageRef.current = image
@@ -119,7 +111,7 @@ export function useViewport(
    * when the image is changed
    */
   useEffect(() => {
-    const defaultViewport = getDefaultViewport()
+    const defaultViewport = getDefaultViewport(imageRef.current, elementRef.current)
 
     if (!defaultViewport) return
 
@@ -132,7 +124,7 @@ export function useViewport(
       ...initialViewport,
       _viewportOptions: prevViewport._viewportOptions,
     }))
-  }, [image, element, getInitialViewportRef, getDefaultViewport])
+  }, [image, element, getInitialViewportRef])
 
   return {
     viewport,
