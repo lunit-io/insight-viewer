@@ -8,7 +8,16 @@ import { formatViewerViewport } from '../../utils/common/formatViewport'
 import { getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
 
 import type { Viewport } from '../../types'
+import type { Image } from '../../Viewer/types'
 import type { SetViewportAction, UseViewportReturnType, UseViewportParams } from './type'
+
+const getDefaultViewport = (image: Image | undefined, element: HTMLDivElement | undefined) => {
+  if (!image || !element) return null
+
+  const defaultViewport = getDefaultViewportForImage(element, image)
+
+  return formatViewerViewport(defaultViewport)
+}
 
 export function useViewport(
   { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
@@ -22,17 +31,19 @@ export function useViewport(
     _viewportOptions: options,
   })
 
+  const imageRef = useRef(image)
+  const elementRef = useRef(element)
   const getInitialViewportRef = useRef(getInitialViewport)
 
   const getDefaultViewport = useCallback(() => {
-    if (image && element) {
-      const defaultViewport = getDefaultViewportForImage(element, image)
+    if (imageRef.current && elementRef.current) {
+      const defaultViewport = getDefaultViewportForImage(elementRef.current, imageRef.current)
 
       return formatViewerViewport(defaultViewport)
     }
 
     return null
-  }, [image, element])
+  }, [])
 
   const getViewportWithFitScaleOption = useCallback(
     (viewport: Viewport, fitScale: boolean): Viewport => {
@@ -107,6 +118,11 @@ export function useViewport(
     })
   }, [options.fitScale, getViewportWithFitScaleOption])
 
+  useEffect(() => {
+    imageRef.current = image
+    elementRef.current = element
+  }, [image, element])
+
   /**
    * The purpose of setting the initial Viewport value
    * when the image is changed
@@ -125,7 +141,7 @@ export function useViewport(
       ...initialViewport,
       _viewportOptions: prevViewport._viewportOptions,
     }))
-  }, [getInitialViewportRef, getDefaultViewport])
+  }, [image, element, getInitialViewportRef, getDefaultViewport])
 
   return {
     viewport,
