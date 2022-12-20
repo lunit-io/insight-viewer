@@ -91,12 +91,12 @@ export function useViewport(
         const newViewport =
           typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
 
-        const updatedViewport = getViewportWithFitScaleOption(newViewport, options.fitScale)
+        const updatedViewport = getViewportWithFitScaleOption(newViewport, prevViewport._viewportOptions.fitScale)
 
         return updatedViewport
       })
     },
-    [getViewportWithFitScaleOption, options.fitScale]
+    [getViewportWithFitScaleOption]
   )
 
   useEffect(() => {
