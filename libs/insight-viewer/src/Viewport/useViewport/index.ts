@@ -98,8 +98,8 @@ export function useViewport(
   }, [])
 
   useEffect(() => {
-    setViewportWithValidation((prevViewport) => ({ ...prevViewport, _viewportOptions: options }))
-  }, [options, setViewportWithValidation])
+    setViewportWithValidation((prevViewport) => ({ ...prevViewport, _viewportOptions: { fitScale: options.fitScale } }))
+  }, [options.fitScale, setViewportWithValidation])
 
   useEffect(() => {
     imageRef.current = image
