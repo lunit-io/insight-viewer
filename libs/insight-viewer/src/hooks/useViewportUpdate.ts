@@ -43,6 +43,7 @@ export default function useViewportUpdate({ element, image, viewport: newViewpor
      * This behavior is the default behavior.
      */
     if (
+      onViewportChange &&
       newViewportProp.isLegacyViewport &&
       newViewportOptions.fitScale &&
       newViewportProp.scale < defaultViewport.scale
