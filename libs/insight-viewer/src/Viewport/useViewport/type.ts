@@ -12,7 +12,7 @@ export interface UseViewportReturnType {
   viewport: Viewport
   initialized: boolean
   resetViewport: () => void
-  getDefaultViewport: () => void
+  getDefaultViewport: (image: Image | undefined, element: HTMLDivElement | undefined) => void
   setViewport: (setViewportAction: SetViewportAction) => void
 }
 

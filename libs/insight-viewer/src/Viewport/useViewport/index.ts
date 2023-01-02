@@ -8,7 +8,34 @@ import { formatViewerViewport } from '../../utils/common/formatViewport'
 import { getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
 
 import type { Viewport } from '../../types'
+import type { Image } from '../../Viewer/types'
 import type { SetViewportAction, UseViewportReturnType, UseViewportParams } from './type'
+
+const getDefaultViewport = (image: Image | undefined, element: HTMLDivElement | undefined) => {
+  if (!image || !element) return null
+
+  const defaultViewport = getDefaultViewportForImage(element, image)
+
+  return formatViewerViewport(defaultViewport)
+}
+
+const getViewportWithFitScaleOption = (
+  viewport: Viewport,
+  image: Image | undefined,
+  element: HTMLDivElement | undefined
+): Viewport => {
+  const defaultViewport = getDefaultViewport(image, element)
+
+  if (!defaultViewport) return viewport
+
+  const currentFitScaleOption = viewport._viewportOptions.fitScale
+
+  if (currentFitScaleOption && viewport.scale < defaultViewport.scale) {
+    return { ...viewport, scale: defaultViewport.scale }
+  }
+
+  return viewport
+}
 
 export function useViewport(
   { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
@@ -22,37 +49,12 @@ export function useViewport(
     _viewportOptions: options,
   })
 
+  const imageRef = useRef(image)
+  const elementRef = useRef(element)
   const getInitialViewportRef = useRef(getInitialViewport)
 
-  const getDefaultViewport = useCallback(() => {
-    if (image && element) {
-      const defaultViewport = getDefaultViewportForImage(element, image)
-
-      return formatViewerViewport(defaultViewport)
-    }
-
-    return null
-  }, [image, element])
-
-  const getViewportWithFitScaleOption = useCallback(
-    (viewport: Viewport, fitScale: boolean): Viewport => {
-      const defaultViewport = getDefaultViewport()
-
-      const ViewportOfUpdatingFitScaleOption = { ...viewport, _viewportOptions: { fitScale } }
-
-      if (!defaultViewport) return ViewportOfUpdatingFitScaleOption
-
-      if (fitScale && ViewportOfUpdatingFitScaleOption.scale < defaultViewport.scale) {
-        return { ...ViewportOfUpdatingFitScaleOption, scale: defaultViewport.scale }
-      }
-
-      return ViewportOfUpdatingFitScaleOption
-    },
-    [getDefaultViewport]
-  )
-
   const resetViewport = useCallback(() => {
-    const defaultViewport = getDefaultViewport()
+    const defaultViewport = getDefaultViewport(imageRef.current, elementRef.current)
 
     if (!defaultViewport) {
       setViewport({
@@ -78,41 +80,38 @@ export function useViewport(
     } else {
       setViewport({ ...defaultViewport, _viewportOptions: options })
     }
-  }, [getDefaultViewport, getInitialViewport, options])
+  }, [getInitialViewport, options])
 
   /**
    * We assigned the function type and the value type
    * for the immediate viewport assignment as union type
    * to utilize the previous viewport.
    */
-  const setViewportWithValidation = useCallback(
-    (setViewportAction: SetViewportAction) => {
-      setViewport((prevViewport) => {
-        const newViewport =
-          typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
-
-        const updatedViewport = getViewportWithFitScaleOption(newViewport, options.fitScale)
-
-        return updatedViewport
-      })
-    },
-    [getViewportWithFitScaleOption, options.fitScale]
-  )
-
-  useEffect(() => {
+  const setViewportWithValidation = useCallback((setViewportAction: SetViewportAction) => {
     setViewport((prevViewport) => {
-      const updatedViewport = getViewportWithFitScaleOption(prevViewport, options.fitScale)
+      const newViewport = typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
+
+      const updatedViewport = getViewportWithFitScaleOption(newViewport, imageRef.current, elementRef.current)
 
       return updatedViewport
     })
-  }, [options.fitScale, getViewportWithFitScaleOption])
+  }, [])
+
+  useEffect(() => {
+    setViewportWithValidation((prevViewport) => ({ ...prevViewport, _viewportOptions: { fitScale: options.fitScale } }))
+  }, [options.fitScale, setViewportWithValidation])
+
+  useEffect(() => {
+    imageRef.current = image
+    elementRef.current = element
+  }, [image, element])
 
   /**
    * The purpose of setting the initial Viewport value
    * when the image is changed
    */
   useEffect(() => {
-    const defaultViewport = getDefaultViewport()
+    const defaultViewport = getDefaultViewport(imageRef.current, elementRef.current)
 
     if (!defaultViewport) return
 
@@ -125,7 +124,7 @@ export function useViewport(
       ...initialViewport,
       _viewportOptions: prevViewport._viewportOptions,
     }))
-  }, [getInitialViewportRef, getDefaultViewport])
+  }, [image, element, getInitialViewportRef])
 
   return {
     viewport,
