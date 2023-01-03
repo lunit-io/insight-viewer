@@ -52,6 +52,7 @@ export function useViewport(
   const imageRef = useRef(image)
   const elementRef = useRef(element)
   const getInitialViewportRef = useRef(getInitialViewport)
+  const imageSeriesKeyRef = useRef<string | undefined>()
 
   const resetViewport = useCallback(() => {
     const defaultViewport = getDefaultViewport(imageRef.current, elementRef.current)
@@ -115,9 +116,18 @@ export function useViewport(
 
     if (!defaultViewport) return
 
+    // If multi frame, conditional statement to maintain with previous Viewport
+    if (imageSeriesKeyRef.current && imageSeriesKeyRef.current === image?._imageSeriesKey) return
+
     const getInitialViewport = getInitialViewportRef.current
 
     const initialViewport = getInitialViewport ? getInitialViewport(defaultViewport) : defaultViewport
+
+    /**
+     * Set multi frame key
+     * Since there is no single frame, assign undefined as it is
+     */
+    imageSeriesKeyRef.current = image?._imageSeriesKey
 
     setViewport((prevViewport) => ({
       ...prevViewport,
