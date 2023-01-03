@@ -1,7 +1,9 @@
 /* eslint-disable import/no-unresolved */
+import { useRef } from 'react'
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useViewport, useInteraction, Viewport, HeatmapViewer } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useInteraction, Viewport, HeatmapViewer } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
@@ -15,10 +17,15 @@ const style = {
 } as const
 
 function HeatmapContainer(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
   const { interaction } = useInteraction({
     primaryDrag: 'pan',
   })
@@ -72,7 +79,13 @@ function HeatmapContainer(): JSX.Element {
             height: 500,
           }}
         >
-          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} interaction={interaction}>
+          <InsightViewer
+            viewerRef={viewerRef}
+            image={image}
+            viewport={viewport}
+            onViewportChange={setViewport}
+            interaction={interaction}
+          >
             {loadingState === 'success' && <HeatmapViewer posMap={posMap} threshold={0.15} />}
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
