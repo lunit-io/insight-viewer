@@ -1,14 +1,9 @@
 /* eslint-disable import/no-unresolved */
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useRef, useState, ChangeEvent, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  MeasurementOverlay,
-  useImage,
-  useViewport,
-  useMeasurement,
-  MeasurementMode,
-} from '@lunit/insight-viewer'
+import InsightViewer, { MeasurementOverlay, useImage, useMeasurement, MeasurementMode } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
 const style = {
@@ -21,6 +16,8 @@ const style = {
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function MeasurementDrawerContainer(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
   const [isEditing, setIsEditing] = useState(false)
   const [isDrawing, setIsDrawing] = useState(true)
@@ -30,7 +27,10 @@ function MeasurementDrawerContainer(): JSX.Element {
     wadouri: selected,
   })
 
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
   const {
     measurements,
     hoveredMeasurement,
@@ -93,7 +93,7 @@ function MeasurementDrawerContainer(): JSX.Element {
 
       <Box data-cy-loaded={loadingState} className={`measurement ${measurementMode}`}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
-          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
+          <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
               <MeasurementOverlay
                 width={DEFAULT_SIZE.width}
