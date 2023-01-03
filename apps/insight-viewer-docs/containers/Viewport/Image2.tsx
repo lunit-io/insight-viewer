@@ -1,18 +1,25 @@
-import { useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import { Box, Stack, Button } from '@chakra-ui/react'
-import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, Viewport } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CustomProgress from '../../components/CustomProgress'
 import OverlayLayer from '../../components/OverlayLayer'
 import { INITIAL_VIEWPORT2 } from './const'
 
-export default function Image1(): JSX.Element {
+export default function Image2(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const { image } = useImage({
     wadouri: IMAGES[11],
   })
-  const { viewport, setViewport, resetViewport } = useViewport({ initialViewport: INITIAL_VIEWPORT2 })
-
+  const { viewport, setViewport, resetViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+    options: { fitScale: false },
+    getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT2 }),
+  })
   const updateViewport = useCallback(
     (key: keyof Viewport, value: unknown) => {
       setViewport((prev: Viewport) => ({
@@ -101,7 +108,13 @@ export default function Image1(): JSX.Element {
       </Stack>
       <Box>
         <ViewerWrapper className="viewer2">
-          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
+          <InsightViewer
+            viewerRef={viewerRef}
+            image={image}
+            viewport={viewport}
+            onViewportChange={setViewport}
+            Progress={CustomProgress}
+          >
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>
