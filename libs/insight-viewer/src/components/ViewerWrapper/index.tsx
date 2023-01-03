@@ -22,6 +22,7 @@ const Forwarded = forwardRef<
   }>
 >(({ Progress, onViewportChange, imageEnabled, children }, ref) => {
   const { resizeRef, width, height } = useResize(ref)
+
   useEffect(() => {
     if (width === undefined || height === undefined) return
     if (!resizeRef.current || !imageEnabled) return

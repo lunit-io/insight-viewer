@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
-import InsightViewer, { useImage, useViewport, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, Viewport } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
@@ -8,25 +9,23 @@ import OverlayLayer from '../../../components/OverlayLayer'
 
 const INITIAL_VIEWPORT = {
   scale: 0.5,
-  windowWidth: 90,
+  windowWidth: 100,
   windowCenter: 32,
 }
 
 export default function Image2(): JSX.Element {
-  const { ImageSelect, selected } = useImageSelect()
-  const { viewport, setViewport, resetViewport, initialized } = useViewport({ initialViewport: INITIAL_VIEWPORT })
-  const currentViewportRef = useRef<Viewport>()
-  const handleImageLoaded = () => {
-    if (!currentViewportRef?.current) {
-      currentViewportRef.current = viewport
-      return
-    }
-    setViewport(currentViewportRef.current)
-  }
+  const viewerRef = useRef<HTMLDivElement>(null)
 
-  const { loadingState, image } = useImage({
-    wadouri: selected,
-    onImageLoaded: handleImageLoaded,
+  const currentViewportRef = useRef<Viewport>()
+
+  const { ImageSelect, selected } = useImageSelect()
+  const { loadingState, image } = useImage({ wadouri: selected })
+
+  const { viewport, initialized, setViewport, resetViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+    options: { fitScale: false },
+    getInitialViewport: (prevViewport) => ({ ...prevViewport, ...(currentViewportRef.current ?? INITIAL_VIEWPORT) }),
   })
 
   const updateViewport = useCallback(
@@ -40,10 +39,21 @@ export default function Image2(): JSX.Element {
   )
 
   useEffect(() => {
-    if (currentViewportRef.current) {
-      currentViewportRef.current = viewport
-    }
-  }, [selected])
+    /**
+     * If viewport is the initial value, viewportRef does not initialize.
+     * If you later update the viewport, use the value to assign
+     * it to Ref and use it to obtain the initial viewport value.
+     */
+    if (!initialized) return
+
+    currentViewportRef.current = viewport
+  }, [initialized, viewport])
+
+  const resetViewportAndCurrentViewportRef = () => {
+    currentViewportRef.current = undefined
+
+    resetViewport()
+  }
 
   return (
     <Box>
@@ -92,7 +102,7 @@ export default function Image2(): JSX.Element {
                 />
               </Box>
             </Box>
-            <Button colorScheme="blue" onClick={resetViewport} className="reset">
+            <Button colorScheme="blue" onClick={resetViewportAndCurrentViewportRef} className="reset">
               Reset
             </Button>
           </Stack>
@@ -183,7 +193,13 @@ export default function Image2(): JSX.Element {
       </Stack>
       <Box data-cy-loaded={loadingState} data-cy-viewport={initialized}>
         <ViewerWrapper className="viewer1">
-          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
+          <InsightViewer
+            viewerRef={viewerRef}
+            image={image}
+            viewport={viewport}
+            onViewportChange={setViewport}
+            Progress={CustomProgress}
+          >
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>

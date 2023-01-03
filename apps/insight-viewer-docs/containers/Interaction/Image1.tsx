@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Box, Text, Button, Stack, Switch } from '@chakra-ui/react'
 import InsightViewer, {
   useInteraction,
-  useViewport,
   useMultipleImages,
   useFrame,
   Interaction,
@@ -10,6 +9,7 @@ import InsightViewer, {
   BasicViewport,
   ViewportOptions,
 } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -32,6 +32,8 @@ interface ViewportSetting {
 }
 
 export default function App(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const [viewportSetting, setViewportSetting] = useState<ViewportSetting>({
     initialViewport: { scale: 1 },
     options: { fitScale: false },
@@ -45,7 +47,11 @@ export default function App(): JSX.Element {
     max: images.length - 1,
   })
   const { interaction, setInteraction } = useInteraction()
-  const { viewport, setViewport, resetViewport } = useViewport(viewportSetting)
+  const { viewport, setViewport, resetViewport } = useViewport({
+    image: images[frame],
+    element: viewerRef.current,
+    getInitialViewport: (prevViewport) => ({ ...prevViewport, scale: 1 }),
+  })
 
   const handleFrame: Wheel = (_, deltaY) => {
     if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
@@ -126,6 +132,7 @@ export default function App(): JSX.Element {
       <Stack direction="row">
         <ViewerWrapper>
           <InsightViewer
+            viewerRef={viewerRef}
             image={images[frame]}
             interaction={interaction}
             onViewportChange={setViewport}

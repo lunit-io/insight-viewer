@@ -1,14 +1,14 @@
-import { useState, ChangeEvent } from 'react'
+import { useRef, useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   useAnnotation,
   useImage,
-  useViewport,
   AnnotationOverlay,
   AnnotationMode,
   Annotation,
 } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import {
   IMAGES,
   POLYGON_ANNOTATIONS,
@@ -42,16 +42,20 @@ const style = {
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationViewerContainer(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [isShowLabel, setIsShowLabel] = useState(false)
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
-  const { viewport, setViewport } = useViewport()
-  const { annotations, hoveredAnnotation, selectedAnnotation, removeAnnotation, hoverAnnotation, selectAnnotation } =
-    useAnnotation({
-      initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
-    })
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
+  const { annotations, hoveredAnnotation, selectedAnnotation, selectAnnotation } = useAnnotation({
+    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
+  })
 
   const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsShowLabel(event.target.checked)
@@ -79,7 +83,7 @@ function AnnotationViewerContainer(): JSX.Element {
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
-        <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
+        <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay
               width={700}

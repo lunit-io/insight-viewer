@@ -1,15 +1,9 @@
 import { useState } from 'react'
+import { useRef } from 'react'
 import { Box, Text, Button, Stack } from '@chakra-ui/react'
 import consola from 'consola'
-import InsightViewer, {
-  useImage,
-  useInteraction,
-  useViewport,
-  Interaction,
-  DragEvent,
-  Drag,
-  Click,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useInteraction, Interaction, DragEvent, Drag, Click } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import Control from './Control'
@@ -21,6 +15,8 @@ import { BASE_CODE } from './Code'
 import { CODE_SANDBOX } from '../../const'
 
 export default function App(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const [{ x, y }, setCoord] = useState<{
     x: number | undefined
     y: number | undefined
@@ -29,12 +25,15 @@ export default function App(): JSX.Element {
     wadouri: IMAGES[7],
   })
   const { interaction, setInteraction } = useInteraction()
+
   const {
     viewport: viewerViewport,
     setViewport,
     resetViewport,
   } = useViewport({
-    initialViewport: { scale: 1 },
+    image,
+    element: viewerRef.current,
+    getInitialViewport: (prevViewport) => ({ ...prevViewport, scale: 1 }),
   })
 
   const customPan: Drag = ({ viewport, delta }) => {
@@ -130,6 +129,7 @@ export default function App(): JSX.Element {
       <Stack direction="row">
         <ViewerWrapper>
           <InsightViewer
+            viewerRef={viewerRef}
             image={image}
             interaction={interaction}
             viewport={viewerViewport}

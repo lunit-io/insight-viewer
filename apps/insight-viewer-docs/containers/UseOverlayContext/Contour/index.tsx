@@ -1,6 +1,8 @@
+import { useRef } from 'react'
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useViewport, useInteraction, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useInteraction, Viewport } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import Contour from './Contour'
 
@@ -11,10 +13,15 @@ const style = {
 } as const
 
 function ContourContainer(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[12],
   })
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
   const { interaction } = useInteraction({
     primaryDrag: 'pan',
   })
@@ -67,7 +74,13 @@ function ContourContainer(): JSX.Element {
             height: 500,
           }}
         >
-          <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} interaction={interaction}>
+          <InsightViewer
+            viewerRef={viewerRef}
+            image={image}
+            viewport={viewport}
+            onViewportChange={setViewport}
+            interaction={interaction}
+          >
             {loadingState === 'success' && <Contour />}
           </InsightViewer>
         </Resizable>

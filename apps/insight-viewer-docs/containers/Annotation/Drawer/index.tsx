@@ -1,14 +1,14 @@
-import { ChangeEvent, useState, useEffect } from 'react'
+import { useRef, ChangeEvent, useState, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   useAnnotation,
   useImage,
-  useViewport,
   AnnotationOverlay,
   AnnotationMode,
   LineHeadMode,
 } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
@@ -22,6 +22,8 @@ const style = {
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationDrawerContainer(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
   const [isDrawing, setIsDrawing] = useState<boolean>(true)
@@ -33,7 +35,10 @@ function AnnotationDrawerContainer(): JSX.Element {
   const { loadingState, image } = useImage({
     wadouri: selected,
   })
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
   const {
     annotations,
     hoveredAnnotation,
@@ -137,7 +142,7 @@ function AnnotationDrawerContainer(): JSX.Element {
         remove all
       </Button>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
-        <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
+        <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay
               isDrawing={isDrawing}

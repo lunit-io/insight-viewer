@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Box, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, {
   useMeasurement,
   useImage,
-  useViewport,
   MeasurementOverlay,
   MeasurementMode,
   Measurement,
 } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES, RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 export type InitialMeasurements = {
@@ -30,13 +30,18 @@ const style = {
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function MeasurementViewerContainer(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
 
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
   })
 
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
   const { measurements, hoveredMeasurement, selectedMeasurement, selectMeasurement } = useMeasurement({
     initialMeasurement: INITIAL_MEASUREMENTS[measurementMode],
   })
@@ -55,7 +60,7 @@ function MeasurementViewerContainer(): JSX.Element {
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`measurement ${measurementMode}`}>
-        <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport}>
+        <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <MeasurementOverlay
               width={700}

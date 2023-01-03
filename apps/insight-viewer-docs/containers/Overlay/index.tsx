@@ -1,5 +1,7 @@
+import { useRef } from 'react'
 import { Box } from '@chakra-ui/react'
-import InsightViewer, { useImage, useViewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import CodeBlock from '../../components/CodeBlock'
 import OverlayLayer from '../../components/OverlayLayer'
@@ -9,15 +11,26 @@ import { CODE } from './Code'
 import { CODE_SANDBOX } from '../../const'
 
 function Overlay(): JSX.Element {
+  const viewerRef = useRef<HTMLDivElement>(null)
+
   const { loadingState, image } = useImage({
     wadouri: IMAGES[9],
   })
-  const { viewport, setViewport } = useViewport()
+  const { viewport, setViewport } = useViewport({
+    image,
+    element: viewerRef.current,
+  })
 
   return (
     <Box data-cy-loaded={loadingState}>
       <ViewerWrapper>
-        <InsightViewer image={image} viewport={viewport} onViewportChange={setViewport} Progress={CustomProgress}>
+        <InsightViewer
+          viewerRef={viewerRef}
+          image={image}
+          viewport={viewport}
+          onViewportChange={setViewport}
+          Progress={CustomProgress}
+        >
           <OverlayLayer viewport={viewport} />
         </InsightViewer>
       </ViewerWrapper>

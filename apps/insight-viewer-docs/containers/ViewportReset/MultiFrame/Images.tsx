@@ -1,6 +1,7 @@
-import { useCallback } from 'react'
+import { useRef, useCallback } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
-import InsightViewer, { useMultipleImages, useViewport, useFrame, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useMultipleImages, useFrame, Viewport } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'
@@ -13,16 +14,22 @@ const INITIAL_VIEWPORT = {
 }
 
 export default function Images(): JSX.Element {
-  const { CaseSelect, selected } = useCaseSelect()
-  const { viewport, setViewport, resetViewport } = useViewport({ initialViewport: INITIAL_VIEWPORT })
+  const viewerRef = useRef<HTMLDivElement>(null)
 
+  const { CaseSelect, selected } = useCaseSelect()
   const { loadingStates, images } = useMultipleImages({
     wadouri: selected,
   })
-
   const { frame, setFrame } = useFrame({
     initial: 0,
     max: images.length - 1,
+  })
+
+  const { viewport, setViewport, resetViewport } = useViewport({
+    image: images[frame],
+    element: viewerRef.current,
+    options: { fitScale: false },
+    getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT }),
   })
 
   function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -205,6 +212,7 @@ export default function Images(): JSX.Element {
         <ViewerWrapper className="viewer1">
           <InsightViewer
             image={images[frame]}
+            viewerRef={viewerRef}
             onViewportChange={setViewport}
             viewport={viewport}
             Progress={CustomProgress}
