@@ -84,7 +84,7 @@ function MeasurementDrawerContainer(): JSX.Element {
       <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
         <Stack direction="row">
           <Radio value="ruler">Ruler</Radio>
-          <Radio value="circle">Circle</Radio>
+          <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllMeasurement}>

@@ -1,6 +1,6 @@
 import { setup } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
-import { RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
+import { RULER_MEASUREMENTS, AREA_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 describe(
   'Measurement Viewer',
@@ -28,16 +28,16 @@ describe(
       })
     })
 
-    describe('Circle Measurement', () => {
-      // Gets the number of circle mock data used by Measurement Viewer docs
-      const mockCircleMeasurementLength = CIRCLE_MEASUREMENTS.length
+    describe('Area Measurement', () => {
+      // Gets the number of area mock data used by Measurement Viewer docs
+      const mockAreaMeasurementLength = AREA_MEASUREMENTS.length
 
-      it('initial setting of circle measurement testing', () => {
-        cy.get('[value="circle"]').click({ force: true })
+      it('initial setting of area measurement testing', () => {
+        cy.get('[value="area"]').click({ force: true })
       })
 
-      it('count circle measurement', () => {
-        cy.get('[data-cy-id]').should('have.length', mockCircleMeasurementLength)
+      it('count area measurement', () => {
+        cy.get('[data-cy-id]').should('have.length', mockAreaMeasurementLength)
       })
     })
   }
