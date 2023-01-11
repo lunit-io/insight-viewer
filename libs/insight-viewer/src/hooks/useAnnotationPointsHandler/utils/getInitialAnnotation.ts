@@ -12,8 +12,6 @@ interface GetInitialAnnotationParams {
   image: Image | null
   mode: AnnotationMode
   annotations: Annotation[]
-  /** @deprecated use arrow line instead */
-  lineHead: LineHeadMode
 }
 
 /**
@@ -23,7 +21,6 @@ interface GetInitialAnnotationParams {
 export function getInitialAnnotation({
   mode,
   image,
-  lineHead,
   annotations,
   currentPoints,
 }: GetInitialAnnotationParams): Annotation {
@@ -54,7 +51,6 @@ export function getInitialAnnotation({
         labelPosition: [xPosition - LINE_TEXT_POSITION_SPACING.x, yPosition - LINE_TEXT_POSITION_SPACING.y],
         type: mode,
         points: currentPoints,
-        hasArrowHead: lineHead === 'arrow',
       }
     }
     case 'arrowLine': {

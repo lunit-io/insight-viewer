@@ -73,7 +73,6 @@ export default function useAnnotationPointsHandler({
     const initialAnnotation = getInitialAnnotation({
       mode,
       image,
-      lineHead,
       annotations,
       currentPoints: [point, point],
     })

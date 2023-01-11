@@ -8,7 +8,6 @@ const INITIAL_LINE: LineAnnotation = {
     [1, 0],
   ],
   lineWidth: 1.5,
-  hasArrowHead: false,
   labelPosition: [-1, -5],
 }
 
