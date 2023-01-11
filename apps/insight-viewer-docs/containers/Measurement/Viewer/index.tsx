@@ -9,7 +9,7 @@ import InsightViewer, {
   Measurement,
 } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
-import { IMAGES, RULER_MEASUREMENTS, CIRCLE_MEASUREMENTS } from '@insight-viewer-library/fixtures'
+import { IMAGES, RULER_MEASUREMENTS, AREA_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
 export type InitialMeasurements = {
   [mode in MeasurementMode]: Measurement[]
@@ -17,7 +17,7 @@ export type InitialMeasurements = {
 
 const INITIAL_MEASUREMENTS: InitialMeasurements = {
   ruler: RULER_MEASUREMENTS,
-  circle: CIRCLE_MEASUREMENTS,
+  area: AREA_MEASUREMENTS,
 }
 
 const style = {
@@ -56,7 +56,7 @@ function MeasurementViewerContainer(): JSX.Element {
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="ruler">Ruler</Radio>
-          <Radio value="circle">Circle</Radio>
+          <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`measurement ${measurementMode}`}>

@@ -146,7 +146,7 @@ export default function useMeasurementPointsHandler({
       const editPoints = getEditPointPosition(editPointsOnCanvas, selectedMeasurement, drawingMode)
       setEditTargetPoints(editPoints)
 
-      if (drawingMode === 'circle' && mouseDownPoint) {
+      if (drawingMode === 'area' && mouseDownPoint) {
         const currentPointsWithFixedPoint: [Point, Point] = [point, mouseDownPoint]
         const currentPointsWithFixedPointOnCanvas = currentPointsWithFixedPoint.map(pixelToCanvas) as [Point, Point]
 
@@ -160,7 +160,7 @@ export default function useMeasurementPointsHandler({
 
         setEditTargetPoints(editPoints)
       } else if (
-        currentMeasurement.type === 'circle' &&
+        currentMeasurement.type === 'area' &&
         selectedMeasurementEditingFixedPoint &&
         (editMode === 'startPoint' || editMode === 'endPoint')
       ) {
@@ -220,7 +220,7 @@ export default function useMeasurementPointsHandler({
     if (
       targetPoint &&
       selectedMeasurement &&
-      selectedMeasurement.type === 'circle' &&
+      selectedMeasurement.type === 'area' &&
       (targetPoint === 'startPoint' || targetPoint === 'endPoint')
     ) {
       const targetMeasurement = measurement ?? selectedMeasurement

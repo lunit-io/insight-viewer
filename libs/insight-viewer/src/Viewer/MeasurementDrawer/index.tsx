@@ -51,7 +51,7 @@ export function MeasurementDrawer({
           cursorStatus={cursorStatus}
         />
       )}
-      {measurement.type === 'circle' && (
+      {measurement.type === 'area' && (
         <CircleDrawer
           isSelectedMode={isSelectedMeasurement}
           measurement={measurement}

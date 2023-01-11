@@ -8,7 +8,7 @@ export function getExistingMeasurementPoints(measurement: Measurement): [Point, 
       const rulerPoints = measurement.startAndEndPoint
       return rulerPoints
     }
-    case 'circle': {
+    case 'area': {
       const { centerPoint, radius } = measurement
       const endPoint = getCircleEndPoint(centerPoint, radius)
       const circlePoints: [Point, Point] = [centerPoint, endPoint]

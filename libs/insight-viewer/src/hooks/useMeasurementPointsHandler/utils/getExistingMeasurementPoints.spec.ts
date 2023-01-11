@@ -11,7 +11,7 @@ describe('getExistingMeasurementPoints: ', () => {
       radius: 20,
       measuredValue: 20,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
     const MOCK_MEASUREMENT_2: Measurement = {
@@ -21,7 +21,7 @@ describe('getExistingMeasurementPoints: ', () => {
       radius: 30,
       measuredValue: 30,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 
@@ -43,7 +43,7 @@ describe('getExistingMeasurementPoints: ', () => {
       radius: 20,
       measuredValue: 20,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'mm',
     }
     const MOCK_MEASUREMENT_2: Measurement = {
@@ -53,7 +53,7 @@ describe('getExistingMeasurementPoints: ', () => {
       radius: 30,
       measuredValue: 30,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'mm',
     }
 

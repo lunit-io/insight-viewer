@@ -23,14 +23,14 @@ export function getMeasurement(
     lineWidth: 1.5,
   }
 
-  if (mode === 'circle') {
+  if (mode === 'area') {
     const centerPoint = getCircleCenterPoint(startPoint, endPoint)
     const radiusWithoutUnit = getCircleRadius(startPoint, endPoint)
     const { radius, unit } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
 
     return {
       ...defaultMeasurementInfo,
-      type: 'circle',
+      type: 'area',
       centerPoint: centerPoint,
       textPoint,
       radius: radiusWithoutUnit,

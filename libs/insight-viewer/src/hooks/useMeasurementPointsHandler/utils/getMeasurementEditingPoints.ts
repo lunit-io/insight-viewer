@@ -9,15 +9,15 @@ export function getMeasurementEditingPoints(
   editMode: EditMode,
   mode: MeasurementMode
 ): [Point, Point] {
-  if ((mode === 'ruler' || mode === 'circle') && editMode === 'startPoint') {
+  if ((mode === 'ruler' || mode === 'area') && editMode === 'startPoint') {
     return [currentPoint, prevPoints[1]]
   }
 
-  if ((mode === 'ruler' || mode === 'circle') && editMode === 'endPoint') {
+  if ((mode === 'ruler' || mode === 'area') && editMode === 'endPoint') {
     return [prevPoints[0], currentPoint]
   }
 
-  if ((mode === 'circle' || mode === 'ruler') && editMode === 'move') {
+  if ((mode === 'area' || mode === 'ruler') && editMode === 'move') {
     const movedPoint = getMovedPoints({ prevPoints, editStartPoint, currentPoint })
 
     return movedPoint

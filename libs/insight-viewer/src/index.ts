@@ -35,7 +35,7 @@ export type {
   MeasurementBase,
   MeasurementMode,
   RulerMeasurement,
-  CircleMeasurement,
+  AreaMeasurement,
   ArrowLineAnnotation,
 } from './types'
 export type { DragAction, DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
