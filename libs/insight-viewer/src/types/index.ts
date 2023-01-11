@@ -157,7 +157,7 @@ export interface AnnotationViewerProps<T extends AnnotationBase> {
   annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
 }
 
-export type MeasurementMode = 'ruler' | 'circle'
+export type MeasurementMode = 'ruler' | 'area'
 export interface MeasurementBase {
   id: number
   type: MeasurementMode
@@ -176,13 +176,13 @@ export interface RulerMeasurement extends MeasurementBase {
   startAndEndPoint: [startPoint: Point, endPoint: Point]
 }
 
-export interface CircleMeasurement extends MeasurementBase {
-  type: 'circle'
+export interface AreaMeasurement extends MeasurementBase {
+  type: 'area'
   centerPoint: Point
   radius: number
 }
 
-export type Measurement = RulerMeasurement | CircleMeasurement
+export type Measurement = RulerMeasurement | AreaMeasurement
 
 export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T

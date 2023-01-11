@@ -1,14 +1,14 @@
 import { getCircleEditPoints } from './getCircleEditPoints'
 import { getCircleRadiusByCenter } from './getCircleRadius'
 
-import type { Point, Annotation, Measurement, EditMode } from '../../types'
+import type { Point, Annotation, Measurement, EditMode, MeasurementMode } from '../../types'
 
 export type EditPoints = [Point, Point]
 
 export function getEditPointPosition(
   points: Point[],
   editTarget: Measurement | Annotation | null,
-  drawingMode?: 'circle' | 'ruler',
+  drawingMode?: MeasurementMode,
   editingMode?: EditMode | null,
   fixedPoints?: [Point, Point]
 ): EditPoints | null {
@@ -16,8 +16,7 @@ export function getEditPointPosition(
   if (points.length !== 2) return null
 
   if (
-    editTarget &&
-    editTarget.type === 'circle' &&
+    (editTarget?.type === 'area' || editTarget?.type === 'circle') &&
     (!editingMode || editingMode === 'move' || editingMode === 'textMove')
   ) {
     const [centerPoint, endPoint] = points
@@ -26,7 +25,11 @@ export function getEditPointPosition(
     return editPoints
   }
 
-  if (fixedPoints && editTarget?.type === 'circle' && (editingMode === 'startPoint' || editingMode === 'endPoint')) {
+  if (
+    fixedPoints &&
+    (editTarget?.type === 'area' || editTarget?.type === 'circle') &&
+    (editingMode === 'startPoint' || editingMode === 'endPoint')
+  ) {
     const [start, end] = fixedPoints
     const currentEditingPoints: [Point, Point] =
       editingMode === 'startPoint'
@@ -42,7 +45,7 @@ export function getEditPointPosition(
     return currentEditingPoints
   }
 
-  if (drawingMode === 'circle' && fixedPoints) {
+  if (drawingMode === 'area' && fixedPoints) {
     const [start, end] = fixedPoints
 
     return [

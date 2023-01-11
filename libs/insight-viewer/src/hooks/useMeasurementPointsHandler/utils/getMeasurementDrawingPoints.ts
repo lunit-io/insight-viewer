@@ -5,7 +5,7 @@ export function getMeasurementDrawingPoints(
   currentPoint: Point,
   mode: MeasurementMode
 ): [Point, Point] {
-  if (mode === 'ruler' || mode === 'circle') {
+  if (mode === 'ruler' || mode === 'area') {
     return [prevPoints[0], currentPoint]
   }
 

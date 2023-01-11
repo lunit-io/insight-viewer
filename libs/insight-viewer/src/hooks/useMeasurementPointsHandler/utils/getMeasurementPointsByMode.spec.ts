@@ -3,7 +3,7 @@ import { getMeasurementPointsByMode } from './getMeasurementPointsByMode'
 import type { Point } from '../../../types'
 
 describe('getMeasurementPointsByMode: ', () => {
-  const DRAWING_MODE_CIRCLE = 'circle'
+  const DRAWING_MODE_AREA = 'area'
   const DRAWING_MODE_RULER = 'ruler'
 
   const MOCK_PREV_POINTS_1: [centerPoint: Point, endPoint: Point] = [
@@ -17,7 +17,7 @@ describe('getMeasurementPointsByMode: ', () => {
   const MOCK_MOUSE_MOVE_POINT_1: Point = [300, 210]
   const MOCK_MOUSE_MOVE_POINT_2: Point = [123089, 29]
 
-  it('should return the mouse-down and mouse-move points when drawing mode is circle and mouse-down point is not null', () => {
+  it('should return the mouse-down and mouse-move points when drawing mode is area and mouse-down point is not null', () => {
     const MOCK_MOUSE_DOWN_POINT_1: Point = [0, 0]
     const MOCK_MOUSE_DOWN_POINT_2: Point = [10000, 10000]
 
@@ -34,7 +34,7 @@ describe('getMeasurementPointsByMode: ', () => {
       getMeasurementPointsByMode(
         false,
         null,
-        DRAWING_MODE_CIRCLE,
+        DRAWING_MODE_AREA,
         MOCK_MOUSE_DOWN_POINT_1,
         MOCK_MOUSE_MOVE_POINT_1,
         MOCK_PREV_POINTS_1
@@ -45,7 +45,7 @@ describe('getMeasurementPointsByMode: ', () => {
       getMeasurementPointsByMode(
         false,
         null,
-        DRAWING_MODE_CIRCLE,
+        DRAWING_MODE_AREA,
         MOCK_MOUSE_DOWN_POINT_2,
         MOCK_MOUSE_MOVE_POINT_2,
         MOCK_PREV_POINTS_2
@@ -53,7 +53,7 @@ describe('getMeasurementPointsByMode: ', () => {
     ).toStrictEqual(MOCK_EXPECT_RESULT_2)
   })
 
-  it('should return the current start and end points when when isEditing is true and editMode is textMove or move of circle', () => {
+  it('should return the current start and end points when when isEditing is true and editMode is textMove or move of area', () => {
     const MOCK_MOUSE_DOWN_POINT_1: Point = [0, 0]
     const MOCK_MOUSE_DOWN_POINT_2 = null
 
@@ -70,7 +70,7 @@ describe('getMeasurementPointsByMode: ', () => {
       getMeasurementPointsByMode(
         true,
         'move',
-        DRAWING_MODE_CIRCLE,
+        DRAWING_MODE_AREA,
         MOCK_MOUSE_DOWN_POINT_1,
         MOCK_MOUSE_MOVE_POINT_1,
         MOCK_PREV_POINTS_1
@@ -81,7 +81,7 @@ describe('getMeasurementPointsByMode: ', () => {
       getMeasurementPointsByMode(
         true,
         'textMove',
-        DRAWING_MODE_CIRCLE,
+        DRAWING_MODE_AREA,
         MOCK_MOUSE_DOWN_POINT_2,
         MOCK_MOUSE_MOVE_POINT_2,
         MOCK_PREV_POINTS_2
@@ -89,7 +89,7 @@ describe('getMeasurementPointsByMode: ', () => {
     ).toStrictEqual(MOCK_EXPECT_RESULT_2)
   })
 
-  it('should return previous points when mouse-down points of circle is null', () => {
+  it('should return previous points when mouse-down points of area is null', () => {
     const MOCK_MOUSE_DOWN_POINT = null
 
     const MOCK_EXPECT_RESULT_1 = [
@@ -105,7 +105,7 @@ describe('getMeasurementPointsByMode: ', () => {
       getMeasurementPointsByMode(
         true,
         null,
-        DRAWING_MODE_CIRCLE,
+        DRAWING_MODE_AREA,
         MOCK_MOUSE_DOWN_POINT,
         MOCK_MOUSE_MOVE_POINT_1,
         MOCK_PREV_POINTS_1
@@ -116,7 +116,7 @@ describe('getMeasurementPointsByMode: ', () => {
       getMeasurementPointsByMode(
         false,
         null,
-        DRAWING_MODE_CIRCLE,
+        DRAWING_MODE_AREA,
         MOCK_MOUSE_DOWN_POINT,
         MOCK_MOUSE_MOVE_POINT_2,
         MOCK_PREV_POINTS_2

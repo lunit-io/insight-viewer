@@ -10,7 +10,7 @@ import { modifyConnectingLine } from '../../utils/common/modifyConnectingLine'
 import { stringifyPoints } from '../../utils/common/stringifyPoints'
 
 import { HALF_OF_RULER_TEXT_BOX } from '../../const'
-import type { CircleMeasurement, Point } from '../../types'
+import type { AreaMeasurement, Point } from '../../types'
 
 const formatCircleValue = (area: number, unit: string) =>
   `Area = ${area.toLocaleString(undefined, {
@@ -18,7 +18,7 @@ const formatCircleValue = (area: number, unit: string) =>
     maximumFractionDigits: 1,
   })}${unit}2`
 
-const useCircleMeasurement = ({ centerPoint, radius, measuredValue, textPoint, unit }: CircleMeasurement) => {
+const useCircleMeasurement = ({ centerPoint, radius, measuredValue, textPoint, unit }: AreaMeasurement) => {
   const { pixelToCanvas } = useOverlayContext()
   const [textBox, ref] = useTextBox()
 

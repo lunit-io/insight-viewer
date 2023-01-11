@@ -53,7 +53,7 @@ describe('getEditPointPosition: ', () => {
     ])
   })
 
-  it('should return the points with fixedPoints when drawing mode is circle', () => {
+  it('should return the points with fixedPoints when drawing mode is area', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
@@ -75,21 +75,21 @@ describe('getEditPointPosition: ', () => {
       measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 
-    expect(getEditPointPosition(MOCK_POINT_1, MOCK_EDIT_TARGET, 'circle', undefined, MOCK_FIXED_POINTS)).toEqual([
+    expect(getEditPointPosition(MOCK_POINT_1, MOCK_EDIT_TARGET, 'area', undefined, MOCK_FIXED_POINTS)).toEqual([
       [-10, -10.000000000000002],
       [10.000000000000002, 10],
     ])
-    expect(getEditPointPosition(MOCK_POINT_2, MOCK_EDIT_TARGET, 'circle', undefined, MOCK_FIXED_POINTS)).toEqual([
+    expect(getEditPointPosition(MOCK_POINT_2, MOCK_EDIT_TARGET, 'area', undefined, MOCK_FIXED_POINTS)).toEqual([
       [10, 9.999999999999996],
       [50, 50],
     ])
   })
 
-  it('should return the points with circle type editTarget and editingMode is move, textMove, or null', () => {
+  it('should return the points with area type editTarget and editingMode is move, textMove, or null', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
@@ -106,7 +106,7 @@ describe('getEditPointPosition: ', () => {
       measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 
@@ -120,7 +120,7 @@ describe('getEditPointPosition: ', () => {
     ])
   })
 
-  it('should return the points with circle type editTarget and editingMode is startPoint or endPoint', () => {
+  it('should return the points with area type editTarget and editingMode is startPoint or endPoint', () => {
     const MOCK_POINT_1: Point[] = [
       [0, 0],
       [10, 10],
@@ -141,7 +141,7 @@ describe('getEditPointPosition: ', () => {
       measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 

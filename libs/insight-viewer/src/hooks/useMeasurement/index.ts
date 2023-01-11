@@ -43,7 +43,7 @@ export function useMeasurement({ nextId = 1, initialMeasurement }: UseMeasuremen
     measurementInfo: Pick<Measurement, 'dataAttrs'> | undefined
   ): Measurement | null => {
     if (measurement.type === 'ruler' && isSamePoints(measurement.startAndEndPoint)) return null
-    if (measurement.type === 'circle' && measurement.radius === 0) return null
+    if (measurement.type === 'area' && measurement.radius === 0) return null
     if (measurementInfo?.dataAttrs) {
       validateDataAttrs(measurementInfo?.dataAttrs)
     }

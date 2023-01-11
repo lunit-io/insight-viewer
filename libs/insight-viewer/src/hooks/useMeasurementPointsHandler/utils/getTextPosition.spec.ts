@@ -13,7 +13,7 @@ describe('getTextPosition: ', () => {
       measuredValue: 20,
       radius: 20,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
     const MOCK_MEASUREMENT_2: Measurement = {
@@ -35,7 +35,7 @@ describe('getTextPosition: ', () => {
       radius: 20,
       measuredValue: 20,
       textPoint: [40, 10],
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 
@@ -51,7 +51,7 @@ describe('getTextPosition: ', () => {
       radius: 20,
       measuredValue: 20,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 

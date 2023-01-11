@@ -11,7 +11,6 @@ const measurementStyle: React.CSSProperties = {
   pointerEvents: 'auto',
 }
 function MeasurementsDraw({
-  isEditing,
   measurements,
   showOutline,
   hoveredMeasurement,
@@ -56,7 +55,7 @@ function MeasurementsDraw({
         style={measurementStyle}
       >
         {measurement.type === 'ruler' && <RulerViewer measurement={measurement} {...viewerProps} />}
-        {measurement.type === 'circle' && <CircleViewer measurement={measurement} {...viewerProps} />}
+        {measurement.type === 'area' && <CircleViewer measurement={measurement} {...viewerProps} />}
       </g>
     )
   })

@@ -33,7 +33,7 @@ describe('getMeasurementDrawingPoints: ', () => {
       [25, 25],
     ])
   })
-  it('should return the points in circle mode', () => {
+  it('should return the points in area mode', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -51,15 +51,15 @@ describe('getMeasurementDrawingPoints: ', () => {
     const MOCK_CURRENT_POINT_2: Point = [15, 15]
     const MOCK_CURRENT_POINT_3: Point = [25, 25]
 
-    expect(getMeasurementDrawingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, 'circle')).toEqual([
+    expect(getMeasurementDrawingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, 'area')).toEqual([
       [0, 0],
       [5, 5],
     ])
-    expect(getMeasurementDrawingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, 'circle')).toEqual([
+    expect(getMeasurementDrawingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, 'area')).toEqual([
       [10, 20],
       [15, 15],
     ])
-    expect(getMeasurementDrawingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, 'circle')).toEqual([
+    expect(getMeasurementDrawingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, 'area')).toEqual([
       [40, 60],
       [25, 25],
     ])

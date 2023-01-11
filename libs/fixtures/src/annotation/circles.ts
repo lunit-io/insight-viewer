@@ -1,10 +1,10 @@
-import { CircleMeasurement } from '@lunit/insight-viewer'
+import { AreaMeasurement } from '@lunit/insight-viewer'
 
-export const CIRCLE_MEASUREMENTS: CircleMeasurement[] = [
+export const AREA_MEASUREMENTS: AreaMeasurement[] = [
   {
     id: 1,
     lineWidth: 1.5,
-    type: 'circle',
+    type: 'area',
     centerPoint: [319.6342857142857, 186.7085714285714],
     measuredValue: 17.79273190023253,
     radius: 17.79273190023253,
@@ -14,7 +14,7 @@ export const CIRCLE_MEASUREMENTS: CircleMeasurement[] = [
   {
     id: 2,
     lineWidth: 1.5,
-    type: 'circle',
+    type: 'area',
     centerPoint: [264.7771428571428, 283.2571428571428],
     measuredValue: 14.285706971428565,
     radius: 14.285706971428565,
@@ -24,7 +24,7 @@ export const CIRCLE_MEASUREMENTS: CircleMeasurement[] = [
   {
     id: 3,
     lineWidth: 1.5,
-    type: 'circle',
+    type: 'area',
     centerPoint: [204.0685714285714, 354.9371428571428],
     measuredValue: 22.993443374236477,
     radius: 22.993443374236477,
@@ -34,7 +34,7 @@ export const CIRCLE_MEASUREMENTS: CircleMeasurement[] = [
   {
     id: 4,
     lineWidth: 1.5,
-    type: 'circle',
+    type: 'area',
     centerPoint: [141.16571428571427, 218.89142857142855],
     measuredValue: 16.9670963417275,
     radius: 16.9670963417275,

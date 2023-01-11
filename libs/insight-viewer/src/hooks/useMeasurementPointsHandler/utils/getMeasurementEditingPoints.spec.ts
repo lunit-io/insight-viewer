@@ -2,7 +2,7 @@ import { Point } from '../../../types'
 import { getMeasurementEditingPoints } from './getMeasurementEditingPoints'
 
 describe('getMeasurementEditingPoints: ', () => {
-  it('should return correct points when edit mode is startPoint and measurement mode is ruler or circle', () => {
+  it('should return correct points when edit mode is startPoint and measurement mode is ruler or area', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -31,19 +31,19 @@ describe('getMeasurementEditingPoints: ', () => {
       [10, 10],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'circle')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'startPoint', 'area')
     ).toEqual([
       [15, 15],
       [30, 40],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'circle')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'startPoint', 'area')
     ).toEqual([
       [25, 25],
       [80, 100],
     ])
   })
-  it('should return correct points when edit mode is endPoint and measurement mode is ruler or circle', () => {
+  it('should return correct points when edit mode is endPoint and measurement mode is ruler or area', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -72,7 +72,7 @@ describe('getMeasurementEditingPoints: ', () => {
       [5, 5],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'circle')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'endPoint', 'area')
     ).toEqual([
       [10, 20],
       [15, 15],
@@ -85,7 +85,7 @@ describe('getMeasurementEditingPoints: ', () => {
     ])
   })
 
-  it('should return correct points when edit mode is move and measurement mode is ruler or circle', () => {
+  it('should return correct points when edit mode is move and measurement mode is ruler or area', () => {
     const MOCK_PREV_POINT_1: [Point, Point] = [
       [0, 0],
       [10, 10],
@@ -126,19 +126,19 @@ describe('getMeasurementEditingPoints: ', () => {
       [35, 35],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'move', 'circle')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_1, MOCK_CURRENT_POINT_1, MOCK_EDIT_POINT_1, 'move', 'area')
     ).toEqual([
       [-25, -25],
       [-15, -15],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'move', 'circle')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_2, MOCK_CURRENT_POINT_2, MOCK_EDIT_POINT_2, 'move', 'area')
     ).toEqual([
       [-25, -25],
       [-5, -5],
     ])
     expect(
-      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'move', 'circle')
+      getMeasurementEditingPoints(MOCK_PREV_POINT_3, MOCK_CURRENT_POINT_3, MOCK_EDIT_POINT_3, 'move', 'area')
     ).toEqual([
       [-5, -5],
       [35, 35],

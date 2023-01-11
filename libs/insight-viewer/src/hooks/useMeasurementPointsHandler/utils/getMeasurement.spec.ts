@@ -78,21 +78,21 @@ describe('getMeasurement: ', () => {
     })
   })
 
-  it('should return the measurement in circle mode without text, image', () => {
+  it('should return the measurement in area mode without text, image', () => {
     const MOCK_POINTS: [startPoint: Point, endPoint: Point] = [
       [0, 0],
       [20, 20],
     ]
     const MOCK_MEASUREMENTS: Measurement[] = []
 
-    expect(getMeasurement(MOCK_POINTS, null, 'circle', MOCK_MEASUREMENTS, null)).toStrictEqual({
+    expect(getMeasurement(MOCK_POINTS, null, 'area', MOCK_MEASUREMENTS, null)).toStrictEqual({
       centerPoint: [10, 10],
       id: 1,
       lineWidth: 1.5,
       measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     })
 
@@ -104,7 +104,7 @@ describe('getMeasurement: ', () => {
         measuredValue: 14.142135623730951,
         radius: 14.142135623730951,
         textPoint: null,
-        type: 'circle',
+        type: 'area',
         unit: 'px',
       },
     ]
@@ -115,14 +115,14 @@ describe('getMeasurement: ', () => {
       measuredValue: 14.142135623730951,
       radius: 14.142135623730951,
       textPoint: null,
-      type: 'circle',
+      type: 'area',
       unit: 'px',
     }
 
-    expect(getMeasurement(MOCK_POINTS, null, 'circle', MOCK_ADDED_MEASUREMENTS, null)).toStrictEqual(EXPECTED_2)
+    expect(getMeasurement(MOCK_POINTS, null, 'area', MOCK_ADDED_MEASUREMENTS, null)).toStrictEqual(EXPECTED_2)
   })
 
-  it('should return the measurement in circle mode with text, image', () => {
+  it('should return the measurement in area mode with text, image', () => {
     const MOCK_POINTS: [startPoint: Point, endPoint: Point] = [
       [10, 10],
       [15, 60],
@@ -134,14 +134,14 @@ describe('getMeasurement: ', () => {
       rowPixelSpacing: 0.6,
     } as Image
 
-    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'circle', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
+    expect(getMeasurement(MOCK_POINTS, MOCK_TEXT_POINT, 'area', MOCK_MEASUREMENTS, MOCK_IMAGE)).toStrictEqual({
       id: 1,
       measuredValue: 15.074813431681335,
       radius: 25.124689052802225,
       lineWidth: 1.5,
       centerPoint: [12.5, 35],
       textPoint: [50, 50],
-      type: 'circle',
+      type: 'area',
       unit: 'mm',
     })
   })
