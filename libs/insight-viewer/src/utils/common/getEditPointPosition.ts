@@ -56,8 +56,5 @@ export function getEditPointPosition(
   // line annotation or ruler measurement
   const [startPoint, endPoint] = points
 
-  return [
-    [startPoint[0], startPoint[1]],
-    [endPoint[0], endPoint[1]],
-  ]
+  return [startPoint, endPoint]
 }
