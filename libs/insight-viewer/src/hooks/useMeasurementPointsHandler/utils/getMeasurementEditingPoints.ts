@@ -18,7 +18,7 @@ export function getMeasurementEditingPoints(
   }
 
   if ((mode === 'area' || mode === 'ruler') && editMode === 'move') {
-    const movedPoint = getMovedPoints({ prevPoints, editStartPoint, currentPoint })
+    const movedPoint = getMovedPoints({ prevPoints, editStartPoint, currentPoint }) as [Point, Point]
 
     return movedPoint
   }
