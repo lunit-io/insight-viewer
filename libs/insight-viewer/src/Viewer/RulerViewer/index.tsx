@@ -46,7 +46,6 @@ export function RulerViewer({ measurement, hoveredMeasurement }: RulerViewerProp
       >
         {formattedValue}
       </text>
-      ) className="measurement-ruler label pointer"
     </>
   )
 }
