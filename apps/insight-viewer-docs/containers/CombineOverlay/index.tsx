@@ -146,9 +146,9 @@ function AnnotationDrawerContainer(): JSX.Element {
               width={700}
               height={700}
               mode={annotationMode}
-              elements={annotations}
-              hoveredElement={hoveredAnnotation}
-              selectedElement={selectedAnnotation}
+              annotations={annotations}
+              hoveredAnnotation={hoveredAnnotation}
+              selectedAnnotation={selectedAnnotation}
               showAnnotationLabel={isShowLabel}
               onAdd={addAnnotation}
               onFocus={hoverAnnotation}
