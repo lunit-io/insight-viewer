@@ -121,7 +121,8 @@ AnnotationOverlay 레이어에 의해 이벤트가 동작하지 않는 이슈 �
 예제 코드는 아래와 같습니다.
 
 ```tsx
-<OverlayContext
+// 여기서 Annotation 은 기존 Measurement 를 포괄한 개념을 의미합니다.
+<AnnotationOverlay
   isDrawing={isDrawing}
   isEditing={isEditing}
   width={700}
@@ -138,7 +139,7 @@ AnnotationOverlay 레이어에 의해 이벤트가 동작하지 않는 이슈 �
 />
 ```
 
-위와 같이 하나의 OverlayContext 로 `Annotation`, `Measurement` 를 동시에 대응하고자 합니다.<br />
+위와 같이 하나의 AnnotationOverlay 로 `Annotation`, `Measurement` 를 동시에 대응하고자 합니다.<br />
 이와 더불어 명칭 역시 `Annotation` 하나로 통일하고자 합니다.
 
 `Measurement`는 큰 Annotation 개념 하에 측정값이 존재하는 것을 의미합니다.<br />
