@@ -17,13 +17,5 @@ export function getAnnotationPoints(annotation: Annotation): Point[] {
     return areaPoints
   }
 
-  if (annotation.type === 'circle') {
-    const { center, radius } = annotation
-    const endPoint = getCircleEndPoint(center, radius)
-    const circlePoints: [Point, Point] = [center, endPoint]
-
-    return circlePoints
-  }
-
   return annotation.points
 }
