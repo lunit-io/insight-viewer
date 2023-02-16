@@ -1,9 +1,9 @@
 import React from 'react'
 
-import type { OverlayContextProps } from './types'
+import { AnnotationDrawer } from '../AnnotationDrawer'
+import { AnnotationsViewer } from '../AnnotationsViewer'
 
-import { AnnotationDrawer } from './components/AnnotationDrawer'
-import { AnnotationsViewer } from './components/AnnotationsViewer'
+import type { AnnotationOverlayProps } from './AnnotationOverlay.types'
 
 export const AnnotationOverlay = ({
   width,
@@ -13,24 +13,24 @@ export const AnnotationOverlay = ({
   isDrawing,
   isEditing,
   mode,
-  elements,
+  annotations,
   showOutline,
-  hoveredElement,
-  selectedElement,
+  hoveredAnnotation,
+  selectedAnnotation,
   showAnnotationLabel,
   onAdd,
   onFocus,
   onRemove,
   onSelect,
-}: OverlayContextProps): JSX.Element => {
+}: AnnotationOverlayProps): JSX.Element => {
   return (
     <>
       <AnnotationsViewer
         width={width}
         height={height}
-        elements={elements}
-        hoveredElement={hoveredElement}
-        selectedElement={selectedElement}
+        annotations={annotations}
+        hoveredAnnotation={hoveredAnnotation}
+        selectedAnnotation={selectedAnnotation}
         className={className}
         style={style}
         showOutline={showOutline}
@@ -42,9 +42,9 @@ export const AnnotationOverlay = ({
         <AnnotationDrawer
           width={width}
           height={height}
-          annotations={elements}
-          hoveredAnnotation={hoveredElement}
-          selectedAnnotation={selectedElement}
+          annotations={annotations}
+          hoveredAnnotation={hoveredAnnotation}
+          selectedAnnotation={selectedAnnotation}
           showAnnotationLabel={showAnnotationLabel}
           className={className}
           style={style}

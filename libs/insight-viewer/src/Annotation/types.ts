@@ -1,4 +1,4 @@
-import type { CSSProperties, SVGProps } from 'react'
+import type { CSSProperties } from 'react'
 
 export type Unit = 'px' | 'mm'
 export type Point = [x: number, y: number]
@@ -169,25 +169,3 @@ export type DrawableAnnotation =
   | DrawableTextAnnotation
   | DrawableRulerAnnotation
   | DrawableAreaAnnotation
-
-export interface OverlayContextProps {
-  width?: number
-  height?: number
-  className?: string
-  style?: CSSProperties
-  isDrawing?: boolean
-  isEditing?: boolean
-  showOutline?: boolean
-  showAnnotationLabel?: boolean
-  mode: AnnotationMode
-  hoveredElement: Annotation | null
-  selectedElement: Annotation | null
-  elements: Annotation[]
-
-  onAdd?: (element: Annotation) => void
-  onClick?: (element: Annotation) => void
-  onRemove?: (element: Annotation) => void
-  onFocus?: (element: Annotation | null) => void
-  onSelect: (element: Annotation | null) => void
-  elementAttrs?: (element: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
-}

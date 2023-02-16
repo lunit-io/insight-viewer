@@ -20,7 +20,7 @@ function AnnotationViewer({
   element,
   showOutline,
   showElementLabel,
-  hoveredElement,
+  hoveredAnnotation,
   onFocus,
   onClick,
 }: AnnotationViewerProps) {
@@ -29,7 +29,7 @@ function AnnotationViewer({
   const viewerProps = {
     showOutline,
     showLabel: showElementLabel,
-    isHovered: hoveredElement?.id === element.id,
+    isHovered: hoveredAnnotation?.id === element.id,
   }
 
   const handleAnnotationClick = () => {
@@ -85,10 +85,10 @@ export function AnnotationsViewer({
   style,
   width,
   height,
-  elements,
+  annotations,
   className,
-  hoveredElement,
-  selectedElement,
+  hoveredAnnotation,
+  selectedAnnotation,
   showOutline = true,
   showElementLabel = false,
   onFocus,
@@ -98,7 +98,7 @@ export function AnnotationsViewer({
 
   const { enabledElement } = useOverlayContext()
 
-  const annotationsWithoutSelected = elements.filter((annotation) => annotation.id !== selectedElement?.id)
+  const annotationsWithoutSelected = annotations.filter((annotation) => annotation.id !== selectedAnnotation?.id)
 
   return (
     <svg
@@ -115,7 +115,7 @@ export function AnnotationsViewer({
             showElementLabel={showElementLabel}
             element={annotation}
             showOutline={showOutline}
-            hoveredElement={hoveredElement}
+            hoveredAnnotation={hoveredAnnotation}
             onFocus={onFocus}
             onClick={onClick}
           />

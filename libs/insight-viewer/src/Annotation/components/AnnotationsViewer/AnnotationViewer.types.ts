@@ -6,10 +6,10 @@ export interface AnnotationsViewerProps {
   height?: number
 
   /** Annotation focused by user interaction such as mouse over */
-  elements: Annotation[]
+  annotations: Annotation[]
 
-  hoveredElement: Annotation | null
-  selectedElement: Annotation | null
+  hoveredAnnotation: Annotation | null
+  selectedAnnotation: Annotation | null
 
   /** <svg className={}> */
   className?: string
@@ -36,7 +36,7 @@ export interface AnnotationsViewerProps {
 }
 
 export interface AnnotationViewerProps
-  extends Omit<AnnotationsViewerProps, 'width' | 'height' | 'selectedElement' | 'elements'> {
+  extends Omit<AnnotationsViewerProps, 'width' | 'height' | 'selectedAnnotation' | 'annotations'> {
   element: Annotation
   showOutline: boolean
   showElementLabel: boolean
