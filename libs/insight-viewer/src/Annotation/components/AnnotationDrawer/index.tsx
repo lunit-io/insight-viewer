@@ -17,6 +17,7 @@ import useDrawingHandler from '../../../hooks/useDrawingHandler'
 import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
 import useCreatingDrawableAnnotation from '../../hooks/useCreatingDrawableAnnotation'
 
+import { getCursorStatus } from '../../utils/getCursorStatus'
 import { getEditPointPosition } from '../../utils/getEditPointPosition'
 
 import type { Annotation, Point, TextAnnotation } from '../../types'
@@ -184,7 +185,7 @@ export function AnnotationDrawer({
                 isSelectedMode={false}
                 isHighlightMode={isSelectedAnnotation}
                 editPoint={annotationEditPoints[0]}
-                cursorStatus={'drawing'}
+                cursorStatus={getCursorStatus(editMode)}
               />
               <EditPointer
                 setEditMode={updateEditMode}
@@ -192,7 +193,7 @@ export function AnnotationDrawer({
                 isHighlightMode={isSelectedAnnotation}
                 isSelectedMode={Boolean(isSelectedAnnotation && editMode && editMode !== 'move')}
                 editPoint={annotationEditPoints[1]}
-                cursorStatus={'drawing'}
+                cursorStatus={getCursorStatus(editMode)}
               />
             </>
           )}
