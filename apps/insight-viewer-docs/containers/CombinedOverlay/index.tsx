@@ -96,7 +96,7 @@ function AnnotationDrawerContainer(): JSX.Element {
         Edit enabled (E) <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
       <Box>
-        Initial Viewport enabled{' '}
+        Initial Annotation{' '}
         <Switch
           data-cy-initial-annotations={hasInitialAnnotations}
           onChange={handleInitialAnnotationChange}
