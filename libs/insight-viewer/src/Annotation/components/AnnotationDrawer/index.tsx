@@ -36,7 +36,7 @@ export function AnnotationDrawer({
   className,
   mode = 'polygon',
   onAdd,
-  onSelectAnnotation,
+  onSelect,
 }: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const isSelectedAnnotation = Boolean(isEditing && selectedAnnotation)
@@ -110,7 +110,7 @@ export function AnnotationDrawer({
       }
       clearAnnotation()
       clearEditMode()
-      onSelectAnnotation(null)
+      onSelect(null)
       clearDrawingAndMovedPoints()
     },
     addDrewElement: () => {
