@@ -17,8 +17,6 @@ export interface AnnotationsViewerProps {
   /** <svg style={}> */
   style?: CSSProperties
 
-  isEditing?: boolean
-
   onFocus?: (element: Annotation | null) => void
   onClick?: (element: Annotation) => void
 
