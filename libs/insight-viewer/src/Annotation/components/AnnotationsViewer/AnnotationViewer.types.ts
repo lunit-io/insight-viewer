@@ -37,7 +37,7 @@ export interface AnnotationsViewerProps {
 
 export interface AnnotationViewerProps
   extends Omit<AnnotationsViewerProps, 'width' | 'height' | 'selectedAnnotation' | 'annotations'> {
-  element: Annotation
+  annotation: Annotation
   showOutline: boolean
   showElementLabel: boolean
 }

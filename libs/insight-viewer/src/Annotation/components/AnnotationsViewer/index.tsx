@@ -17,7 +17,7 @@ const annotationStyle: React.CSSProperties = {
   pointerEvents: 'auto',
 }
 function AnnotationViewer({
-  element,
+  annotation,
   showOutline,
   showElementLabel,
   hoveredAnnotation,
@@ -29,7 +29,7 @@ function AnnotationViewer({
   const viewerProps = {
     showOutline,
     showLabel: showElementLabel,
-    isHovered: hoveredAnnotation?.id === element.id,
+    isHovered: hoveredAnnotation?.id === annotation.id,
   }
 
   const handleAnnotationClick = () => {
@@ -39,12 +39,12 @@ function AnnotationViewer({
       onFocus(null)
     }
 
-    onClick(element)
+    onClick(annotation)
   }
 
   const handleAnnotationFocus = () => {
     if (!onFocus) return
-    onFocus(element)
+    onFocus(annotation)
   }
 
   const handleAnnotationFocusOut = () => {
@@ -53,14 +53,14 @@ function AnnotationViewer({
   }
 
   const { drawableAnnotation } = useCreatingDrawableAnnotation({
-    annotation: element,
+    annotation: annotation,
     pixelToCanvas,
   })
 
   return (
     <g
-      data-cy-id={element.id}
-      key={element.id}
+      data-cy-id={annotation.id}
+      key={annotation.id}
       onClick={handleAnnotationClick}
       onMouseOver={handleAnnotationFocus}
       onMouseLeave={handleAnnotationFocusOut}
@@ -113,7 +113,7 @@ export function AnnotationsViewer({
           <AnnotationViewer
             key={annotation.id}
             showElementLabel={showElementLabel}
-            element={annotation}
+            annotation={annotation}
             showOutline={showOutline}
             hoveredAnnotation={hoveredAnnotation}
             onFocus={onFocus}
