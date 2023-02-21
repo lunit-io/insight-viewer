@@ -52,7 +52,7 @@ export const AnnotationOverlay = ({
           isEditing={isEditing}
           mode={mode}
           onAdd={onAdd}
-          onSelectAnnotation={onSelect}
+          onSelect={onSelect}
         />
       )}
     </>
