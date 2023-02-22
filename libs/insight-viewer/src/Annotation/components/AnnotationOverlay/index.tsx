@@ -19,7 +19,7 @@ export const AnnotationOverlay = ({
   selectedAnnotation,
   showAnnotationLabel,
   onAdd,
-  onFocus,
+  onMouseOver,
   onRemove,
   onSelect,
 }: AnnotationOverlayProps): JSX.Element => {
@@ -35,7 +35,7 @@ export const AnnotationOverlay = ({
         style={style}
         showOutline={showOutline}
         showElementLabel={showAnnotationLabel}
-        onFocus={isDrawing ? onFocus : undefined}
+        onMouseOver={isDrawing ? onMouseOver : undefined}
         onClick={isDrawing ? (isEditing ? onSelect : onRemove) : undefined}
       />
       {onAdd && (

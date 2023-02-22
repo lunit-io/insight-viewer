@@ -28,7 +28,7 @@ export function AnnotationViewer({
   showOutline,
   showElementLabel,
   hoveredAnnotation,
-  onFocus,
+  onMouseOver,
   onClick,
 }: AnnotationViewerProps) {
   const { pixelToCanvas } = useOverlayContext()
@@ -42,21 +42,21 @@ export function AnnotationViewer({
   const handleAnnotationClick = () => {
     if (!onClick) return
 
-    if (onFocus) {
-      onFocus(null)
+    if (onMouseOver) {
+      onMouseOver(null)
     }
 
     onClick(annotation)
   }
 
-  const handleAnnotationFocus = () => {
-    if (!onFocus) return
-    onFocus(annotation)
+  const handleAnnotationMouseOver = () => {
+    if (!onMouseOver) return
+    onMouseOver(annotation)
   }
 
-  const handleAnnotationFocusOut = () => {
-    if (!onFocus) return
-    onFocus(null)
+  const handleAnnotationMouseLeave = () => {
+    if (!onMouseOver) return
+    onMouseOver(null)
   }
 
   const { drawableAnnotation } = useCreatingDrawableAnnotation({
@@ -69,8 +69,8 @@ export function AnnotationViewer({
       data-cy-id={annotation.id}
       key={annotation.id}
       onClick={handleAnnotationClick}
-      onMouseOver={handleAnnotationFocus}
-      onMouseLeave={handleAnnotationFocusOut}
+      onMouseOver={handleAnnotationMouseOver}
+      onMouseLeave={handleAnnotationMouseLeave}
       style={annotationStyle}
     >
       {!drawableAnnotation ? null : (

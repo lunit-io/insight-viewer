@@ -17,7 +17,7 @@ export function AnnotationsViewer({
   selectedAnnotation,
   showOutline = true,
   showElementLabel = false,
-  onFocus,
+  onMouseOver,
   onClick,
 }: AnnotationsViewerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -42,7 +42,7 @@ export function AnnotationsViewer({
             annotation={annotation}
             showOutline={showOutline}
             hoveredAnnotation={hoveredAnnotation}
-            onFocus={onFocus}
+            onMouseOver={onMouseOver}
             onClick={onClick}
           />
         ))}
