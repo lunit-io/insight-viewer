@@ -38,23 +38,21 @@ export const AnnotationOverlay = ({
         onMouseOver={isDrawing ? onMouseOver : undefined}
         onClick={isDrawing ? (isEditing ? onSelect : onRemove) : undefined}
       />
-      {onAdd && (
-        <AnnotationDrawer
-          width={width}
-          height={height}
-          annotations={annotations}
-          hoveredAnnotation={hoveredAnnotation}
-          selectedAnnotation={selectedAnnotation}
-          showAnnotationLabel={showAnnotationLabel}
-          className={className}
-          style={style}
-          isDrawing={isDrawing}
-          isEditing={isEditing}
-          mode={mode}
-          onAdd={onAdd}
-          onSelect={onSelect}
-        />
-      )}
+      <AnnotationDrawer
+        width={width}
+        height={height}
+        annotations={annotations}
+        hoveredAnnotation={hoveredAnnotation}
+        selectedAnnotation={selectedAnnotation}
+        showAnnotationLabel={showAnnotationLabel}
+        className={className}
+        style={style}
+        isDrawing={isDrawing}
+        isEditing={isEditing}
+        mode={mode}
+        onAdd={onAdd}
+        onSelect={onSelect}
+      />
     </>
   )
 }

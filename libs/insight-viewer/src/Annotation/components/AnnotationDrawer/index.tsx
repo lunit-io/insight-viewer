@@ -45,6 +45,8 @@ export function AnnotationDrawer({
   const handleTypingFinish = (text: string) => {
     setTempAnnotation(undefined)
     if (tempAnnotation && text !== '') {
+      if (!onAdd) return
+
       onAdd({ ...tempAnnotation, label: text })
     }
   }
@@ -132,6 +134,8 @@ export function AnnotationDrawer({
 
         return
       }
+
+      if (!onAdd) return
 
       onAdd(annotation as Annotation)
     },

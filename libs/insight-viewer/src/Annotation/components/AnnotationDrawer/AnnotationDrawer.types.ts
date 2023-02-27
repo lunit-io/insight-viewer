@@ -15,7 +15,7 @@ export interface AnnotationDrawerProps extends Omit<SVGProps<SVGSVGElement>, 'on
    */
   showAnnotationLabel?: boolean
   /** When drawing is complete and a new annotation occurs */
-  onAdd: (annotation: Annotation) => void
+  onAdd?: (annotation: Annotation) => void
   onSelect: (annotation: Annotation | null) => void
 
   mode?: AnnotationMode
