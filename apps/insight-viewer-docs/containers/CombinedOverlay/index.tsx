@@ -139,7 +139,7 @@ function AnnotationDrawerContainer(): JSX.Element {
               selectedAnnotation={selectedAnnotation}
               showAnnotationLabel={isShowLabel}
               onAdd={addAnnotation}
-              onFocus={hoverAnnotation}
+              onMouseOver={hoverAnnotation}
               onRemove={removeAnnotation}
               onSelect={selectAnnotation}
             />
