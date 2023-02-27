@@ -93,13 +93,14 @@ export function AnnotationDrawer({
     svgElement: svgRef,
     hoveredDrawing: hoveredAnnotation,
     setInitialPoint: (point: Point) => {
-      if (!isDrawing && isSelectedAnnotation) return
+      if (!isSelectedAnnotation && !isDrawing) return
 
       setInitialAnnotation(point)
       setInitialDrawingPoints(point)
     },
     addDrawingPoint: (point) => {
-      if (isDrawing && isSelectedAnnotation && !editMode) return
+      if (!isSelectedAnnotation && !isDrawing) return
+      if (isSelectedAnnotation && !editMode) return
 
       updateDrawingAnnotation(point)
       setDrawingMovedPoint(point)
