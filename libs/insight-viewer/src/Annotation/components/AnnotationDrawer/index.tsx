@@ -85,7 +85,8 @@ export function AnnotationDrawer({
   const annotationEditPoints = getEditPointPosition({
     annotation: drawableAnnotation,
     editingPoints: canvasEditingPoints,
-    isDefaultEditPointsOfAnnotation: isSelectedAnnotation && (!editMode || editMode === 'move'),
+    isDefaultEditPointsOfAnnotation:
+      isSelectedAnnotation && (!editMode || editMode === 'move' || editMode === 'textMove'),
   })
 
   // TODO: 이벤트를 분리할 수 있는 방법 고민
@@ -196,7 +197,9 @@ export function AnnotationDrawer({
                 setEditMode={updateEditMode}
                 editMode="endPoint"
                 isHighlightMode={isSelectedAnnotation}
-                isSelectedMode={Boolean(isSelectedAnnotation && editMode && editMode !== 'move')}
+                isSelectedMode={Boolean(
+                  isSelectedAnnotation && editMode && editMode !== 'move' && editMode !== 'textMove'
+                )}
                 editPoint={annotationEditPoints[1]}
                 cursorStatus={getCursorStatus(editMode)}
               />

@@ -35,6 +35,7 @@ export function getPointsUpdatedAnnotation({
 }: GetDrawingAnnotationParams): Annotation {
   const currentId = prevAnnotation.id
   const isMoveMode = editMode === 'move' && movedStartPoint
+  const isTextMoveMode = editMode === 'textMove' && movedStartPoint
   const prevPoints = getAnnotationPoints(prevAnnotation)
 
   if (isSamePoints([prevPoints[prevPoints.length - 1], currentPoint])) {
@@ -77,6 +78,11 @@ export function getPointsUpdatedAnnotation({
     }
 
     case 'area': {
+      if (isTextMoveMode) {
+        currentAnnotation.textPoint = currentPoint
+        break
+      }
+
       const currentPoints = isMoveMode
         ? getAreaAnnotationMovedPoints(prevPoints, movedStartPoint, currentPoint)
         : [drawingStartPoint, currentPoint]
@@ -87,33 +93,32 @@ export function getPointsUpdatedAnnotation({
       const radiusWithoutUnit = getCircleRadius(startPoint, endPoint)
       const { radius, unit } = getCircleRadiusByMeasuringUnit(startPoint, endPoint, image)
 
-      const labelPosition = polylabel([currentPoints], 1) as LabelPosition
-
       currentAnnotation.unit = unit
       currentAnnotation.textPoint = textPoint
       currentAnnotation.measuredValue = radius
       currentAnnotation.centerPoint = centerPoint
       currentAnnotation.radius = radiusWithoutUnit
-      currentAnnotation.labelPosition = labelPosition
       break
     }
 
     case 'ruler': {
+      if (isTextMoveMode) {
+        currentAnnotation.textPoint = currentPoint
+        break
+      }
+
       const currentPoints = isMoveMode
         ? getMovedPoints({ prevPoints, editStartPoint: movedStartPoint, currentPoint })
         : [drawingStartPoint, currentPoint]
       const [startPoint, endPoint] = currentPoints
 
-      const { length, unit } = getLineLength(startPoint, endPoint, image)
       const textPoint = getTextPosition(currentAnnotation, editMode)
-
-      const labelPosition = polylabel([currentPoints], 1) as LabelPosition
+      const { length, unit } = getLineLength(startPoint, endPoint, image)
 
       currentAnnotation.startAndEndPoint = currentPoints as [Point, Point]
       currentAnnotation.measuredValue = length
       currentAnnotation.unit = unit
       currentAnnotation.textPoint = textPoint
-      currentAnnotation.labelPosition = labelPosition
       break
     }
 
