@@ -46,6 +46,12 @@ export interface AnnotationBase {
   lineWidth?: number
 }
 
+export interface MeasurableAnnotationBase extends AnnotationBase {
+  unit: Unit
+  measuredValue: number
+  textPoint: Point | null
+}
+
 export interface LineAnnotation extends AnnotationBase {
   type: 'line'
   points: [Point, Point]
@@ -74,21 +80,15 @@ export interface TextAnnotation extends AnnotationBase {
   label: string
 }
 
-export interface RulerAnnotation extends AnnotationBase {
+export interface RulerAnnotation extends MeasurableAnnotationBase {
   type: 'ruler'
-  textPoint: Point | null
-  unit: Unit
-  measuredValue: number
   startAndEndPoint: [startPoint: Point, endPoint: Point]
 }
 
-export interface AreaAnnotation extends AnnotationBase {
+export interface AreaAnnotation extends MeasurableAnnotationBase {
   type: 'area'
-  centerPoint: Point
   radius: number
-  textPoint: Point | null
-  unit: Unit
-  measuredValue: number
+  centerPoint: Point
 }
 
 export type Annotation =
