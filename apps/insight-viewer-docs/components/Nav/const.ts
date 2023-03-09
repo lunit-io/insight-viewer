@@ -12,4 +12,5 @@ export const LINKS = [
   { href: 'viewport-reset', name: 'Viewport Reset' },
   { href: 'annotation', name: 'Annotation' },
   { href: 'measurement', name: 'Measurement' },
+  { href: 'combined-overlay', name: 'CombinedOverlay' },
 ]

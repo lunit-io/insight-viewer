@@ -73,7 +73,6 @@ export default function useAnnotationPointsHandler({
     const initialAnnotation = getInitialAnnotation({
       mode,
       image,
-      lineHead,
       annotations,
       currentPoints: [point, point],
     })
@@ -149,7 +148,6 @@ export default function useAnnotationPointsHandler({
   }
 
   useDrawingHandler({
-    mode,
     svgElement,
     setInitialPoint: setInitialAnnotation,
     addDrawingPoint: addDrawingAnnotation,

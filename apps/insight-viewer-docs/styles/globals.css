@@ -41,6 +41,14 @@ a {
   cursor: url('../assets/default.png') 10 10, auto !important;
 }
 
+.annotation.ruler {
+  cursor: url('../assets/ruler.png') 10 10, auto;
+}
+
+.annotation.area {
+  cursor: url('../assets/ruler.png') 10 10, auto;
+}
+
 .annotation.line {
   cursor: url('../assets/crosshair.png') 20 20, auto !important;
 }

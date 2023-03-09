@@ -18,7 +18,6 @@ describe('getInitialAnnotation', () => {
         image: null,
         annotations: [],
         mode: 'polygon',
-        lineHead: 'normal',
         currentPoints: MOCK_CURRENT_POINTS,
       })
     ).toStrictEqual(INITIAL_POLYGON)
@@ -28,7 +27,6 @@ describe('getInitialAnnotation', () => {
       getInitialAnnotation({
         image: null,
         mode: 'polygon',
-        lineHead: 'normal',
         annotations: MOCK_POLYGON_LIST,
         currentPoints: MOCK_CURRENT_POINTS,
       })
@@ -40,7 +38,6 @@ describe('getInitialAnnotation', () => {
         image: null,
         annotations: [],
         mode: 'line',
-        lineHead: 'normal',
         currentPoints: MOCK_CURRENT_POINTS,
       })
     ).toStrictEqual(INITIAL_LINE)
@@ -51,7 +48,6 @@ describe('getInitialAnnotation', () => {
         image: null,
         annotations: [],
         mode: 'freeLine',
-        lineHead: 'normal',
         currentPoints: MOCK_CURRENT_POINTS,
       })
     ).toStrictEqual(INITIAL_FREE_LINE)
@@ -62,7 +58,6 @@ describe('getInitialAnnotation', () => {
         image: null,
         annotations: [],
         mode: 'text',
-        lineHead: 'normal',
         currentPoints: MOCK_CURRENT_POINTS,
       })
     ).toStrictEqual(INITIAL_TEXT)
