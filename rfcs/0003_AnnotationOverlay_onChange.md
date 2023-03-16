@@ -121,22 +121,16 @@ return (
 그리고 아래 workflow 처럼 아키텍처를 구성합니다.
 
 ```mermaid
-flowchart TD
-    A[Add Annotation]-->B{Has onAdd Props value?}
-
-    B -- Yes --> C{Did the annotation return<br />from the onAdd function?}
-    B -- No --> D{Did the annotation return<br />from the default check function?}
-
-    C -- Yes --> E[Adding an annotation <br />to the Annotation List]
-    D -- Yes --> E[Adding an annotation <br />to the Annotation List]
-
-    C -- No --> F[Does not add the annotation <br />to the Annotation List]
-    D -- No --> F[Does not add the annotation <br />to the Annotation List]
-
-    E[Adding an annotation <br />to the Annotation List] --> G[Passing an annotation list<br /> as an onChange argument]
-    F[Does not add the annotation <br />to the Annotation List] --> G[Passing an annotation list<br /> as an onChange argument]
-
-    G[Passing an annotation list<br /> as an onChange argument] --> H[App updates annotation list with onChange props]
+  flowchart TD
+      A[Add Annotation]-->B{Did the annotation return<br />from the default check function?}
+      B -- Yes --> C{Has onAdd Props value?}
+      C -- Yes --> E{Did the annotation return<br />from the onAdd function?}
+      C -- No --> G[Adding an annotation <br />to the Annotation List]
+      E -- Yes --> G[Adding an annotation <br />to the Annotation List]
+      E -- No --> F[Passing a prev annotation list<br /> as an onChange argument]
+      B -- No --> F[Passing an prev annotation list<br /> as an onChange argument]
+      G-->H[Update App annotation list using onChange]
+      F-->H[Update App annotation list using onChange]
 ```
 
 변경된 타입에 따라 onAdd, onDelete 는 annotation 을 return 합니다.<br />
