@@ -120,7 +120,24 @@ return (
 
 그리고 아래 workflow 처럼 아키텍처를 구성합니다.
 
-<img width="60%" alt="onChange sequenceDiagram" src="./assets/0003_onChange/onChange_sequenceDiagram.png" />
+```mermaid
+flowchart TD
+    A[Add Annotation]-->B{Has onAdd Props value?}
+
+    B -- Yes --> C{Did the annotation return<br />from the onAdd function?}
+    B -- No --> D{Did the annotation return<br />from the default check function?}
+
+    C -- Yes --> E[Adding an annotation <br />to the Annotation List]
+    D -- Yes --> E[Adding an annotation <br />to the Annotation List]
+
+    C -- No --> F[Does not add the annotation <br />to the Annotation List]
+    D -- No --> F[Does not add the annotation <br />to the Annotation List]
+
+    E[Adding an annotation <br />to the Annotation List] --> G[Passing an annotation list<br /> as an onChange argument]
+    F[Does not add the annotation <br />to the Annotation List] --> G[Passing an annotation list<br /> as an onChange argument]
+
+    G[Passing an annotation list<br /> as an onChange argument] --> H[App updates annotation list with onChange props]
+```
 
 변경된 타입에 따라 onAdd, onDelete 는 annotation 을 return 합니다.<br />
 만약 사용자가 onAdd, onDelete 를 하게 될 경우, 추가 삭제할 때 해당 function 을 먼저 실행<br />
