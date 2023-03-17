@@ -97,7 +97,42 @@ isDrawing 이 false 인 경우엔 `annotation Read` 기능만 사용할 수 있�
 onChange prop 을 통해 CRUD 가 반영된 annotation list 를 전달하고자 합니다.<br />
 실제 사용하게 된다면 아래와 같이 코드를 작성할 수 있습니다.
 
+<div style="display: flex">
+
 ```tsx
+// 기존 코드 (onChange 적용 전)
+const onAdd = useCallback(
+  (annotation: Annotation) => {
+    const newAnnotations = [..._annotations]
+    const changed = addAnnotation(annotation)
+    if (!changed) {
+      return
+    }
+
+    const changedIndex = newAnnotations.findIndex((a) => a.id === changed.id)
+    if (changedIndex === -1) {
+      // just added
+      newAnnotations.push(changed)
+    } else {
+      // edited
+      newAnnotations[changedIndex] = changed
+    }
+    onChange(newAnnotations)
+  },
+  [_annotations, addAnnotation, onChange]
+)
+// ... some code
+
+return (
+  <AnnotationOverlay
+    // ... some props
+    onAdd={onAdd}
+  />
+)
+```
+
+```tsx
+// 개선 코드 (onChange 적용)
 const [annotations, setAnnotations] = useState<Annotation[]>([])
 
 const handleAnnotationChange = (annotations: Annotation[]) => {
@@ -111,6 +146,8 @@ return (
   />
 )
 ```
+
+</div>
 
 이를 통해 반복적으로 사용했던 onAdd 와 같은 코드를 위와 같이 줄일 수 있습니다.<br />
 
