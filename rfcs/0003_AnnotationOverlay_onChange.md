@@ -142,6 +142,20 @@ return (
 
 동작 방식은 `input` 과 비슷하다고 생각하시면 될 것 같습니다.
 
+추가로 onChange, onAdd 가 모두 있다는 가정 하에 그린 sequence Diagram 입니다.
+
+```mermaid
+  sequenceDiagram
+      User Interaction->>Component: Drawing 완료 후<br /> Annotation 전달
+      activate Component
+      Component->>Component: 1. 기본 Validation 로직으로 Annotation<br /> 확인 후 Annotation 반환
+      Component->>Component: 2. 1번에서 반환된 Annotation 을 onAdd 로 전달 및 반환
+      Component->>Component: 3. 2번에서 반환된 Annotation 을 Annotation List 에 추가
+      deactivate Component
+      Component->>App: Annotation List 를 <br />onChange arguments 로 전달
+      App->>App: Annotation List Update
+```
+
 ## 대안
 
 ---
