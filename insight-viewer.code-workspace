@@ -5,8 +5,8 @@
       "path": "libs/insight-viewer"
     },
     {
-      "name": "docs",
-      "path": "apps/insight-viewer-docs"
+      "name": "dev",
+      "path": "apps/insight-viewer-dev"
     },
     {
       "name": "e2e",

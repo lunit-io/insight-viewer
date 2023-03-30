@@ -7,7 +7,7 @@ on:
     paths:
       - .github/workflows/insight-viewer-production.yml
       - libs/insight-viewer/**
-      - apps/insight-viewer-docs/**
+      - apps/insight-viewer-dev/**
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
 
       - run: npx nx workspace-lint
-      - run: npx nx export insight-viewer-docs
+      - run: npx nx export insight-viewer-dev
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -38,7 +38,7 @@ jobs:
           HOST: insight-viewer.lunit.io
         run: |
           aws s3 sync \
-            ./dist/apps/insight-viewer-docs/exported \
+            ./dist/apps/insight-viewer-dev/exported \
             s3://lunit-cdn-for-production-virginia/${HOST} \
             --delete
           aws s3 cp \

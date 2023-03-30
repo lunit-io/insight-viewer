@@ -7,12 +7,12 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/insight-viewer-docs-e2e/cypress.config.ts",
-        "devServerTarget": "insight-viewer-docs:serve:development",
+        "devServerTarget": "insight-viewer-dev:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "insight-viewer-docs:serve:production"
+          "devServerTarget": "insight-viewer-dev:serve:production"
         }
       }
     },
@@ -25,5 +25,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["insight-viewer-docs"]
+  "implicitDependencies": ["insight-viewer-dev"]
 }

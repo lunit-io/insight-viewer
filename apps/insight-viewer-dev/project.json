@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/insight-viewer-docs",
+  "sourceRoot": "apps/insight-viewer-dev",
   "projectType": "application",
   "targets": {
     "build": {
@@ -8,12 +8,12 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/insight-viewer-docs",
-        "outputPath": "dist/apps/insight-viewer-docs"
+        "root": "apps/insight-viewer-dev",
+        "outputPath": "dist/apps/insight-viewer-dev"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/insight-viewer-docs"
+          "outputPath": "apps/insight-viewer-dev"
         },
         "production": {}
       }
@@ -22,16 +22,16 @@
       "executor": "@nrwl/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "insight-viewer-docs:build",
+        "buildTarget": "insight-viewer-dev:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "insight-viewer-docs:build:development",
+          "buildTarget": "insight-viewer-dev:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "insight-viewer-docs:build:production",
+          "buildTarget": "insight-viewer-dev:build:production",
           "dev": false
         }
       }
@@ -39,14 +39,14 @@
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
-        "buildTarget": "insight-viewer-docs:build:production"
+        "buildTarget": "insight-viewer-dev:build:production"
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/insight-viewer-docs"],
+      "outputs": ["coverage/apps/insight-viewer-dev"],
       "options": {
-        "jestConfig": "apps/insight-viewer-docs/jest.config.ts",
+        "jestConfig": "apps/insight-viewer-dev/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -54,7 +54,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/insight-viewer-docs/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/insight-viewer-dev/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
