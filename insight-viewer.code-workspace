@@ -10,7 +10,7 @@
     },
     {
       "name": "e2e",
-      "path": "apps/insight-viewer-docs-e2e"
+      "path": "apps/insight-viewer-dev-e2e"
     },
     {
       "name": "root",
