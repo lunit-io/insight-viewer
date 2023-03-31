@@ -99,7 +99,7 @@ onChange prop 을 통해 CRUD 가 반영된 annotation list 를 전달하고자 
 
 <table>
   <tr>
-    <td> onChange 적용 전 </td> <td> onChange 적용 후 </td>
+    <th> onChange 적용 전 </th> <th> onChange 적용 후 </th>
   </tr>
   <tr>
   <td>
