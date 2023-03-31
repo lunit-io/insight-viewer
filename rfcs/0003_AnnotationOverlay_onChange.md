@@ -9,6 +9,18 @@
 
 - AnnotationOverlay props 중 목적이 불분명한 네이밍으로 혼동을 줄 수 있는 부분을 개선하고자 합니다.
 
+### 용어 정리
+
+해당 RFC 문서 내 반복적으로 나오는 용어들의 용도, 설명을 작성합니다.
+
+- **App**: INSIGHT Viewer 라이브러리를 사용하는 프로젝트를 의미합니다. (라이브러리 사용자의 프로젝트)
+
+- **Viewer Component**: INSIGHT Viewer 라이브러리 내 Annotation 을 핸들링하는 컴포넌트를 의미합니다. (라이브러리 자체 Annotation 컴포넌트)
+
+- **onAdd**: Annotation Add 동작 실행 시점에서 함께 실행하는 함수를 의미합니다.<br />App 에서 선언하여 add 동작에 대한 커스텀(정의)를 할 수 있습니다.<br />이 함수는 InsightViewer Component props 로 전달하여 사용합니다.
+
+- **onChange**: Annotations 에 대한 `Add`, `Update`, `Delete` 동작 시점에서 함께 실행하는 함수를 의미합니다.<br />App 에서 선언하여 App 내 Annotations 업데이트를 수행할 목적으로 사용할 수 있습니다.<br />이 함수는 InsightViewer Component props 로 전달하여 사용합니다.
+
 ## 적용 목적 및 RFC 문서 작성의 목적
 
 적용 목적은 하기 작성된 개선 가능한 부분을 적용하기 위함입니다.
