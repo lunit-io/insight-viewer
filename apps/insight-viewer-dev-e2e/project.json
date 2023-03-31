@@ -1,18 +1,18 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/insight-viewer-docs-e2e/src",
+  "sourceRoot": "apps/insight-viewer-dev-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/insight-viewer-docs-e2e/cypress.config.ts",
-        "devServerTarget": "insight-viewer-docs:serve:development",
+        "cypressConfig": "apps/insight-viewer-dev-e2e/cypress.config.ts",
+        "devServerTarget": "insight-viewer-dev:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "insight-viewer-docs:serve:production"
+          "devServerTarget": "insight-viewer-dev:serve:production"
         }
       }
     },
@@ -20,10 +20,10 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/insight-viewer-docs-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/insight-viewer-dev-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["insight-viewer-docs"]
+  "implicitDependencies": ["insight-viewer-dev"]
 }

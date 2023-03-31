@@ -17,9 +17,9 @@ This project was generated using [Nx](https://nx.dev).
 
 - [`libs/insight-viewer`](./libs/insight-viewer) - Cornerstone.js medical image viewer component for React.
 
-### Apps
+### Testing Docs
 
-- [`apps/insight-viewer-docs`](./apps/insight-viewer-docs) - Documentation site for @lunit/insight-viewer.
+- [`apps/insight-viewer-dev`](./apps/insight-viewer-dev) - Documentation site for @lunit/insight-viewer.
 
 ## Development
 

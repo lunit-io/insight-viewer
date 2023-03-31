@@ -1,4 +1,4 @@
-# `insight-viewer-docs`
+# `insight-viewer-dev`
 
 The Documentation website for @lunit/insight-viewer.
 

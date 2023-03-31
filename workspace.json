@@ -4,8 +4,8 @@
   "projects": {
     "fixtures": "libs/fixtures",
     "insight-viewer": "libs/insight-viewer",
-    "insight-viewer-docs": "apps/insight-viewer-docs",
-    "insight-viewer-docs-e2e": "apps/insight-viewer-docs-e2e",
+    "insight-viewer-dev": "apps/insight-viewer-dev",
+    "insight-viewer-dev-e2e": "apps/insight-viewer-dev-e2e",
     "workspace": {
       "root": ".",
       "targets": {
