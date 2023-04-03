@@ -207,22 +207,24 @@ return (
 ### onChange + onAdd 시퀀스 다이어그램
 
 ```mermaid
-  sequenceDiagram
-      App->>Viewer Component: Validation Logic 을 포함한 onAdd,<br/> onChange 전달
-      critical User Interaction: Drawing Annotation
-      Viewer Component-->>Viewer Component: Drawing 완료 시 Annotation 객체를<br /> Annotation 상태 관리 로직으로 전달
-      end
-      activate Viewer Component
-      Viewer Component->>Viewer Component: 1. 상태 관리 로직에 내장된<br /> Validation 로직으로 Annotation<br /> 확인 후 Annotation 반환
-      Viewer Component->>Viewer Component: 2. 1번에서 반환된 Annotation 을 <br /> App 으로부터 전달받은 onAdd 로 전달하여 Annotation 확인 및 반환
-      Viewer Component->>Viewer Component: 3. 번에서 반환된 Annotation 을 Annotations 에 추가
-      deactivate Viewer Component
-      Viewer Component->>App: Annotations 를 onChaneg 로 전달하여 실행<br /> App 으로 Annotations 전달
-      App->>App: onChange 를 통해 전달 받은 Annotations 로<br />App 내 Annotations 상태 업데이트
-      App->>Viewer Component: 업데이트된 Annotations 를 전달
-      critical User Interaction: Annotations 그리기
-      Viewer Component-->>Viewer Component: 전달 받은 Annotations 를 화면에 그립니다.
-      end
+sequenceDiagram
+    App->>Viewer Component: Validation Logic 을 포함한 onAdd,<br/> onChange 전달
+    critical User Interaction: Drawing Annotation
+    Viewer Component-->>Viewer Component: Drawing 완료 시 Annotation 객체를<br /> Annotation 상태 관리 로직으로 전달
+    end
+    activate Viewer Component
+    Viewer Component->>Viewer Component: 1. 상태 관리 로직에 내장된<br /> Validation 로직으로 Annotation<br /> 확인 후 Annotation 반환
+    Viewer Component->> App: 2. 1번에서 반환된 Annotation 을 <br /> App 으로부터 전달받은 onAdd 로 전달
+    App->>App: onAdd 를 통해 전달 받은 Annotation 을 onAdd 로직으로 확인
+    App->>Viewer Component: onAdd 로 부터 반환된 Annotation 을 Viewer 상태 관리 로직으로 전달
+    Viewer Component->>Viewer Component: 3. 2번에서 반환된 Annotation 을 Annotations 상태에 추가
+    deactivate Viewer Component
+    Viewer Component->>App: Annotations 를 onChange 로 전달하여 실행<br /> App 으로 Annotations 전달
+    App->>App: onChange 를 통해 전달 받은 Annotations 로<br />App 내 Annotations 상태 업데이트
+    App->>Viewer Component: 업데이트된 Annotations 를 전달
+    critical User Interaction: Annotations 그리기
+    Viewer Component-->>Viewer Component: 전달 받은 Annotations 를 화면에 그립니다.
+    end
 ```
 
 ## 대안
