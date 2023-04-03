@@ -1,14 +1,9 @@
 import { useRef, ChangeEvent, useState, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  useAnnotation,
-  useImage,
-  AnnotationOverlay,
-  AnnotationMode,
-  LineHeadMode,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage, LineHeadMode } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
+import { useAnnotation, AnnotationMode, AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
@@ -149,14 +144,13 @@ function AnnotationDrawerContainer(): JSX.Element {
               isEditing={isEditing}
               width={700}
               height={700}
-              lineHead={lineHeadMode}
               mode={annotationMode}
               annotations={annotations}
               hoveredAnnotation={hoveredAnnotation}
               selectedAnnotation={selectedAnnotation}
               showAnnotationLabel={isShowLabel}
               onAdd={addAnnotation}
-              onFocus={hoverAnnotation}
+              onMouseOver={hoverAnnotation}
               onRemove={removeAnnotation}
               onSelect={selectAnnotation}
             />
