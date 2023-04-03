@@ -2,7 +2,8 @@
 import React, { useRef, useState, ChangeEvent, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { MeasurementOverlay, useImage, useMeasurement, MeasurementMode } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { AnnotationOverlay, useAnnotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 
@@ -18,7 +19,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 function MeasurementDrawerContainer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
 
-  const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
+  const [measurementMode, setMeasurementMode] = useState<AnnotationMode>('ruler')
   const [isEditing, setIsEditing] = useState(false)
   const [isDrawing, setIsDrawing] = useState(true)
 
@@ -32,17 +33,17 @@ function MeasurementDrawerContainer(): JSX.Element {
     element: viewerRef.current,
   })
   const {
-    measurements,
-    hoveredMeasurement,
-    selectedMeasurement,
-    addMeasurement,
-    hoverMeasurement,
-    removeMeasurement,
-    selectMeasurement,
-    removeAllMeasurement,
-  } = useMeasurement({})
+    annotations,
+    hoveredAnnotation,
+    selectedAnnotation,
+    addAnnotation,
+    hoverAnnotation,
+    removeAnnotation,
+    selectAnnotation,
+    removeAllAnnotation,
+  } = useAnnotation()
 
-  const handleMeasurementModeClick = (mode: MeasurementMode) => {
+  const handleMeasurementModeClick = (mode: AnnotationMode) => {
     setMeasurementMode(mode)
   }
 
@@ -87,7 +88,7 @@ function MeasurementDrawerContainer(): JSX.Element {
           <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
-      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllMeasurement}>
+      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
         remove all
       </Button>
 
@@ -95,16 +96,16 @@ function MeasurementDrawerContainer(): JSX.Element {
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
-              <MeasurementOverlay
+              <AnnotationOverlay
                 width={DEFAULT_SIZE.width}
                 height={DEFAULT_SIZE.height}
-                measurements={measurements}
-                selectedMeasurement={selectedMeasurement}
-                hoveredMeasurement={hoveredMeasurement}
-                onAdd={addMeasurement}
-                onFocus={hoverMeasurement}
-                onSelect={selectMeasurement}
-                onRemove={removeMeasurement}
+                annotations={annotations}
+                selectedAnnotation={selectedAnnotation}
+                hoveredAnnotation={hoveredAnnotation}
+                onAdd={addAnnotation}
+                onMouseOver={hoverAnnotation}
+                onSelect={selectAnnotation}
+                onRemove={removeAnnotation}
                 isEditing={isEditing}
                 isDrawing={isDrawing}
                 mode={measurementMode}
