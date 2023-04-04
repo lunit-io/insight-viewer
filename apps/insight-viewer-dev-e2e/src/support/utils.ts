@@ -142,7 +142,7 @@ export const drawMeasurements = (measurements: Measurement[]): void => {
 export const moveMeasurement = (measurement: Measurement, distance: number): void => {
   const targetDataAttr = `[data-cy-id="${measurement.id}"]`
   const targetDrawingAttr = '[data-cy-move]'
-  const startPoint = measurement.type === 'circle' ? measurement.centerPoint : measurement.startAndEndPoint[0]
+  const startPoint = measurement.type === 'area' ? measurement.centerPoint : measurement.startAndEndPoint[0]
 
   cy.get(targetDataAttr).click({ force: true })
 
