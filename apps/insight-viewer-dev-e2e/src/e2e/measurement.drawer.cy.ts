@@ -18,6 +18,7 @@ describe(
     it('shows initial measurement drawer', () => {
       cy.get($LOADED).should('be.exist')
       cy.get('[data-cy-tab="drawer"]').click()
+      cy.get('[data-cy-loaded=success]').should('be.exist')
     })
 
     describe('Ruler Measurement', () => {
