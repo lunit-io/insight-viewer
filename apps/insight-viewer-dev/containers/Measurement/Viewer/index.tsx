@@ -1,21 +1,16 @@
 import { useRef, useState } from 'react'
 import { Box, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  useMeasurement,
-  useImage,
-  MeasurementOverlay,
-  MeasurementMode,
-  Measurement,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { AnnotationOverlay, Annotation, AnnotationMode, useAnnotation } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES, RULER_MEASUREMENTS, AREA_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
-export type InitialMeasurements = {
-  [mode in MeasurementMode]: Measurement[]
+export type InitialAnnotations = {
+  [mode in AnnotationMode]?: Annotation[]
 }
 
-const INITIAL_MEASUREMENTS: InitialMeasurements = {
+const INITIAL_ANNOTATIONS: InitialAnnotations = {
   ruler: RULER_MEASUREMENTS,
   area: AREA_MEASUREMENTS,
 }
@@ -32,7 +27,7 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 function MeasurementViewerContainer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
 
-  const [measurementMode, setMeasurementMode] = useState<MeasurementMode>('ruler')
+  const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('ruler')
 
   const { loadingState, image } = useImage({
     wadouri: IMAGES[11],
@@ -42,34 +37,34 @@ function MeasurementViewerContainer(): JSX.Element {
     image,
     element: viewerRef.current,
   })
-  const { measurements, hoveredMeasurement, selectedMeasurement, selectMeasurement } = useMeasurement({
-    initialMeasurement: INITIAL_MEASUREMENTS[measurementMode],
+  const { annotations, hoveredAnnotation, selectedAnnotation, selectAnnotation } = useAnnotation({
+    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
   })
 
-  const handleMeasurementModeChange = (mode: MeasurementMode) => {
-    setMeasurementMode(mode)
+  const handleMeasurementModeChange = (mode: AnnotationMode) => {
+    setAnnotationMode(mode)
   }
 
   return (
     <Box data-cy-loaded={loadingState}>
-      <RadioGroup onChange={handleMeasurementModeChange} value={measurementMode}>
+      <RadioGroup onChange={handleMeasurementModeChange} value={annotationMode}>
         <Stack direction="row">
           <p style={{ marginRight: '10px' }}>Select Head mode</p>
           <Radio value="ruler">Ruler</Radio>
           <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`measurement ${measurementMode}`}>
+      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`measurement ${annotationMode}`}>
         <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
-            <MeasurementOverlay
+            <AnnotationOverlay
               width={700}
               height={700}
-              measurements={measurements}
-              hoveredMeasurement={hoveredMeasurement}
-              selectedMeasurement={selectedMeasurement}
-              mode={measurementMode}
-              onSelect={selectMeasurement}
+              annotations={annotations}
+              hoveredAnnotation={hoveredAnnotation}
+              selectedAnnotation={selectedAnnotation}
+              mode={annotationMode}
+              onSelect={selectAnnotation}
             />
           )}
         </InsightViewer>

@@ -1,13 +1,8 @@
 import { useRef, useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, {
-  useAnnotation,
-  useImage,
-  AnnotationOverlay,
-  AnnotationMode,
-  Annotation,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
+import { Annotation, AnnotationOverlay, useAnnotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import {
   IMAGES,
@@ -19,7 +14,7 @@ import {
 } from '@insight-viewer-library/fixtures'
 
 export type InitialAnnotations = {
-  [mode in AnnotationMode]: Annotation[]
+  [mode in AnnotationMode]?: Annotation[]
 }
 
 const INITIAL_ANNOTATIONS: InitialAnnotations = {
@@ -28,8 +23,6 @@ const INITIAL_ANNOTATIONS: InitialAnnotations = {
   polygon: POLYGON_ANNOTATIONS,
   text: TEXT_ANNOTATIONS,
   arrowLine: ARROW_LINE_ANNOTATIONS,
-  // TODO: Changed the mock data when adding Circle mode
-  circle: POLYGON_ANNOTATIONS,
 }
 
 const style = {
@@ -79,7 +72,6 @@ function AnnotationViewerContainer(): JSX.Element {
           <Radio value="arrowLine">Arrow Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
