@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react'
 export type Unit = 'px' | 'mm'
 export type Point = [x: number, y: number]
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
+export type ClickAction = 'remove' | 'select'
 
 export type ViewerStyleType =
   | 'default'
