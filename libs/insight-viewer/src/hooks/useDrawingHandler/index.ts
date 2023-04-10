@@ -72,7 +72,7 @@ function useDrawingHandler({
 
     const activeMouseDrawEvents = () => {
       if (!enabledElement || !enabledElement.element) return
-      if (hoveredDrawing !== null) return
+      if (hoveredDrawing) return
 
       enabledElement.element.addEventListener('mouseup', handleMouseUp)
       enabledElement.element.addEventListener('mouseleave', handleMouseLeave)

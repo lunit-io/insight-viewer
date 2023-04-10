@@ -12,7 +12,7 @@ interface UseCreatingAnnotationProps {
   image: Image | null
   editMode: EditMode | null
   mode: AnnotationMode
-  selectedAnnotation: AnnotationType | null
+  selectedAnnotation?: AnnotationType | null
 }
 
 const useCreatingAnnotation = ({ id, mode, image, editMode, selectedAnnotation }: UseCreatingAnnotationProps) => {

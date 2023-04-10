@@ -112,9 +112,13 @@ export function AnnotationDrawer({
         clearDrawingAndMovedPoints()
         return
       }
+
+      if (onSelect) {
+        onSelect(null)
+      }
+
       clearAnnotation()
       clearEditMode()
-      onSelect(null)
       clearDrawingAndMovedPoints()
     },
     addDrewElement: () => {
