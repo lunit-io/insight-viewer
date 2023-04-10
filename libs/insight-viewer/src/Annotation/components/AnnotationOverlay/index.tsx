@@ -10,8 +10,8 @@ export const AnnotationOverlay = ({
   height,
   className,
   style,
-  isDrawing,
-  isEditing,
+  isDrawing = false,
+  clickAction = 'remove',
   mode,
   annotations,
   showOutline,
@@ -36,7 +36,7 @@ export const AnnotationOverlay = ({
         showOutline={showOutline}
         showElementLabel={showAnnotationLabel}
         onMouseOver={isDrawing ? onMouseOver : undefined}
-        onClick={isDrawing ? (isEditing ? onSelect : onRemove) : undefined}
+        onClick={isDrawing ? (clickAction === 'select' ? onSelect : onRemove) : undefined}
       />
       <AnnotationDrawer
         width={width}
@@ -48,7 +48,7 @@ export const AnnotationOverlay = ({
         className={className}
         style={style}
         isDrawing={isDrawing}
-        isEditing={isEditing}
+        clickAction={clickAction}
         mode={mode}
         onAdd={onAdd}
         onSelect={onSelect}

@@ -1,6 +1,6 @@
 import type { CSSProperties, SVGProps } from 'react'
 
-import type { Annotation, AnnotationMode } from '../../types'
+import type { Annotation, AnnotationMode, ClickAction } from '../../types'
 
 export interface AnnotationOverlayProps {
   width?: number
@@ -8,7 +8,7 @@ export interface AnnotationOverlayProps {
   className?: string
   style?: CSSProperties
   isDrawing?: boolean
-  isEditing?: boolean
+  clickAction?: ClickAction
   showOutline?: boolean
   showAnnotationLabel?: boolean
   mode: AnnotationMode

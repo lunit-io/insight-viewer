@@ -27,8 +27,8 @@ export function AnnotationDrawer({
   style,
   width,
   height,
-  isDrawing = true,
-  isEditing = false,
+  isDrawing,
+  clickAction,
   showAnnotationLabel = false,
   annotations,
   selectedAnnotation,
@@ -39,7 +39,7 @@ export function AnnotationDrawer({
   onSelect,
 }: AnnotationDrawerProps): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
-  const isSelectedAnnotation = Boolean(isEditing && selectedAnnotation)
+  const isSelectedAnnotation = Boolean(clickAction === 'select' && selectedAnnotation)
 
   const [tempAnnotation, setTempAnnotation] = useState<TextAnnotation>()
   const handleTypingFinish = (text: string) => {
