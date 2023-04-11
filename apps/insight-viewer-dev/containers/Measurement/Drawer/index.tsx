@@ -106,7 +106,7 @@ function MeasurementDrawerContainer(): JSX.Element {
                 onMouseOver={hoverAnnotation}
                 onSelect={selectAnnotation}
                 onRemove={removeAnnotation}
-                isEditing={isEditing}
+                clickAction={isEditing ? 'select' : 'remove'}
                 isDrawing={isDrawing}
                 mode={measurementMode}
                 // If no mode is defined, the default value is ruler.

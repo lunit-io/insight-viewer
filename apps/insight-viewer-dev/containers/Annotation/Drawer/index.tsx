@@ -141,7 +141,7 @@ function AnnotationDrawerContainer(): JSX.Element {
           {loadingState === 'success' && (
             <AnnotationOverlay
               isDrawing={isDrawing}
-              isEditing={isEditing}
+              clickAction={isEditing ? 'select' : 'remove'}
               width={700}
               height={700}
               mode={annotationMode}
