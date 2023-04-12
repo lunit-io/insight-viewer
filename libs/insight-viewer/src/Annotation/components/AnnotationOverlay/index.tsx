@@ -36,14 +36,18 @@ export const AnnotationOverlay = ({
       addedTargetAnnotation = onAdd(validatedAnnotation)
     }
 
-    if (!onChange || !addedTargetAnnotation) return
+    if (!onChange) return
 
-    if (!selectedAnnotation) {
-      onChange([...annotations, annotation])
+    if (!addedTargetAnnotation) {
+      onChange(annotations)
+    }
+
+    if (selectedAnnotation) {
+      onChange(annotations.map((prevAnnotation) => (prevAnnotation.id === annotation.id ? annotation : prevAnnotation)))
       return
     }
 
-    onChange(annotations.map((prevAnnotation) => (prevAnnotation.id === annotation.id ? annotation : prevAnnotation)))
+    onChange([...annotations, annotation])
   }
 
   const handleRemoveAnnotation = (annotation: Annotation) => {
