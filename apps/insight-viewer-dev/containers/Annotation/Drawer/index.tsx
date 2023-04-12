@@ -3,9 +3,11 @@ import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage, LineHeadMode } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
-import { useAnnotation, AnnotationMode, AnnotationOverlay } from '@lunit/insight-viewer/annotation'
+import { AnnotationMode, AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
+
+import type { Annotation } from '@lunit/insight-viewer/annotation'
 
 const style = {
   display: 'flex',
@@ -18,6 +20,10 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 
 function AnnotationDrawerContainer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
+
+  const [annotations, setAnnotations] = useState<Annotation[]>(INITIAL_POLYGON_ANNOTATIONS)
+  const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
+  const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
 
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
   const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
@@ -34,19 +40,26 @@ function AnnotationDrawerContainer(): JSX.Element {
     image,
     element: viewerRef.current,
   })
-  const {
-    annotations,
-    hoveredAnnotation,
-    selectedAnnotation,
-    addAnnotation,
-    removeAnnotation,
-    hoverAnnotation,
-    selectAnnotation,
-    removeAllAnnotation,
-    resetAnnotation,
-  } = useAnnotation({
-    initialAnnotation: hasInitialAnnotations ? INITIAL_POLYGON_ANNOTATIONS : undefined,
-  })
+
+  const handleAnnotationsChange = (annotations: Annotation[]) => {
+    setAnnotations(annotations)
+  }
+
+  const handleAnnotationSelect = (annotation: Annotation | null) => {
+    setSelectedAnnotation(annotation)
+  }
+
+  const handleAnnotationHover = (annotation: Annotation | null) => {
+    setHoveredAnnotation(annotation)
+  }
+
+  const handleRemoveAllAnnotation = () => {
+    setAnnotations([])
+  }
+
+  const handleResetInitialAnnotation = () => {
+    setAnnotations(INITIAL_POLYGON_ANNOTATIONS)
+  }
 
   const handleInitialAnnotationChange = (event: ChangeEvent<HTMLInputElement>) => {
     setHasInitialAnnotations(event.target.checked)
@@ -130,10 +143,17 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="arrow">Arrow</Radio>
         </Stack>
       </RadioGroup>
-      <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={resetAnnotation}>
-        reset
+      <Button
+        data-cy-name="reset-button"
+        size="sm"
+        mb={2}
+        mr={3}
+        colorScheme="blue"
+        onClick={handleResetInitialAnnotation}
+      >
+        remove all
       </Button>
-      <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={removeAllAnnotation}>
+      <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={handleRemoveAllAnnotation}>
         remove all
       </Button>
       <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
@@ -142,17 +162,14 @@ function AnnotationDrawerContainer(): JSX.Element {
             <AnnotationOverlay
               isDrawing={isDrawing}
               clickAction={isEditing ? 'select' : 'remove'}
-              width={700}
-              height={700}
               mode={annotationMode}
               annotations={annotations}
               hoveredAnnotation={hoveredAnnotation}
               selectedAnnotation={selectedAnnotation}
               showAnnotationLabel={isShowLabel}
-              onAdd={addAnnotation}
-              onMouseOver={hoverAnnotation}
-              onRemove={removeAnnotation}
-              onSelect={selectAnnotation}
+              onMouseOver={handleAnnotationHover}
+              onSelect={handleAnnotationSelect}
+              onChange={handleAnnotationsChange}
             />
           )}
         </InsightViewer>

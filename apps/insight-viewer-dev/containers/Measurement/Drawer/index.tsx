@@ -3,9 +3,11 @@ import React, { useRef, useState, ChangeEvent, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
-import { AnnotationOverlay, useAnnotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
+import { AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
+
+import type { Annotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
 
 const style = {
   display: 'flex',
@@ -19,7 +21,11 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 function MeasurementDrawerContainer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
 
-  const [measurementMode, setMeasurementMode] = useState<AnnotationMode>('ruler')
+  const [annotations, setAnnotations] = useState<Annotation[]>([])
+  const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
+  const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
+
+  const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('ruler')
   const [isEditing, setIsEditing] = useState(false)
   const [isDrawing, setIsDrawing] = useState(true)
 
@@ -32,19 +38,25 @@ function MeasurementDrawerContainer(): JSX.Element {
     image,
     element: viewerRef.current,
   })
-  const {
-    annotations,
-    hoveredAnnotation,
-    selectedAnnotation,
-    addAnnotation,
-    hoverAnnotation,
-    removeAnnotation,
-    selectAnnotation,
-    removeAllAnnotation,
-  } = useAnnotation()
+
+  const handleAnnotationsChange = (annotations: Annotation[]) => {
+    setAnnotations(annotations)
+  }
+
+  const handleAnnotationSelect = (annotation: Annotation | null) => {
+    setSelectedAnnotation(annotation)
+  }
+
+  const handleAnnotationHover = (annotation: Annotation | null) => {
+    setHoveredAnnotation(annotation)
+  }
+
+  const handleRemoveAllAnnotation = () => {
+    setAnnotations([])
+  }
 
   const handleMeasurementModeClick = (mode: AnnotationMode) => {
-    setMeasurementMode(mode)
+    setAnnotationMode(mode)
   }
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -82,17 +94,17 @@ function MeasurementDrawerContainer(): JSX.Element {
       <Box>
         Edit enabled (E) <Switch data-cy-edit={isEditing} onChange={handleEditModeChange} isChecked={isEditing} />
       </Box>
-      <RadioGroup onChange={handleMeasurementModeClick} value={measurementMode}>
+      <RadioGroup onChange={handleMeasurementModeClick} value={annotationMode}>
         <Stack direction="row">
           <Radio value="ruler">Ruler</Radio>
           <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
-      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={removeAllAnnotation}>
+      <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={handleRemoveAllAnnotation}>
         remove all
       </Button>
 
-      <Box data-cy-loaded={loadingState} className={`measurement ${measurementMode}`}>
+      <Box data-cy-loaded={loadingState} className={`measurement ${annotationMode}`}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
@@ -102,13 +114,12 @@ function MeasurementDrawerContainer(): JSX.Element {
                 annotations={annotations}
                 selectedAnnotation={selectedAnnotation}
                 hoveredAnnotation={hoveredAnnotation}
-                onAdd={addAnnotation}
-                onMouseOver={hoverAnnotation}
-                onSelect={selectAnnotation}
-                onRemove={removeAnnotation}
+                onMouseOver={handleAnnotationHover}
+                onSelect={handleAnnotationSelect}
                 clickAction={isEditing ? 'select' : 'remove'}
                 isDrawing={isDrawing}
-                mode={measurementMode}
+                mode={annotationMode}
+                onChange={handleAnnotationsChange}
                 // If no mode is defined, the default value is ruler.
               />
             )}
