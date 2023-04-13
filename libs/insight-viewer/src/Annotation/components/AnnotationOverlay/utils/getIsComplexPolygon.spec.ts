@@ -9,6 +9,6 @@ describe('getIsComplexPolygon:', () => {
     expect(getIsComplexPolygon(ID2_POLYGON.points)).toBeFalsy()
   })
   it('the polygon should be complex', () => {
-    expect(getIsComplexPolygon(COMPLEX_POLYGON)).toBeTruthy()
+    expect(getIsComplexPolygon(COMPLEX_POLYGON.points)).toBeTruthy()
   })
 })
