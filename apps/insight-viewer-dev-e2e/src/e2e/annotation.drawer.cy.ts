@@ -162,6 +162,7 @@ describe(
         // given
         cy.get('[data-cy-initial-annotations]').click({ force: true })
         cy.get('[value="line"]').click({ force: true })
+        cy.get('[data-cy-name="reset-button"]').click()
         cy.get('[data-cy-id]').should('have.length', 0)
 
         // when
