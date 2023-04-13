@@ -21,7 +21,8 @@ const DEFAULT_SIZE = { width: 700, height: 700 }
 function AnnotationDrawerContainer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
 
-  const [annotations, setAnnotations] = useState<Annotation[]>(INITIAL_POLYGON_ANNOTATIONS)
+  const [hasInitialAnnotations, setHasInitialAnnotations] = useState<boolean>(true)
+  const [annotations, setAnnotations] = useState<Annotation[]>(hasInitialAnnotations ? INITIAL_POLYGON_ANNOTATIONS : [])
   const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
 
@@ -30,7 +31,6 @@ function AnnotationDrawerContainer(): JSX.Element {
   const [isDrawing, setIsDrawing] = useState<boolean>(true)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [isShowLabel, setIsShowLabel] = useState<boolean>(false)
-  const [hasInitialAnnotations, setHasInitialAnnotations] = useState<boolean>(true)
 
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
@@ -57,8 +57,8 @@ function AnnotationDrawerContainer(): JSX.Element {
     setAnnotations([])
   }
 
-  const handleResetInitialAnnotation = () => {
-    setAnnotations(INITIAL_POLYGON_ANNOTATIONS)
+  const handleResetAnnotation = () => {
+    setAnnotations(hasInitialAnnotations ? INITIAL_POLYGON_ANNOTATIONS : [])
   }
 
   const handleInitialAnnotationChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -143,14 +143,7 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="arrow">Arrow</Radio>
         </Stack>
       </RadioGroup>
-      <Button
-        data-cy-name="reset-button"
-        size="sm"
-        mb={2}
-        mr={3}
-        colorScheme="blue"
-        onClick={handleResetInitialAnnotation}
-      >
+      <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={handleResetAnnotation}>
         reset
       </Button>
       <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={handleRemoveAllAnnotation}>
