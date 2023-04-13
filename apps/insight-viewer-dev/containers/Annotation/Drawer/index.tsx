@@ -151,7 +151,7 @@ function AnnotationDrawerContainer(): JSX.Element {
         colorScheme="blue"
         onClick={handleResetInitialAnnotation}
       >
-        remove all
+        reset
       </Button>
       <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={handleRemoveAllAnnotation}>
         remove all
