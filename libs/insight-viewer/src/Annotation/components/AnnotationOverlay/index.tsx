@@ -40,6 +40,7 @@ export const AnnotationOverlay = ({
 
     if (!addedTargetAnnotation) {
       onChange(annotations)
+      return
     }
 
     if (selectedAnnotation) {
