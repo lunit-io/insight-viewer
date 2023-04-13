@@ -114,7 +114,7 @@ function MeasurementDrawerContainer(): JSX.Element {
                 annotations={annotations}
                 selectedAnnotation={selectedAnnotation}
                 hoveredAnnotation={hoveredAnnotation}
-                onMouseOver={handleAnnotationHover}
+                onHover={handleAnnotationHover}
                 onSelect={handleAnnotationSelect}
                 clickAction={isEditing ? 'select' : 'remove'}
                 isDrawing={isDrawing}
