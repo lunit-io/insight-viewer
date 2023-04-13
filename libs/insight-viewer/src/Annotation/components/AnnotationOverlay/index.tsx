@@ -30,10 +30,10 @@ export const AnnotationOverlay = ({
   const handleAddAnnotation = (annotation: Annotation) => {
     let addedTargetAnnotation: Annotation | null = annotation
 
-    const validatedAnnotation = validateAnnotation(addedTargetAnnotation)
+    addedTargetAnnotation = validateAnnotation(addedTargetAnnotation)
 
-    if (validatedAnnotation && onAdd) {
-      addedTargetAnnotation = onAdd(validatedAnnotation)
+    if (addedTargetAnnotation && onAdd) {
+      addedTargetAnnotation = onAdd(addedTargetAnnotation)
     }
 
     if (!onChange) return
