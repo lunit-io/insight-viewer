@@ -22,7 +22,7 @@ export const AnnotationOverlay = ({
   selectedAnnotation,
   showAnnotationLabel,
   onAdd,
-  onMouseOver,
+  onHover,
   onRemove,
   onSelect,
   onChange,
@@ -79,7 +79,7 @@ export const AnnotationOverlay = ({
         style={style}
         showOutline={showOutline}
         showElementLabel={showAnnotationLabel}
-        onMouseOver={isDrawing ? onMouseOver : undefined}
+        onHover={isDrawing ? onHover : undefined}
         onClick={isDrawing ? (clickAction === 'select' ? onSelect : handleRemoveAnnotation) : undefined}
       />
       <AnnotationDrawer

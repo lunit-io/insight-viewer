@@ -18,7 +18,7 @@ export interface AnnotationOverlayProps {
 
   onChange?: (annotations: Annotation[]) => void
   onSelect?: (annotation: Annotation | null) => void
-  onMouseOver?: (annotation: Annotation | null) => void
+  onHover?: (annotation: Annotation | null) => void
   onAdd?: (annotation: Annotation) => Annotation | null
   onRemove?: (annotation: Annotation) => Annotation | null
   elementAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
