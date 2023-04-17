@@ -120,7 +120,6 @@ function MeasurementDrawerContainer(): JSX.Element {
                 isDrawing={isDrawing}
                 mode={annotationMode}
                 onChange={handleAnnotationsChange}
-                // If no mode is defined, the default value is ruler.
               />
             )}
           </InsightViewer>
