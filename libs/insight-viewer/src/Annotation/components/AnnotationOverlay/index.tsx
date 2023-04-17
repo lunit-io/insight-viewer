@@ -62,6 +62,7 @@ export const AnnotationOverlay = ({
 
     if (!removedTargetAnnotation) {
       onChange(annotations)
+      return
     }
 
     onChange(annotations.filter((a) => a.id !== annotation.id))
