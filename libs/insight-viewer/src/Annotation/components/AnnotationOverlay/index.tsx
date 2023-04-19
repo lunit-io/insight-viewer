@@ -3,6 +3,9 @@ import React from 'react'
 import { AnnotationDrawer } from '../AnnotationDrawer'
 import { AnnotationsViewer } from '../AnnotationsViewer'
 
+import { validateAnnotation } from './utils/validateAnnotation'
+
+import type { Annotation } from '../../types'
 import type { AnnotationOverlayProps } from './AnnotationOverlay.types'
 
 export const AnnotationOverlay = ({
@@ -19,10 +22,52 @@ export const AnnotationOverlay = ({
   selectedAnnotation,
   showAnnotationLabel,
   onAdd,
-  onMouseOver,
+  onHover,
   onRemove,
   onSelect,
+  onChange,
 }: AnnotationOverlayProps): JSX.Element => {
+  const handleAddAnnotation = (annotation: Annotation) => {
+    let addedTargetAnnotation: Annotation | null = annotation
+
+    addedTargetAnnotation = validateAnnotation(addedTargetAnnotation)
+
+    if (addedTargetAnnotation && onAdd) {
+      addedTargetAnnotation = onAdd(addedTargetAnnotation)
+    }
+
+    if (!onChange) return
+
+    if (!addedTargetAnnotation) {
+      onChange(annotations)
+      return
+    }
+
+    if (selectedAnnotation) {
+      onChange(annotations.map((prevAnnotation) => (prevAnnotation.id === annotation.id ? annotation : prevAnnotation)))
+      return
+    }
+
+    onChange([...annotations, annotation])
+  }
+
+  const handleRemoveAnnotation = (annotation: Annotation) => {
+    let removedTargetAnnotation: Annotation | null = annotation
+
+    if (onRemove) {
+      removedTargetAnnotation = onRemove(annotation)
+    }
+
+    if (!onChange) return
+
+    if (!removedTargetAnnotation) {
+      onChange(annotations)
+      return
+    }
+
+    onChange(annotations.filter((a) => a.id !== annotation.id))
+  }
+
   return (
     <>
       <AnnotationsViewer
@@ -35,8 +80,8 @@ export const AnnotationOverlay = ({
         style={style}
         showOutline={showOutline}
         showElementLabel={showAnnotationLabel}
-        onMouseOver={isDrawing ? onMouseOver : undefined}
-        onClick={isDrawing ? (clickAction === 'select' ? onSelect : onRemove) : undefined}
+        onHover={isDrawing ? onHover : undefined}
+        onClick={isDrawing ? (clickAction === 'select' ? onSelect : handleRemoveAnnotation) : undefined}
       />
       <AnnotationDrawer
         width={width}
@@ -50,7 +95,7 @@ export const AnnotationOverlay = ({
         isDrawing={isDrawing}
         clickAction={clickAction}
         mode={mode}
-        onAdd={onAdd}
+        onAdd={handleAddAnnotation}
         onSelect={onSelect}
       />
     </>

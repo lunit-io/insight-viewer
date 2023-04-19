@@ -17,7 +17,7 @@ export interface AnnotationsViewerProps {
   /** <svg style={}> */
   style?: CSSProperties
 
-  onMouseOver?: (element: Annotation | null) => void
+  onHover?: (element: Annotation | null) => void
   onClick?: (element: Annotation) => void
 
   /**
