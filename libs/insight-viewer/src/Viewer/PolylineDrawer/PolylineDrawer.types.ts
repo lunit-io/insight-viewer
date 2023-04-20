@@ -1,5 +1,4 @@
 import type {
-  LineHeadMode,
   EditMode,
   PolygonAnnotation,
   FreeLineAnnotation,
@@ -11,8 +10,6 @@ import type {
 export interface PolylineDrawerProps {
   annotation: PolygonAnnotation | FreeLineAnnotation | LineAnnotation | ArrowLineAnnotation
   isSelectedMode: boolean
-  /** @deprecated use arrow line instead */
-  lineHead: LineHeadMode
   showAnnotationLabel: boolean
   selectedAnnotationLabel: string | number | null
   setAnnotationEditMode: (mode: EditMode) => void

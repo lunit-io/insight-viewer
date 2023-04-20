@@ -22,7 +22,6 @@ export function AnnotationDrawer({
   hoveredAnnotation,
   onSelectAnnotation,
   className,
-  lineHead = 'normal',
   mode = 'polygon',
   onAdd,
 }: AnnotationDrawerProps): JSX.Element {
@@ -39,7 +38,6 @@ export function AnnotationDrawer({
     isDrawing,
     isEditing,
     mode,
-    lineHead,
     annotations,
     selectedAnnotation,
     onSelectAnnotation,
@@ -90,7 +88,6 @@ export function AnnotationDrawer({
               isSelectedMode={isSelectedAnnotation}
               showAnnotationLabel={showAnnotationLabel}
               isPolygonSelected={selectedAnnotation?.type === 'polygon'}
-              lineHead={lineHead}
               selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}
               setAnnotationEditMode={setAnnotationEditMode}
               cursorStatus={cursorStatus}
