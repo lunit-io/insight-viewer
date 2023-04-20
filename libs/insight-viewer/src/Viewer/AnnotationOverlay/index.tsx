@@ -15,7 +15,6 @@ export function AnnotationOverlay({
   showOutline,
   showAnnotationLabel,
   mode,
-  lineHead,
   isDrawing = false,
   isEditing,
   annotationAttrs,
@@ -57,7 +56,6 @@ export function AnnotationOverlay({
           isDrawing={isDrawing}
           isEditing={isEditing}
           mode={mode}
-          lineHead={lineHead}
           onAdd={onAdd}
           onSelectAnnotation={onSelect}
         />

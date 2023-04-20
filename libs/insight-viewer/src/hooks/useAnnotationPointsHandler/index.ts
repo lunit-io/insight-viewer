@@ -18,7 +18,6 @@ export default function useAnnotationPointsHandler({
   mode,
   isDrawing,
   isEditing,
-  lineHead,
   svgElement,
   annotations,
   selectedAnnotation,

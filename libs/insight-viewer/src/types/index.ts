@@ -82,8 +82,6 @@ export type ViewerStyle = {
   [styleType in ViewerStyleType]?: CSSProperties
 }
 
-/** @deprecated use arrow line instead */
-export type LineHeadMode = 'normal' | 'arrow'
 export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text' | 'arrowLine'
 
 export interface AnnotationBase {

@@ -22,7 +22,6 @@ export type {
   Contours,
   Annotation,
   Point,
-  LineHeadMode,
   AnnotationBase,
   PolygonAnnotation,
   LineAnnotation,

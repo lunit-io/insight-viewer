@@ -3,7 +3,7 @@ import polylabel from 'polylabel'
 import { LINE_TEXT_POSITION_SPACING } from '../../../const'
 
 import type { Image } from '../../../Viewer/types'
-import type { Point, LineHeadMode, AnnotationMode, Annotation } from '../../../types'
+import type { Point, AnnotationMode, Annotation } from '../../../types'
 
 import { getCircleRadiusByMeasuringUnit } from '../../../utils/common/getCircleRadius'
 

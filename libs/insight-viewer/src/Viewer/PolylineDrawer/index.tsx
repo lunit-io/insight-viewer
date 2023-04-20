@@ -15,7 +15,6 @@ const PolylineElement = ({
 
 export function PolylineDrawer({
   annotation,
-  lineHead,
   isSelectedMode,
   selectedAnnotationLabel,
   showAnnotationLabel,
@@ -56,7 +55,7 @@ export function PolylineDrawer({
       {points && points.length > 0 && (
         <>
           <PolylineElement isPolygon={isPolygonSelected} style={svgWrapperStyle.outline} points={polylinePoints} />
-          {(lineHead === 'arrow' || type === 'arrowLine') && (
+          {type === 'arrowLine' && (
             <>
               <PolylineElement
                 className={`annotation-polyline ${cursorClassName} `}
