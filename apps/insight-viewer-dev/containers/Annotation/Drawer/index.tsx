@@ -1,7 +1,7 @@
 import { useRef, ChangeEvent, useState, useEffect } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack, Button } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, LineHeadMode } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { AnnotationMode, AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
@@ -27,7 +27,6 @@ function AnnotationDrawerContainer(): JSX.Element {
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
 
   const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
-  const [lineHeadMode, setLineHeadMode] = useState<LineHeadMode>('normal')
   const [isDrawing, setIsDrawing] = useState<boolean>(true)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [isShowLabel, setIsShowLabel] = useState<boolean>(false)
@@ -67,10 +66,6 @@ function AnnotationDrawerContainer(): JSX.Element {
 
   const handleAnnotationModeClick = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
-  }
-
-  const handleLineHeadModeButtonChange = (lineHead: LineHeadMode) => {
-    setLineHeadMode(lineHead)
   }
 
   const handleEditModeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -134,13 +129,6 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
           <Radio value="circle">Circle - Not implemented yet</Radio>
-        </Stack>
-      </RadioGroup>
-      <RadioGroup onChange={handleLineHeadModeButtonChange} value={lineHeadMode}>
-        <Stack direction="row">
-          <p style={{ marginRight: '10px' }}>Select Line Head mode - deprecated</p>
-          <Radio value="normal">Normal</Radio>
-          <Radio value="arrow">Arrow</Radio>
         </Stack>
       </RadioGroup>
       <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={handleResetAnnotation}>
