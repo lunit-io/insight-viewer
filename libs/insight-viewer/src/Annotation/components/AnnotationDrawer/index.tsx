@@ -19,7 +19,8 @@ import useCreatingDrawableAnnotation from '../../hooks/useCreatingDrawableAnnota
 import { getCursorStatus } from '../../utils/getCursorStatus'
 import { getEditPointPosition } from '../../utils/getEditPointPosition'
 
-import type { Annotation, Point, TextAnnotation } from '../../types'
+import type { Point } from '../../../types'
+import type { Annotation, TextAnnotation } from '../../types'
 import type { AnnotationDrawerProps } from './AnnotationDrawer.types'
 
 export function AnnotationDrawer({

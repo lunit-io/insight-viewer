@@ -6,8 +6,8 @@ import { stringifyPoints } from '../../../utils/common/stringifyPoints'
 import { getArrowPosition } from '../../../utils/common/getArrowPosition'
 import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
 
+import type { Point } from '../../../types'
 import type {
-  Point,
   Annotation,
   DrawableAnnotation,
   DrawableAreaAnnotation,

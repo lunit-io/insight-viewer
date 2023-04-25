@@ -1,4 +1,4 @@
-import type { Point } from '../../../types'
+import type { Point } from '../../../../types'
 
 const MINIMUM_POINTS_LENGTH = 5
 

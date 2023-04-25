@@ -5,7 +5,8 @@ import { getPointsUpdatedAnnotation } from '../../utils/getPointsUpdatedAnnotati
 import { createInitialAnnotation } from '../../utils/createInitialAnnotation'
 
 import type { Image } from '../../../Viewer/types'
-import type { Annotation as AnnotationType, EditMode, Point, AnnotationMode } from '../../types'
+import type { Point } from '../../../types'
+import type { Annotation as AnnotationType, EditMode, AnnotationMode } from '../../types'
 
 interface UseCreatingAnnotationProps {
   id: number

@@ -7,7 +7,9 @@ import { getRulerTextPosition } from './utils/getRulerTextPosition'
 import { getRulerConnectingLine } from './utils/getRulerConnectingLine'
 
 import { HALF_OF_RULER_TEXT_BOX } from '../../../const'
-import type { Point, RulerAnnotation } from '../../types'
+
+import type { Point } from '../../../types'
+import type { RulerAnnotation } from '../../types'
 
 const formatRulerValue = (measuredValue: number, unit: string) => `${measuredValue.toFixed(1)}${unit}`
 

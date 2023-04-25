@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, CSSProperties, SVGProps } from 'react'
+import { Dispatch, SetStateAction, SVGProps } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -34,7 +34,6 @@ export type Viewport = BasicViewport & {
 }
 
 export type Point = [x: number, y: number]
-export type Contours = Point[][]
 
 export interface HTTP {
   onError: OnError
@@ -65,22 +64,7 @@ export type ImageId =
     }
 
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
-
-export type ViewerStyleType =
-  | 'default'
-  | 'select'
-  | 'hover'
-  | 'outline'
-  | 'hoveredOutline'
-  | 'selectedOutline'
-  | 'highlight'
-  | 'dashLine'
-  | 'extendsArea'
-  | 'selectedExtendsArea'
-
-export type ViewerStyle = {
-  [styleType in ViewerStyleType]?: CSSProperties
-}
+export type CursorStatus = 'drawing' | 'editing' | 'moving' | null
 
 export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text' | 'arrowLine'
 
@@ -186,5 +170,3 @@ export interface MeasurementViewerProps<T extends MeasurementBase> {
   measurement: T
   hoveredMeasurement: Measurement | null
 }
-
-export type CursorStatus = 'drawing' | 'editing' | 'moving' | null

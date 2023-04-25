@@ -11,8 +11,9 @@ import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/com
 
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
+import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'
-import type { Point, Annotation, EditMode } from '../types'
+import type { Annotation, EditMode } from '../types'
 
 type LabelPosition = [number, number]
 

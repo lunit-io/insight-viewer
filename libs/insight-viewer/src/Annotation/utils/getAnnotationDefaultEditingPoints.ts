@@ -1,6 +1,7 @@
 import { getCircleEditPoints } from '../../utils/common/getCircleEditPoints'
 
-import type { Point, Annotation } from '../types'
+import type { Point } from '../../types'
+import type { Annotation } from '../types'
 
 /**
  * Get the default editing points of the annotation.

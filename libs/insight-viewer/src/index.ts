@@ -12,7 +12,6 @@ export type {
   BasicViewport,
   ViewportOptions,
   ViewerError,
-  Contours,
   Annotation,
   Point,
   AnnotationBase,

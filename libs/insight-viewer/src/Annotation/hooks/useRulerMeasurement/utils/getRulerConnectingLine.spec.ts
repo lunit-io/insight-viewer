@@ -1,4 +1,4 @@
-import { Point } from '../../../types'
+import { Point } from '../../../../types'
 import { getRulerConnectingLine } from './getRulerConnectingLine'
 
 describe('getConnectingLinePoints: ', () => {

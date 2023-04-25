@@ -1,7 +1,8 @@
 import { findFarthestPoint } from './findFarthestPoint'
 import { getAnnotationDefaultEditingPoints } from './getAnnotationDefaultEditingPoints'
 
-import type { Annotation as AnnotationType, Point } from '../types'
+import type { Point } from '../../types'
+import type { Annotation as AnnotationType } from '../types'
 
 interface GetDrawingStartPointParams {
   mouseDownPoint: Point

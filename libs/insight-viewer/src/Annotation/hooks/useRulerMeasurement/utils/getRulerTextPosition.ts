@@ -1,4 +1,4 @@
-import { Point } from '../../../types'
+import { Point } from '../../../../types'
 import { RULER_TEXT_POSITION_SPACING } from '../../../../const'
 import { calculateLengthBetweenPoints } from '../../../../utils/common/calculateLengthBetweenPoints'
 

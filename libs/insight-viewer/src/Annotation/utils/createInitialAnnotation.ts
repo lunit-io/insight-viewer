@@ -7,7 +7,8 @@ import { getCircleCenterPoint } from './getCircleCenterPoint'
 import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
 
 import type { Image } from '../../Viewer/types'
-import type { Point, AnnotationMode, Annotation } from '../types'
+import type { Point } from '../../types'
+import type { AnnotationMode, Annotation } from '../types'
 
 const INITIAL_LINE_WIDTH = 1.5
 

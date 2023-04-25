@@ -1,4 +1,5 @@
-import { Point, Annotation } from '../../types'
+import type { Point } from '../../../types'
+import type { Annotation } from '../../types'
 
 export interface UseDrawingHandlerParams {
   svgElement: React.RefObject<SVGSVGElement> | null
