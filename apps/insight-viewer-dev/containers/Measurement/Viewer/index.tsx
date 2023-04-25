@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Box, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
-import { AnnotationOverlay, Annotation, AnnotationMode, useAnnotation } from '@lunit/insight-viewer/annotation'
+import { AnnotationOverlay, Annotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES, RULER_MEASUREMENTS, AREA_MEASUREMENTS } from '@insight-viewer-library/fixtures'
 
@@ -37,9 +37,6 @@ function MeasurementViewerContainer(): JSX.Element {
     image,
     element: viewerRef.current,
   })
-  const { annotations, hoveredAnnotation, selectedAnnotation, selectAnnotation } = useAnnotation({
-    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
-  })
 
   const handleMeasurementModeChange = (mode: AnnotationMode) => {
     setAnnotationMode(mode)
@@ -60,11 +57,8 @@ function MeasurementViewerContainer(): JSX.Element {
             <AnnotationOverlay
               width={700}
               height={700}
-              annotations={annotations}
-              hoveredAnnotation={hoveredAnnotation}
-              selectedAnnotation={selectedAnnotation}
+              annotations={INITIAL_ANNOTATIONS[annotationMode]}
               mode={annotationMode}
-              onSelect={selectAnnotation}
             />
           )}
         </InsightViewer>
