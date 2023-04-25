@@ -1,5 +1,5 @@
-import { Point } from '../../../types'
-import { Image } from '../../../Viewer/types'
+import { Point } from '../../types'
+import { Image } from '../../Viewer/types'
 import { getLineLength } from './getLineLength'
 
 describe('getLineLength: ', () => {

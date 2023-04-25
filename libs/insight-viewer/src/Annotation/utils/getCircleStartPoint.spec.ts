@@ -1,6 +1,6 @@
 import { getCircleStartPoint } from './getCircleStartPoint'
 
-import type { Point } from '../../../types'
+import type { Point } from '../../types'
 
 describe('getCircleStartPoint: ', () => {
   it('should return the start point of circle', () => {

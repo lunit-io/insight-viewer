@@ -1,6 +1,6 @@
 import { getCircleCenterPoint } from './getCircleCenterPoint'
 
-import type { Point } from '../../../types'
+import type { Point } from '../../types'
 
 describe('getCircleCenterPoint: ', () => {
   it('should return the center point', () => {

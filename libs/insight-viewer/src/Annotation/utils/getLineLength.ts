@@ -1,8 +1,7 @@
-/* eslint-disable no-restricted-properties */
-import { Point } from '../../../types'
-import { Image } from '../../../Viewer/types'
-import { calculateLengthBetweenPoints } from '../../../utils/common/calculateLengthBetweenPoints'
-import { IMAGER_PIXEL_SPACING } from '../../../utils/common/const'
+import { Point } from '../../types'
+import { Image } from '../../Viewer/types'
+import { calculateLengthBetweenPoints } from '../../utils/common/calculateLengthBetweenPoints'
+import { IMAGER_PIXEL_SPACING } from '../../utils/common/const'
 
 export function getLineLength(
   startPoint: Point,

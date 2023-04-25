@@ -1,4 +1,4 @@
-import { getCircleEndPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleEndPoint'
+import { getCircleEndPoint } from './getCircleEndPoint'
 
 import type { Annotation, Point } from '../types'
 

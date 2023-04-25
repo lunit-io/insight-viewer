@@ -3,7 +3,7 @@ import { useOverlayContext } from '../../../contexts'
 
 import { calculateCircleArea } from '../../utils/calculateCircleArea'
 import { getCircleConnectingLine } from './utils/getCircleConnectingLine'
-import { getCircleEndPoint } from '../../../hooks/useMeasurementPointsHandler/utils/getCircleEndPoint'
+import { getCircleEndPoint } from '../../utils/getCircleEndPoint'
 import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
 import { getCircleTextPosition } from './utils/getCircleTextPosition'
 import { modifyConnectingLine } from '../../../utils/common/modifyConnectingLine'

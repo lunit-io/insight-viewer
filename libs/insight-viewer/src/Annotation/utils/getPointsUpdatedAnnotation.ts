@@ -1,13 +1,13 @@
 import polylabel from 'polylabel'
 
+import { getLineLength } from './getLineLength'
+import { getTextPosition } from './getTextPosition'
 import { getAnnotationPoints } from './getAnnotationPoints'
+import { getCircleCenterPoint } from './getCircleCenterPoint'
 import { isSamePoints } from '../../utils/common/isSamePoints'
 import { getMovedPoints } from '../../utils/common/getMovedPoints'
 import { getAreaAnnotationMovedPoints } from './getAnnotationPointsAfterMoving'
-import { getLineLength } from '../../hooks/useMeasurementPointsHandler/utils/getLineLength'
-import { getTextPosition } from '../../hooks/useMeasurementPointsHandler/utils/getTextPosition'
 import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
-import { getCircleCenterPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleCenterPoint'
 
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 

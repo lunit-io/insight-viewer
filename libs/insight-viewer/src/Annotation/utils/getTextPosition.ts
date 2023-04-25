@@ -1,6 +1,6 @@
 import { getEditingTextPosition } from './getEditingTextPosition'
 
-import { Point, EditMode, Measurement } from '../../../types'
+import { Point, EditMode, Measurement } from '../../types'
 
 export function getTextPosition(
   measurement: Measurement | null,

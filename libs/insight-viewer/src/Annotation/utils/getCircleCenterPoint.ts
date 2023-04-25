@@ -1,4 +1,4 @@
-import type { Point } from '../../../types'
+import type { Point } from '../../types'
 
 export function getCircleCenterPoint(startPoint: Point, endPoint: Point): Point {
   const centerX = (startPoint[0] + endPoint[0]) / 2

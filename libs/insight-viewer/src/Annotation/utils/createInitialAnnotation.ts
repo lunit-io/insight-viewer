@@ -2,9 +2,9 @@ import polylabel from 'polylabel'
 
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
+import { getLineLength } from './getLineLength'
+import { getCircleCenterPoint } from './getCircleCenterPoint'
 import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
-import { getLineLength } from '../../hooks/useMeasurementPointsHandler/utils/getLineLength'
-import { getCircleCenterPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleCenterPoint'
 
 import type { Image } from '../../Viewer/types'
 import type { Point, AnnotationMode, Annotation } from '../types'

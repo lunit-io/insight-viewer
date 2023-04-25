@@ -1,4 +1,4 @@
-import { Measurement, Point } from '../../../types'
+import { Measurement, Point } from '../../types'
 import { getTextPosition } from './getTextPosition'
 
 describe('getTextPosition: ', () => {
