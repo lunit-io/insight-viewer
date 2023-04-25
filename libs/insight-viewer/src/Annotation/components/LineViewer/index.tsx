@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { textStyle, svgWrapperStyle } from '../../../Viewer/Viewer.styles'
+import { textStyle, svgWrapperStyle } from '../../viewer.styles'
 
 import type { LineViewerProps } from './LineViewer.types'
 

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 import useCircleAnnotation from '../../hooks/useCircleAnnotation'
 
-import { textStyle, svgWrapperStyle } from '../../../Viewer/Viewer.styles'
+import { textStyle, svgWrapperStyle } from '../../viewer.styles'
 
 import type { AreaViewerProps } from './AreaViewer.types'
 

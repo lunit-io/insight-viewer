@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import { EDIT_CIRCLE_RADIUS } from '../../const'
-import { editPointerStyle } from '../../Viewer/Viewer.styles'
+import { editPointerStyle } from '../../Annotation/viewer.styles'
 import type { CursorStatus, EditMode, Point } from '../../types'
 
 interface EditPointerProps {

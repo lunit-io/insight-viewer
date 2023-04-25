@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import useRulerAnnotation from '../../hooks/useRulerMeasurement'
 
-import { textStyle, svgWrapperStyle } from '../../../Viewer/Viewer.styles'
+import { textStyle, svgWrapperStyle } from '../../viewer.styles'
 import type { RulerViewerProps } from './RulerViewer.types'
 
 export function RulerViewer({ annotation, isHovered }: RulerViewerProps): ReactElement {

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import { useOverlayContext } from '../../../contexts'
-import { svgRootStyle } from '../../../Viewer/Viewer.styles'
+import { svgRootStyle } from '../../viewer.styles'
 
 import { AnnotationViewer } from '../AnnotationViewer'
 

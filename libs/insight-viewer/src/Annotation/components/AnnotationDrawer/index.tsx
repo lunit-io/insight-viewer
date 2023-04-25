@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { useOverlayContext } from '../../../contexts'
 
-import { svgRootStyle } from '../../../Viewer/Viewer.styles'
+import { svgRootStyle } from '../../viewer.styles'
 
 import { AreaDrawer } from '../AreaDrawer'
 import { TextDrawer, TypingDrawer } from '../TextDrawer'
