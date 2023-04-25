@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import useCircleMeasurement from '../../../hooks/useCircleMeasurement'
+import useCircleMeasurement from '../../hooks/useCircleMeasurement'
 
 import { textStyle, svgWrapperStyle } from '../../../Viewer/Viewer.styles'
 

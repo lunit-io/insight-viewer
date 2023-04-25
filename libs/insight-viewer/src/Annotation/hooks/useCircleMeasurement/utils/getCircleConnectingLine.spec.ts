@@ -1,4 +1,4 @@
-import { Point } from '../../../types'
+import { Point } from '../../../../types'
 import { getCircleConnectingLine } from './getCircleConnectingLine'
 
 describe('getCircleConnectingLine', () => {

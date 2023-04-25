@@ -1,5 +1,5 @@
-import { CIRCLE_TEXT_POINT_ANGLE, CIRCLE_TEXT_POSITION_SPACING } from '../../../const'
-import { Point } from '../../../types'
+import { CIRCLE_TEXT_POINT_ANGLE, CIRCLE_TEXT_POSITION_SPACING } from '../../../../const'
+import { Point } from '../../../../types'
 
 export function getCircleTextPosition(point: Point, radius: number): Point {
   const positionX =

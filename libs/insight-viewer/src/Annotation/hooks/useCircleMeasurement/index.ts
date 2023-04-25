@@ -1,16 +1,16 @@
-import useTextBox from '../useTextBox'
-import { useOverlayContext } from '../../contexts'
+import useTextBox from '../../../hooks/useTextBox'
+import { useOverlayContext } from '../../../contexts'
 
-import { calculateCircleArea } from './utils/calculateCircleArea'
+import { calculateCircleArea } from '../../utils/calculateCircleArea'
 import { getCircleConnectingLine } from './utils/getCircleConnectingLine'
-import { getCircleEndPoint } from '../useMeasurementPointsHandler/utils/getCircleEndPoint'
-import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
+import { getCircleEndPoint } from '../../../hooks/useMeasurementPointsHandler/utils/getCircleEndPoint'
+import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
 import { getCircleTextPosition } from './utils/getCircleTextPosition'
-import { modifyConnectingLine } from '../../utils/common/modifyConnectingLine'
-import { stringifyPoints } from '../../utils/common/stringifyPoints'
+import { modifyConnectingLine } from '../../../utils/common/modifyConnectingLine'
+import { stringifyPoints } from '../../../utils/common/stringifyPoints'
 
-import { HALF_OF_RULER_TEXT_BOX } from '../../const'
-import type { AreaMeasurement, Point } from '../../types'
+import { HALF_OF_RULER_TEXT_BOX } from '../../../const'
+import type { AreaMeasurement, Point } from '../../../types'
 
 const formatCircleValue = (area: number, unit: string) =>
   `Area = ${area.toLocaleString(undefined, {

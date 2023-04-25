@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
+import { calculateCircleArea } from '../../utils/calculateCircleArea'
 import { stringifyPoints } from '../../../utils/common/stringifyPoints'
 import { getArrowPosition } from '../../../utils/common/getArrowPosition'
 import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
-import { calculateCircleArea } from '../../../hooks/useCircleMeasurement/utils/calculateCircleArea'
 import { getCircleEndPoint } from '../../../hooks/useMeasurementPointsHandler/utils/getCircleEndPoint'
 
 import type {
