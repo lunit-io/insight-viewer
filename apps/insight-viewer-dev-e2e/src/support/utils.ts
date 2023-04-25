@@ -1,4 +1,13 @@
-import type { Annotation, Measurement, Point } from '@lunit/insight-viewer'
+import type { Point } from '@lunit/insight-viewer'
+import type {
+  Annotation,
+  PolygonAnnotation,
+  LineAnnotation,
+  FreeLineAnnotation,
+  ArrowLineAnnotation,
+  RulerAnnotation,
+  AreaAnnotation,
+} from '@lunit/insight-viewer/annotation'
 
 export function setup(): void {
   // ResizeObserver loop limit exceeded
@@ -13,10 +22,13 @@ export function setup(): void {
   })
 }
 
+type MeasuredAnnotation = RulerAnnotation | AreaAnnotation
+type AnnotationWithoutMeasured = PolygonAnnotation | LineAnnotation | FreeLineAnnotation | ArrowLineAnnotation
+
 type DomElementExistState = 'not.exist' | 'exist'
 
 export function deleteAndCheckAnnotationOrMeasurement(
-  element: Annotation | Measurement,
+  element: Annotation,
   domElementState: DomElementExistState = 'exist'
 ): void {
   const targetDataAttr = `[data-cy-id="${element.id}"]`
@@ -26,18 +38,14 @@ export function deleteAndCheckAnnotationOrMeasurement(
 }
 
 export function deleteAndCheckMultiAnnotationOrMeasurement(
-  elements: Annotation[] | Measurement[],
+  elements: Annotation[],
   domElementState: DomElementExistState = 'exist'
 ): void {
   elements.forEach((element) => deleteAndCheckAnnotationOrMeasurement(element, domElementState))
 }
 
-export function drawAnnotation(element: Annotation): void {
+export function drawAnnotation(element: AnnotationWithoutMeasured): void {
   cy.get('.cornerstone-canvas-wrapper').as('canvas')
-
-  if (element.type === 'circle') {
-    return undefined
-  }
 
   if (element.type === 'freeLine' || element.type === 'polygon') {
     element.points.forEach(([x, y], i) => {
@@ -72,15 +80,11 @@ export function drawAnnotation(element: Annotation): void {
   return undefined
 }
 
-export function drawAnnotations(elements: Annotation[]): void {
+export function drawAnnotations(elements: AnnotationWithoutMeasured[]): void {
   elements.forEach(drawAnnotation)
 }
 
-export function moveAnnotation(annotation: Annotation, distance: number): void {
-  if (annotation.type === 'circle') {
-    return undefined
-  }
-
+export function moveAnnotation(annotation: AnnotationWithoutMeasured, distance: number): void {
   const targetDataAttr = `[data-cy-id="${annotation.id}"]`
   const targetDrawingAttr = '[data-cy-annotation]'
   const startPoint = annotation.points[0]
@@ -122,7 +126,7 @@ export const editAnnotation = (editTargetPoint: Point, distance: number): void =
   cy.get('@canvas').click()
 }
 
-export const drawMeasurement = (measurement: Measurement): void => {
+export const drawMeasurement = (measurement: MeasuredAnnotation): void => {
   cy.get('.cornerstone-canvas-wrapper').as('canvas')
 
   if (measurement.type === 'ruler') {
@@ -135,11 +139,11 @@ export const drawMeasurement = (measurement: Measurement): void => {
   }
 }
 
-export const drawMeasurements = (measurements: Measurement[]): void => {
+export const drawMeasurements = (measurements: MeasuredAnnotation[]): void => {
   measurements.forEach(drawMeasurement)
 }
 
-export const moveMeasurement = (measurement: Measurement, distance: number): void => {
+export const moveMeasurement = (measurement: MeasuredAnnotation, distance: number): void => {
   const targetDataAttr = `[data-cy-id="${measurement.id}"]`
   const targetDrawingAttr = '[data-cy-move]'
   const startPoint = measurement.type === 'area' ? measurement.centerPoint : measurement.startAndEndPoint[0]

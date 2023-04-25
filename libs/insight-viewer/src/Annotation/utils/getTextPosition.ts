@@ -1,9 +1,10 @@
 import { getEditingTextPosition } from './getEditingTextPosition'
 
-import { Point, EditMode, Measurement } from '../../types'
+import type { AreaAnnotation, RulerAnnotation } from '../types'
+import { Point, EditMode } from '../../types'
 
 export function getTextPosition(
-  measurement: Measurement | null,
+  annotation: AreaAnnotation | RulerAnnotation | null,
   editMode?: EditMode | null,
   currentPoint?: Point
 ): Point | null {
@@ -11,5 +12,5 @@ export function getTextPosition(
     return getEditingTextPosition(currentPoint)
   }
 
-  return measurement == null ? null : measurement.textPoint
+  return annotation == null ? null : annotation.textPoint
 }

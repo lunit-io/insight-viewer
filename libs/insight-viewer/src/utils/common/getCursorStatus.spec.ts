@@ -1,6 +1,7 @@
 import { getCursorStatus } from './getCursorStatus'
 
-import type { Annotation, Measurement, Point } from './../../types'
+import type { Annotation } from '../../Annotation/types'
+import type { Point } from './../../types'
 import type { EditPoints } from './getEditPointPosition'
 
 describe('getCursorStatus :', () => {
@@ -19,7 +20,7 @@ describe('getCursorStatus :', () => {
   it('should return "drawing" when drawing is not null and selectedDrawing is null', () => {
     expect(
       getCursorStatus({
-        drawing: {} as Measurement,
+        drawing: {} as Annotation,
         selectedDrawing: null,
         editMode: null,
         editStartPoint: null,

@@ -1,4 +1,5 @@
-import { Point, Annotation, Measurement } from '../../types'
+import type { Annotation } from '../../Annotation/types'
+import { Point } from '../../types'
 import { getEditPointPosition } from './getEditPointPosition'
 
 describe('getEditPointPosition: ', () => {
@@ -68,7 +69,7 @@ describe('getEditPointPosition: ', () => {
       [30, 50],
     ]
 
-    const MOCK_EDIT_TARGET: Measurement = {
+    const MOCK_EDIT_TARGET: Annotation = {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
@@ -99,7 +100,7 @@ describe('getEditPointPosition: ', () => {
       [50, 50],
     ]
 
-    const MOCK_EDIT_TARGET: Measurement = {
+    const MOCK_EDIT_TARGET: Annotation = {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
@@ -134,7 +135,7 @@ describe('getEditPointPosition: ', () => {
       [30, 50],
     ]
 
-    const MOCK_EDIT_TARGET: Measurement = {
+    const MOCK_EDIT_TARGET: Annotation = {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,

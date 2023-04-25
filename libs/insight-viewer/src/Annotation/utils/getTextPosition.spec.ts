@@ -1,4 +1,5 @@
-import { Measurement, Point } from '../../types'
+import { Annotation } from '../types'
+import { Point } from '../../types'
 import { getTextPosition } from './getTextPosition'
 
 describe('getTextPosition: ', () => {
@@ -6,7 +7,7 @@ describe('getTextPosition: ', () => {
     expect(getTextPosition(null)).toEqual(null)
   })
   it('should return null when only measurement is exist', () => {
-    const MOCK_MEASUREMENT_1: Measurement = {
+    const MOCK_MEASUREMENT_1: Annotation = {
       id: 1,
       centerPoint: [0, 0],
       lineWidth: 1.5,
@@ -16,7 +17,7 @@ describe('getTextPosition: ', () => {
       type: 'area',
       unit: 'px',
     }
-    const MOCK_MEASUREMENT_2: Measurement = {
+    const MOCK_MEASUREMENT_2: Annotation = {
       id: 2,
       measuredValue: 8.48528137423857,
       lineWidth: 1.5,
@@ -28,7 +29,7 @@ describe('getTextPosition: ', () => {
       type: 'ruler',
       unit: 'mm',
     }
-    const MOCK_MEASUREMENT_3: Measurement = {
+    const MOCK_MEASUREMENT_3: Annotation = {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
@@ -44,7 +45,7 @@ describe('getTextPosition: ', () => {
     expect(getTextPosition(MOCK_MEASUREMENT_3)).toEqual([40, 10])
   })
   it('should return the correct point when edit mode is textMove and currentPosition is exist', () => {
-    const MOCK_MEASUREMENT: Measurement = {
+    const MOCK_MEASUREMENT: Annotation = {
       centerPoint: [0, 0],
       id: 1,
       lineWidth: 1.5,
