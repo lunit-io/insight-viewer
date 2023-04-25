@@ -5,11 +5,10 @@ import { useOverlayContext } from '../../../contexts'
 import { svgRootStyle } from '../../../Viewer/Viewer.styles'
 
 import { AreaDrawer } from '../AreaDrawer'
-import { TextDrawer } from '../TextDrawer'
+import { TextDrawer, TypingDrawer } from '../TextDrawer'
 import { RulerDrawer } from '../RulerDrawer'
 import { PolylineDrawer } from '../PolylineDrawer'
 
-import { TypingDrawer } from '../../../Viewer/TextDrawer'
 import { EditPointer } from '../../../components/EditPointer'
 
 import useEditMode from '../../hooks/useEditMode'
