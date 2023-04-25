@@ -1,4 +1,4 @@
-import { PolygonAnnotation } from '@lunit/insight-viewer'
+import { PolygonAnnotation } from '@lunit/insight-viewer/annotation'
 
 export const INITIAL_POLYGON_ANNOTATIONS: PolygonAnnotation[] = [
   {

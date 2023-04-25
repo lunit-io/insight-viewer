@@ -1,6 +1,6 @@
-import { AreaMeasurement } from '@lunit/insight-viewer'
+import { AreaAnnotation } from '@lunit/insight-viewer/annotation'
 
-export const AREA_MEASUREMENTS: AreaMeasurement[] = [
+export const AREA_MEASUREMENTS: AreaAnnotation[] = [
   {
     id: 1,
     lineWidth: 1.5,

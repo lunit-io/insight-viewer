@@ -1,6 +1,6 @@
-import { RulerMeasurement } from '@lunit/insight-viewer'
+import { RulerAnnotation } from '@lunit/insight-viewer/annotation'
 
-export const RULER_MEASUREMENTS: RulerMeasurement[] = [
+export const RULER_MEASUREMENTS: RulerAnnotation[] = [
   {
     id: 1,
     type: 'ruler',
@@ -47,7 +47,7 @@ export const RULER_MEASUREMENTS: RulerMeasurement[] = [
   },
 ]
 
-export const SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT: RulerMeasurement = {
+export const SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT: RulerAnnotation = {
   id: 1,
   lineWidth: 1.5,
   type: 'ruler',
