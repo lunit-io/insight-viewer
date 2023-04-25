@@ -1,10 +1,11 @@
 export { InsightViewer as default } from './Viewer'
 export { HeatmapViewer } from './Viewer/HeatmapViewer'
 export { useMultipleImages } from './hooks/useMultipleImages'
-export { useViewport } from './hooks/useViewport'
 export { useInteraction } from './hooks/useInteraction'
+export { useDicomFile } from './hooks/useDicomFile'
 export { useImage } from './hooks/useImage'
 export { useFrame } from './hooks/useFrame'
+export { useOverlayContext } from './contexts'
 export type { Interaction, SetInteraction } from './hooks/useInteraction/types'
 export type {
   Viewport,
@@ -30,6 +31,4 @@ export type {
   ArrowLineAnnotation,
 } from './types'
 export type { DragAction, DragEvent, Click, Drag, Wheel } from './hooks/useInteraction/types'
-export { useDicomFile } from './hooks/useDicomFile'
-export { useOverlayContext } from './contexts'
 export type { OverlayContext } from './contexts'
