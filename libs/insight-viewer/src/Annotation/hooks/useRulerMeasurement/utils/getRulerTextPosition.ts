@@ -1,6 +1,6 @@
 import { Point } from '../../../types'
-import { RULER_TEXT_POSITION_SPACING } from '../../../const'
-import { calculateLengthBetweenPoints } from '../../../utils/common/calculateLengthBetweenPoints'
+import { RULER_TEXT_POSITION_SPACING } from '../../../../const'
+import { calculateLengthBetweenPoints } from '../../../../utils/common/calculateLengthBetweenPoints'
 
 export function getRulerTextPosition([startPoint, endPoint]: [Point, Point]): Point {
   const length = calculateLengthBetweenPoints(startPoint, endPoint, 1, 1)

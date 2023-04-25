@@ -1,4 +1,4 @@
-import useTextBox from '../../../hooks/useTextBox'
+import useTextBox from '../useTextBox'
 import { useOverlayContext } from '../../../contexts'
 
 import { calculateCircleArea } from '../../utils/calculateCircleArea'
@@ -18,7 +18,7 @@ const formatCircleValue = (area: number, unit: string) =>
     maximumFractionDigits: 1,
   })}${unit}2`
 
-const useCircleMeasurement = ({ centerPoint, radius, measuredValue, textPoint, unit }: AreaMeasurement) => {
+const useCircleAnnotation = ({ centerPoint, radius, measuredValue, textPoint, unit }: AreaMeasurement) => {
   const { pixelToCanvas } = useOverlayContext()
   const [textBox, ref] = useTextBox()
 
@@ -55,4 +55,4 @@ const useCircleMeasurement = ({ centerPoint, radius, measuredValue, textPoint, u
   }
 }
 
-export default useCircleMeasurement
+export default useCircleAnnotation

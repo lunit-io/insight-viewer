@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import useCircleMeasurement from '../../hooks/useCircleMeasurement'
+import useCircleAnnotation from '../../hooks/useCircleAnnotation'
 
 import { svgWrapperStyle, textStyle } from '../../../Viewer/Viewer.styles'
 
@@ -12,7 +12,7 @@ export function AreaDrawer({
 }: AreaDrawerProps): ReactElement | null {
   const { formattedValue, drawingCenter, drawingRadius, cursorClassName } = annotation
 
-  const { ref, textBoxPoint, connectingLine, visibility } = useCircleMeasurement(annotation)
+  const { ref, textBoxPoint, connectingLine, visibility } = useCircleAnnotation(annotation)
 
   const handleMoveOnMouseDown = () => setAnnotationEditMode('move')
   const handleTextMoveOnMouseDown = () => setAnnotationEditMode('textMove')

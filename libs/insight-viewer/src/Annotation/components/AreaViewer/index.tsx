@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import useCircleMeasurement from '../../hooks/useCircleMeasurement'
+import useCircleAnnotation from '../../hooks/useCircleAnnotation'
 
 import { textStyle, svgWrapperStyle } from '../../../Viewer/Viewer.styles'
 
@@ -8,7 +8,7 @@ import type { AreaViewerProps } from './AreaViewer.types'
 
 export function AreaViewer({ annotation, isHovered }: AreaViewerProps): ReactElement {
   const { centerPointOnCanvas, formattedValue, ref, drawingRadius, textBoxPoint, connectingLine, visibility } =
-    useCircleMeasurement(annotation)
+    useCircleAnnotation(annotation)
 
   return (
     <>
