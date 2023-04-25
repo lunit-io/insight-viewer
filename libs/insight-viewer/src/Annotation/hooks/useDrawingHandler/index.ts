@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect } from 'react'
 import { UseDrawingHandlerParams } from './types'
-import { useOverlayContext } from '../../contexts'
+import { useOverlayContext } from '../../../contexts'
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.preventDefault()

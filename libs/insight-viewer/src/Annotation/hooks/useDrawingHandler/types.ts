@@ -1,4 +1,4 @@
-import { Point, Measurement, Annotation } from '../../types'
+import { Point, Annotation } from '../../types'
 
 export interface UseDrawingHandlerParams {
   svgElement: React.RefObject<SVGSVGElement> | null
@@ -6,5 +6,5 @@ export interface UseDrawingHandlerParams {
   addDrawingPoint: (point: Point) => void
   cancelDrawing: () => void
   addDrewElement: () => void
-  hoveredDrawing?: Measurement | Annotation | null
+  hoveredDrawing?: Annotation | null
 }

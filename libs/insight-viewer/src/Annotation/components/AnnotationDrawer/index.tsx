@@ -12,7 +12,7 @@ import { PolylineDrawer } from '../PolylineDrawer'
 import { EditPointer } from '../../../components/EditPointer'
 
 import useEditMode from '../../hooks/useEditMode'
-import useDrawingHandler from '../../../hooks/useDrawingHandler'
+import useDrawingHandler from '../../hooks/useDrawingHandler'
 import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
 import useCreatingDrawableAnnotation from '../../hooks/useCreatingDrawableAnnotation'
 
