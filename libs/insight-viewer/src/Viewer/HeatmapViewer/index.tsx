@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import useHeatmapDrawing from '../../hooks/useHeatmapDrawing'
+import useHeatmapDrawing from './useHeatmapDrawing'
 import { style } from './HeatmapViewer.styles'
 
 import type { HeatmapViewerProps } from './HeatmapViewer.types'

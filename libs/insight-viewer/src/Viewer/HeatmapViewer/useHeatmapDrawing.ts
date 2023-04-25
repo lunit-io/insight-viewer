@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { useEffect, useMemo, useRef, RefObject } from 'react'
 
-import { HeatmapViewerProps } from '../../Viewer/HeatmapViewer/HeatmapViewer.types'
+import { HeatmapViewerProps } from './HeatmapViewer.types'
 import { useOverlayContext } from '../../contexts'
 
 import drawHeatmap from '../../utils/HeatmapViewer/drawHeatmap'
