@@ -5,7 +5,7 @@ import { getTextPosition } from './getTextPosition'
 import { getAnnotationPoints } from './getAnnotationPoints'
 import { getCircleCenterPoint } from './getCircleCenterPoint'
 import { isSamePoints } from '../../utils/common/isSamePoints'
-import { getMovedPoints } from '../../utils/common/getMovedPoints'
+import { getMovedPoints } from './getMovedPoints'
 import { getAreaAnnotationMovedPoints } from './getAnnotationPointsAfterMoving'
 import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../utils/getCircleRadius'
 
