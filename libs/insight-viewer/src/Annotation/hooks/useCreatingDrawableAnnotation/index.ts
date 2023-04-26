@@ -4,7 +4,7 @@ import { getArrowPosition } from './utils/getArrowPosition'
 import { getCircleEndPoint } from '../../utils/getCircleEndPoint'
 import { calculateCircleArea } from '../../utils/calculateCircleArea'
 import { stringifyPoints } from '../../utils/stringifyPoints'
-import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from '../../utils/getCircleRadius'
 
 import type { Point } from '../../../types'
 import type {

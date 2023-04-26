@@ -1,4 +1,4 @@
-import { getCircleRadiusByCenter } from '../../../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from '../../../utils/getCircleRadius'
 
 import type { Point } from '../../../../types'
 

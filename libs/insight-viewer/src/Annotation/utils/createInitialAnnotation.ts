@@ -4,7 +4,7 @@ import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
 import { getLineLength } from './getLineLength'
 import { getCircleCenterPoint } from './getCircleCenterPoint'
-import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
+import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../utils/getCircleRadius'
 
 import type { Image } from '../../Viewer/types'
 import type { Point } from '../../types'

@@ -1,5 +1,5 @@
 import { getMovedPoints } from '../../utils/common/getMovedPoints'
-import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from '../utils/getCircleRadius'
 import { getCircleStartPoint } from './getCircleStartPoint'
 
 import type { Point } from '../../types'

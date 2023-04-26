@@ -6,7 +6,7 @@ import { getCircleConnectingLine } from './utils/getCircleConnectingLine'
 import { getCircleEndPoint } from '../../utils/getCircleEndPoint'
 import { stringifyPoints } from '../../utils/stringifyPoints'
 import { getCircleTextPosition } from './utils/getCircleTextPosition'
-import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
+import { getCircleRadiusByCenter } from '../../utils/getCircleRadius'
 import { modifyConnectingLine } from '../../../utils/common/modifyConnectingLine'
 
 import { HALF_OF_RULER_TEXT_BOX } from '../../../const'

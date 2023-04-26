@@ -1,4 +1,4 @@
-import { IMAGER_PIXEL_SPACING } from './const'
+import { IMAGER_PIXEL_SPACING } from '../../utils/common/const'
 
 import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'

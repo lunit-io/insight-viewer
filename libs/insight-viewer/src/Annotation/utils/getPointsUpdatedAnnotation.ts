@@ -7,7 +7,7 @@ import { getCircleCenterPoint } from './getCircleCenterPoint'
 import { isSamePoints } from '../../utils/common/isSamePoints'
 import { getMovedPoints } from '../../utils/common/getMovedPoints'
 import { getAreaAnnotationMovedPoints } from './getAnnotationPointsAfterMoving'
-import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
+import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../utils/getCircleRadius'
 
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
