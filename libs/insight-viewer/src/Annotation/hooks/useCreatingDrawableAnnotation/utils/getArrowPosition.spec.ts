@@ -1,4 +1,4 @@
-import { Point } from '../../types'
+import { Point } from '../../../../types'
 import { getArrowPosition } from './getArrowPosition'
 
 describe('getArrowPosition:', () => {

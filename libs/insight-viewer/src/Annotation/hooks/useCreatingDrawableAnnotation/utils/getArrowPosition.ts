@@ -1,4 +1,4 @@
-import { Point } from '../../types'
+import type { Point } from '../../../../types'
 
 const ARROW_LENGTH = 5.5
 const ARROW_CENTER_POSITION = -5 // this number must be negative
