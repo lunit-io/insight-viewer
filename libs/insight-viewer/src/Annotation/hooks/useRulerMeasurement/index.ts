@@ -1,7 +1,7 @@
 import useTextBox from '../useTextBox'
 import { useOverlayContext } from '../../../contexts'
 
-import { modifyConnectingLine } from '../../../utils/common/modifyConnectingLine'
+import { modifyConnectingLine } from '../../utils/modifyConnectingLine'
 import { stringifyPoints } from '../../utils/stringifyPoints'
 import { getRulerTextPosition } from './utils/getRulerTextPosition'
 import { getRulerConnectingLine } from './utils/getRulerConnectingLine'
