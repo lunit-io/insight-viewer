@@ -9,7 +9,7 @@ import { TextDrawer, TypingDrawer } from '../TextDrawer'
 import { RulerDrawer } from '../RulerDrawer'
 import { PolylineDrawer } from '../PolylineDrawer'
 
-import { EditPointer } from '../../../components/EditPointer'
+import { EditPointer } from '../EditPointer'
 
 import useEditMode from '../../hooks/useEditMode'
 import useDrawingHandler from '../../hooks/useDrawingHandler'
