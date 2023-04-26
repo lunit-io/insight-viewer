@@ -1,4 +1,4 @@
-import { getCircleEditPoints } from '../../utils/common/getCircleEditPoints'
+import { getCircleEditPoints } from './getCircleEditPoints'
 
 import type { Point } from '../../types'
 import type { Annotation } from '../types'
