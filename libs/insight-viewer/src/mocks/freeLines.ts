@@ -1,4 +1,4 @@
-import type { FreeLineAnnotation } from '../types'
+import type { FreeLineAnnotation } from '../Annotation/types'
 
 const INITIAL_FREE_LINE: FreeLineAnnotation = {
   id: 1,

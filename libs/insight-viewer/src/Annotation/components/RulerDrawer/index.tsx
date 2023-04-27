@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import useRulerMeasurement from '../../../hooks/useRulerMeasurement'
-import { svgWrapperStyle, textStyle } from '../../../Viewer/Viewer.styles'
+import useRulerAnnotation from '../../hooks/useRulerMeasurement'
+import { svgWrapperStyle, textStyle } from '../../viewer.styles'
 
 import type { RulerDrawerProps } from './RulerDrawer.types'
 
@@ -12,7 +12,7 @@ export function RulerDrawer({
 }: RulerDrawerProps): ReactElement | null {
   const { formattedValue, drawingPointsToString, cursorClassName } = annotation
 
-  const { ref, connectingLine, textBoxPoint, visibility } = useRulerMeasurement(annotation)
+  const { ref, connectingLine, textBoxPoint, visibility } = useRulerAnnotation(annotation)
 
   const handleMoveOnMouseDown = () => setAnnotationEditMode('move')
   const handleTextMoveOnMouseDown = () => setAnnotationEditMode('textMove')

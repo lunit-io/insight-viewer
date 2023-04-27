@@ -1,4 +1,4 @@
-import type { LineAnnotation } from '../types'
+import type { LineAnnotation } from '../Annotation/types'
 
 const INITIAL_LINE: LineAnnotation = {
   id: 1,

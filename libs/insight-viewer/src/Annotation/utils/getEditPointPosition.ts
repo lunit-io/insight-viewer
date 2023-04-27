@@ -1,6 +1,7 @@
-import { getCircleEditPoints } from '../../utils/common/getCircleEditPoints'
+import { getCircleEditPoints } from './getCircleEditPoints'
 
-import type { Point, DrawableAnnotation } from '../types'
+import type { Point } from '../../types'
+import type { DrawableAnnotation } from '../types'
 
 interface GetEditPointPositionParams {
   editingPoints: [Point, Point] | null

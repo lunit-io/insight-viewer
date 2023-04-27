@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
-import { stringifyPoints } from '../../../utils/common/stringifyPoints'
-import { getArrowPosition } from '../../../utils/common/getArrowPosition'
-import { getCircleRadiusByCenter } from '../../../utils/common/getCircleRadius'
-import { calculateCircleArea } from '../../../hooks/useCircleMeasurement/utils/calculateCircleArea'
-import { getCircleEndPoint } from '../../../hooks/useMeasurementPointsHandler/utils/getCircleEndPoint'
+import { getArrowPosition } from './utils/getArrowPosition'
+import { getCircleEndPoint } from '../../utils/getCircleEndPoint'
+import { calculateCircleArea } from '../../utils/calculateCircleArea'
+import { stringifyPoints } from '../../utils/stringifyPoints'
+import { getCircleRadiusByCenter } from '../../utils/getCircleRadius'
 
+import type { Point } from '../../../types'
 import type {
-  Point,
   Annotation,
   DrawableAnnotation,
   DrawableAreaAnnotation,

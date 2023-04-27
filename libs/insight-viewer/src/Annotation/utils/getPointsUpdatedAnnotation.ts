@@ -1,18 +1,19 @@
 import polylabel from 'polylabel'
 
+import { getLineLength } from './getLineLength'
+import { getTextPosition } from './getTextPosition'
 import { getAnnotationPoints } from './getAnnotationPoints'
-import { isSamePoints } from '../../utils/common/isSamePoints'
-import { getMovedPoints } from '../../utils/common/getMovedPoints'
+import { getCircleCenterPoint } from './getCircleCenterPoint'
+import { isSamePoints } from './isSamePoints'
+import { getMovedPoints } from './getMovedPoints'
 import { getAreaAnnotationMovedPoints } from './getAnnotationPointsAfterMoving'
-import { getLineLength } from '../../hooks/useMeasurementPointsHandler/utils/getLineLength'
-import { getTextPosition } from '../../hooks/useMeasurementPointsHandler/utils/getTextPosition'
-import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
-import { getCircleCenterPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleCenterPoint'
+import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../utils/getCircleRadius'
 
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
+import type { Point } from '../../types'
 import type { Image } from '../../Viewer/types'
-import type { Point, Annotation, EditMode } from '../types'
+import type { Annotation, EditMode } from '../types'
 
 type LabelPosition = [number, number]
 

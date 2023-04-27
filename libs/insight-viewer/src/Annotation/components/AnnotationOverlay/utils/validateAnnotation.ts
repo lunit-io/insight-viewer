@@ -1,5 +1,5 @@
 import { getIsComplexPolygon } from './getIsComplexPolygon'
-import { isSamePoints } from '../../../../utils/common/isSamePoints'
+import { isSamePoints } from '../../../utils/isSamePoints'
 import { isLessThanTheMinimumPointsLength } from './isLessThanTheMinimumPointsLength'
 
 import type { Annotation } from '../../../types'

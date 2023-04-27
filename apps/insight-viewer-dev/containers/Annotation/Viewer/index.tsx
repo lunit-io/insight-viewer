@@ -2,7 +2,7 @@ import { useRef, useState, ChangeEvent } from 'react'
 import { Box, Switch, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
-import { Annotation, AnnotationOverlay, useAnnotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
+import { Annotation, AnnotationOverlay, AnnotationMode } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import {
   IMAGES,
@@ -46,9 +46,6 @@ function AnnotationViewerContainer(): JSX.Element {
     image,
     element: viewerRef.current,
   })
-  const { annotations, hoveredAnnotation, selectedAnnotation, selectAnnotation } = useAnnotation({
-    initialAnnotation: INITIAL_ANNOTATIONS[annotationMode],
-  })
 
   const handleShowLabelModeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsShowLabel(event.target.checked)
@@ -80,12 +77,9 @@ function AnnotationViewerContainer(): JSX.Element {
             <AnnotationOverlay
               width={700}
               height={700}
-              annotations={annotations}
-              hoveredAnnotation={hoveredAnnotation}
-              selectedAnnotation={selectedAnnotation}
+              annotations={INITIAL_ANNOTATIONS[annotationMode]}
               mode={annotationMode}
               showAnnotationLabel={isShowLabel}
-              onSelect={selectAnnotation}
             />
           )}
         </InsightViewer>

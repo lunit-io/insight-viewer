@@ -1,4 +1,4 @@
-import { LineAnnotation } from '@lunit/insight-viewer'
+import { LineAnnotation } from '@lunit/insight-viewer/annotation'
 
 export const LINE_ANNOTATIONS: LineAnnotation[] = [
   {

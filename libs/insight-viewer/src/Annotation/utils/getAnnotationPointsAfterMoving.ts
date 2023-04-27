@@ -1,8 +1,8 @@
-import { getMovedPoints } from '../../utils/common/getMovedPoints'
-import { getCircleRadiusByCenter } from '../../utils/common/getCircleRadius'
-import { getCircleStartPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleStartPoint'
+import { getMovedPoints } from './getMovedPoints'
+import { getCircleRadiusByCenter } from '../utils/getCircleRadius'
+import { getCircleStartPoint } from './getCircleStartPoint'
 
-import type { Point } from '../types'
+import type { Point } from '../../types'
 
 export function getAreaAnnotationMovedPoints(prevPoints: Point[], movePoint: Point, currentPoint: Point) {
   const movedPoints = getMovedPoints({ prevPoints, editStartPoint: movePoint, currentPoint }) as [Point, Point]

@@ -1,4 +1,4 @@
-import type { TextAnnotation } from '../types'
+import type { TextAnnotation } from '../Annotation/types'
 
 const INITIAL_TEXT: TextAnnotation = {
   id: 1,

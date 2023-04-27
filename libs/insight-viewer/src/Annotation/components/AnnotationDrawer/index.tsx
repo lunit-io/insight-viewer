@@ -2,25 +2,25 @@ import React, { useRef, useState } from 'react'
 
 import { useOverlayContext } from '../../../contexts'
 
-import { svgRootStyle } from '../../../Viewer/Viewer.styles'
+import { svgRootStyle } from '../../viewer.styles'
 
 import { AreaDrawer } from '../AreaDrawer'
-import { TextDrawer } from '../TextDrawer'
+import { TextDrawer, TypingDrawer } from '../TextDrawer'
 import { RulerDrawer } from '../RulerDrawer'
 import { PolylineDrawer } from '../PolylineDrawer'
 
-import { TypingDrawer } from '../../../Viewer/TextDrawer'
-import { EditPointer } from '../../../components/EditPointer'
+import { EditPointer } from '../EditPointer'
 
 import useEditMode from '../../hooks/useEditMode'
-import useDrawingHandler from '../../../hooks/useDrawingHandler'
+import useDrawingHandler from '../../hooks/useDrawingHandler'
 import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
 import useCreatingDrawableAnnotation from '../../hooks/useCreatingDrawableAnnotation'
 
 import { getCursorStatus } from '../../utils/getCursorStatus'
 import { getEditPointPosition } from '../../utils/getEditPointPosition'
 
-import type { Annotation, Point, TextAnnotation } from '../../types'
+import type { Point } from '../../../types'
+import type { Annotation, TextAnnotation } from '../../types'
 import type { AnnotationDrawerProps } from './AnnotationDrawer.types'
 
 export function AnnotationDrawer({

@@ -1,4 +1,4 @@
-import type { Point } from '../types'
+import type { Point } from '../../types'
 
 function calculateDistance(point1: Point, point2: Point): number {
   const xDiff = point1[0] - point2[0]

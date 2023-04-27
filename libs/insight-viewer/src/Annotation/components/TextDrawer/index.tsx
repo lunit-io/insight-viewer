@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../../../Viewer/Viewer.styles'
+import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../../viewer.styles'
 import { TEXT_PADDING } from '../../../const'
 
 import type { TextDrawerProps } from './TextDrawer.types'
+export { Typing as TypingDrawer } from './Typing'
 
 export function TextDrawer({ annotation, setAnnotationEditMode }: TextDrawerProps): React.ReactElement | null {
   const { drawingPoints, label, dimensions, cursorClassName } = annotation

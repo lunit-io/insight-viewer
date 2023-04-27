@@ -1,25 +1,8 @@
-import type { CSSProperties } from 'react'
+import type { Point } from '../types'
 
 export type Unit = 'px' | 'mm'
-export type Point = [x: number, y: number]
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
 export type ClickAction = 'remove' | 'select'
-
-export type ViewerStyleType =
-  | 'default'
-  | 'select'
-  | 'hover'
-  | 'outline'
-  | 'hoveredOutline'
-  | 'selectedOutline'
-  | 'highlight'
-  | 'dashLine'
-  | 'extendsArea'
-  | 'selectedExtendsArea'
-
-export type ViewerStyle = {
-  [styleType in ViewerStyleType]?: CSSProperties
-}
 
 export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'text' | 'arrowLine' | 'ruler' | 'area'
 

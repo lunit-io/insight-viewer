@@ -1,6 +1,7 @@
-import { getCircleEndPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleEndPoint'
+import { getCircleEndPoint } from './getCircleEndPoint'
 
-import type { Annotation, Point } from '../types'
+import type { Point } from '../../types'
+import type { Annotation } from '../types'
 
 export function getAnnotationPoints(annotation: Annotation): Point[] {
   if (annotation.type === 'ruler') {

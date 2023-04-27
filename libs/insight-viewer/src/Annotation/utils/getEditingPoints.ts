@@ -1,4 +1,5 @@
-import type { Point, AnnotationMode } from '../types'
+import type { Point } from '../../types'
+import type { AnnotationMode } from '../types'
 
 export function getEditingPoints(
   prevPoints: Point[],

@@ -1,4 +1,4 @@
-import { ArrowLineAnnotation } from '@lunit/insight-viewer'
+import { ArrowLineAnnotation } from '@lunit/insight-viewer/annotation'
 
 export const ARROW_LINE_ANNOTATIONS: ArrowLineAnnotation[] = [
   {

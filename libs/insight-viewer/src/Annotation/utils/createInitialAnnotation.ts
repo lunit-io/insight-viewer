@@ -2,12 +2,13 @@ import polylabel from 'polylabel'
 
 import { LINE_TEXT_POSITION_SPACING } from '../../const'
 
-import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../../utils/common/getCircleRadius'
-import { getLineLength } from '../../hooks/useMeasurementPointsHandler/utils/getLineLength'
-import { getCircleCenterPoint } from '../../hooks/useMeasurementPointsHandler/utils/getCircleCenterPoint'
+import { getLineLength } from './getLineLength'
+import { getCircleCenterPoint } from './getCircleCenterPoint'
+import { getCircleRadius, getCircleRadiusByMeasuringUnit } from '../utils/getCircleRadius'
 
 import type { Image } from '../../Viewer/types'
-import type { Point, AnnotationMode, Annotation } from '../types'
+import type { Point } from '../../types'
+import type { AnnotationMode, Annotation } from '../types'
 
 const INITIAL_LINE_WIDTH = 1.5
 
