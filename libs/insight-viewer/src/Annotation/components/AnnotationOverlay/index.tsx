@@ -27,7 +27,7 @@ export const AnnotationOverlay = ({
   onRemove,
   onSelect,
   onChange,
-}: AnnotationOverlayProps): React.ReactNode => {
+}: AnnotationOverlayProps) => {
   const { enabledElement } = useOverlayContext()
 
   const handleAddAnnotation = (annotation: Annotation) => {
