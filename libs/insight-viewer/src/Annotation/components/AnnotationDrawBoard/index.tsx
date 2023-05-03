@@ -70,7 +70,7 @@ export function AnnotationDrawBoard({
   const annotationsWithoutSelected = annotations.filter((annotation) => annotation.id !== selectedAnnotation?.id)
 
   const setInitialPoint = (point: Point) => {
-    if (hoveredAnnotation || (!isSelectedAnnotation && !isDrawing)) return
+    if (hoveredAnnotation || tempAnnotation || (!isSelectedAnnotation && !isDrawing)) return
 
     setInitialAnnotation(point)
     setInitialDrawingPoints(point)

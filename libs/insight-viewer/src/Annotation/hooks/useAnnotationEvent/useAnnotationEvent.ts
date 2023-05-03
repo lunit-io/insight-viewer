@@ -14,7 +14,6 @@ export interface UseAnnotationEventParams {
 }
 
 const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
-  event.preventDefault()
   event.stopPropagation()
 }
 

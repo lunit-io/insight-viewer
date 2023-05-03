@@ -70,6 +70,14 @@ export function AnnotationDrawer({
       isSelectedAnnotation && (!editMode || editMode === 'move' || editMode === 'textMove'),
   })
 
+  if (!drawableAnnotation && tempAnnotation) {
+    return (
+      <svg width={width} height={height} style={{ ...svgRootStyle.default, ...style }}>
+        <TypingDrawer points={tempAnnotation.points} onFinish={onFinishTempAnnotationTyping} />
+      </svg>
+    )
+  }
+
   if (!drawableAnnotation) return null
 
   return (
@@ -123,11 +131,6 @@ export function AnnotationDrawer({
             cursorStatus={getCursorStatus(editMode)}
           />
         </>
-      )}
-      {tempAnnotation && (
-        <svg width={width} height={height} style={{ ...svgRootStyle.default, ...style }}>
-          <TypingDrawer points={tempAnnotation.points} onFinish={onFinishTempAnnotationTyping} />
-        </svg>
       )}
     </>
   )
