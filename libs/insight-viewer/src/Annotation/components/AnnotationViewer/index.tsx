@@ -69,6 +69,8 @@ export function AnnotationViewer({
     pixelToCanvas,
   })
 
+  if (!drawableAnnotation) return null
+
   return (
     <g
       data-cy-id={annotation.id}
@@ -78,17 +80,13 @@ export function AnnotationViewer({
       onMouseLeave={handleAnnotationMouseLeave}
       style={annotationStyle}
     >
-      {!drawableAnnotation ? null : (
-        <>
-          {drawableAnnotation.type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {(drawableAnnotation.type === 'freeLine' ||
-            drawableAnnotation.type === 'line' ||
-            drawableAnnotation.type === 'arrowLine') && <LineViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {drawableAnnotation.type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {drawableAnnotation.type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {drawableAnnotation.type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}
-        </>
-      )}
+      {drawableAnnotation.type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {(drawableAnnotation.type === 'freeLine' ||
+        drawableAnnotation.type === 'line' ||
+        drawableAnnotation.type === 'arrowLine') && <LineViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {drawableAnnotation.type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {drawableAnnotation.type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {drawableAnnotation.type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}
     </g>
   )
 }
