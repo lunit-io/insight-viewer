@@ -22,9 +22,9 @@ import { getEditPointPosition } from '../../utils/getEditPointPosition'
 
 import type { Point } from '../../../types'
 import type { Annotation, TextAnnotation } from '../../types'
-import type { AnnotationDrawerProps } from './AnnotationDrawer.types'
+import type { AnnotationDrawBoard } from './AnnotationDrawBoard.types'
 
-export function AnnotationDrawer({
+export function AnnotationDrawBoard({
   style,
   width,
   height,
@@ -41,7 +41,7 @@ export function AnnotationDrawer({
   onHover,
   onClick,
   onSelect,
-}: AnnotationDrawerProps): JSX.Element {
+}: AnnotationDrawBoard): JSX.Element {
   const svgRef = useRef<SVGSVGElement>(null)
   const isSelectedAnnotation = Boolean(clickAction === 'select' && selectedAnnotation)
 

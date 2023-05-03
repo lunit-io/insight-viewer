@@ -1,7 +1,7 @@
 import type { SVGProps } from 'react'
 import type { Annotation, AnnotationMode, ClickAction } from '../../types'
 
-export interface AnnotationDrawerProps extends Omit<SVGProps<SVGSVGElement>, 'onSelect' | 'onClick'> {
+export interface AnnotationDrawBoard extends Omit<SVGProps<SVGSVGElement>, 'onSelect' | 'onClick'> {
   selectedAnnotation?: Annotation | null
   hoveredAnnotation?: Annotation | null
   annotations: Annotation[]

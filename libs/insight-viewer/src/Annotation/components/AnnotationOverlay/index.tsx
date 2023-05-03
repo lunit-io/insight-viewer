@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useOverlayContext } from '../../../contexts'
 
-import { AnnotationDrawer } from '../AnnotationDrawer'
+import { AnnotationDrawBoard } from '../AnnotationDrawBoard'
 
 import { validateAnnotation } from './utils/validateAnnotation'
 
@@ -74,7 +74,7 @@ export const AnnotationOverlay = ({
   if (!enabledElement) return null
 
   return (
-    <AnnotationDrawer
+    <AnnotationDrawBoard
       width={width}
       height={height}
       annotations={annotations}
