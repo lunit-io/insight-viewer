@@ -9,14 +9,16 @@ import { TextViewer } from '../TextViewer'
 import { RulerViewer } from '../RulerViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
+import type { MouseEvent } from 'react'
 import type { Annotation } from '../../types'
-import type { AnnotationsViewerProps } from '../AnnotationsViewer/AnnotationViewer.types'
 
-export interface AnnotationViewerProps
-  extends Omit<AnnotationsViewerProps, 'width' | 'height' | 'selectedAnnotation' | 'annotations'> {
+export interface AnnotationViewerProps {
   annotation: Annotation
   showOutline: boolean
-  showElementLabel: boolean
+  showAnnotationLabel: boolean
+  hoveredAnnotation?: Annotation | null
+  onHover?: (element: Annotation | null) => void
+  onClick?: (element: Annotation) => void
 }
 
 const annotationStyle: React.CSSProperties = {
@@ -26,7 +28,7 @@ const annotationStyle: React.CSSProperties = {
 export function AnnotationViewer({
   annotation,
   showOutline,
-  showElementLabel,
+  showAnnotationLabel,
   hoveredAnnotation,
   onHover,
   onClick,
@@ -35,12 +37,15 @@ export function AnnotationViewer({
 
   const viewerProps = {
     showOutline,
-    showLabel: showElementLabel,
+    showLabel: showAnnotationLabel,
     isHovered: hoveredAnnotation?.id === annotation.id,
   }
 
-  const handleAnnotationClick = () => {
+  const handleAnnotationClick = (event: MouseEvent) => {
     if (!onClick) return
+
+    event.preventDefault()
+    event.stopPropagation()
 
     if (onHover) {
       onHover(null)

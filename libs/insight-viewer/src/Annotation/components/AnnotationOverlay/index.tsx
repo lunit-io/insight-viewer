@@ -1,7 +1,8 @@
 import React from 'react'
 
+import { useOverlayContext } from '../../../contexts'
+
 import { AnnotationDrawer } from '../AnnotationDrawer'
-import { AnnotationsViewer } from '../AnnotationsViewer'
 
 import { validateAnnotation } from './utils/validateAnnotation'
 
@@ -26,7 +27,9 @@ export const AnnotationOverlay = ({
   onRemove,
   onSelect,
   onChange,
-}: AnnotationOverlayProps): JSX.Element => {
+}: AnnotationOverlayProps): React.ReactNode => {
+  const { enabledElement } = useOverlayContext()
+
   const handleAddAnnotation = (annotation: Annotation) => {
     let addedTargetAnnotation: Annotation | null = annotation
 
@@ -68,36 +71,26 @@ export const AnnotationOverlay = ({
     onChange(annotations.filter((a) => a.id !== annotation.id))
   }
 
+  if (!enabledElement) return null
+
   return (
-    <>
-      <AnnotationsViewer
-        width={width}
-        height={height}
-        annotations={annotations}
-        hoveredAnnotation={hoveredAnnotation}
-        selectedAnnotation={selectedAnnotation}
-        className={className}
-        style={style}
-        showOutline={showOutline}
-        showElementLabel={showAnnotationLabel}
-        onHover={isDrawing ? onHover : undefined}
-        onClick={isDrawing ? (clickAction === 'select' ? onSelect : handleRemoveAnnotation) : undefined}
-      />
-      <AnnotationDrawer
-        width={width}
-        height={height}
-        annotations={annotations}
-        hoveredAnnotation={hoveredAnnotation}
-        selectedAnnotation={selectedAnnotation}
-        showAnnotationLabel={showAnnotationLabel}
-        className={className}
-        style={style}
-        isDrawing={isDrawing}
-        clickAction={clickAction}
-        mode={mode}
-        onAdd={handleAddAnnotation}
-        onSelect={onSelect}
-      />
-    </>
+    <AnnotationDrawer
+      width={width}
+      height={height}
+      annotations={annotations}
+      hoveredAnnotation={hoveredAnnotation}
+      selectedAnnotation={selectedAnnotation}
+      showOutline={showOutline}
+      showAnnotationLabel={showAnnotationLabel}
+      className={className}
+      style={style}
+      isDrawing={isDrawing}
+      clickAction={clickAction}
+      mode={mode}
+      onAdd={handleAddAnnotation}
+      onSelect={onSelect}
+      onHover={isDrawing ? onHover : undefined}
+      onClick={isDrawing ? (clickAction === 'select' ? onSelect : handleRemoveAnnotation) : undefined}
+    />
   )
 }
