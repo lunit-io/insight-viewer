@@ -51,11 +51,11 @@
 
 > #### 2. 관심사 분리
 
-이벤트 등록 대상 DOM 은 `AnnotationDrawer` 가 아닌 `EnabledElement` 에 하고 있음에도 불구하고<br />
-AnnotationDrawer 에서 하고 있다는 것 역시, 관심사 분리라는 측면에서 좋은 구조가 아닙니다.
-
 일반적으로 AnnotationDrawer 내에서 이벤트 핸들러 로직이 있다면 AnnotationDrawer Dom Element 에<br />
 관련된 이벤트를 다루고 있을 것이며, 등록 대상 Dom 역시 AnnotationDrawer 로 인지할 것입니다.
+
+하지만 실제 이벤트 등록 대상 Dom 은 `EnabledElement` 로 코드 파악에 부정적 영향을 주며,<br />
+`EnabledElement` 에 대한 로직을 `AnnotationDrawer` 에서 다룬다는 점에서 관심사 분리 측면에서 좋은 구조가 아니라고 생각합니다.
 
 현재 구조는 아래 두 가지 문제점을 해결하기 위한 방향이였습니다.
 
