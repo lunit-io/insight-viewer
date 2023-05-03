@@ -4,21 +4,12 @@ import { useOverlayContext } from '../../../contexts'
 
 import { svgRootStyle } from '../../viewer.styles'
 
-import { AreaDrawer } from '../AreaDrawer'
-import { TextDrawer, TypingDrawer } from '../TextDrawer'
-import { RulerDrawer } from '../RulerDrawer'
-import { PolylineDrawer } from '../PolylineDrawer'
 import { AnnotationViewer } from '../AnnotationViewer'
-
-import { EditPointer } from '../EditPointer'
+import { AnnotationDrawer } from '../AnnotationDrawer'
 
 import useEditMode from '../../hooks/useEditMode'
 import useAnnotationEvent from '../../hooks/useAnnotationEvent/useAnnotationEvent'
 import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
-import useCreatingDrawableAnnotation from '../../hooks/useCreatingDrawableAnnotation'
-
-import { getCursorStatus } from '../../utils/getCursorStatus'
-import { getEditPointPosition } from '../../utils/getEditPointPosition'
 
 import type { Point } from '../../../types'
 import type { Annotation, TextAnnotation } from '../../types'
@@ -55,7 +46,7 @@ export function AnnotationDrawBoard({
     }
   }
 
-  const { image, pixelToCanvas } = useOverlayContext()
+  const { image } = useOverlayContext()
   const { editMode, updateEditMode, clearEditMode } = useEditMode()
 
   const {
@@ -74,23 +65,6 @@ export function AnnotationDrawBoard({
     editMode,
     selectedAnnotation,
     id: annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1,
-  })
-
-  const { drawableAnnotation } = useCreatingDrawableAnnotation({
-    annotation,
-    pixelToCanvas,
-  })
-
-  const canvasEditingPoints =
-    movedStartPoint && drawingStartPoint
-      ? ([drawingStartPoint, movedStartPoint].map(pixelToCanvas) as [Point, Point])
-      : null
-
-  const annotationEditPoints = getEditPointPosition({
-    annotation: drawableAnnotation,
-    editingPoints: canvasEditingPoints,
-    isDefaultEditPointsOfAnnotation:
-      isSelectedAnnotation && (!editMode || editMode === 'move' || editMode === 'textMove'),
   })
 
   const annotationsWithoutSelected = annotations.filter((annotation) => annotation.id !== selectedAnnotation?.id)
@@ -171,88 +145,44 @@ export function AnnotationDrawBoard({
   })
 
   return (
-    <>
-      <svg
-        ref={svgRef}
+    <svg
+      ref={svgRef}
+      width={width}
+      height={height}
+      style={{ ...svgRootStyle.default, ...style }}
+      className={className}
+      onMouseDown={handleMouseDown}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onKeyDown={handleKeyDown}
+    >
+      {annotationsWithoutSelected.map((annotation) => (
+        <AnnotationViewer
+          key={annotation.id}
+          showAnnotationLabel={showAnnotationLabel}
+          annotation={annotation}
+          showOutline={showOutline}
+          hoveredAnnotation={hoveredAnnotation}
+          onHover={onHover}
+          onClick={onClick}
+        />
+      ))}
+      <AnnotationDrawer
         width={width}
         height={height}
-        style={{ ...svgRootStyle.default, ...style }}
-        className={className}
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onKeyDown={handleKeyDown}
-      >
-        {annotationsWithoutSelected.map((annotation) => (
-          <AnnotationViewer
-            key={annotation.id}
-            showAnnotationLabel={showAnnotationLabel}
-            annotation={annotation}
-            showOutline={showOutline}
-            hoveredAnnotation={hoveredAnnotation}
-            onHover={onHover}
-            onClick={onClick}
-          />
-        ))}
-        {(drawableAnnotation?.type === 'polygon' ||
-          drawableAnnotation?.type === 'freeLine' ||
-          drawableAnnotation?.type === 'line' ||
-          drawableAnnotation?.type === 'arrowLine') && (
-          <PolylineDrawer
-            annotation={drawableAnnotation}
-            isSelectedMode={isSelectedAnnotation}
-            showAnnotationLabel={showAnnotationLabel}
-            isPolygonSelected={selectedAnnotation?.type === 'polygon'}
-            selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}
-            setAnnotationEditMode={updateEditMode}
-          />
-        )}
-        {drawableAnnotation?.type === 'ruler' && drawableAnnotation?.measuredValue !== 0 && (
-          <RulerDrawer
-            isSelectedMode={isSelectedAnnotation}
-            annotation={drawableAnnotation}
-            setAnnotationEditMode={updateEditMode}
-          />
-        )}
-        {drawableAnnotation?.type === 'area' && drawableAnnotation?.measuredValue !== 0 && (
-          <AreaDrawer
-            isSelectedMode={isSelectedAnnotation}
-            annotation={drawableAnnotation}
-            setAnnotationEditMode={updateEditMode}
-          />
-        )}
-        {drawableAnnotation?.type === 'text' && (
-          <TextDrawer annotation={drawableAnnotation} setAnnotationEditMode={updateEditMode} />
-        )}
-        {annotationEditPoints && (
-          <>
-            <EditPointer
-              setEditMode={updateEditMode}
-              editMode="startPoint"
-              isSelectedMode={false}
-              isHighlightMode={isSelectedAnnotation}
-              editPoint={annotationEditPoints[0]}
-              cursorStatus={getCursorStatus(editMode)}
-            />
-            <EditPointer
-              setEditMode={updateEditMode}
-              editMode="endPoint"
-              isHighlightMode={isSelectedAnnotation}
-              isSelectedMode={Boolean(
-                isSelectedAnnotation && editMode && editMode !== 'move' && editMode !== 'textMove'
-              )}
-              editPoint={annotationEditPoints[1]}
-              cursorStatus={getCursorStatus(editMode)}
-            />
-          </>
-        )}
-      </svg>
-      {tempAnnotation && (
-        <svg width={width} height={height} style={{ ...svgRootStyle.default, ...style }}>
-          <TypingDrawer points={tempAnnotation.points} onFinish={handleTypingFinish} />
-        </svg>
-      )}
-    </>
+        style={style}
+        annotation={annotation}
+        selectedAnnotation={selectedAnnotation}
+        movedStartPoint={movedStartPoint}
+        drawingStartPoint={drawingStartPoint}
+        isSelectedAnnotation={isSelectedAnnotation}
+        showAnnotationLabel={showAnnotationLabel}
+        editMode={editMode}
+        tempAnnotation={tempAnnotation}
+        updateEditMode={updateEditMode}
+        onFinishTempAnnotationTyping={handleTypingFinish}
+      />
+    </svg>
   )
 }
