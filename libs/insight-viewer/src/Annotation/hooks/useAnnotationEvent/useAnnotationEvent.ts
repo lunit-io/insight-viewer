@@ -1,6 +1,8 @@
+import { useRef, useEffect } from 'react'
+
 import { useOverlayContext } from '../../../contexts'
 
-import type { MouseEvent, KeyboardEvent } from 'react'
+import type { MouseEvent } from 'react'
 import type { Point } from '../../../types'
 
 export interface UseAnnotationEventParams {
@@ -23,6 +25,9 @@ const useAnnotationEvent = ({
   mouseUpCallback,
   keyDownCallback,
 }: UseAnnotationEventParams) => {
+  // UseRef to avoid repeating event subscriptions and re-subscriptions
+  const keydownCallbackRef = useRef(keyDownCallback)
+
   const { pageToPixel } = useOverlayContext()
 
   const handleMouseDown = (event: MouseEvent) => {
@@ -59,18 +64,25 @@ const useAnnotationEvent = ({
     mouseUpCallback()
   }
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    setPreProcessEvent(event)
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      setPreProcessEvent(event)
 
-    keyDownCallback(event)
-  }
+      keydownCallbackRef.current(event)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [keydownCallbackRef])
 
   return {
     handleMouseDown,
     handleMouseMove,
     handleMouseLeave,
     handleMouseUp,
-    handleKeyDown,
   }
 }
 

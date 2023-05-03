@@ -125,7 +125,7 @@ export function AnnotationDrawBoard({
     onAdd(annotation as Annotation)
   }
 
-  const { handleKeyDown, handleMouseDown, handleMouseLeave, handleMouseMove, handleMouseUp } = useAnnotationEvent({
+  const { handleMouseDown, handleMouseLeave, handleMouseMove, handleMouseUp } = useAnnotationEvent({
     mouseDownCallback: setInitialPoint,
     mouseMoveCallback: addDrawingPoint,
     mouseUpCallback: () => {
@@ -155,7 +155,6 @@ export function AnnotationDrawBoard({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onKeyDown={handleKeyDown}
     >
       {annotationsWithoutSelected.map((annotation) => (
         <AnnotationViewer
