@@ -149,6 +149,7 @@ export const ViewerAndDrawer = ({
 }) => {
   // 비즈니스 로직...
 
+  // 각 이벤트 핸들러에는 이벤트 버블링 등을 막는 처리 로직 추가
   const handleMouseDown = () => {}
   const handleMouseMove = () => {}
   const handleMouseUp = () => {}
