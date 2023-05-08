@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import { ANNOTATION_OVERLAY_Z_INDEX } from '../const'
 
 export type ViewerStyleType =
   | 'default'
@@ -51,7 +52,7 @@ export const svgRootStyle: ViewerStyle = {
     left: 0,
     width: '100%',
     height: '100%',
-    zIndex: 10,
+    zIndex: ANNOTATION_OVERLAY_Z_INDEX,
   },
 }
 

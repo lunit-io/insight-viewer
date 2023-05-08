@@ -69,3 +69,9 @@ export const CIRCLE_EDIT_POINT_ANGLE = { START_ANGLE: -45, END_ANGLE: 135 }
 export const CIRCLE_TEXT_POINT_ANGLE = 135
 
 export const TEXT_PADDING = 4
+
+/**
+ * The Annotation Overlay z index should keep the highest value.
+ * When using z index, please use a value below that value.
+ */
+export const ANNOTATION_OVERLAY_Z_INDEX = 10
