@@ -80,12 +80,11 @@ export function AnnotationDrawer({
 
   if (!drawableAnnotation) return null
 
+  const { type } = drawableAnnotation
+
   return (
     <>
-      {(drawableAnnotation.type === 'polygon' ||
-        drawableAnnotation.type === 'freeLine' ||
-        drawableAnnotation.type === 'line' ||
-        drawableAnnotation.type === 'arrowLine') && (
+      {(type === 'polygon' || type === 'freeLine' || type === 'line' || type === 'arrowLine') && (
         <PolylineDrawer
           annotation={drawableAnnotation}
           isSelectedMode={isSelectedAnnotation}
@@ -95,23 +94,21 @@ export function AnnotationDrawer({
           setAnnotationEditMode={updateEditMode}
         />
       )}
-      {drawableAnnotation.type === 'ruler' && drawableAnnotation.measuredValue !== 0 && (
+      {type === 'ruler' && drawableAnnotation.measuredValue !== 0 && (
         <RulerDrawer
           isSelectedMode={isSelectedAnnotation}
           annotation={drawableAnnotation}
           setAnnotationEditMode={updateEditMode}
         />
       )}
-      {drawableAnnotation.type === 'area' && drawableAnnotation.measuredValue !== 0 && (
+      {type === 'area' && drawableAnnotation.measuredValue !== 0 && (
         <AreaDrawer
           isSelectedMode={isSelectedAnnotation}
           annotation={drawableAnnotation}
           setAnnotationEditMode={updateEditMode}
         />
       )}
-      {drawableAnnotation.type === 'text' && (
-        <TextDrawer annotation={drawableAnnotation} setAnnotationEditMode={updateEditMode} />
-      )}
+      {type === 'text' && <TextDrawer annotation={drawableAnnotation} setAnnotationEditMode={updateEditMode} />}
       {annotationEditPoints && (
         <>
           <EditPointer

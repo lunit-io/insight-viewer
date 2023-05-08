@@ -71,6 +71,8 @@ export function AnnotationViewer({
 
   if (!drawableAnnotation) return null
 
+  const { type } = drawableAnnotation
+
   return (
     <g
       data-cy-id={annotation.id}
@@ -80,13 +82,13 @@ export function AnnotationViewer({
       onMouseLeave={handleAnnotationMouseLeave}
       style={annotationStyle}
     >
-      {drawableAnnotation.type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
-      {(drawableAnnotation.type === 'freeLine' ||
-        drawableAnnotation.type === 'line' ||
-        drawableAnnotation.type === 'arrowLine') && <LineViewer annotation={drawableAnnotation} {...viewerProps} />}
-      {drawableAnnotation.type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
-      {drawableAnnotation.type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
-      {drawableAnnotation.type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {(type === 'freeLine' || type === 'line' || type === 'arrowLine') && (
+        <LineViewer annotation={drawableAnnotation} {...viewerProps} />
+      )}
+      {type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}
     </g>
   )
 }
