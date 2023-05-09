@@ -17,8 +17,8 @@ export interface AnnotationViewerProps {
   showOutline: boolean
   showAnnotationLabel: boolean
   hoveredAnnotation?: Annotation | null
-  onHover?: (element: Annotation | null) => void
-  onClick?: (element: Annotation) => void
+  onHover?: (annotation: Annotation | null) => void
+  onClick?: (annotation: Annotation) => void
 }
 
 const annotationStyle: React.CSSProperties = {
