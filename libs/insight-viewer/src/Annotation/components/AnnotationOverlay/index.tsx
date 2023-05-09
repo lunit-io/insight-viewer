@@ -11,10 +11,16 @@ import useEditMode from '../../hooks/useEditMode'
 import useAnnotationEvent from '../../hooks/useAnnotationEvent'
 import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
 
-import { validateAnnotation } from './utils/validateAnnotation'
+import { addAnnotation as _addAnnotation } from './utils/addAnnotation'
+import { removeAnnotation as _removeAnnotation } from './utils/removeAnnotation'
+import {
+  setInitialPointCallback,
+  addDrawingPointCallback,
+  addDrewAnnotationCallback,
+  cancelDrawingCallback,
+} from './utils/mouseEventCallback'
 
-import type { Point } from '../../../types'
-import type { Annotation, TextAnnotation } from '../../types'
+import type { TextAnnotation } from '../../types'
 import type { AnnotationOverlayProps } from './AnnotationOverlay.types'
 
 export const AnnotationOverlay = ({
@@ -42,47 +48,6 @@ export const AnnotationOverlay = ({
   const isSelectedAnnotation = Boolean(clickAction === 'select' && selectedAnnotation)
   const annotationsWithoutSelected = annotations.filter((annotation) => annotation.id !== selectedAnnotation?.id)
 
-  const handleAddAnnotation = (annotation: Annotation) => {
-    let addedTargetAnnotation: Annotation | null = annotation
-
-    addedTargetAnnotation = validateAnnotation(addedTargetAnnotation)
-
-    if (addedTargetAnnotation && onAdd) {
-      addedTargetAnnotation = onAdd(addedTargetAnnotation)
-    }
-
-    if (!onChange) return
-
-    if (!addedTargetAnnotation) {
-      onChange(annotations)
-      return
-    }
-
-    if (selectedAnnotation) {
-      onChange(annotations.map((prevAnnotation) => (prevAnnotation.id === annotation.id ? annotation : prevAnnotation)))
-      return
-    }
-
-    onChange([...annotations, annotation])
-  }
-
-  const handleRemoveAnnotation = (annotation: Annotation) => {
-    let removedTargetAnnotation: Annotation | null = annotation
-
-    if (onRemove) {
-      removedTargetAnnotation = onRemove(annotation)
-    }
-
-    if (!onChange) return
-
-    if (!removedTargetAnnotation) {
-      onChange(annotations)
-      return
-    }
-
-    onChange(annotations.filter((a) => a.id !== annotation.id))
-  }
-
   const { image, enabledElement } = useOverlayContext()
   const { editMode, updateEditMode, clearEditMode } = useEditMode()
 
@@ -104,82 +69,66 @@ export const AnnotationOverlay = ({
     id: annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1,
   })
 
-  const setInitialPoint = (point: Point) => {
-    if (hoveredAnnotation || tempAnnotation || (!isSelectedAnnotation && !isDrawing)) return
+  const addAnnotation = _addAnnotation({ annotation, annotations, selectedAnnotation, onAdd, onChange })
+  const removeAnnotation = _removeAnnotation({ annotations, onRemove, onChange })
 
-    setInitialAnnotation(point)
-    setInitialDrawingPoints(point)
-  }
+  const setInitialPoints = setInitialPointCallback({
+    hoveredAnnotation,
+    tempAnnotation,
+    isSelectedAnnotation,
+    isDrawing,
+    setInitialAnnotation,
+    setInitialDrawingPoints,
+  })
 
-  const addDrawingPoint = (point: Point) => {
-    if (!isSelectedAnnotation && !isDrawing) return
-    if (isSelectedAnnotation && !editMode) return
+  const addDrawingPoint = addDrawingPointCallback({
+    isDrawing,
+    isSelectedAnnotation,
+    editMode,
+    updateDrawingAnnotation,
+    setDrawingMovedPoint,
+  })
 
-    updateDrawingAnnotation(point)
-    setDrawingMovedPoint(point)
-  }
+  const addDrewAnnotation = () =>
+    addDrewAnnotationCallback({
+      annotation,
+      tempAnnotation,
+      setTempAnnotation,
+      addAnnotation,
+    })
 
-  const cancelDrawing = () => {
-    if (isSelectedAnnotation && editMode) {
-      clearEditMode()
-      clearDrawingAndMovedPoints()
-      return
-    }
-
-    if (onSelect) {
-      onSelect(null)
-    }
-
-    clearAnnotation()
-    clearEditMode()
-    clearDrawingAndMovedPoints()
-  }
+  const cancelDrawing = () =>
+    cancelDrawingCallback({
+      isSelectedAnnotation,
+      editMode,
+      onSelect,
+      clearAnnotation,
+      clearDrawingAndMovedPoints,
+      clearEditMode,
+    })
 
   const handleTypingFinish = (text: string) => {
     setTempAnnotation(undefined)
     if (tempAnnotation && text !== '') {
-      handleAddAnnotation({ ...tempAnnotation, label: text })
+      addAnnotation({ ...tempAnnotation, label: text })
     }
   }
 
-  const addDrewElement = () => {
-    if (annotation == null) return
-
-    if (annotation.type === 'text' && !annotation.label) {
-      // TODO: 추후 TextAnnotation 재설계 후 아래 주석과 코드 정리할 것.
-      // a 의 좌표가 유효하지 않을경우 setTempAnnotation 이 아예 실행되지 않도록 로직 추가
-      // Typing.tsx 에도 비슷한 코드가 존재하나 혹시 모를 사이드 이펙트를 고려하여 남겨둠
-      const [start, end] = annotation.points
-
-      if (typeof end === 'undefined' || end[0] < start[0] || end[1] < start[1]) {
-        return
-      }
-
-      if (!tempAnnotation) {
-        setTempAnnotation(annotation)
-      }
-
-      return
-    }
-
-    handleAddAnnotation(annotation as Annotation)
-  }
-
-  const { handleMouseDown, handleMouseLeave, handleMouseMove, handleMouseUp } = useAnnotationEvent({
-    mouseDownCallback: setInitialPoint,
+  const mouseHandler = useAnnotationEvent({
+    mouseDownCallback: setInitialPoints,
     mouseMoveCallback: addDrawingPoint,
     mouseUpCallback: () => {
-      addDrewElement()
+      addDrewAnnotation()
       cancelDrawing()
     },
     mouseLeaveCallback: () => {
-      addDrewElement()
+      addDrewAnnotation()
       cancelDrawing()
     },
     keyDownCallback: (event) => {
       if (event.code !== 'Escape') return
 
-      addDrewElement()
+      addDrewAnnotation()
       cancelDrawing()
     },
   })
@@ -193,10 +142,7 @@ export const AnnotationOverlay = ({
       height={height}
       style={{ ...svgRootStyle.default, ...style }}
       className={className}
-      onMouseDown={handleMouseDown}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
+      {...mouseHandler}
     >
       {annotationsWithoutSelected.map((annotation) => (
         <AnnotationViewer
@@ -206,7 +152,7 @@ export const AnnotationOverlay = ({
           showOutline={showOutline}
           hoveredAnnotation={hoveredAnnotation}
           onHover={isDrawing ? onHover : undefined}
-          onClick={isDrawing ? (clickAction === 'select' ? onSelect : handleRemoveAnnotation) : undefined}
+          onClick={isDrawing ? (clickAction === 'select' ? onSelect : removeAnnotation) : undefined}
         />
       ))}
       <AnnotationDrawer
