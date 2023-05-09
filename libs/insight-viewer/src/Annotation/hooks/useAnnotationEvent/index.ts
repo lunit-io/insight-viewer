@@ -29,7 +29,7 @@ const useAnnotationEvent = ({
 
   const { pageToPixel } = useOverlayContext()
 
-  const handleMouseDown = (event: MouseEvent) => {
+  const onMouseDown = (event: MouseEvent) => {
     // Apply Drawing only when left mouse button is pressed
     if (event.button !== 0) return
 
@@ -40,7 +40,7 @@ const useAnnotationEvent = ({
     mouseDownCallback(point)
   }
 
-  const handleMouseMove = (event: MouseEvent) => {
+  const onMouseMove = (event: MouseEvent) => {
     // Apply Drawing only when left mouse button is pressed
     if (event.button !== 0) return
 
@@ -51,13 +51,13 @@ const useAnnotationEvent = ({
     mouseMoveCallback(point)
   }
 
-  const handleMouseLeave = (event: MouseEvent) => {
+  const onMouseLeave = (event: MouseEvent) => {
     setPreProcessEvent(event)
 
     mouseLeaveCallback()
   }
 
-  const handleMouseUp = (event: MouseEvent) => {
+  const onMouseUp = (event: MouseEvent) => {
     setPreProcessEvent(event)
 
     mouseUpCallback()
@@ -78,10 +78,10 @@ const useAnnotationEvent = ({
   }, [keydownCallbackRef])
 
   return {
-    handleMouseDown,
-    handleMouseMove,
-    handleMouseLeave,
-    handleMouseUp,
+    onMouseDown,
+    onMouseMove,
+    onMouseLeave,
+    onMouseUp,
   }
 }
 
