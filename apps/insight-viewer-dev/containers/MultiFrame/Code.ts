@@ -1,4 +1,5 @@
 export const CODE = `\
+import React from 'react'
 import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 
 const IMAGES = [
@@ -19,14 +20,35 @@ export default function Viewer() {
     onError,            // optional
     requestInterceptor, // optional
   })
+
   const { frame, setFrame } = useFrame({
     initial: 0,
     max: images.length - 1,
   })
 
+  function changeFrame(e: React.ChangeEvent<HTMLInputElement>): void {
+    const {
+      target: { value },
+    } = e
+    setFrame(Number(value))
+  }
+
   return (
-    <div style={style}>
-      <InsightViewer image={images[frame]} />
+    <div>
+      <input
+        type="range"
+        id="frame"
+        name="frame"
+        min="0"
+        max={IMAGES.length - 1}
+        step="1"
+        onChange={changeFrame}
+        className="frame-control"
+        value={frame}
+      />
+      <div style={style}>
+        <InsightViewer image={images[frame]} />
+      </div>
     </div>
   )
 }
