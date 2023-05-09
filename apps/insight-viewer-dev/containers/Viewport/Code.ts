@@ -1,9 +1,12 @@
 export const CODE = `\
+import { useRef, useEffect, useCallback } from 'react'
 import InsightViewer, {
-  useImageLoad,
+  useImage,
   useViewport,
-  Viewport,
 } from '@lunit/insight-viewer'
+import { useViewport } from '@lunit/insight-viewer/viewport'
+
+import type { Viewport } from '@lunit/insight-viewer'
 
 const style = {
   width: '500px',
@@ -11,37 +14,28 @@ const style = {
 }
 
 export default function App() {
-  const { image } = useImageLoad({
-    imageId: IMAGE_ID,
-  })
-  const { viewport, setViewport, resetViewport } = useViewport({
-    initalViewport: {
-      scale: 0.5,
-      windowWidth: 90,
-      windowCenter: 32,
-    }
+  const viewerRef = useRef<HTMLDivElement>(null)
+
+  const { loadingState, image } = useImage({
+    wadouri: IMAGES[0],
   })
 
-  function updateViewport() {
-    setViewport(prev => ({
-      ...prev,
-      invert: false,
-      hflip: false,
-      vflip: true,
-      x: 10,
-      y: 0,
-      scale: 1,
-      windowWidth: 128,
-      windowCenter: 256
-    }))
+  const { viewport, setViewport, resetViewport, initialized } = useViewport({
+    image,
+    element: viewerRef.current,
+    options: { fitScale: false },
+    getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT1 }),
+  })
 
-    // or
-    setViewport({
-      ...viewport,
-      hflip: e.target.checked,
-    })
-
-  }
+  const updateViewport = useCallback(
+    (key: keyof Viewport, value: unknown) => {
+      setViewport((prev: Viewport) => ({
+        ...prev,
+        [key]: value,
+      }))
+    },
+    [setViewport]
+  )
 
   // update viewport with keyboard event
   useEffect(() => {
@@ -68,14 +62,44 @@ export default function App() {
   }, [setViewport])
 
   return (
-    <div style={style}>
-      <button type="button" onClick={updateViewport}>update viewport</button>
+    <div>
       <button type="button" onClick={resetViewport}>reset viewport</button>
-      <InsightViewer
-        image={image}
-        viewport={viewport}
-        onViewportChange={setViewport}
+      <input
+        type="range"
+        id="y"
+        name="y"
+        min="0"
+        max="100"
+        step="10"
+        onChange={(e) => {
+          updateViewport('y', Number(e.target.value))
+        }}
+        className="y-control"
+        value={viewport?.y ?? 0}
       />
+      <input
+        type="checkbox"
+        onChange={(e) => updateViewport('invert', e.target.checked)}
+        checked={viewport.invert}
+      />
+      <input
+        type="checkbox"
+        onChange={(e) => updateViewport('hflip', e.target.checked)}
+        checked={viewport?.hflip ?? false}
+      />
+      <input
+        type="checkbox"
+        onChange={(e) => updateViewport('vflip', e.target.checked)}
+        checked={viewport?.vflip ?? false}
+      />
+      <div style={style}>
+        <InsightViewer
+          viewerRef={viewerRef}
+          image={image}
+          viewport={viewport}
+          onViewportChange={setViewport}
+        />
+      </div>
     </div>
   )
 }
