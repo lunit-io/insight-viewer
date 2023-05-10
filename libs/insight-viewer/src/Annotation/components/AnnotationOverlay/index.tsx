@@ -8,7 +8,7 @@ import { AnnotationViewer } from '../AnnotationViewer'
 import { AnnotationDrawer } from '../AnnotationDrawer'
 
 import useEditMode from '../../hooks/useEditMode'
-import useAnnotationEvent from '../../hooks/useAnnotationEvent'
+import useMouseEvent from '../../hooks/useMouseEvent'
 import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
 
 import { addAnnotation as _addAnnotation } from './utils/addAnnotation'
@@ -114,7 +114,7 @@ export const AnnotationOverlay = ({
     }
   }
 
-  const mouseHandler = useAnnotationEvent({
+  const mouseHandler = useMouseEvent({
     mouseDownCallback: setInitialPoints,
     mouseMoveCallback: addDrawingPoint,
     mouseUpCallback: () => {

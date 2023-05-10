@@ -17,7 +17,7 @@ const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
   event.stopPropagation()
 }
 
-const useAnnotationEvent = ({
+const useMouseEvent = ({
   mouseDownCallback,
   mouseMoveCallback,
   mouseLeaveCallback,
@@ -85,4 +85,4 @@ const useAnnotationEvent = ({
   }
 }
 
-export default useAnnotationEvent
+export default useMouseEvent
