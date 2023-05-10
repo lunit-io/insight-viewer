@@ -5,6 +5,8 @@ import { Resizable } from 're-resizable'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
+import { MEASURED_ANNOTATIONS } from '@insight-viewer-library/fixtures'
+
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 import CodeBlock from '../../../components/CodeBlock'
 
@@ -21,10 +23,10 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function MeasurementDrawerContainer(): JSX.Element {
+function MeasurementDrawer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
 
-  const [annotations, setAnnotations] = useState<Annotation[]>([])
+  const [annotations, setAnnotations] = useState<Annotation[]>(MEASURED_ANNOTATIONS)
   const [hoveredAnnotation, setHoveredAnnotation] = useState<Annotation | null>(null)
   const [selectedAnnotation, setSelectedAnnotation] = useState<Annotation | null>(null)
 
@@ -52,6 +54,10 @@ function MeasurementDrawerContainer(): JSX.Element {
 
   const handleAnnotationHover = (annotation: Annotation | null) => {
     setHoveredAnnotation(annotation)
+  }
+
+  const handleResetAnnotation = () => {
+    setAnnotations(MEASURED_ANNOTATIONS)
   }
 
   const handleRemoveAllAnnotation = () => {
@@ -103,11 +109,14 @@ function MeasurementDrawerContainer(): JSX.Element {
           <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
+      <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={handleResetAnnotation}>
+        reset
+      </Button>
       <Button data-cy-name="remove-button" marginBottom="10px" colorScheme="blue" onClick={handleRemoveAllAnnotation}>
         remove all
       </Button>
 
-      <Box data-cy-loaded={loadingState} className={`measurement ${annotationMode}`}>
+      <Box data-cy-loaded={loadingState} className={isDrawing ? `measurement ${annotationMode}` : 'pointer'}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (
@@ -135,4 +144,4 @@ function MeasurementDrawerContainer(): JSX.Element {
   )
 }
 
-export default MeasurementDrawerContainer
+export default MeasurementDrawer

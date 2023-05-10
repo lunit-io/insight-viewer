@@ -31,14 +31,4 @@ export const AREA_MEASUREMENTS: AreaAnnotation[] = [
     unit: 'mm',
     textPoint: null,
   },
-  {
-    id: 4,
-    lineWidth: 1.5,
-    type: 'area',
-    centerPoint: [141.16571428571427, 218.89142857142855],
-    measuredValue: 16.9670963417275,
-    radius: 16.9670963417275,
-    unit: 'mm',
-    textPoint: null,
-  },
 ]

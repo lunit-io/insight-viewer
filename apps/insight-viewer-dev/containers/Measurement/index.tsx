@@ -1,10 +1,10 @@
 import { Box } from '@chakra-ui/react'
-import Tabs from './Tab'
+import MeasurementDrawer from './Drawer'
 
 export default function Measurement(): JSX.Element {
   return (
     <Box mb={6}>
-      <Tabs />
+      <MeasurementDrawer />
     </Box>
   )
 }

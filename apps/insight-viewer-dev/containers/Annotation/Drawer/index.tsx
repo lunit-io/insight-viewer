@@ -131,7 +131,6 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="arrowLine">Arrow Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
-          <Radio value="circle">Circle - Not implemented yet</Radio>
         </Stack>
       </RadioGroup>
       <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={handleResetAnnotation}>
@@ -140,7 +139,11 @@ function AnnotationDrawerContainer(): JSX.Element {
       <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={handleRemoveAllAnnotation}>
         remove all
       </Button>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
+      <Resizable
+        style={style}
+        defaultSize={DEFAULT_SIZE}
+        className={isDrawing ? `annotation ${annotationMode}` : 'pointer'}
+      >
         <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay

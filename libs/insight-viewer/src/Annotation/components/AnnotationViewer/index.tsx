@@ -9,14 +9,16 @@ import { TextViewer } from '../TextViewer'
 import { RulerViewer } from '../RulerViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
+import type { MouseEvent } from 'react'
 import type { Annotation } from '../../types'
-import type { AnnotationsViewerProps } from '../AnnotationsViewer/AnnotationViewer.types'
 
-export interface AnnotationViewerProps
-  extends Omit<AnnotationsViewerProps, 'width' | 'height' | 'selectedAnnotation' | 'annotations'> {
+export interface AnnotationViewerProps {
   annotation: Annotation
   showOutline: boolean
-  showElementLabel: boolean
+  showAnnotationLabel: boolean
+  hoveredAnnotation?: Annotation | null
+  onHover?: (annotation: Annotation | null) => void
+  onClick?: (annotation: Annotation) => void
 }
 
 const annotationStyle: React.CSSProperties = {
@@ -26,7 +28,7 @@ const annotationStyle: React.CSSProperties = {
 export function AnnotationViewer({
   annotation,
   showOutline,
-  showElementLabel,
+  showAnnotationLabel,
   hoveredAnnotation,
   onHover,
   onClick,
@@ -35,12 +37,15 @@ export function AnnotationViewer({
 
   const viewerProps = {
     showOutline,
-    showLabel: showElementLabel,
+    showLabel: showAnnotationLabel,
     isHovered: hoveredAnnotation?.id === annotation.id,
   }
 
-  const handleAnnotationClick = () => {
+  const handleAnnotationClick = (event: MouseEvent) => {
     if (!onClick) return
+
+    event.preventDefault()
+    event.stopPropagation()
 
     if (onHover) {
       onHover(null)
@@ -64,6 +69,10 @@ export function AnnotationViewer({
     pixelToCanvas,
   })
 
+  if (!drawableAnnotation) return null
+
+  const { type } = drawableAnnotation
+
   return (
     <g
       data-cy-id={annotation.id}
@@ -73,17 +82,13 @@ export function AnnotationViewer({
       onMouseLeave={handleAnnotationMouseLeave}
       style={annotationStyle}
     >
-      {!drawableAnnotation ? null : (
-        <>
-          {drawableAnnotation.type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {(drawableAnnotation.type === 'freeLine' ||
-            drawableAnnotation.type === 'line' ||
-            drawableAnnotation.type === 'arrowLine') && <LineViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {drawableAnnotation.type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {drawableAnnotation.type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
-          {drawableAnnotation.type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}
-        </>
+      {type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {(type === 'freeLine' || type === 'line' || type === 'arrowLine') && (
+        <LineViewer annotation={drawableAnnotation} {...viewerProps} />
       )}
+      {type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
+      {type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}
     </g>
   )
 }
