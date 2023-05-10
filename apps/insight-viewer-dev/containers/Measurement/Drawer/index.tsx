@@ -113,7 +113,7 @@ function MeasurementDrawer(): JSX.Element {
         remove all
       </Button>
 
-      <Box data-cy-loaded={loadingState} className={`measurement ${annotationMode}`}>
+      <Box data-cy-loaded={loadingState} className={isDrawing ? `measurement ${annotationMode}` : 'pointer'}>
         <Resizable style={style} defaultSize={DEFAULT_SIZE}>
           <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
             {loadingState === 'success' && (

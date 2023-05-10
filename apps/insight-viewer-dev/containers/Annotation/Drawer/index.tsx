@@ -136,7 +136,11 @@ function AnnotationDrawerContainer(): JSX.Element {
       <Button data-cy-name="remove-button" size="sm" mb={2} colorScheme="blue" onClick={handleRemoveAllAnnotation}>
         remove all
       </Button>
-      <Resizable style={style} defaultSize={DEFAULT_SIZE} className={`annotation ${annotationMode}`}>
+      <Resizable
+        style={style}
+        defaultSize={DEFAULT_SIZE}
+        className={isDrawing ? `annotation ${annotationMode}` : 'pointer'}
+      >
         <InsightViewer viewerRef={viewerRef} image={image} viewport={viewport} onViewportChange={setViewport}>
           {loadingState === 'success' && (
             <AnnotationOverlay
