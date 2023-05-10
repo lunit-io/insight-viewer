@@ -6,6 +6,9 @@ import { useViewport } from '@lunit/insight-viewer/viewport'
 import { AnnotationMode, AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { INITIAL_POLYGON_ANNOTATIONS } from '@insight-viewer-library/fixtures'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
+import CodeBlock from '../../../components/CodeBlock'
+
+import { BASE_CODE } from './Code'
 
 import type { Annotation } from '@lunit/insight-viewer/annotation'
 
@@ -155,6 +158,9 @@ function AnnotationDrawerContainer(): JSX.Element {
           )}
         </InsightViewer>
       </Resizable>
+      <Box>
+        <CodeBlock code={BASE_CODE} />
+      </Box>
     </Box>
   )
 }
