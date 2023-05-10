@@ -1,10 +1,10 @@
 import { Box } from '@chakra-ui/react'
-import Tabs from './Tabs'
+import AnnotationDrawer from './Drawer'
 
 export default function Annotation(): JSX.Element {
   return (
     <Box mb={6}>
-      <Tabs />
+      <AnnotationDrawer />
     </Box>
   )
 }
