@@ -11,7 +11,7 @@ import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
-import { BASE_CODE } from './Code'
+import { BASE_CODE, CUSTOM_CODE } from './Code'
 import { CODE_SANDBOX } from '../../const'
 
 export default function App(): JSX.Element {
@@ -142,7 +142,7 @@ export default function App(): JSX.Element {
       </Stack>
 
       <Box>
-        <CodeBlock code={BASE_CODE} codeSandbox={CODE_SANDBOX.customInteraction} />
+        <CodeBlock code={CUSTOM_CODE} />
       </Box>
     </Box>
   )
