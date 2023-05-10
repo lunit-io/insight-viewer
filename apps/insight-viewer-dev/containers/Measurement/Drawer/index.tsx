@@ -20,7 +20,7 @@ const style = {
 /** Mock svg Size */
 const DEFAULT_SIZE = { width: 700, height: 700 }
 
-function MeasurementDrawerContainer(): JSX.Element {
+function MeasurementDrawer(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
 
   const [annotations, setAnnotations] = useState<Annotation[]>(MEASURED_ANNOTATIONS)
@@ -138,4 +138,4 @@ function MeasurementDrawerContainer(): JSX.Element {
   )
 }
 
-export default MeasurementDrawerContainer
+export default MeasurementDrawer
