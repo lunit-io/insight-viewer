@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 
+import { useOverlayContext } from '../../../contexts'
+
+import { svgRootStyle } from '../../viewer.styles'
+
+import { AnnotationViewer } from '../AnnotationViewer'
 import { AnnotationDrawer } from '../AnnotationDrawer'
-import { AnnotationsViewer } from '../AnnotationsViewer'
 
-import { validateAnnotation } from './utils/validateAnnotation'
+import useEditMode from '../../hooks/useEditMode'
+import useMouseEvent from '../../hooks/useMouseEvent'
+import useCreatingAnnotation from '../../hooks/useCreatingAnnotation'
 
-import type { Annotation } from '../../types'
+import { addAnnotation as _addAnnotation } from './utils/addAnnotation'
+import { removeAnnotation as _removeAnnotation } from './utils/removeAnnotation'
+import {
+  setInitialPointCallback,
+  addDrawingPointCallback,
+  addDrewAnnotationCallback,
+  cancelDrawingCallback,
+} from './utils/mouseEventCallback'
+
+import type { TextAnnotation } from '../../types'
 import type { AnnotationOverlayProps } from './AnnotationOverlay.types'
 
 export const AnnotationOverlay = ({
@@ -15,89 +30,146 @@ export const AnnotationOverlay = ({
   style,
   isDrawing = false,
   clickAction = 'remove',
-  mode,
+  mode = 'polygon',
   annotations,
-  showOutline,
+  showOutline = true,
   hoveredAnnotation,
   selectedAnnotation,
-  showAnnotationLabel,
+  showAnnotationLabel = false,
   onAdd,
   onHover,
   onRemove,
   onSelect,
   onChange,
-}: AnnotationOverlayProps): JSX.Element => {
-  const handleAddAnnotation = (annotation: Annotation) => {
-    let addedTargetAnnotation: Annotation | null = annotation
+}: AnnotationOverlayProps) => {
+  const svgRef = useRef<SVGSVGElement>(null)
+  const [tempAnnotation, setTempAnnotation] = useState<TextAnnotation>()
 
-    addedTargetAnnotation = validateAnnotation(addedTargetAnnotation)
+  const isSelectedAnnotation = Boolean(clickAction === 'select' && selectedAnnotation)
+  const annotationsWithoutSelected = annotations.filter((annotation) => annotation.id !== selectedAnnotation?.id)
 
-    if (addedTargetAnnotation && onAdd) {
-      addedTargetAnnotation = onAdd(addedTargetAnnotation)
+  const { image, enabledElement } = useOverlayContext()
+  const { editMode, updateEditMode, clearEditMode } = useEditMode()
+
+  const {
+    annotation,
+    movedStartPoint,
+    drawingStartPoint,
+    clearAnnotation,
+    setDrawingMovedPoint,
+    setInitialAnnotation,
+    setInitialDrawingPoints,
+    updateDrawingAnnotation,
+    clearDrawingAndMovedPoints,
+  } = useCreatingAnnotation({
+    mode,
+    image,
+    editMode,
+    selectedAnnotation,
+    id: annotations.length === 0 ? 1 : Math.max(...annotations.map(({ id }) => id), 0) + 1,
+  })
+
+  const addAnnotation = _addAnnotation({ annotation, annotations, selectedAnnotation, onAdd, onChange })
+  const removeAnnotation = _removeAnnotation({ annotations, onRemove, onChange })
+
+  const setInitialPoints = setInitialPointCallback({
+    hoveredAnnotation,
+    tempAnnotation,
+    isSelectedAnnotation,
+    isDrawing,
+    setInitialAnnotation,
+    setInitialDrawingPoints,
+  })
+
+  const addDrawingPoint = addDrawingPointCallback({
+    isDrawing,
+    isSelectedAnnotation,
+    editMode,
+    updateDrawingAnnotation,
+    setDrawingMovedPoint,
+  })
+
+  const addDrewAnnotation = () =>
+    addDrewAnnotationCallback({
+      annotation,
+      tempAnnotation,
+      setTempAnnotation,
+      addAnnotation,
+    })
+
+  const cancelDrawing = () =>
+    cancelDrawingCallback({
+      isSelectedAnnotation,
+      editMode,
+      onSelect,
+      clearAnnotation,
+      clearDrawingAndMovedPoints,
+      clearEditMode,
+    })
+
+  const handleTypingFinish = (text: string) => {
+    setTempAnnotation(undefined)
+    if (tempAnnotation && text !== '') {
+      addAnnotation({ ...tempAnnotation, label: text })
     }
-
-    if (!onChange) return
-
-    if (!addedTargetAnnotation) {
-      onChange(annotations)
-      return
-    }
-
-    if (selectedAnnotation) {
-      onChange(annotations.map((prevAnnotation) => (prevAnnotation.id === annotation.id ? annotation : prevAnnotation)))
-      return
-    }
-
-    onChange([...annotations, annotation])
   }
 
-  const handleRemoveAnnotation = (annotation: Annotation) => {
-    let removedTargetAnnotation: Annotation | null = annotation
+  const mouseHandler = useMouseEvent({
+    mouseDownCallback: setInitialPoints,
+    mouseMoveCallback: addDrawingPoint,
+    mouseUpCallback: () => {
+      addDrewAnnotation()
+      cancelDrawing()
+    },
+    mouseLeaveCallback: () => {
+      addDrewAnnotation()
+      cancelDrawing()
+    },
+    keyDownCallback: (event) => {
+      if (event.code === 'Escape') {
+        addDrewAnnotation()
+        cancelDrawing()
+      }
+    },
+  })
 
-    if (onRemove) {
-      removedTargetAnnotation = onRemove(annotation)
-    }
-
-    if (!onChange) return
-
-    if (!removedTargetAnnotation) {
-      onChange(annotations)
-      return
-    }
-
-    onChange(annotations.filter((a) => a.id !== annotation.id))
-  }
+  if (!enabledElement) return null
 
   return (
-    <>
-      <AnnotationsViewer
-        width={width}
-        height={height}
-        annotations={annotations}
-        hoveredAnnotation={hoveredAnnotation}
-        selectedAnnotation={selectedAnnotation}
-        className={className}
-        style={style}
-        showOutline={showOutline}
-        showElementLabel={showAnnotationLabel}
-        onHover={isDrawing ? onHover : undefined}
-        onClick={isDrawing ? (clickAction === 'select' ? onSelect : handleRemoveAnnotation) : undefined}
-      />
+    <svg
+      ref={svgRef}
+      width={width}
+      height={height}
+      style={{ ...svgRootStyle.default, ...style }}
+      className={className}
+      {...mouseHandler}
+    >
+      {annotationsWithoutSelected.map((annotation) => (
+        <AnnotationViewer
+          key={annotation.id}
+          showAnnotationLabel={showAnnotationLabel}
+          annotation={annotation}
+          showOutline={showOutline}
+          hoveredAnnotation={hoveredAnnotation}
+          onHover={isDrawing ? onHover : undefined}
+          onClick={isDrawing ? (clickAction === 'select' ? onSelect : removeAnnotation) : undefined}
+        />
+      ))}
       <AnnotationDrawer
         width={width}
         height={height}
-        annotations={annotations}
-        hoveredAnnotation={hoveredAnnotation}
-        selectedAnnotation={selectedAnnotation}
-        showAnnotationLabel={showAnnotationLabel}
-        className={className}
         style={style}
-        isDrawing={isDrawing}
-        clickAction={clickAction}
-        mode={mode}
-        onAdd={handleAddAnnotation}
-        onSelect={onSelect}
+        annotation={annotation}
+        selectedAnnotation={selectedAnnotation}
+        movedStartPoint={movedStartPoint}
+        drawingStartPoint={drawingStartPoint}
+        isSelectedAnnotation={isSelectedAnnotation}
+        showAnnotationLabel={showAnnotationLabel}
+        editMode={editMode}
+        tempAnnotation={tempAnnotation}
+        updateEditMode={updateEditMode}
+        onFinishTempAnnotationTyping={handleTypingFinish}
       />
-    </>
+    </svg>
   )
 }

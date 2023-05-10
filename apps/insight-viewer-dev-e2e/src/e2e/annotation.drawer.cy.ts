@@ -24,7 +24,6 @@ describe(
     })
 
     it('shows initial annotation', () => {
-      cy.get('[data-cy-tab="drawer"]').click()
       cy.get($LOADED).should('be.exist')
     })
 
@@ -137,7 +136,6 @@ describe(
         cy.visit('/annotation')
 
         cy.get($LOADED).should('be.exist')
-        cy.get('[data-cy-tab="drawer"]').click()
       })
 
       beforeEach(() => {
@@ -180,7 +178,6 @@ describe(
         cy.visit('/annotation')
 
         cy.get($LOADED).should('be.exist')
-        cy.get('[data-cy-tab="drawer"]').click()
       })
 
       beforeEach(() => {

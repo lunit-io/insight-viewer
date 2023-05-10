@@ -34,17 +34,6 @@ export const RULER_MEASUREMENTS: RulerAnnotation[] = [
     textPoint: [276.23999999999995, 259.77142857142854],
     unit: 'mm',
   },
-  {
-    id: 4,
-    type: 'ruler',
-    startAndEndPoint: [
-      [300.6171428571428, 348.0228571428571],
-      [224.5485714285714, 366.3085714285714],
-    ],
-    measuredValue: 38.2,
-    textPoint: [234.5485714285714, 386.3085714285714],
-    unit: 'mm',
-  },
 ]
 
 export const SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT: RulerAnnotation = {
