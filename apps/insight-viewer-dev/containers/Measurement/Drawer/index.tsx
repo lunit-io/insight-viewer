@@ -6,6 +6,9 @@ import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
+import CodeBlock from '../../../components/CodeBlock'
+
+import { BASE_CODE } from './Code'
 
 import type { Annotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
 
@@ -124,6 +127,9 @@ function MeasurementDrawerContainer(): JSX.Element {
             )}
           </InsightViewer>
         </Resizable>
+      </Box>
+      <Box>
+        <CodeBlock code={BASE_CODE} />
       </Box>
     </>
   )
