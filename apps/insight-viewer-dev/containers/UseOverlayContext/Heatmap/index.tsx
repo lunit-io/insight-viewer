@@ -6,9 +6,7 @@ import InsightViewer, { useImage, useInteraction, Viewport, HeatmapViewer } from
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import OverlayLayer from '../../../components/OverlayLayer'
-import CodeBlock from '../../../components/CodeBlock'
 import posMap from './posMap'
-import { CODE } from '../Code'
 
 const style = {
   display: 'flex',
@@ -90,9 +88,6 @@ function HeatmapContainer(): JSX.Element {
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </Resizable>
-      </Box>
-      <Box>
-        <CodeBlock code={CODE} />
       </Box>
     </>
   )
