@@ -126,10 +126,10 @@ export const AnnotationOverlay = ({
       cancelDrawing()
     },
     keyDownCallback: (event) => {
-      if (event.code !== 'Escape') return
-
-      addDrewAnnotation()
-      cancelDrawing()
+      if (event.code === 'Escape') {
+        addDrewAnnotation()
+        cancelDrawing()
+      }
     },
   })
 
