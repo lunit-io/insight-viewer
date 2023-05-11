@@ -137,6 +137,16 @@ export const drawMeasurement = (measurement: MeasuredAnnotation): void => {
       .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
       .trigger('mouseup', { button: 0 })
   }
+
+  if (measurement.type === 'area') {
+    const { centerPoint, radius } = measurement
+    const startPoint: Point = [centerPoint[0] - radius, centerPoint[1]]
+    const endPoint: Point = [measurement.centerPoint[0] + radius, centerPoint[1]]
+    cy.get('@canvas')
+      .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
+      .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
+      .trigger('mouseup', { button: 0 })
+  }
 }
 
 export const drawMeasurements = (measurements: MeasuredAnnotation[]): void => {
