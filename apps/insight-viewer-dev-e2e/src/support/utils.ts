@@ -1,13 +1,5 @@
 import type { Point } from '@lunit/insight-viewer'
-import type {
-  Annotation,
-  PolygonAnnotation,
-  LineAnnotation,
-  FreeLineAnnotation,
-  ArrowLineAnnotation,
-  RulerAnnotation,
-  AreaAnnotation,
-} from '@lunit/insight-viewer/annotation'
+import type { Annotation } from '@lunit/insight-viewer/annotation'
 
 export function setup(): void {
   // ResizeObserver loop limit exceeded
@@ -22,40 +14,38 @@ export function setup(): void {
   })
 }
 
-type MeasuredAnnotation = RulerAnnotation | AreaAnnotation
-type AnnotationWithoutMeasured = PolygonAnnotation | LineAnnotation | FreeLineAnnotation | ArrowLineAnnotation
-
 type DomElementExistState = 'not.exist' | 'exist'
 
-export function deleteAndCheckAnnotationOrMeasurement(
-  element: Annotation,
+export function deleteAndCheckAnnotation(
+  annotation: Annotation,
   domElementState: DomElementExistState = 'exist'
 ): void {
-  const targetDataAttr = `[data-cy-id="${element.id}"]`
+  const targetDataAttr = `[data-cy-id="${annotation.id}"]`
 
   cy.get(targetDataAttr).click({ force: true })
   cy.get(targetDataAttr).should(domElementState)
 }
 
 export function deleteAndCheckMultiAnnotationOrMeasurement(
-  elements: Annotation[],
+  annotations: Annotation[],
   domElementState: DomElementExistState = 'exist'
 ): void {
-  elements.forEach((element) => deleteAndCheckAnnotationOrMeasurement(element, domElementState))
+  annotations.forEach((annotation) => deleteAndCheckAnnotation(annotation, domElementState))
 }
 
-export function drawAnnotation(element: AnnotationWithoutMeasured): void {
+export function drawAnnotation(annotation: Annotation): void {
+  const { type } = annotation
   cy.get('.cornerstone-canvas-wrapper').as('canvas')
 
-  if (element.type === 'freeLine' || element.type === 'polygon') {
-    element.points.forEach(([x, y], i) => {
+  if (type === 'freeLine' || type === 'polygon') {
+    annotation.points.forEach(([x, y], i) => {
       if (i === 0) {
         cy.get('@canvas').trigger('mousedown', {
           x,
           y,
           button: 0,
         })
-      } else if (i === element.points.length - 1) {
+      } else if (i === annotation.points.length - 1) {
         cy.get('@canvas').trigger('mouseup', { button: 0 })
       } else {
         cy.get('@canvas').trigger('mousemove', {
@@ -65,72 +55,22 @@ export function drawAnnotation(element: AnnotationWithoutMeasured): void {
         })
       }
     })
-    return undefined
+    return
   }
 
-  // annotation mode is line or text
+  if (type === 'arrowLine' || type === 'line') {
+    const [startPoint, endPoint] = annotation.points
 
-  const [startPoint, endPoint] = element.points
+    cy.get('@canvas')
+      .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
+      .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
+      .trigger('mouseup', { button: 0 })
 
-  cy.get('@canvas')
-    .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
-    .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
-    .trigger('mouseup', { button: 0 })
-
-  return undefined
-}
-
-export function drawAnnotations(elements: AnnotationWithoutMeasured[]): void {
-  elements.forEach(drawAnnotation)
-}
-
-export function moveAnnotation(annotation: AnnotationWithoutMeasured, distance: number): void {
-  const targetDataAttr = `[data-cy-id="${annotation.id}"]`
-  const targetDrawingAttr = '[data-cy-annotation]'
-  const startPoint = annotation.points[0]
-
-  cy.get(targetDataAttr).click({ force: true })
-
-  cy.get(targetDrawingAttr).trigger('mousedown', {
-    force: true,
-    pageX: startPoint[0] + 5,
-    pageY: startPoint[1] + 5,
-  })
-
-  for (let i = 0; i < distance; i += 25) {
-    cy.get(targetDrawingAttr).trigger('mousemove', {
-      force: true,
-      pageX: startPoint[0] + i,
-      pageY: startPoint[1] + i,
-      button: 0,
-    })
+    return
   }
 
-  cy.get(targetDrawingAttr).trigger('mouseup', { force: true, button: 0 })
-
-  // edit mode disabled
-  cy.get('.cornerstone-canvas-wrapper').click()
-
-  return undefined
-}
-
-export const editAnnotation = (editTargetPoint: Point, distance: number): void => {
-  cy.get('.cornerstone-canvas-wrapper').as('canvas')
-  const [x, y] = editTargetPoint
-
-  cy.get('@canvas')
-    .trigger('mousedown', { x, y, button: 0 })
-    .trigger('mousemove', { x: x + distance, y: y + distance, button: 0 })
-    .trigger('mouseup', { button: 0 })
-
-  cy.get('@canvas').click()
-}
-
-export const drawMeasurement = (measurement: MeasuredAnnotation): void => {
-  cy.get('.cornerstone-canvas-wrapper').as('canvas')
-
-  if (measurement.type === 'ruler') {
-    const [startPoint, endPoint] = measurement.startAndEndPoint
+  if (type === 'ruler') {
+    const [startPoint, endPoint] = annotation.startAndEndPoint
 
     cy.get('@canvas')
       .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
@@ -138,10 +78,10 @@ export const drawMeasurement = (measurement: MeasuredAnnotation): void => {
       .trigger('mouseup', { button: 0 })
   }
 
-  if (measurement.type === 'area') {
-    const { centerPoint, radius } = measurement
+  if (type === 'area') {
+    const { centerPoint, radius } = annotation
     const startPoint: Point = [centerPoint[0] - radius, centerPoint[1]]
-    const endPoint: Point = [measurement.centerPoint[0] + radius, centerPoint[1]]
+    const endPoint: Point = [annotation.centerPoint[0] + radius, centerPoint[1]]
     cy.get('@canvas')
       .trigger('mousedown', { x: startPoint[0], y: startPoint[1], button: 0 })
       .trigger('mousemove', { x: endPoint[0], y: endPoint[1], button: 0 })
@@ -149,47 +89,6 @@ export const drawMeasurement = (measurement: MeasuredAnnotation): void => {
   }
 }
 
-export const drawMeasurements = (measurements: MeasuredAnnotation[]): void => {
-  measurements.forEach(drawMeasurement)
-}
-
-export const moveMeasurement = (measurement: MeasuredAnnotation, distance: number): void => {
-  const targetDataAttr = `[data-cy-id="${measurement.id}"]`
-  const targetDrawingAttr = '[data-cy-move]'
-  const startPoint = measurement.type === 'area' ? measurement.centerPoint : measurement.startAndEndPoint[0]
-
-  cy.get(targetDataAttr).click({ force: true })
-
-  cy.get(targetDrawingAttr).trigger('mousedown', {
-    x: startPoint[0] + 5,
-    pageY: startPoint[1] + 5,
-    button: 0,
-  })
-
-  for (let i = 0; i < distance; i += 25) {
-    cy.get(targetDrawingAttr).trigger('mousemove', {
-      pageX: startPoint[0] + i,
-      pageY: startPoint[1] + i,
-      button: 0,
-    })
-  }
-
-  cy.get(targetDrawingAttr).trigger('mouseup', { force: true, button: 0 })
-
-  // edit mode disabled
-  cy.get('.cornerstone-canvas-wrapper').click()
-
-  return undefined
-}
-
-export const editPoint = (editTargetPoint: Point, distance: number): void => {
-  cy.get('.cornerstone-canvas-wrapper').as('canvas')
-  const [x, y] = editTargetPoint
-
-  cy.get('@canvas')
-    .trigger('mousedown', { x, y, button: 0 })
-    .trigger('mousemove', { x: x + distance, y: y + distance, button: 0 })
-    .trigger('mouseup', { button: 0 })
-
-  cy.get('@canvas').click()
+export function drawAnnotations(annotations: Annotation[]): void {
+  annotations.forEach(drawAnnotation)
 }
