@@ -1,4 +1,10 @@
-import { setup, drawAnnotation, drawAnnotations, deleteAndCheckAnnotationOrMeasurement } from '../support/utils'
+import {
+  setup,
+  drawAnnotation,
+  drawAnnotations,
+  drawMeasurements,
+  deleteAndCheckAnnotationOrMeasurement,
+} from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
 import {
   INITIAL_POLYGON_ANNOTATIONS,
@@ -8,6 +14,7 @@ import {
   FREELINE_ANNOTATIONS,
   SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
   ARROW_LINE_ANNOTATIONS,
+  RULER_MEASUREMENTS,
 } from '@insight-viewer-library/fixtures'
 
 describe(
@@ -213,6 +220,30 @@ describe(
 
         // then
         cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+      })
+    })
+
+    describe('Ruler Annotation', () => {
+      // Gets the number of ruler mock data used by Annotation Viewer docs
+      const mockRulerMeasurementLength = RULER_MEASUREMENTS.length
+      const initialAnnotationsLength = INITIAL_POLYGON_ANNOTATIONS.length
+
+      it('count polygon annotation before drawing', () => {
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+      })
+
+      it('drawing ruler measurement', () => {
+        drawMeasurements(RULER_MEASUREMENTS)
+
+        cy.get('[data-cy-id]').should('have.length', mockRulerMeasurementLength + initialAnnotationsLength)
+      })
+
+      it('delete ruler measurement and count measurement', () => {
+        const targetMeasurement = RULER_MEASUREMENTS[0]
+
+        deleteAndCheckAnnotationOrMeasurement(targetMeasurement, 'not.exist')
+
+        cy.get('[data-cy-id]').should('have.length', mockRulerMeasurementLength - 1 + initialAnnotationsLength)
       })
     })
   }
