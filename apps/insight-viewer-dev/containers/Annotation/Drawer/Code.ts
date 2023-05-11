@@ -1,5 +1,5 @@
 export const BASE_CODE = `\
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { AnnotationOverlay } from '@lunit/insight-viewer/annotation'
 import { IMAGES } from '@insight-viewer-library/fixtures'
@@ -7,8 +7,6 @@ import { IMAGES } from '@insight-viewer-library/fixtures'
 import type { Annotation } from '@lunit/insight-viewer/annotation'
 
 export default function Viewer() {
-  const viewerRef = useRef<HTMLDivElement>(null)
-
   // if you want set initial annotations, set value to below state
   const [annotations, setAnnotations] = useState<Annotation[]>([])
 
@@ -23,7 +21,7 @@ export default function Viewer() {
   return (
     <div>
       <div style={{ width: '500px', height: '500px' }}>
-        <InsightViewer image={image} viewerRef={viewerRef}>
+        <InsightViewer image={image}>
           {loadingState === 'success' && (
             <AnnotationOverlay
               /**

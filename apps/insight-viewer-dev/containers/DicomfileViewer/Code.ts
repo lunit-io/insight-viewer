@@ -1,5 +1,4 @@
 export const CODE = `\
-import { useRef } from 'react'
 import InsightViewer, { useImage, useDicomFile } from '@lunit/insight-viewer'
 
 const style = {
