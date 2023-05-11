@@ -2,10 +2,14 @@ import { useCallback, useEffect, useRef } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
 import InsightViewer, { useImage, Viewport } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
+
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'
+import CodeBlock from '../../../components/CodeBlock'
+
+import { NON_RESET_VIEWPORT_CODE } from './Code'
 
 const INITIAL_VIEWPORT = {
   scale: 0.5,
@@ -203,6 +207,9 @@ export default function Image2(): JSX.Element {
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>
+      </Box>
+      <Box>
+        <CodeBlock code={NON_RESET_VIEWPORT_CODE} />
       </Box>
     </Box>
   )

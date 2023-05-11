@@ -23,8 +23,6 @@ import { CODE_SANDBOX } from '../../const'
 
 const MIN_FRAME = 0
 const MAX_FRAME = IMAGES.length - 1
-const MIN_SCALE = 0.178
-const MAX_SCALE = 3
 
 interface ViewportSetting {
   initialViewport?: Partial<BasicViewport>
@@ -48,6 +46,7 @@ export default function App(): JSX.Element {
   })
   const { interaction, setInteraction } = useInteraction()
   const { viewport, setViewport, resetViewport } = useViewport({
+    ...viewportSetting,
     image: images[frame],
     element: viewerRef.current,
     getInitialViewport: (prevViewport) => ({ ...prevViewport, scale: 1 }),
@@ -57,18 +56,9 @@ export default function App(): JSX.Element {
     if (deltaY !== 0) setFrame((prev) => Math.min(Math.max(prev + (deltaY > 0 ? 1 : -1), MIN_FRAME), MAX_FRAME))
   }
 
-  const handleScale: Wheel = (_, deltaY) => {
-    if (deltaY !== 0) {
-      setViewport((prev) => ({
-        ...prev,
-        scale: Math.min(Math.max(prev.scale + (deltaY > 0 ? 0.25 : -0.25), MIN_SCALE), MAX_SCALE),
-      }))
-    }
-  }
-
   const handler = {
     frame: handleFrame,
-    scale: handleScale,
+    scale: 'scale' as const,
   }
 
   const handleActiveFitScaleSwitchChange = (isChecked: boolean) => {

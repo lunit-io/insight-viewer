@@ -6,6 +6,9 @@ import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
 import OverlayLayer from '../../../components/OverlayLayer'
 import useCaseSelect from './useCaseSelect'
+import CodeBlock from '../../../components/CodeBlock'
+
+import { BASE_CODE } from './Code'
 
 const INITIAL_VIEWPORT = {
   scale: 0.5,
@@ -220,6 +223,9 @@ export default function Images(): JSX.Element {
             <OverlayLayer viewport={viewport} />
           </InsightViewer>
         </ViewerWrapper>
+      </Box>
+      <Box>
+        <CodeBlock code={BASE_CODE} />
       </Box>
     </Box>
   )
