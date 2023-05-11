@@ -15,6 +15,7 @@ import {
   SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
   ARROW_LINE_ANNOTATIONS,
   RULER_MEASUREMENTS,
+  AREA_MEASUREMENTS,
 } from '@insight-viewer-library/fixtures'
 
 describe(
@@ -228,6 +229,14 @@ describe(
       const mockRulerMeasurementLength = RULER_MEASUREMENTS.length
       const initialAnnotationsLength = INITIAL_POLYGON_ANNOTATIONS.length
 
+      it('click ruler radio', () => {
+        cy.get('[value="ruler"]').click({ force: true })
+      })
+
+      it('click reset', () => {
+        cy.get('[data-cy-name="reset-button"]').click()
+      })
+
       it('count polygon annotation before drawing', () => {
         cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
       })
@@ -244,6 +253,37 @@ describe(
         deleteAndCheckAnnotationOrMeasurement(targetMeasurement, 'not.exist')
 
         cy.get('[data-cy-id]').should('have.length', mockRulerMeasurementLength - 1 + initialAnnotationsLength)
+      })
+    })
+
+    describe('Area Annotation', () => {
+      const mockAreaMeasurementLength = AREA_MEASUREMENTS.length
+      const initialAnnotationsLength = INITIAL_POLYGON_ANNOTATIONS.length
+
+      it('click area radio', () => {
+        cy.get('[value="area"]').click({ force: true })
+      })
+
+      it('click reset', () => {
+        cy.get('[data-cy-name="reset-button"]').click()
+      })
+
+      it('count polygon annotation before drawing', () => {
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+      })
+
+      it('drawing ruler measurement', () => {
+        drawMeasurements(AREA_MEASUREMENTS)
+
+        cy.get('[data-cy-id]').should('have.length', mockAreaMeasurementLength + initialAnnotationsLength)
+      })
+
+      it('delete ruler measurement and count measurement', () => {
+        const targetMeasurement = AREA_MEASUREMENTS[0]
+
+        deleteAndCheckAnnotationOrMeasurement(targetMeasurement, 'not.exist')
+
+        cy.get('[data-cy-id]').should('have.length', mockAreaMeasurementLength - 1 + initialAnnotationsLength)
       })
     })
   }
