@@ -131,6 +131,8 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="arrowLine">Arrow Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
           <Radio value="text">Text</Radio>
+          <Radio value="ruler">Ruler</Radio>
+          <Radio value="area">Area</Radio>
         </Stack>
       </RadioGroup>
       <Button data-cy-name="reset-button" size="sm" mb={2} mr={3} colorScheme="blue" onClick={handleResetAnnotation}>

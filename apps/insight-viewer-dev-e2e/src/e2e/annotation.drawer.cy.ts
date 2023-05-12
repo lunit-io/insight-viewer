@@ -1,4 +1,4 @@
-import { setup, drawAnnotation, drawAnnotations, deleteAndCheckAnnotationOrMeasurement } from '../support/utils'
+import { setup, drawAnnotation, drawAnnotations, deleteAndCheckAnnotation } from '../support/utils'
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, $LOADED } from '../support/const'
 import {
   INITIAL_POLYGON_ANNOTATIONS,
@@ -8,6 +8,8 @@ import {
   FREELINE_ANNOTATIONS,
   SMALLER_THAN_MINIMUM_LENGTH_FREE_LINE_ANNOTATION,
   ARROW_LINE_ANNOTATIONS,
+  RULER_MEASUREMENTS,
+  AREA_MEASUREMENTS,
 } from '@insight-viewer-library/fixtures'
 
 describe(
@@ -60,7 +62,7 @@ describe(
       it('delete polygon annotation and count annotation', () => {
         const targetAnnotation = POLYGON_ANNOTATIONS[1]
 
-        deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
+        deleteAndCheckAnnotation(targetAnnotation, 'not.exist')
 
         const totalLength = mockPolygonAnnotationLength + initialPolygonAnnotationLength
         cy.get('[data-cy-id]').should('have.length', totalLength - 1)
@@ -91,7 +93,7 @@ describe(
       it('delete line annotation and count annotation', () => {
         const targetAnnotation = LINE_ANNOTATIONS[1]
 
-        deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
+        deleteAndCheckAnnotation(targetAnnotation, 'not.exist')
         cy.get('[data-cy-id]').should('have.length', mockLineAnnotationLength - 1)
       })
     })
@@ -126,7 +128,7 @@ describe(
       it('delete freeline annotation and count annotation', () => {
         const targetAnnotation = FREELINE_ANNOTATIONS[1]
 
-        deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
+        deleteAndCheckAnnotation(targetAnnotation, 'not.exist')
         cy.get('[data-cy-id]').should('have.length', mockFreelineAnnotationLength - 1)
       })
     })
@@ -209,10 +211,73 @@ describe(
         cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength + 1)
 
         // when
-        deleteAndCheckAnnotationOrMeasurement(targetAnnotation, 'not.exist')
+        deleteAndCheckAnnotation(targetAnnotation, 'not.exist')
 
         // then
         cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+      })
+    })
+
+    describe('Ruler Annotation', () => {
+      // Gets the number of ruler mock data used by Annotation Viewer docs
+      const mockRulerMeasurementLength = RULER_MEASUREMENTS.length
+      const initialAnnotationsLength = INITIAL_POLYGON_ANNOTATIONS.length
+
+      it('click ruler radio', () => {
+        cy.get('[value="ruler"]').click({ force: true })
+      })
+
+      it('click reset', () => {
+        cy.get('[data-cy-name="reset-button"]').click()
+      })
+
+      it('count polygon annotation before drawing', () => {
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+      })
+
+      it('drawing ruler measurement', () => {
+        drawAnnotations(RULER_MEASUREMENTS)
+
+        cy.get('[data-cy-id]').should('have.length', mockRulerMeasurementLength + initialAnnotationsLength)
+      })
+
+      it('delete ruler measurement and count measurement', () => {
+        const targetMeasurement = RULER_MEASUREMENTS[0]
+
+        deleteAndCheckAnnotation(targetMeasurement, 'not.exist')
+
+        cy.get('[data-cy-id]').should('have.length', mockRulerMeasurementLength - 1 + initialAnnotationsLength)
+      })
+    })
+
+    describe('Area Annotation', () => {
+      const mockAreaMeasurementLength = AREA_MEASUREMENTS.length
+      const initialAnnotationsLength = INITIAL_POLYGON_ANNOTATIONS.length
+
+      it('click area radio', () => {
+        cy.get('[value="area"]').click({ force: true })
+      })
+
+      it('click reset', () => {
+        cy.get('[data-cy-name="reset-button"]').click()
+      })
+
+      it('count polygon annotation before drawing', () => {
+        cy.get('[data-cy-id]').should('have.length', initialAnnotationsLength)
+      })
+
+      it('drawing ruler measurement', () => {
+        drawAnnotations(AREA_MEASUREMENTS)
+
+        cy.get('[data-cy-id]').should('have.length', mockAreaMeasurementLength + initialAnnotationsLength)
+      })
+
+      it('delete ruler measurement and count measurement', () => {
+        const targetMeasurement = AREA_MEASUREMENTS[0]
+
+        deleteAndCheckAnnotation(targetMeasurement, 'not.exist')
+
+        cy.get('[data-cy-id]').should('have.length', mockAreaMeasurementLength - 1 + initialAnnotationsLength)
       })
     })
   }
