@@ -1,0 +1,1 @@
+export const IMAGER_PIXEL_SPACING = 'x00181164'

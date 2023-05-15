@@ -1,2 +1,2 @@
-export { default as ImportTest } from '@lunit/insight-viewer'
-export * from './lib/annotation'
+export { AnnotationOverlay } from './components/AnnotationOverlay'
+export * from './types'
