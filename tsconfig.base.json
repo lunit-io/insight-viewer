@@ -19,7 +19,7 @@
     "paths": {
       "@insight-viewer-library/fixtures": ["libs/fixtures/src/index.ts"],
       "@lunit/insight-viewer": ["libs/insight-viewer/src/index.ts"],
-      "@lunit/insight-viewer/annotation": ["libs/insight-viewer/src/Annotation/index.ts"],
+      "@lunit/insight-viewer/annotation": ["libs/annotation/src/index.ts"],
       "@lunit/insight-viewer/viewport": ["libs/insight-viewer/src/Viewport/index.ts"]
     }
   },
