@@ -40,10 +40,7 @@ jobs:
             --delete
 
       - name: Preview link
-        uses: NejcZdovc/comment-pr@v1.1.1
+        uses: NejcZdovc/comment-pr@v2.0.0
         with:
           file: 'comment.md'
-          identifier: 'GITHUB_COMMIT_FILE'
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          PR_ID: ${{github.event.number}}
+          github_token: ${{secrets.GITHUB_TOKEN}}
