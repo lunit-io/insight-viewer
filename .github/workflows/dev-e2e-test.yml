@@ -15,7 +15,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          build: npm run build
-          start: npm run start
+          start: npx nx run insight-viewer-dev:serve:production
           project: ./apps/insight-viewer-dev-e2e
           browser: chrome
