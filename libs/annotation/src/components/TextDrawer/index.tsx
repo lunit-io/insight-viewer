@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../../viewer.styles'
-import { TEXT_PADDING } from '@lunit/insight-viewer'
+import { TEXT_PADDING } from '../../const'
 
 import type { TextDrawerProps } from './TextDrawer.types'
 export { Typing as TypingDrawer } from './Typing'

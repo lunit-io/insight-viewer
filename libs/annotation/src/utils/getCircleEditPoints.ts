@@ -1,4 +1,4 @@
-import { CIRCLE_EDIT_POINT_ANGLE } from '@lunit/insight-viewer'
+import { CIRCLE_EDIT_POINT_ANGLE } from '../const'
 import { Point } from '../types'
 
 export function getCircleEditPoints(point: Point, radius: number): [Point, Point] {

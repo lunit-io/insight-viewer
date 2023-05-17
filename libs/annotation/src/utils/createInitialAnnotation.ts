@@ -1,5 +1,5 @@
 import polylabel from 'polylabel'
-import { LINE_TEXT_POSITION_SPACING } from '@lunit/insight-viewer'
+import { LINE_TEXT_POSITION_SPACING } from '../const'
 
 import { getLineLength } from './getLineLength'
 import { getCircleCenterPoint } from './getCircleCenterPoint'

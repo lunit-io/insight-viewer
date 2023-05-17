@@ -1,5 +1,5 @@
 import { Point } from '../../../types'
-import { RULER_TEXT_POSITION_SPACING } from '@lunit/insight-viewer'
+import { RULER_TEXT_POSITION_SPACING } from '../../../const'
 import { calculateLengthBetweenPoints } from '../../../utils/calculateLengthBetweenPoints'
 
 export function getRulerTextPosition([startPoint, endPoint]: [Point, Point]): Point {

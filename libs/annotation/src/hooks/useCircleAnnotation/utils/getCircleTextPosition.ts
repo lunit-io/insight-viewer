@@ -1,4 +1,4 @@
-import { CIRCLE_TEXT_POINT_ANGLE, CIRCLE_TEXT_POSITION_SPACING } from '@lunit/insight-viewer'
+import { CIRCLE_TEXT_POINT_ANGLE, CIRCLE_TEXT_POSITION_SPACING } from '../../../const'
 import { Point } from '../../../types'
 
 export function getCircleTextPosition(point: Point, radius: number): Point {

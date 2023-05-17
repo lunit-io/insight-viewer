@@ -1,5 +1,6 @@
 import useTextBox from '../useTextBox'
-import { useOverlayContext, HALF_OF_RULER_TEXT_BOX } from '@lunit/insight-viewer'
+import { useOverlayContext } from '@lunit/insight-viewer'
+import { HALF_OF_RULER_TEXT_BOX } from '../../const'
 
 import { modifyConnectingLine } from '../../utils/modifyConnectingLine'
 import { stringifyPoints } from '../../utils/stringifyPoints'

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
+import { useOverlayContext } from '@lunit/insight-viewer'
+import { TEXT_PADDING } from '../../const'
 import { TypingProps } from './Typing.types'
 import { textStyle, svgBoxStyle } from '../../viewer.styles'
-import { useOverlayContext, TEXT_PADDING } from '@lunit/insight-viewer'
 
 export function Typing({ points, onFinish }: TypingProps): React.ReactElement | null {
   const [editArea, setEditArea] = useState<HTMLDivElement | null>()

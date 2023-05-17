@@ -1,8 +1,7 @@
 import React from 'react'
 
+import { TEXT_PADDING } from '../../const'
 import { textStyle, svgBoxStyle, TEXT_SIZE, LINE_HEIGHT } from '../../viewer.styles'
-import { TEXT_PADDING } from '@lunit/insight-viewer'
-
 import type { TextViewerProps } from './TextViewer.types'
 
 export function TextViewer({ annotation, isHovered }: TextViewerProps): React.ReactElement {

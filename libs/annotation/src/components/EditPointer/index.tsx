@@ -1,5 +1,5 @@
 import React from 'react'
-import { EDIT_CIRCLE_RADIUS } from '@lunit/insight-viewer'
+import { EDIT_CIRCLE_RADIUS } from '../../const'
 import { editPointerStyle } from '../../viewer.styles'
 import type { CursorStatus, EditMode, Point } from '../../types'
 

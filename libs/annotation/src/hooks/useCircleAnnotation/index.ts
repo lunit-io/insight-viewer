@@ -1,5 +1,6 @@
+import { useOverlayContext } from '@lunit/insight-viewer'
 import useTextBox from '../useTextBox'
-import { useOverlayContext, HALF_OF_RULER_TEXT_BOX } from '@lunit/insight-viewer'
+import { HALF_OF_RULER_TEXT_BOX } from '../../const'
 
 import { calculateCircleArea } from '../../utils/calculateCircleArea'
 import { getCircleConnectingLine } from './utils/getCircleConnectingLine'
