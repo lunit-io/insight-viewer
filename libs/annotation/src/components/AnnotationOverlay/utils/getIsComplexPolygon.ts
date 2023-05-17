@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 
 import { getIsIntersection } from './getIsIntersection'
-import { Point } from '../../../types'
+import type { Point } from '../../../types'
 
 /**
  * Check if polygon is a complex polygon with intersection

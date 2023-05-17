@@ -1,6 +1,6 @@
 import type { Point } from '@lunit/insight-viewer'
 
-export { Point }
+export type { Point }
 export type Unit = 'px' | 'mm'
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
 export type ClickAction = 'remove' | 'select'

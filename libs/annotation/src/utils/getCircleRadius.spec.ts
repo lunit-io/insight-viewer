@@ -1,7 +1,7 @@
 import { getCircleRadiusByMeasuringUnit, getCircleRadius, getCircleRadiusByCenter } from './getCircleRadius'
 
+import type { Image } from '@lunit/insight-viewer'
 import type { Point } from '../types'
-import type { Image } from '../../Viewer/types'
 
 describe('getCircleRadius:', () => {
   it('should calculate circle radius', () => {

@@ -1,5 +1,5 @@
-import { Point } from '../../../types'
 import { getCircleTextPosition } from './getCircleTextPosition'
+import type { Point } from '../../../types'
 
 describe('getCircleTextPosition: ', () => {
   it('should return the position', () => {

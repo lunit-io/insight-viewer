@@ -1,4 +1,4 @@
-import { Point } from '../../../../types'
+import type { Point } from '../../../types'
 import { getRulerTextPosition } from './getRulerTextPosition'
 
 describe('getRulerTextPosition: ', () => {

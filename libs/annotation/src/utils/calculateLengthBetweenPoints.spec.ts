@@ -1,5 +1,5 @@
 import { calculateLengthBetweenPoints } from './calculateLengthBetweenPoints'
-import { Point } from '../types'
+import type { Point } from '../types'
 
 describe('calculateLengthBetweenPoints: ', () => {
   it('should return the length', () => {

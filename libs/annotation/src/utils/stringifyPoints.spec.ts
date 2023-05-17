@@ -1,4 +1,4 @@
-import { Point } from './../types/index'
+import type { Point } from '../types'
 import { stringifyPoints } from './stringifyPoints'
 
 describe('stringifyPoints', () => {

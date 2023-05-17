@@ -1,5 +1,5 @@
 /* eslint-disable import/newline-after-import */
-import { Point } from '../types'
+import type { Point } from '../types'
 import { getCircleEditPoints } from './getCircleEditPoints'
 
 describe('getCircleEditPoints:', () => {

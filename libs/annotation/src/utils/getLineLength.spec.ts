@@ -1,6 +1,6 @@
-import { Point } from '../types'
-import { Image } from '../../Viewer/types'
 import { getLineLength } from './getLineLength'
+import type { Image } from '@lunit/insight-viewer'
+import type { Point } from '../types'
 
 describe('getLineLength: ', () => {
   it('should return the length of a line without Image', () => {

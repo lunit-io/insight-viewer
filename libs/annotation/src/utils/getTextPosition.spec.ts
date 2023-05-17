@@ -1,5 +1,4 @@
-import { Annotation } from '../types'
-import { Point } from '../types'
+import type { Annotation, Point } from '../types'
 import { getTextPosition } from './getTextPosition'
 
 describe('getTextPosition: ', () => {
