@@ -64,4 +64,3 @@ export type ImageId =
     }
 
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
-export type CursorStatus = 'drawing' | 'editing' | 'moving' | null
