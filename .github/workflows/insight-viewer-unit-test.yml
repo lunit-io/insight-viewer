@@ -14,11 +14,22 @@ jobs:
         with:
           main-branch-name: 'develop'
 
+      - name: Run test and generate coverage report
+        run: npx nx affected --target=test --ci --coverage --outputFile=report.json
+
+      - name: Check coverage report
+        run: |
+          if [ -f ./report.json ]; then
+            echo "Coverage report found."
+          else
+            echo "No coverage report found."
+            exit 1
+          fi
+
       - uses: ArtiomTr/jest-coverage-report-action@v2
         id: coverage
         with:
-          package-manager: npm
-          test-script: npx nx affected --target=test
+          coverage-file: report.json
           output: report-markdown
 
       - uses: marocchino/sticky-pull-request-comment@v2
