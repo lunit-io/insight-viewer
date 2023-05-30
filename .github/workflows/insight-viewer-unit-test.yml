@@ -14,6 +14,9 @@ jobs:
         with:
           main-branch-name: 'develop'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Run test and generate coverage report
         run: npx nx affected --target=test --ci --coverage --outputFile=report.json
 
@@ -23,10 +26,11 @@ jobs:
             echo "Coverage report found."
           else
             echo "No coverage report found."
-            exit 1
+            echo "::set-env name=COVERAGE_REPORT_EXISTS::false"
           fi
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
+        if: env.COVERAGE_REPORT_EXISTS == 'true'
         id: coverage
         with:
           coverage-file: report.json
