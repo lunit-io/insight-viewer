@@ -13,7 +13,7 @@ Insight Viewer is a library that [Cornerstone.js](https://github.com/cornerstone
 
 The insight viewer library is registered on NPM, so you can install and use it.
 
-- [insight viewer npm](https://www.npmjs.com/package/@lunit/insight-viewer)
+- [@lunit/insight-viewer NPM](https://www.npmjs.com/package/@lunit/insight-viewer)
 
 ## Docs
 
