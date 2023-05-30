@@ -3,13 +3,12 @@
  */
 import { useState, useEffect, useCallback, useRef } from 'react'
 
-import { BASE_VIEWPORT, DEFAULT_VIEWPORT_OPTIONS } from '../../const'
-import { formatViewerViewport } from '../../utils/common/formatViewport'
-import { getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
+import { cornerstoneHelper, BASE_VIEWPORT, DEFAULT_VIEWPORT_OPTIONS } from '@lunit/insight-viewer'
 
-import type { Viewport } from '../../types'
-import type { Image } from '../../Viewer/types'
+import type { Image, Viewport } from '@lunit/insight-viewer'
 import type { SetViewportAction, UseViewportReturnType, UseViewportParams } from './type'
+
+const { formatViewerViewport, getDefaultViewportForImage } = cornerstoneHelper
 
 const getDefaultViewport = (image: Image | undefined, element: HTMLDivElement | undefined) => {
   if (!image || !element) return null

@@ -1,5 +1,4 @@
-import { formatViewerViewport, formatCornerstoneViewport } from './formatViewport'
-import { DefaultViewport } from './const'
+import { formatViewerViewport, formatCornerstoneViewport, DefaultViewport } from './formatViewport'
 import { CORNERSTONE_VIEWPORT_MOCK } from '../../mocks/const'
 
 describe('formatViewerViewport:', () => {

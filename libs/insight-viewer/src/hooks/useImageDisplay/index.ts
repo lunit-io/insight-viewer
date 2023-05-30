@@ -2,8 +2,13 @@
  * @fileoverview Display image in a given HTML element and set viewport.
  */
 import { useEffect, useRef } from 'react'
-import { resize, displayImage, getDefaultViewportForImage } from '../../utils/cornerstoneHelper'
-import { formatViewerViewport, formatCornerstoneViewport } from '../../utils/common/formatViewport'
+import {
+  resize,
+  displayImage,
+  getDefaultViewportForImage,
+  formatViewerViewport,
+  formatCornerstoneViewport,
+} from '../../utils/cornerstoneHelper'
 import { BasicViewport } from '../../types'
 import { UseImageDisplay } from './types'
 import { DEFAULT_VIEWPORT_OPTIONS } from '../../const'
