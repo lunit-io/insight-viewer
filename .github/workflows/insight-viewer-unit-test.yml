@@ -26,16 +26,17 @@ jobs:
             echo "Coverage report found."
           else
             echo "No coverage report found."
-            echo "::set-env name=COVERAGE_REPORT_EXISTS::false"
+            echo "COVERAGE_REPORT_EXISTS=true"
           fi
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: env.COVERAGE_REPORT_EXISTS == 'true'
+        if: ${{ env.COVERAGE_REPORT_EXISTS }} == 'true'
         id: coverage
         with:
           coverage-file: report.json
           output: report-markdown
 
       - uses: marocchino/sticky-pull-request-comment@v2
+        if: ${{ env.COVERAGE_REPORT_EXISTS }} == 'true'
         with:
           message: ${{ steps.coverage.outputs.report }}
