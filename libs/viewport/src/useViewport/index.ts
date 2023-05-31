@@ -10,7 +10,7 @@ import type { SetViewportAction, UseViewportReturnType, UseViewportParams } from
 
 const { formatViewerViewport, getDefaultViewportForImage } = cornerstoneHelper
 
-const getDefaultViewport = (image: Image | undefined, element: HTMLDivElement | undefined) => {
+const getDefaultViewport = (image: Image | undefined, element: HTMLDivElement | null) => {
   if (!image || !element) return null
 
   const defaultViewport = getDefaultViewportForImage(element, image)
@@ -21,7 +21,7 @@ const getDefaultViewport = (image: Image | undefined, element: HTMLDivElement | 
 const getViewportWithFitScaleOption = (
   viewport: Viewport,
   image: Image | undefined,
-  element: HTMLDivElement | undefined
+  element: HTMLDivElement | null
 ): Viewport => {
   const defaultViewport = getDefaultViewport(image, element)
 
@@ -37,9 +37,9 @@ const getViewportWithFitScaleOption = (
 }
 
 export function useViewport(
-  { image, element, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
+  { image, viewerRef, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
     image: undefined,
-    element: undefined,
+    viewerRef: { current: null },
     options: DEFAULT_VIEWPORT_OPTIONS,
   }
 ): UseViewportReturnType {
@@ -47,6 +47,8 @@ export function useViewport(
     ...BASE_VIEWPORT,
     _viewportOptions: options,
   })
+
+  const element = viewerRef.current
 
   const imageRef = useRef(image)
   const elementRef = useRef(element)
