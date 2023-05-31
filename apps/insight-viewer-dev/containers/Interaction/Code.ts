@@ -27,7 +27,7 @@ export default function App(): JSX.Element {
 
   const { viewport, setViewport, resetViewport } = useViewport({
     image: images[frame],
-    element: viewerRef.current,
+    viewerRef,
     getInitialViewport: (prevViewport) => ({ ...prevViewport, scale: 1 }),
   })
 
@@ -177,7 +177,7 @@ export default function App(): JSX.Element {
 
   const { viewport, setViewport, resetViewport } = useViewport({
     image: images[frame],
-    element: viewerRef.current,
+    viewerRef,
     getInitialViewport: (prevViewport) => ({ ...prevViewport, scale: 1 }),
   })
 

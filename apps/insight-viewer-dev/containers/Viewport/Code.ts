@@ -1,9 +1,6 @@
 export const CODE = `\
 import { useRef, useEffect, useCallback } from 'react'
-import InsightViewer, {
-  useImage,
-  useViewport,
-} from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 
 import type { Viewport } from '@lunit/insight-viewer'
@@ -22,7 +19,7 @@ export default function App() {
 
   const { viewport, setViewport, resetViewport, initialized } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
     options: { fitScale: false },
     getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT1 }),
   })

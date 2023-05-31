@@ -11,8 +11,7 @@ import ClickControl from './Control/Click'
 import OverlayLayer from '../../components/OverlayLayer'
 import CustomProgress from '../../components/CustomProgress'
 import { ViewerWrapper } from '../../components/Wrapper'
-import { BASE_CODE, CUSTOM_CODE } from './Code'
-import { CODE_SANDBOX } from '../../const'
+import { CUSTOM_CODE } from './Code'
 
 export default function App(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)
@@ -32,7 +31,7 @@ export default function App(): JSX.Element {
     resetViewport,
   } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
     getInitialViewport: (prevViewport) => ({ ...prevViewport, scale: 1 }),
   })
 
