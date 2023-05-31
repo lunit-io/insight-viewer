@@ -18,7 +18,7 @@ jobs:
         id: coverage
         with:
           package-manager: npm
-          test-script: npx nx affected --target=test
+          test-script: npx nx run insight-viewer:test
           output: report-markdown
 
       - uses: marocchino/sticky-pull-request-comment@v2
