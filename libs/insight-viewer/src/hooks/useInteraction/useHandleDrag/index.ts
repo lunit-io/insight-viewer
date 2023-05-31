@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { fromEvent, tap, switchMap, map, takeUntil, filter, Subscription } from 'rxjs'
 import { Element, OnViewportChange } from '../../../types'
-import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
+import { formatCornerstoneViewport } from '../../../utils/cornerstoneHelper/formatViewport'
 import {
   getViewport,
   setViewport,

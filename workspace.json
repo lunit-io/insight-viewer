@@ -7,6 +7,7 @@
     "insight-viewer": "libs/insight-viewer",
     "insight-viewer-dev": "apps/insight-viewer-dev",
     "insight-viewer-dev-e2e": "apps/insight-viewer-dev-e2e",
+    "viewport": "libs/viewport",
     "workspace": {
       "root": ".",
       "targets": {

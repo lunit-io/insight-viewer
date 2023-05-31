@@ -7,6 +7,7 @@ export { useDicomFile } from './hooks/useDicomFile'
 export { useImage } from './hooks/useImage'
 export { useFrame } from './hooks/useFrame'
 export { useOverlayContext } from './contexts'
+export * as cornerstoneHelper from './utils/cornerstoneHelper'
 
 export type { Viewport, BasicViewport, ViewportOptions, ViewerError, Point, EditMode } from './types'
 export type { Image } from './Viewer/types'

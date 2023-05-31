@@ -3,8 +3,7 @@ import { fromEvent, filter, tap, Subscription } from 'rxjs'
 
 import control from './control'
 import { MOUSEWHEEL } from '../const'
-import { setViewport, getViewport } from '../../../utils/cornerstoneHelper'
-import { formatCornerstoneViewport } from '../../../utils/common/formatViewport'
+import { setViewport, getViewport, formatCornerstoneViewport } from '../../../utils/cornerstoneHelper'
 
 import type { Element, OnViewportChange } from '../../../types'
 import type { CornerstoneViewport } from '../../../utils/cornerstoneHelper'

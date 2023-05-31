@@ -1,5 +1,4 @@
-import type { Image } from '../../Viewer/types'
-import type { Viewport, ViewportOptions } from '../../types'
+import type { Image, Viewport, ViewportOptions } from '@lunit/insight-viewer'
 
 export interface UseViewportParams {
   image: Image | undefined
