@@ -14,29 +14,13 @@ jobs:
         with:
           main-branch-name: 'develop'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run test and generate coverage report
-        run: npx nx affected --target=test --ci --coverage --outputFile=report.json
-
-      - name: Check coverage report
-        run: |
-          if [ -f ./report.json ]; then
-            echo "Coverage report found."
-          else
-            echo "No coverage report found."
-            echo "COVERAGE_REPORT_EXISTS=true" >> "$GITHUB_ENV"
-          fi
-
       - uses: ArtiomTr/jest-coverage-report-action@v2
-        if: ${{ env.COVERAGE_REPORT_EXISTS }} == 'true'
         id: coverage
         with:
-          coverage-file: report.json
+          package-manager: npm
+          test-script: npx nx run insight-viewer:test
           output: report-markdown
 
       - uses: marocchino/sticky-pull-request-comment@v2
-        if: ${{ env.COVERAGE_REPORT_EXISTS }} == 'true'
         with:
           message: ${{ steps.coverage.outputs.report }}
