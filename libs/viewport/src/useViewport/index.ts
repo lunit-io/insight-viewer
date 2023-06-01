@@ -48,15 +48,12 @@ export function useViewport(
     _viewportOptions: options,
   })
 
-  const element = viewerRef.current
-
   const imageRef = useRef(image)
-  const elementRef = useRef(element)
   const getInitialViewportRef = useRef(getInitialViewport)
   const imageSeriesKeyRef = useRef<string | undefined>()
 
   const resetViewport = useCallback(() => {
-    const defaultViewport = getDefaultViewport(imageRef.current, elementRef.current)
+    const defaultViewport = getDefaultViewport(imageRef.current, viewerRef.current)
 
     if (!defaultViewport) {
       setViewport({
@@ -82,22 +79,26 @@ export function useViewport(
     } else {
       setViewport({ ...defaultViewport, _viewportOptions: options })
     }
-  }, [getInitialViewport, options])
+  }, [getInitialViewport, options, viewerRef])
 
   /**
    * We assigned the function type and the value type
    * for the immediate viewport assignment as union type
    * to utilize the previous viewport.
    */
-  const setViewportWithValidation = useCallback((setViewportAction: SetViewportAction) => {
-    setViewport((prevViewport) => {
-      const newViewport = typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
+  const setViewportWithValidation = useCallback(
+    (setViewportAction: SetViewportAction) => {
+      setViewport((prevViewport) => {
+        const newViewport =
+          typeof setViewportAction === 'function' ? setViewportAction(prevViewport) : setViewportAction
 
-      const updatedViewport = getViewportWithFitScaleOption(newViewport, imageRef.current, elementRef.current)
+        const updatedViewport = getViewportWithFitScaleOption(newViewport, imageRef.current, viewerRef.current)
 
-      return updatedViewport
-    })
-  }, [])
+        return updatedViewport
+      })
+    },
+    [viewerRef]
+  )
 
   useEffect(() => {
     setViewportWithValidation((prevViewport) => ({ ...prevViewport, _viewportOptions: { fitScale: options.fitScale } }))
@@ -105,15 +106,14 @@ export function useViewport(
 
   useEffect(() => {
     imageRef.current = image
-    elementRef.current = element
-  }, [image, element])
+  }, [image])
 
   /**
    * The purpose of setting the initial Viewport value
    * when the image is changed
    */
   useEffect(() => {
-    const defaultViewport = getDefaultViewport(imageRef.current, elementRef.current)
+    const defaultViewport = getDefaultViewport(imageRef.current, viewerRef.current)
 
     if (!defaultViewport) return
 
@@ -135,7 +135,7 @@ export function useViewport(
       ...initialViewport,
       _viewportOptions: prevViewport._viewportOptions,
     }))
-  }, [image, element, getInitialViewportRef])
+  }, [image, viewerRef, getInitialViewportRef])
 
   return {
     viewport,
