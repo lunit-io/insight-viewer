@@ -28,7 +28,7 @@ export const CODE = `\
 
     const { viewport, setViewport } = useViewport({
       image,
-      element: viewerRef.current,
+      viewerRef,
     })
 
     return (

@@ -18,7 +18,7 @@ function Overlay(): JSX.Element {
   })
   const { viewport, setViewport } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
   })
 
   return (

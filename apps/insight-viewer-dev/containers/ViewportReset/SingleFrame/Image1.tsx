@@ -25,7 +25,7 @@ export default function Image1(): JSX.Element {
   })
   const { viewport, setViewport, resetViewport, initialized } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
     options: { fitScale: false },
     getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT }),
   })

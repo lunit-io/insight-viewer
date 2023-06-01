@@ -15,7 +15,7 @@ export default function Viewer() {
 
   const { viewport, setViewport, resetViewport } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
     options: { fitScale: false },
     getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT }),
   })
@@ -75,7 +75,7 @@ export default function Viewer() {
 
   const { viewport, setViewport, resetViewport, initialized } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
     options: { fitScale: false },
     getInitialViewport: (prevViewport) => ({ ...prevViewport, ...(currentViewportRef.current ?? INITIAL_VIEWPORT) }),
   })

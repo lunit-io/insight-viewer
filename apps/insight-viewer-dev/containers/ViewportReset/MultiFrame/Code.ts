@@ -19,7 +19,7 @@ export default function Viewer() {
 
   const { viewport, setViewport, resetViewport } = useViewport({
     image,
-    element: viewerRef.current,
+    viewerRef,
     options: { fitScale: false },
     getInitialViewport: (prevViewport) => ({ ...prevViewport, ...INITIAL_VIEWPORT }),
   })
