@@ -3,7 +3,12 @@
  */
 import { useState, useEffect, useCallback, useRef } from 'react'
 
-import { cornerstoneHelper, BASE_VIEWPORT, DEFAULT_VIEWPORT_OPTIONS } from '@lunit/insight-viewer'
+import {
+  cornerstoneHelper,
+  BASE_VIEWPORT,
+  DEFAULT_VIEWPORT_OPTIONS,
+  DEFAULT_VIEWPORT_VIEWER_REF,
+} from '@lunit/insight-viewer'
 
 import type { Image, Viewport } from '@lunit/insight-viewer'
 import type { SetViewportAction, UseViewportReturnType, UseViewportParams } from './type'
@@ -39,7 +44,7 @@ const getViewportWithFitScaleOption = (
 export function useViewport(
   { image, viewerRef, options = DEFAULT_VIEWPORT_OPTIONS, getInitialViewport }: UseViewportParams = {
     image: undefined,
-    viewerRef: { current: null },
+    viewerRef: DEFAULT_VIEWPORT_VIEWER_REF,
     options: DEFAULT_VIEWPORT_OPTIONS,
   }
 ): UseViewportReturnType {

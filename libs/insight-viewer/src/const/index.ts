@@ -44,6 +44,10 @@ export const DEFAULT_VIEWPORT_OPTIONS = {
   fitScale: true,
 }
 
+export const DEFAULT_VIEWPORT_VIEWER_REF = {
+  current: null,
+}
+
 export const ERROR_MESSAGE = {
   ENABLED_ELEMENT_NOT_READY: 'enabledElement value is null, Please check the enabledElement value.',
 } as const
