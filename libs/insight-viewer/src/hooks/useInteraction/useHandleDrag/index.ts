@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { fromEvent, tap, switchMap, map, takeUntil, filter, Subscription } from 'rxjs'
+import { fromEvent, tap, switchMap, map, takeUntil, filter, Subscription, merge } from 'rxjs'
 import { Element, OnViewportChange } from '../../../types'
 import { formatCornerstoneViewport } from '../../../utils/cornerstoneHelper/formatViewport'
 import {
@@ -117,6 +117,7 @@ export default function useHandleDrag({ image, element, interaction, onViewportC
     const mousedown$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousedown')
     const mousemove$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousemove')
     const mouseup$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mouseup')
+    const mouseleave$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mouseleave')
     let dragType: DragType | undefined
 
     subscriptionRef.current = mousedown$
@@ -155,7 +156,7 @@ export default function useHandleDrag({ image, element, interaction, onViewportC
                 deltaY,
               }
             }),
-            takeUntil(mouseup$)
+            takeUntil(merge(mouseup$, mouseleave$))
           )
         })
       )
