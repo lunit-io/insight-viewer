@@ -44,3 +44,5 @@ jobs:
         with:
           file: 'comment.md'
           github_token: ${{secrets.GITHUB_TOKEN}}
+        env:
+          PR_ID: ${{github.event.number}}
