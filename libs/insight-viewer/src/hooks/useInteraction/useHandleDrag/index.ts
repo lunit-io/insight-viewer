@@ -156,7 +156,7 @@ export default function useHandleDrag({ image, element, interaction, onViewportC
                 deltaY,
               }
             }),
-            takeUntil(mouseup$)
+            takeUntil(merge(mouseup$, mouseleave$))
           )
         })
       )
