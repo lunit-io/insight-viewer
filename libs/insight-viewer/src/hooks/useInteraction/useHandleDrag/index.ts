@@ -115,9 +115,9 @@ export default function useHandleDrag({ image, element, interaction, onViewportC
     if (!(interaction[PRIMARY_DRAG] || interaction[SECONDARY_DRAG])) return undefined
 
     const mousedown$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousedown')
-    const mousemove$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mousemove')
-    const mouseup$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mouseup')
-    const mouseleave$ = fromEvent<MouseEvent>(<HTMLDivElement>element, 'mouseleave')
+    const mousemove$ = fromEvent<MouseEvent>(document, 'mousemove')
+    const mouseup$ = fromEvent<MouseEvent>(document, 'mouseup')
+    const mouseleave$ = fromEvent<MouseEvent>(document, 'mouseleave')
     let dragType: DragType | undefined
 
     subscriptionRef.current = mousedown$
@@ -156,7 +156,7 @@ export default function useHandleDrag({ image, element, interaction, onViewportC
                 deltaY,
               }
             }),
-            takeUntil(merge(mouseup$, mouseleave$))
+            takeUntil(mouseup$)
           )
         })
       )
