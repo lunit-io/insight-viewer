@@ -134,6 +134,7 @@ export default function useHandleDrag({ image, element, interaction, onViewportC
           }
         }),
         switchMap((start) => {
+          start.stopPropagation()
           let lastX = start.pageX
           let lastY = start.pageY
           const { top, left, width, height } = element.getBoundingClientRect()
