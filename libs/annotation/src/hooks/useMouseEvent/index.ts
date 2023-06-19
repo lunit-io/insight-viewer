@@ -13,10 +13,6 @@ export interface UseAnnotationEventParams {
   keyDownCallback: (event: KeyboardEvent) => void
 }
 
-const setPreProcessEvent = (event: MouseEvent | KeyboardEvent) => {
-  event.stopPropagation()
-}
-
 const useMouseEvent = ({
   mouseDownCallback,
   mouseMoveCallback,
@@ -33,8 +29,6 @@ const useMouseEvent = ({
     // Apply Drawing only when left mouse button is pressed
     if (event.button !== 0) return
 
-    setPreProcessEvent(event)
-
     const point = pageToPixel([event.pageX, event.pageY])
 
     mouseDownCallback(point)
@@ -44,29 +38,21 @@ const useMouseEvent = ({
     // Apply Drawing only when left mouse button is pressed
     if (event.button !== 0) return
 
-    setPreProcessEvent(event)
-
     const point = pageToPixel([event.pageX, event.pageY])
 
     mouseMoveCallback(point)
   }
 
-  const onMouseLeave = (event: MouseEvent) => {
-    setPreProcessEvent(event)
-
+  const onMouseLeave = () => {
     mouseLeaveCallback()
   }
 
-  const onMouseUp = (event: MouseEvent) => {
-    setPreProcessEvent(event)
-
+  const onMouseUp = () => {
     mouseUpCallback()
   }
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      setPreProcessEvent(event)
-
       keydownCallbackRef.current(event)
     }
 
