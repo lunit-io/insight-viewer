@@ -1,12 +1,14 @@
 import { useRef, useEffect, useCallback } from 'react'
 import { Box, Stack, Button } from '@chakra-ui/react'
-import InsightViewer, { useImage, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import { ViewerWrapper } from '../../components/Wrapper'
 import CustomProgress from '../../components/CustomProgress'
 import OverlayLayer from '../../components/OverlayLayer'
 import { INITIAL_VIEWPORT2 } from './const'
+
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 export default function Image2(): JSX.Element {
   const viewerRef = useRef<HTMLDivElement>(null)

@@ -3,7 +3,7 @@ import { useCallback, useRef } from 'react'
 import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 
-import type { Viewport } from '@lunit/insight-viewer'
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 export default function Viewer() {
   const viewerRef = useRef<HTMLDivElement>(null)

@@ -1,10 +1,12 @@
 import { useRef } from 'react'
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useInteraction, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useInteraction } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import Contour from './Contour'
+
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 const style = {
   display: 'flex',

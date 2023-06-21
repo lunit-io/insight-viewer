@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
-import InsightViewer, { useMultipleImages, useFrame, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useMultipleImages, useFrame } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { ViewerWrapper } from '../../../components/Wrapper'
 import CustomProgress from '../../../components/CustomProgress'
@@ -9,6 +9,8 @@ import useCaseSelect from './useCaseSelect'
 import CodeBlock from '../../../components/CodeBlock'
 
 import { BASE_CODE } from './Code'
+
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 const INITIAL_VIEWPORT = {
   scale: 0.5,
