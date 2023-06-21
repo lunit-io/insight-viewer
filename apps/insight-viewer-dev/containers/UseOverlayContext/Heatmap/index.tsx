@@ -2,11 +2,13 @@
 import { useRef } from 'react'
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useInteraction, Viewport, HeatmapViewer } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useInteraction, HeatmapViewer } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import OverlayLayer from '../../../components/OverlayLayer'
 import posMap from './posMap'
+
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 const style = {
   display: 'flex',

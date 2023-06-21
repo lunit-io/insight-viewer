@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react'
 import { Box, Stack, Switch, Button, Text } from '@chakra-ui/react'
-import InsightViewer, { useImage, Viewport } from '@lunit/insight-viewer'
+import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 
 import useImageSelect from '../../../components/ImageSelect/useImageSelect'
@@ -10,6 +10,8 @@ import OverlayLayer from '../../../components/OverlayLayer'
 import CodeBlock from '../../../components/CodeBlock'
 
 import { RESET_VIEWPORT_CODE } from './Code'
+
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 const INITIAL_VIEWPORT = {
   scale: 0.5,

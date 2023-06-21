@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Viewport } from '@lunit/insight-viewer'
+import { Viewport } from '@lunit/insight-viewer/viewport'
 
 const style: React.CSSProperties = {
   position: 'absolute',

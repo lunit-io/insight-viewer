@@ -1,5 +1,5 @@
 import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
-import { Viewport } from '@lunit/insight-viewer'
+import { Viewport } from '@lunit/insight-viewer/viewport'
 
 export default function OverlayLayer({
   viewport: { scale, hflip, vflip, x, y, invert, windowWidth, windowCenter, rotation },

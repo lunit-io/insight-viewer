@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import InsightViewer, { useImage } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 
-import type { Viewport } from '@lunit/insight-viewer'
+import type { Viewport } from '@lunit/insight-viewer/viewport'
 
 // When changing the Image, the Viewport is always initialized.
 export default function Viewer() {
