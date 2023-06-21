@@ -19,8 +19,7 @@ The insight viewer library is registered on NPM, so you can install and use it.
 
 Here is an examples of **Dicom Viewer**, **Interaction**, **Annotation Drawing**
 
-<details>
-  <summary>Dicom Viewer</summary>
+### Dicom Viewer
 
 If your purpose is to show a Dicom Image, you can use it as shown below.
 
@@ -36,9 +35,7 @@ export default function App() {
 }
 ```
 
-</details>
-<details>
-  <summary>Interaction</summary>
+### Interaction
 
 If you want to manipulate the pan and adjustment of a Dicom Image through mouse events, you can use it as shown below.
 
@@ -97,10 +94,7 @@ export default function App() {
 }
 ```
 
-</details>
-
-<details>
-  <summary>Annotation Drawing</summary>
+### Annotation Drawing
 
 If you want to draw annotations such as polygon, ruler, and area on a Dicom image, you can use the code below.
 
@@ -139,8 +133,6 @@ export default function App() {
   )
 }
 ```
-
-</details>
 
 ## Docs
 
