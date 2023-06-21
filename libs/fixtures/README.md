@@ -1,11 +1,4 @@
 # fixtures
 
-This library was generated with [Nx](https://nx.dev).
-
-## Building
-
-Run `nx build fixtures` to build the library.
-
-## Running unit tests
-
-Run `nx test fixtures` to execute the unit tests via [Jest](https://jestjs.io).
+Manage mock data to use for testing.<br />
+It is utilized for dev docs and e2e and unit tests.
