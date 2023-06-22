@@ -1,6 +1,6 @@
-import { RulerMeasurement } from '@lunit/insight-viewer'
+import { RulerAnnotation } from '@lunit/insight-viewer/annotation'
 
-export const RULER_MEASUREMENTS: RulerMeasurement[] = [
+export const RULER_MEASUREMENTS: RulerAnnotation[] = [
   {
     id: 1,
     type: 'ruler',
@@ -34,20 +34,9 @@ export const RULER_MEASUREMENTS: RulerMeasurement[] = [
     textPoint: [276.23999999999995, 259.77142857142854],
     unit: 'mm',
   },
-  {
-    id: 4,
-    type: 'ruler',
-    startAndEndPoint: [
-      [300.6171428571428, 348.0228571428571],
-      [224.5485714285714, 366.3085714285714],
-    ],
-    measuredValue: 38.2,
-    textPoint: [234.5485714285714, 386.3085714285714],
-    unit: 'mm',
-  },
 ]
 
-export const SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT: RulerMeasurement = {
+export const SMALLER_THAN_MINIMUM_LENGTH_RULER_MEASUREMENT: RulerAnnotation = {
   id: 1,
   lineWidth: 1.5,
   type: 'ruler',

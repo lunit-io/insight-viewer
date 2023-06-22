@@ -6,7 +6,7 @@ on:
     paths:
       - .github/workflows/insight-viewer-feature.yml
       - libs/insight-viewer/**
-      - apps/insight-viewer-docs/**
+      - apps/insight-viewer-dev/**
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       - run: npm ci
 
       - run: npx nx workspace-lint
-      - run: npx nx export insight-viewer-docs
+      - run: npx nx export insight-viewer-dev
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -35,15 +35,14 @@ jobs:
           HOST: insight-viewer--pr-${{ github.event.number }}.f.lunit.io
         run: |
           aws s3 sync \
-            ./dist/apps/insight-viewer-docs/exported \
+            ./dist/apps/insight-viewer-dev/exported \
             s3://lunit-cdn-for-preview-virginia/${HOST} \
             --delete
 
       - name: Preview link
-        uses: NejcZdovc/comment-pr@v1.1.1
+        uses: NejcZdovc/comment-pr@v2.0.0
         with:
           file: 'comment.md'
-          identifier: 'GITHUB_COMMIT_FILE'
+          github_token: ${{secrets.GITHUB_TOKEN}}
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PR_ID: ${{github.event.number}}

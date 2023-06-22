@@ -1,4 +1,4 @@
-import { TextAnnotation } from '@lunit/insight-viewer'
+import { TextAnnotation } from '@lunit/insight-viewer/annotation'
 
 export const TEXT_ANNOTATIONS: TextAnnotation[] = [
   {

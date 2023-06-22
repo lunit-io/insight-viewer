@@ -1,0 +1,26 @@
+name: 'insight viewer unit test coverage'
+on: pull_request
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'develop'
+
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage
+        with:
+          package-manager: npm
+          test-script: npx nx run insight-viewer:test
+          output: report-markdown
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: ${{ steps.coverage.outputs.report }}

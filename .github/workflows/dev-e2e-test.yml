@@ -1,0 +1,21 @@
+name: 'dev e2e test'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  cypress-run:
+    name: Cypress run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npx nx run insight-viewer-dev:build
+          start: npx nx run insight-viewer-dev:serve:production
+          project: ./apps/insight-viewer-dev-e2e
+          browser: chrome

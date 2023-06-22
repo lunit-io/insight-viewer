@@ -1,4 +1,4 @@
-import { LineAnnotation } from '@lunit/insight-viewer'
+import { LineAnnotation } from '@lunit/insight-viewer/annotation'
 
 export const LINE_ANNOTATIONS: LineAnnotation[] = [
   {
@@ -10,7 +10,6 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
       [185.05142857142854, 183.05142857142854],
       [305.7371428571428, 188.17142857142855],
     ],
-    hasArrowHead: true,
   },
   {
     id: 2,
@@ -21,7 +20,6 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
       [263.3142857142857, 248.87999999999997],
       [370.1028571428571, 197.67999999999998],
     ],
-    hasArrowHead: false,
   },
   {
     id: 3,
@@ -32,7 +30,6 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
       [155.79428571428568, 267.1657142857143],
       [264.7771428571428, 297.88571428571424],
     ],
-    hasArrowHead: true,
   },
   {
     id: 4,
@@ -43,7 +40,6 @@ export const LINE_ANNOTATIONS: LineAnnotation[] = [
       [350.35428571428565, 256.92571428571426],
       [283.79428571428565, 352.7428571428571],
     ],
-    hasArrowHead: false,
   },
 ]
 

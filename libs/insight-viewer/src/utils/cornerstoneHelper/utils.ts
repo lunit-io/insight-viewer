@@ -1,7 +1,7 @@
 import cornerstone, { CanvasCoordinate, EnabledElement, PixelCoordinate } from 'cornerstone-core'
 import { DataSet } from 'dicom-parser'
 import { CornerstoneImage, CornerstoneViewport } from './types'
-import { formatCornerstoneViewport } from '../common/formatViewport'
+import { formatCornerstoneViewport } from './formatViewport'
 import { Loader } from '../../types'
 
 export function enable(element: HTMLDivElement): void {

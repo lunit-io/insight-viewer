@@ -1,4 +1,4 @@
-import { FreeLineAnnotation } from '@lunit/insight-viewer'
+import { FreeLineAnnotation } from '@lunit/insight-viewer/annotation'
 
 export const categoryColors = {
   normal: '#3366cc',

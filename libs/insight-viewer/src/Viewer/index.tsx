@@ -16,9 +16,18 @@ export function InsightViewer({
   interaction,
   onViewportChange,
   children,
+  viewerRef,
 }: WithChildren<ViewerProp>): JSX.Element {
-  const elRef = useRef<HTMLDivElement>(null)
+  const elRef = useRef<HTMLDivElement | null>(null)
   const viewportRef = useRef<Partial<Viewport>>(viewport ?? {}) // viewport props
+
+  const refCallback = (element: HTMLDivElement) => {
+    elRef.current = element
+
+    if (!viewerRef) return
+
+    viewerRef.current = element
+  }
 
   // Enable/disable cornerstone.js.
   useCornerstone(elRef.current)
@@ -49,7 +58,7 @@ export function InsightViewer({
   }, [viewport])
 
   return (
-    <ViewerWrapper ref={elRef} Progress={Progress} onViewportChange={onViewportChange} imageEnabled={!!image}>
+    <ViewerWrapper ref={refCallback} Progress={Progress} onViewportChange={onViewportChange} imageEnabled={!!image}>
       <OverlayContextProvider image={image} element={elRef.current} imageEnabled={!!image} viewport={viewport}>
         {children}
       </OverlayContextProvider>

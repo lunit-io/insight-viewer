@@ -2,8 +2,14 @@
  * @fileoverview Update cornerstone.js viewport when Viewer's viewport prop changes.
  */
 import { useEffect } from 'react'
-import { getViewport, setViewport, getDefaultViewportForImage, CornerstoneImage } from '../utils/cornerstoneHelper'
-import { formatCornerstoneViewport, formatViewerViewport } from '../utils/common/formatViewport'
+import {
+  getViewport,
+  setViewport,
+  getDefaultViewportForImage,
+  formatCornerstoneViewport,
+  formatViewerViewport,
+  CornerstoneImage,
+} from '../utils/cornerstoneHelper'
 import { Element, Viewport, OnViewportChange } from '../types'
 
 interface Prop {
@@ -42,17 +48,23 @@ export default function useViewportUpdate({ element, image, viewport: newViewpor
      * the scale will not decrease below the default viewport.
      * This behavior is the default behavior.
      */
-    if (newViewportOptions.fitScale && newViewportProp.scale < defaultViewport.scale) {
+    if (
+      onViewportChange &&
+      newViewportProp.isLegacyViewport &&
+      newViewportOptions.fitScale &&
+      newViewportProp.scale < defaultViewport.scale
+    ) {
       elementUpdatedViewport = { ...newViewportProp, scale: defaultViewport.scale }
       updatedNewViewport = { ...formatViewerViewport(viewport), ...elementUpdatedViewport }
     }
 
     setViewport(<HTMLDivElement>element, formatCornerstoneViewport(viewport, elementUpdatedViewport))
 
-    if (onViewportChange) {
+    if (onViewportChange && newViewportProp.isLegacyViewport) {
       // When resetting, update Viewer's viewport prop
       if (willReset) {
         onViewportChange({
+          isLegacyViewport: true,
           ...formatViewerViewport(defaultViewport),
           ...(newViewportProp?._resetViewport ?? {}),
           _viewportOptions: newViewportOptions,

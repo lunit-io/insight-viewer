@@ -1,0 +1,62 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/insight-viewer-dev",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/insight-viewer-dev",
+        "outputPath": "dist/apps/insight-viewer-dev"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/insight-viewer-dev"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "insight-viewer-dev:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "insight-viewer-dev:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "insight-viewer-dev:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "insight-viewer-dev:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/insight-viewer-dev"],
+      "options": {
+        "jestConfig": "apps/insight-viewer-dev/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/insight-viewer-dev/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, CSSProperties, SVGProps } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { LOADING_STATE, LOADER_TYPE, IMAGE_LOADER_SCHEME } from '../const'
 
 export type WithChildren<T = Record<string, unknown>> = T & {
@@ -26,10 +26,14 @@ export type Viewport = BasicViewport & {
   _initialViewport?: Partial<BasicViewport>
   _resetViewport?: Partial<BasicViewport>
   _viewportOptions: ViewportOptions
+  /**
+   * Flag variable to check whether to use legacy useViewport
+   * Will be deleted after 6.3.0 version
+   */
+  isLegacyViewport?: true
 }
 
 export type Point = [x: number, y: number]
-export type Contours = Point[][]
 
 export interface HTTP {
   onError: OnError
@@ -60,116 +64,3 @@ export type ImageId =
     }
 
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
-
-export type ViewerStyleType =
-  | 'default'
-  | 'select'
-  | 'hover'
-  | 'outline'
-  | 'hoveredOutline'
-  | 'selectedOutline'
-  | 'highlight'
-  | 'dashLine'
-  | 'extendsArea'
-  | 'selectedExtendsArea'
-
-export type ViewerStyle = {
-  [styleType in ViewerStyleType]?: CSSProperties
-}
-
-export type LineHeadMode = 'normal' | 'arrow'
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'circle' | 'text'
-
-export interface AnnotationBase {
-  /** Serves as id by contour */
-  id: number
-
-  type: AnnotationMode
-
-  /** If label is present, it will output instead of id */
-  label?: string
-
-  /** polygon label position = [x, y] */
-  labelPosition?: Point
-
-  /**
-   * The data-attribute is added to the svg element
-   * You can implement functions such as css styling based on the attributes
-   */
-  dataAttrs?: { [attr: string]: string }
-
-  lineWidth?: number
-}
-
-export interface LineAnnotation extends AnnotationBase {
-  type: 'line'
-  points: [Point, Point]
-
-  hasArrowHead?: boolean
-}
-
-export interface FreeLineAnnotation extends AnnotationBase {
-  type: 'freeLine'
-  points: Point[]
-}
-
-export interface PolygonAnnotation extends AnnotationBase {
-  type: 'polygon'
-  points: Point[]
-}
-
-export interface CircleAnnotation extends AnnotationBase {
-  type: 'circle'
-  center: Point
-  radius: number
-}
-
-export interface TextAnnotation extends AnnotationBase {
-  type: 'text'
-  points: [Point, Point]
-  label: string
-}
-
-export type Annotation = PolygonAnnotation | FreeLineAnnotation | LineAnnotation | CircleAnnotation | TextAnnotation
-
-export interface AnnotationViewerProps<T extends AnnotationBase> {
-  annotation: T
-  showOutline: boolean
-  showAnnotationLabel: boolean
-  hoveredAnnotation: Annotation | null
-  annotationAttrs?: (annotation: Annotation, showOutline: boolean) => SVGProps<SVGPolygonElement>
-}
-
-export type MeasurementMode = 'ruler' | 'circle'
-export interface MeasurementBase {
-  id: number
-  type: MeasurementMode
-  lineWidth?: number
-  dataAttrs?: { [attr: string]: string }
-  textPoint: Point | null
-  unit: 'px' | 'mm'
-  /**
-   * This value is measured with a pixel space of the image and transformed into the physical unit(mm)
-   * ruler: length, circle: radius
-   */
-  measuredValue: number
-}
-export interface RulerMeasurement extends MeasurementBase {
-  type: 'ruler'
-  startAndEndPoint: [startPoint: Point, endPoint: Point]
-}
-
-export interface CircleMeasurement extends MeasurementBase {
-  type: 'circle'
-  centerPoint: Point
-  radius: number
-}
-
-export type Measurement = RulerMeasurement | CircleMeasurement
-
-export interface MeasurementViewerProps<T extends MeasurementBase> {
-  measurement: T
-  hoveredMeasurement: Measurement | null
-}
-
-export type CursorStatus = 'drawing' | 'editing' | 'moving' | null
