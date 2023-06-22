@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.1...@lunit/insight-viewer@7.0.0) (2023-06-22)
+
+### Features
+
+- **viewer:** support arrow line mode ([dbed105](https://github.com/lunit-io/frontend-components/commit/dbed10520025cb6afa80cfb3f781bbde7d91ac41))
+
 ## [6.2.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.0...@lunit/insight-viewer@6.2.1) (2022-12-06)
 
 ## [6.2.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.2...@lunit/insight-viewer@6.2.0) (2022-11-14)

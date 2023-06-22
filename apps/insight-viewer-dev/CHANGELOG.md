@@ -2,6 +2,27 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.1...@lunit/insight-viewer@7.0.0) (2023-06-22)
+
+### Features
+
+- **dev:** add ruler, area radio to Annotation Drawer ([da97c62](https://github.com/lunit-io/frontend-components/commit/da97c626acad721180eeb72d81d459f048cb4cbb))
+- **dev:** apply default scale option to interaction handler ([60d06e5](https://github.com/lunit-io/frontend-components/commit/60d06e528d1b85eaab63390240c384cd39a2429f))
+- **dev:** apply reset empty array logic when constant value is false ([ff055f6](https://github.com/lunit-io/frontend-components/commit/ff055f674b9673f581f214d2c89c4e987907ae75))
+- **dev:** delete unused combined-overlay page to dev docs ([16251d8](https://github.com/lunit-io/frontend-components/commit/16251d8c48e304ab02cea7587152edaf4eec6fd3))
+
+### Bug Fixes
+
+- **dev:** apply modified onHover naming to dev docs ([d2e68c3](https://github.com/lunit-io/frontend-components/commit/d2e68c3f46808bf1844abfa43b0931f48c45d3fe))
+- **dev:** delete unused comment to measurement dev docs ([1db3710](https://github.com/lunit-io/frontend-components/commit/1db371029db08d6ef55cf5184a330e3df741ecfc))
+- **dev:** delete unused lineHeadMode code to Annotation dev docs ([0a09c7c](https://github.com/lunit-io/frontend-components/commit/0a09c7c8301e3bb95762892809e3f7ad245a4e04))
+- **dev:** delete unused measurement dev docs page ([59cb3ac](https://github.com/lunit-io/frontend-components/commit/59cb3ac655bb4940aa562507b109b7d74fa30809))
+- **dev:** delete unused measurement viewer docs and tabs ([6dca1d4](https://github.com/lunit-io/frontend-components/commit/6dca1d4838550b73c97e94230820d969701c860e))
+- **dev:** delete unused useRef hook and viewer Ref ([23cee0a](https://github.com/lunit-io/frontend-components/commit/23cee0a2ae1d001d1f95adb87ab4a36a53193e79))
+- **dev:** delete version 2 example code ([345f03a](https://github.com/lunit-io/frontend-components/commit/345f03ac95ba2c8c4a405374a162058cc356317c))
+- **dev:** modify remove all button text to reset ([171bf0c](https://github.com/lunit-io/frontend-components/commit/171bf0cfa78be8dbd190ad6b52cc07ff40621e12))
+- **dev:** modify useViewport hook parameter value to viewerRef ([45ae6f6](https://github.com/lunit-io/frontend-components/commit/45ae6f66b82522df9a1b960e00c6c7ab457330f7))
+
 ## [6.2.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.0...@lunit/insight-viewer@6.2.1) (2022-12-06)
 
 ## [6.2.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.1.2...@lunit/insight-viewer@6.2.0) (2022-11-14)

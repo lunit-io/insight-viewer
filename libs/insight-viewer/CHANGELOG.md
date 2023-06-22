@@ -2,6 +2,68 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.1...@lunit/insight-viewer@7.0.0) (2023-06-22)
+
+### Features
+
+- **viewer:** add Annotation type Viewer and Drawer ([5e8232a](https://github.com/lunit-io/frontend-components/commit/5e8232a5f0d86e79b504f266ae19ad510733ff02))
+- **viewer:** add Annotation, DrawableAnnotation type ([af148e9](https://github.com/lunit-io/frontend-components/commit/af148e929e5d191105725f3d4aa3358401e83d71))
+- **viewer:** add AnnotationDrawer and AnnotationViewer Component ([91cfbe4](https://github.com/lunit-io/frontend-components/commit/91cfbe4aadb31d9a28d68faa41785c81cc2f4eb8))
+- **viewer:** add AnnotationOverlay Component and export component, type ([bfb93af](https://github.com/lunit-io/frontend-components/commit/bfb93afdd9ac8a8b7ad468ffe98506ade1fddeb8))
+- **viewer:** add ClickAction type to Annotation ([15d5bad](https://github.com/lunit-io/frontend-components/commit/15d5bad734bbf7e41796c42d19e6b79ad66cb989))
+- **viewer:** add default scale interaction handler ([632a812](https://github.com/lunit-io/frontend-components/commit/632a8120a4a97c8e60cf4f28252e87882a64f5f2))
+- **viewer:** add export Annotation, DrawableAnnotation type code ([15ddbce](https://github.com/lunit-io/frontend-components/commit/15ddbce4fa2b2ea4c338d98dc5fd9358b2a76891))
+- **viewer:** add getCursorStatus function and apply to EditPointer ([4ecb7f0](https://github.com/lunit-io/frontend-components/commit/4ecb7f0879878dac5083264d3684232905da4d3c))
+- **viewer:** add isLagacyViewport, apply deprecated to useViewport hook ([c097c3e](https://github.com/lunit-io/frontend-components/commit/c097c3ee6256372f3d30fa69439a4dc892d94ac1))
+- **viewer:** add MeasurableAnnotationBase interface ([4de67bf](https://github.com/lunit-io/frontend-components/commit/4de67bf9164c91355200a438074ca2953247b799))
+- **viewer:** add mouse leave observable and apply to takeUntil ([4b9e361](https://github.com/lunit-io/frontend-components/commit/4b9e36197db599ef452abd0bcfdfdec92c997fa5))
+- **viewer:** add multi frame viewport handling logic to useViewport ([ef2fc12](https://github.com/lunit-io/frontend-components/commit/ef2fc1297619900ad150df114f398476ad3cdf19))
+- **viewer:** add onChange prop to AnnotationOverlay ([c92e6e4](https://github.com/lunit-io/frontend-components/commit/c92e6e4cd1c8ec59880c9a920181ba80b5daa94d))
+- **viewer:** add process conditional statements using isLegacyViewport ([7cc19d5](https://github.com/lunit-io/frontend-components/commit/7cc19d581f97d7191749a3ca625518201aad9b0d))
+- **viewer:** add text move validation logic to AnnotationDrawer ([8be0aa9](https://github.com/lunit-io/frontend-components/commit/8be0aa9daba60ac638443b97a3ace79ed661e0a0))
+- **viewer:** add type of mouse wheel handler ([024bb98](https://github.com/lunit-io/frontend-components/commit/024bb983844b01e12f8b8ed99ed4a551e2833968))
+- **viewer:** add Typing component to Annotation directory ([0d6b3bb](https://github.com/lunit-io/frontend-components/commit/0d6b3bbe29c6924abfcd20aef06eec7d46c17dee))
+- **viewer:** add useAnnotation hook and util function ([b4c02f6](https://github.com/lunit-io/frontend-components/commit/b4c02f6c20760ae8509e5202dbdc1d44a0fd10d7))
+- **viewer:** add useAnnotationEvent hook ([641223b](https://github.com/lunit-io/frontend-components/commit/641223b77a6799144c00c2bc10f553411bce6a41))
+- **viewer:** add useCreatingAnnotation, DrawableAnnotation hooks ([de3b29d](https://github.com/lunit-io/frontend-components/commit/de3b29dbe5e249eb0822876d4cb180d489fa2bae))
+- **viewer:** add useEditMode hook ([560ba73](https://github.com/lunit-io/frontend-components/commit/560ba739e9f2fce1be93bf799d820e774592cad3))
+- **viewer:** add useRenewalViewport hook ([d8bc37d](https://github.com/lunit-io/frontend-components/commit/d8bc37d192566aa6d304bc2f06a70e4f87522b4d))
+- **viewer:** add util function of annotation drawing ([baaf5ef](https://github.com/lunit-io/frontend-components/commit/baaf5ef5425af233eedc26f27c04bd030667db25))
+- **viewer:** add validateAnnotation util function ([bf3f540](https://github.com/lunit-io/frontend-components/commit/bf3f540ef375c68443bb70a3245f8ec5187c23df))
+- **viewer:** add viewerRef prop to InsightViewer ([698297e](https://github.com/lunit-io/frontend-components/commit/698297ea81812640ea37cd0d8b4fc881ec74b77d))
+- **viewer:** apply default mouse wheel scale function to hook ([d146145](https://github.com/lunit-io/frontend-components/commit/d1461459d43b629ecd123ef59b0f1e10f7799dd9))
+- **viewer:** apply early return when addedTargetAnnotation is null ([4bd5f23](https://github.com/lunit-io/frontend-components/commit/4bd5f231d4e2959c7e269ee8ff66d370c99bbd4c))
+- **viewer:** apply early return when removedTargetAnnotation is null ([2413c38](https://github.com/lunit-io/frontend-components/commit/2413c384bf2b7a2c0c97c6ff5f2609710577789c))
+- **viewer:** apply isLegacyViewport to scale validation ([36831e8](https://github.com/lunit-io/frontend-components/commit/36831e85b616b4ef34666bba12c0c582d0b72c33))
+- **viewer:** apply mouseleave to taskUntil ([d9cc5a4](https://github.com/lunit-io/frontend-components/commit/d9cc5a48b7472ddf2c60ee1e61a7d7ee92065e7b))
+- **viewer:** apply optional parameter to select, hover ([916f5a8](https://github.com/lunit-io/frontend-components/commit/916f5a8d6ae3fb3d7a737541422e56b4cec373a6))
+- **viewer:** apply stopPropagation when drag mousedown event ([38cc97a](https://github.com/lunit-io/frontend-components/commit/38cc97ab8090363233d1db7171a8d561967ac500))
+- **viewer:** apply useCallback to handleViewportChange, resetViewport ([b2acbf1](https://github.com/lunit-io/frontend-components/commit/b2acbf16bf977abee84499aae184021cae2a64f8))
+- **viewer:** delete optional rendering AnnotationDrawer ([15e1ba6](https://github.com/lunit-io/frontend-components/commit/15e1ba656d44ffd841e6cf66731ee1d07a7adc76))
+- **viewer:** deprecate lineHead type and hasArrowHead type ([1baa3dc](https://github.com/lunit-io/frontend-components/commit/1baa3dcda8aca173c16a5044b2b77c06ee35c85c))
+- **viewer:** modify image, element optional type to add undefined type ([3b5500e](https://github.com/lunit-io/frontend-components/commit/3b5500e233f54997e9bae933dc7ec6d7d654ae96))
+- **viewer:** support arrow line mode ([dbed105](https://github.com/lunit-io/frontend-components/commit/dbed10520025cb6afa80cfb3f781bbde7d91ac41))
+
+### Bug Fixes
+
+- **viewer:** add dependencies of subpath module manually ([60bca7c](https://github.com/lunit-io/frontend-components/commit/60bca7c7a250b78f6fd1bef7bb4d4289a6bbfc9f))
+- **viewer:** apply modified mock polygon format to unit test code ([90b2247](https://github.com/lunit-io/frontend-components/commit/90b2247ae1db6c1b617613da24f68a0a9295dfe7))
+- **viewer:** apply to isLegacyViewport true value when reset click ([783174e](https://github.com/lunit-io/frontend-components/commit/783174eed4b7bd1e117a0f60021cc0607e2e75c4))
+- **viewer:** change conditional logic to drawing event early return ([1725812](https://github.com/lunit-io/frontend-components/commit/17258123858c3ae1d7c23ad817623dae00b32826))
+- **viewer:** constant validated annotation to addedTargetAnnotation ([f845093](https://github.com/lunit-io/frontend-components/commit/f8450937c62ba134ed820418c01181d586110338))
+- **viewer:** delete AnnotationOverlay return type ([1472645](https://github.com/lunit-io/frontend-components/commit/1472645bcfaf9429eb5a69401861c4bff9ae06cd))
+- **viewer:** delete circle type code to getAnnotationPoints ([d05b202](https://github.com/lunit-io/frontend-components/commit/d05b202db1479128213ff1fb6349af07caa45765))
+- **viewer:** delete unused className code to RulerViewer ([3c8a5f6](https://github.com/lunit-io/frontend-components/commit/3c8a5f6b6a26006841b4b982aff8d017bebbfc99))
+- **viewer:** delete unused isEditing prop to AnnotationViewer ([786f97f](https://github.com/lunit-io/frontend-components/commit/786f97fd4f11843113084025f798d42f0f170660))
+- **viewer:** delete unused lineHeadMode prop and type ([31daebd](https://github.com/lunit-io/frontend-components/commit/31daebd36da404b00ffa9cc4c45ab954d7789b45))
+- **viewer:** modify AnnotationOverlay file name to index ([49a9819](https://github.com/lunit-io/frontend-components/commit/49a981982ef7294c1ba1880117d560cd46df8c2b))
+- **viewer:** modify drag interaction mouse up move event area to element ([20c6e86](https://github.com/lunit-io/frontend-components/commit/20c6e86e6ab11b20096bf0eb13cd74f91b920c46))
+- **viewer:** modify onHover, onClick parameter naming to annotation ([b32e3ff](https://github.com/lunit-io/frontend-components/commit/b32e3ffcc84807fda3ef34438abf489ead40d5e9))
+- **viewer:** rename element to annotation of AnnotationViewer Component ([6398992](https://github.com/lunit-io/frontend-components/commit/63989922135dd5db2b24e2a670ae898296430d18))
+- **viewer:** rename event handler hook naming handle to on ([010a3fd](https://github.com/lunit-io/frontend-components/commit/010a3fd08ac914901b48847d473abeb75dcdded4))
+- **viewer:** rename useAnnotationEvent to useMouseEvent ([62cb379](https://github.com/lunit-io/frontend-components/commit/62cb3790d399d3a19fadef4a4f1d0374ce731256))
+- **viewer:** revert event target dom element to document ([1dd5189](https://github.com/lunit-io/frontend-components/commit/1dd5189db5513504f51a53d8e6b8aea9d92a9b89))
+
 ## [6.2.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.0...@lunit/insight-viewer@6.2.1) (2022-12-06)
 
 ### Features
