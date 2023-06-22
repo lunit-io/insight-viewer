@@ -1,7 +1,6 @@
 # insight-viewer
 
-This library was generated with [Nx](https://nx.dev).
+Managing the core logic of the Insight viewer library.<br />
+You can see how images are handled, how interactions are handled, how viewports are handled, and more.
 
-## Running unit tests
-
-Run `nx test insight-viewer` to execute the unit tests via [Jest](https://jestjs.io).
+> Please refer to the Root README for more information on how to use the library.
