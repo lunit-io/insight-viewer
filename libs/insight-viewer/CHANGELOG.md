@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.1](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@7.0.0...@lunit/insight-viewer@7.0.1) (2023-06-26)
+
+### Features
+
+- **viewer** add homepage info to package.json ([f4d0d07](https://github.com/lunit-io/insight-viewer/commit/f4d0d07315418d2b06faf1f3406215f0ed00b8fc))
+- **viewer** update README ([34dc7ae](https://github.com/lunit-io/insight-viewer/commit/db681e0dfa9b3e2ee13c8f3c239053adb4439019))
+- **viewer** add author, keyword, repo, license info to package.json ([db681e0](https://github.com/lunit-io/insight-viewer/commit/db681e0dfa9b3e2ee13c8f3c239053adb4439019))
+- **viewer** add build, publish script for build and publish ([b8389ce](https://github.com/lunit-io/insight-viewer/commit/b8389ce2954082ed1592c31a3af6532b745df9df))
+
 ## [7.0.0](https://github.com/lunit-io/frontend-components/compare/@lunit/insight-viewer@6.2.1...@lunit/insight-viewer@7.0.0) (2023-06-22)
 
 ### Features

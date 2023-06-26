@@ -1,15 +1,29 @@
 {
   "name": "insight-viewer-library",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
+  },
+  "nx": {
+    "targets": {
+      "publish": {
+        "dependsOn": [
+          {
+            "projects": "self",
+            "target": "build"
+          }
+        ]
+      }
+    }
   },
   "scripts": {
     "start": "nx serve insight-viewer-dev",
     "release:minor": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=minor",
     "release:major": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=major",
-    "release:patch": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=patch"
+    "release:patch": "nx run workspace:version --commitMessageFormat='chore(release): publish release' --releaseAs=patch",
+    "build": "nx run-many --target=build --projects=insight-viewer,annotation,viewport",
+    "publish": "node tools/scripts/publish.mjs"
   },
   "private": true,
   "dependencies": {
