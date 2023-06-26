@@ -9,6 +9,7 @@
     "cornerstone"
   ],
   "repository": "github:lunit-io/insight-viewer",
+  "homepage": "https://insight-viewer.lunit.io",
   "license": "MIT",
   "description": "Based on the cornerstone library, it provides several components for handling Dicom images",
   "dependencies": {
