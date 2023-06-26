@@ -1,7 +1,17 @@
 {
   "name": "@lunit/insight-viewer",
   "version": "7.0.0",
-  "description": "cornerstone 라이브러리를 기반으로 Dicom Image를 다루기 위한 여러 Component들을 제공한다.",
+  "author": "Lunit",
+  "keywords": [
+    "react",
+    "dicom",
+    "viewer",
+    "cornerstone"
+  ],
+  "repository": "github:lunit-io/insight-viewer",
+  "homepage": "https://insight-viewer.lunit.io",
+  "license": "MIT",
+  "description": "Based on the cornerstone library, it provides several components for handling Dicom images",
   "dependencies": {
     "polylabel": "^1.1.0"
   },
