@@ -33,5 +33,5 @@ export const addAnnotation =
       return
     }
 
-    onChange([...annotations, annotation])
+    onChange([...annotations, addedTargetAnnotation])
   }
