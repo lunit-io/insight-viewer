@@ -77,6 +77,14 @@ export function getPointsUpdatedAnnotation({
       break
     }
 
+    case 'point': {
+      const labelPosition = polylabel([[currentPoint, currentPoint]], 1) as LabelPosition
+
+      currentAnnotation.point = currentPoint
+      currentAnnotation.labelPosition = labelPosition
+      break
+    }
+
     case 'area': {
       if (isTextMoveMode) {
         currentAnnotation.textPoint = currentPoint

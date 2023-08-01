@@ -18,5 +18,11 @@ export function getAnnotationPoints(annotation: Annotation): Point[] {
     return areaPoints
   }
 
+  if (annotation.type === 'point') {
+    const { point } = annotation
+
+    return [point]
+  }
+
   return annotation.points
 }

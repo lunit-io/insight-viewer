@@ -57,6 +57,13 @@ export function createInitialAnnotation({ id, mode, image, currentPoints }: GetI
         label: '',
       }
     }
+    case 'point': {
+      return {
+        ...defaultAnnotationInfo,
+        type: 'point',
+        point: startPoint,
+      }
+    }
     case 'ruler': {
       const { length, unit } = getLineLength(startPoint, endPoint, image)
 
