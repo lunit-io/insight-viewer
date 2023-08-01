@@ -130,6 +130,7 @@ function AnnotationDrawerContainer(): JSX.Element {
           <Radio value="line">Line</Radio>
           <Radio value="arrowLine">Arrow Line</Radio>
           <Radio value="freeLine">Free Line</Radio>
+          <Radio value="point">Point</Radio>
           <Radio value="text">Text</Radio>
           <Radio value="ruler">Ruler</Radio>
           <Radio value="area">Area</Radio>
