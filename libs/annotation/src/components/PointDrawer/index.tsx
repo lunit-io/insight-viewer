@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { svgWrapperStyle, textStyle } from '../../viewer.styles'
+import { svgWrapperStyle, pointSvgStyle, textStyle } from '../../viewer.styles'
 
 import type { PointDrawerProps } from './PointDrawer.types'
 
@@ -17,28 +17,22 @@ export function PointDrawer({
 
   return (
     <>
-      <circle
-        className={`annotation-circle ${cursorClassName}`}
-        style={svgWrapperStyle.outline}
-        cx={drawingPoint[0]}
-        cy={drawingPoint[1]}
-        r={5}
-      />
-      <circle
-        className={`annotation-circle ${cursorClassName}`}
-        style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
-        cx={drawingPoint[0]}
-        cy={drawingPoint[1]}
-        r={5}
-      />
-      <circle
-        className={`annotation-circle ${cursorClassName}`}
+      <g
+        style={{ cursor: 'pointer' }}
         onMouseDown={handleMoveOnMouseDown}
-        style={{ ...svgWrapperStyle.extendsArea }}
-        cx={drawingPoint[0]}
-        cy={drawingPoint[1]}
-        r={5}
-      />
+        className={`annotation-point ${cursorClassName}`}
+      >
+        <path
+          style={svgWrapperStyle[isSelectedMode ? 'select' : 'default']}
+          transform={`translate(${drawingPoint[0]} ${drawingPoint[1]})`}
+          d="M8,16c0,0,6-5.582,6-10s-2.686-6-6-6S2,1.582,2,6S8,16,8,16z M5,5c0-1.657,1.343-3,3-3s3,1.343,3,3S9.657,8,8,8S5,6.657,5,5  z"
+        />
+        <path
+          style={pointSvgStyle[isSelectedMode ? 'select' : 'default']}
+          transform={`translate(${drawingPoint[0]} ${drawingPoint[1]})`}
+          d="M8,16c0,0,6-5.582,6-10s-2.686-6-6-6S2,1.582,2,6S8,16,8,16z M5,5c0-1.657,1.343-3,3-3s3,1.343,3,3S9.657,8,8,8S5,6.657,5,5  z"
+        />
+      </g>
       {showAnnotationLabel && labelPosition && (
         <text
           className={`annotation-circle label ${cursorClassName}`}
