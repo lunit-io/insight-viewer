@@ -10,7 +10,6 @@ export function PointViewer({ annotation, showLabel, isHovered }: PointViewerPro
   return (
     <>
       <g
-        style={{ cursor: 'pointer' }}
         transform={`translate(${drawingPoint[0]} ${drawingPoint[1]})`}
         data-focus={isHovered}
         className="annotation-point pointer"

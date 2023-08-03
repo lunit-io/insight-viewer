@@ -18,7 +18,6 @@ export function PointDrawer({
   return (
     <>
       <g
-        style={{ cursor: 'pointer' }}
         onMouseDown={handleMoveOnMouseDown}
         className={`annotation-point ${cursorClassName}`}
         transform={`translate(${drawingPoint[0]} ${drawingPoint[1]})`}
