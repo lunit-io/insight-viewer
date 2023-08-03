@@ -36,7 +36,7 @@ export function PointDrawer({
       </g>
       {showAnnotationLabel && labelPosition && (
         <text
-          className={`annotation-circle label ${cursorClassName}`}
+          className={`annotation-point label ${cursorClassName}`}
           onMouseDown={handleTextMoveOnMouseDown}
           style={{
             ...textStyle[isSelectedMode ? 'select' : 'default'],

@@ -28,7 +28,7 @@ export function PointViewer({ annotation, showLabel, isHovered }: PointViewerPro
       </g>
       {showLabel && labelPosition && (
         <text
-          className="annotation-polygon label pointer"
+          className="annotation-point label pointer"
           style={{ ...textStyle.default }}
           x={labelPosition[0]}
           y={labelPosition[1]}
