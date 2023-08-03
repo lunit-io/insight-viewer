@@ -1,5 +1,5 @@
 import polylabel from 'polylabel'
-import { LINE_TEXT_POSITION_SPACING } from '../const'
+import { LINE_TEXT_POSITION_SPACING, POINT_TEXT_POSITION_SPACING } from '../const'
 
 import { getLineLength } from './getLineLength'
 import { getTextPosition } from './getTextPosition'
@@ -78,7 +78,7 @@ export function getPointsUpdatedAnnotation({
     }
 
     case 'point': {
-      const labelPosition = polylabel([[currentPoint, currentPoint]], 1) as LabelPosition
+      const labelPosition = [currentPoint[0], currentPoint[1] + POINT_TEXT_POSITION_SPACING] as LabelPosition
 
       currentAnnotation.point = currentPoint
       currentAnnotation.labelPosition = labelPosition
