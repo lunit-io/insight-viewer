@@ -68,3 +68,7 @@ a {
 .annotation.text {
   cursor: url('../assets/crosshair.png') 20 20, auto !important;
 }
+
+.annotation.point {
+  cursor: url('../assets/pen.png') 20 20, auto !important;
+}
