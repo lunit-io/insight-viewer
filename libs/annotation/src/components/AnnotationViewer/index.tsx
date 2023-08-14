@@ -6,6 +6,7 @@ import useCreatingDrawableAnnotation from '../../hooks/useCreatingDrawableAnnota
 import { AreaViewer } from '../AreaViewer'
 import { LineViewer } from '../LineViewer'
 import { TextViewer } from '../TextViewer'
+import { PointViewer } from '../PointViewer'
 import { RulerViewer } from '../RulerViewer'
 import { PolygonViewer } from '../PolygonViewer'
 
@@ -86,6 +87,7 @@ export function AnnotationViewer({
       {(type === 'freeLine' || type === 'line' || type === 'arrowLine') && (
         <LineViewer annotation={drawableAnnotation} {...viewerProps} />
       )}
+      {type === 'point' && <PointViewer annotation={drawableAnnotation} {...viewerProps} />}
       {type === 'text' && <TextViewer annotation={drawableAnnotation} {...viewerProps} />}
       {type === 'ruler' && <RulerViewer annotation={drawableAnnotation} {...viewerProps} />}
       {type === 'area' && <AreaViewer annotation={drawableAnnotation} {...viewerProps} />}

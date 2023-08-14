@@ -95,6 +95,15 @@ export const svgWrapperStyle: ViewerStyle = {
   },
 }
 
+export const pointSvgStyle: ViewerStyle = {
+  default: {
+    fill: DEFAULT_COLOR,
+  },
+  select: {
+    fill: SELECTED_COLOR,
+  },
+}
+
 export const svgBoxStyle: ViewerStyle = {
   default: {
     fill: 'transparent',

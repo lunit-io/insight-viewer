@@ -16,6 +16,7 @@ import { getEditPointPosition } from '../../utils/getEditPointPosition'
 
 import type { Point } from '../../types'
 import type { Annotation, EditMode, TextAnnotation } from '../../types'
+import { PointDrawer } from '../PointDrawer'
 
 interface AnnotationDrawerProps {
   width?: string | number
@@ -105,6 +106,15 @@ export function AnnotationDrawer({
         <AreaDrawer
           isSelectedMode={isSelectedAnnotation}
           annotation={drawableAnnotation}
+          setAnnotationEditMode={updateEditMode}
+        />
+      )}
+      {type === 'point' && (
+        <PointDrawer
+          isSelectedMode={isSelectedAnnotation}
+          showAnnotationLabel={showAnnotationLabel}
+          annotation={drawableAnnotation}
+          selectedAnnotationLabel={selectedAnnotation ? selectedAnnotation.label ?? selectedAnnotation.id : null}
           setAnnotationEditMode={updateEditMode}
         />
       )}

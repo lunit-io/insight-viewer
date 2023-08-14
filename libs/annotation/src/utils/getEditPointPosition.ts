@@ -15,7 +15,8 @@ export function getEditPointPosition({
   isDefaultEditPointsOfAnnotation,
 }: GetEditPointPositionParams): [Point, Point] | null {
   // Polygon, free line annotation does not show edit point.
-  if (!annotation || annotation.type === 'polygon' || annotation.type === 'freeLine') return null
+  if (!annotation || annotation.type === 'polygon' || annotation.type === 'freeLine' || annotation.type === 'point')
+    return null
 
   if (isDefaultEditPointsOfAnnotation) {
     if (annotation.type === 'area') {

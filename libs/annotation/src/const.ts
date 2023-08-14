@@ -16,6 +16,8 @@ export const LINE_TEXT_POSITION_SPACING = {
 
 export const RULER_TEXT_POSITION_SPACING = 40
 
+export const POINT_TEXT_POSITION_SPACING = 15
+
 export const TEXT_PADDING = 4
 
 export const IMAGER_PIXEL_SPACING = 'x00181164'

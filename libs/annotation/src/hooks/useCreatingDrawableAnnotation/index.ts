@@ -6,7 +6,7 @@ import { calculateCircleArea } from '../../utils/calculateCircleArea'
 import { stringifyPoints } from '../../utils/stringifyPoints'
 import { getCircleRadiusByCenter } from '../../utils/getCircleRadius'
 
-import type { Point } from '../../types'
+import type { DrawablePointAnnotation, Point } from '../../types'
 import type {
   Annotation,
   DrawableAnnotation,
@@ -89,6 +89,21 @@ const useCreatingDrawableAnnotation = ({
           drawingPoints: canvasPoints,
           drawingPointsToString: canvasPointsString,
           canvasArrowHeadPoints: arrowPoints,
+        }
+
+        targetDrawableAnnotation = currentDrawableAnnotation
+        break
+      }
+
+      case 'point': {
+        const canvasPoint = pixelToCanvas(annotation.point)
+        const canvasPointString = stringifyPoints([canvasPoint])
+
+        const currentDrawableAnnotation: DrawablePointAnnotation = {
+          ...annotation,
+          ...initialDrawableAnnotationInfo,
+          drawingPoint: canvasPoint,
+          drawingPointsToString: canvasPointString,
         }
 
         targetDrawableAnnotation = currentDrawableAnnotation

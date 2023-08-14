@@ -5,7 +5,7 @@ export type Unit = 'px' | 'mm'
 export type EditMode = 'startPoint' | 'endPoint' | 'move' | 'textMove'
 export type ClickAction = 'remove' | 'select'
 
-export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'text' | 'arrowLine' | 'ruler' | 'area'
+export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'text' | 'arrowLine' | 'ruler' | 'area' | 'point'
 export type CursorStatus = 'drawing' | 'editing' | 'moving' | null
 
 export interface AnnotationBase {
@@ -63,6 +63,11 @@ export interface TextAnnotation extends AnnotationBase {
   label: string
 }
 
+export interface PointAnnotation extends AnnotationBase {
+  type: 'point'
+  point: Point
+}
+
 export interface RulerAnnotation extends MeasurableAnnotationBase {
   type: 'ruler'
   startAndEndPoint: [startPoint: Point, endPoint: Point]
@@ -80,6 +85,7 @@ export type Annotation =
   | LineAnnotation
   | TextAnnotation
   | ArrowLineAnnotation
+  | PointAnnotation
   | RulerAnnotation
   | AreaAnnotation
 
@@ -93,6 +99,8 @@ export type AnnotationSplitter<T> = T extends 'text'
   ? PolygonAnnotation
   : T extends 'arrowLine'
   ? ArrowLineAnnotation
+  : T extends 'point'
+  ? PointAnnotation
   : T extends 'ruler'
   ? RulerAnnotation
   : T extends 'area'
@@ -132,6 +140,11 @@ export interface DrawableTextAnnotation extends DrawableAnnotationBase<'text'> {
   dimensions: [number, number]
 }
 
+export interface DrawablePointAnnotation extends DrawableAnnotationBase<'point'> {
+  drawingPoint: Point
+  drawingPointsToString: string
+}
+
 export interface DrawableRulerAnnotation extends DrawableAnnotationBase<'ruler'> {
   drawingPoints: [Point, Point]
   drawingPointsToString: string
@@ -150,5 +163,6 @@ export type DrawableAnnotation =
   | DrawableArrowLineAnnotation
   | DrawableFreeLineAnnotation
   | DrawableTextAnnotation
+  | DrawablePointAnnotation
   | DrawableRulerAnnotation
   | DrawableAreaAnnotation

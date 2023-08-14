@@ -1,5 +1,5 @@
 import polylabel from 'polylabel'
-import { LINE_TEXT_POSITION_SPACING } from '../const'
+import { LINE_TEXT_POSITION_SPACING, POINT_TEXT_POSITION_SPACING } from '../const'
 
 import { getLineLength } from './getLineLength'
 import { getCircleCenterPoint } from './getCircleCenterPoint'
@@ -55,6 +55,14 @@ export function createInitialAnnotation({ id, mode, image, currentPoints }: GetI
         type: 'text',
         points: currentPoints,
         label: '',
+      }
+    }
+    case 'point': {
+      return {
+        ...defaultAnnotationInfo,
+        type: 'point',
+        point: startPoint,
+        labelPosition: [xPosition, yPosition + POINT_TEXT_POSITION_SPACING],
       }
     }
     case 'ruler': {
