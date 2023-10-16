@@ -8,6 +8,10 @@ export type ClickAction = 'remove' | 'select'
 export type AnnotationMode = 'line' | 'freeLine' | 'polygon' | 'text' | 'arrowLine' | 'ruler' | 'area' | 'point'
 export type CursorStatus = 'drawing' | 'editing' | 'moving' | null
 
+export type DataAttrs = {
+  [key in `${'data'}-${string}`]: string
+}
+
 export interface AnnotationBase {
   /** Serves as id by contour */
   id: number
@@ -24,7 +28,7 @@ export interface AnnotationBase {
    * The data-attribute is added to the svg element
    * You can implement functions such as css styling based on the attributes
    */
-  dataAttrs?: { [attr: string]: string }
+  dataAttrs?: DataAttrs
 
   lineWidth?: number
 }

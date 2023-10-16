@@ -72,7 +72,7 @@ export function AnnotationViewer({
 
   if (!drawableAnnotation) return null
 
-  const { type } = drawableAnnotation
+  const { type, dataAttrs } = drawableAnnotation
 
   return (
     <g
@@ -82,6 +82,7 @@ export function AnnotationViewer({
       onMouseOver={handleAnnotationMouseOver}
       onMouseLeave={handleAnnotationMouseLeave}
       style={annotationStyle}
+      {...dataAttrs}
     >
       {type === 'polygon' && <PolygonViewer annotation={drawableAnnotation} {...viewerProps} />}
       {(type === 'freeLine' || type === 'line' || type === 'arrowLine') && (

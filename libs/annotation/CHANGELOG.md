@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.1.1](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.1.0...@lunit/insight-viewer@7.1.1) (2023-10-16)
+
+
+### Features
+
+* **viewer:** apply data attribute to AnnotationViewer ([4984f2b](https://github.com/lunit-io/insight-viewer/commit/4984f2bf5a63f6266244fa9f176fe5962d9f754f))
+* **viewer:** apply template literal type validation to data attr ([29b74fb](https://github.com/lunit-io/insight-viewer/commit/29b74fb5d50bd3e16d0850cbe52b9560bcfcc329))
+
 ## [7.1.0](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.0.1...@lunit/insight-viewer@7.1.0) (2023-10-16)
 
 
