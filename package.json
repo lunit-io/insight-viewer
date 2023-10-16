@@ -1,6 +1,6 @@
 {
   "name": "insight-viewer-library",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
