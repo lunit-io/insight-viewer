@@ -41,7 +41,7 @@
     "dicom-parser": "^1.8.13",
     "ky": "^0.30.0",
     "msw": "^0.44.2",
-    "next": "12.1.2",
+    "next": "12.3.4",
     "point-in-polygon": "^1.1.0",
     "polylabel": "^1.1.0",
     "prismjs": "^1.28.0",
