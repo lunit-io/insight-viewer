@@ -159,14 +159,14 @@ describe(
 
         it('click after panning', { scrollBehavior: false }, () => {
           cy.get('.primary-drag-pan').click() // for dragging
-          cy.get('.primary-click').click()
 
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
             x: 140,
             y: 30,
             button: 0,
           })
-          cy.wait(500)
+          cy.get('.primary-click').click()
+
           cy.get('.cornerstone-canvas-wrapper').mouseclick({
             x: CLIENT_X,
             y: CLIENT_Y,
@@ -197,14 +197,14 @@ describe(
 
         it('click after panning', { scrollBehavior: false }, () => {
           cy.get('.primary-drag-pan').click() // for dragging
-          cy.get('.primary-click').click()
 
           cy.get('.cornerstone-canvas-wrapper').dragCanvas({
             x: -140,
             y: -60,
             button: 0,
           })
-          cy.wait(500)
+          cy.get('.primary-click').click()
+
           cy.get('.cornerstone-canvas-wrapper').mouseclick({
             x: CLIENT_X,
             y: CLIENT_Y,
