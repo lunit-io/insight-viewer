@@ -166,6 +166,7 @@ describe(
             y: 30,
             button: 0,
           })
+          cy.wait(500)
           cy.get('.cornerstone-canvas-wrapper').mouseclick({
             x: CLIENT_X,
             y: CLIENT_Y,
@@ -203,6 +204,7 @@ describe(
             y: -60,
             button: 0,
           })
+          cy.wait(500)
           cy.get('.cornerstone-canvas-wrapper').mouseclick({
             x: CLIENT_X,
             y: CLIENT_Y,
