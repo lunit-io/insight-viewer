@@ -33,7 +33,12 @@ const Forwarded = forwardRef<
   }, [width, height, resizeRef, imageEnabled, onViewportChange])
 
   return (
-    <div ref={resizeRef} style={style} className="cornerstone-canvas-wrapper" data-cy="cornerstone-canvas-wrapper">
+    /**
+     * react 18 적용 및 react-resize-detector 버전을 올리면서
+     * 기존 resizeRef 를 할당하는 방식은 무한 렌더링을 유발하여 ref 를 할당
+     * TODO: resize 관련 이슈 대응 시, 추가 작업 필요
+     */
+    <div ref={ref} style={style} className="cornerstone-canvas-wrapper" data-cy="cornerstone-canvas-wrapper">
       {Progress && <LoadingProgress Progress={Progress} />}
       <canvas className="cornerstone-canvas" />
       {children}

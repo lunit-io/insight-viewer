@@ -6,7 +6,7 @@ export function ViewerWrapper({
   className,
 }: WithChildren<{ flexible?: boolean; className?: string }>): JSX.Element {
   return (
-    <Box bg="black" w="100%" d="flex" justifyContent="center">
+    <Box style={{ display: 'flex', justifyContent: 'center' }} bg="black" w="100%">
       <Box w={500} h={500} className={className ?? ''}>
         {children}
       </Box>
