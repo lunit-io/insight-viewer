@@ -20,7 +20,7 @@ export class RenderingEngine extends CornerstoneRenderingEngine {
 
   private static async initialize() {
     if (!RenderingEngine.initializingPromise) {
-      // 초기화가 아직 진행 중이지 않은 경우에만 초기화를 시작
+      // Start initialisation only if initialisation is not already in progress
       RenderingEngine.initializingPromise = (async () => {
         initializeCornerstoneDICOMImageLoader();
         initializeCornerstoneTools();
@@ -30,7 +30,7 @@ export class RenderingEngine extends CornerstoneRenderingEngine {
       })();
     }
 
-    // 초기화가 완료될 때까지 기다림
+    // Wait for initialisation to complete
     await RenderingEngine.initializingPromise;
   }
 
