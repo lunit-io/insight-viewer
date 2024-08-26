@@ -1,168 +1,82 @@
-# INSIGHT Viewer
+# Org
 
-Insight Viewer is a library that [Cornerstone.js](https://github.com/cornerstonejs/cornerstone) medical image viewer component for React.
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-- **Dicom Viewer**: Allows you to represent dicom image files in React.
+✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
 
-- **Dicom Viewport handling**: You can control the Dicom viewport declaratively.
+[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
-- **Drawing Annotation**: Supports the ability to draw annotations on Dicom images. <br />
-  This allows you to visually represent the location of a lesion.
+## Finish your CI setup
 
-## Installation
+[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/7johip6Nlw)
 
-The insight viewer library is registered on NPM, so you can install and use it.
 
-- [@lunit/insight-viewer NPM](https://www.npmjs.com/package/@lunit/insight-viewer)
+## Run tasks
 
-## Getting started with INSIGHT Viewer
-
-Here is an examples of **Dicom Viewer**, **Interaction**, **Annotation Drawing**
-
-### Dicom Viewer
-
-If your purpose is to show a Dicom Image, you can use it as shown below.
-
-```tsx
-import InsightViewer, { useImage } from '@lunit/insight-viewer'
-
-const MOCK_IMAGE = 'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm'
-
-export default function App() {
-  const { image } = useImage({ wadouri: MOCK_IMAGE })
-
-  return <InsightViewer image={image} />
-}
-```
-
-### Interaction
-
-If you want to manipulate the pan and adjustment of a Dicom Image through mouse events, you can use it as shown below.
-
-```tsx
-import { useRef } from 'react'
-import InsightViewer, { useImage, useInteraction } from '@lunit/insight-viewer'
-import { useViewport } from '@lunit/insight-viewer/viewport'
-
-type Controllers = {
-  pan: () => void
-  reset: () => void
-  adjust: () => void
-}
-
-const MOCK_IMAGE = 'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm'
-
-export default function App() {
-  const viewerRef = useRef<HTMLDivElement | null>(null)
-  const { image } = useImage({ wadouri: MOCK_IMAGE })
-  const { interaction, setInteraction } = useInteraction({
-    mouseWheel: 'scale', // Dicom Image scale is changed by mouse wheel events.
-    primaryDrag: 'pan', // The Dicom Image is moved by the left mouse drag.
-  })
-  const { viewport, setViewport, resetViewport } = useViewport({ image, viewerRef })
-
-  const controllers: Controllers = {
-    pan: () => {
-      setInteraction((prev) => ({ ...prev, primaryDrag: 'pan' }))
-    },
-    reset: resetViewport, // Set to the initial viewport of the Dicom Image.
-    adjust: () => {
-      setInteraction((prev) => ({ ...prev, primaryDrag: 'adjust' }))
-    },
-  }
-
-  const viewerProps = {
-    image,
-    viewerRef,
-    viewport,
-    interaction,
-    onViewportChange: setViewport,
-  }
-
-  return (
-    <>
-      <button style={{ marginRight: '8px' }} onClick={controllers['pan']}>
-        pan
-      </button>
-      <button style={{ marginRight: '8px' }} onClick={controllers['adjust']}>
-        adjust
-      </button>
-      <button onClick={controllers['reset']}>reset</button>
-      <InsightViewer {...viewerProps} />
-    </>
-  )
-}
-```
-
-### Annotation Drawing
-
-If you want to draw annotations such as polygon, ruler, and area on a Dicom image, you can use the code below.
-
-```tsx
-import { useState } from 'react'
-import InsightViewer, { useImage } from '@lunit/insight-viewer'
-import { AnnotationOverlay } from '@lunit/insight-viewer/annotation'
-
-import type { Annotation, AnnotationMode } from '@lunit/insight-viewer/annotation'
-
-const MOCK_IMAGE = 'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm'
-
-export default function App() {
-  const [annotationMode, setAnnotationMode] = useState<AnnotationMode>('polygon')
-  const [annotations, setAnnotation] = useState<Annotation[]>([])
-  const { image } = useImage({ wadouri: MOCK_IMAGE })
-
-  return (
-    <>
-      <button style={{ marginRight: '8px' }} onClick={() => setAnnotationMode('polygon')}>
-        polygon
-      </button>
-      <button style={{ marginRight: '8px' }} onClick={() => setAnnotationMode('ruler')}>
-        ruler
-      </button>
-      <button onClick={() => setAnnotationMode('area')}>area</button>
-      <InsightViewer image={image}>
-        <AnnotationOverlay
-          isDrawing
-          mode={annotationMode}
-          annotations={annotations}
-          onChange={(annotations) => setAnnotation(annotations)}
-        />
-      </InsightViewer>
-    </>
-  )
-}
-```
-
-## Docs
-
-You can see what features are supported and example code to use them.
-
-- [https://insight-viewer.lunit.io/](https://insight-viewer.lunit.io/)
-
-## Project structure
-
-- [`libs`](./libs) - Importable libraries.
-- [`apps`](./apps) - Applications that use libraries
-
-### Packages
-
-You can check out the library code deployed on NPM.
-
-- [`libs/insight-viewer`](./libs/insight-viewer) - Cornerstone.js medical image viewer component for React.
-
-### Testing Docs
-
-You can view documents created with the INSIGHT Viewer library.
-
-- [`apps/insight-viewer-dev`](./apps/insight-viewer-dev) - Documentation site for @lunit/insight-viewer.
-
-## Development
-
-Clone this repository locally `$ git clone git@github.com:lunit-io/insight-viewer.git`
+To run the dev server for your app, use:
 
 ```sh
-$ npm i
-$ npm install -g nx
-$ npm start // serve docs on http://localhost:4200
+npx nx serve insight-viewer
 ```
+
+To create a production bundle:
+
+```sh
+npx nx build insight-viewer
+```
+
+To see all available targets to run for a project, run:
+
+```sh
+npx nx show project insight-viewer
+```
+        
+These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+
+[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Add new projects
+
+While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+
+Use the plugin's generator to create new projects.
+
+To generate a new application, use:
+
+```sh
+npx nx g @nx/react:app demo
+```
+
+To generate a new library, use:
+
+```sh
+npx nx g @nx/react:lib mylib
+```
+
+You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+
+[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+
+[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Install Nx Console
+
+Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+
+[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Useful links
+
+Learn more:
+
+- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
+- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+And join the Nx community:
+- [Discord](https://go.nx.dev/community)
+- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
+- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
+- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
