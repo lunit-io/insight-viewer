@@ -1,18 +1,6 @@
 {
   "folders": [
     {
-      "name": "viewer",
-      "path": "libs/insight-viewer"
-    },
-    {
-      "name": "dev",
-      "path": "apps/insight-viewer-dev"
-    },
-    {
-      "name": "e2e",
-      "path": "apps/insight-viewer-dev-e2e"
-    },
-    {
       "name": "root",
       "path": "."
     }

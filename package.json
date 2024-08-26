@@ -27,7 +27,6 @@
   },
   "private": true,
   "dependencies": {
-    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "11.10.0",
     "@emotion/server": "11.10.0",
     "@emotion/styled": "11.10.0",
