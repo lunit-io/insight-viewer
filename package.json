@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "license": "MIT",
   "scripts": {
-    "start:docs": "nx serve insight-viewer"
+    "start:docs": "nx serve insight-viewer-docs"
   },
   "private": true,
   "dependencies": {
