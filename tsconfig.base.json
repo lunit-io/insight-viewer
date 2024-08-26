@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "core": ["libs/core/src/index.ts"]
+      "@lunit-insight-viewer/core": ["libs/core/src/index.ts"],
+      "@lunit-insight-viewer/react-dicom-viewer": [
+        "libs/react-dicom-viewer/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
