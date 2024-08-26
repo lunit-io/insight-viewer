@@ -2,12 +2,6 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "annotation": "libs/annotation",
-    "fixtures": "libs/fixtures",
-    "insight-viewer": "libs/insight-viewer",
-    "insight-viewer-dev": "apps/insight-viewer-dev",
-    "insight-viewer-dev-e2e": "apps/insight-viewer-dev-e2e",
-    "viewport": "libs/viewport",
     "workspace": {
       "root": ".",
       "targets": {
