@@ -1,3 +1,5 @@
+import { v4 as uuidV4 } from 'uuid';
+
 import { ViewerCreator } from './ViewerCreator';
 import { ToolManager } from './tools';
 import { RenderingStackViewport } from './renderViewport';
@@ -14,17 +16,19 @@ export type ViewerSnapshot = ViewerStatus | null;
 
 // TODO: Need to refactor common behaviours like subscribe
 export class ViewerFactory extends ViewerCreator {
+  private viewerId: string;
   private ToolManager: ToolManager;
   private RenderingStackViewport: RenderingStackViewport;
   private EventHandler: EventHandler;
   protected override snapshot: ViewerSnapshot;
 
-  constructor(viewerId: string) {
+  constructor() {
     super();
 
+    this.viewerId = uuidV4();
     this.EventHandler = new EventHandler();
-    this.ToolManager = new ToolManager(viewerId);
-    this.RenderingStackViewport = new RenderingStackViewport(viewerId);
+    this.ToolManager = new ToolManager(this.viewerId);
+    this.RenderingStackViewport = new RenderingStackViewport(this.viewerId);
 
     /**
      * The reason for specifying snapshot separately is that

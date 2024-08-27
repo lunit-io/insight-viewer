@@ -1,5 +1,4 @@
 import { useRef, useEffect, useCallback, useSyncExternalStore } from 'react';
-import { v4 as uuidV4 } from 'uuid';
 
 import { ViewerFactory } from '@lunit-insight-viewer/core';
 
@@ -19,8 +18,7 @@ export const useStackViewport = ({
   const viewerFactoryRef = useRef<ViewerFactory | null>(null);
 
   if (!viewerFactoryRef.current) {
-    const uuid = uuidV4();
-    viewerFactoryRef.current = new ViewerFactory(uuid);
+    viewerFactoryRef.current = new ViewerFactory();
   }
 
   const subscribe = useCallback(
