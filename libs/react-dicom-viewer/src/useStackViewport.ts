@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback, useSyncExternalStore } from 'react';
+import { v4 as uuidV4 } from 'uuid';
 
 import { ViewerFactory } from '@lunit-insight-viewer/core';
 
@@ -18,7 +19,7 @@ export const useStackViewport = ({
   const viewerFactoryRef = useRef<ViewerFactory | null>(null);
 
   if (!viewerFactoryRef.current) {
-    const uuid = generateRandomString();
+    const uuid = uuidV4();
     viewerFactoryRef.current = new ViewerFactory(uuid);
   }
 
@@ -39,18 +40,4 @@ export const useStackViewport = ({
 
     renderingWithInitialSettings();
   }, [element, imageIds, viewerFactoryRef.current]);
-};
-
-// Utils
-const generateRandomString = (): string => {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  const charactersLength = characters.length;
-
-  for (let i = 0; i < 10; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-
-  return result;
 };
