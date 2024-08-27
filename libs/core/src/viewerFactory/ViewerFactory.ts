@@ -1,12 +1,12 @@
 import { v4 as uuidV4 } from 'uuid';
 
-import { ViewerCreator } from './ViewerCreator';
-import { ToolManager } from './tools';
-import { RenderingStackViewport } from './renderViewport';
-import { EventHandler } from './eventHandler';
+import { ViewerCreator } from '../ViewerCreator';
+import { ToolManager } from '../tools';
+import { RenderingStackViewport } from '../renderViewport';
+import { EventHandler } from '../eventHandler';
 
-import type { MappingToolWithKey } from './tools';
-import type { StackViewport } from './renderViewport';
+import type { MappingToolWithKey } from '../tools';
+import type { StackViewport } from '../renderViewport';
 
 export type ViewerStatus = {
   viewport: StackViewport;
