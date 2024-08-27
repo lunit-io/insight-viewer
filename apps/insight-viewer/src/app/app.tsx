@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { DicomViewer } from '@lunit-insight-viewer/react-dicom-viewer';
+import { DicomViewer } from '@lunit-insight-viewer/react';
 
 import type { MappingToolWithKey } from '@lunit-insight-viewer/core';
 
