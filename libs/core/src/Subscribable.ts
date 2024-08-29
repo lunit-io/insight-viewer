@@ -4,9 +4,12 @@ type Listener = () => void;
  * Class for useSyncExternalStore for connecting with react
  * useSyncExternalStore Docs: https://react.dev/reference/react/useSyncExternalStore
  */
-export class Subscribable<TListener extends Function = Listener> {
-  protected listeners: Set<TListener>;
-  protected snapshot: unknown;
+export abstract class Subscribable<
+  TSnapshot,
+  KListener extends Function = Listener
+> {
+  protected listeners: Set<KListener>;
+  protected abstract snapshot: TSnapshot;
 
   constructor() {
     this.listeners = new Set();
@@ -38,7 +41,7 @@ export class Subscribable<TListener extends Function = Listener> {
     return this.snapshot;
   };
 
-  subscribe(listener: TListener): () => void {
+  subscribe(listener: KListener): () => void {
     this.listeners.add(listener);
 
     this.onSubscribe();

@@ -15,12 +15,12 @@ export type ViewerStatus = {
 export type ViewerSnapshot = ViewerStatus | null;
 
 // TODO: Need to refactor common behaviours like subscribe
-export class ViewerFactory extends Subscribable {
+export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   private viewerId: string;
   private ToolManager: ToolManager;
   private RenderingStackViewport: RenderingStackViewport;
   private EventHandler: EventHandler;
-  protected override snapshot: ViewerSnapshot;
+  protected snapshot: ViewerSnapshot;
 
   constructor() {
     super();
