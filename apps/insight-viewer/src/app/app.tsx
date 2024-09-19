@@ -1,7 +1,8 @@
+import { ControlledViewer } from './ControlledViewer';
 import { MultiViewer } from './MultiViewer';
 
 function App() {
-  return <MultiViewer />;
+  return <ControlledViewer />;
 }
 
 export default App;
