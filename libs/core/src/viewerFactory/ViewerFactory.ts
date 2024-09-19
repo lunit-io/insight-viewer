@@ -62,7 +62,10 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     tools?: MappingToolWithKey[],
     eventCallback?: (viewerInfo: ViewerSnapshot) => void
   ) => {
-    this.EventHandler.init(element, () => eventCallback?.(this.getSnapshot()));
+    this.EventHandler.init(element, () => {
+      this.setSnapshot();
+      eventCallback?.(this.snapshot);
+    });
 
     await this.RenderingStackViewport.init(element, imageIds);
     await this.ToolManager.init(element, tools);
