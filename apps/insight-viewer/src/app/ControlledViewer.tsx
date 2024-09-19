@@ -35,6 +35,10 @@ export function ControlledViewer() {
         onChange={handleDicomViewerChange}
       />
       <button onClick={handleRotateButtonClick}>Move</button>
+      <div style={{ marginBottom: '8px' }}>
+        {JSON.stringify(viewerInfo?.viewport.getProperties())}
+      </div>
+      <div>{JSON.stringify(viewerInfo?.viewport.getCamera())}</div>
     </div>
   );
 }
