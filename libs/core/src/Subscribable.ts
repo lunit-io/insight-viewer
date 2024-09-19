@@ -6,7 +6,7 @@ type Listener = () => void;
  */
 export abstract class Subscribable<
   TSnapshot,
-  KListener extends Function = Listener
+  KListener extends (...args: unknown[]) => void = Listener
 > {
   protected listeners: Set<KListener>;
   protected abstract snapshot: TSnapshot;
