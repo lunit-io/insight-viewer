@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useRef, useEffect, useCallback, useSyncExternalStore } from 'react';
+import { useRef, useEffect, useSyncExternalStore } from 'react';
 
 import { ViewerFactory } from '@lunit-insight-viewer/core';
 
