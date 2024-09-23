@@ -40,23 +40,9 @@ export const useStackViewport = ({
 
   useEffect(() => {
     if (viewerInfo) return;
+    if (!viewerFactoryRef.current || !element) return;
 
-    const renderingWithInitialSettings = async () => {
-      if (viewerFactoryRef.current && element) {
-        const eventCallback = (viewerInfo: ViewerSnapshot) => {
-          onChange?.(viewerInfo);
-        };
-
-        await viewerFactoryRef.current.init(
-          element,
-          imageIds,
-          tools,
-          eventCallback
-        );
-      }
-    };
-
-    renderingWithInitialSettings();
+    viewerFactoryRef.current.init(element, imageIds, tools, onChange);
   }, [element, imageIds, tools, viewerInfo, onChange]);
 
   useEffect(() => {
