@@ -39,6 +39,8 @@ export const useStackViewport = ({
   );
 
   useEffect(() => {
+    if (viewerInfo) return;
+
     const renderingWithInitialSettings = async () => {
       if (viewerFactoryRef.current && element) {
         const eventCallback = (viewerInfo: ViewerSnapshot) => {
@@ -55,14 +57,7 @@ export const useStackViewport = ({
     };
 
     renderingWithInitialSettings();
-    /**
-     * Adding onChange will most likely cause infinite rendering issues
-     * If you assign a function to onChange
-     * that doesn't have a useCallback and is generated on every render,
-     * it will cause Causes infinite rendering
-     */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, imageIds, tools]);
+  }, [element, imageIds, tools, viewerInfo, onChange]);
 
   useEffect(() => {
     if (!viewerInfo || !viewerFactoryRef.current) return;
