@@ -61,7 +61,6 @@ export const useStackViewport = ({
 
   useEffect(() => {
     if (!viewerInfo || !viewerFactoryRef.current) return;
-
     if (snapshot === viewerInfo) return;
 
     viewerFactoryRef.current.updateSnapshot(viewerInfo);
