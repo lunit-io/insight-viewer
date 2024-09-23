@@ -77,6 +77,5 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     if (!viewerInfo) return;
 
     this.RenderingStackViewport.setViewport(viewerInfo.viewport);
-    this.emitChange();
   };
 }

@@ -33,7 +33,10 @@ export const useStackViewport = ({
     viewerFactoryRef!.current?.subscribe(listener);
   };
 
-  useSyncExternalStore(subscribe, viewerFactoryRef!.current.getSnapshot);
+  const snapshot = useSyncExternalStore(
+    subscribe,
+    viewerFactoryRef!.current.getSnapshot
+  );
 
   useEffect(() => {
     const renderingWithInitialSettings = async () => {
@@ -64,10 +67,8 @@ export const useStackViewport = ({
   useEffect(() => {
     if (!viewerInfo || !viewerFactoryRef.current) return;
 
-    const currentSnapshot = viewerFactoryRef.current.getSnapshot();
-
-    if (currentSnapshot === viewerInfo) return;
+    if (snapshot === viewerInfo) return;
 
     viewerFactoryRef.current.updateSnapshot(viewerInfo);
-  }, [viewerInfo]);
+  }, [viewerInfo, snapshot]);
 };
