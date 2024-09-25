@@ -101,7 +101,7 @@ export class ToolManager extends ViewerSlot {
    * Functions to set the tool you want to use externally and the mouse key you want to map to it.
    * If there is no key to map, assign the default mouse key
    */
-  setTool = (mappingToolWithKeys: MappingToolWithKey[] = []) => {
+  private setTool = (mappingToolWithKeys: MappingToolWithKey[] = []) => {
     const toolGroup = this.toolGroupManager;
 
     if (!toolGroup) return;
