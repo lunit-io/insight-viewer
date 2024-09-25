@@ -81,4 +81,21 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.RenderingStackViewport.setSnapshot(viewerInfo.viewport);
     this.ToolManager.setSnapshot(viewerInfo.annotations, element);
   };
+
+  /**
+   * TODO: update imageIds update logic
+   *
+   * A method for updating values that may change all the time,
+   * such as tools, imageIds, etc.
+   *
+   * If you have a value that can be updated all the time, proceed with this method
+   */
+  updateViewerConfiguration = (
+    imageIds: string[],
+    tools?: MappingToolWithKey[]
+  ) => {
+    if (tools) {
+      this.ToolManager.updateToolConfiguration(tools);
+    }
+  };
 }

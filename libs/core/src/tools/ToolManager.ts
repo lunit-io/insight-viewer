@@ -137,4 +137,8 @@ export class ToolManager extends ViewerSlot {
   setSnapshot = (annotations: Annotation[], element: HTMLDivElement) => {
     this.setAnnotations(annotations, element);
   };
+
+  updateToolConfiguration = (tools: MappingToolWithKey[]) => {
+    this.updateTool(tools);
+  };
 }

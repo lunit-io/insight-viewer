@@ -51,4 +51,10 @@ export const useStackViewport = ({
 
     viewerFactoryRef.current.updateSnapshot(viewerInfo, element);
   }, [viewerInfo, snapshot, element]);
+
+  useEffect(() => {
+    if (!viewerFactoryRef.current || !element) return;
+
+    viewerFactoryRef.current.updateViewerConfiguration(imageIds, tools);
+  }, [element, imageIds, tools]);
 };
