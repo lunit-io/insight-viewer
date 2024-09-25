@@ -13,7 +13,7 @@ import {
   SUPPORT_KEYS,
 } from './constants';
 
-import type { ToolGroup, MappingToolWithKey } from './types';
+import type { ToolGroup, MappingToolWithKey, Annotation } from './types';
 
 export class ToolManager extends ViewerSlot {
   private toolManagerId: string;
@@ -62,6 +62,17 @@ export class ToolManager extends ViewerSlot {
     return annotation.state.getAllAnnotations();
   };
 
+  private setAnnotations = (
+    annotations: Annotation[],
+    element: HTMLDivElement
+  ) => {
+    annotation.state.removeAllAnnotations();
+
+    annotations.forEach((targetAnnotation) => {
+      annotation.state.addAnnotation(targetAnnotation, element);
+    });
+  };
+
   override destroy = (): void => {
     destroy();
   };
@@ -101,5 +112,9 @@ export class ToolManager extends ViewerSlot {
 
   getSnapshot = () => {
     return this.getAnnotations();
+  };
+
+  setSnapshot = (annotations: Annotation[], element: HTMLDivElement) => {
+    this.setAnnotations(annotations, element);
   };
 }

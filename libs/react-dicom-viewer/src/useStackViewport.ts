@@ -46,9 +46,9 @@ export const useStackViewport = ({
   }, [element, imageIds, tools, viewerInfo, onChange]);
 
   useEffect(() => {
-    if (!viewerInfo || !viewerFactoryRef.current) return;
+    if (!viewerInfo || !viewerFactoryRef.current || !element) return;
     if (snapshot === viewerInfo) return;
 
-    viewerFactoryRef.current.updateSnapshot(viewerInfo);
-  }, [viewerInfo, snapshot]);
+    viewerFactoryRef.current.updateSnapshot(viewerInfo, element);
+  }, [viewerInfo, snapshot, element]);
 };
