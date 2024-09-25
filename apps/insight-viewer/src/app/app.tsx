@@ -1,8 +1,9 @@
 import { ControlledViewer } from './ControlledViewer';
 import { MultiViewer } from './MultiViewer';
+import { AnnotationViewer } from './AnnotationViewer';
 
 function App() {
-  return <ControlledViewer />;
+  return <AnnotationViewer />;
 }
 
 export default App;
