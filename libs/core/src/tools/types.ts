@@ -2,6 +2,7 @@ import { MAPPED_SUPPORT_TOOL, SUPPORT_KEYS } from './constants';
 
 import type { Types } from '@cornerstonejs/tools';
 
+export type Annotation = Types.Annotation;
 export type ToolGroup = Types.IToolGroup;
 export type SupportedTool = keyof typeof MAPPED_SUPPORT_TOOL;
 export type SupportedKey = keyof typeof SUPPORT_KEYS;
@@ -16,6 +17,12 @@ export type SupportedKey = keyof typeof SUPPORT_KEYS;
  * pan: mouse middle button
  *
  * frame: mouse scroll button
+ *
+ * length: mouse left button
+ *
+ * circle: mouse left button
+ *
+ * point: mouse left button
  */
 export type MappingToolWithKey = {
   tool: SupportedTool;

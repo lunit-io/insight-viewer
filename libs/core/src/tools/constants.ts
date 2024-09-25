@@ -4,6 +4,9 @@ import {
   WindowLevelTool,
   StackScrollMouseWheelTool,
   Enums as csToolsEnums,
+  LengthTool,
+  CircleROITool,
+  ProbeTool,
 } from '@cornerstonejs/tools';
 
 /**
@@ -21,10 +24,16 @@ export const SUPPORT_KEYS = {
 };
 
 export const MAPPED_SUPPORT_TOOL = {
+  // Camera handler
   pan: PanTool,
   zoom: ZoomTool,
   windowing: WindowLevelTool,
   frame: StackScrollMouseWheelTool,
+
+  // Annotation handler
+  length: LengthTool,
+  circle: CircleROITool,
+  point: ProbeTool,
 };
 
 export const DEFAULT_MAPPED_TOOL_WITH_KEY: Record<
@@ -35,4 +44,7 @@ export const DEFAULT_MAPPED_TOOL_WITH_KEY: Record<
   windowing: 'left',
   frame: 'wheel',
   zoom: 'right',
+  length: 'left',
+  circle: 'left',
+  point: 'left',
 };
