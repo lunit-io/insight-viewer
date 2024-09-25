@@ -1,4 +1,9 @@
-import { ToolGroupManager, utilities, destroy } from '@cornerstonejs/tools';
+import {
+  ToolGroupManager,
+  utilities,
+  destroy,
+  annotation,
+} from '@cornerstonejs/tools';
 
 import { ViewerSlot } from '../ViewerSlot';
 import { RenderingEngine } from '../renderEngine';
@@ -53,6 +58,10 @@ export class ToolManager extends ViewerSlot {
     element.oncontextmenu = (e) => e.preventDefault();
   };
 
+  private getAnnotations = () => {
+    return annotation.state.getAllAnnotations();
+  };
+
   override destroy = (): void => {
     destroy();
   };
@@ -91,6 +100,6 @@ export class ToolManager extends ViewerSlot {
   };
 
   getSnapshot = () => {
-    return this.toolGroupManager;
+    return this.getAnnotations();
   };
 }

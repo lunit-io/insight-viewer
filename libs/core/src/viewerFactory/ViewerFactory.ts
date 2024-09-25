@@ -5,11 +5,12 @@ import { ToolManager } from '../tools';
 import { RenderingStackViewport } from '../renderViewport';
 import { EventHandler } from '../eventHandler';
 
-import type { MappingToolWithKey } from '../tools';
+import type { MappingToolWithKey, Annotation } from '../tools';
 import type { StackViewport } from '../renderViewport';
 
 export type ViewerStatus = {
   viewport: StackViewport;
+  annotations: Annotation[];
 };
 
 export type ViewerSnapshot = ViewerStatus | null;
@@ -43,11 +44,12 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
 
   protected override setSnapshot = () => {
     const viewport = this.RenderingStackViewport.getSnapshot();
-
+    const annotations = this.ToolManager.getSnapshot();
     if (!viewport) return;
 
     this.snapshot = {
       viewport,
+      annotations,
     };
   };
 
