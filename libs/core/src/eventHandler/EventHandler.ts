@@ -1,6 +1,8 @@
 import { EVENTS } from '@cornerstonejs/core';
+import { Enums } from '@cornerstonejs/tools';
 
 const { IMAGE_RENDERED } = EVENTS;
+const { ANNOTATION_RENDERED } = Enums.Events;
 
 /**
  * This is the class that handles various cornerstone events.
@@ -15,7 +17,15 @@ export class EventHandler {
     element.addEventListener(IMAGE_RENDERED, callback);
   };
 
+  private addAnnotationRenderedEventListener = (
+    element: HTMLDivElement,
+    callback: () => void
+  ) => {
+    element.addEventListener(ANNOTATION_RENDERED, callback);
+  };
+
   init = (element: HTMLDivElement, callback: () => void) => {
     this.addImageRenderedEventListener(element, callback);
+    this.addAnnotationRenderedEventListener(element, callback);
   };
 }
