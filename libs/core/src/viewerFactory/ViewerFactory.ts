@@ -78,7 +78,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   updateSnapshot = (viewerInfo: ViewerSnapshot, element: HTMLDivElement) => {
     if (!viewerInfo) return;
 
-    this.RenderingStackViewport.setViewport(viewerInfo.viewport);
+    this.RenderingStackViewport.setSnapshot(viewerInfo.viewport);
     this.ToolManager.setSnapshot(viewerInfo.annotations, element);
   };
 }

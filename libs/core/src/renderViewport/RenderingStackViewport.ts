@@ -40,7 +40,7 @@ export class RenderingStackViewport extends ViewerSlot {
     this.renderingEngine?.disableElement(this.viewportId);
   };
 
-  setViewport = (viewport: StackViewport): void => {
+  private setViewport = (viewport: StackViewport): void => {
     if (!this.viewport || !this.renderingEngine) return;
 
     this.viewport = viewport;
@@ -97,5 +97,9 @@ export class RenderingStackViewport extends ViewerSlot {
 
   getSnapshot = (): StackViewport | null => {
     return this.getViewport();
+  };
+
+  setSnapshot = (viewport: StackViewport) => {
+    this.setViewport(viewport);
   };
 }
