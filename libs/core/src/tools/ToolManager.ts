@@ -77,6 +77,26 @@ export class ToolManager extends ViewerSlot {
     destroy();
   };
 
+  private setToolPassive = () => {
+    const toolGroup = this.toolGroupManager;
+
+    if (!toolGroup) return;
+
+    Object.values(MAPPED_SUPPORT_TOOL).forEach(({ toolName }) => {
+      toolGroup.setToolPassive(toolName);
+    });
+  };
+
+  /**
+   * In order to assign a new tool,
+   * the previously used tool must be put into passive state.
+   * method is responsible for this.
+   */
+  private updateTool = (mappingToolWithKeys: MappingToolWithKey[] = []) => {
+    this.setToolPassive();
+    this.setTool(mappingToolWithKeys);
+  };
+
   /**
    * Functions to set the tool you want to use externally and the mouse key you want to map to it.
    * If there is no key to map, assign the default mouse key
@@ -107,7 +127,7 @@ export class ToolManager extends ViewerSlot {
     this.enableToolElement(element);
     this.blockRightClickEvent(element);
     this.mappingRenderingInfoWithToolManager();
-    this.setTool(mappingToolWithKeys);
+    this.updateTool(mappingToolWithKeys);
   };
 
   getSnapshot = () => {
