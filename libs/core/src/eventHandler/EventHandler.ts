@@ -1,7 +1,5 @@
 import { EVENTS } from '@cornerstonejs/core';
 
-import type { Types } from '@cornerstonejs/core';
-
 const { IMAGE_RENDERED } = EVENTS;
 
 /**
@@ -14,11 +12,7 @@ export class EventHandler {
     element: HTMLDivElement,
     callback: () => void
   ) => {
-    element.addEventListener(IMAGE_RENDERED, ((
-      _: Types.EventTypes.ImageRenderedEvent
-    ) => {
-      callback();
-    }) as EventListener);
+    element.addEventListener(IMAGE_RENDERED, callback);
   };
 
   init = (element: HTMLDivElement, callback: () => void) => {

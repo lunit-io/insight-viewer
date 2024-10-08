@@ -15,12 +15,12 @@ export type ViewerStatus = {
 export type ViewerSnapshot = ViewerStatus | null;
 
 // TODO: Need to refactor common behaviours like subscribe
-export class ViewerFactory extends Subscribable {
+export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   private viewerId: string;
   private ToolManager: ToolManager;
   private RenderingStackViewport: RenderingStackViewport;
   private EventHandler: EventHandler;
-  protected override snapshot: ViewerSnapshot;
+  protected snapshot: ViewerSnapshot;
 
   constructor() {
     super();
@@ -59,11 +59,23 @@ export class ViewerFactory extends Subscribable {
   init = async (
     element: HTMLDivElement,
     imageIds: string[],
-    tools?: MappingToolWithKey[]
+    tools?: MappingToolWithKey[],
+    eventCallback?: (viewerInfo: ViewerSnapshot) => void
   ) => {
+    this.EventHandler.init(element, () => {
+      this.setSnapshot();
+      eventCallback?.(this.snapshot);
+    });
+
     await this.RenderingStackViewport.init(element, imageIds);
     await this.ToolManager.init(element, tools);
-    this.EventHandler.init(element, this.emitChange);
+
     this.emitChange();
+  };
+
+  updateSnapshot = (viewerInfo: ViewerSnapshot) => {
+    if (!viewerInfo) return;
+
+    this.RenderingStackViewport.setViewport(viewerInfo.viewport);
   };
 }

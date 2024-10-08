@@ -1,19 +1,27 @@
-import { useRef, useEffect, useCallback, useSyncExternalStore } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useRef, useEffect, useSyncExternalStore } from 'react';
 
 import { ViewerFactory } from '@lunit-insight-viewer/core';
 
-import type { MappingToolWithKey } from '@lunit-insight-viewer/core';
+import type {
+  ViewerSnapshot,
+  MappingToolWithKey,
+} from '@lunit-insight-viewer/core';
 
 interface UseStackViewportParams {
   element: HTMLDivElement | null;
   imageIds: string[];
   tools?: MappingToolWithKey[];
+  viewerInfo?: ViewerSnapshot;
+  onChange?: (viewerInfo: ViewerSnapshot) => void;
 }
 
 export const useStackViewport = ({
   element,
   imageIds,
   tools,
+  viewerInfo,
+  onChange,
 }: UseStackViewportParams) => {
   const viewerFactoryRef = useRef<ViewerFactory | null>(null);
 
@@ -21,21 +29,26 @@ export const useStackViewport = ({
     viewerFactoryRef.current = new ViewerFactory();
   }
 
-  const subscribe = useCallback(
-    (listener: () => void) => () =>
-      viewerFactoryRef!.current?.subscribe(listener),
-    [element]
+  const subscribe = (listener: () => void) => () => {
+    viewerFactoryRef!.current?.subscribe(listener);
+  };
+
+  const snapshot = useSyncExternalStore(
+    subscribe,
+    viewerFactoryRef!.current.getSnapshot
   );
 
-  useSyncExternalStore(subscribe, viewerFactoryRef!.current.getSnapshot);
+  useEffect(() => {
+    if (viewerInfo) return;
+    if (!viewerFactoryRef.current || !element) return;
+
+    viewerFactoryRef.current.init(element, imageIds, tools, onChange);
+  }, [element, imageIds, tools, viewerInfo, onChange]);
 
   useEffect(() => {
-    const renderingWithInitialSettings = async () => {
-      if (viewerFactoryRef.current && element) {
-        await viewerFactoryRef.current.init(element, imageIds, tools);
-      }
-    };
+    if (!viewerInfo || !viewerFactoryRef.current) return;
+    if (snapshot === viewerInfo) return;
 
-    renderingWithInitialSettings();
-  }, [element, imageIds, viewerFactoryRef.current]);
+    viewerFactoryRef.current.updateSnapshot(viewerInfo);
+  }, [viewerInfo, snapshot]);
 };
