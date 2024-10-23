@@ -66,11 +66,8 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
       this.setSnapshot();
       eventCallback?.(this.snapshot);
     });
-
     await this.RenderingStackViewport.init(element, imageIds);
     await this.ToolManager.init(element, tools);
-
-    this.emitChange();
   };
 
   updateSnapshot = (viewerInfo: ViewerSnapshot) => {
