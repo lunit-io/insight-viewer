@@ -10,19 +10,6 @@ export default function DicomImageViewer(): JSX.Element {
   const { ImageSelect, selected } = useImageSelect()
   const { loadingState, image } = useImage({
     wadouri: selected,
-    loaderOptions: {
-      webWorkerManagerOptions: {
-        webWorkerTaskPaths: [
-          `${window.location.origin}/workers/610.bundle.min.worker.js`,
-          `${window.location.origin}/workers/888.bundle.min.worker.js`,
-        ],
-        taskConfiguration: {
-          decodeTask: {
-            initializeCodecsOnStartup: false,
-          },
-        },
-      },
-    },
   })
 
   return (
