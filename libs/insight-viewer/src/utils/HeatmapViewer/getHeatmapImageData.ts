@@ -11,6 +11,9 @@ interface GetHeatmapImageDataReturn {
   heatmapCanvas: HTMLCanvasElement | null
 }
 
+const MAX_ALPHA = 255
+const HEATMAP_OPACITY = 0.35
+
 export default function getHeatmapImageData({
   canvas,
   posMap,
@@ -49,7 +52,7 @@ export default function getHeatmapImageData({
         pixels[offset] = pixVal[0]
         pixels[offset + 1] = pixVal[1]
         pixels[offset + 2] = pixVal[2]
-        pixels[offset + 3] = Math.round(255 * 0.35)
+        pixels[offset + 3] = Math.round(MAX_ALPHA * HEATMAP_OPACITY)
       }
     }
   }
