@@ -1,7 +1,7 @@
 export * from './const'
 export { InsightViewer as default } from './Viewer'
 export { CXR4HeatmapViewer } from './Viewer/CXR4HeatmapViewer'
-export { LegacyHeatmapViewer } from './Viewer/LegacyHeatmapViewer'
+export { HeatmapViewer } from './Viewer/HeatmapViewer'
 export { useMultipleImages } from './hooks/useMultipleImages'
 export { useInteraction } from './hooks/useInteraction'
 export { useDicomFile } from './hooks/useDicomFile'
