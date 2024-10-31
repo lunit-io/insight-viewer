@@ -72,7 +72,8 @@ function HeatmapContainer(): JSX.Element {
         </Stack>
       </Box>
       <Box style={{ display: 'flex', gap: 12, width: '100%', height: '100%' }}>
-        <Box data-cy-loaded={loadingState}>
+        <Box data-cy-loaded={loadingState} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <p style={{ fontSize: 24, fontWeight: 'bold' }}>Heatmap</p>
           <Resizable
             style={style}
             defaultSize={{
@@ -92,7 +93,8 @@ function HeatmapContainer(): JSX.Element {
             </InsightViewer>
           </Resizable>
         </Box>
-        <Box data-cy-loaded={loadingState}>
+        <Box data-cy-loaded={loadingState} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <p style={{ fontSize: 24, fontWeight: 'bold' }}>CXR4 Heatmap</p>
           <Resizable
             style={style}
             defaultSize={{
