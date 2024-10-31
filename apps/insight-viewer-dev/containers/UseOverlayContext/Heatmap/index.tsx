@@ -2,7 +2,7 @@
 import { useRef } from 'react'
 import { Box, Stack, Switch, Text } from '@chakra-ui/react'
 import { Resizable } from 're-resizable'
-import InsightViewer, { useImage, useInteraction, HeatmapViewer } from '@lunit/insight-viewer'
+import InsightViewer, { useImage, useInteraction, HeatmapViewer, CXR4HeatmapViewer } from '@lunit/insight-viewer'
 import { useViewport } from '@lunit/insight-viewer/viewport'
 import { IMAGES } from '@insight-viewer-library/fixtures'
 import OverlayLayer from '../../../components/OverlayLayer'
@@ -71,25 +71,49 @@ function HeatmapContainer(): JSX.Element {
           </Box>
         </Stack>
       </Box>
-      <Box data-cy-loaded={loadingState}>
-        <Resizable
-          style={style}
-          defaultSize={{
-            width: 500,
-            height: 500,
-          }}
-        >
-          <InsightViewer
-            viewerRef={viewerRef}
-            image={image}
-            viewport={viewport}
-            onViewportChange={setViewport}
-            interaction={interaction}
+      <Box style={{ display: 'flex', gap: 12, width: '100%', height: '100%' }}>
+        <Box data-cy-loaded={loadingState} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <p style={{ fontSize: 24, fontWeight: 'bold' }}>Heatmap</p>
+          <Resizable
+            style={style}
+            defaultSize={{
+              width: 500,
+              height: 500,
+            }}
           >
-            {loadingState === 'success' && <HeatmapViewer posMap={posMap} threshold={0.15} />}
-            <OverlayLayer viewport={viewport} />
-          </InsightViewer>
-        </Resizable>
+            <InsightViewer
+              viewerRef={viewerRef}
+              image={image}
+              viewport={viewport}
+              onViewportChange={setViewport}
+              interaction={interaction}
+            >
+              {loadingState === 'success' && <HeatmapViewer posMap={posMap} threshold={0.15} />}
+              <OverlayLayer viewport={viewport} />
+            </InsightViewer>
+          </Resizable>
+        </Box>
+        <Box data-cy-loaded={loadingState} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <p style={{ fontSize: 24, fontWeight: 'bold' }}>CXR4 Heatmap</p>
+          <Resizable
+            style={style}
+            defaultSize={{
+              width: 500,
+              height: 500,
+            }}
+          >
+            <InsightViewer
+              viewerRef={viewerRef}
+              image={image}
+              viewport={viewport}
+              onViewportChange={setViewport}
+              interaction={interaction}
+            >
+              {loadingState === 'success' && <CXR4HeatmapViewer posMap={posMap} threshold={0.15} />}
+              <OverlayLayer viewport={viewport} />
+            </InsightViewer>
+          </Resizable>
+        </Box>
       </Box>
     </>
   )
