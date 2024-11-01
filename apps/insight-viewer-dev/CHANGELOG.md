@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.2.0](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.1.1...@lunit/insight-viewer@7.2.0) (2024-11-01)
+
+
+### Bug Fixes
+
+* delete unused loader optons ([8b9f009](https://github.com/lunit-io/insight-viewer/commit/8b9f009058a985d4de8703e86e3c781e9290ffb0))
+
 ## [7.1.1](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.1.0...@lunit/insight-viewer@7.1.1) (2023-10-16)
 
 ## [7.1.0](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.0.1...@lunit/insight-viewer@7.1.0) (2023-10-16)
