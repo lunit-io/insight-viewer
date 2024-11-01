@@ -1,5 +1,6 @@
 export * from './const'
 export { InsightViewer as default } from './Viewer'
+export { CXR4HeatmapViewer } from './Viewer/CXR4HeatmapViewer'
 export { HeatmapViewer } from './Viewer/HeatmapViewer'
 export { useMultipleImages } from './hooks/useMultipleImages'
 export { useInteraction } from './hooks/useInteraction'
