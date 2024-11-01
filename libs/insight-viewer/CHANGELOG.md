@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.2.0](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.1.1...@lunit/insight-viewer@7.2.0) (2024-11-01)
+
+
+### Features
+
+* add Legacy Heatmap viewer component ([e4901be](https://github.com/lunit-io/insight-viewer/commit/e4901be9727247cd4c02813cb54721e1e972a953))
+* delete unused gaussian blur logic and apply blur style ([b831f8f](https://github.com/lunit-io/insight-viewer/commit/b831f8fcfbb7c2859140473858514b3a92b24c05))
+* update Heatmap spec ([9eed60e](https://github.com/lunit-io/insight-viewer/commit/9eed60eee743f48d661da5fbc163fa8460dd6ae2))
+
+
+### Bug Fixes
+
+* delete return type declare of useResize ([b301b0d](https://github.com/lunit-io/insight-viewer/commit/b301b0dd392ce7ec58e69f59ecbea29a7d9f3c0c))
+
 ## [7.1.1](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.1.0...@lunit/insight-viewer@7.1.1) (2023-10-16)
 
 ## [7.1.0](https://github.com/lunit-io/insight-viewer/compare/@lunit/insight-viewer@7.0.1...@lunit/insight-viewer@7.1.0) (2023-10-16)
