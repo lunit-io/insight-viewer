@@ -12,15 +12,13 @@ interface DicomViewerHooksParams {
 }
 
 export const useDicomViewer = (params: DicomViewerHooksParams) => {
-  const { image, setImage } = useDicom(params);
-  const { viewerRef, viewport, setViewport } = useDicomViewport();
+  const { image } = useDicom(params);
+  const { viewerRef, viewport } = useDicomViewport({ image });
 
   return {
     viewerRef,
     image,
     viewport,
-    setImage,
-    setViewport,
   };
 };
 
@@ -33,15 +31,12 @@ export const useDicom = (params: DicomViewerHooksParams) => {
     //   setImage(images);
   }, [params]);
 
-  return {
-    image,
-    setImage,
-  };
+  return { image };
 };
 
-export const useDicomViewport = () => {
+export const useDicomViewport = ({ image }: { image: DicomViewerImage }) => {
   const viewerRef = useRef<HTMLDivElement>(null);
-  const [viewport, setViewport] = useState<DicomViewerViewport>(null);
+  const [viewport] = useState<DicomViewerViewport>(null);
 
   // TODO: viewport 로직 구현 필요
   useEffect(() => {
@@ -49,11 +44,17 @@ export const useDicomViewport = () => {
       //   const viewport = new StackViewport(viewerRef.current);
       //   setViewport(viewport);
     }
-  }, [viewerRef]);
+  }, [viewerRef, image]);
 
   return {
     viewerRef,
     viewport,
-    setViewport,
   };
 };
+
+/**
+ * @description
+ *
+ * - useDicom 에서 초기 image 정보만을 획득
+ * - useDicomViewport 에서 image 정보와 ref 를 토대로 viewport 정보를 획득
+ */

@@ -8,7 +8,7 @@ import { DicomViewer } from './DicomViewer';
  * - 외부로 노출시키는 방식으로 외부에서 충분히 핸들링 할 수 있도록 하기 위함
  */
 export function DicomViewerLowLevelExample1() {
-  const { viewerRef, image, viewport, setImage, setViewport } = useDicomViewer({
+  const { viewerRef, image, viewport } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
@@ -22,15 +22,7 @@ export function DicomViewerLowLevelExample1() {
     },
   });
 
-  return (
-    <DicomViewer
-      ref={viewerRef}
-      image={image}
-      viewport={viewport}
-      setImage={setImage}
-      setViewport={setViewport}
-    />
-  );
+  return <DicomViewer ref={viewerRef} image={image} viewport={viewport} />;
 }
 
 /**
