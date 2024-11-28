@@ -17,6 +17,7 @@ export const useDicomViewer = ({ imageIds }: { imageIds: string[] }) => {
   return {
     viewerRef: ref,
     viewerInfo,
+    setViewerInfo,
   };
 };
 

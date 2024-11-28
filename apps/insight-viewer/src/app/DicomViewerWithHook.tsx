@@ -15,7 +15,6 @@ export function LowLevelDicomViewerWithHook() {
 }
 
 export function HighLevelDicomViewerWithHook() {
-  console.log('high level');
   return (
     <div style={{ width: '500px', height: '500px' }}>
       <NewDicomViewer imageIds={imageIds} />
