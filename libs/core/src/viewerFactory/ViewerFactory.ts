@@ -6,10 +6,10 @@ import { RenderingStackViewport } from '../renderViewport';
 import { EventHandler } from '../eventHandler';
 
 import type { MappingToolWithKey } from '../tools';
-import type { StackViewport } from '../renderViewport';
+import type { StackViewportSnapshot } from '../renderViewport';
 
 export type ViewerStatus = {
-  viewport: StackViewport;
+  viewport: StackViewportSnapshot;
 };
 
 export type ViewerSnapshot = ViewerStatus | null;
@@ -73,7 +73,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.emitChange();
   };
 
-  updateSnapshot = (viewerInfo: ViewerSnapshot) => {
+  updateSnapshot = (viewerInfo: ViewerStatus) => {
     if (!viewerInfo) return;
 
     this.RenderingStackViewport.setViewport(viewerInfo.viewport);

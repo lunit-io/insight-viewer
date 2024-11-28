@@ -3,7 +3,7 @@ import { Enums } from '@cornerstonejs/core';
 import { ViewerSlot } from '../ViewerSlot';
 import { RenderingEngine } from '../renderEngine';
 
-import type { StackViewport, Image } from './types';
+import type { StackViewport, Image, StackViewportSnapshot } from './types';
 
 export class RenderingStackViewport extends ViewerSlot {
   private viewportId: string;
@@ -38,20 +38,6 @@ export class RenderingStackViewport extends ViewerSlot {
 
   override destroy = (): void => {
     this.renderingEngine?.disableElement(this.viewportId);
-  };
-
-  setViewport = (viewport: StackViewport): void => {
-    if (!this.viewport || !this.renderingEngine) return;
-
-    this.viewport = viewport;
-    this.render();
-  };
-
-  resetViewport = (): void => {
-    if (!this.viewport) return;
-
-    this.viewport.resetCamera();
-    this.viewport.resetProperties();
   };
 
   getImage = (): Image => {
@@ -95,7 +81,41 @@ export class RenderingStackViewport extends ViewerSlot {
     this.render();
   };
 
-  getSnapshot = (): StackViewport | null => {
-    return this.getViewport();
+  setViewport = (viewportInfo: StackViewportSnapshot): void => {
+    if (!this.viewport || !this.renderingEngine) return;
+
+    const viewport = this.getViewport();
+
+    viewport.setProperties({ ...viewportInfo.properties });
+    viewport.setCamera({ ...viewportInfo.camera });
+
+    viewport.setViewPresentation({
+      ...viewportInfo.properties,
+      ...viewportInfo.camera,
+    });
+
+    this.viewport = viewport;
+    this.render();
+  };
+
+  getSnapshot = (): StackViewportSnapshot | null => {
+    const viewport = this.getViewport();
+
+    if (!viewport) return null;
+
+    const properties = viewport.getProperties();
+    const camera = viewport.getCamera();
+
+    return {
+      properties,
+      camera,
+    };
+  };
+
+  resetViewport = (): void => {
+    if (!this.viewport) return;
+
+    this.viewport.resetCamera();
+    this.viewport.resetProperties();
   };
 }
