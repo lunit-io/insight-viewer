@@ -42,7 +42,12 @@ export const useStackViewport = ({
     if (viewerInfo) return;
     if (!viewerFactoryRef.current || !element) return;
 
-    viewerFactoryRef.current.init(element, imageIds, tools, onChange);
+    viewerFactoryRef.current.init({
+      element,
+      imageIds,
+      tools,
+      imageRenderEventCallback: onChange,
+    });
   }, [element, imageIds, tools, viewerInfo, onChange]);
 
   useEffect(() => {

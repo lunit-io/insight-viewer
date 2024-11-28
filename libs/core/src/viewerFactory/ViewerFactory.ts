@@ -56,15 +56,29 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.RenderingStackViewport.destroy();
   };
 
-  init = async (
-    element: HTMLDivElement,
-    imageIds: string[],
-    tools?: MappingToolWithKey[],
-    eventCallback?: (viewerInfo: ViewerSnapshot) => void
-  ) => {
-    this.EventHandler.init(element, () => {
-      this.setSnapshot();
-      eventCallback?.(this.snapshot);
+  init = async ({
+    element,
+    imageIds,
+    tools,
+    imageRenderEventCallback,
+  }: {
+    element: HTMLDivElement;
+    imageIds: string[];
+    tools?: MappingToolWithKey[];
+    imageRenderEventCallback?: (viewerInfo: ViewerSnapshot) => void;
+  }) => {
+    this.EventHandler.init({
+      element,
+      imageRenderCallback: () => {
+        this.setSnapshot();
+        imageRenderEventCallback?.(this.snapshot);
+      },
+      cameraModifiedCallback: () => {
+        this.setSnapshot();
+      },
+      stackNewStackCallback: () => {
+        this.setSnapshot();
+      },
     });
 
     await this.RenderingStackViewport.init(element, imageIds);
