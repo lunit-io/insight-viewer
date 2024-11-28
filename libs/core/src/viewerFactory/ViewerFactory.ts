@@ -78,9 +78,11 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
         imageRenderEventCallback?.(this.snapshot);
       },
       cameraModifiedCallback: () => {
+        this.setSnapshot();
         cameraModifiedEventCallback?.(this.snapshot);
       },
       stackNewStackCallback: () => {
+        this.setSnapshot();
         stackNewStackEventCallback?.(this.snapshot);
       },
     });
