@@ -1,10 +1,11 @@
 import { useDicomViewer, NewDicomViewer } from '@lunit-insight-viewer/react';
 
-import { imageIds } from './image';
+import { imageIds, tools } from './image';
 
 export function ControlledViewer() {
   const { viewerRef, viewerInfo, setViewerInfo } = useDicomViewer({
     imageIds,
+    tools,
   });
 
   const handleRotateButtonClick = () => {
