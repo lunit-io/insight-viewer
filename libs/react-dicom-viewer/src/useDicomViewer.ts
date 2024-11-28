@@ -10,19 +10,33 @@ import type {
 export const useDicomViewer = ({
   imageIds,
   tools,
+  onCameraChange,
+  onImageChange,
 }: {
   imageIds: string[];
   tools?: MappingToolWithKey[];
+  onCameraChange?: (viewerInfo: ViewerSnapshot) => void;
+  onImageChange?: (viewerInfo: ViewerSnapshot) => void;
 }) => {
   const [viewerInfo, setViewerInfo] = useState<ViewerSnapshot | null>(null);
   const { dicomViewerWrapper, ref } = useDicomViewerElement();
 
+  const handleCameraChange = useCallback((viewerInfo: ViewerSnapshot) => {
+    onCameraChange?.(viewerInfo);
+  }, []);
+
+  const handleImageChange = useCallback((viewerInfo: ViewerSnapshot) => {
+    onImageChange?.(viewerInfo);
+  }, []);
+
   useStackViewport({
+    tools,
     element: dicomViewerWrapper,
     imageIds,
     viewerInfo,
     onChange: setViewerInfo,
-    tools,
+    onCameraChange: handleCameraChange,
+    onImageChange: handleImageChange,
   });
 
   return {

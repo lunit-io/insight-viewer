@@ -6,6 +6,12 @@ export function ControlledViewer() {
   const { viewerRef, viewerInfo, setViewerInfo } = useDicomViewer({
     imageIds,
     tools,
+    onCameraChange: (viewerInfo) => {
+      console.log('camera changed', viewerInfo?.viewport.properties.rotation);
+    },
+    onImageChange: (viewerInfo) => {
+      console.log('image changed', viewerInfo?.viewport.properties.rotation);
+    },
   });
 
   const handleRotateButtonClick = () => {
