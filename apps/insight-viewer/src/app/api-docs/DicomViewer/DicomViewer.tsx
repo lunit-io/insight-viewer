@@ -1,15 +1,12 @@
 import { forwardRef } from 'react';
 import { useDicomViewer } from './hooks';
 
-import type { Image, StackViewport } from '@lunit-insight-viewer/core';
-
 interface HighLevelDicomViewerProps {
-  imageIds: string[];
+  imageIds?: string[];
 }
 
 interface LowLevelDicomViewerProps {
-  image: Image | null;
-  viewport: StackViewport | null;
+  viewerRef: React.RefObject<HTMLDivElement>;
 }
 
 type DicomViewerProps = HighLevelDicomViewerProps | LowLevelDicomViewerProps;
@@ -19,24 +16,19 @@ export const DicomViewer = forwardRef<HTMLDivElement, DicomViewerProps>(
     if ('imageIds' in props) {
       return <HighLevelDicomViewer {...props} />;
     }
-    return <LowLevelDicomViewer {...props} ref={ref} />;
+    return <LowLevelDicomViewer ref={ref} />;
   }
 );
 
 const HighLevelDicomViewer = (props: HighLevelDicomViewerProps) => {
-  const { viewerRef, image, viewport } = useDicomViewer({
-    imageIds: props.imageIds,
+  const { viewerRef } = useDicomViewer({
+    imageIds: props.imageIds ?? [],
   });
 
-  return (
-    <LowLevelDicomViewer ref={viewerRef} image={image} viewport={viewport} />
-  );
+  return <LowLevelDicomViewer ref={viewerRef} />;
 };
 
-const LowLevelDicomViewer = forwardRef<
-  HTMLDivElement,
-  LowLevelDicomViewerProps
->((_, ref) => {
+const LowLevelDicomViewer = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}

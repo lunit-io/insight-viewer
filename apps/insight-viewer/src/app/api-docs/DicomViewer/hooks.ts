@@ -51,10 +51,3 @@ export const useDicomViewport = ({ image }: { image: DicomViewerImage }) => {
     viewport,
   };
 };
-
-/**
- * @description
- *
- * - useDicom 에서 초기 image 정보만을 획득
- * - useDicomViewport 에서 image 정보와 ref 를 토대로 viewport 정보를 획득
- */

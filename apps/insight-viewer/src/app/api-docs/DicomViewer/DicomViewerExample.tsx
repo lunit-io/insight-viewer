@@ -22,7 +22,10 @@ export function DicomViewerLowLevelExample1() {
     },
   });
 
-  return <DicomViewer ref={viewerRef} image={image} viewport={viewport} />;
+  console.log('image', image);
+  console.log('viewport', viewport);
+
+  return <DicomViewer ref={viewerRef} />;
 }
 
 /**
