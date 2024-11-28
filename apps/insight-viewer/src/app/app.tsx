@@ -6,10 +6,10 @@ import {
 } from './DicomViewerWithHook';
 
 function App() {
-  return <HighLevelDicomViewerWithHook />;
+  // return <HighLevelDicomViewerWithHook />;
   // return <LowLevelDicomViewerWithHook />;
   // return <MultiViewer />;
-  // return <ControlledViewer />;
+  return <ControlledViewer />;
 }
 
 export default App;

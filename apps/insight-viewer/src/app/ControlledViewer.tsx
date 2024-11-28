@@ -11,15 +11,19 @@ export function ControlledViewer() {
   const handleRotateButtonClick = () => {
     if (!viewerInfo) return;
 
-    const clonedViewerInfo = { ...viewerInfo };
+    const { properties } = viewerInfo.viewport;
+    const { rotation } = properties;
 
-    const { rotation } = clonedViewerInfo.viewport.getProperties();
-
-    clonedViewerInfo.viewport.setProperties({
-      rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+    setViewerInfo({
+      ...viewerInfo,
+      viewport: {
+        ...viewerInfo.viewport,
+        properties: {
+          ...properties,
+          rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+        },
+      },
     });
-
-    setViewerInfo(clonedViewerInfo);
   };
 
   const handleDicomViewerChange = (viewerInfo: ViewerSnapshot) => {
@@ -34,11 +38,10 @@ export function ControlledViewer() {
         viewerInfo={viewerInfo}
         onChange={handleDicomViewerChange}
       />
-      <button onClick={handleRotateButtonClick}>Move</button>
+      <button onClick={handleRotateButtonClick}>Rotate 30</button>
       <div style={{ marginBottom: '8px' }}>
-        {JSON.stringify(viewerInfo?.viewport.getProperties())}
+        {viewerInfo?.viewport.properties.rotation}
       </div>
-      <div>{JSON.stringify(viewerInfo?.viewport.getCamera())}</div>
     </div>
   );
 }

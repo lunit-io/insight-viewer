@@ -7,8 +7,6 @@ export function LowLevelDicomViewerWithHook() {
     imageIds,
   });
 
-  console.log('low level');
-
   return (
     <div style={{ width: '500px', height: '500px' }}>
       <NewDicomViewer ref={viewerRef} />;
