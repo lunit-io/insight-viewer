@@ -14,7 +14,7 @@ interface UseStackViewportParams {
   tools?: MappingToolWithKey[];
   viewerInfo?: ViewerSnapshot;
   onChange?: (viewerInfo: ViewerSnapshot) => void;
-  onCameraChange?: (viewerInfo: ViewerSnapshot) => void;
+  onViewportChange?: (viewerInfo: ViewerSnapshot) => void;
   onImageChange?: (viewerInfo: ViewerSnapshot) => void;
 }
 
@@ -24,7 +24,7 @@ export const useStackViewport = ({
   tools,
   viewerInfo,
   onChange,
-  onCameraChange,
+  onViewportChange,
   onImageChange,
 }: UseStackViewportParams) => {
   const viewerFactoryRef = useRef<ViewerFactory | null>(null);
@@ -51,7 +51,7 @@ export const useStackViewport = ({
       imageIds,
       tools,
       imageRenderEventCallback: onChange,
-      cameraModifiedEventCallback: onCameraChange,
+      cameraModifiedEventCallback: onViewportChange,
       stackNewStackEventCallback: onImageChange,
     });
   }, [
@@ -60,7 +60,7 @@ export const useStackViewport = ({
     tools,
     viewerInfo,
     onChange,
-    onCameraChange,
+    onViewportChange,
     onImageChange,
   ]);
 

@@ -6,7 +6,7 @@ export function ControlledViewer() {
   const { viewerRef, viewerInfo, setViewerInfo } = useDicomViewer({
     imageIds,
     tools,
-    onCameraChange: (viewerInfo) => {
+    onViewportChange: (viewerInfo) => {
       console.log('camera changed', viewerInfo?.viewport.properties.rotation);
     },
     onImageChange: (viewerInfo) => {
