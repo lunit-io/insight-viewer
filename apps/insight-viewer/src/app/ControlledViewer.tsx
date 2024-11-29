@@ -7,10 +7,10 @@ export function ControlledViewer() {
     imageIds,
     tools,
     onViewportChange: (viewerInfo) => {
-      console.log('camera changed', viewerInfo?.viewport.properties.rotation);
+      console.log('viewport changed');
     },
     onImageChange: (viewerInfo) => {
-      console.log('image changed', viewerInfo?.viewport.properties.rotation);
+      console.log('image changed');
     },
   });
 

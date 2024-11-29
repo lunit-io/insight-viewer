@@ -8,9 +8,7 @@ import { EventHandler } from '../eventHandler';
 import type { MappingToolWithKey } from '../tools';
 import type { StackViewportSnapshot } from '../renderViewport';
 
-export type ViewerStatus = {
-  viewport: StackViewportSnapshot;
-};
+export type ViewerStatus = StackViewportSnapshot;
 
 export type ViewerSnapshot = ViewerStatus | null;
 
@@ -42,12 +40,16 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   }
 
   protected override setSnapshot = () => {
-    const viewport = this.RenderingStackViewport.getSnapshot();
+    const renderingStackViewportSnapshot =
+      this.RenderingStackViewport.getSnapshot();
 
-    if (!viewport) return;
+    if (!renderingStackViewportSnapshot) return;
+
+    const { viewport, image } = renderingStackViewportSnapshot;
 
     this.snapshot = {
       viewport,
+      image,
     };
   };
 
@@ -93,6 +95,6 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   updateSnapshot = (viewerInfo: ViewerStatus) => {
     if (!viewerInfo) return;
 
-    this.RenderingStackViewport.setViewport(viewerInfo.viewport);
+    this.RenderingStackViewport.setViewport(viewerInfo);
   };
 }

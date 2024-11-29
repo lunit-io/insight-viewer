@@ -86,12 +86,12 @@ export class RenderingStackViewport extends ViewerSlot {
 
     const viewport = this.getViewport();
 
-    viewport.setProperties({ ...viewportInfo.properties });
-    viewport.setCamera({ ...viewportInfo.camera });
+    viewport.setProperties({ ...viewportInfo.viewport.properties });
+    viewport.setCamera({ ...viewportInfo.viewport.camera });
 
     viewport.setViewPresentation({
-      ...viewportInfo.properties,
-      ...viewportInfo.camera,
+      ...viewportInfo.viewport.properties,
+      ...viewportInfo.viewport.camera,
     });
 
     this.viewport = viewport;
@@ -105,10 +105,14 @@ export class RenderingStackViewport extends ViewerSlot {
 
     const properties = viewport.getProperties();
     const camera = viewport.getCamera();
+    const image = this.getImage();
 
     return {
-      properties,
-      camera,
+      viewport: {
+        properties,
+        camera,
+      },
+      image,
     };
   };
 

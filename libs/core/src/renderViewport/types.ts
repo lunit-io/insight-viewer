@@ -6,6 +6,9 @@ export type StackViewportProperties = Types.StackViewportProperties;
 export type Camera = Types.ICamera;
 
 export interface StackViewportSnapshot {
-  properties: StackViewportProperties;
-  camera: Camera;
+  viewport: {
+    properties: StackViewportProperties;
+    camera: Camera;
+  };
+  image: Image;
 }
