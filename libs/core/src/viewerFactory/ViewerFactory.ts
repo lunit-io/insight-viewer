@@ -61,14 +61,14 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     imageIds,
     tools,
     imageRenderEventCallback,
-    cameraModifiedEventCallback,
+    viewportChangeEventCallback,
     stackNewStackEventCallback,
   }: {
     element: HTMLDivElement;
     imageIds: string[];
     tools?: MappingToolWithKey[];
     imageRenderEventCallback?: (viewerInfo: ViewerSnapshot) => void;
-    cameraModifiedEventCallback?: (viewerInfo: ViewerSnapshot) => void;
+    viewportChangeEventCallback?: (viewerInfo: ViewerSnapshot) => void;
     stackNewStackEventCallback?: (viewerInfo: ViewerSnapshot) => void;
   }) => {
     this.EventHandler.init({
@@ -76,7 +76,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
       imageRenderCallback: () => {
         this.setSnapshot();
         imageRenderEventCallback?.(this.snapshot);
-        cameraModifiedEventCallback?.(this.snapshot);
+        viewportChangeEventCallback?.(this.snapshot);
       },
       stackNewStackCallback: () => {
         this.setSnapshot();

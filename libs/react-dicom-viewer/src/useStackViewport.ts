@@ -51,7 +51,7 @@ export const useStackViewport = ({
       imageIds,
       tools,
       imageRenderEventCallback: onChange,
-      cameraModifiedEventCallback: onViewportChange,
+      viewportChangeEventCallback: onViewportChange,
       stackNewStackEventCallback: onImageChange,
     });
   }, [
