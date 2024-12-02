@@ -17,18 +17,21 @@ export function ControlledViewer() {
   const handleRotateButtonClick = () => {
     if (!viewerInfo) return;
 
-    const { properties } = viewerInfo.viewport;
-    const { rotation } = properties;
+    setViewerInfo((prev) => {
+      if (!prev) return null;
 
-    setViewerInfo({
-      ...viewerInfo,
-      viewport: {
-        ...viewerInfo.viewport,
-        properties: {
-          ...properties,
-          rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+      const { rotation } = prev.viewport.properties;
+
+      return {
+        ...prev,
+        viewport: {
+          ...prev.viewport,
+          properties: {
+            ...prev.viewport.properties,
+            rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+          },
         },
-      },
+      };
     });
   };
 
