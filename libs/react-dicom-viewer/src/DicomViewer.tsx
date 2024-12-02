@@ -1,35 +1,35 @@
-import { useState, useCallback } from 'react';
+import { forwardRef } from 'react';
 
-import { useStackViewport } from './useStackViewport';
+import { useDicomViewer } from './useDicomViewer';
 
-import type {
-  ViewerSnapshot,
-  MappingToolWithKey,
-} from '@lunit-insight-viewer/core';
-
-interface DicomViewerProps {
-  imageIds: string[];
-  tools?: MappingToolWithKey[];
-  viewerInfo?: ViewerSnapshot;
-  onChange?: (viewerInfo: ViewerSnapshot) => void;
+interface HighLevelDicomViewerProps {
+  imageIds?: string[];
 }
 
-export function DicomViewer({
-  imageIds,
-  tools,
-  viewerInfo,
-  onChange,
-}: DicomViewerProps) {
-  const { dicomViewerWrapper, ref } = useDicomViewerElement();
+interface LowLevelDicomViewerProps {
+  viewerRef: React.RefObject<HTMLDivElement>;
+}
 
-  useStackViewport({
-    element: dicomViewerWrapper,
-    imageIds,
-    tools,
-    viewerInfo,
-    onChange,
+type DicomViewerProps = HighLevelDicomViewerProps | LowLevelDicomViewerProps;
+
+export const DicomViewer = forwardRef<HTMLDivElement, DicomViewerProps>(
+  (props, ref) => {
+    if ('imageIds' in props) {
+      return <HighLevelDicomViewer {...props} />;
+    }
+    return <LowLevelDicomViewer ref={ref} />;
+  }
+);
+
+const HighLevelDicomViewer = (props: HighLevelDicomViewerProps) => {
+  const { viewerRef } = useDicomViewer({
+    imageIds: props.imageIds ?? [],
   });
 
+  return <LowLevelDicomViewer ref={viewerRef} />;
+};
+
+const LowLevelDicomViewer = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}
@@ -37,24 +37,4 @@ export function DicomViewer({
       style={{ width: '100%', height: '100%' }}
     />
   );
-}
-
-const useDicomViewerElement = () => {
-  const [dicomViewerWrapper, setDicomViewerWrapper] =
-    useState<HTMLDivElement | null>(null);
-
-  /**
-   * for rendering trigger when update wrapper element
-   * react callback ref docs: https://legacy.reactjs.org/docs/refs-and-the-dom.html#callback-refs
-   */
-  const ref = useCallback((node: HTMLDivElement) => {
-    if (node !== null) {
-      setDicomViewerWrapper(node);
-    }
-  }, []);
-
-  return {
-    dicomViewerWrapper,
-    ref,
-  };
-};
+});
