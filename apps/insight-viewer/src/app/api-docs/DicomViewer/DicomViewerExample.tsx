@@ -8,22 +8,20 @@ import { DicomViewer } from './DicomViewer';
  * - 외부로 노출시키는 방식으로 외부에서 충분히 핸들링 할 수 있도록 하기 위함
  */
 export function DicomViewerLowLevelExample1() {
-  const { viewerRef, image, viewport } = useDicomViewer({
+  const { viewerRef, viewerInfo } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
     onImageChange: (currentImage) => {
       console.log('currentImage', currentImage);
-      return currentImage;
     },
     onViewportChange: (currentViewport) => {
       console.log('currentViewport', currentViewport);
-      return currentViewport;
     },
   });
 
-  console.log('image', image);
-  console.log('viewport', viewport);
+  console.log('image', viewerInfo?.image);
+  console.log('viewport', viewerInfo?.viewport);
 
   return <DicomViewer ref={viewerRef} />;
 }
@@ -31,16 +29,41 @@ export function DicomViewerLowLevelExample1() {
 /**
  * @description
  * - Low Level API Example 2
- * - Spread Operator 를 통해 props 를 전달할 수 있습니다.
+ * - useDicomViewer 의 setViewerInfo 를 통해 외부에서 상태를 직접 핸들링하는 방식
  */
 export function DicomViewerLowLevelExample2() {
-  const dicomViewerInfo = useDicomViewer({
+  const { viewerRef, viewerInfo, setViewerInfo } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
   });
 
-  return <DicomViewer {...dicomViewerInfo} />;
+  const handleRotateButtonClick = () => {
+    if (!viewerInfo) return;
+
+    const { properties } = viewerInfo.viewport;
+    const { rotation } = properties;
+
+    setViewerInfo({
+      ...viewerInfo,
+      viewport: {
+        ...viewerInfo.viewport,
+        properties: {
+          ...properties,
+          rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+        },
+      },
+    });
+  };
+
+  return (
+    <div>
+      <div style={{ width: '500px', height: '500px' }}>
+        <DicomViewer ref={viewerRef} />
+      </div>
+      <button onClick={handleRotateButtonClick}>Rotate 30</button>
+    </div>
+  );
 }
 
 /**

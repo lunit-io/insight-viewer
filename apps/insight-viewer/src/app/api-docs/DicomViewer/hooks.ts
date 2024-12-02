@@ -1,53 +1,28 @@
 import { useRef, useState, useEffect } from 'react';
 
-import type { Image, StackViewport } from '@lunit-insight-viewer/core';
-
-type DicomViewerImage = Image | null;
-type DicomViewerViewport = StackViewport | null;
+import type { ViewerSnapshot } from '@lunit-insight-viewer/core';
 
 interface DicomViewerHooksParams {
   imageIds: string[];
-  onImageChange?: (image: DicomViewerImage) => DicomViewerImage;
-  onViewportChange?: (viewport: DicomViewerViewport) => DicomViewerViewport;
+  onImageChange?: (viewerInfo: ViewerSnapshot) => void;
+  onViewportChange?: (viewerInfo: ViewerSnapshot) => void;
 }
 
-export const useDicomViewer = (params: DicomViewerHooksParams) => {
-  const { image } = useDicom(params);
-  const { viewerRef, viewport } = useDicomViewport({ image });
-
-  return {
-    viewerRef,
-    image,
-    viewport,
-  };
-};
-
-export const useDicom = (params: DicomViewerHooksParams) => {
-  const [image, setImage] = useState<DicomViewerImage>(null);
-
-  // TODO: 이미지 로드 로직 구현 필요
-  useEffect(() => {
-    //   const images = params.imageIds.map(getImage);
-    //   setImage(images);
-  }, [params]);
-
-  return { image };
-};
-
-export const useDicomViewport = ({ image }: { image: DicomViewerImage }) => {
+export const useDicomViewer = ({
+  imageIds,
+  onImageChange,
+  onViewportChange,
+}: DicomViewerHooksParams) => {
+  const [viewerInfo, setViewerInfo] = useState<ViewerSnapshot | null>(null);
   const viewerRef = useRef<HTMLDivElement>(null);
-  const [viewport] = useState<DicomViewerViewport>(null);
 
-  // TODO: viewport 로직 구현 필요
   useEffect(() => {
-    if (viewerRef.current) {
-      //   const viewport = new StackViewport(viewerRef.current);
-      //   setViewport(viewport);
-    }
-  }, [viewerRef, image]);
+    // 이미지 렌더링 로직 구현
+  }, [imageIds, onImageChange, onViewportChange]);
 
   return {
     viewerRef,
-    viewport,
+    viewerInfo,
+    setViewerInfo,
   };
 };
