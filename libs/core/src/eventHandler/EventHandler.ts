@@ -22,8 +22,6 @@ export class EventHandler {
     element: HTMLDivElement;
     imageRenderCallback: () => void;
   }) => {
-    this.addImageRenderedEventListener(element, () => {
-      imageRenderCallback();
-    });
+    this.addImageRenderedEventListener(element, imageRenderCallback);
   };
 }
