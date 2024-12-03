@@ -7,6 +7,11 @@ import type {
   ViewerSnapshot,
 } from '@lunit-insight-viewer/core';
 
+/**
+ * @feedback
+ * - viewerInfo 네이밍 변경 필요 (ex: viewerStatus)
+ * - viewerRef 네이밍 변경 필요 (ex: viewerEl - DOM Element 임을 강조)
+ */
 export const useDicomViewer = ({
   imageIds,
   tools,

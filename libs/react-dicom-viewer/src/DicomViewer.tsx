@@ -12,6 +12,11 @@ interface LowLevelDicomViewerProps {
 
 type DicomViewerProps = HighLevelDicomViewerProps | LowLevelDicomViewerProps;
 
+/**
+ * @feedback
+ * - High Level API 를 DicomViewer 로 변경
+ * - Low Level API 는 div 를 외부에서 직접 사용하도록 example code 업데이트
+ */
 export const DicomViewer = forwardRef<HTMLDivElement, DicomViewerProps>(
   (props, ref) => {
     if ('imageIds' in props) {
