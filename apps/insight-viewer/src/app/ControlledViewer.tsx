@@ -1,22 +1,23 @@
 import { useDicomViewer, DicomViewer } from '@lunit-insight-viewer/react';
 
 import { imageIds, tools } from './image';
+import { useEffect } from 'react';
 
 export function ControlledViewer() {
   const { viewerRef, viewerInfo, setViewerInfo } = useDicomViewer({
     imageIds,
     tools,
-    onViewportChange: (viewerInfo) => {
-      console.log('viewport changed', viewerInfo?.viewport.properties.rotation);
-    },
-    onImageChange: (viewerInfo) => {
-      console.log('image changed', viewerInfo?.image);
-    },
   });
 
-  const handleRotateButtonClick = () => {
-    if (!viewerInfo) return;
+  useEffect(() => {
+    console.log('viewport changed', viewerInfo?.viewport.properties.rotation);
+  }, [viewerInfo?.viewport]);
 
+  useEffect(() => {
+    console.log('image changed', viewerInfo?.image);
+  }, [viewerInfo?.image]);
+
+  const handleRotateButtonClick = () => {
     setViewerInfo((prev) => {
       if (!prev) return null;
 

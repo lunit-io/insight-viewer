@@ -1,6 +1,6 @@
 import { EVENTS } from '@cornerstonejs/core';
 
-const { IMAGE_RENDERED, STACK_NEW_IMAGE } = EVENTS;
+const { IMAGE_RENDERED } = EVENTS;
 
 /**
  * This is the class that handles various cornerstone events.
@@ -15,32 +15,15 @@ export class EventHandler {
     element.addEventListener(IMAGE_RENDERED, callback);
   };
 
-  private addStackViewportNewStackEventListener = (
-    element: HTMLDivElement,
-    callback: () => void
-  ) => {
-    element.addEventListener(STACK_NEW_IMAGE, callback);
-  };
-
   init = ({
     element,
     imageRenderCallback,
-    viewportChangeCallback,
-    stackNewStackCallback,
   }: {
     element: HTMLDivElement;
     imageRenderCallback: () => void;
-    viewportChangeCallback?: () => void;
-    stackNewStackCallback?: () => void;
   }) => {
     this.addImageRenderedEventListener(element, () => {
       imageRenderCallback();
-      viewportChangeCallback?.();
-    });
-
-    // Trigger only when image changes
-    this.addStackViewportNewStackEventListener(element, () => {
-      stackNewStackCallback?.();
     });
   };
 }

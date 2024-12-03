@@ -12,16 +12,9 @@ export function DicomViewerLowLevelExample1() {
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
-    onImageChange: (currentImage) => {
-      console.log('currentImage', currentImage);
-    },
-    onViewportChange: (currentViewport) => {
-      console.log('currentViewport', currentViewport);
-    },
   });
 
-  console.log('image', viewerInfo?.image);
-  console.log('viewport', viewerInfo?.viewport);
+  console.log('viewerInfo', viewerInfo);
 
   return <DicomViewer ref={viewerRef} />;
 }
