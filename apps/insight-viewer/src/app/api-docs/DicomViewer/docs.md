@@ -38,5 +38,4 @@ useDicomViewer props type < DicomViewer props type
 
 1번 방법이 외부에서 활용하기 쉽다는 이유는 다음과 같습니다.
 
-- useDicomViewer 의 `onImageChange`, `onViewportChange` 를 통해 외부에서 영상 이미지 데이터를 조작할 수 있습니다.
 - image, viewport 동작 제어권을 외부에 넘기기 때문에 외부에서 충분히 핸들링 할 수 있습니다.
