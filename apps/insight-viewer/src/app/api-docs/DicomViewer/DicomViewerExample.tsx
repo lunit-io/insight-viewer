@@ -7,13 +7,13 @@ import { useDicomViewer, DicomViewer } from '@lunit-insight-viewer/react';
  * - 외부로 노출시키는 방식으로 외부에서 충분히 핸들링 할 수 있도록 하기 위함
  */
 export function DicomViewerLowLevelExample1() {
-  const { viewerElementRef, viewerInfo } = useDicomViewer({
+  const { viewerElementRef, viewerStatus } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
   });
 
-  console.log('viewerInfo', viewerInfo);
+  console.log('viewerStatus', viewerStatus);
 
   return (
     <div style={{ width: '500px', height: '500px' }} ref={viewerElementRef} />
@@ -23,25 +23,25 @@ export function DicomViewerLowLevelExample1() {
 /**
  * @description
  * - Low Level API Example 2
- * - useDicomViewer 의 setViewerInfo 를 통해 외부에서 상태를 직접 핸들링하는 방식
+ * - useDicomViewer 의 setViewerStatus 를 통해 외부에서 상태를 직접 핸들링하는 방식
  */
 export function DicomViewerLowLevelExample2() {
-  const { viewerElementRef, viewerInfo, setViewerInfo } = useDicomViewer({
+  const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
   });
 
   const handleRotateButtonClick = () => {
-    if (!viewerInfo) return;
+    if (!viewerStatus) return;
 
-    const { properties } = viewerInfo.viewport;
+    const { properties } = viewerStatus.viewport;
     const { rotation } = properties;
 
-    setViewerInfo({
-      ...viewerInfo,
+    setViewerStatus({
+      ...viewerStatus,
       viewport: {
-        ...viewerInfo.viewport,
+        ...viewerStatus.viewport,
         properties: {
           ...properties,
           rotation: typeof rotation === 'number' ? rotation + 30 : 0,

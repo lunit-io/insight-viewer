@@ -4,21 +4,21 @@ import { imageIds, tools } from './image';
 import { useEffect } from 'react';
 
 export function ControlledViewer() {
-  const { viewerElementRef, viewerInfo, setViewerInfo } = useDicomViewer({
+  const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
     imageIds,
     tools,
   });
 
   useEffect(() => {
-    console.log('viewport changed', viewerInfo?.viewport.properties.rotation);
-  }, [viewerInfo?.viewport]);
+    console.log('viewport changed', viewerStatus?.viewport.properties.rotation);
+  }, [viewerStatus?.viewport]);
 
   useEffect(() => {
-    console.log('image changed', viewerInfo?.image);
-  }, [viewerInfo?.image]);
+    console.log('image changed', viewerStatus?.image);
+  }, [viewerStatus?.image]);
 
   const handleRotateButtonClick = () => {
-    setViewerInfo((prev) => {
+    setViewerStatus((prev) => {
       if (!prev) return null;
 
       const { rotation } = prev.viewport.properties;
@@ -41,7 +41,7 @@ export function ControlledViewer() {
       <div style={{ width: '100%', height: '100%' }} ref={viewerElementRef} />
       <button onClick={handleRotateButtonClick}>Rotate 30</button>
       <div style={{ marginBottom: '8px' }}>
-        {viewerInfo?.viewport.properties.rotation}
+        {viewerStatus?.viewport.properties.rotation}
       </div>
     </div>
   );

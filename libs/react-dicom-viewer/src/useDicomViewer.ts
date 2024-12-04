@@ -9,7 +9,7 @@ import type {
 
 /**
  * @feedback
- * - viewerInfo 네이밍 변경 필요 (ex: viewerStatus)
+ * - view 네이밍 변경 필요 (ex: viewerStatus)
  * - viewerRef 네이밍 변경 필요 (ex: viewerEl - DOM Element 임을 강조)
  */
 export const useDicomViewer = ({
@@ -19,21 +19,21 @@ export const useDicomViewer = ({
   imageIds: string[];
   tools?: MappingToolWithKey[];
 }) => {
-  const [viewerInfo, setViewerInfo] = useState<ViewerSnapshot | null>(null);
+  const [viewerStatus, setViewerStatus] = useState<ViewerSnapshot | null>(null);
   const { dicomViewerWrapper, ref } = useDicomViewerElement();
 
   useStackViewport({
     tools,
     element: dicomViewerWrapper,
     imageIds,
-    viewerInfo,
-    onChange: setViewerInfo,
+    viewerStatus,
+    onChange: setViewerStatus,
   });
 
   return {
     viewerElementRef: ref,
-    viewerInfo,
-    setViewerInfo,
+    viewerStatus,
+    setViewerStatus,
   };
 };
 
