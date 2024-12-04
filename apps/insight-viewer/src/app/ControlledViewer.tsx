@@ -1,4 +1,4 @@
-import { useDicomViewer, DicomViewer } from '@lunit-insight-viewer/react';
+import { useDicomViewer } from '@lunit-insight-viewer/react';
 
 import { imageIds, tools } from './image';
 import { useEffect } from 'react';
@@ -38,7 +38,7 @@ export function ControlledViewer() {
 
   return (
     <div style={{ width: '500px', height: '500px' }}>
-      <DicomViewer ref={viewerRef} />
+      <div style={{ width: '100%', height: '100%' }} ref={viewerRef} />
       <button onClick={handleRotateButtonClick}>Rotate 30</button>
       <div style={{ marginBottom: '8px' }}>
         {viewerInfo?.viewport.properties.rotation}
