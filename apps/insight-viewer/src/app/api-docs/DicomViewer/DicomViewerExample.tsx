@@ -16,7 +16,7 @@ export function DicomViewerLowLevelExample1() {
 
   console.log('viewerInfo', viewerInfo);
 
-  return <DicomViewer ref={viewerRef} />;
+  return <div style={{ width: '500px', height: '500px' }} ref={viewerRef} />;
 }
 
 /**
@@ -51,9 +51,7 @@ export function DicomViewerLowLevelExample2() {
 
   return (
     <div>
-      <div style={{ width: '500px', height: '500px' }}>
-        <DicomViewer ref={viewerRef} />
-      </div>
+      <div style={{ width: '500px', height: '500px' }} ref={viewerRef} />
       <button onClick={handleRotateButtonClick}>Rotate 30</button>
     </div>
   );
