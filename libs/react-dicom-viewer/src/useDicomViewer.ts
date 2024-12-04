@@ -31,7 +31,7 @@ export const useDicomViewer = ({
   });
 
   return {
-    viewerRef: ref,
+    viewerElementRef: ref,
     viewerInfo,
     setViewerInfo,
   };

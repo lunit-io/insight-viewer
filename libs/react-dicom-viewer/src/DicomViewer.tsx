@@ -5,13 +5,13 @@ interface DicomViewerProps {
 }
 
 export const DicomViewer = (props: DicomViewerProps) => {
-  const { viewerRef } = useDicomViewer({
+  const { viewerElementRef } = useDicomViewer({
     imageIds: props.imageIds ?? [],
   });
 
   return (
     <div
-      ref={viewerRef}
+      ref={viewerElementRef}
       id="dicom-viewer-wrapper"
       style={{ width: '100%', height: '100%' }}
     />

@@ -1,5 +1,4 @@
-import { useDicomViewer } from './hooks';
-import { DicomViewer } from './DicomViewer';
+import { useDicomViewer, DicomViewer } from '@lunit-insight-viewer/react';
 
 /**
  * @description
@@ -8,7 +7,7 @@ import { DicomViewer } from './DicomViewer';
  * - 외부로 노출시키는 방식으로 외부에서 충분히 핸들링 할 수 있도록 하기 위함
  */
 export function DicomViewerLowLevelExample1() {
-  const { viewerRef, viewerInfo } = useDicomViewer({
+  const { viewerElementRef, viewerInfo } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
@@ -16,7 +15,9 @@ export function DicomViewerLowLevelExample1() {
 
   console.log('viewerInfo', viewerInfo);
 
-  return <div style={{ width: '500px', height: '500px' }} ref={viewerRef} />;
+  return (
+    <div style={{ width: '500px', height: '500px' }} ref={viewerElementRef} />
+  );
 }
 
 /**
@@ -25,7 +26,7 @@ export function DicomViewerLowLevelExample1() {
  * - useDicomViewer 의 setViewerInfo 를 통해 외부에서 상태를 직접 핸들링하는 방식
  */
 export function DicomViewerLowLevelExample2() {
-  const { viewerRef, viewerInfo, setViewerInfo } = useDicomViewer({
+  const { viewerElementRef, viewerInfo, setViewerInfo } = useDicomViewer({
     imageIds: [
       'wadouri:https://static.lunit.io/insight/samples/cxr/Nodule.dcm',
     ],
@@ -51,7 +52,7 @@ export function DicomViewerLowLevelExample2() {
 
   return (
     <div>
-      <div style={{ width: '500px', height: '500px' }} ref={viewerRef} />
+      <div style={{ width: '500px', height: '500px' }} ref={viewerElementRef} />
       <button onClick={handleRotateButtonClick}>Rotate 30</button>
     </div>
   );
