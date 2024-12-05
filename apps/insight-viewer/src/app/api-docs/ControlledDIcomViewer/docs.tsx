@@ -1,22 +1,12 @@
-import { useEffect } from 'react';
 import { useDicomViewer } from '@lunit-insight-viewer/react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { imageIds, tools } from './image';
+import { imageIds } from '../../image';
 
 export function ControlledViewer() {
   const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
     imageIds,
-    tools,
   });
-
-  useEffect(() => {
-    console.log('viewport changed', viewerStatus?.viewport.properties.rotation);
-  }, [viewerStatus?.viewport]);
-
-  useEffect(() => {
-    console.log('image changed', viewerStatus?.image);
-  }, [viewerStatus?.image]);
 
   const handleRotateButtonClick = () => {
     setViewerStatus((prev) => {
@@ -60,35 +50,14 @@ export function ControlledViewer() {
 const codeString = `
 import { useDicomViewer } from '@lunit-insight-viewer/react';
 
-import { useEffect } from 'react';
-
-import type { MappingToolWithKey } from '@lunit-insight-viewer/core';
-
 const imageIds = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',
-  'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000001.dcm',
-];
-
-const tools: MappingToolWithKey[] = [
-  { tool: 'frame' },
-  { tool: 'pan' },
-  { tool: 'windowing' },
-  { tool: 'zoom' },
 ];
 
 export function ControlledViewer() {
   const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
     imageIds,
-    tools,
   });
-
-  useEffect(() => {
-    console.log('viewport changed', viewerStatus?.viewport.properties.rotation);
-  }, [viewerStatus?.viewport]);
-
-  useEffect(() => {
-    console.log('image changed', viewerStatus?.image);
-  }, [viewerStatus?.image]);
 
   const handleRotateButtonClick = () => {
     setViewerStatus((prev) => {
@@ -110,13 +79,13 @@ export function ControlledViewer() {
   };
 
   return (
-    <div>
+    <>
       <div style={{ width: '500px', height: '500px' }} ref={viewerElementRef} />
       <button onClick={handleRotateButtonClick}>Rotate 30</button>
-      <div style={{ marginBottom: '8px' }}>
-        {viewerStatus?.viewport.properties.rotation}
+      <div>
+        current rotation: {viewerStatus?.viewport.properties.rotation}
       </div>
-    </div>
+    </>
   );
 }
 `;
