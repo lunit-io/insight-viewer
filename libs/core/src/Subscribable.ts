@@ -1,3 +1,5 @@
+import type { MappingToolWithKey } from './tools';
+
 type Listener = () => void;
 
 /**

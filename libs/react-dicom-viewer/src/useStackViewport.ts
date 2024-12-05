@@ -12,15 +12,15 @@ interface UseStackViewportParams {
   element: HTMLDivElement | null;
   imageIds: string[];
   tools?: MappingToolWithKey[];
-  viewerInfo?: ViewerSnapshot;
-  onChange?: (viewerInfo: ViewerSnapshot) => void;
+  viewerStatus?: ViewerSnapshot;
+  onChange?: (viewerStatus: ViewerSnapshot) => void;
 }
 
 export const useStackViewport = ({
   element,
   imageIds,
   tools,
-  viewerInfo,
+  viewerStatus,
   onChange,
 }: UseStackViewportParams) => {
   const viewerFactoryRef = useRef<ViewerFactory | null>(null);
@@ -39,16 +39,21 @@ export const useStackViewport = ({
   );
 
   useEffect(() => {
-    if (viewerInfo) return;
+    if (viewerStatus) return;
     if (!viewerFactoryRef.current || !element) return;
 
-    viewerFactoryRef.current.init(element, imageIds, tools, onChange);
-  }, [element, imageIds, tools, viewerInfo, onChange]);
+    viewerFactoryRef.current.init({
+      element,
+      imageIds,
+      tools,
+      imageRenderEventCallback: onChange,
+    });
+  }, [element, imageIds, tools, viewerStatus, onChange]);
 
   useEffect(() => {
-    if (!viewerInfo || !viewerFactoryRef.current) return;
-    if (snapshot === viewerInfo) return;
+    if (!viewerStatus || !viewerFactoryRef.current) return;
+    if (snapshot === viewerStatus) return;
 
-    viewerFactoryRef.current.updateSnapshot(viewerInfo);
-  }, [viewerInfo, snapshot]);
+    viewerFactoryRef.current.updateSnapshot(viewerStatus);
+  }, [viewerStatus, snapshot]);
 };

@@ -1,44 +1,48 @@
-import { useState } from 'react';
-import { DicomViewer } from '@lunit-insight-viewer/react';
+import { useDicomViewer } from '@lunit-insight-viewer/react';
 
 import { imageIds, tools } from './image';
-
-import type { ViewerSnapshot } from '@lunit-insight-viewer/core';
+import { useEffect } from 'react';
 
 export function ControlledViewer() {
-  const [viewerInfo, setViewerInfo] = useState<ViewerSnapshot>(null);
+  const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
+    imageIds,
+    tools,
+  });
+
+  useEffect(() => {
+    console.log('viewport changed', viewerStatus?.viewport.properties.rotation);
+  }, [viewerStatus?.viewport]);
+
+  useEffect(() => {
+    console.log('image changed', viewerStatus?.image);
+  }, [viewerStatus?.image]);
 
   const handleRotateButtonClick = () => {
-    if (!viewerInfo) return;
+    setViewerStatus((prev) => {
+      if (!prev) return null;
 
-    const clonedViewerInfo = { ...viewerInfo };
+      const { rotation } = prev.viewport.properties;
 
-    const { rotation } = clonedViewerInfo.viewport.getProperties();
-
-    clonedViewerInfo.viewport.setProperties({
-      rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+      return {
+        ...prev,
+        viewport: {
+          ...prev.viewport,
+          properties: {
+            ...prev.viewport.properties,
+            rotation: typeof rotation === 'number' ? rotation + 30 : 0,
+          },
+        },
+      };
     });
-
-    setViewerInfo(clonedViewerInfo);
-  };
-
-  const handleDicomViewerChange = (viewerInfo: ViewerSnapshot) => {
-    setViewerInfo(viewerInfo);
   };
 
   return (
     <div style={{ width: '500px', height: '500px' }}>
-      <DicomViewer
-        tools={tools}
-        imageIds={imageIds}
-        viewerInfo={viewerInfo}
-        onChange={handleDicomViewerChange}
-      />
-      <button onClick={handleRotateButtonClick}>Move</button>
+      <div style={{ width: '100%', height: '100%' }} ref={viewerElementRef} />
+      <button onClick={handleRotateButtonClick}>Rotate 30</button>
       <div style={{ marginBottom: '8px' }}>
-        {JSON.stringify(viewerInfo?.viewport.getProperties())}
+        {viewerStatus?.viewport.properties.rotation}
       </div>
-      <div>{JSON.stringify(viewerInfo?.viewport.getCamera())}</div>
     </div>
   );
 }

@@ -15,7 +15,13 @@ export class EventHandler {
     element.addEventListener(IMAGE_RENDERED, callback);
   };
 
-  init = (element: HTMLDivElement, callback: () => void) => {
-    this.addImageRenderedEventListener(element, callback);
+  init = ({
+    element,
+    imageRenderCallback,
+  }: {
+    element: HTMLDivElement;
+    imageRenderCallback: () => void;
+  }) => {
+    this.addImageRenderedEventListener(element, imageRenderCallback);
   };
 }

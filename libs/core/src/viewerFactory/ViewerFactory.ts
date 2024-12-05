@@ -6,11 +6,9 @@ import { RenderingStackViewport } from '../renderViewport';
 import { EventHandler } from '../eventHandler';
 
 import type { MappingToolWithKey } from '../tools';
-import type { StackViewport } from '../renderViewport';
+import type { StackViewportSnapshot } from '../renderViewport';
 
-export type ViewerStatus = {
-  viewport: StackViewport;
-};
+export type ViewerStatus = StackViewportSnapshot;
 
 export type ViewerSnapshot = ViewerStatus | null;
 
@@ -42,12 +40,16 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   }
 
   protected override setSnapshot = () => {
-    const viewport = this.RenderingStackViewport.getSnapshot();
+    const renderingStackViewportSnapshot =
+      this.RenderingStackViewport.getSnapshot();
 
-    if (!viewport) return;
+    if (!renderingStackViewportSnapshot) return;
+
+    const { viewport, image } = renderingStackViewportSnapshot;
 
     this.snapshot = {
       viewport,
+      image,
     };
   };
 
@@ -56,15 +58,23 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.RenderingStackViewport.destroy();
   };
 
-  init = async (
-    element: HTMLDivElement,
-    imageIds: string[],
-    tools?: MappingToolWithKey[],
-    eventCallback?: (viewerInfo: ViewerSnapshot) => void
-  ) => {
-    this.EventHandler.init(element, () => {
-      this.setSnapshot();
-      eventCallback?.(this.snapshot);
+  init = async ({
+    element,
+    imageIds,
+    tools,
+    imageRenderEventCallback,
+  }: {
+    element: HTMLDivElement;
+    imageIds: string[];
+    tools?: MappingToolWithKey[];
+    imageRenderEventCallback?: (viewerStatus: ViewerSnapshot) => void;
+  }) => {
+    this.EventHandler.init({
+      element,
+      imageRenderCallback: () => {
+        this.setSnapshot();
+        imageRenderEventCallback?.(this.snapshot);
+      },
     });
 
     await this.RenderingStackViewport.init(element, imageIds);
@@ -73,9 +83,9 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.emitChange();
   };
 
-  updateSnapshot = (viewerInfo: ViewerSnapshot) => {
-    if (!viewerInfo) return;
+  updateSnapshot = (viewerStatus: ViewerStatus) => {
+    if (!viewerStatus) return;
 
-    this.RenderingStackViewport.setViewport(viewerInfo.viewport);
+    this.RenderingStackViewport.setViewport(viewerStatus);
   };
 }
