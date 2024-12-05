@@ -1,4 +1,4 @@
-import { ControlledViewer } from './ControlledViewer';
+import { ControlledViewer } from './api-docs/ControlledDIcomViewer/docs';
 
 function App() {
   return <ControlledViewer />;
