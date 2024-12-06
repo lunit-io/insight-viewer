@@ -6,7 +6,7 @@ const imageIds = [
 
 /**
  * @description
- * - Controlled Component Example
+ * - Controlled Example
  * - useDicomViewer 를 사용하여 외부에서 상태를 직접 핸들링하는 방식
  * - useDicomViewer 의 setViewerStatus 를 통해 상태를 직접 핸들링
  * - setViewerStatus, viewerStatus 는 react 의 state 와 동일한 개념으로 사용
