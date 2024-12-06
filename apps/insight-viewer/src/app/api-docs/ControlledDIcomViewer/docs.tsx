@@ -39,6 +39,10 @@ export function ControlledViewer() {
       </div>
       <div style={{ width: '70%', marginTop: '16px' }}>
         <h2>Example Code</h2>
+        <p>
+          setViewerStatus 를 통해 사용자가 직접 Dicom 을 조작할 수 있도록 기능
+          제공
+        </p>
         <SyntaxHighlighter language="typescript">
           {codeString}
         </SyntaxHighlighter>
@@ -48,6 +52,7 @@ export function ControlledViewer() {
 }
 
 const codeString = `
+import { useEffect } from 'react';
 import { useDicomViewer } from '@lunit-insight-viewer/react';
 
 const imageIds = [
@@ -58,6 +63,16 @@ export function ControlledViewer() {
   const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
     imageIds,
   });
+
+  // viewport 변경 시 로그
+  useEffect(() => {
+    console.log(viewerStatus?.viewport);
+  }, [viewerStatus?.viewport]);
+
+  // image 변경 시 로그
+  useEffect(() => {
+    console.log(viewerStatus?.image);
+  }, [viewerStatus?.image]);
 
   const handleRotateButtonClick = () => {
     setViewerStatus((prev) => {
