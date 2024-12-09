@@ -2,7 +2,8 @@ import { useDicomViewer } from './useDicomViewer';
 
 interface DicomViewerProps {
   imageIds: string[];
-  style?: React.CSSProperties;
+  width?: React.CSSProperties['width'];
+  height?: React.CSSProperties['height'];
 }
 
 export const DicomViewer = (props: DicomViewerProps) => {
@@ -14,7 +15,7 @@ export const DicomViewer = (props: DicomViewerProps) => {
     <div
       ref={viewerElementRef}
       id="dicom-viewer-wrapper"
-      style={{ width: '500px', height: '500px', ...props.style }}
+      style={{ width: props.width ?? '500px', height: props.height ?? '500px' }}
     />
   );
 };
