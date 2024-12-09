@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useDicomViewer } from './useDicomViewer';
 
 interface DicomViewerProps {
@@ -11,11 +12,18 @@ export const DicomViewer = (props: DicomViewerProps) => {
     imageIds: props.imageIds ?? [],
   });
 
+  const memoizedViewerElementStyle = useMemo(() => {
+    return {
+      width: props.width ?? '500px',
+      height: props.height ?? '500px',
+    };
+  }, [props.width, props.height]);
+
   return (
     <div
       ref={viewerElementRef}
       id="dicom-viewer-wrapper"
-      style={{ width: props.width ?? '500px', height: props.height ?? '500px' }}
+      style={memoizedViewerElementStyle}
     />
   );
 };
