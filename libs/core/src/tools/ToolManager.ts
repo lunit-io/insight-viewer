@@ -78,6 +78,16 @@ export class ToolManager extends ViewerSlot {
     });
   };
 
+  removeAllBindingTool = () => {
+    const toolGroup = this.toolGroupManager;
+
+    if (!toolGroup) return;
+
+    Object.entries(MAPPED_SUPPORT_TOOL).forEach(([_, tool]) => {
+      toolGroup.setToolPassive(tool.toolName, { removeAllBindings: true });
+    });
+  };
+
   init = async (
     element: HTMLDivElement,
     mappingToolWithKeys?: MappingToolWithKey[]
@@ -92,5 +102,10 @@ export class ToolManager extends ViewerSlot {
 
   getSnapshot = () => {
     return this.toolGroupManager;
+  };
+
+  updateTool = (mappingToolWithKeys: MappingToolWithKey[]) => {
+    this.removeAllBindingTool();
+    this.setTool(mappingToolWithKeys);
   };
 }

@@ -88,4 +88,10 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
 
     this.RenderingStackViewport.setViewport(viewerStatus);
   };
+
+  updateViewerSetting = (tools: MappingToolWithKey[]) => {
+    if (!this.snapshot) return;
+
+    this.ToolManager.updateTool(tools);
+  };
 }
