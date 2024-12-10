@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useDicomViewer } from '@lunit-insight-viewer/react';
 
-import type { Tool } from '@lunit-insight-viewer/core';
 import { imageIds, tool as defaultTool } from '../../image';
+
+import type { Tool } from '@lunit-insight-viewer/core';
 
 export function ViewportControlViewer() {
   const [tool, setTool] = useState<Tool>({
