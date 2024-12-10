@@ -3,12 +3,11 @@ import { useRef, useEffect, useSyncExternalStore } from 'react';
 
 import { ViewerFactory } from '@lunit-insight-viewer/core';
 
-import type { ViewerSnapshot, Tool } from '@lunit-insight-viewer/core';
+import type { ViewerSnapshot } from '@lunit-insight-viewer/core';
 
 interface UseStackViewportParams {
   element: HTMLDivElement | null;
   imageIds: string[];
-  tool: Tool;
   viewerStatus?: ViewerSnapshot;
   onChange?: (viewerStatus: ViewerSnapshot) => void;
 }
@@ -16,7 +15,6 @@ interface UseStackViewportParams {
 export const useStackViewport = ({
   element,
   imageIds,
-  tool,
   viewerStatus,
   onChange,
 }: UseStackViewportParams) => {
@@ -36,25 +34,23 @@ export const useStackViewport = ({
   );
 
   useEffect(() => {
-    if (viewerStatus) return;
+    if (snapshot) return;
     if (!viewerFactoryRef.current || !element) return;
 
     viewerFactoryRef.current.init({
       element,
       imageIds,
-      tool,
+      viewerStatus: viewerStatus ?? null,
       imageRenderEventCallback: onChange,
     });
-  }, [element, imageIds, tool, viewerStatus, onChange]);
+  }, [element, imageIds, viewerStatus, snapshot, onChange]);
 
   useEffect(() => {
+    if (!snapshot) return;
     if (!viewerStatus || !viewerFactoryRef.current) return;
     if (snapshot === viewerStatus) return;
+    if (!(viewerStatus.image && viewerStatus.viewport)) return;
 
     viewerFactoryRef.current.updateSnapshot(viewerStatus);
   }, [viewerStatus, snapshot]);
-
-  useEffect(() => {
-    viewerFactoryRef.current?.updateViewerSetting(tool);
-  }, [tool]);
 };

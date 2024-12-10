@@ -12,7 +12,9 @@ interface DicomViewerProps {
 export const DicomViewer = (props: DicomViewerProps) => {
   const { viewerElementRef } = useDicomViewer({
     imageIds: props.imageIds,
-    tool: props.tool,
+    defaultViewerStatus: {
+      tool: props.tool,
+    },
   });
 
   return (

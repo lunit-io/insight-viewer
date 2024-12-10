@@ -5,10 +5,10 @@ import { ToolManager } from '../tools';
 import { RenderingStackViewport } from '../renderViewport';
 import { EventHandler } from '../eventHandler';
 
-import type { Tool } from '../tools';
+import type { ToolManagerSnapshot } from '../tools';
 import type { StackViewportSnapshot } from '../renderViewport';
 
-export type ViewerStatus = StackViewportSnapshot;
+export type ViewerStatus = StackViewportSnapshot & ToolManagerSnapshot;
 
 export type ViewerSnapshot = ViewerStatus | null;
 
@@ -42,14 +42,17 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   protected override setSnapshot = () => {
     const renderingStackViewportSnapshot =
       this.RenderingStackViewport.getSnapshot();
+    const toolManagerSnapshot = this.ToolManager.getSnapshot();
 
-    if (!renderingStackViewportSnapshot) return;
+    if (!renderingStackViewportSnapshot || !toolManagerSnapshot) return;
 
     const { viewport, image } = renderingStackViewportSnapshot;
+    const { tool } = toolManagerSnapshot;
 
     this.snapshot = {
       viewport,
       image,
+      tool,
     };
   };
 
@@ -61,12 +64,12 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   init = async ({
     element,
     imageIds,
-    tool,
+    viewerStatus,
     imageRenderEventCallback,
   }: {
     element: HTMLDivElement;
     imageIds: string[];
-    tool: Tool;
+    viewerStatus: ViewerSnapshot;
     imageRenderEventCallback?: (viewerStatus: ViewerSnapshot) => void;
   }) => {
     this.EventHandler.init({
@@ -78,7 +81,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     });
 
     await this.RenderingStackViewport.init(element, imageIds);
-    await this.ToolManager.init(element, tool);
+    await this.ToolManager.init(element, viewerStatus?.tool ?? null);
 
     this.emitChange();
   };
@@ -87,11 +90,6 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     if (!viewerStatus) return;
 
     this.RenderingStackViewport.setViewport(viewerStatus);
-  };
-
-  updateViewerSetting = (tool: Tool) => {
-    if (!this.snapshot) return;
-
-    this.ToolManager.updateTool(tool);
+    this.ToolManager.setTool(viewerStatus?.tool ?? null);
   };
 }

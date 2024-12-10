@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDicomViewer } from '@lunit-insight-viewer/react';
 
 import { imageIds, tool as defaultTool } from '../../image';
@@ -6,13 +5,23 @@ import { imageIds, tool as defaultTool } from '../../image';
 import type { Tool } from '@lunit-insight-viewer/core';
 
 export function ViewportControlViewer() {
-  const [tool, setTool] = useState<Tool>({
-    pan: 'wheelDrag',
-  });
-  const { viewerElementRef } = useDicomViewer({
+  const { viewerElementRef, viewerStatus, setViewerStatus } = useDicomViewer({
     imageIds,
-    tool,
+    defaultViewerStatus: {
+      tool: { frame: 'wheel' },
+    },
   });
+
+  const handleSetTool = (tool: Tool) => {
+    setViewerStatus((prev) => {
+      if (!prev) return null;
+
+      return {
+        ...prev,
+        tool,
+      };
+    });
+  };
 
   return (
     <div
@@ -24,22 +33,26 @@ export function ViewportControlViewer() {
       }}
     >
       <div style={{ display: 'flex', gap: '10px', width: '80%' }}>
-        <button onClick={() => setTool(defaultTool)}>기본 툴</button>
-        <button onClick={() => setTool(null)}>비어있는 툴</button>
-        <button onClick={() => setTool({ frame: 'wheel' })}>
+        <button onClick={() => handleSetTool(defaultTool)}>기본 툴</button>
+        <button onClick={() => handleSetTool(null)}>비어있는 툴</button>
+        <button onClick={() => handleSetTool({ frame: 'wheel' })}>
           프레임 툴 with wheel
         </button>
-        <button onClick={() => setTool({ pan: 'wheelDrag' })}>
+        <button onClick={() => handleSetTool({ pan: 'wheelDrag' })}>
           팬 툴 with wheelDrag
         </button>
-        <button onClick={() => setTool({ windowing: 'primaryDrag' })}>
+        <button onClick={() => handleSetTool({ windowing: 'primaryDrag' })}>
           윈도우링 툴 with primaryDrag
         </button>
-        <button onClick={() => setTool({ zoom: 'secondaryDrag' })}>
+        <button onClick={() => handleSetTool({ zoom: 'secondaryDrag' })}>
           줌 툴 with secondaryDrag
         </button>
       </div>
       <div style={{ width: '500px', height: '500px' }} ref={viewerElementRef} />
+      <p>
+        current tool:{' '}
+        {viewerStatus?.tool ? JSON.stringify(viewerStatus.tool) : 'null'}
+      </p>
     </div>
   );
 }

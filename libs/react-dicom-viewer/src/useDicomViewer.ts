@@ -2,25 +2,21 @@ import { useCallback, useState } from 'react';
 
 import { useStackViewport } from './useStackViewport';
 
-import type { Tool, ViewerSnapshot } from '@lunit-insight-viewer/core';
+import type { ViewerSnapshot } from '@lunit-insight-viewer/core';
 
-/**
- * @feedback
- * - view 네이밍 변경 필요 (ex: viewerStatus)
- * - viewerRef 네이밍 변경 필요 (ex: viewerEl - DOM Element 임을 강조)
- */
 export const useDicomViewer = ({
   imageIds,
-  tool = null,
+  defaultViewerStatus = null,
 }: {
   imageIds: string[];
-  tool?: Tool;
+  defaultViewerStatus?: ViewerSnapshot;
 }) => {
-  const [viewerStatus, setViewerStatus] = useState<ViewerSnapshot | null>(null);
+  const [viewerStatus, setViewerStatus] = useState<ViewerSnapshot | null>(
+    defaultViewerStatus
+  );
   const { dicomViewerWrapper, ref } = useDicomViewerElement();
 
   useStackViewport({
-    tool,
     element: dicomViewerWrapper,
     imageIds,
     viewerStatus,

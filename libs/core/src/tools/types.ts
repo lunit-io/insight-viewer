@@ -19,3 +19,7 @@ export type Tool = (DragTool & ScrollTool) | null;
 export type ToolGroup = Types.IToolGroup;
 export type SupportedTool = keyof typeof MAPPED_SUPPORT_TOOL;
 export type SupportedKey = keyof typeof SUPPORT_KEYS;
+
+export interface ToolManagerSnapshot {
+  tool?: Tool;
+}
