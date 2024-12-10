@@ -8,7 +8,7 @@ import type { ViewerSnapshot, Tool } from '@lunit-insight-viewer/core';
 interface UseStackViewportParams {
   element: HTMLDivElement | null;
   imageIds: string[];
-  tools?: Tool[];
+  tool: Tool;
   viewerStatus?: ViewerSnapshot;
   onChange?: (viewerStatus: ViewerSnapshot) => void;
 }
@@ -16,7 +16,7 @@ interface UseStackViewportParams {
 export const useStackViewport = ({
   element,
   imageIds,
-  tools,
+  tool,
   viewerStatus,
   onChange,
 }: UseStackViewportParams) => {
@@ -42,10 +42,10 @@ export const useStackViewport = ({
     viewerFactoryRef.current.init({
       element,
       imageIds,
-      tools,
+      tool,
       imageRenderEventCallback: onChange,
     });
-  }, [element, imageIds, tools, viewerStatus, onChange]);
+  }, [element, imageIds, tool, viewerStatus, onChange]);
 
   useEffect(() => {
     if (!viewerStatus || !viewerFactoryRef.current) return;
@@ -55,8 +55,6 @@ export const useStackViewport = ({
   }, [viewerStatus, snapshot]);
 
   useEffect(() => {
-    if (!tools) return;
-
-    viewerFactoryRef.current?.updateViewerSetting(tools);
-  }, [tools]);
+    viewerFactoryRef.current?.updateViewerSetting(tool);
+  }, [tool]);
 };

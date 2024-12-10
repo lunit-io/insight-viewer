@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { DicomViewer } from '@lunit-insight-viewer/react';
 
-import { imageIds, tools as defaultTools } from '../../image';
+import { imageIds, tool as defaultTool } from '../../image';
 
 export function ViewportControlViewer() {
-  const [tools, setTools] = useState(defaultTools);
+  const [tool, setTool] = useState(defaultTool);
 
   return (
     <div
@@ -16,16 +16,18 @@ export function ViewportControlViewer() {
       }}
     >
       <div style={{ display: 'flex', gap: '10px', width: '50%' }}>
-        <button onClick={() => setTools(defaultTools)}>기본 툴</button>
-        <button onClick={() => setTools([])}>비어있는 툴</button>
-        <button onClick={() => setTools([{ tool: 'frame' }])}>프레임 툴</button>
-        <button onClick={() => setTools([{ tool: 'pan' }])}>팬 툴</button>
-        <button onClick={() => setTools([{ tool: 'windowing' }])}>
+        <button onClick={() => setTool(defaultTool)}>기본 툴</button>
+        <button onClick={() => setTool(null)}>비어있는 툴</button>
+        <button onClick={() => setTool({ frame: 'wheel' })}>프레임 툴</button>
+        <button onClick={() => setTool({ pan: 'wheelDrag' })}>팬 툴</button>
+        <button onClick={() => setTool({ windowing: 'primaryDrag' })}>
           윈도우링 툴
         </button>
-        <button onClick={() => setTools([{ tool: 'zoom' }])}>줌 툴</button>
+        <button onClick={() => setTool({ zoom: 'secondaryDrag' })}>
+          줌 툴
+        </button>
       </div>
-      <DicomViewer imageIds={imageIds} tools={tools} />
+      <DicomViewer imageIds={imageIds} tool={tool} />
     </div>
   );
 }

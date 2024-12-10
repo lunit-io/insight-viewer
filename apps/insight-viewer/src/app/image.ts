@@ -1,11 +1,11 @@
 import type { Tool } from '@lunit-insight-viewer/core';
 
-export const tools: Tool[] = [
-  { tool: 'frame' },
-  { tool: 'pan' },
-  { tool: 'windowing' },
-  { tool: 'zoom' },
-];
+export const tool: Tool = {
+  pan: 'wheelDrag',
+  zoom: 'secondaryDrag',
+  windowing: 'primaryDrag',
+  frame: 'wheel',
+};
 
 export const imageIds = [
   'wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000000.dcm',

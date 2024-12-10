@@ -61,12 +61,12 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   init = async ({
     element,
     imageIds,
-    tools,
+    tool,
     imageRenderEventCallback,
   }: {
     element: HTMLDivElement;
     imageIds: string[];
-    tools?: Tool[];
+    tool: Tool;
     imageRenderEventCallback?: (viewerStatus: ViewerSnapshot) => void;
   }) => {
     this.EventHandler.init({
@@ -78,7 +78,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     });
 
     await this.RenderingStackViewport.init(element, imageIds);
-    await this.ToolManager.init(element, tools);
+    await this.ToolManager.init(element, tool);
 
     this.emitChange();
   };
@@ -89,9 +89,9 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.RenderingStackViewport.setViewport(viewerStatus);
   };
 
-  updateViewerSetting = (tools: Tool[]) => {
+  updateViewerSetting = (tool: Tool) => {
     if (!this.snapshot) return;
 
-    this.ToolManager.updateTool(tools);
+    this.ToolManager.updateTool(tool);
   };
 }

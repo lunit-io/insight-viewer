@@ -4,7 +4,7 @@ import type { Tool } from '@lunit-insight-viewer/core';
 
 interface DicomViewerProps {
   imageIds: string[];
-  tools?: Tool[];
+  tool?: Tool;
   width?: React.CSSProperties['width'];
   height?: React.CSSProperties['height'];
 }
@@ -12,7 +12,7 @@ interface DicomViewerProps {
 export const DicomViewer = (props: DicomViewerProps) => {
   const { viewerElementRef } = useDicomViewer({
     imageIds: props.imageIds,
-    tools: props.tools,
+    tool: props.tool,
   });
 
   return (

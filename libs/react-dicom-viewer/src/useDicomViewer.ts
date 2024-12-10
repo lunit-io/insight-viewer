@@ -11,16 +11,16 @@ import type { Tool, ViewerSnapshot } from '@lunit-insight-viewer/core';
  */
 export const useDicomViewer = ({
   imageIds,
-  tools,
+  tool = null,
 }: {
   imageIds: string[];
-  tools?: Tool[];
+  tool?: Tool;
 }) => {
   const [viewerStatus, setViewerStatus] = useState<ViewerSnapshot | null>(null);
   const { dicomViewerWrapper, ref } = useDicomViewerElement();
 
   useStackViewport({
-    tools,
+    tool,
     element: dicomViewerWrapper,
     imageIds,
     viewerStatus,
