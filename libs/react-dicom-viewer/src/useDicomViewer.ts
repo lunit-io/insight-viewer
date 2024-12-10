@@ -2,10 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { useStackViewport } from './useStackViewport';
 
-import type {
-  MappingToolWithKey,
-  ViewerSnapshot,
-} from '@lunit-insight-viewer/core';
+import type { Tool, ViewerSnapshot } from '@lunit-insight-viewer/core';
 
 /**
  * @feedback
@@ -17,7 +14,7 @@ export const useDicomViewer = ({
   tools,
 }: {
   imageIds: string[];
-  tools?: MappingToolWithKey[];
+  tools?: Tool[];
 }) => {
   const [viewerStatus, setViewerStatus] = useState<ViewerSnapshot | null>(null);
   const { dicomViewerWrapper, ref } = useDicomViewerElement();

@@ -1,10 +1,10 @@
 import { useDicomViewer } from './useDicomViewer';
 
-import type { MappingToolWithKey } from '@lunit-insight-viewer/core';
+import type { Tool } from '@lunit-insight-viewer/core';
 
 interface DicomViewerProps {
   imageIds: string[];
-  tools?: MappingToolWithKey[];
+  tools?: Tool[];
   width?: React.CSSProperties['width'];
   height?: React.CSSProperties['height'];
 }

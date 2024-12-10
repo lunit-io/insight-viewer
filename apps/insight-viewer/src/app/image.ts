@@ -1,6 +1,6 @@
-import type { MappingToolWithKey } from '@lunit-insight-viewer/core';
+import type { Tool } from '@lunit-insight-viewer/core';
 
-export const tools: MappingToolWithKey[] = [
+export const tools: Tool[] = [
   { tool: 'frame' },
   { tool: 'pan' },
   { tool: 'windowing' },

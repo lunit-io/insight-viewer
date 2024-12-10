@@ -1,4 +1,4 @@
-import type { MappingToolWithKey } from './tools';
+import type { Tool } from './tools';
 
 type Listener = () => void;
 

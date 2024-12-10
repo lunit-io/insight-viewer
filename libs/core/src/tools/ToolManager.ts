@@ -8,7 +8,7 @@ import {
   SUPPORT_KEYS,
 } from './constants';
 
-import type { ToolGroup, MappingToolWithKey } from './types';
+import type { ToolGroup, Tool } from './types';
 
 export class ToolManager extends ViewerSlot {
   private toolManagerId: string;
@@ -61,12 +61,12 @@ export class ToolManager extends ViewerSlot {
    * Functions to set the tool you want to use externally and the mouse key you want to map to it.
    * If there is no key to map, assign the default mouse key
    */
-  setTool = (mappingToolWithKeys: MappingToolWithKey[] = []) => {
+  setTool = (Tools: Tool[] = []) => {
     const toolGroup = this.toolGroupManager;
 
     if (!toolGroup) return;
 
-    mappingToolWithKeys.forEach(({ tool, key }) => {
+    Tools.forEach(({ tool, key }) => {
       toolGroup.setToolActive(MAPPED_SUPPORT_TOOL[tool].toolName, {
         bindings: [
           {
@@ -88,24 +88,21 @@ export class ToolManager extends ViewerSlot {
     });
   };
 
-  init = async (
-    element: HTMLDivElement,
-    mappingToolWithKeys?: MappingToolWithKey[]
-  ) => {
+  init = async (element: HTMLDivElement, Tools?: Tool[]) => {
     this.renderingEngine = await RenderingEngine.getInstance();
     this.addSupportedToolsToCornerstone();
     this.enableToolElement(element);
     this.blockRightClickEvent(element);
     this.mappingRenderingInfoWithToolManager();
-    this.setTool(mappingToolWithKeys);
+    this.setTool(Tools);
   };
 
   getSnapshot = () => {
     return this.toolGroupManager;
   };
 
-  updateTool = (mappingToolWithKeys: MappingToolWithKey[]) => {
+  updateTool = (Tools: Tool[]) => {
     this.removeAllBindingTool();
-    this.setTool(mappingToolWithKeys);
+    this.setTool(Tools);
   };
 }

@@ -3,15 +3,12 @@ import { useRef, useEffect, useSyncExternalStore } from 'react';
 
 import { ViewerFactory } from '@lunit-insight-viewer/core';
 
-import type {
-  ViewerSnapshot,
-  MappingToolWithKey,
-} from '@lunit-insight-viewer/core';
+import type { ViewerSnapshot, Tool } from '@lunit-insight-viewer/core';
 
 interface UseStackViewportParams {
   element: HTMLDivElement | null;
   imageIds: string[];
-  tools?: MappingToolWithKey[];
+  tools?: Tool[];
   viewerStatus?: ViewerSnapshot;
   onChange?: (viewerStatus: ViewerSnapshot) => void;
 }

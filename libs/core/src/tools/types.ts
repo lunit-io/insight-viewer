@@ -17,7 +17,7 @@ export type SupportedKey = keyof typeof SUPPORT_KEYS;
  *
  * frame: mouse scroll button
  */
-export type MappingToolWithKey = {
+export type Tool = {
   tool: SupportedTool;
   key?: SupportedKey;
 };

@@ -5,7 +5,7 @@ import { ToolManager } from '../tools';
 import { RenderingStackViewport } from '../renderViewport';
 import { EventHandler } from '../eventHandler';
 
-import type { MappingToolWithKey } from '../tools';
+import type { Tool } from '../tools';
 import type { StackViewportSnapshot } from '../renderViewport';
 
 export type ViewerStatus = StackViewportSnapshot;
@@ -66,7 +66,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
   }: {
     element: HTMLDivElement;
     imageIds: string[];
-    tools?: MappingToolWithKey[];
+    tools?: Tool[];
     imageRenderEventCallback?: (viewerStatus: ViewerSnapshot) => void;
   }) => {
     this.EventHandler.init({
@@ -89,7 +89,7 @@ export class ViewerFactory extends Subscribable<ViewerSnapshot> {
     this.RenderingStackViewport.setViewport(viewerStatus);
   };
 
-  updateViewerSetting = (tools: MappingToolWithKey[]) => {
+  updateViewerSetting = (tools: Tool[]) => {
     if (!this.snapshot) return;
 
     this.ToolManager.updateTool(tools);
