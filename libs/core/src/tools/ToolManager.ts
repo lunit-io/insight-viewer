@@ -53,15 +53,11 @@ export class ToolManager extends ViewerSlot {
     return Object.keys(MAPPED_SUPPORT_TOOL).includes(key);
   };
 
-  override destroy = (): void => {
-    destroy();
-  };
-
   /**
    * Functions to set the tool you want to use externally and the mouse key you want to map to it.
    * If there is no key to map, assign the default mouse key
    */
-  setTool = (Tool: Tool) => {
+  private setTool = (Tool: Tool) => {
     const toolGroup = this.toolGroupManager;
 
     if (!toolGroup || !Tool) return;
@@ -79,7 +75,7 @@ export class ToolManager extends ViewerSlot {
     });
   };
 
-  removeAllBindingTool = () => {
+  private removeAllBindingTool = () => {
     const toolGroup = this.toolGroupManager;
 
     if (!toolGroup) return;
@@ -87,6 +83,10 @@ export class ToolManager extends ViewerSlot {
     Object.entries(MAPPED_SUPPORT_TOOL).forEach(([_, tool]) => {
       toolGroup.setToolPassive(tool.toolName, { removeAllBindings: true });
     });
+  };
+
+  override destroy = (): void => {
+    destroy();
   };
 
   init = async (element: HTMLDivElement, Tool: Tool) => {
